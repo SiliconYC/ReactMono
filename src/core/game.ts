@@ -1,8 +1,8 @@
-/** 独立于页面的最小确定性规则契约；#3 起才会实现骰子、地产与完整回合。 */
+/** 独立于页面的确定性回合与棋盘规则核心；地产经济将在 #4 实现。 */
 export const SCHEMA_VERSION = 1 as const;
 export type PlayerId = string;
 export type TileKind = 'start' | 'property' | 'neutral';
-export type Phase = 'setup' | 'await_roll' | 'await_decision' | 'finished';
+export type Phase = 'setup' | 'await_roll' | 'await_decision' | 'await_end_turn' | 'finished';
 export type PlayerKind = 'human' | 'computer';
 
 export interface PlayerConfig { readonly id: PlayerId; readonly name: string; }
@@ -29,7 +29,7 @@ export interface Player {
 }
 export interface Tile extends TileConfig { readonly ownerId: PlayerId | null; }
 export interface GameEvent {
-  readonly type: 'game_started' | 'die_rolled' | 'player_moved' | 'turn_ended' | 'game_finished';
+  readonly type: 'game_started' | 'die_rolled' | 'player_moved' | 'turn_ended' | 'tile_landed' | 'property_declined' | 'game_finished';
   readonly actorId?: PlayerId;
   readonly details?: Readonly<Record<string, string | number>>;
 }
@@ -123,22 +123,70 @@ export function createGame(seed: number, config: GameConfig = DEFAULT_CONFIG): G
   };
 }
 
-/** #2 只实现开始游戏；其余命令等待后续 Issue，以明确拒绝而不是伪造行为。 */
+/** 单一命令入口：始终返回新状态或明确拒绝，不修改传入对象。 */
 export function applyAction(state: GameState, action: GameAction): ActionResult {
-  if (state.players[state.currentPlayerIndex]?.id !== action.actorId) {
-    return { ok: false, reason: 'INVALID_ACTOR', state, events: [] };
-  }
+  const actor = state.players[state.currentPlayerIndex];
+  const reject = (reason: RejectReason): ActionResult => ({ ok: false, reason, state, events: [] });
+  if (!actor || actor.id !== action.actorId) return reject('INVALID_ACTOR');
   if (action.type === 'start_game') {
-    if (state.phase !== 'setup') return { ok: false, reason: 'INVALID_PHASE', state, events: [] };
-    const event: GameEvent = { type: 'game_started', actorId: action.actorId };
-    return {
-      ok: true, events: [event],
-      state: { ...state, status: 'playing', phase: 'await_roll', revision: state.revision + 1,
-        events: [...state.events, event] }
-    };
+    if (state.phase !== 'setup') return reject('INVALID_PHASE');
+    return accept(state, [{ type: 'game_started', actorId: action.actorId }], {
+      status: 'playing', phase: 'await_roll'
+    });
   }
-  if (state.phase === 'setup' || state.phase === 'finished') {
-    return { ok: false, reason: 'INVALID_PHASE', state, events: [] };
+  if (state.phase === 'setup' || state.phase === 'finished') return reject('INVALID_PHASE');
+
+  switch (action.type) {
+    case 'roll': {
+      if (state.phase !== 'await_roll') return reject('INVALID_PHASE');
+      const { value, nextState } = nextDie(state.randomState);
+      const position = (actor.position + value) % state.tiles.length;
+      const landed = state.tiles[position];
+      const events: GameEvent[] = [
+        { type: 'die_rolled', actorId: actor.id, details: { value } },
+        { type: 'player_moved', actorId: actor.id, details: { from: actor.position, to: position } },
+        { type: 'tile_landed', actorId: actor.id, details: { tileId: landed.id, title: landed.title } }
+      ];
+      const phase: Phase = landed.kind === 'property' && landed.ownerId === null
+        ? 'await_decision' : 'await_end_turn';
+      return accept(state, events, {
+        randomState: nextState,
+        players: state.players.map(p => p.id === actor.id ? { ...p, position } : p),
+        phase
+      });
+    }
+    case 'decline_property': {
+      if (state.phase !== 'await_decision') return reject('INVALID_PHASE');
+      const tile = state.tiles[actor.position];
+      if (tile.kind !== 'property' || tile.ownerId !== null) return reject('INVALID_PHASE');
+      return accept(state, [{ type: 'property_declined', actorId: actor.id, details: { tileId: tile.id } }], {
+        phase: 'await_end_turn'
+      });
+    }
+    case 'end_turn': {
+      if (state.phase !== 'await_end_turn') return reject('INVALID_PHASE');
+      const lastPlayer = state.currentPlayerIndex === state.players.length - 1;
+      const finished = lastPlayer && state.round >= state.maxRounds;
+      const events: GameEvent[] = [{ type: 'turn_ended', actorId: actor.id }];
+      if (finished) events.push({ type: 'game_finished', details: { reason: 'round_limit' } });
+      return accept(state, events, {
+        status: finished ? 'finished' : 'playing',
+        phase: finished ? 'finished' : 'await_roll',
+        currentPlayerIndex: (state.currentPlayerIndex + 1) % state.players.length,
+        round: !finished && lastPlayer ? state.round + 1 : state.round,
+        // #4 将在该边界计算净资产胜负；当前没有经济规则，只以平局终止测试局。
+        winnerId: null
+      });
+    }
+    case 'buy_property':
+      return state.phase !== 'await_decision' ? reject('INVALID_PHASE') : reject('NOT_IMPLEMENTED');
   }
-  return { ok: false, reason: 'NOT_IMPLEMENTED', state, events: [] };
+}
+
+function accept(state: GameState, events: readonly GameEvent[], changes: Partial<GameState>): ActionResult {
+  return {
+    ok: true,
+    events,
+    state: { ...state, ...changes, revision: state.revision + 1, events: [...state.events, ...events] }
+  };
 }
