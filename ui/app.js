@@ -1,6 +1,7 @@
 import { applyAction, createGame, netWorth } from '../core/game.js';
 import { chooseComputerAction } from '../core/agent.js';
 import { listSlots, readSlot, writeSlot, deleteSlot } from '../storage/indexeddb.js';
+import { deserializeGame, MAX_SAVE_CHARS } from '../core/save.js';
 /** 环形棋盘固定 8 列 × 6 行：8 + 4 + 8 + 4 = 24 格。 */
 function cellPosition(index) {
     if (index < 8)
@@ -15,7 +16,7 @@ const kindLabel = { start: '起点', property: '地产', neutral: '休息' };
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { game: createGame(20261015), seedInput: '20261015', fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+        this.state = { game: createGame(20261015), seedInput: '20261015', fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
     }
     computerTimer = null;
     saveEpoch = 0;
@@ -51,6 +52,74 @@ class App extends React.Component {
                 this.setState({ saveStatus: '自动保存失败：' + (e instanceof Error ? e.message : String(e)) + '。请手动导出备份。' });
         });
     }
+    exportSlot = async (slot) => {
+        try {
+            const backup = await readSlot(slot.id);
+            const content = JSON.stringify(backup, null, 2);
+            const blob = new Blob([content], { type: 'application/json;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            const filename = slot.name.replace(/[\\/:*?"<>|]/g, '_');
+            link.href = url;
+            link.download = '存档-' + filename + '-' + backup.updatedAt.slice(0, 10).replaceAll('-', '') + '.json';
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+            this.setState({ saveStatus: '已生成「' + slot.name + '」备份文件，请自行保管。' });
+        }
+        catch (e) {
+            this.setState({ saveStatus: '导出失败：' + (e instanceof Error ? e.message : String(e)) });
+        }
+    };
+    selectImport = async (event) => {
+        const file = event.target.files?.[0];
+        event.target.value = '';
+        if (!file)
+            return;
+        this.setState({ importPreview: null });
+        if (file.size > MAX_SAVE_CHARS) {
+            this.setState({ saveStatus: '导入失败：文件过大，最多 4 MB' });
+            return;
+        }
+        try {
+            const raw = await file.text();
+            const preview = deserializeGame(raw);
+            const filename = file.name.replace(/^存档-(.*)-[0-9]{8}\.json$/i, '$1').replace(/\.json$/i, '');
+            const name = (filename.trim() || '导入存档').slice(0, 60);
+            this.setState({ importPreview: preview, importName: name, saveStatus: '文件校验通过，请预览并选择导入方式。' });
+        }
+        catch (e) {
+            this.setState({ saveStatus: '导入失败：' + (e instanceof Error ? e.message : String(e)) + '。原存档未改动。' });
+        }
+    };
+    applyImport = async (mode) => {
+        const { importPreview, saveSlots } = this.state;
+        if (!importPreview || this.state.storageBusy)
+            return;
+        const name = this.state.importName.trim();
+        if (!name || name.length > 60) {
+            this.setState({ saveStatus: '请输入 1 至 60 个字符的存档名称' });
+            return;
+        }
+        const duplicate = saveSlots.find(s => s.name === name);
+        if (mode === 'overwrite' && !duplicate)
+            return;
+        const id = mode === 'overwrite' && duplicate ? duplicate.id : 'manual-' + crypto.randomUUID();
+        const newName = mode === 'new' && duplicate ? name + '（副本）' : name;
+        if (newName.length > 60) {
+            this.setState({ saveStatus: '副本名称过长，请先缩短名称' });
+            return;
+        }
+        try {
+            await writeSlot(id, newName, 'manual', importPreview.game);
+            this.setState({ importPreview: null, importName: '', saveStatus: '「' + newName + '」已安全导入，可点击读取继续对局。' });
+            await this.refreshSlots();
+        }
+        catch (e) {
+            this.setState({ saveStatus: '写入失败：' + (e instanceof Error ? e.message : String(e)) + '。原存档未被修改。' });
+        }
+    };
     newManualSlot = async () => {
         if (this.state.game.status === 'setup' || this.state.storageBusy)
             return;
@@ -363,8 +432,33 @@ class App extends React.Component {
                                     new Date(slot.updatedAt).toLocaleString('zh-CN'))),
                             React.createElement("div", { className: "save-actions" },
                                 React.createElement("button", { type: "button", disabled: this.state.storageBusy, onClick: () => void this.restoreSlot(slot) }, "\u8BFB\u53D6"),
+                                React.createElement("button", { type: "button", disabled: this.state.storageBusy, onClick: () => void this.exportSlot(slot) }, "\u5BFC\u51FA"),
                                 slot.kind === 'manual' && React.createElement("button", { type: "button", disabled: this.state.storageBusy || game.status === 'setup', onClick: () => void this.overwriteSlot(slot) }, "\u8986\u76D6"),
-                                React.createElement("button", { type: "button", disabled: this.state.storageBusy, onClick: () => void this.removeSlot(slot) }, "\u5220\u9664")))))),
+                                React.createElement("button", { type: "button", disabled: this.state.storageBusy, onClick: () => void this.removeSlot(slot) }, "\u5220\u9664"))))),
+                        React.createElement("label", { className: "import-label" },
+                            "\u4ECE\u672C\u673A\u6587\u4EF6\u5BFC\u5165\uFF08\u53EA\u8BFB\u53D6 JSON\uFF0C\u4E0D\u4E0A\u4F20\u4E91\u7AEF\uFF09",
+                            React.createElement("input", { type: "file", accept: ".json,application/json", "aria-label": "\u5BFC\u5165 JSON \u5B58\u6863\u6587\u4EF6", onChange: (event) => void this.selectImport(event) })),
+                        this.state.importPreview && React.createElement("div", { className: "import-preview", role: "region", "aria-label": "\u5B58\u6863\u5BFC\u5165\u9884\u89C8" },
+                            React.createElement("strong", null,
+                                "\u5BFC\u5165\u9884\u89C8\uFF1A\u7B2C ",
+                                this.state.importPreview.game.round,
+                                " \u8F6E"),
+                            React.createElement("p", null,
+                                "\u73A9\u5BB6\u73B0\u91D1 ",
+                                this.state.importPreview.game.players[0].cash,
+                                "\uFF0C\u7535\u8111\u73B0\u91D1 ",
+                                this.state.importPreview.game.players[1].cash,
+                                "\uFF1B \u5DF2\u6709\u5730\u4EA7 ",
+                                this.state.importPreview.game.tiles.filter(t => t.ownerId !== null).length,
+                                " \u5757\uFF1B \u5F53\u524D\u9636\u6BB5 ",
+                                this.state.importPreview.game.phase),
+                            React.createElement("label", null,
+                                "\u5B58\u6863\u540D\u79F0 ",
+                                React.createElement("input", { "aria-label": "\u5BFC\u5165\u5B58\u6863\u540D\u79F0", type: "text", maxLength: 60, value: this.state.importName, onChange: (e) => this.setState({ importName: e.target.value }) })),
+                            this.state.saveSlots.some(s => s.name === this.state.importName.trim()) ? React.createElement("div", { className: "save-actions" },
+                                React.createElement("button", { type: "button", onClick: () => void this.applyImport('overwrite') }, "\u8986\u76D6\u540C\u540D\u5B58\u6863"),
+                                React.createElement("button", { type: "button", onClick: () => void this.applyImport('new') }, "\u53E6\u5B58\u4E3A\u526F\u672C")) : React.createElement("button", { type: "button", className: "secondary-btn", onClick: () => void this.applyImport('new') }, "\u786E\u8BA4\u5BFC\u5165\u5B58\u6863"),
+                            React.createElement("button", { type: "button", className: "secondary-btn", onClick: () => this.setState({ importPreview: null, importName: '', saveStatus: '已取消导入' }) }, "\u53D6\u6D88\u5BFC\u5165"))),
                     React.createElement("div", { className: "players-card" },
                         React.createElement("div", { className: "card-label" }, "\u73A9\u5BB6\u72B6\u6001"),
                         game.players.map(p => React.createElement("div", { key: p.id, className: `player-line ${current.id === p.id && game.status === 'playing' ? 'is-current' : ''}` },
