@@ -68,6 +68,10 @@ P0 目标与治理 → P1 第一局能玩到底 → P2 可靠的准本地游戏�
 - [GitHub Pages 发布记录](https://github.com/SiliconYC/ReactMono/actions/runs/38767372780)：`gh-pages` 最新静态版已成功部署；受沙盒网络限制，公网 React 18 CDN 实际载入尚未在本环境做浏览器实测。
 - **P2 待做**：把 React 本地打包、PWA 离线和 IndexedDB 多存档及备份；目前依赖 CDN，不能离线玩。
 
+## P2 已批准待执行队列
+
+2026-10-16 已从 P003/P005 筛选建立 [9 个 P2 Issue（#12–#20）](docs/P2_QUEUE.md)：本地打包、存档契约、IndexedDB 多档、文件备份、离线 PWA、地产升级、随机事件、卡片与综合验收。**仅完成排队，尚未写 P2 代码。** 推荐先独立推进 #12 和 #13，之后按依赖逐项验收。
+
 ## 协作入口
 
 - [六阶段路线图](docs/ROADMAP.md)

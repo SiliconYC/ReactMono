@@ -63,6 +63,15 @@
 - **环境限制**：此沙盒无外网，浏览器测试用本地 React UMD 16 替代 CDN React 18，尚无法声称已用公网实际加载的 CDN 包做了端到端验证。CDN 亦不支持 PWA 离线，属于后续 P2 范围。
 - **实验结论**：当前 P1 简化对局具备规则与浏览器端到端证据；这仍不是 30 轮自主进化实验，不意味着 AI 无人值守调度已经实现。下一轮进入 P2 候选池筛选。
 
+### 2026-10-16｜G003：P2 候选池首次晋升（仅规划，未实现）
+
+- **仓库核对**：`dev` 上 P1 #2–#6 已收口，当前可完整人机对局但仍依赖 React CDN、未实现离线存档与 P2 玩法；本次创建前没有同名 P2 开发 Issue。
+- **输入**：[ROADMAP.md](ROADMAP.md) 的 P2 能力门槛、[P003](proposals/P003-local-pwa.md)、[P005](proposals/P005-classic-mechanics.md)。保持静态 Pages/简中/无后端/无账号/`dev` 不动 `main` 的硬约束。
+- **晋升任务**：[ #12 本地打包](https://github.com/SiliconYC/ReactMono/issues/12)、[#13 存档契约](https://github.com/SiliconYC/ReactMono/issues/13)、[#14 IndexedDB](https://github.com/SiliconYC/ReactMono/issues/14)、[#15 导入导出](https://github.com/SiliconYC/ReactMono/issues/15)、[#16 PWA](https://github.com/SiliconYC/ReactMono/issues/16)、[#17 地产升级](https://github.com/SiliconYC/ReactMono/issues/17)、[#18 随机事件](https://github.com/SiliconYC/ReactMono/issues/18)、[#19 简单卡片](https://github.com/SiliconYC/ReactMono/issues/19)、[#20 集成验收](https://github.com/SiliconYC/ReactMono/issues/20)。共 9 项，待执行；并发建议不超过 3 项。
+- **依赖顺序**：#12 与 #13 可先分别实施；#14 接 #13，#15 接 #13/#14，#16 接 #12；修改引擎规则的 #17→#18→#19 尽量避免文件争抢；#20 最终独立验收。
+- **未晋升**：股票、银行、多地图、完整音画、高级电脑 AI 继续保留 P3–P4 候选。云存档、登录、后端、国际化明确不在产品范围。
+- **验证结果**：**本轮没有编写、运行或部署 P2 代码，也没有任何 P2 测试通过的宣称。** 这里只证明完成了候选评审、Issue 创建及文档回写。
+
 ## 自主改进实验账本
 
 **已有 P1 代码开发、规则模拟及浏览器自动化验收证据；但尚无无人值守连续自主进化，也未在公网直接操作 GitHub Pages CDN 版本。** 后续每轮至少记录：

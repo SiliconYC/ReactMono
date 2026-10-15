@@ -3,7 +3,7 @@
 - **主题**：技术与部署
 - **来源**：原拟发布的 Discussion D03
 - **阶段**：P2（P1 须保留兼容性）
-- **状态**：产品边界已确定；**实现方案延期至 P2**，P1 只保留版本化状态契约（2026-10-15）
+- **状态**：2026-10-16 已按 P2 路线图筛选并晋升 #12–#16 五项待执行任务；产品边界不变
 - **归属**：[候选池](../EVOLUTION_POOL.md) · [详细部署评估](../DEPLOYMENT_ASSESSMENT.md)
 
 ## 不可自行变更的产品决定
@@ -31,4 +31,12 @@
 
 候选验收包括：首次加载缓存成功后断网仍可新建并完整玩一局；关闭重开后能读回存档；导出后重新导入可恢复；页面升级不无声破坏旧存档；错误提示全部简体中文。
 
-本提案是实施问题池。首次筛选决定：本轮 P1 不为静态部署、PWA 和 IndexedDB 创建 Issue；这些是 P2 的硬目标，P1 的 #2 先建立带版本号的状态结构。当前没有发布游戏或启用 GitHub Pages。
+## 2026-10-16 P2 晋升结果
+
+- [#12 本地 React 打包和锁定依赖](https://github.com/SiliconYC/ReactMono/issues/12)：清除 CDN 阻塞，保证静态产物同源加载。
+- [#13 版本化存档模型](https://github.com/SiliconYC/ReactMono/issues/13)：验证、迁移和恢复确定性状态。
+- [#14 IndexedDB 多存档与自动保存](https://github.com/SiliconYC/ReactMono/issues/14)：关闭重开后可从合法阶段恢复。
+- [#15 本地 JSON 备份导入导出](https://github.com/SiliconYC/ReactMono/issues/15)：异常文件和覆盖冲突需安全处理。
+- [#16 PWA 离线安装和缓存更新](https://github.com/SiliconYC/ReactMono/issues/16)：完整断网运行，并配合存档。
+
+[综合验收 #20](https://github.com/SiliconYC/ReactMono/issues/20) 检查以上功能与游戏玩法的整体集成。本次只是任务晋升，未执行 P2 代码。早期 P1 未要求此功能的历史取舍仍然有效。GitHub Pages 已在 P1 期间完成首次发布，现阶段重点是去 CDN、离线与存档可靠性。

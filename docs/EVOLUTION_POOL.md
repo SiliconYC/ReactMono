@@ -20,9 +20,9 @@
 | --- | --- | --- | --- | --- |
 | [P001](proposals/P001-roadmap.md) | 六阶段目标与退出标准 | P0–P5 | 阶段基线已确定；持续复核 | 有明确缺失的当前阶段可验收工作，不开通用路线图 Issue |
 | [P002](proposals/P002-first-playable.md) | 第一局能玩到底的玩法边界 | P1 | **#2–#6 已合并；P1 简化可玩闭环完成沙盒浏览器验收** | [#2](https://github.com/SiliconYC/ReactMono/issues/2)、[#3](https://github.com/SiliconYC/ReactMono/issues/3)、[#4](https://github.com/SiliconYC/ReactMono/issues/4)、[#5](https://github.com/SiliconYC/ReactMono/issues/5)、[#6](https://github.com/SiliconYC/ReactMono/issues/6)；P2 可继续体验/离线/存档改进 |
-| [P003](proposals/P003-local-pwa.md) | Pages / PWA / 本地存档 | P2（兼顾 P1） | **延期 P2** | P1 仅保留数据模型版本接口；当前不为部署、离线和完整存读档开 Issue |
+| [P003](proposals/P003-local-pwa.md) | Pages / PWA / 本地存档 | P2（兼顾 P1） | **已晋升 #12–#16，待执行** | CDN 本地打包、版本化状态、IndexedDB、备份、PWA；详见 [P2 队列](P2_QUEUE.md) |
 | [P004](proposals/P004-evolution-governance.md) | AI 发现、筛选、实施与独立验收 | 全阶段 | **已实施第一次提案筛选；效果待验证** | #2–#6 从候选进入执行；尚无自主编码、PR 或独立验收成绩 |
-| [P005](proposals/P005-classic-mechanics.md) | 经典玩法保留与再设计 | P1–P4 | **持续研究；复杂玩法延期** | 当前仅买地/收租/回合进入 P1；股票、建筑、卡片、音画待之后阶段评估 |
+| [P005](proposals/P005-classic-mechanics.md) | 经典玩法保留与再设计 | P1–P4 | **P2 最小玩法 #17–#19 已晋升；其余研究/延期** | 有限地产升级、少量事件及基础卡片；股票、多地图、完整音画未晋升 |
 
 **状态词表**：待评估、研究中、延期、已否决、已晋升（注明 Issue）、已归档；已确定阶段基线/已实施治理属于事实备注，不代表代码已完成。已经确定的产品硬约束不是“待决定”；提案状态只指尚未解决的实施选择。每次改变状态须记录证据/原因和日期，防止越审越乱。
 
@@ -33,6 +33,12 @@
 3. 每份提案至少写明：观察或证据、玩家/工程价值、影响阶段、可能方案、争议、验证办法、晋升条件、状态与关联 Issue/PR。
 4. 筛选只产生四种结论：**晋升 Issue / 继续研究 / 延期 / 否决**。进入队列不得超过协议规定的容量，严重且确定的 Bug 可绕过候选研究阶段直接建 Issue，但要注明来源。
 5. 实施完成或失败后回写原提案与 [EVOLUTION_LOG.md](EVOLUTION_LOG.md)。已证明为长期事实的决策，再同步产品宪章、路线图或 AGENTS。
+
+## 2026-10-16：P2 首次筛选
+
+- **批准** [#12–#20 九项实施任务](P2_QUEUE.md)；其中 #20 是真正的 P2 退出验收，不是提前宣布 P2 完成。
+- 其他长期方向维持待研究或延期状态，不因本次筛选形成重复 Issue。
+- P2 尚无游戏代码改动、测试成绩或 Pages 新部署。具体原因与约束见 [决策记录](EVOLUTION_LOG.md)。
 
 ## 当前执行入口
 
