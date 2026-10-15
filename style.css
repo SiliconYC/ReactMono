@@ -22,3 +22,14 @@
 .computer-thinking{padding:14px;background:#e3f0e7;color:#24583b;border:1px solid #bdd7c3;border-radius:10px;font-weight:700;line-height:1.65}
 
 .start-form{display:grid;gap:12px;margin:12px 0 16px}.field-label{display:flex;gap:9px;align-items:center;font-size:14px;font-weight:700}.field-label small{font-size:11px;font-weight:400;color:#6c7b6c}.start-form input[type=text]{width:100%;max-width:270px;padding:12px;border:1px solid #ccd8c8;border-radius:9px;background:white;color:#243827;font-size:16px}.fast-setting{display:flex;gap:8px;align-items:center;font-size:13px;color:#496552;cursor:pointer}.fast-setting input{accent-color:#327349}.result-box p{line-height:1.65}
+
+/* P2：多存档管理，无第三方组件或云端服务。 */
+.saves-card{background:#fff;border:1px solid #dce7dd;border-radius:15px;padding:16px;margin-top:12px}
+.saves-card .secondary-btn{margin:8px 0;width:100%}
+.save-message{font-size:12px;color:#35645c;overflow-wrap:anywhere}
+.save-list{list-style:none;margin:8px 0 0;padding:0}
+.save-list li{padding:11px 0;border-top:1px solid #edf0ed;display:flex;gap:8px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.save-list small{display:block;color:#697e78;font-size:11px;margin-top:3px}
+.save-actions{display:flex;gap:4px}
+.save-actions button{border:1px solid #b8cfc4;background:#f5fbf6;border-radius:6px;padding:5px 8px;color:#245045;cursor:pointer;font-size:12px}
+.save-actions button:disabled{opacity:.5;cursor:not-allowed}

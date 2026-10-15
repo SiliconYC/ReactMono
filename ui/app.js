@@ -1,5 +1,6 @@
 import { applyAction, createGame, netWorth } from '../core/game.js';
 import { chooseComputerAction } from '../core/agent.js';
+import { listSlots, readSlot, writeSlot, deleteSlot } from '../storage/indexeddb.js';
 /** 环形棋盘固定 8 列 × 6 行：8 + 4 + 8 + 4 = 24 格。 */
 function cellPosition(index) {
     if (index < 8)
@@ -14,14 +15,108 @@ const kindLabel = { start: '起点', property: '地产', neutral: '休息' };
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { game: createGame(20261015), seedInput: '20261015', fastMode: false, activeSeed: null, message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+        this.state = { game: createGame(20261015), seedInput: '20261015', fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
     }
     computerTimer = null;
-    reset = () => {
+    saveEpoch = 0;
+    saveQueue = Promise.resolve();
+    componentDidMount() { void this.refreshSlots(); }
+    stopTimer() {
         if (this.computerTimer !== null) {
             window.clearTimeout(this.computerTimer);
             this.computerTimer = null;
         }
+    }
+    refreshSlots = async () => {
+        try {
+            const saveSlots = await listSlots();
+            this.setState({ saveSlots, saveStatus: this.state.saveStatus === '正在读取本地存档…' ? '本地存档已就绪' : this.state.saveStatus });
+        }
+        catch (e) {
+            this.setState({ saveStatus: '本地存储不可用：' + (e instanceof Error ? e.message : String(e)) + '。请检查无痕模式或磁盘空间。' });
+        }
+    };
+    scheduleAutosave(game) {
+        const epoch = this.saveEpoch;
+        this.saveQueue = this.saveQueue.then(async () => {
+            if (epoch !== this.saveEpoch)
+                return;
+            await writeSlot('auto', '自动存档', 'auto', game);
+            if (epoch !== this.saveEpoch)
+                return;
+            this.setState({ saveStatus: '自动保存成功 · 第 ' + game.round + ' 轮' });
+            await this.refreshSlots();
+        }).catch(e => {
+            if (epoch === this.saveEpoch)
+                this.setState({ saveStatus: '自动保存失败：' + (e instanceof Error ? e.message : String(e)) + '。请手动导出备份。' });
+        });
+    }
+    newManualSlot = async () => {
+        if (this.state.game.status === 'setup' || this.state.storageBusy)
+            return;
+        const name = window.prompt('输入新存档名称', '存档 ' + new Date().toLocaleString('zh-CN'))?.trim();
+        if (!name)
+            return;
+        if (name.length > 60) {
+            this.setState({ saveStatus: '名称最多 60 个字符' });
+            return;
+        }
+        try {
+            await writeSlot('manual-' + crypto.randomUUID(), name, 'manual', this.state.game);
+            this.setState({ saveStatus: '手动存档「' + name + '」保存成功' });
+            await this.refreshSlots();
+        }
+        catch (e) {
+            this.setState({ saveStatus: '手动保存失败：' + (e instanceof Error ? e.message : String(e)) });
+        }
+    };
+    overwriteSlot = async (slot) => {
+        if (this.state.game.status === 'setup' || slot.kind !== 'manual' || this.state.storageBusy)
+            return;
+        if (!window.confirm('确定用当前对局覆盖「' + slot.name + '」吗？'))
+            return;
+        try {
+            await writeSlot(slot.id, slot.name, 'manual', this.state.game);
+            this.setState({ saveStatus: '已覆盖「' + slot.name + '」' });
+            await this.refreshSlots();
+        }
+        catch (e) {
+            this.setState({ saveStatus: '覆盖失败：' + (e instanceof Error ? e.message : String(e)) });
+        }
+    };
+    restoreSlot = async (slot) => {
+        if (this.state.storageBusy)
+            return;
+        if (!window.confirm('读取「' + slot.name + '」将替换屏幕上的当前游戏，是否继续？'))
+            return;
+        this.saveEpoch++;
+        this.stopTimer();
+        this.setState({ storageBusy: true, saveStatus: '正在读取「' + slot.name + '」…' });
+        try {
+            await this.saveQueue;
+            const saved = await readSlot(slot.id);
+            this.setState({ game: saved.game, activeSeed: null, storageBusy: false,
+                saveStatus: '已读取「' + slot.name + '」', message: '已恢复第 ' + saved.game.round + ' 轮，可从当前阶段继续。' });
+        }
+        catch (e) {
+            this.setState({ storageBusy: false, saveStatus: '读档失败：' + (e instanceof Error ? e.message : String(e)) + '。原对局未被修改。' });
+        }
+    };
+    removeSlot = async (slot) => {
+        if (this.state.storageBusy || !window.confirm('确定永久删除「' + slot.name + '」吗？'))
+            return;
+        try {
+            await deleteSlot(slot.id);
+            this.setState({ saveStatus: '已删除「' + slot.name + '」' });
+            await this.refreshSlots();
+        }
+        catch (e) {
+            this.setState({ saveStatus: '删除失败：' + (e instanceof Error ? e.message : String(e)) });
+        }
+    };
+    reset = () => {
+        this.saveEpoch++;
+        this.stopTimer();
         this.setState({ game: createGame(20261015), activeSeed: null, message: '已返回新游戏页面。可调整种子后重新开始。' });
     };
     startGame = () => {
@@ -30,6 +125,8 @@ class App extends React.Component {
             this.setState({ message: '对局种子请输入 0 至 4294967295 之间的整数。' });
             return;
         }
+        this.saveEpoch++;
+        this.stopTimer();
         const fresh = createGame(seed);
         const result = applyAction(fresh, { type: 'start_game', actorId: fresh.players[0].id });
         if (!result.ok) {
@@ -39,17 +136,20 @@ class App extends React.Component {
         this.setState({ game: result.state, activeSeed: seed, message: '游戏已开始！轮到玩家掷骰。' });
     };
     componentWillUnmount() {
-        if (this.computerTimer !== null)
-            window.clearTimeout(this.computerTimer);
+        this.stopTimer();
     }
     /** 每次状态变化只安排电脑的一步；重开后旧回调不会碰新对局。 */
-    componentDidUpdate() {
+    componentDidUpdate(_prevProps, prevState) {
+        if (this.state.game !== prevState.game && this.state.game.status !== 'setup')
+            this.scheduleAutosave(this.state.game);
+        if (this.state.storageBusy)
+            return;
         const snapshot = this.state.game;
         if (snapshot.status !== 'playing' || snapshot.players[snapshot.currentPlayerIndex].kind !== 'computer' || this.computerTimer !== null)
             return;
         this.computerTimer = window.setTimeout(() => {
             this.computerTimer = null;
-            if (this.state.game !== snapshot)
+            if (this.state.game !== snapshot || this.state.storageBusy)
                 return;
             const action = chooseComputerAction(snapshot, { reserveCash: 200 });
             if (!action)
@@ -64,6 +164,8 @@ class App extends React.Component {
         }, this.state.fastMode ? 8 : 220);
     }
     dispatch = (type) => {
+        if (this.state.storageBusy)
+            return;
         const { game } = this.state;
         const actor = game.players[game.currentPlayerIndex];
         if (actor.kind === 'computer')
@@ -148,7 +250,7 @@ class App extends React.Component {
                     React.createElement("span", null,
                         "\u5927\u5BCC\u7FC1 ",
                         React.createElement("small", null, "ReactMono"))),
-                React.createElement("span", { className: "version-tag" }, "P1 \u00B7 #6 \u5B8C\u6574\u5BF9\u5C40\u7248")),
+                React.createElement("span", { className: "version-tag" }, "P2 \u00B7 \u672C\u5730\u591A\u5B58\u6863")),
             React.createElement("section", { className: "headline" },
                 React.createElement("div", null,
                     React.createElement("span", { className: "section-eyebrow" }, "24 \u683C \u00B7 \u4E70\u5730\u6536\u79DF \u00B7 60 \u8F6E\u5B9A\u80DC\u8D1F"),
@@ -248,6 +350,21 @@ class App extends React.Component {
                                 "\u518D\u6765\u4E00\u5C40 ",
                                 React.createElement("span", null, "\u21BB"))),
                         React.createElement("p", { className: "turn-tip", role: "status" }, message)),
+                    React.createElement("div", { className: "saves-card" },
+                        React.createElement("div", { className: "card-label" }, "\u672C\u5730\u5B58\u6863"),
+                        React.createElement("p", { className: "save-message", role: "status" }, this.state.saveStatus),
+                        React.createElement("button", { type: "button", className: "secondary-btn", disabled: game.status === 'setup' || this.state.storageBusy, onClick: () => void this.newManualSlot() }, "\u521B\u5EFA\u624B\u52A8\u5B58\u6863"),
+                        React.createElement("ul", { className: "save-list" }, this.state.saveSlots.map(slot => React.createElement("li", { key: slot.id },
+                            React.createElement("div", null,
+                                React.createElement("strong", null, slot.name),
+                                React.createElement("small", null,
+                                    slot.kind === 'auto' ? '自动' : '手动',
+                                    " \u00B7 ",
+                                    new Date(slot.updatedAt).toLocaleString('zh-CN'))),
+                            React.createElement("div", { className: "save-actions" },
+                                React.createElement("button", { type: "button", disabled: this.state.storageBusy, onClick: () => void this.restoreSlot(slot) }, "\u8BFB\u53D6"),
+                                slot.kind === 'manual' && React.createElement("button", { type: "button", disabled: this.state.storageBusy || game.status === 'setup', onClick: () => void this.overwriteSlot(slot) }, "\u8986\u76D6"),
+                                React.createElement("button", { type: "button", disabled: this.state.storageBusy, onClick: () => void this.removeSlot(slot) }, "\u5220\u9664")))))),
                     React.createElement("div", { className: "players-card" },
                         React.createElement("div", { className: "card-label" }, "\u73A9\u5BB6\u72B6\u6001"),
                         game.players.map(p => React.createElement("div", { key: p.id, className: `player-line ${current.id === p.id && game.status === 'playing' ? 'is-current' : ''}` },
@@ -270,7 +387,7 @@ class App extends React.Component {
                         React.createElement("p", null, "\u2460 \u70B9\u51FB\u300C\u5F00\u59CB\u6E38\u620F\u300D\uFF0C\u8F6E\u5230\u73A9\u5BB6\u65F6\u63B7\u9AB0\u524D\u8FDB\u3002\u2461 \u5230\u65E0\u4E3B\u5730\u4EA7\u53EF\u4E70\u5165\u6216\u653E\u5F03\uFF1B\u7ECF\u8FC7\u5BF9\u624B\u5730\u4EA7\u4F1A\u81EA\u52A8\u4ED8\u79DF\u3002\u2462 \u5904\u7406\u5B8C\u5730\u5757\u540E\u7ED3\u675F\u56DE\u5408\uFF0C\u7535\u8111\u4F1A\u81EA\u52A8\u884C\u52A8\u3002"),
                         React.createElement("p", null, "\u4ED8\u4E0D\u8D77\u79DF\u91D1\u7ACB\u5373\u7834\u4EA7\uFF1B\u5426\u5219\u6700\u591A\u73A9 60 \u8F6E\uFF0C\u6700\u7EC8\u6309\u73B0\u91D1\u52A0\u571F\u5730\u539F\u4EF7\u8BA1\u7B97\u51C0\u8D44\u4EA7\u3002\u7535\u8111\u8D2D\u5730\u540E\u81F3\u5C11\u4FDD\u7559 200 \u6E38\u620F\u5E01\u3002"),
                         React.createElement("p", null, "\u8FD9\u662F P1 \u7B80\u5316\u53EF\u73A9\u7248\uFF1A\u5C1A\u4E0D\u5305\u542B\u5347\u7EA7\u3001\u80A1\u7968\u3001\u5361\u7247\u3001\u5B58\u6863\u6216\u79BB\u7EBF\u529F\u80FD\uFF0C\u540E\u7EED\u9636\u6BB5\u9010\u6B65\u52A0\u5165\u3002")))),
-            React.createElement("footer", { className: "footer" }, "\u7EAF\u524D\u7AEF \u00B7 \u7B80\u4F53\u4E2D\u6587 \u00B7 \u4E0D\u9700\u8981\u8D26\u53F7\u3000\uFF5C\u3000\u5F53\u524D\u5C1A\u65E0\u5B58\u8BFB\u6863\u4E0E\u65AD\u7F51\u80FD\u529B\uFF08P2 \u5B9E\u73B0\uFF09")));
+            React.createElement("footer", { className: "footer" }, "\u7EAF\u524D\u7AEF \u00B7 \u7B80\u4F53\u4E2D\u6587 \u00B7 \u4E0D\u9700\u8981\u8D26\u53F7\u3000\uFF5C\u3000IndexedDB \u672C\u673A\u5B58\u6863 \u00B7 \u4E0D\u4E0A\u4F20\u4E91\u7AEF")));
     }
 }
 const root = document.getElementById('root');
