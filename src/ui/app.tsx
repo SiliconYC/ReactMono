@@ -1,7 +1,8 @@
 import { applyAction, createGame, type GameAction, type GameEvent, type GameState, type Tile, netWorth } from '../core/game.js';
 import { chooseComputerAction } from '../core/agent.js';
+import { listSlots, readSlot, writeSlot, deleteSlot, type SlotSummary } from '../storage/indexeddb.js';
 
-interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly fastMode: boolean; readonly activeSeed: number | null; }
+interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly fastMode: boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; }
 
 /** 环形棋盘固定 8 列 × 6 行：8 + 4 + 8 + 4 = 24 格。 */
 function cellPosition(index: number): { gridColumn: number; gridRow: number } {
@@ -16,12 +17,77 @@ const kindLabel: Record<Tile['kind'], string> = { start: '起点', property: '�
 class App extends React.Component<object, UiState> {
   constructor(props: object) {
     super(props);
-    this.state = { game: createGame(20261015), seedInput: '20261015', fastMode: false, activeSeed: null, message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+    this.state = { game: createGame(20261015), seedInput: '20261015', fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
   }
 
   private computerTimer: number | null = null;
+
+  private saveEpoch = 0;
+  private saveQueue: Promise<void> = Promise.resolve();
+  componentDidMount():void { void this.refreshSlots(); }
+  private stopTimer():void {
+    if(this.computerTimer!==null){window.clearTimeout(this.computerTimer);this.computerTimer=null;}
+  }
+  private refreshSlots = async ():Promise<void> => {
+    try {
+      const saveSlots=await listSlots();
+      this.setState({saveSlots,saveStatus:this.state.saveStatus==='正在读取本地存档…'?'本地存档已就绪':this.state.saveStatus});
+    }catch(e){this.setState({saveStatus:'本地存储不可用：'+(e instanceof Error?e.message:String(e))+'。请检查无痕模式或磁盘空间。'});}
+  };
+  private scheduleAutosave(game:GameState):void {
+    const epoch=this.saveEpoch;
+    this.saveQueue=this.saveQueue.then(async()=>{
+      if(epoch!==this.saveEpoch)return;
+      await writeSlot('auto','自动存档','auto',game);
+      if(epoch!==this.saveEpoch)return;
+      this.setState({saveStatus:'自动保存成功 · 第 '+game.round+' 轮'});
+      await this.refreshSlots();
+    }).catch(e=>{
+      if(epoch===this.saveEpoch)this.setState({saveStatus:'自动保存失败：'+(e instanceof Error?e.message:String(e))+'。请手动导出备份。'});
+    });
+  }
+  private newManualSlot = async ():Promise<void> => {
+    if(this.state.game.status==='setup' || this.state.storageBusy)return;
+    const name=window.prompt('输入新存档名称','存档 '+new Date().toLocaleString('zh-CN'))?.trim();
+    if(!name)return;
+    if(name.length>60){this.setState({saveStatus:'名称最多 60 个字符'});return;}
+    try {
+      await writeSlot('manual-'+crypto.randomUUID(),name,'manual',this.state.game);
+      this.setState({saveStatus:'手动存档「'+name+'」保存成功'});
+      await this.refreshSlots();
+    }catch(e){this.setState({saveStatus:'手动保存失败：'+(e instanceof Error?e.message:String(e))});}
+  };
+  private overwriteSlot = async (slot:SlotSummary):Promise<void> => {
+    if(this.state.game.status==='setup'||slot.kind!=='manual'||this.state.storageBusy)return;
+    if(!window.confirm('确定用当前对局覆盖「'+slot.name+'」吗？'))return;
+    try {
+      await writeSlot(slot.id,slot.name,'manual',this.state.game);
+      this.setState({saveStatus:'已覆盖「'+slot.name+'」'});
+      await this.refreshSlots();
+    }catch(e){this.setState({saveStatus:'覆盖失败：'+(e instanceof Error?e.message:String(e))});}
+  };
+  private restoreSlot = async (slot:SlotSummary):Promise<void> => {
+    if(this.state.storageBusy)return;
+    if(!window.confirm('读取「'+slot.name+'」将替换屏幕上的当前游戏，是否继续？'))return;
+    this.saveEpoch++;
+    this.stopTimer();
+    this.setState({storageBusy:true,saveStatus:'正在读取「'+slot.name+'」…'});
+    try {
+      await this.saveQueue;
+      const saved=await readSlot(slot.id);
+      this.setState({game:saved.game,activeSeed:null,storageBusy:false,
+        saveStatus:'已读取「'+slot.name+'」',message:'已恢复第 '+saved.game.round+' 轮，可从当前阶段继续。'});
+    }catch(e){this.setState({storageBusy:false,saveStatus:'读档失败：'+(e instanceof Error?e.message:String(e))+'。原对局未被修改。'});}
+  };
+  private removeSlot = async (slot:SlotSummary):Promise<void> => {
+    if(this.state.storageBusy||!window.confirm('确定永久删除「'+slot.name+'」吗？'))return;
+    try{await deleteSlot(slot.id);this.setState({saveStatus:'已删除「'+slot.name+'」'});await this.refreshSlots();}
+    catch(e){this.setState({saveStatus:'删除失败：'+(e instanceof Error?e.message:String(e))});}
+  };
+
   reset = (): void => {
-    if (this.computerTimer !== null) { window.clearTimeout(this.computerTimer); this.computerTimer = null; }
+    this.saveEpoch++;
+    this.stopTimer();
     this.setState({ game: createGame(20261015), activeSeed: null, message: '已返回新游戏页面。可调整种子后重新开始。' });
   };
   startGame = (): void => {
@@ -30,22 +96,26 @@ class App extends React.Component<object, UiState> {
       this.setState({ message: '对局种子请输入 0 至 4294967295 之间的整数。' });
       return;
     }
+    this.saveEpoch++;
+    this.stopTimer();
     const fresh = createGame(seed);
     const result = applyAction(fresh, { type: 'start_game', actorId: fresh.players[0].id });
     if (!result.ok) { this.setState({ message: '无法开始对局，请重新开局。' }); return; }
     this.setState({ game: result.state, activeSeed: seed, message: '游戏已开始！轮到玩家掷骰。' });
   };
   componentWillUnmount(): void {
-    if (this.computerTimer !== null) window.clearTimeout(this.computerTimer);
+    this.stopTimer();
   }
 
   /** 每次状态变化只安排电脑的一步；重开后旧回调不会碰新对局。 */
-  componentDidUpdate(): void {
+  componentDidUpdate(_prevProps:object, prevState:UiState): void {
+    if(this.state.game!==prevState.game && this.state.game.status!=='setup') this.scheduleAutosave(this.state.game);
+    if(this.state.storageBusy)return;
     const snapshot = this.state.game;
     if (snapshot.status !== 'playing' || snapshot.players[snapshot.currentPlayerIndex].kind !== 'computer' || this.computerTimer !== null) return;
     this.computerTimer = window.setTimeout(() => {
       this.computerTimer = null;
-      if (this.state.game !== snapshot) return;
+      if (this.state.game !== snapshot || this.state.storageBusy) return;
       const action = chooseComputerAction(snapshot, { reserveCash: 200 });
       if (!action) return;
       const result = applyAction(snapshot, action);
@@ -59,6 +129,7 @@ class App extends React.Component<object, UiState> {
   }
 
   dispatch = (type: GameAction['type']): void => {
+    if(this.state.storageBusy)return;
     const { game } = this.state;
     const actor = game.players[game.currentPlayerIndex];
     if (actor.kind === 'computer') return;
@@ -139,7 +210,7 @@ class App extends React.Component<object, UiState> {
       <main className="app-shell" data-game-status={game.status} data-game-phase={game.phase} data-game-revision={game.revision}>
         <header className="topbar">
           <div className="brand"><span className="brand-mark">富</span><span>大富翁 <small>ReactMono</small></span></div>
-          <span className="version-tag">P1 · #6 完整对局版</span>
+          <span className="version-tag">P2 · 本地多存档</span>
         </header>
         <section className="headline"><div><span className="section-eyebrow">24 格 · 买地收租 · 60 轮定胜负</span><h1>每一步，都是一笔生意。</h1><p>一个人就能完成整局：掷骰、买地、收租，与自动行动的电脑对抗；有人破产即决出胜负，否则第 60 轮按净资产决胜。</p></div><button type="button" className="reset-btn" onClick={this.reset}>↻ 重新开局</button></section>
         <div className="layout">
@@ -178,12 +249,25 @@ class App extends React.Component<object, UiState> {
               {game.phase === 'finished' && <div className="result-box" role="status"><strong>{game.winnerId ? `${game.players.find(p => p.id === game.winnerId)?.name}获胜！` : '双方平局！'}</strong><p>{[...game.events].reverse().find(e => e.type === 'game_finished')?.details?.reason === 'bankruptcy' ? '结束原因：一方无法付清租金' : '结束原因：达到回合上限'}</p><p>最终净资产：玩家 {netWorth(game,'p1')} · 电脑 {netWorth(game,'p2')}</p><p>本局种子：{this.state.activeSeed}</p><button type="button" className="primary-btn" onClick={this.reset}>再来一局 <span>↻</span></button></div>}
               <p className="turn-tip" role="status">{message}</p>
             </div>
+            <div className="saves-card">
+              <div className="card-label">本地存档</div>
+              <p className="save-message" role="status">{this.state.saveStatus}</p>
+              <button type="button" className="secondary-btn" disabled={game.status==='setup'||this.state.storageBusy} onClick={()=>void this.newManualSlot()}>创建手动存档</button>
+              <ul className="save-list">{this.state.saveSlots.map(slot=><li key={slot.id}>
+                <div><strong>{slot.name}</strong><small>{slot.kind==='auto'?'自动':'手动'} · {new Date(slot.updatedAt).toLocaleString('zh-CN')}</small></div>
+                <div className="save-actions">
+                  <button type="button" disabled={this.state.storageBusy} onClick={()=>void this.restoreSlot(slot)}>读取</button>
+                  {slot.kind==='manual' && <button type="button" disabled={this.state.storageBusy||game.status==='setup'} onClick={()=>void this.overwriteSlot(slot)}>覆盖</button>}
+                  <button type="button" disabled={this.state.storageBusy} onClick={()=>void this.removeSlot(slot)}>删除</button>
+                </div>
+              </li>)}</ul>
+            </div>
             <div className="players-card"><div className="card-label">玩家状态</div>{game.players.map(p => <div key={p.id} className={`player-line ${current.id === p.id && game.status === 'playing' ? 'is-current' : ''}`}><span className={`player-dot ${p.kind}`}>{p.kind === 'human' ? '人' : '机'}</span><div><strong>{p.name}</strong><small>{p.position} 号格 · 现金 {p.cash.toLocaleString('zh-CN')} · 资产 {netWorth(game,p.id).toLocaleString('zh-CN')}{p.bankrupt ? ' · 已破产' : ''}</small></div><span className="player-kind">{p.kind === 'human' ? '真人' : '电脑'}</span></div>)}</div>
             <div className="activity-card"><div className="card-label">最近事件</div><ol>{lastEvents.map((e,i) => <li key={`${game.events.length}-${i}`}>{this.describeEvent(e)}</li>)}</ol></div>
             <div className="info-card"><strong>玩法说明</strong><p>① 点击「开始游戏」，轮到玩家时掷骰前进。② 到无主地产可买入或放弃；经过对手地产会自动付租。③ 处理完地块后结束回合，电脑会自动行动。</p><p>付不起租金立即破产；否则最多玩 60 轮，最终按现金加土地原价计算净资产。电脑购地后至少保留 200 游戏币。</p><p>这是 P1 简化可玩版：尚不包含升级、股票、卡片、存档或离线功能，后续阶段逐步加入。</p></div>
           </aside>
         </div>
-        <footer className="footer">纯前端 · 简体中文 · 不需要账号　｜　当前尚无存读档与断网能力（P2 实现）</footer>
+        <footer className="footer">纯前端 · 简体中文 · 不需要账号　｜　IndexedDB 本机存档 · 不上传云端</footer>
       </main>
     );
   }
