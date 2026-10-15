@@ -50,7 +50,7 @@ test('非法动作与错误行动者明确拒绝，绝不篡改状态', () => {
   }
 });
 
-test('开始游戏不能重复，掷骰实现后只保留买地待实现', () => {
+test('开始游戏不能重复，地产购买需要正确阶段', () => {
   const started=applyAction(createGame(7),{type:'start_game',actorId:'p1'}).state;
   const twice=applyAction(started,{type:'start_game',actorId:'p1'});
   assert.equal(twice.ok,false);
@@ -60,8 +60,8 @@ test('开始游戏不能重复，掷骰实现后只保留买地待实现', () =>
   assert.equal(roll.events[0].type,'die_rolled');
   const buy=applyAction(roll.state,{type:'buy_property',actorId:'p1'});
   if (roll.state.phase === 'await_decision') {
-    assert.equal(buy.ok,false);
-    assert.equal(buy.reason,'NOT_IMPLEMENTED');
+    assert.equal(buy.ok,true);
+    assert.equal(buy.state.tiles[buy.state.players[0].position].ownerId,'p1');
   } else {
     assert.equal(buy.reason,'INVALID_PHASE');
   }
