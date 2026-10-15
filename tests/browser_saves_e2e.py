@@ -41,6 +41,7 @@ def main():
             row.get_by_role('button',name='删除').click()
             page.reload()
             page.locator('.save-list').get_by_text('第二份存档').wait_for()
+            page.wait_for_function("!document.querySelector('.save-list')?.textContent.includes('第一份存档')")
             assert page.locator('.save-list').get_by_text('第一份存档').count()==0
             assert page.locator('.save-list li').filter(has_text='自动存档').count()==1
             assert not errors,errors
