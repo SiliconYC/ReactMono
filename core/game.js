@@ -1,4 +1,4 @@
-/** 独立于页面的确定性回合与棋盘规则核心；地产经济将在 #4 实现。 */
+/** 独立于页面的确定性回合与棋盘规则核心；第 #4 期加入地产买卖、收租、破产与胜负规则。 */
 export const SCHEMA_VERSION = 1;
 const defaultTiles = Array.from({ length: 24 }, (_, index) => {
     if (index === 0)
@@ -65,6 +65,13 @@ export function createGame(seed, config = DEFAULT_CONFIG) {
         events: []
     };
 }
+/** 按当前现金与未折旧购地价格计算净资产；仅用于回合上限时公平判定。 */
+export function netWorth(state, playerId) {
+    const player = state.players.find(p => p.id === playerId);
+    if (!player)
+        throw new Error('玩家不存在');
+    return player.cash + state.tiles.reduce((sum, tile) => sum + (tile.ownerId === playerId && tile.kind === 'property' ? tile.price ?? 0 : 0), 0);
+}
 /** 单一命令入口：始终返回新状态或明确拒绝，不修改传入对象。 */
 export function applyAction(state, action) {
     const actor = state.players[state.currentPlayerIndex];
@@ -92,11 +99,38 @@ export function applyAction(state, action) {
                 { type: 'player_moved', actorId: actor.id, details: { from: actor.position, to: position } },
                 { type: 'tile_landed', actorId: actor.id, details: { tileId: landed.id, title: landed.title } }
             ];
+            const movingPlayers = state.players.map(p => p.id === actor.id ? { ...p, position } : p);
+            if (landed.kind === 'property' && landed.ownerId && landed.ownerId !== actor.id) {
+                const landlord = state.players.find(p => p.id === landed.ownerId);
+                if (!landlord)
+                    return reject('INVALID_PHASE');
+                const due = landed.rent ?? 0;
+                const paid = Math.min(actor.cash, due);
+                const insolvent = paid < due;
+                const players = movingPlayers.map(p => p.id === actor.id
+                    ? { ...p, cash: p.cash - paid, bankrupt: insolvent }
+                    : p.id === landlord.id ? { ...p, cash: p.cash + paid } : p);
+                events.push({ type: 'rent_paid', actorId: actor.id, details: {
+                        tileId: landed.id, fromId: actor.id, toId: landlord.id, due, amount: paid
+                    } });
+                if (insolvent) {
+                    events.push({ type: 'player_bankrupt', actorId: actor.id, details: { creditorId: landlord.id } });
+                    events.push({ type: 'game_finished', details: { reason: 'bankruptcy', winnerId: landlord.id } });
+                }
+                return accept(state, events, {
+                    randomState: nextState, players,
+                    // 结束比赛后被淘汰者的土地回到无主状态；本阶段不实现清算/拍卖。
+                    tiles: insolvent ? state.tiles.map(t => t.ownerId === actor.id ? { ...t, ownerId: null } : t) : state.tiles,
+                    status: insolvent ? 'finished' : 'playing',
+                    winnerId: insolvent ? landlord.id : state.winnerId,
+                    phase: insolvent ? 'finished' : 'await_end_turn'
+                });
+            }
             const phase = landed.kind === 'property' && landed.ownerId === null
                 ? 'await_decision' : 'await_end_turn';
             return accept(state, events, {
                 randomState: nextState,
-                players: state.players.map(p => p.id === actor.id ? { ...p, position } : p),
+                players: movingPlayers,
                 phase
             });
         }
@@ -115,20 +149,41 @@ export function applyAction(state, action) {
                 return reject('INVALID_PHASE');
             const lastPlayer = state.currentPlayerIndex === state.players.length - 1;
             const finished = lastPlayer && state.round >= state.maxRounds;
+            const assets = state.players.map(p => netWorth(state, p.id));
+            const winnerId = finished && assets[0] !== assets[1]
+                ? state.players[assets[0] > assets[1] ? 0 : 1].id : null;
             const events = [{ type: 'turn_ended', actorId: actor.id }];
             if (finished)
-                events.push({ type: 'game_finished', details: { reason: 'round_limit' } });
+                events.push({ type: 'game_finished', details: {
+                        reason: 'round_limit', draw: winnerId === null ? 1 : 0,
+                        firstNetWorth: assets[0], secondNetWorth: assets[1],
+                        ...(winnerId ? { winnerId } : {})
+                    } });
             return accept(state, events, {
                 status: finished ? 'finished' : 'playing',
                 phase: finished ? 'finished' : 'await_roll',
                 currentPlayerIndex: (state.currentPlayerIndex + 1) % state.players.length,
                 round: !finished && lastPlayer ? state.round + 1 : state.round,
-                // #4 将在该边界计算净资产胜负；当前没有经济规则，只以平局终止测试局。
-                winnerId: null
+                winnerId
             });
         }
-        case 'buy_property':
-            return state.phase !== 'await_decision' ? reject('INVALID_PHASE') : reject('NOT_IMPLEMENTED');
+        case 'buy_property': {
+            if (state.phase !== 'await_decision')
+                return reject('INVALID_PHASE');
+            const tile = state.tiles[actor.position];
+            if (tile.kind !== 'property' || tile.ownerId !== null)
+                return reject('INVALID_PHASE');
+            const price = tile.price ?? 0;
+            if (actor.cash < price)
+                return reject('INSUFFICIENT_FUNDS');
+            return accept(state, [{ type: 'property_bought', actorId: actor.id, details: {
+                        tileId: tile.id, amount: price, ownerId: actor.id
+                    } }], {
+                players: state.players.map(p => p.id === actor.id ? { ...p, cash: p.cash - price } : p),
+                tiles: state.tiles.map(t => t.id === tile.id ? { ...t, ownerId: actor.id } : t),
+                phase: 'await_end_turn'
+            });
+        }
     }
 }
 function accept(state, events, changes) {
