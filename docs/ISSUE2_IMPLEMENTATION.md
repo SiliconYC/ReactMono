@@ -23,6 +23,14 @@
 
 部署方式：源码及 PR 目标为 `dev`；仅编译产物发布到 `gh-pages`，Pages 静态发布不使用 `main`。若仓库尚未配置 Pages 发布源，需进行首次设置；推送 `gh-pages` 并不自动证明网站已上线。
 
+## GitHub Pages 首次发布结果
+
+- 源码经 [PR #7](https://github.com/SiliconYC/ReactMono/pull/7) 合并回 `dev`，合并提交 `682809d05012c077130ad5b2a19fc8d19c0216c3`。
+- 将本次 TypeScript 编译出的 HTML/CSS/JS 和 `.nojekyll` 发布至单独 `gh-pages` 分支，提交 [5656e65](https://github.com/SiliconYC/ReactMono/commit/5656e65f603c61ae01403269b0175cf39b4ebc45)；五个静态文件的 Git blob SHA 与本地构建一致。
+- GitHub Pages 内置的 [部署工作流 #38749060304](https://github.com/SiliconYC/ReactMono/actions/runs/38749060304) 完整结束且 `build / deploy / report-build-status` 三项 Job 均为 **success**。deploy 日志报告 `Reported success!` 和发布 URL：**https://siliconyc.github.io/ReactMono/**。
+- 本沙盒受 HTTP 访问限制，不能直接通过真实公网 URL 做浏览器端到端验证；**部署工作流成功 ≠ 已在公网实测了 React 18 依赖的加载**。因此不要宣称已完成在线完整对局。
+- GitHub Pages 由平台执行了 Pages 必要的部署 Job；**没有启用自定义 GitHub 托管编译 Runner**。React/TypeScript 编译发生在独立沙盒内，发布分支只保存静态产物。
+
 ## 本轮验证记录
 
 - `npm test`：6/6 规则测试通过（首次执行环境：Node 22.16、TypeScript 5.8.3）。

@@ -23,6 +23,16 @@
 - **结果**：本轮**完成文档层规划与 Issue 创建**；还没有代码提交、游戏构建、真实对局、PR/独立验收，更没有连续自主进化。不要把五条 Issue 统计为五次成功改进。
 - **后续入口**：先实施 [#2](https://github.com/SiliconYC/ReactMono/issues/2)，经独立验收后开启依赖任务；每完成一轮回写本日志。
 
+### 2026-10-15｜E001：Issue #2 工程骨架实现与首轮 Pages 静态发布
+
+- **来源**：[P002](proposals/P002-first-playable.md)、[Issue #2](https://github.com/SiliconYC/ReactMono/issues/2)。
+- **实现**：[PR #7](https://github.com/SiliconYC/ReactMono/pull/7) 合并至 `dev`（`682809d05012c077130ad5b2a19fc8d19c0216c3`）。React+TypeScript UI；纯数据 `GameState`/`GameAction`/`GameEvent`、固定种子接口、24 格配置、两名玩家、合法开始游戏命令。其余游戏命令清晰标记未实现，不冒充可玩版本。
+- **测试证据**：沙盒 Node 22.16 / TypeScript 5.8.3 运行 `npm test`，6/6 单元测试通过；`npm run build` 成功。Chromium 在受限沙盒内以本地 React 16 UMD 替代 CDN 验证首屏与点击“创建测试对局”后的状态切换，零 JS 页内异常；该烟测不能替代真正的公网 React 18 验收。
+- **部署证据**：编译产物发布至独立 `gh-pages`（`5656e65f603c61ae01403269b0175cf39b4ebc45`），[GitHub Pages 部署 #38749060304](https://github.com/SiliconYC/ReactMono/actions/runs/38749060304) 显示所有 Job success，deploy 日志报告 `https://siliconyc.github.io/ReactMono/`，且仓库元数据 `has_pages=true`。
+- **限制与不足**：因沙盒 npm 注册表连接失败，无法证明在本沙盒完成了 `npm install` 的干净依赖安装；使用系统预装 TypeScript。当前 React 从 CDN 在线加载，**尚不具备 PWA 离线能力**；在本沙盒无法通过公网 URL 进行浏览器实测。需要在后续环境验证 CDN 真正加载，P2 必须改用本地打包并锁定依赖版本。
+- **验收范围**：本轮只确认了工程、单测、浏览器本地烟测及 GitHub Pages 平台发布结果；**没有**实现骰子动作、地图行走、租金、电脑策略或完整对局，不能计入“已做出游戏”。
+- **下一步**：[Issue #3](https://github.com/SiliconYC/ReactMono/issues/3) 棋盘、骰子与回合规则。
+
 ## 自主改进实验账本
 
 **当前尚无经验证的自主游戏改进轮次。** 后续每轮至少记录：

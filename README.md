@@ -2,7 +2,7 @@
 
 一个以经典《大富翁4》为主要参考的浏览器回合制经营游戏，同时也是**AI 自主定向进化软件开发**的长期实验。
 
-> **当前阶段：P1 首轮执行队列已建立，游戏代码尚未开始。** 目前没有可玩版本，也没有后台持续运行的自主 Agent。
+> **当前阶段：P1 工程验证版。** Issue #2 的 React+TypeScript 工程与初始规则契约已实现；还不能真正投骰、走格或完成对局，没有后台持续运行的自主 Agent。GitHub Pages 上仅发布工程测试页。
 
 ## 两个长期目标
 
@@ -54,6 +54,12 @@ P0 目标与治理 → P1 第一局能玩到底 → P2 可靠的准本地游戏�
 3. [#6 简体中文 UI 和真实浏览器完整对局](https://github.com/SiliconYC/ReactMono/issues/6) 可在 #2 完成后着手显示层，正式集成需 #3/#4/#5。
 
 不要把“已经创建 Issue”冒充“已经开发或验收完成”。P1 详细边界参见 [P002 研究与晋升结果](docs/proposals/P002-first-playable.md)。
+
+## 工程测试地址
+
+- [GitHub Pages 工程验证版](https://siliconyc.github.io/ReactMono/)（不是完整可玩游戏）。
+- [Pages 自动部署成功记录](https://github.com/SiliconYC/ReactMono/actions/runs/38749060304)：由独立 `gh-pages` 分支发布，源码仍以 `dev` 为唯一默认开发/集成目标。
+- [Issue #2 的测试、构建与局限](docs/ISSUE2_IMPLEMENTATION.md)：P1 阶段暂用 React CDN，**尚不支持断网运行**；P2 必须打包本地依赖才能实现 PWA。
 
 ## 协作入口
 
