@@ -1,0 +1,21 @@
+name: ReactMono 验证
+on:
+  push:
+    branches: [dev, 'issue-*']
+  pull_request:
+    branches: [dev]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm test
+      - name: 确认产物不含第三方运行时引用
+        run: "! grep -R -E 'https?://(unpkg|cdn|esm.sh)' dist/index.html"
