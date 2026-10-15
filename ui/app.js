@@ -1,4 +1,5 @@
 import { applyAction, createGame, netWorth } from '../core/game.js';
+import { chooseComputerAction } from '../core/agent.js';
 /** 环形棋盘固定 8 列 × 6 行：8 + 4 + 8 + 4 = 24 格。 */
 function cellPosition(index) {
     if (index < 8)
@@ -16,9 +17,29 @@ class App extends React.Component {
         this.state = { game: createGame(20261015), message: '按「开始测试对局」，然后掷骰沿着 24 格棋盘前进。' };
     }
     reset = () => this.setState({ game: createGame(20261015), message: '棋盘已重置，准备开始新一轮测试。' });
+    componentDidUpdate() {
+        const snapshot = this.state.game;
+        if (snapshot.status !== 'playing' || snapshot.players[snapshot.currentPlayerIndex].kind !== 'computer')
+            return;
+        window.setTimeout(() => {
+            if (this.state.game !== snapshot)
+                return;
+            const action = chooseComputerAction(snapshot, { reserveCash: 200 });
+            if (!action)
+                return;
+            const result = applyAction(snapshot, action);
+            if (!result.ok) {
+                this.setState({ message: '电脑操作失败（' + result.reason + '），请重新开局或报告缺陷。' });
+                return;
+            }
+            const actor = snapshot.players[snapshot.currentPlayerIndex];
+            this.setState({ game: result.state, message: this.describe(result.events, result.state, actor.name) });
+        }, 380);
+    }
     dispatch = (type) => {
         const { game } = this.state;
         const actor = game.players[game.currentPlayerIndex];
+        if (actor.kind === 'computer') return;
         const result = applyAction(game, { type, actorId: actor.id });
         if (!result.ok) {
             const reason = result.reason === 'INSUFFICIENT_FUNDS' ? '资金不足，无法购买这块地产。请放弃购买。' : '当前阶段不能执行这个操作。';
@@ -99,12 +120,12 @@ class App extends React.Component {
                     React.createElement("span", null,
                         "\u5927\u5BCC\u7FC1 ",
                         React.createElement("small", null, "ReactMono"))),
-                React.createElement("span", { className: "version-tag" }, "P1 \u00B7 #4 \u5730\u4EA7\u7ECF\u6D4E\u4F53\u9A8C\u7248")),
+                React.createElement("span", { className: "version-tag" }, "P1 \u00B7 #5 \u4EBA\u673A\u5BF9\u5C40\u4F53\u9A8C\u7248")),
             React.createElement("section", { className: "headline" },
                 React.createElement("div", null,
                     React.createElement("span", { className: "section-eyebrow" }, "24 \u683C \u00B7 \u4E70\u5730\u6536\u79DF \u00B7 60 \u8F6E\u5B9A\u80DC\u8D1F"),
                     React.createElement("h1", null, "\u6BCF\u4E00\u6B65\uFF0C\u90FD\u662F\u4E00\u7B14\u751F\u610F\u3002"),
-                    React.createElement("p", null, "\u73B0\u5728\u53EF\u4EE5\u4E70\u5730\u3001\u6536\u53D6\u79DF\u91D1\uFF0C\u8D44\u91D1\u4E0D\u8DB3\u65F6\u4F1A\u7834\u4EA7\uFF1B\u8FBE\u5230\u7B2C 60 \u8F6E\u6309\u51C0\u8D44\u4EA7\u51B3\u5B9A\u80DC\u8D1F\u3002\u7535\u8111\u4ECD\u9700\u624B\u52A8\u4EE3\u64CD\u4F5C\u3002")),
+                    React.createElement("p", null, "\u4E70\u5730\u3001\u6536\u79DF\u548C\u7834\u4EA7\u5DF2\u7ECF\u751F\u6548\u3002\u8F6E\u5230\u7535\u8111\u65F6\u4F1A\u81EA\u52A8\u63B7\u9AB0\u3001\u51B3\u5B9A\u662F\u5426\u4E70\u5730\u5E76\u7ED3\u675F\u56DE\u5408\uFF1B\u7B2C 60 \u8F6E\u6309\u51C0\u8D44\u4EA7\u51B3\u80DC\u3002")),
                 React.createElement("button", { type: "button", className: "reset-btn", onClick: this.reset }, "\u21BB \u91CD\u65B0\u5F00\u5C40")),
             React.createElement("div", { className: "layout" },
                 React.createElement("section", { className: "board-card", "aria-label": "24 \u683C\u6E38\u620F\u68CB\u76D8" },
@@ -157,11 +178,12 @@ class App extends React.Component {
                         game.status === 'setup' && React.createElement("button", { type: "button", className: "primary-btn", onClick: () => this.dispatch('start_game') },
                             "\u5F00\u59CB\u6D4B\u8BD5\u5BF9\u5C40 ",
                             React.createElement("span", null, "\u2192")),
-                        game.phase === 'await_roll' && React.createElement("button", { type: "button", className: "primary-btn", onClick: () => this.dispatch('roll') },
-                            current.kind === 'computer' ? '代电脑掷骰' : '掷骰前进',
+                        current.kind === 'computer' && game.status === 'playing' && React.createElement("p", { className: "computer-thinking", role: "status" }, "电脑正在自动操作，保留至少 200 游戏币现金…"),
+                        current.kind === 'human' && game.phase === 'await_roll' && React.createElement("button", { type: "button", className: "primary-btn", onClick: () => this.dispatch('roll') },
+                            '掷骰前进',
                             " ",
                             React.createElement("span", null, "\uD83C\uDFB2")),
-                        game.phase === 'await_decision' && React.createElement("div", { className: "purchase-actions" },
+                        current.kind === 'human' && game.phase === 'await_decision' && React.createElement("div", { className: "purchase-actions" },
                             React.createElement("p", { className: "purchase-info" },
                                 targetTile.title,
                                 "\u3000\u552E\u4EF7 ",
@@ -173,7 +195,7 @@ class App extends React.Component {
                                 React.createElement("span", null, "\u2302")),
                             !hasMoneyForLand && React.createElement("p", { className: "insufficient-msg" }, "\u8D44\u91D1\u4E0D\u8DB3\uFF0C\u4E0D\u80FD\u8D2D\u4E70\u6B64\u5730\u3002"),
                             React.createElement("button", { type: "button", className: "secondary-btn", onClick: () => this.dispatch('decline_property') }, "\u653E\u5F03\u8D2D\u4E70\uFF0C\u7EE7\u7EED\u56DE\u5408 \u2192")),
-                        game.phase === 'await_end_turn' && React.createElement("button", { type: "button", className: "primary-btn", onClick: () => this.dispatch('end_turn') },
+                        current.kind === 'human' && game.phase === 'await_end_turn' && React.createElement("button", { type: "button", className: "primary-btn", onClick: () => this.dispatch('end_turn') },
                             "\u7ED3\u675F\u5F53\u524D\u56DE\u5408 ",
                             React.createElement("span", null, "\u2192")),
                         game.phase === 'finished' && React.createElement("div", { className: "result-box", role: "status" },
