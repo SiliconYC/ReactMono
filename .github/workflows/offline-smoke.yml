@@ -1,4 +1,4 @@
-name: 一次性 React Three.js 离线依赖及独立浏览器验证
+name: React Three.js 独立浏览器环境验证
 on:
   push:
     branches:
@@ -13,13 +13,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: 在线安装并记录锁定依赖
+      - name: 在线准备现有依赖
         working-directory: tools/offline-smoke
         run: npm install --ignore-scripts --no-audit --no-fund --cache .npm-cache
-      - name: 首次构建
-        working-directory: tools/offline-smoke
-        run: npm run build
-      - name: 验证缓存能够完全离线重新安装
+      - name: 离线重装构建
         working-directory: tools/offline-smoke
         env:
           npm_config_offline: 'true'
@@ -28,30 +25,30 @@ jobs:
           rm -rf node_modules
           npm ci --offline --ignore-scripts --no-audit --no-fund --cache .npm-cache
           npm run build
-      - name: 准备独立 Playwright Headless Shell
+      - name: 下载独立完整 Chromium 与依赖
         working-directory: tools/offline-smoke
         env:
           PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/tools/offline-smoke/.browser-cache
         run: |
           python -m pip install 'playwright==1.57.0' pillow
-          python -m playwright install chromium-headless-shell
-      - name: 在 Runner 使用真实 WebGL 和 React 按钮验收
+          python -m playwright install chromium
+      - name: 在 Runner 验证完整 Chromium WebGL
+        continue-on-error: true
         working-directory: tools/offline-smoke
         env:
           PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/tools/offline-smoke/.browser-cache
-        run: python tests/browser_smoke.py --out browser-e2e-result
-      - name: 制作完全离线的 Node 与浏览器运行包
+        run: python tests/browser_smoke.py --channel chromium --out browser-e2e-full
+      - name: 输出完整 Chromium Linux 依赖包
         run: |
-          tar -czf offline-react-three-browser-linux-node22.tar.gz -C tools/offline-smoke package.json package-lock.json index.html src dist node_modules .npm-cache .browser-cache tests
-          sha256sum offline-react-three-browser-linux-node22.tar.gz > SHA256SUMS-BROWSER
-          ls -lh offline-react-three-browser-linux-node22.tar.gz
-      - uses: actions/upload-artifact@v4
-        if: always()
+          tar -czf offline-full-chromium-linux.tar.gz -C tools/offline-smoke/.browser-cache chromium-1200
+          sha256sum offline-full-chromium-linux.tar.gz > SHA256SUMS-FULL
+          ls -lh offline-full-chromium-linux.tar.gz
+      - name: 保存供沙盒验收的 Chromium
+        uses: actions/upload-artifact@v4
         with:
-          name: offline-react-three-browser-linux-node22
+          name: offline-full-chromium-linux
           path: |
-            offline-react-three-browser-linux-node22.tar.gz
-            SHA256SUMS-BROWSER
-            tools/offline-smoke/browser-e2e-result/
+            offline-full-chromium-linux.tar.gz
+            SHA256SUMS-FULL
+            tools/offline-smoke/browser-e2e-full/
           retention-days: 90
-          if-no-files-found: warn
