@@ -18,13 +18,13 @@
 
 | 编号 | 方向 | 阶段 | 状态 | 进入 Issue 的条件 |
 | --- | --- | --- | --- | --- |
-| [P001](proposals/P001-roadmap.md) | 六阶段目标与退出标准 | P0–P5 | 待评估 | 有明确缺失的当前阶段可验收工作 |
-| [P002](proposals/P002-first-playable.md) | 第一局能玩到底的玩法边界 | P1 | 待评估 | 确立人数、地图、经济与验收的最小切片 |
-| [P003](proposals/P003-local-pwa.md) | Pages / PWA / 本地存档 | P2（兼顾 P1） | 实现待评估 | 在既定纯本地约束下拆出可独立验证的切片 |
-| [P004](proposals/P004-evolution-governance.md) | AI 发现、筛选、实施与独立验收 | 全阶段 | 治理原则已批准；效果待验证 | 可检验的工作流缺口或实验任务 |
-| [P005](proposals/P005-classic-mechanics.md) | 经典玩法保留与再设计 | P1–P4 | 待评估 | 有明确价值和测试方法的当前阶段玩法切片 |
+| [P001](proposals/P001-roadmap.md) | 六阶段目标与退出标准 | P0–P5 | 阶段基线已确定；持续复核 | 有明确缺失的当前阶段可验收工作，不开通用路线图 Issue |
+| [P002](proposals/P002-first-playable.md) | 第一局能玩到底的玩法边界 | P1 | **已晋升 #2–#6** | [#2](https://github.com/SiliconYC/ReactMono/issues/2)、[#3](https://github.com/SiliconYC/ReactMono/issues/3)、[#4](https://github.com/SiliconYC/ReactMono/issues/4)、[#5](https://github.com/SiliconYC/ReactMono/issues/5)、[#6](https://github.com/SiliconYC/ReactMono/issues/6)；等待开发与验收 |
+| [P003](proposals/P003-local-pwa.md) | Pages / PWA / 本地存档 | P2（兼顾 P1） | **延期 P2** | P1 仅保留数据模型版本接口；当前不为部署、离线和完整存读档开 Issue |
+| [P004](proposals/P004-evolution-governance.md) | AI 发现、筛选、实施与独立验收 | 全阶段 | **已实施第一次提案筛选；效果待验证** | #2–#6 从候选进入执行；尚无自主编码、PR 或独立验收成绩 |
+| [P005](proposals/P005-classic-mechanics.md) | 经典玩法保留与再设计 | P1–P4 | **持续研究；复杂玩法延期** | 当前仅买地/收租/回合进入 P1；股票、建筑、卡片、音画待之后阶段评估 |
 
-**状态词表**：待评估、研究中、延期、已否决、已晋升（注明 Issue）、已归档。已经确定的产品硬约束不是“待决定”；提案状态只指尚未解决的实施选择。每次改变状态须记录证据/原因和日期，防止越审越乱。
+**状态词表**：待评估、研究中、延期、已否决、已晋升（注明 Issue）、已归档；已确定阶段基线/已实施治理属于事实备注，不代表代码已完成。已经确定的产品硬约束不是“待决定”；提案状态只指尚未解决的实施选择。每次改变状态须记录证据/原因和日期，防止越审越乱。
 
 ## 新方向怎样加入
 
@@ -37,5 +37,5 @@
 ## 当前执行入口
 
 - [Issue #1：首轮自主规划](https://github.com/SiliconYC/ReactMono/issues/1) 是 P0→P1 的规划入口，不是“执行全部提案”的总任务。
-- 当前**未因这五篇提案创建开发 Issue**；它们仅代表研究方向。
+- **2026-10-15 第一次筛选**：基于 P002 只创建 [#2–#6](https://github.com/SiliconYC/ReactMono/issues) 共五项 P1 任务；其余方向仍在提案池。具体理由见 [EVOLUTION_LOG.md](EVOLUTION_LOG.md)。
 - 本池及 GitHub Issues/PR 均可由现有维护工具直接修改，无需使用 GitHub Discussions。

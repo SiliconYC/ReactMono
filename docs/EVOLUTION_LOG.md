@@ -13,6 +13,16 @@
 - **取舍**：放弃论坛式嵌套评论，改用文件变更记录意见与证据。仍可保留 GitHub Discussions 功能，但自主工作流不得依赖它。
 - **关联**：[P004](proposals/P004-evolution-governance.md)、[Issue #1](https://github.com/SiliconYC/ReactMono/issues/1)。
 
+### 2026-10-15｜G002：Issue #1 首次自主任务筛选与晋升
+
+- **输入基线**：`dev`（规划前提交 `391799a84ee8eb734c1b6f70ed3355514ccc39b4`）只有 Markdown 文档、提案与 Issue #1，没有游戏代码；经过搜索不存在其他重复的开发 Issue。
+- **评审对象**：P001–P005。P001 六阶段目标已成为 ROADMAP 基线；P002 的最小可玩缺口明确、可分割验证，批准晋升；P003 静态部署/PWA/完整存档延期 P2；P004 的管理规则已落地但尚未用开发证实；P005 股市、卡片和多地图等复杂内容延期。
+- **实际晋升**：[#2 工程状态契约](https://github.com/SiliconYC/ReactMono/issues/2)、[#3 棋盘回合](https://github.com/SiliconYC/ReactMono/issues/3)、[#4 地产经济与胜负](https://github.com/SiliconYC/ReactMono/issues/4)、[#5 电脑玩家和 100 个种子模拟](https://github.com/SiliconYC/ReactMono/issues/5)、[#6 简体中文 UI 与浏览器整局](https://github.com/SiliconYC/ReactMono/issues/6)。
+- **路径依赖**：#2→#3→#4→#5；#6 的显示层可在 #2 后启动，但集成/验收依赖 #3/#4/#5。不可无序并行改动共享规则核心。
+- **决策理由**：选择一名人类玩家加一名电脑玩家，24 格封闭棋盘，2 人初始现金相同，简化租金破产和最多 60 个完整轮次。仅 P1 必需范围晋升；所有硬约束（仅简体中文、纯浏览器、`dev`）保持不变。详细规则与验收 [见 P002](proposals/P002-first-playable.md)。
+- **结果**：本轮**完成文档层规划与 Issue 创建**；还没有代码提交、游戏构建、真实对局、PR/独立验收，更没有连续自主进化。不要把五条 Issue 统计为五次成功改进。
+- **后续入口**：先实施 [#2](https://github.com/SiliconYC/ReactMono/issues/2)，经独立验收后开启依赖任务；每完成一轮回写本日志。
+
 ## 自主改进实验账本
 
 **当前尚无经验证的自主游戏改进轮次。** 后续每轮至少记录：

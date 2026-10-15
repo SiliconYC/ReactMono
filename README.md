@@ -2,7 +2,7 @@
 
 一个以经典《大富翁4》为主要参考的浏览器回合制经营游戏，同时也是**AI 自主定向进化软件开发**的长期实验。
 
-> **当前阶段：仓库初始化。尚未实现游戏，不存在可玩的正式版本。**
+> **当前阶段：P1 首轮执行队列已建立，游戏代码尚未开始。** 目前没有可玩版本，也没有后台持续运行的自主 Agent。
 
 ## 两个长期目标
 
@@ -44,6 +44,16 @@
 ## 阶段路线图
 
 P0 目标与治理 → P1 第一局能玩到底 → P2 可靠的准本地游戏（含 Pages/PWA/存档）→ P3 丰富核心玩法 → P4 高完成度正式版 → P5 长期自主进化。**自主进化实验贯穿所有阶段，并非 P5 才开始。** 每阶段都有明确退出验收，详见 [路线图](docs/ROADMAP.md)。
+
+## 第一轮实际执行任务
+
+[Issue #1](https://github.com/SiliconYC/ReactMono/issues/1) 负责从提案池筛选 P1 任务，其规划产物是：
+
+1. [#2 工程骨架与状态契约](https://github.com/SiliconYC/ReactMono/issues/2) → [#3 地图和回合](https://github.com/SiliconYC/ReactMono/issues/3) → [#4 地产经济和胜负](https://github.com/SiliconYC/ReactMono/issues/4)。
+2. [#5 基础电脑与 100 种固定种子模拟](https://github.com/SiliconYC/ReactMono/issues/5) 依赖 #3/#4。
+3. [#6 简体中文 UI 和真实浏览器完整对局](https://github.com/SiliconYC/ReactMono/issues/6) 可在 #2 完成后着手显示层，正式集成需 #3/#4/#5。
+
+不要把“已经创建 Issue”冒充“已经开发或验收完成”。P1 详细边界参见 [P002 研究与晋升结果](docs/proposals/P002-first-playable.md)。
 
 ## 协作入口
 
