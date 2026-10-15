@@ -18,7 +18,10 @@ class App extends React.Component {
     }
     computerTimer = null;
     reset = () => {
-        if (this.computerTimer !== null) { window.clearTimeout(this.computerTimer); this.computerTimer = null; }
+        if (this.computerTimer !== null) {
+            window.clearTimeout(this.computerTimer);
+            this.computerTimer = null;
+        }
         this.setState({ game: createGame(20261015), activeSeed: null, message: '已返回新游戏页面。可调整种子后重新开始。' });
     };
     startGame = () => {
@@ -29,12 +32,17 @@ class App extends React.Component {
         }
         const fresh = createGame(seed);
         const result = applyAction(fresh, { type: 'start_game', actorId: fresh.players[0].id });
-        if (!result.ok) { this.setState({ message: '无法开始对局，请重新开局。' }); return; }
+        if (!result.ok) {
+            this.setState({ message: '无法开始对局，请重新开局。' });
+            return;
+        }
         this.setState({ game: result.state, activeSeed: seed, message: '游戏已开始！轮到玩家掷骰。' });
     };
     componentWillUnmount() {
-        if (this.computerTimer !== null) window.clearTimeout(this.computerTimer);
+        if (this.computerTimer !== null)
+            window.clearTimeout(this.computerTimer);
     }
+    /** 每次状态变化只安排电脑的一步；重开后旧回调不会碰新对局。 */
     componentDidUpdate() {
         const snapshot = this.state.game;
         if (snapshot.status !== 'playing' || snapshot.players[snapshot.currentPlayerIndex].kind !== 'computer' || this.computerTimer !== null)
@@ -58,7 +66,8 @@ class App extends React.Component {
     dispatch = (type) => {
         const { game } = this.state;
         const actor = game.players[game.currentPlayerIndex];
-        if (actor.kind === 'computer') return;
+        if (actor.kind === 'computer')
+            return;
         const result = applyAction(game, { type, actorId: actor.id });
         if (!result.ok) {
             const reason = result.reason === 'INSUFFICIENT_FUNDS' ? '资金不足，无法购买这块地产。请放弃购买。' : '当前阶段不能执行这个操作。';
@@ -139,12 +148,12 @@ class App extends React.Component {
                     React.createElement("span", null,
                         "\u5927\u5BCC\u7FC1 ",
                         React.createElement("small", null, "ReactMono"))),
-                React.createElement("span", { className: "version-tag" }, "P1 · #6 完整对局版")),
+                React.createElement("span", { className: "version-tag" }, "P1 \u00B7 #6 \u5B8C\u6574\u5BF9\u5C40\u7248")),
             React.createElement("section", { className: "headline" },
                 React.createElement("div", null,
                     React.createElement("span", { className: "section-eyebrow" }, "24 \u683C \u00B7 \u4E70\u5730\u6536\u79DF \u00B7 60 \u8F6E\u5B9A\u80DC\u8D1F"),
                     React.createElement("h1", null, "\u6BCF\u4E00\u6B65\uFF0C\u90FD\u662F\u4E00\u7B14\u751F\u610F\u3002"),
-                    React.createElement("p", null, "一个人就能完成整局：掷骰、买地、收租，与自动行动的电脑对抗；有人破产即决出胜负，否则第 60 轮按净资产决胜。")),
+                    React.createElement("p", null, "\u4E00\u4E2A\u4EBA\u5C31\u80FD\u5B8C\u6210\u6574\u5C40\uFF1A\u63B7\u9AB0\u3001\u4E70\u5730\u3001\u6536\u79DF\uFF0C\u4E0E\u81EA\u52A8\u884C\u52A8\u7684\u7535\u8111\u5BF9\u6297\uFF1B\u6709\u4EBA\u7834\u4EA7\u5373\u51B3\u51FA\u80DC\u8D1F\uFF0C\u5426\u5219\u7B2C 60 \u8F6E\u6309\u51C0\u8D44\u4EA7\u51B3\u80DC\u3002")),
                 React.createElement("button", { type: "button", className: "reset-btn", onClick: this.reset }, "\u21BB \u91CD\u65B0\u5F00\u5C40")),
             React.createElement("div", { className: "layout" },
                 React.createElement("section", { className: "board-card", "aria-label": "24 \u683C\u6E38\u620F\u68CB\u76D8" },
@@ -195,15 +204,19 @@ class App extends React.Component {
                             "\u8D44\u91D1\uFF1A",
                             React.createElement("b", null, current.cash.toLocaleString('zh-CN'))),
                         game.status === 'setup' && React.createElement("div", { className: "start-form" },
-                            React.createElement("label", { className: "field-label", htmlFor: "game-seed" }, "对局种子 ", React.createElement("small", null, "相同种子可重现骰子结果")),
-                            React.createElement("input", { id: "game-seed", "aria-label": "对局种子", inputMode: "numeric", type: "text", maxLength: 10, value: this.state.seedInput, onChange: (event) => this.setState({ seedInput: event.target.value }) }),
+                            React.createElement("label", { className: "field-label", htmlFor: "game-seed" },
+                                "\u5BF9\u5C40\u79CD\u5B50 ",
+                                React.createElement("small", null, "\u76F8\u540C\u79CD\u5B50\u53EF\u91CD\u73B0\u9AB0\u5B50\u7ED3\u679C")),
+                            React.createElement("input", { id: "game-seed", "aria-label": "\u5BF9\u5C40\u79CD\u5B50", inputMode: "numeric", type: "text", maxLength: 10, value: this.state.seedInput, onChange: (event) => this.setState({ seedInput: event.target.value }) }),
                             React.createElement("label", { className: "fast-setting" },
-                                React.createElement("input", { type: "checkbox", "aria-label": "快速模式", checked: this.state.fastMode, onChange: (event) => this.setState({ fastMode: event.target.checked }) }), "快速模式（缩短电脑操作间隔）"),
-                            React.createElement("button", { type: "button", className: "primary-btn", onClick: this.startGame }, "开始游戏 ", React.createElement("span", null, "→"))),
-                        current.kind === 'computer' && game.status === 'playing' && React.createElement("p", { className: "computer-thinking", role: "status" }, "电脑正在自动操作，保留至少 200 游戏币现金…"),
+                                React.createElement("input", { type: "checkbox", "aria-label": "\u5FEB\u901F\u6A21\u5F0F", checked: this.state.fastMode, onChange: (event) => this.setState({ fastMode: event.target.checked }) }),
+                                "\u5FEB\u901F\u6A21\u5F0F\uFF08\u7F29\u77ED\u7535\u8111\u64CD\u4F5C\u95F4\u9694\uFF09"),
+                            React.createElement("button", { type: "button", className: "primary-btn", onClick: this.startGame },
+                                "\u5F00\u59CB\u6E38\u620F ",
+                                React.createElement("span", null, "\u2192"))),
+                        current.kind === 'computer' && game.status === 'playing' && React.createElement("p", { className: "computer-thinking", role: "status" }, "\u7535\u8111\u6B63\u5728\u81EA\u52A8\u64CD\u4F5C\uFF0C\u4FDD\u7559\u81F3\u5C11 200 \u6E38\u620F\u5E01\u73B0\u91D1\u2026"),
                         current.kind === 'human' && game.phase === 'await_roll' && React.createElement("button", { type: "button", className: "primary-btn", onClick: () => this.dispatch('roll') },
-                            '掷骰前进',
-                            " ",
+                            "\u63B7\u9AB0\u524D\u8FDB ",
                             React.createElement("span", null, "\uD83C\uDFB2")),
                         current.kind === 'human' && game.phase === 'await_decision' && React.createElement("div", { className: "purchase-actions" },
                             React.createElement("p", { className: "purchase-info" },
@@ -228,7 +241,9 @@ class App extends React.Component {
                                 netWorth(game, 'p1'),
                                 " \u00B7 \u7535\u8111 ",
                                 netWorth(game, 'p2')),
-                            React.createElement("p", null, "本局种子：", this.state.activeSeed),
+                            React.createElement("p", null,
+                                "\u672C\u5C40\u79CD\u5B50\uFF1A",
+                                this.state.activeSeed),
                             React.createElement("button", { type: "button", className: "primary-btn", onClick: this.reset },
                                 "\u518D\u6765\u4E00\u5C40 ",
                                 React.createElement("span", null, "\u21BB"))),
@@ -251,10 +266,10 @@ class App extends React.Component {
                         React.createElement("div", { className: "card-label" }, "\u6700\u8FD1\u4E8B\u4EF6"),
                         React.createElement("ol", null, lastEvents.map((e, i) => React.createElement("li", { key: `${game.events.length}-${i}` }, this.describeEvent(e))))),
                     React.createElement("div", { className: "info-card" },
-                        React.createElement("strong", null, "玩法说明"),
-                        React.createElement("p", null, "① 点击「开始游戏」，轮到玩家时掷骰前进。② 到无主地产可买入或放弃；经过对手地产会自动付租。③ 处理完地块后结束回合，电脑会自动行动。"),
-                        React.createElement("p", null, "付不起租金立即破产；否则最多玩 60 轮，最终按现金加土地原价计算净资产。电脑购地后至少保留 200 游戏币。"),
-                        React.createElement("p", null, "这是 P1 简化可玩版：尚不包含升级、股票、卡片、存档或离线功能，后续阶段逐步加入。")))),
+                        React.createElement("strong", null, "\u73A9\u6CD5\u8BF4\u660E"),
+                        React.createElement("p", null, "\u2460 \u70B9\u51FB\u300C\u5F00\u59CB\u6E38\u620F\u300D\uFF0C\u8F6E\u5230\u73A9\u5BB6\u65F6\u63B7\u9AB0\u524D\u8FDB\u3002\u2461 \u5230\u65E0\u4E3B\u5730\u4EA7\u53EF\u4E70\u5165\u6216\u653E\u5F03\uFF1B\u7ECF\u8FC7\u5BF9\u624B\u5730\u4EA7\u4F1A\u81EA\u52A8\u4ED8\u79DF\u3002\u2462 \u5904\u7406\u5B8C\u5730\u5757\u540E\u7ED3\u675F\u56DE\u5408\uFF0C\u7535\u8111\u4F1A\u81EA\u52A8\u884C\u52A8\u3002"),
+                        React.createElement("p", null, "\u4ED8\u4E0D\u8D77\u79DF\u91D1\u7ACB\u5373\u7834\u4EA7\uFF1B\u5426\u5219\u6700\u591A\u73A9 60 \u8F6E\uFF0C\u6700\u7EC8\u6309\u73B0\u91D1\u52A0\u571F\u5730\u539F\u4EF7\u8BA1\u7B97\u51C0\u8D44\u4EA7\u3002\u7535\u8111\u8D2D\u5730\u540E\u81F3\u5C11\u4FDD\u7559 200 \u6E38\u620F\u5E01\u3002"),
+                        React.createElement("p", null, "\u8FD9\u662F P1 \u7B80\u5316\u53EF\u73A9\u7248\uFF1A\u5C1A\u4E0D\u5305\u542B\u5347\u7EA7\u3001\u80A1\u7968\u3001\u5361\u7247\u3001\u5B58\u6863\u6216\u79BB\u7EBF\u529F\u80FD\uFF0C\u540E\u7EED\u9636\u6BB5\u9010\u6B65\u52A0\u5165\u3002")))),
             React.createElement("footer", { className: "footer" }, "\u7EAF\u524D\u7AEF \u00B7 \u7B80\u4F53\u4E2D\u6587 \u00B7 \u4E0D\u9700\u8981\u8D26\u53F7\u3000\uFF5C\u3000\u5F53\u524D\u5C1A\u65E0\u5B58\u8BFB\u6863\u4E0E\u65AD\u7F51\u80FD\u529B\uFF08P2 \u5B9E\u73B0\uFF09")));
     }
 }
