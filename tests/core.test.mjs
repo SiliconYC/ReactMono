@@ -50,14 +50,21 @@ test('非法动作与错误行动者明确拒绝，绝不篡改状态', () => {
   }
 });
 
-test('开始游戏不能重复，后续规则明确标注尚未实现', () => {
+test('开始游戏不能重复，掷骰实现后只保留买地待实现', () => {
   const started=applyAction(createGame(7),{type:'start_game',actorId:'p1'}).state;
   const twice=applyAction(started,{type:'start_game',actorId:'p1'});
   assert.equal(twice.ok,false);
   assert.equal(twice.reason,'INVALID_PHASE');
   const roll=applyAction(started,{type:'roll',actorId:'p1'});
-  assert.equal(roll.ok,false);
-  assert.equal(roll.reason,'NOT_IMPLEMENTED');
+  assert.equal(roll.ok,true);
+  assert.equal(roll.events[0].type,'die_rolled');
+  const buy=applyAction(roll.state,{type:'buy_property',actorId:'p1'});
+  if (roll.state.phase === 'await_decision') {
+    assert.equal(buy.ok,false);
+    assert.equal(buy.reason,'NOT_IMPLEMENTED');
+  } else {
+    assert.equal(buy.reason,'INVALID_PHASE');
+  }
 });
 
 test('固定种子骰子可复现且只产生 1 至 6；零种子也可以运行', () => {
