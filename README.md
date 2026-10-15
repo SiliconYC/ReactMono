@@ -2,7 +2,7 @@
 
 一个以经典《大富翁4》为主要参考的浏览器回合制经营游戏，同时也是**AI 自主定向进化软件开发**的长期实验。
 
-> **当前阶段：P1 棋盘回合体验版。** Issue #3 新增真正可操作的 24 格棋盘、确定性掷骰、玩家移动和轮流操作；地产经济（#4）、电脑自动行动（#5）与正式完整对局（#6）仍在开发队列。
+> **当前阶段：P1 基础人机对局体验版。** #2–#5 已合并到 `dev`：棋盘、掷骰、购地收租、破产与胜负，以及电脑自动回合。#6 的完整浏览器端到端验收仍待完成。
 
 ## 两个长期目标
 
@@ -57,9 +57,9 @@ P0 目标与治理 → P1 第一局能玩到底 → P2 可靠的准本地游戏�
 
 ## 工程测试地址
 
-- [GitHub Pages 棋盘回合体验版](https://siliconyc.github.io/ReactMono/)：可以掷骰、走格和换人，**尚不能真正买地、收租或与自动电脑对战**。
-- [本次 Pages 成功部署记录](https://github.com/SiliconYC/ReactMono/actions/runs/38753188805)：由 `gh-pages` 分支发布，源码的唯一默认开发/集成目标为 `dev`。
-- [Issue #3 的详细测试记录与局限](docs/ISSUE3_IMPLEMENTATION.md)：12/12 规则测试成功；沙盒浏览器烟测通过。暂时依赖 React CDN，**不支持断网运行**。
+- [GitHub Pages 人机对局体验版](https://siliconyc.github.io/ReactMono/)：真人投骰、购地、结束回合后，电脑会自动完成自己的回合。
+- [#5 合并 PR #10](https://github.com/SiliconYC/ReactMono/pull/10)；[Pages 成功部署 #38759941787](https://github.com/SiliconYC/ReactMono/actions/runs/38759941787)。
+- [#5 验证与环境限制](docs/ISSUE5_IMPLEMENTATION.md)：28 项自动测试通过、100 组种子完整对局、浏览器内联资源交互测试通过。公网 React CDN 的浏览器测试仍未直接开展。
 
 ## 协作入口
 
