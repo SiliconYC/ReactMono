@@ -73,7 +73,7 @@ class App extends React.Component<object, UiState> {
     try{
       const raw=await file.text();
       const preview=deserializeGame(raw);
-      const filename=file.name.replace(/^存档-(.*)-[0-9]{8}\\.json$/i,'$1').replace(/\\.json$/i,'');
+      const filename=file.name.replace(/^存档-(.*)-[0-9]{8}\.json$/i,'$1').replace(/\.json$/i,'');
       const name=(filename.trim()||'导入存档').slice(0,60);
       this.setState({importPreview:preview,importName:name,saveStatus:'文件校验通过，请预览并选择导入方式。'});
     }catch(e){this.setState({saveStatus:'导入失败：'+(e instanceof Error?e.message:String(e))+'。原存档未改动。'});}
