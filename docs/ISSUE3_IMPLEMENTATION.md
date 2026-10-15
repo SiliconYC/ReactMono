@@ -24,4 +24,11 @@
 - 暂依赖 React 18 在线 CDN；P2 需改为本地打包并验证断网能力。
 - 浏览器规则层不依赖 React 或 DOM；测试/构建仍通过 Node 22 和预装 TypeScript 5.8.3，干净网络环境的 `npm install` 本沙盒不可验证。
 
-发布操作仅在 `dev` 合并后进行，源码合并目标永远是 `dev`，编译静态产物另发 `gh-pages`。实际部署链接与结果在 Issue #3 和演化日志中核验后记录。
+## 实际提交与 GitHub Pages 验证
+
+- 代码工作分支：`feat/issue-3-board-turns`；[PR #8](https://github.com/SiliconYC/ReactMono/pull/8) 已经通过 squash 合并回 `dev`，提交 `5d267bbe5d3d52c51aedad070bbbc6a6ced2fe42`。
+- 静态编译产物经独立 [`gh-pages` 提交](https://github.com/SiliconYC/ReactMono/commit/93b9edb7c4710ed2a98c48ce24ba203142ee41ea) 发布；`index.html`、`style.css`、`core/game.js`、`ui/app.js` 四个文件的 Git blob 哈希与沙盒构建逐一吻合。
+- [GitHub Pages 部署运行 #38753188805](https://github.com/SiliconYC/ReactMono/actions/runs/38753188805) 报告 `completed / success`，发布地址为 **https://siliconyc.github.io/ReactMono/**。
+- 本沙盒的网页读取工具无法访问实际公网 Pages 地址，故**没有冒充已完成线上真人浏览器端到端核验**。用户可以访问上面的地址做实际体验。
+- 仅由 GitHub Pages 平台运行其自动发布任务，没有新增 GitHub Hosted Runner 来编译游戏。源码依然只在 `dev` 开发，**未操作 `main`**。
+

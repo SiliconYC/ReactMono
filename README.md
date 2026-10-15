@@ -57,9 +57,9 @@ P0 目标与治理 → P1 第一局能玩到底 → P2 可靠的准本地游戏�
 
 ## 工程测试地址
 
-- [GitHub Pages 工程验证版](https://siliconyc.github.io/ReactMono/)（不是完整可玩游戏）。
-- [Pages 自动部署成功记录](https://github.com/SiliconYC/ReactMono/actions/runs/38749060304)：由独立 `gh-pages` 分支发布，源码仍以 `dev` 为唯一默认开发/集成目标。
-- [Issue #2 的测试、构建与局限](docs/ISSUE2_IMPLEMENTATION.md)：P1 阶段暂用 React CDN，**尚不支持断网运行**；P2 必须打包本地依赖才能实现 PWA。
+- [GitHub Pages 棋盘回合体验版](https://siliconyc.github.io/ReactMono/)：可以掷骰、走格和换人，**尚不能真正买地、收租或与自动电脑对战**。
+- [本次 Pages 成功部署记录](https://github.com/SiliconYC/ReactMono/actions/runs/38753188805)：由 `gh-pages` 分支发布，源码的唯一默认开发/集成目标为 `dev`。
+- [Issue #3 的详细测试记录与局限](docs/ISSUE3_IMPLEMENTATION.md)：12/12 规则测试成功；沙盒浏览器烟测通过。暂时依赖 React CDN，**不支持断网运行**。
 
 ## 协作入口
 

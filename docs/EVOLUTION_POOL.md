@@ -19,7 +19,7 @@
 | 编号 | 方向 | 阶段 | 状态 | 进入 Issue 的条件 |
 | --- | --- | --- | --- | --- |
 | [P001](proposals/P001-roadmap.md) | 六阶段目标与退出标准 | P0–P5 | 阶段基线已确定；持续复核 | 有明确缺失的当前阶段可验收工作，不开通用路线图 Issue |
-| [P002](proposals/P002-first-playable.md) | 第一局能玩到底的玩法边界 | P1 | **#2 工程骨架已合并；#3–#6 待实施** | [#2](https://github.com/SiliconYC/ReactMono/issues/2)、[#3](https://github.com/SiliconYC/ReactMono/issues/3)、[#4](https://github.com/SiliconYC/ReactMono/issues/4)、[#5](https://github.com/SiliconYC/ReactMono/issues/5)、[#6](https://github.com/SiliconYC/ReactMono/issues/6)；等待开发与验收 |
+| [P002](proposals/P002-first-playable.md) | 第一局能玩到底的玩法边界 | P1 | **#2、#3 已合并；#4–#6 待实施** | [#2](https://github.com/SiliconYC/ReactMono/issues/2)、[#3](https://github.com/SiliconYC/ReactMono/issues/3)、[#4](https://github.com/SiliconYC/ReactMono/issues/4)、[#5](https://github.com/SiliconYC/ReactMono/issues/5)、[#6](https://github.com/SiliconYC/ReactMono/issues/6)；等待开发与验收 |
 | [P003](proposals/P003-local-pwa.md) | Pages / PWA / 本地存档 | P2（兼顾 P1） | **延期 P2** | P1 仅保留数据模型版本接口；当前不为部署、离线和完整存读档开 Issue |
 | [P004](proposals/P004-evolution-governance.md) | AI 发现、筛选、实施与独立验收 | 全阶段 | **已实施第一次提案筛选；效果待验证** | #2–#6 从候选进入执行；尚无自主编码、PR 或独立验收成绩 |
 | [P005](proposals/P005-classic-mechanics.md) | 经典玩法保留与再设计 | P1–P4 | **持续研究；复杂玩法延期** | 当前仅买地/收租/回合进入 P1；股票、建筑、卡片、音画待之后阶段评估 |

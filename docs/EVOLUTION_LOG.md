@@ -33,6 +33,16 @@
 - **验收范围**：本轮只确认了工程、单测、浏览器本地烟测及 GitHub Pages 平台发布结果；**没有**实现骰子动作、地图行走、租金、电脑策略或完整对局，不能计入“已做出游戏”。
 - **下一步**：[Issue #3](https://github.com/SiliconYC/ReactMono/issues/3) 棋盘、骰子与回合规则。
 
+### 2026-10-15｜E002：Issue #3 棋盘、骰子与回合系统
+
+- **来源**：[P002](proposals/P002-first-playable.md)、[Issue #3](https://github.com/SiliconYC/ReactMono/issues/3)；从 #2 工程契约扩展到实际棋盘与行动规则。
+- **真实新增玩家能力**：GitHub Pages 测试版显示 24 格封闭棋盘、人物标记；点击“开始测试对局”，即可掷骰、环绕走格、处理到达事件、跳过尚未支持的地产购买、结束回合，并由玩家手动为电脑代操作。这是可交互演示，不是完整游戏。
+- **规则验收**：先新增 6 项失败测试再实现，连同原有测试合计 `npm test` **12/12 通过**；覆盖骰子范围、绕圈、回合合法性、真人/电脑轮换、固定种子重现、60 轮无界面终局与终局拒绝。
+- **浏览器烟测**：在沙盒 Chromium 通过注入实际编译 JS 和本地 React 16 UMD 验证，24 格显示，真人/电脑各完成一回合后进入第 2 轮，玩家分别位于 1 与 5 号格，无页面脚本异常。因沙盒网络策略，**此测试不能证明线上 React 18 CDN 和 Pages 端到端交互已验收**。
+- **源码与发布**：[PR #8](https://github.com/SiliconYC/ReactMono/pull/8) 已合并到 `dev`（`5d267bbe5d3d52c51aedad070bbbc6a6ced2fe42`）；[发布分支提交](https://github.com/SiliconYC/ReactMono/commit/93b9edb7c4710ed2a98c48ce24ba203142ee41ea)；[Pages 自动部署 #38753188805](https://github.com/SiliconYC/ReactMono/actions/runs/38753188805) `completed / success`，编译 JS 与站点静态资源的哈希吻合。
+- **范围边界**：土地购买、收租、资金变化、破产与真正胜负未做（#4）；电脑自动策略未做（#5）；完整对局与独立端到端验收未做（#6）；PWA/存读档仍属于 P2。不得将 #3 算成完成一局游戏。
+- **下一轮**：[#4 地产交易与经济胜负](https://github.com/SiliconYC/ReactMono/issues/4)，在 #3 的 `await_decision` 阶段接入购买/跳过和财务结算；任何修改应保留此次确定性与规则状态机测试。
+
 ## 自主改进实验账本
 
 **当前尚无经验证的自主游戏改进轮次。** 后续每轮至少记录：
