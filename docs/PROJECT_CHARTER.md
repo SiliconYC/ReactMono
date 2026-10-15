@@ -51,7 +51,7 @@
 
 ## 当前阶段路线图
 
-从 P0 到 P5 的能力里程碑与双线验收见 [ROADMAP.md](ROADMAP.md)。阶段是讨论中的工作基线，不是机械的排期。先讨论探索性候选，再只将筛选后的可验收任务放进 Issue。
+从 P0 到 P5 的能力里程碑与双线验收见 [ROADMAP.md](ROADMAP.md)。阶段是讨论中的工作基线，不是机械的排期。探索性的候选先落在 [EVOLUTION_POOL.md](EVOLUTION_POOL.md) 和 [proposals/](proposals/)；经过准入评审后，只有可验收的成熟任务进入 Issue。
 
 ## 项目阶段限制
 

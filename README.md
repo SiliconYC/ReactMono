@@ -41,19 +41,22 @@
 
 技术选型不是最终决定，变更需说明理由和验收证据。
 
-## 阶段路线图（讨论草案）
+## 阶段路线图
 
 P0 目标与治理 → P1 第一局能玩到底 → P2 可靠的准本地游戏（含 Pages/PWA/存档）→ P3 丰富核心玩法 → P4 高完成度正式版 → P5 长期自主进化。**自主进化实验贯穿所有阶段，并非 P5 才开始。** 每阶段都有明确退出验收，详见 [路线图](docs/ROADMAP.md)。
 
 ## 协作入口
 
-- [六阶段路线图（讨论草案）](docs/ROADMAP.md)
-- [首批 GitHub Discussions 待发布稿](docs/DISCUSSION_SEEDS.md)
+- [六阶段路线图](docs/ROADMAP.md)
+- [定向进化候选池（讨论与研究入口）](docs/EVOLUTION_POOL.md)
+- [首批五份独立提案](docs/proposals/)
+- [决策与实验记录](docs/EVOLUTION_LOG.md)
 - [项目目标与验收边界](docs/PROJECT_CHARTER.md)
 - [AI 自主定向进化流程](docs/AUTONOMOUS_EVOLUTION.md)
 - [GitHub Pages 与存档架构评估](docs/DEPLOYMENT_ASSESSMENT.md)
 - [AI Agent 必读约定](AGENTS.md)
-- [Discussions（已开启，首批讨论待发布）](https://github.com/SiliconYC/ReactMono/discussions)
-- [Issues（仅已批准的可执行任务）](https://github.com/SiliconYC/ReactMono/issues)
+- [Issues（只用于经筛选的可执行任务）](https://github.com/SiliconYC/ReactMono/issues)
+
+**协作机制**：探索性意见与长期改进假设统一落在 Git 管理的 Markdown 提案中；由 AI 自行维护、去重和评审，不依赖 GitHub Discussions。严重且明确的缺陷允许直接开 Issue。
 
 **初始化不等于自主代理已经在后台运行。** 持续的自动调度和执行环境必须在后续阶段单独部署、验证和启用。
