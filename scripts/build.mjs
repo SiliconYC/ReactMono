@@ -19,8 +19,10 @@ for (const [packageName, filename] of [
 }
 await createIcons();
 await cp('site/manifest.webmanifest','dist/manifest.webmanifest');
-const assets=['site/index.html','site/style.css','src/ui/app.tsx','src/core/game.ts',
-  'src/core/save.ts','src/storage/indexeddb.ts','site/sw.js'];
+const assets=['dist/index.html','dist/style.css','dist/ui/app.js','dist/core/game.js',
+  'dist/core/agent.js','dist/core/save.js','dist/storage/indexeddb.js',
+  'dist/vendor/react.production.min.js','dist/vendor/react-dom.production.min.js',
+  'dist/manifest.webmanifest','dist/icons/icon-192.png','dist/icons/icon-512.png','site/sw.js'];
 const fingerprint=createHash('sha256');
 for(const name of assets)fingerprint.update(await readFile(name));
 const sw=(await readFile('site/sw.js','utf8')).replace('__CACHE_VERSION__',fingerprint.digest('hex').slice(0,16));
