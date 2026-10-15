@@ -1,4 +1,5 @@
 import { applyAction, createGame, type GameAction, type GameEvent, type GameState, type Tile, netWorth } from '../core/game.js';
+import { chooseComputerAction } from '../core/agent.js';
 
 interface UiState { readonly game: GameState; readonly message: string; }
 
@@ -20,9 +21,28 @@ class App extends React.Component<object, UiState> {
 
   reset = (): void => this.setState({ game: createGame(20261015), message: '棋盘已重置，准备开始新一轮测试。' });
 
+  /** 每次状态变化只安排电脑的一步；重开后旧回调不会碰新对局。 */
+  componentDidUpdate(): void {
+    const snapshot = this.state.game;
+    if (snapshot.status !== 'playing' || snapshot.players[snapshot.currentPlayerIndex].kind !== 'computer') return;
+    window.setTimeout(() => {
+      if (this.state.game !== snapshot) return;
+      const action = chooseComputerAction(snapshot, { reserveCash: 200 });
+      if (!action) return;
+      const result = applyAction(snapshot, action);
+      if (!result.ok) {
+        this.setState({ message: '电脑操作失败（' + result.reason + '），请重新开局或报告缺陷。' });
+        return;
+      }
+      const actor = snapshot.players[snapshot.currentPlayerIndex];
+      this.setState({ game: result.state, message: this.describe(result.events, result.state, actor.name) });
+    }, 380);
+  }
+
   dispatch = (type: GameAction['type']): void => {
     const { game } = this.state;
     const actor = game.players[game.currentPlayerIndex];
+    if (actor.kind === 'computer') return;
     const result = applyAction(game, { type, actorId: actor.id });
     if (!result.ok) {
       const reason = result.reason === 'INSUFFICIENT_FUNDS' ? '资金不足，无法购买这块地产。请放弃购买。' : '当前阶段不能执行这个操作。';
@@ -100,9 +120,9 @@ class App extends React.Component<object, UiState> {
       <main className="app-shell">
         <header className="topbar">
           <div className="brand"><span className="brand-mark">富</span><span>大富翁 <small>ReactMono</small></span></div>
-          <span className="version-tag">P1 · #4 地产经济体验版</span>
+          <span className="version-tag">P1 · #5 人机对局体验版</span>
         </header>
-        <section className="headline"><div><span className="section-eyebrow">24 格 · 买地收租 · 60 轮定胜负</span><h1>每一步，都是一笔生意。</h1><p>现在可以买地、收取租金，资金不足时会破产；达到第 60 轮按净资产决定胜负。电脑仍需手动代操作。</p></div><button type="button" className="reset-btn" onClick={this.reset}>↻ 重新开局</button></section>
+        <section className="headline"><div><span className="section-eyebrow">24 格 · 买地收租 · 60 轮定胜负</span><h1>每一步，都是一笔生意。</h1><p>买地、收租和破产已经生效。轮到电脑时会自动掷骰、决定是否买地并结束回合；第 60 轮按净资产决胜。</p></div><button type="button" className="reset-btn" onClick={this.reset}>↻ 重新开局</button></section>
         <div className="layout">
           <section className="board-card" aria-label="24 格游戏棋盘">
             <div className="board">
@@ -122,20 +142,21 @@ class App extends React.Component<object, UiState> {
               <div className="turn-person"><span className={`portrait ${current.kind}`}>{current.kind === 'human' ? '人' : '机'}</span><div><strong>{current.name}</strong><small>{phaseDescription}</small></div></div>
               <div className="turn-position">位置：<b>{current.position} 号格</b><span>·</span>资金：<b>{current.cash.toLocaleString('zh-CN')}</b></div>
               {game.status === 'setup' && <button type="button" className="primary-btn" onClick={() => this.dispatch('start_game')}>开始测试对局 <span>→</span></button>}
-              {game.phase === 'await_roll' && <button type="button" className="primary-btn" onClick={() => this.dispatch('roll')}>{current.kind === 'computer' ? '代电脑掷骰' : '掷骰前进'} <span>🎲</span></button>}
-              {game.phase === 'await_decision' && <div className="purchase-actions">
+              {current.kind === 'computer' && game.status === 'playing' && <p className="computer-thinking" role="status">电脑正在自动操作，保留至少 200 游戏币现金…</p>}
+              {current.kind === 'human' && game.phase === 'await_roll' && <button type="button" className="primary-btn" onClick={() => this.dispatch('roll')}>掷骰前进 <span>🎲</span></button>}
+              {current.kind === 'human' && game.phase === 'await_decision' && <div className="purchase-actions">
                 <p className="purchase-info">{targetTile.title}　售价 <b>{targetTile.price}</b>　过路费 <b>{targetTile.rent}</b></p>
                 <button type="button" className="primary-btn" onClick={() => this.dispatch('buy_property')} disabled={!hasMoneyForLand}>购买地产 <span>⌂</span></button>
                 {!hasMoneyForLand && <p className="insufficient-msg">资金不足，不能购买此地。</p>}
                 <button type="button" className="secondary-btn" onClick={() => this.dispatch('decline_property')}>放弃购买，继续回合 →</button>
               </div>}
-              {game.phase === 'await_end_turn' && <button type="button" className="primary-btn" onClick={() => this.dispatch('end_turn')}>结束当前回合 <span>→</span></button>}
+              {current.kind === 'human' && game.phase === 'await_end_turn' && <button type="button" className="primary-btn" onClick={() => this.dispatch('end_turn')}>结束当前回合 <span>→</span></button>}
               {game.phase === 'finished' && <div className="result-box" role="status"><strong>{game.winnerId ? `${game.players.find(p => p.id === game.winnerId)?.name}获胜！` : '双方平局！'}</strong><p>最终净资产：玩家 {netWorth(game,'p1')} · 电脑 {netWorth(game,'p2')}</p><button type="button" className="primary-btn" onClick={this.reset}>再来一局 <span>↻</span></button></div>}
               <p className="turn-tip" role="status">{message}</p>
             </div>
             <div className="players-card"><div className="card-label">玩家状态</div>{game.players.map(p => <div key={p.id} className={`player-line ${current.id === p.id && game.status === 'playing' ? 'is-current' : ''}`}><span className={`player-dot ${p.kind}`}>{p.kind === 'human' ? '人' : '机'}</span><div><strong>{p.name}</strong><small>{p.position} 号格 · 现金 {p.cash.toLocaleString('zh-CN')} · 资产 {netWorth(game,p.id).toLocaleString('zh-CN')}{p.bankrupt ? ' · 已破产' : ''}</small></div><span className="player-kind">{p.kind === 'human' ? '真人' : '电脑'}</span></div>)}</div>
             <div className="activity-card"><div className="card-label">最近事件</div><ol>{lastEvents.map((e,i) => <li key={`${game.events.length}-${i}`}>{this.describeEvent(e)}</li>)}</ol></div>
-            <div className="info-card"><strong>当前版本说明</strong><p>买地、收租、破产与按净资产结算已实现。买地款从系统扣除；租金进入地主账户。每人最多行动 60 次；尚无建房或复杂清算。</p><p>接下来：<b>#5 电脑自动行动 → #6 完整界面验收</b>。当前仍需要手动操作电脑玩家。</p></div>
+            <div className="info-card"><strong>当前版本说明</strong><p>买地、收租、破产与按净资产结算已实现。买地款从系统扣除；租金进入地主账户。每人最多行动 60 次；尚无建房或复杂清算。</p><p>电脑按合法规则自动掷骰、购买或放弃地块、完成回合；买地后预留 200 游戏币。已使用 100 个不同随机种子验证完整对局。下一步：<b>#6 界面与整局验收</b>。</p></div>
           </aside>
         </div>
         <footer className="footer">纯前端 · 简体中文 · 不需要账号　｜　当前尚无存读档与断网能力（P2 实现）</footer>
