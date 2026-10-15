@@ -1,8 +1,9 @@
 import { applyAction, createGame, type GameAction, type GameEvent, type GameState, type Tile, netWorth } from '../core/game.js';
 import { chooseComputerAction } from '../core/agent.js';
 import { listSlots, readSlot, writeSlot, deleteSlot, type SlotSummary } from '../storage/indexeddb.js';
+import { deserializeGame, MAX_SAVE_CHARS, type SaveEnvelope } from '../core/save.js';
 
-interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly fastMode: boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; }
+interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly fastMode: boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; readonly importPreview: SaveEnvelope | null; readonly importName: string; }
 
 /** 环形棋盘固定 8 列 × 6 行：8 + 4 + 8 + 4 = 24 格。 */
 function cellPosition(index: number): { gridColumn: number; gridRow: number } {
@@ -17,7 +18,7 @@ const kindLabel: Record<Tile['kind'], string> = { start: '起点', property: '�
 class App extends React.Component<object, UiState> {
   constructor(props: object) {
     super(props);
-    this.state = { game: createGame(20261015), seedInput: '20261015', fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+    this.state = { game: createGame(20261015), seedInput: '20261015', fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
   }
 
   private computerTimer: number | null = null;
@@ -46,6 +47,54 @@ class App extends React.Component<object, UiState> {
       if(epoch===this.saveEpoch)this.setState({saveStatus:'自动保存失败：'+(e instanceof Error?e.message:String(e))+'。请手动导出备份。'});
     });
   }
+
+  private exportSlot = async (slot:SlotSummary):Promise<void> => {
+    try{
+      const backup=await readSlot(slot.id);
+      const content=JSON.stringify(backup,null,2);
+      const blob=new Blob([content],{type:'application/json;charset=utf-8'});
+      const url=URL.createObjectURL(blob);
+      const link=document.createElement('a');
+      const filename=slot.name.replace(/[\\/:*?"<>|]/g,'_');
+      link.href=url;
+      link.download='存档-'+filename+'-'+backup.updatedAt.slice(0,10).replaceAll('-','')+'.json';
+      document.body.appendChild(link);
+      link.click();link.remove();
+      window.setTimeout(()=>URL.revokeObjectURL(url),1000);
+      this.setState({saveStatus:'已生成「'+slot.name+'」备份文件，请自行保管。'});
+    }catch(e){this.setState({saveStatus:'导出失败：'+(e instanceof Error?e.message:String(e))});}
+  };
+  private selectImport = async (event:{target:{files:FileList|null;value:string}}):Promise<void> => {
+    const file=event.target.files?.[0];
+    event.target.value='';
+    if(!file)return;
+    this.setState({importPreview:null});
+    if(file.size>MAX_SAVE_CHARS){this.setState({saveStatus:'导入失败：文件过大，最多 4 MB'});return;}
+    try{
+      const raw=await file.text();
+      const preview=deserializeGame(raw);
+      const filename=file.name.replace(/^存档-(.*)-[0-9]{8}\.json$/i,'$1').replace(/\.json$/i,'');
+      const name=(filename.trim()||'导入存档').slice(0,60);
+      this.setState({importPreview:preview,importName:name,saveStatus:'文件校验通过，请预览并选择导入方式。'});
+    }catch(e){this.setState({saveStatus:'导入失败：'+(e instanceof Error?e.message:String(e))+'。原存档未改动。'});}
+  };
+  private applyImport = async (mode:'new'|'overwrite'):Promise<void> => {
+    const {importPreview,saveSlots}=this.state;
+    if(!importPreview||this.state.storageBusy)return;
+    const name=this.state.importName.trim();
+    if(!name||name.length>60){this.setState({saveStatus:'请输入 1 至 60 个字符的存档名称'});return;}
+    const duplicate=saveSlots.find(s=>s.name===name);
+    if(mode==='overwrite'&&!duplicate)return;
+    const id=mode==='overwrite'&&duplicate?duplicate.id:'manual-'+crypto.randomUUID();
+    const newName=mode==='new'&&duplicate?name+'（副本）':name;
+    if(newName.length>60){this.setState({saveStatus:'副本名称过长，请先缩短名称'});return;}
+    try{
+      await writeSlot(id,newName,'manual',importPreview.game);
+      this.setState({importPreview:null,importName:'',saveStatus:'「'+newName+'」已安全导入，可点击读取继续对局。'});
+      await this.refreshSlots();
+    }catch(e){this.setState({saveStatus:'写入失败：'+(e instanceof Error?e.message:String(e))+'。原存档未被修改。'});}
+  };
+
   private newManualSlot = async ():Promise<void> => {
     if(this.state.game.status==='setup' || this.state.storageBusy)return;
     const name=window.prompt('输入新存档名称','存档 '+new Date().toLocaleString('zh-CN'))?.trim();
@@ -257,10 +306,26 @@ class App extends React.Component<object, UiState> {
                 <div><strong>{slot.name}</strong><small>{slot.kind==='auto'?'自动':'手动'} · {new Date(slot.updatedAt).toLocaleString('zh-CN')}</small></div>
                 <div className="save-actions">
                   <button type="button" disabled={this.state.storageBusy} onClick={()=>void this.restoreSlot(slot)}>读取</button>
+                  <button type="button" disabled={this.state.storageBusy} onClick={()=>void this.exportSlot(slot)}>导出</button>
                   {slot.kind==='manual' && <button type="button" disabled={this.state.storageBusy||game.status==='setup'} onClick={()=>void this.overwriteSlot(slot)}>覆盖</button>}
                   <button type="button" disabled={this.state.storageBusy} onClick={()=>void this.removeSlot(slot)}>删除</button>
                 </div>
               </li>)}</ul>
+              <label className="import-label">从本机文件导入（只读取 JSON，不上传云端）
+                <input type="file" accept=".json,application/json" aria-label="导入 JSON 存档文件" onChange={(event:{target:{files:FileList|null;value:string}})=>void this.selectImport(event)} />
+              </label>
+              {this.state.importPreview && <div className="import-preview" role="region" aria-label="存档导入预览">
+                <strong>导入预览：第 {this.state.importPreview.game.round} 轮</strong>
+                <p>玩家现金 {this.state.importPreview.game.players[0].cash}，电脑现金 {this.state.importPreview.game.players[1].cash}；
+                已有地产 {this.state.importPreview.game.tiles.filter(t=>t.ownerId!==null).length} 块；
+                当前阶段 {this.state.importPreview.game.phase}</p>
+                <label>存档名称 <input aria-label="导入存档名称" type="text" maxLength={60} value={this.state.importName} onChange={(e:{target:{value:string}})=>this.setState({importName:e.target.value})}/></label>
+                {this.state.saveSlots.some(s=>s.name===this.state.importName.trim())?<div className="save-actions">
+                  <button type="button" onClick={()=>void this.applyImport('overwrite')}>覆盖同名存档</button>
+                  <button type="button" onClick={()=>void this.applyImport('new')}>另存为副本</button>
+                </div>:<button type="button" className="secondary-btn" onClick={()=>void this.applyImport('new')}>确认导入存档</button>}
+                <button type="button" className="secondary-btn" onClick={()=>this.setState({importPreview:null,importName:'',saveStatus:'已取消导入'})}>取消导入</button>
+              </div>}
             </div>
             <div className="players-card"><div className="card-label">玩家状态</div>{game.players.map(p => <div key={p.id} className={`player-line ${current.id === p.id && game.status === 'playing' ? 'is-current' : ''}`}><span className={`player-dot ${p.kind}`}>{p.kind === 'human' ? '人' : '机'}</span><div><strong>{p.name}</strong><small>{p.position} 号格 · 现金 {p.cash.toLocaleString('zh-CN')} · 资产 {netWorth(game,p.id).toLocaleString('zh-CN')}{p.bankrupt ? ' · 已破产' : ''}</small></div><span className="player-kind">{p.kind === 'human' ? '真人' : '电脑'}</span></div>)}</div>
             <div className="activity-card"><div className="card-label">最近事件</div><ol>{lastEvents.map((e,i) => <li key={`${game.events.length}-${i}`}>{this.describeEvent(e)}</li>)}</ol></div>
