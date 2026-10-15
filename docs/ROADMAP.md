@@ -45,6 +45,6 @@
 
 ## 首批讨论与下一步
 
-参见 [首批 GitHub Discussions 待发布稿](DISCUSSION_SEEDS.md)。本文件不能代替真实 Discussion；仓库尚未开启 Discussions，开启后发布并用实际 URL 回链。第一阶段只要求启用讨论体系和形成可信的 P1 实施队列，**不应先灌入几十个 Issue**。
+参见 [首批 GitHub Discussions 待发布稿](DISCUSSION_SEEDS.md)。本文件不能代替真实 Discussion；仓库现已开启 Discussions，但本会话的 GitHub 连接尚无法创建帖子；应通过网页或有对应写入能力的执行环境发布并用实际 URL 回链。第一阶段只要求启用讨论体系和形成可信的 P1 实施队列，**不应先灌入几十个 Issue**。
 
 这份路线图以可验收成果驱动；阶段数量与顺序可在讨论中调整，任何修改不得无意突破产品硬约束。

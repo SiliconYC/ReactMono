@@ -1,6 +1,6 @@
 # 首批 GitHub Discussions 待发布稿
 
-> **状态：待发布，尚不是 GitHub Discussions 帖子。** 2026-10-15 检查仓库 API 显示 `has_discussions=false`，当前 GitHub 连接也没有“启用 Discussions / 创建 Discussion”权限接口。需要在仓库 Settings → General → Features 开启 Discussions，并由具备创建能力的账户将以下五项发布。发布后应把帖子 URL 回填本文件。
+> **状态：待发布，尚不是 GitHub Discussions 帖子。** 2026-10-15 复查确认仓库已经开启 Discussions（`has_discussions=true`），但本会话的 GitHub 连接未提供创建 Discussion 的操作接口。需要通过 GitHub 网页或具备 Discussions 写入能力的执行环境发布下列五篇。发布后应把帖子 URL 回填本文件。
 >
 > 建议新建四个开放讨论分类：①目标与路线图；②游戏设计；③技术与部署；④定向进化。不要为了分类而新建 Issue。
 

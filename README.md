@@ -53,6 +53,7 @@ P0 目标与治理 → P1 第一局能玩到底 → P2 可靠的准本地游戏�
 - [AI 自主定向进化流程](docs/AUTONOMOUS_EVOLUTION.md)
 - [GitHub Pages 与存档架构评估](docs/DEPLOYMENT_ASSESSMENT.md)
 - [AI Agent 必读约定](AGENTS.md)
-- [Issues](https://github.com/SiliconYC/ReactMono/issues)
+- [Discussions（已开启，首批讨论待发布）](https://github.com/SiliconYC/ReactMono/discussions)
+- [Issues（仅已批准的可执行任务）](https://github.com/SiliconYC/ReactMono/issues)
 
 **初始化不等于自主代理已经在后台运行。** 持续的自动调度和执行环境必须在后续阶段单独部署、验证和启用。
