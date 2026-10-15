@@ -17,14 +17,13 @@ export interface SaveEnvelope {
   readonly checksum: string;
 }
 type Dict = Record<string, unknown>;
-const fail = (reason: string): never => { throw new SaveError('INVALID_STATE', '存档数据无效：' + reason); };
 const record = (x: unknown): x is Dict => x !== null && typeof x === 'object' && !Array.isArray(x);
 const finite = (x: unknown, min=0, max=Number.MAX_SAFE_INTEGER): x is number =>
   typeof x === 'number' && Number.isSafeInteger(x) && x >= min && x <= max;
 const string = (x: unknown, max=100): x is string => typeof x === 'string' && x.length>0 && x.length<=max && x.trim().length>0;
 function keys(x: Dict, required: readonly string[], optional: readonly string[]=[]): void {
   if (required.some(k => !Object.hasOwn(x,k)) || Object.keys(x).some(k => !required.includes(k) && !optional.includes(k)))
-    fail('字段缺失或出现未知字段');
+    throw new SaveError('INVALID_STATE','存档数据无效：字段缺失或出现未知字段');
 }
 function iso(x: unknown): x is string {
   return typeof x === 'string' && /^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$/.test(x) &&
@@ -36,74 +35,75 @@ const EVENT_TYPES = new Set([
 ]);
 /** 校验当前规则 v1 的每一项持久化字段，避免不完整对象影响回合结算。 */
 export function validateGameState(value: unknown): asserts value is GameState {
-  if (!record(value)) fail('游戏状态必须为对象');
+  if (!record(value)) throw new SaveError('INVALID_STATE','存档数据无效：游戏状态必须为对象');
   keys(value,['schemaVersion','status','phase','revision','round','currentPlayerIndex','randomState',
     'maxRounds','players','tiles','winnerId','events']);
   if (value.schemaVersion !== SCHEMA_VERSION) throw new SaveError('INCOMPATIBLE_VERSION','游戏规则版本不兼容');
   if (!['setup','playing','finished'].includes(String(value.status)) ||
-      !['setup','await_roll','await_decision','await_end_turn','finished'].includes(String(value.phase))) fail('阶段不合法');
+      !['setup','await_roll','await_decision','await_end_turn','finished'].includes(String(value.phase))) throw new SaveError('INVALID_STATE','存档数据无效：阶段不合法');
   if ((value.status==='setup') !== (value.phase==='setup') ||
-      (value.status==='finished') !== (value.phase==='finished')) fail('状态与阶段不匹配');
+      (value.status==='finished') !== (value.phase==='finished')) throw new SaveError('INVALID_STATE','存档数据无效：状态与阶段不匹配');
   if (!finite(value.revision,0,100000) || !finite(value.maxRounds,1,100000) ||
       !finite(value.round,1,value.maxRounds as number) || !finite(value.currentPlayerIndex,0,1) ||
-      !finite(value.randomState,1,0xffffffff)) fail('回合、修订或随机数状态非法');
-  if (!Array.isArray(value.players) || value.players.length!==2) fail('玩家数量非法');
+      !finite(value.randomState,1,0xffffffff)) throw new SaveError('INVALID_STATE','存档数据无效：回合、修订或随机数状态非法');
+  if (!Array.isArray(value.players) || value.players.length!==2) throw new SaveError('INVALID_STATE','存档数据无效：玩家数量非法');
   const ids: string[] = [];
   for (let i=0;i<2;i++) {
     const p: unknown = value.players[i];
-    if (!record(p)) fail('玩家字段非法');
+    if (!record(p)) throw new SaveError('INVALID_STATE','存档数据无效：玩家字段非法');
     keys(p,['id','name','kind','position','cash','bankrupt']);
     if (!string(p.id,64) || !string(p.name,80) || ids.includes(p.id) ||
         p.kind!==(i===0?'human':'computer') || typeof p.bankrupt!=='boolean' ||
-        !finite(p.cash,0,1_000_000_000_000)) fail('玩家身份、现金或状态非法');
+        !finite(p.cash,0,1_000_000_000_000)) throw new SaveError('INVALID_STATE','存档数据无效：玩家身份、现金或状态非法');
     ids.push(p.id);
   }
-  if (!Array.isArray(value.tiles) || value.tiles.length<2 || value.tiles.length>512) fail('地图长度非法');
+  if (!Array.isArray(value.tiles) || value.tiles.length<2 || value.tiles.length>512) throw new SaveError('INVALID_STATE','存档数据无效：地图长度非法');
   let startCount=0;
   for (let i=0;i<value.tiles.length;i++) {
     const t: unknown=value.tiles[i];
-    if (!record(t)) fail('地图格字段非法');
+    if (!record(t)) throw new SaveError('INVALID_STATE','存档数据无效：地图格字段非法');
     if (t.kind==='property') {
       keys(t,['id','kind','title','price','rent','ownerId']);
       if (!finite(t.price,0,1_000_000_000_000) || !finite(t.rent,0,1_000_000_000_000) ||
-          (t.ownerId!==null && !ids.includes(String(t.ownerId)))) fail('地产价格、租金或产权非法');
+          (t.ownerId!==null && !ids.includes(String(t.ownerId)))) throw new SaveError('INVALID_STATE','存档数据无效：地产价格、租金或产权非法');
     } else {
       keys(t,['id','kind','title','ownerId']);
-      if ((t.kind!=='start' && t.kind!=='neutral') || t.ownerId!==null) fail('普通格或起点数据非法');
+      if ((t.kind!=='start' && t.kind!=='neutral') || t.ownerId!==null) throw new SaveError('INVALID_STATE','存档数据无效：普通格或起点数据非法');
     }
     if (t.kind==='start') startCount++;
-    if (t.id!==i || !string(t.title,100)) fail('地图位置或名称非法');
+    if (t.id!==i || !string(t.title,100)) throw new SaveError('INVALID_STATE','存档数据无效：地图位置或名称非法');
   }
-  if (startCount!==1 || value.tiles[0].kind!=='start') fail('起点配置非法');
+  if (startCount!==1 || value.tiles[0].kind!=='start') throw new SaveError('INVALID_STATE','存档数据无效：起点配置非法');
   for (const p of value.players) {
-    if (!finite(p.position,0,value.tiles.length-1)) fail('玩家位置越界');
+    if (!finite(p.position,0,value.tiles.length-1)) throw new SaveError('INVALID_STATE','存档数据无效：玩家位置越界');
   }
-  if (value.winnerId!==null && !ids.includes(String(value.winnerId))) fail('胜利者身份非法');
-  if (value.status!=='finished' && value.winnerId!==null) fail('未结束对局不能提前有胜利者');
+  if (value.winnerId!==null && !ids.includes(String(value.winnerId))) throw new SaveError('INVALID_STATE','存档数据无效：胜利者身份非法');
+  if (value.status!=='finished' && value.winnerId!==null) throw new SaveError('INVALID_STATE','存档数据无效：未结束对局不能提前有胜利者');
   if (value.phase==='await_decision') {
     const p=value.players[value.currentPlayerIndex as number];
     const tile=value.tiles[p.position];
-    if (tile.kind!=='property' || tile.ownerId!==null) fail('购地阶段未落在无主地产');
+    if (tile.kind!=='property' || tile.ownerId!==null) throw new SaveError('INVALID_STATE','存档数据无效：购地阶段未落在无主地产');
   }
-  if (value.status!=='finished' && value.players.some((p: Dict)=>p.bankrupt===true)) fail('未结束对局出现破产');
+  if (value.status!=='finished' && value.players.some((p: Dict)=>p.bankrupt===true)) throw new SaveError('INVALID_STATE','存档数据无效：未结束对局出现破产');
+  if (!Array.isArray(value.events)) throw new SaveError('INVALID_STATE','存档数据无效：事件列表缺失');
   if (value.status==='setup' && (value.revision!==0 || value.round!==1 ||
-      value.currentPlayerIndex!==0 || value.events.length!==0)) fail('未开始对局已有行动');
+      value.currentPlayerIndex!==0 || value.events.length!==0)) throw new SaveError('INVALID_STATE','存档数据无效：未开始对局已有行动');
   if (!Array.isArray(value.events) || value.events.length>10000 ||
-      (value.revision as number)>value.events.length) fail('事件数量或修订状态非法');
+      (value.revision as number)>value.events.length) throw new SaveError('INVALID_STATE','存档数据无效：事件数量或修订状态非法');
   for (const e of value.events) {
-    if (!record(e)) fail('事件字段非法');
+    if (!record(e)) throw new SaveError('INVALID_STATE','存档数据无效：事件字段非法');
     keys(e,['type'],['actorId','details']);
     if (!EVENT_TYPES.has(String(e.type)) ||
-        (e.actorId!==undefined && !ids.includes(String(e.actorId)))) fail('事件类型或行动者非法');
+        (e.actorId!==undefined && !ids.includes(String(e.actorId)))) throw new SaveError('INVALID_STATE','存档数据无效：事件类型或行动者非法');
     if (e.details!==undefined) {
-      if (!record(e.details) || Object.keys(e.details).length>32) fail('事件详情非法');
+      if (!record(e.details) || Object.keys(e.details).length>32) throw new SaveError('INVALID_STATE','存档数据无效：事件详情非法');
       for (const [k,v] of Object.entries(e.details)) {
         if (!string(k,80) || ['__proto__','constructor','prototype'].includes(k) ||
-            !(typeof v==='string' && v.length<=300 || typeof v==='number' && Number.isFinite(v))) fail('事件详情值非法');
+            !(typeof v==='string' && v.length<=300 || typeof v==='number' && Number.isFinite(v))) throw new SaveError('INVALID_STATE','存档数据无效：事件详情值非法');
       }
     }
   }
-  if (value.status==='finished' && value.events.at(-1)?.type!=='game_finished') fail('结束标记缺失');
+  if (value.status==='finished' && value.events.at(-1)?.type!=='game_finished') throw new SaveError('INVALID_STATE','存档数据无效：结束标记缺失');
 }
 /** FNV-1a 用于检测意外编辑或位损坏；本地公开文件无法提供抗恶意伪造的签名。 */
 function checksum(data: string): string {
@@ -115,7 +115,7 @@ export function serializeGame(game: GameState, options: {readonly createdAt?: st
   validateGameState(game);
   const now=options.now??new Date().toISOString();
   const createdAt=options.createdAt??now;
-  if (!iso(now) || !iso(createdAt) || createdAt>now) fail('时间格式或先后顺序非法');
+  if (!iso(now) || !iso(createdAt) || createdAt>now) throw new SaveError('INVALID_STATE','存档数据无效：时间格式或先后顺序非法');
   const payload={format:'reactmono-save' as const,formatVersion:SAVE_FORMAT_VERSION,
     rulesVersion:SCHEMA_VERSION,createdAt,updatedAt:now,game};
   const raw=JSON.stringify(payload);
@@ -134,7 +134,7 @@ export function deserializeGame(raw: string): SaveEnvelope {
     throw new SaveError('INCOMPATIBLE_VERSION','存档版本不兼容：目前仅支持正式 v1 存档');
   keys(value,['format','formatVersion','rulesVersion','createdAt','updatedAt','game','checksum']);
   if (!iso(value.createdAt) || !iso(value.updatedAt) || value.createdAt>value.updatedAt)
-    fail('时间戳无效');
+    throw new SaveError('INVALID_STATE','存档数据无效：时间戳无效');
   if (typeof value.checksum!=='string' || !/^[0-9a-f]{8}$/.test(value.checksum))
     throw new SaveError('INVALID_CHECKSUM','存档校验码缺失或损坏');
   const payload={format:value.format,formatVersion:value.formatVersion,rulesVersion:value.rulesVersion,
