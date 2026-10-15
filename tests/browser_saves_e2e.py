@@ -34,7 +34,7 @@ def main():
             assert page.locator('.save-list').get_by_text('第二份存档').count()==1
             row=page.locator('.save-list li').filter(has_text='第一份存档')
             row.get_by_role('button',name='读取').click()
-            page.wait_for_function('(r)=>document.querySelector("main")?.dataset.gameRevision===r',original)
+            page.wait_for_function('(r)=>document.querySelector("main")?.dataset.gameRevision===r',arg=original)
             assert page.locator('main').get_attribute('data-game-revision')==original
             assert page.locator('main').get_attribute('data-game-status')=='playing'
             row=page.locator('.save-list li').filter(has_text='第一份存档')
