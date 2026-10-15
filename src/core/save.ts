@@ -26,7 +26,7 @@ function keys(x: Dict, required: readonly string[], optional: readonly string[]=
     throw new SaveError('INVALID_STATE','存档数据无效：字段缺失或出现未知字段');
 }
 function iso(x: unknown): x is string {
-  return typeof x === 'string' && /^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$/.test(x) &&
+  return typeof x === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(x) &&
     Number.isFinite(Date.parse(x)) && new Date(x).toISOString() === x;
 }
 const EVENT_TYPES = new Set([
