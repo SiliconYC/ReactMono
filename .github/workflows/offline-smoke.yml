@@ -1,4 +1,4 @@
-name: 一次性 React Three.js 离线依赖包验证
+name: 一次性 React Three.js 离线依赖及独立浏览器验证
 on:
   push:
     branches:
@@ -19,7 +19,7 @@ jobs:
       - name: 首次构建
         working-directory: tools/offline-smoke
         run: npm run build
-      - name: 验证相同缓存可以完全离线重新安装
+      - name: 验证缓存能够完全离线重新安装
         working-directory: tools/offline-smoke
         env:
           npm_config_offline: 'true'
@@ -28,16 +28,30 @@ jobs:
           rm -rf node_modules
           npm ci --offline --ignore-scripts --no-audit --no-fund --cache .npm-cache
           npm run build
-      - name: 生成 Linux x64 / Node 22 可复用离线包
+      - name: 准备独立 Playwright Headless Shell
+        working-directory: tools/offline-smoke
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/tools/offline-smoke/.browser-cache
         run: |
-          tar -czf offline-react-three-linux-node22.tar.gz -C tools/offline-smoke package.json package-lock.json index.html src dist node_modules .npm-cache
-          sha256sum offline-react-three-linux-node22.tar.gz > SHA256SUMS
-          ls -lh offline-react-three-linux-node22.tar.gz
+          python -m pip install 'playwright==1.57.0' pillow
+          python -m playwright install chromium-headless-shell
+      - name: 在 Runner 使用真实 WebGL 和 React 按钮验收
+        working-directory: tools/offline-smoke
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/tools/offline-smoke/.browser-cache
+        run: python tests/browser_smoke.py --out browser-e2e-result
+      - name: 制作完全离线的 Node 与浏览器运行包
+        run: |
+          tar -czf offline-react-three-browser-linux-node22.tar.gz -C tools/offline-smoke package.json package-lock.json index.html src dist node_modules .npm-cache .browser-cache tests
+          sha256sum offline-react-three-browser-linux-node22.tar.gz > SHA256SUMS-BROWSER
+          ls -lh offline-react-three-browser-linux-node22.tar.gz
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: offline-react-three-linux-node22
+          name: offline-react-three-browser-linux-node22
           path: |
-            offline-react-three-linux-node22.tar.gz
-            SHA256SUMS
+            offline-react-three-browser-linux-node22.tar.gz
+            SHA256SUMS-BROWSER
+            tools/offline-smoke/browser-e2e-result/
           retention-days: 90
-          if-no-files-found: error
+          if-no-files-found: warn
