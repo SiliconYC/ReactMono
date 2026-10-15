@@ -40,3 +40,5 @@
 .import-preview p{margin:6px 0;line-height:1.6}
 .import-preview input{width:100%;padding:7px;border:1px solid #accaba;border-radius:6px}
 .import-preview .save-actions{margin-top:8px;flex-wrap:wrap}
+
+.network-indicator{font-size:12px;color:#bfe9ce;padding:4px 8px}.topbar .secondary-btn{width:auto;font-size:12px}

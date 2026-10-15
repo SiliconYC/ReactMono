@@ -3,7 +3,7 @@ import { chooseComputerAction } from '../core/agent.js';
 import { listSlots, readSlot, writeSlot, deleteSlot, type SlotSummary } from '../storage/indexeddb.js';
 import { deserializeGame, MAX_SAVE_CHARS, type SaveEnvelope } from '../core/save.js';
 
-interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly fastMode: boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; readonly importPreview: SaveEnvelope | null; readonly importName: string; }
+interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly fastMode: boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; readonly importPreview: SaveEnvelope | null; readonly importName: string; readonly offline: boolean; readonly pwaUpdate: boolean; readonly pwaMessage: string; }
 
 /** 环形棋盘固定 8 列 × 6 行：8 + 4 + 8 + 4 = 24 格。 */
 function cellPosition(index: number): { gridColumn: number; gridRow: number } {
@@ -18,14 +18,49 @@ const kindLabel: Record<Tile['kind'], string> = { start: '起点', property: '�
 class App extends React.Component<object, UiState> {
   constructor(props: object) {
     super(props);
-    this.state = { game: createGame(20261015), seedInput: '20261015', fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+    this.state = { game: createGame(20261015), seedInput: '20261015', fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator==='undefined'?false:!navigator.onLine, pwaUpdate:false, pwaMessage:'', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
   }
 
   private computerTimer: number | null = null;
 
   private saveEpoch = 0;
   private saveQueue: Promise<void> = Promise.resolve();
-  componentDidMount():void { void this.refreshSlots(); }
+
+  private pwaRegistration:ServiceWorkerRegistration|null=null;
+  private shouldReload=false;
+  private updateOnline=():void=>{this.setState({offline:!navigator.onLine});};
+  private controllerChanged=():void=>{if(this.shouldReload)window.location.reload();};
+  private checkUpdate = (reg:ServiceWorkerRegistration):void => {
+    if(reg.waiting && navigator.serviceWorker.controller)this.setState({pwaUpdate:true});
+  };
+  private initPwa = async():Promise<void> => {
+    if(!('serviceWorker' in navigator)){this.setState({pwaMessage:'本浏览器不支持应用安装，仍可在线游玩。'});return;}
+    try{
+      navigator.serviceWorker.addEventListener('controllerchange',this.controllerChanged);
+      const reg=await navigator.serviceWorker.register('./sw.js',{scope:'./'});
+      this.pwaRegistration=reg;
+      reg.addEventListener('updatefound',()=>{
+        const worker=reg.installing;
+        worker?.addEventListener('statechange',()=>{
+          if(worker.state==='installed')this.checkUpdate(reg);
+        });
+      });
+      this.checkUpdate(reg);
+    }catch(e){this.setState({pwaMessage:'离线缓存安装失败，在线游戏仍可使用：'+(e instanceof Error?e.message:String(e))});}
+  };
+  private applyPwaUpdate=async():Promise<void>=>{
+    const worker=this.pwaRegistration?.waiting;
+    if(!worker)return;
+    await this.saveQueue;
+    this.shouldReload=true;
+    worker.postMessage('SKIP_WAITING');
+  };
+  componentDidMount():void {
+    void this.refreshSlots();
+    window.addEventListener('online',this.updateOnline);
+    window.addEventListener('offline',this.updateOnline);
+    void this.initPwa();
+  }
   private stopTimer():void {
     if(this.computerTimer!==null){window.clearTimeout(this.computerTimer);this.computerTimer=null;}
   }
@@ -153,6 +188,9 @@ class App extends React.Component<object, UiState> {
     this.setState({ game: result.state, activeSeed: seed, message: '游戏已开始！轮到玩家掷骰。' });
   };
   componentWillUnmount(): void {
+    window.removeEventListener('online',this.updateOnline);
+    window.removeEventListener('offline',this.updateOnline);
+    navigator.serviceWorker?.removeEventListener('controllerchange',this.controllerChanged);
     this.stopTimer();
   }
 
@@ -259,7 +297,9 @@ class App extends React.Component<object, UiState> {
       <main className="app-shell" data-game-status={game.status} data-game-phase={game.phase} data-game-revision={game.revision}>
         <header className="topbar">
           <div className="brand"><span className="brand-mark">富</span><span>大富翁 <small>ReactMono</small></span></div>
-          <span className="version-tag">P2 · 本地多存档</span>
+          <span className="version-tag">P2 · 可离线</span>
+          <span className="network-indicator" role="status">{this.state.offline?'已断网 · 可用本地缓存':'已联网'}{this.state.pwaMessage?' · '+this.state.pwaMessage:''}</span>
+          {this.state.pwaUpdate&&<button className="secondary-btn" type="button" onClick={()=>void this.applyPwaUpdate()}>检测到新版，保存并更新</button>}
         </header>
         <section className="headline"><div><span className="section-eyebrow">24 格 · 买地收租 · 60 轮定胜负</span><h1>每一步，都是一笔生意。</h1><p>一个人就能完成整局：掷骰、买地、收租，与自动行动的电脑对抗；有人破产即决出胜负，否则第 60 轮按净资产决胜。</p></div><button type="button" className="reset-btn" onClick={this.reset}>↻ 重新开局</button></section>
         <div className="layout">
