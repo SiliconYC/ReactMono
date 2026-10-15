@@ -1,0 +1,43 @@
+name: 一次性 React Three.js 离线依赖包验证
+on:
+  push:
+    branches:
+      - experiment/offline-react-three-20261016
+permissions:
+  contents: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: 在线安装并记录锁定依赖
+        working-directory: tools/offline-smoke
+        run: npm install --ignore-scripts --no-audit --no-fund --cache .npm-cache
+      - name: 首次构建
+        working-directory: tools/offline-smoke
+        run: npm run build
+      - name: 验证相同缓存可以完全离线重新安装
+        working-directory: tools/offline-smoke
+        env:
+          npm_config_offline: 'true'
+          npm_config_registry: http://127.0.0.1:9
+        run: |
+          rm -rf node_modules
+          npm ci --offline --ignore-scripts --no-audit --no-fund --cache .npm-cache
+          npm run build
+      - name: 生成 Linux x64 / Node 22 可复用离线包
+        run: |
+          tar -czf offline-react-three-linux-node22.tar.gz -C tools/offline-smoke package.json package-lock.json index.html src dist node_modules .npm-cache
+          sha256sum offline-react-three-linux-node22.tar.gz > SHA256SUMS
+          ls -lh offline-react-three-linux-node22.tar.gz
+      - uses: actions/upload-artifact@v4
+        with:
+          name: offline-react-three-linux-node22
+          path: |
+            offline-react-three-linux-node22.tar.gz
+            SHA256SUMS
+          retention-days: 90
+          if-no-files-found: error

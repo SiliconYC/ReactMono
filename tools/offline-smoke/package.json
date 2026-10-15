@@ -1,0 +1,16 @@
+{
+  "name": "react-three-offline-smoke",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "esbuild src/main.jsx --bundle --format=esm --platform=browser --target=es2020 --outfile=dist/app.js"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "three": "0.180.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.0"
+  }
+}
