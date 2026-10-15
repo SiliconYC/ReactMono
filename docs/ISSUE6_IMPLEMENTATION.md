@@ -6,7 +6,7 @@
 
 - 首页可设置 0–4294967295 的对局随机种子；重复种子和相同操作可复现事件序列。
 - 快速模式只缩短电脑行动延迟，不改变规则和策略。
-- 电腦（电脑）每步通过同一个 `applyAction` 引擎执行合法动作；防止旧定时器在重新开局后篡改新局。
+- 电脑每步通过同一个 `applyAction` 引擎执行合法动作；防止旧定时器在重新开局后篡改新局。
 - 胜负界面展示赢家/平局、结束原因、双方净资产、种子，并支持「再来一局」。
 - 全程简体中文，不提供用户账户、云同步或游戏后端。
 
@@ -16,7 +16,7 @@
 - `npm run build`：严格 TypeScript 编译和静态构建通过。
 - `python tests/browser_e2e.py` 和 `REACTMONO_E2E_SEED=0 python tests/browser_e2e.py`：Chromium 浏览器在真实页面按钮上完成两局，均到达破产终局，覆盖买地、放弃、自动对手、收租、胜负、新开局以及非法种子拒绝；零页内脚本错误。
 - E2E 浏览器采用沙盒已有的本地 React UMD 16 测试替代物，载入**同一份已编译游戏逻辑与 UI 代码**。此浏览器测试不能代替联网 React 18 CDN 与 GitHub Pages 公网加载验收；可用 `REACT_UMD_PATH` 和 `REACT_DOM_UMD_PATH` 指定其他本地 UMD 文件。
-- 网页资源已在代码仓库使用静态形式部署，GitHub Pages 发布后应核对平台官方部署记录；仓库默认开发和 PR 目标为 `dev`。
+- 网页资源已在代码仓库使用静态形式部署，GitHub Pages 官方发布 #38767372780 成功（https://github.com/SiliconYC/ReactMono/actions/runs/38767372780）；仓库默认开发和 PR 目标为 `dev`。
 
 ## 未纳入 P1
 

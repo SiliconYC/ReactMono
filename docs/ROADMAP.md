@@ -56,3 +56,11 @@
 首批五份正式仓库提案已经落在 [候选池](EVOLUTION_POOL.md)，分别讨论阶段路线、P1 可玩边界、Pages/PWA/存档、AI 自主晋升机制和经典玩法。提案可以持续更新，但不自动创建 Issue。
 
 P0→P1 通过 [Issue #1](https://github.com/SiliconYC/ReactMono/issues/1) 发起首轮规划：先从提案中选少量可验收任务，再进入开发队列。**不要先灌入几十个 Issue。** 阶段数和顺序可以有证据地调整，不能无意突破产品硬约束。
+
+## 2026-10-15：P1 最小可玩闭环验收记录
+
+[#2–#6](https://github.com/SiliconYC/ReactMono/issues) 均已合并 `dev`。真人能从首页开始，投骰移动、决定买地/放弃、支付租金、等待电脑正常自动行动，最终经破产或 60 轮净资产结算显示胜负，并重新开局。
+
+沙盒 `npm test` 28/28 通过（含 100 个固定种子的无界面完整对局）；另有种子 17、0 的两次 Chromium 浏览器实际按钮全局完成记录（见 [#6 实施报告](ISSUE6_IMPLEMENTATION.md)）。[GitHub Pages 发布流程](https://github.com/SiliconYC/ReactMono/actions/runs/38767372780) 为成功。外部 CDN 的真实公网加载仍未在该沙盒做浏览器验证，故不可夸称公网兼容已被全覆盖。
+
+**P1 是最小可玩版，不是完整《大富翁4》**。下一阶段 P2 重点是静态资源离线、PWA、多存档、基础卡片与地产升级，仍须通过提案池筛选小任务，不得无理由扩大范围。
