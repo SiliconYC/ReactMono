@@ -19,6 +19,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", default=str(Path(__file__).resolve().parents[1]))
     parser.add_argument("--out", default="/tmp/react-three-browser-e2e")
+    parser.add_argument("--channel", default=None, help="Use chromium for Playwright regular Chromium instead of headless shell")
     args = parser.parse_args()
     root = Path(args.root).resolve()
     out = Path(args.out).resolve()
@@ -30,11 +31,12 @@ def main():
     try:
         with sync_playwright() as pw:
             browser = pw.chromium.launch(
+                channel=args.channel,
                 headless=True,
                 args=[
                     "--no-sandbox", "--disable-dev-shm-usage",
                     "--use-gl=angle", "--use-angle=swiftshader",
-                    "--enable-webgl-unsafe-swiftshader",
+                    "--enable-unsafe-swiftshader",
                 ],
             )
             page = browser.new_page(viewport={"width": 900, "height": 720}, device_scale_factor=1)
