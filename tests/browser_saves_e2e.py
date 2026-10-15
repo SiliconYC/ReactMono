@@ -39,6 +39,7 @@ def main():
             assert page.locator('main').get_attribute('data-game-status')=='playing'
             row=page.locator('.save-list li').filter(has_text='第一份存档')
             row.get_by_role('button',name='删除').click()
+            page.wait_for_function("!document.querySelector('.save-list')?.textContent.includes('第一份存档')")
             page.reload()
             page.locator('.save-list').get_by_text('第二份存档').wait_for()
             page.wait_for_function("!document.querySelector('.save-list')?.textContent.includes('第一份存档')")
