@@ -46,7 +46,7 @@ test('P3-09: 500 seeds × 200 complete rounds prices bounded and never overflow'
     }
   }
 });
-\n
+
 test('P3-09: optional quotes settle precisely once per turn cycle, never consume dice RNG',async()=>{
   const {createGame,applyAction,DEFAULT_CONFIG}=await import('../dist/core/game.js');
   const {serializeGame,deserializeGame}=await import('../dist/core/save.js');
