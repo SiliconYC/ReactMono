@@ -44,7 +44,17 @@ def main():
             modified=json.loads(contents)
             modified['game']['randomState']=17
             selector.set_input_files({'name':'corrupted.json','mimeType':'application/json','buffer':json.dumps(modified,ensure_ascii=False).encode()})
-            page.wait_for_function("document.querySelector('.save-message')?.textContent.includes('导入失败')")
+            try:
+                page.wait_for_function("document.querySelector('.save-message')?.textContent.includes('导入失败')", timeout=8000)
+            except Exception:
+                print('导入诊断', page.evaluate("""() => ({
+                    message: document.querySelector('.save-message')?.textContent,
+                    preview: document.querySelector('.import-preview')?.textContent,
+                    filename: document.querySelector('input[type=file]')?.value,
+                    state: document.querySelector('main')?.dataset.gameStatus,
+                    slots: document.querySelector('.save-list')?.textContent
+                })"""), flush=True)
+                raise
             assert row.count()==1
             selector.set_input_files({'name':download.suggested_filename,'mimeType':'application/json','buffer':contents})
             page.get_by_role('button',name='另存为副本').click()
