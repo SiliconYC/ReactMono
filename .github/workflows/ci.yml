@@ -24,6 +24,7 @@ jobs:
           python tests/browser_multiplayer_e2e.py
           python tests/browser_map_layout_e2e.py
           python tests/browser_local_multiplayer_e2e.py
+          python tests/browser_second_map_e2e.py
           python tests/browser_saves_e2e.py
           python tests/browser_import_e2e.py
           python tests/browser_offline_e2e.py
