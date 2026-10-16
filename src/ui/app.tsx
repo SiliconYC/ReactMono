@@ -271,12 +271,22 @@ class App extends React.Component<object, UiState> {
       :type==='use_card'?{type,actorId:actor.id,cardType:cardType??'reward',
           ...(cardType==='remote'?{dieValue:Number(this.state.strategyDieInput)}:{}),
           ...(cardType==='roadblock'?{tileId:Number(game.tiles.some(t=>t.id===Number(this.state.roadblockTileInput)&&t.id!==0&&t.id!==actor.position&&!game.players.some(p=>!p.bankrupt&&p.position===t.id)&&!game.roadblocks?.some(b=>b.tileId===t.id))?this.state.roadblockTileInput:game.tiles.find(t=>t.id!==0&&t.id!==actor.position&&!game.players.some(p=>!p.bankrupt&&p.position===t.id)&&!game.roadblocks?.some(b=>b.tileId===t.id))?.id??-1)}:{})}:{type,actorId:actor.id};
+    const highRisk=type==='mortgage_property'||type==='borrow_loan'||
+      ((type==='buy_stock'||type==='sell_stock')&&Number.isFinite(stockAmount)&&stockAmount>=50);
+    if(highRisk){
+      const detail=type==='mortgage_property'?'确认抵押地产？抵押后该地产暂不收租，贷款违约可能被银行收回。'
+        :type==='borrow_loan'?'确认借入 '+bankAmount+' 游戏币？贷款计息且可能触发抵押物清算。'
+        :'确认'+(type==='buy_stock'?'买入':'卖出')+' '+stockAmount+' 股？股票成交后价格会波动，且需支付手续费。';
+      if(!window.confirm(detail)){this.setState({message:'已取消操作，本局资产没有变化。'});return;}
+    }
     const result = applyAction(game,action);
     if (!result.ok) {
       const bankAction=type==='deposit_bank'||type==='withdraw_bank'||type==='borrow_loan'||type==='repay_loan';
       const stockAction=type==='buy_stock'||type==='sell_stock';
-      const reason=stockAction ? (result.reason==='INSUFFICIENT_FUNDS'?'交易失败：现金不足或持仓数量不够。':'股票交易失败：请输入合法整数股，并在本回合结算阶段操作。') : bankAction ? (result.reason==='INSUFFICIENT_FUNDS'?'现金或存款不足。':'请输入合法的正整数，并在本回合操作银行。') :
-        result.reason === 'INSUFFICIENT_FUNDS' ? '资金不足，无法购买这块地产。请放弃购买。' : '当前阶段不能执行这个操作。';
+      const reason=result.reason==='INVALID_ACTOR'?'当前操作玩家已变更，请查看上方高亮玩家。'
+        :stockAction ? (result.reason==='INSUFFICIENT_FUNDS'?'股票交易未执行：现金不足或持仓数量不够。':'股票交易未执行：请输入有效股数，交易仅限当前玩家的结算阶段。')
+        :bankAction ? (result.reason==='INSUFFICIENT_FUNDS'?'银行或借贷操作未执行：现金、存款或可借额度不足。':'银行或借贷操作未执行：金额必须是有效正整数，且只能在本人结算阶段操作。')
+        :result.reason==='INSUFFICIENT_FUNDS'?'操作未执行：现金不足。':'操作未执行：当前阶段或目标不合法，请检查所选地产、卡片目标和行动玩家。';
       this.setState({ message: reason });
       return;
     }
