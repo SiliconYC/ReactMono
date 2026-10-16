@@ -1,9 +1,9 @@
 /** Stable public API; the implementation remains deterministic and React-independent. */
 export { SCHEMA_VERSION, UPGRADE_RULES_VERSION } from './types.js';
 export type { CardKind, PlayerId, TileKind, Phase, PlayerKind, PlayerConfig, TileConfig, GameMap, MapCell, GameConfig, Player, Tile, GameEvent, GameState, GameAction, RejectReason, ActionResult } from './types.js';
-export { DEFAULT_CARD_RULES, DEFAULT_EVENT_RULES, DEFAULT_UPGRADES, DEFAULT_CONFIG } from './config.js';
+export { DEFAULT_CARD_RULES, DEFAULT_EVENT_RULES, DEFAULT_UPGRADES, DEFAULT_CONFIG, HARBOR_CONFIG } from './config.js';
 export { normalizeSeed, nextDie } from './random.js';
-export { DEFAULT_MAP, INTERNAL_TEST_MAP, inferMap, advancePosition, validateMap } from './maps.js';
+export { DEFAULT_MAP, INTERNAL_TEST_MAP, HARBOR_MAP, inferMap, advancePosition, validateMap } from './maps.js';
 export { makePropertyTile, netWorth, resaleValue } from './property.js';
 import { SCHEMA_VERSION, UPGRADE_RULES_VERSION } from './types.js';
 import type { CardKind, PlayerId, Phase, PlayerConfig, TileConfig, GameConfig, Player, Tile, GameEvent, GameState, GameAction, RejectReason, ActionResult } from './types.js';

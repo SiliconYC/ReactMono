@@ -126,3 +126,17 @@
 - [PR CI #38845343626](https://github.com/SiliconYC/ReactMono/actions/runs/38845343626) **success**，Node **52/52**，并通过原有 P1/P2 浏览器、多人核心、移动浏览器多人设置/交接、存档、离线、Pages 回归。
 - **实际失败**：首次 CI #38845178879 在旧快速开局的 Chromium 中发现 `rolls=0`；原因是对轮数的正则写成了匹配字面反斜杠。独立修复提交 `026ec78` 改用 [0-9] 表达式，并保留旧测试。未更改验收门槛。
 - 现有角色图标为简易原创占位；复杂角色材质、美术、地图角色移动动效留后续 P4。Issue 完结须以 PR 合并及 dev CI/Pages 发布结果为准。
+
+## 2026-10-16 · P3-04 断点恢复与正式合并（#33）
+
+- 恢复已有 `p3/issue-33-map-model` 与 [PR #49](https://github.com/SiliconYC/ReactMono/pull/49)；保留原六次提交，无另起炉灶。
+- 失败证据：[初始 CI #38846352580](https://github.com/SiliconYC/ReactMono/actions/runs/38846352580) 严格 TS 错误；修复提交 `8f78835` 的 [CI #38853412913](https://github.com/SiliconYC/ReactMono/actions/runs/38853412913) 仍失败，第二次修复 `ee44581` 改为显式守卫。
+- [最终 PR CI #38853630654](https://github.com/SiliconYC/ReactMono/actions/runs/38853630654) 成功；保留所有子任务提交的 Merge Commit `f904735` 合并至 `dev`，Issue #33 已关闭。
+- 合并后 [dev CI #38853784688](https://github.com/SiliconYC/ReactMono/actions/runs/38853784688) 与 [Pages #38853784808](https://github.com/SiliconYC/ReactMono/actions/runs/38853784808) 成功；`gh-pages/core/maps.js` 已核对有新地图契约。完整工程及旧存档说明见 [P3_MAP_MODEL.md](P3_MAP_MODEL.md)。沙盒不能直接通过公共 URL 实际抓取网站，不能将部署成功说成公网直连浏览器验收。
+
+## 2026-10-16 · P3-05 原创第二地图实施与原子检查点（#34）
+
+- [Issue #34](https://github.com/SiliconYC/ReactMono/issues/34) / [PR #50](https://github.com/SiliconYC/ReactMono/pull/50)，独立分支 `p3/issue-34-harbor-map` 从 `dev@f904735` 派生。
+- 先以 `caa9fe6` 添加原先必然失败的两图测试；随后 `e2daa9d` 注册独立 6×6/20 格版图，`cae54b7` 配置原创海港地名与经济、机会格和卡片站，`5722275` 暴露公共接口，`fc1b4d8` 添加简体中文选图及恢复控件；`f47077e` 添加 Chromium 两图和保存恢复整局测试，`a255eb4` 纳入 CI。
+- [PR CI #38854078718](https://github.com/SiliconYC/ReactMono/actions/runs/38854078718) 成功，覆盖两地图 2/3/4 人各 100 个固定种子、无界面终局、旧档兼容及真实 Chromium 手机/桌面多地图整局、存读档。测试中的全部收益/行为由规则引擎执行，不绕过引擎。
+- **本条截至创建时仍需以 PR 合并结果、合并后 dev CI、Pages 发布及 Issue 状态核对，不能提前宣称最终验收完成。**
