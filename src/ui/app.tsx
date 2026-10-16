@@ -1,9 +1,9 @@
-import { applyAction, createGame, type GameAction, type CardKind, type GameEvent, type GameState, type Tile, type GameMap, type PlayerConfig, DEFAULT_CONFIG, HARBOR_CONFIG, netWorth, resaleValue, loanLimit } from '../core/game.js';
+import { applyAction, createGame, type GameAction, type CardKind, type GameEvent, type GameState, type Tile, type GameMap, type PlayerConfig, DEFAULT_CONFIG, HARBOR_CONFIG, netWorth, resaleValue, loanLimit, STOCKS, quoteMarket, type StockId } from '../core/game.js';
 import { chooseComputerAction } from '../core/agent.js';
 import { listSlots, readSlot, writeSlot, deleteSlot, type SlotSummary } from '../storage/indexeddb.js';
 import { deserializeGame, MAX_SAVE_CHARS, type SaveEnvelope } from '../core/save.js';
 
-interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly bankAmountInput: string; readonly playerSetup: readonly PlayerConfig[]; readonly roundsInput: string; readonly selectedMapId:string; readonly awaitingHandoff: boolean; readonly fastMode: boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; readonly importPreview: SaveEnvelope | null; readonly importName: string; readonly offline: boolean; readonly pwaUpdate: boolean; readonly pwaMessage: string; }
+interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly bankAmountInput: string; readonly stockAmountInput: string; readonly playerSetup: readonly PlayerConfig[]; readonly roundsInput: string; readonly selectedMapId:string; readonly awaitingHandoff: boolean; readonly fastMode: boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; readonly importPreview: SaveEnvelope | null; readonly importName: string; readonly offline: boolean; readonly pwaUpdate: boolean; readonly pwaMessage: string; }
 
 /** Read screen positions from map data, never infer them from the tile ID. */
 function cellPosition(map:GameMap,index:number):{gridColumn:number;gridRow:number}{
@@ -16,7 +16,7 @@ const kindLabel: Record<Tile['kind'], string> = { start: '起点', property: '�
 class App extends React.Component<object, UiState> {
   constructor(props: object) {
     super(props);
-    this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput:'100', playerSetup: [{id:'p1',name:'玩家',kind:'human'},{id:'p2',name:'电脑',kind:'computer'}], roundsInput:'60', selectedMapId:'classic-24', awaitingHandoff:false, fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator==='undefined'?false:!navigator.onLine, pwaUpdate:false, pwaMessage:'', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+    this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput:'100', stockAmountInput:'1', playerSetup: [{id:'p1',name:'玩家',kind:'human'},{id:'p2',name:'电脑',kind:'computer'}], roundsInput:'60', selectedMapId:'classic-24', awaitingHandoff:false, fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator==='undefined'?false:!navigator.onLine, pwaUpdate:false, pwaMessage:'', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
   }
 
   private computerTimer: number | null = null;
@@ -216,7 +216,7 @@ class App extends React.Component<object, UiState> {
       this.setState({message:'所有玩家都必须填写不同的姓名（最多 24 字）。'});return;
     }
     let fresh:GameState;
-    try{fresh=createGame(seed,{...(this.state.selectedMapId==='harbor-20'?HARBOR_CONFIG:DEFAULT_CONFIG),players:roster,maxRounds:rounds,automaticLiquidation:true,bankEnabled:true,loanEnabled:true});}
+    try{fresh=createGame(seed,{...(this.state.selectedMapId==='harbor-20'?HARBOR_CONFIG:DEFAULT_CONFIG),players:roster,maxRounds:rounds,automaticLiquidation:true,bankEnabled:true,loanEnabled:true,marketEnabled:true});}
     catch(e){this.setState({message:'开局配置无效：'+(e instanceof Error?e.message:String(e))});return;}
     this.saveEpoch++;
     this.stopTimer();
@@ -252,19 +252,22 @@ class App extends React.Component<object, UiState> {
     }, this.state.fastMode ? 8 : 220);
   }
 
-  dispatch = (type: GameAction['type'],tileId?:number,cardType?:CardKind): void => {
+  dispatch = (type: GameAction['type'],tileId?:number,cardType?:CardKind,stockId?:StockId): void => {
     if(this.state.storageBusy||this.state.awaitingHandoff)return;
     const { game } = this.state;
     const actor = game.players[game.currentPlayerIndex];
     if (actor.kind === 'computer') return;
     const bankAmount=/^[1-9][0-9]{0,12}$/.test(this.state.bankAmountInput.trim())?Number(this.state.bankAmountInput.trim()):NaN;
-    const action:GameAction=(type==='upgrade_property'||type==='sell_property'||type==='mortgage_property'||type==='release_mortgage')?{type,actorId:actor.id,tileId:tileId??-1}
+    const stockAmount=/^[1-9][0-9]{0,6}$/.test(this.state.stockAmountInput.trim())?Number(this.state.stockAmountInput.trim()):NaN;
+    const action:GameAction=(type==='buy_stock'||type==='sell_stock')?{type,actorId:actor.id,stockId:stockId??'SEA',quantity:stockAmount}
+      :(type==='upgrade_property'||type==='sell_property'||type==='mortgage_property'||type==='release_mortgage')?{type,actorId:actor.id,tileId:tileId??-1}
       :type==='deposit_bank'||type==='withdraw_bank'||type==='borrow_loan'||type==='repay_loan'?{type,actorId:actor.id,amount:bankAmount}
       :type==='use_card'?{type,actorId:actor.id,cardType:cardType??'reward'}:{type,actorId:actor.id};
     const result = applyAction(game,action);
     if (!result.ok) {
       const bankAction=type==='deposit_bank'||type==='withdraw_bank'||type==='borrow_loan'||type==='repay_loan';
-      const reason=bankAction ? (result.reason==='INSUFFICIENT_FUNDS'?'现金或存款不足。':'请输入合法的正整数，并在本回合操作银行。') :
+      const stockAction=type==='buy_stock'||type==='sell_stock';
+      const reason=stockAction ? (result.reason==='INSUFFICIENT_FUNDS'?'交易失败：现金不足或持仓数量不够。':'股票交易失败：请输入合法整数股，并在本回合结算阶段操作。') : bankAction ? (result.reason==='INSUFFICIENT_FUNDS'?'现金或存款不足。':'请输入合法的正整数，并在本回合操作银行。') :
         result.reason === 'INSUFFICIENT_FUNDS' ? '资金不足，无法购买这块地产。请放弃购买。' : '当前阶段不能执行这个操作。';
       this.setState({ message: reason });
       return;
@@ -284,6 +287,8 @@ class App extends React.Component<object, UiState> {
       return `${reason}${winner ? `赢家是${winner.name}！` : '双方净资产相同，平局！'}`;
     }
     if (events.some(e => e.type === 'game_started')) return '对局已开始！';
+    const stockEvent=events.find(e=>e.type==='stock_bought'||e.type==='stock_sold'||e.type==='stock_liquidated');
+    if(stockEvent)return this.describeEvent(stockEvent);
     const bankEvent=events.find(e=>e.type==='bank_deposited'||e.type==='bank_withdrawn');
     if(bankEvent)return bankEvent.type==='bank_deposited'?`${actorName}存入银行 ${bankEvent.details?.amount} 游戏币。`:`${actorName}取出存款 ${bankEvent.details?.amount} 游戏币。`;
     const loanEvent=events.find(e=>['property_mortgaged','property_released','loan_borrowed','loan_repaid','loan_default','loan_interest'].includes(e.type));
@@ -332,6 +337,9 @@ class App extends React.Component<object, UiState> {
       case 'loan_repaid': return `${person}偿还贷款 ${event.details?.amount} 游戏币`;
       case 'loan_interest': return `${person}贷款利息 ${event.details?.amount}（已付 ${event.details?.paid}）`;
       case 'loan_default': return `${person}违约，抵押地产收回 ${event.details?.collateral} 块`;
+      case 'stock_bought': return `${person}以 ${event.details?.price} 游戏币买入 ${event.details?.stockId} ${event.details?.quantity} 股，手续费 ${event.details?.fee}`;
+      case 'stock_sold': return `${person}卖出 ${event.details?.stockId} ${event.details?.quantity} 股，手续费 ${event.details?.fee}，已实现盈亏 ${event.details?.realized}`;
+      case 'stock_liquidated': return `${person}欠租时变卖 ${event.details?.stockId} ${event.details?.quantity} 股，到账 ${event.details?.amount}`;
       case 'bank_deposited': return `${person}存入银行 ${event.details?.amount} 游戏币`;
       case 'bank_withdrawn': return `${person}${event.details?.reason==='rent'?'自动取款支付租金':'从银行取出'} ${event.details?.amount} 游戏币`;
       case 'bank_interest': return `${person}获得本轮银行利息 ${event.details?.amount} 游戏币`;
@@ -468,7 +476,29 @@ class App extends React.Component<object, UiState> {
                    <button type="button" className="secondary-btn" onClick={()=>this.dispatch('borrow_loan')}>借入贷款</button>
                    <button type="button" className="secondary-btn" onClick={()=>this.dispatch('repay_loan')}>偿还贷款</button>
                  </div>}
-                 <button type="button" className="primary-btn" onClick={() => this.dispatch('end_turn')}>结束当前回合 <span>→</span></button>
+                 {game.market&&<div className="bank-actions stock-actions" role="group" aria-label="股票交易">
+                    <strong>虚拟股票交易所</strong>
+                    <p className="purchase-info">本轮报价 · 每笔交易手续费 0.5%，最低 1 游戏币。仅使用手持现金，按当前市场价成交；行情每轮变化。</p>
+                    <label htmlFor="stock-amount">股票交易数量（股）</label>
+                    <input id="stock-amount" type="text" aria-label="股票交易数量" inputMode="numeric"
+                      value={this.state.stockAmountInput}
+                      onChange={(event:{target:{value:string}})=>this.setState({stockAmountInput:event.target.value})}/>
+                    {STOCKS.map(stock=>{
+                      const quote=quoteMarket(game.market!,stock.id);
+                      const lot=current.holdings?.[stock.id];
+                      const held=lot?.quantity??0;
+                      const marketValue=held*quote;
+                      const pnl=marketValue-(lot?.costBasis??0);
+                      return <div className="stock-entry" key={stock.id}>
+                        <div><strong>{stock.name}</strong>（{stock.id}） · 报价 {quote} 游戏币</div>
+                        <div className="purchase-info">持有 {held} 股 · 成本 {lot?.costBasis??0} · 市值 {marketValue} · 浮动盈亏 {pnl>=0?'+':''}{pnl}</div>
+                        <button type="button" className="secondary-btn" onClick={()=>this.dispatch('buy_stock',undefined,undefined,stock.id)}>买入 {stock.name}</button>
+                        <button type="button" className="secondary-btn" onClick={()=>this.dispatch('sell_stock',undefined,undefined,stock.id)}>卖出 {stock.name}</button>
+                      </div>;
+                    })}
+                    <p className="purchase-info">持仓市值：{STOCKS.reduce((sum,stock)=>sum+(current.holdings?.[stock.id]?.quantity??0)*quoteMarket(game.market!,stock.id),0).toLocaleString('zh-CN')} 游戏币。</p>
+                  </div>}
+                  <button type="button" className="primary-btn" onClick={() => this.dispatch('end_turn')}>结束当前回合 <span>→</span></button>
               </div>}
               {game.phase === 'finished' && <div className="result-box" role="status"><strong>{game.winnerId ? `${game.players.find(p => p.id === game.winnerId)?.name}获胜！` : '净资产并列，平局！'}</strong><p>{[...game.events].reverse().find(e => e.type === 'game_finished')?.details?.reason === 'bankruptcy' ? '结束原因：一方无法付清租金' : '结束原因：达到回合上限'}</p><p>最终净资产：{game.players.map(p=>`${p.name} ${netWorth(game,p.id)}`).join(' · ')}</p><p>本局种子：{this.state.activeSeed}</p><button type="button" className="primary-btn" onClick={this.reset}>再来一局 <span>↻</span></button></div>}
               <p className="turn-tip" role="status">{message}</p>
@@ -503,9 +533,9 @@ class App extends React.Component<object, UiState> {
                 <button type="button" className="secondary-btn" onClick={()=>this.setState({importPreview:null,importName:'',saveStatus:'已取消导入'})}>取消导入</button>
               </div>}
             </div>
-            <div className="players-card"><div className="card-label">玩家状态</div>{game.players.map(p => <div key={p.id} className={`player-line ${current.id === p.id && game.status === 'playing' ? 'is-current' : ''}`}><span className={`player-dot ${p.kind}`}>{p.kind === 'human' ? '人' : '机'}</span><div><strong>{p.name}</strong><small>{p.position} 号格 · 现金 {p.cash.toLocaleString('zh-CN')}{game.bank?` · 存款 ${(p.bankBalance??0).toLocaleString('zh-CN')}`:''}{game.loan?` · 贷款 ${(p.loanBalance??0).toLocaleString('zh-CN')}`:''} · 净资产 {netWorth(game,p.id).toLocaleString('zh-CN')}{p.bankrupt ? ' · 已破产' : ''}</small></div><span className="player-kind">{p.kind === 'human' ? '真人' : '电脑'}</span></div>)}</div>
+            <div className="players-card"><div className="card-label">玩家状态</div>{game.players.map(p => <div key={p.id} className={`player-line ${current.id === p.id && game.status === 'playing' ? 'is-current' : ''}`}><span className={`player-dot ${p.kind}`}>{p.kind === 'human' ? '人' : '机'}</span><div><strong>{p.name}</strong><small>{p.position} 号格 · 现金 {p.cash.toLocaleString('zh-CN')}{game.bank?` · 存款 ${(p.bankBalance??0).toLocaleString('zh-CN')}`:''}{game.market?` · 股票 ${Object.values(p.holdings??{}).reduce((sum,lot)=>sum+(lot?.quantity??0),0)} 股`:''}{game.loan?` · 贷款 ${(p.loanBalance??0).toLocaleString('zh-CN')}`:''} · 净资产 {netWorth(game,p.id).toLocaleString('zh-CN')}{p.bankrupt ? ' · 已破产' : ''}</small></div><span className="player-kind">{p.kind === 'human' ? '真人' : '电脑'}</span></div>)}</div>
             <div className="activity-card"><div className="card-label">最近事件</div><ol>{lastEvents.map((e,i) => <li key={`${game.events.length}-${i}`}>{this.describeEvent(e)}</li>)}</ol></div>
-            <div className="info-card"><strong>玩法说明</strong><p>① 点击「开始游戏」，轮到玩家时掷骰前进。② 到无主地产可买入或放弃；经过对手地产会自动付租。③ 处理完地块后结束回合，电脑会自动行动。</p><p>付不起租金可能出售地产或破产；最终按现金、存款、地产成本减贷款计算净资产。电脑购地后至少保留 200 游戏币。</p><p>P2 已支持地产升级、机会格、奖励卡和步数卡；卡片在卡片站获得，只能在掷骰前使用。存档与离线游玩均在本机完成。</p></div>
+            <div className="info-card"><strong>玩法说明</strong><p>① 点击「开始游戏」，轮到玩家时掷骰前进。② 到无主地产可买入或放弃；经过对手地产会自动付租。③ 处理完地块后结束回合，电脑会自动行动。</p><p>付不起租金可能出售地产或破产；最终按现金、存款、地产成本、股票市值减贷款计算净资产。电脑购地后至少保留 200 游戏币。</p><p>P2 已支持地产升级、机会格、奖励卡和步数卡；卡片在卡片站获得，只能在掷骰前使用。存档与离线游玩均在本机完成。</p></div>
           </aside>
         </div>
         <footer className="footer">纯前端 · 简体中文 · 不需要账号　｜　IndexedDB 本机存档 · 不上传云端</footer>
