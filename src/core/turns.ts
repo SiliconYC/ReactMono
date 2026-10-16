@@ -28,7 +28,7 @@ export function rollTurn(state: GameState, actor: Player): ActionResult {
         const due = landed.mortgaged===true ? 0 : (landed.level??0)===0 ? (landed.rent??0) : (landed.levelRents?.[landed.level??0]??0);
         const funds=coverRentFromBank(state,actor,due);
         if(funds.amount>0)events.push({type:'bank_withdrawn',actorId:actor.id,details:{amount:funds.amount,reason:'rent'}});
-        const stockRescue=state.automaticLiquidation===true
+        const stockRescue=state.market!==undefined
           ? liquidateStocksForRent(state,{...actor,cash:funds.cash},due)
           : {cash:funds.cash,holdings:actor.holdings,events:[]};
         events.push(...stockRescue.events);
