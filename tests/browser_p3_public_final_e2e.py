@@ -100,14 +100,14 @@ def main():
         phone.on('pageerror',lambda e:errors.append(str(e)))
         response=phone.goto(URL,wait_until='load',timeout=30000)
         assert response and response.status==200
+        phone.wait_for_function("navigator.serviceWorker.controller!==null",timeout=30000)
+        mobile.set_offline(True)
+        phone.reload(wait_until='load')
         phone.get_by_label('游戏地图').select_option('harbor-20')
         phone.get_by_label('玩家人数').select_option('4')
         phone.get_by_label('最多轮数').fill('2')
         phone.get_by_label('快速模式').check()
         for i in range(4):phone.get_by_label(f'第 {i+1} 位玩家类型').select_option('human')
-        phone.wait_for_function("navigator.serviceWorker.controller!==null",timeout=30000)
-        mobile.set_offline(True)
-        phone.reload(wait_until='load')
         assert phone.locator('main').get_attribute('data-map-id')=='harbor-20'
         assert phone.locator('.tile').count()==20
         assert '已断网' in phone.locator('.network-indicator').inner_text()
