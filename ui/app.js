@@ -1,4 +1,4 @@
-import { applyAction, createGame, DEFAULT_CONFIG, HARBOR_CONFIG, netWorth, resaleValue, loanLimit } from '../core/game.js';
+import { applyAction, createGame, DEFAULT_CONFIG, HARBOR_CONFIG, netWorth, resaleValue, loanLimit, STOCKS, quoteMarket } from '../core/game.js';
 import { chooseComputerAction } from '../core/agent.js';
 import { listSlots, readSlot, writeSlot, deleteSlot } from '../storage/indexeddb.js';
 import { deserializeGame, MAX_SAVE_CHARS } from '../core/save.js';
@@ -11,7 +11,7 @@ const kindLabel = { start: '起点', property: '地产', neutral: '休息' };
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput: '100', playerSetup: [{ id: 'p1', name: '玩家', kind: 'human' }, { id: 'p2', name: '电脑', kind: 'computer' }], roundsInput: '60', selectedMapId: 'classic-24', awaitingHandoff: false, fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator === 'undefined' ? false : !navigator.onLine, pwaUpdate: false, pwaMessage: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+        this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput: '100', stockAmountInput: '1', playerSetup: [{ id: 'p1', name: '玩家', kind: 'human' }, { id: 'p2', name: '电脑', kind: 'computer' }], roundsInput: '60', selectedMapId: 'classic-24', awaitingHandoff: false, fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator === 'undefined' ? false : !navigator.onLine, pwaUpdate: false, pwaMessage: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
     }
     computerTimer = null;
     saveEpoch = 0;
@@ -276,7 +276,7 @@ class App extends React.Component {
         }
         let fresh;
         try {
-            fresh = createGame(seed, { ...(this.state.selectedMapId === 'harbor-20' ? HARBOR_CONFIG : DEFAULT_CONFIG), players: roster, maxRounds: rounds, automaticLiquidation: true, bankEnabled: true, loanEnabled: true });
+            fresh = createGame(seed, { ...(this.state.selectedMapId === 'harbor-20' ? HARBOR_CONFIG : DEFAULT_CONFIG), players: roster, maxRounds: rounds, automaticLiquidation: true, bankEnabled: true, loanEnabled: true, marketEnabled: true });
         }
         catch (e) {
             this.setState({ message: '开局配置无效：' + (e instanceof Error ? e.message : String(e)) });
@@ -322,7 +322,7 @@ class App extends React.Component {
             this.setState({ game: result.state, message: this.describe(result.events, result.state, actor.name) });
         }, this.state.fastMode ? 8 : 220);
     }
-    dispatch = (type, tileId, cardType) => {
+    dispatch = (type, tileId, cardType, stockId) => {
         if (this.state.storageBusy || this.state.awaitingHandoff)
             return;
         const { game } = this.state;
@@ -330,13 +330,16 @@ class App extends React.Component {
         if (actor.kind === 'computer')
             return;
         const bankAmount = /^[1-9][0-9]{0,12}$/.test(this.state.bankAmountInput.trim()) ? Number(this.state.bankAmountInput.trim()) : NaN;
-        const action = (type === 'upgrade_property' || type === 'sell_property' || type === 'mortgage_property' || type === 'release_mortgage') ? { type, actorId: actor.id, tileId: tileId ?? -1 }
-            : type === 'deposit_bank' || type === 'withdraw_bank' || type === 'borrow_loan' || type === 'repay_loan' ? { type, actorId: actor.id, amount: bankAmount }
-                : type === 'use_card' ? { type, actorId: actor.id, cardType: cardType ?? 'reward' } : { type, actorId: actor.id };
+        const stockAmount = /^[1-9][0-9]{0,6}$/.test(this.state.stockAmountInput.trim()) ? Number(this.state.stockAmountInput.trim()) : NaN;
+        const action = (type === 'buy_stock' || type === 'sell_stock') ? { type, actorId: actor.id, stockId: stockId ?? 'SEA', quantity: stockAmount }
+            : (type === 'upgrade_property' || type === 'sell_property' || type === 'mortgage_property' || type === 'release_mortgage') ? { type, actorId: actor.id, tileId: tileId ?? -1 }
+                : type === 'deposit_bank' || type === 'withdraw_bank' || type === 'borrow_loan' || type === 'repay_loan' ? { type, actorId: actor.id, amount: bankAmount }
+                    : type === 'use_card' ? { type, actorId: actor.id, cardType: cardType ?? 'reward' } : { type, actorId: actor.id };
         const result = applyAction(game, action);
         if (!result.ok) {
             const bankAction = type === 'deposit_bank' || type === 'withdraw_bank' || type === 'borrow_loan' || type === 'repay_loan';
-            const reason = bankAction ? (result.reason === 'INSUFFICIENT_FUNDS' ? '现金或存款不足。' : '请输入合法的正整数，并在本回合操作银行。') :
+            const stockAction = type === 'buy_stock' || type === 'sell_stock';
+            const reason = stockAction ? (result.reason === 'INSUFFICIENT_FUNDS' ? '交易失败：现金不足或持仓数量不够。' : '股票交易失败：请输入合法整数股，并在本回合结算阶段操作。') : bankAction ? (result.reason === 'INSUFFICIENT_FUNDS' ? '现金或存款不足。' : '请输入合法的正整数，并在本回合操作银行。') :
                 result.reason === 'INSUFFICIENT_FUNDS' ? '资金不足，无法购买这块地产。请放弃购买。' : '当前阶段不能执行这个操作。';
             this.setState({ message: reason });
             return;
@@ -356,6 +359,9 @@ class App extends React.Component {
         }
         if (events.some(e => e.type === 'game_started'))
             return '对局已开始！';
+        const stockEvent = events.find(e => e.type === 'stock_bought' || e.type === 'stock_sold' || e.type === 'stock_liquidated');
+        if (stockEvent)
+            return this.describeEvent(stockEvent);
         const bankEvent = events.find(e => e.type === 'bank_deposited' || e.type === 'bank_withdrawn');
         if (bankEvent)
             return bankEvent.type === 'bank_deposited' ? `${actorName}存入银行 ${bankEvent.details?.amount} 游戏币。` : `${actorName}取出存款 ${bankEvent.details?.amount} 游戏币。`;
@@ -414,6 +420,9 @@ class App extends React.Component {
             case 'loan_repaid': return `${person}偿还贷款 ${event.details?.amount} 游戏币`;
             case 'loan_interest': return `${person}贷款利息 ${event.details?.amount}（已付 ${event.details?.paid}）`;
             case 'loan_default': return `${person}违约，抵押地产收回 ${event.details?.collateral} 块`;
+            case 'stock_bought': return `${person}以 ${event.details?.price} 游戏币买入 ${event.details?.stockId} ${event.details?.quantity} 股，手续费 ${event.details?.fee}`;
+            case 'stock_sold': return `${person}卖出 ${event.details?.stockId} ${event.details?.quantity} 股，手续费 ${event.details?.fee}，已实现盈亏 ${event.details?.realized}`;
+            case 'stock_liquidated': return `${person}欠租时变卖 ${event.details?.stockId} ${event.details?.quantity} 股，到账 ${event.details?.amount}`;
             case 'bank_deposited': return `${person}存入银行 ${event.details?.amount} 游戏币`;
             case 'bank_withdrawn': return `${person}${event.details?.reason === 'rent' ? '自动取款支付租金' : '从银行取出'} ${event.details?.amount} 游戏币`;
             case 'bank_interest': return `${person}获得本轮银行利息 ${event.details?.amount} 游戏币`;
@@ -645,6 +654,46 @@ class App extends React.Component {
                                     " \u6E38\u620F\u5E01\u3002"),
                                 React.createElement("button", { type: "button", className: "secondary-btn", onClick: () => this.dispatch('borrow_loan') }, "\u501F\u5165\u8D37\u6B3E"),
                                 React.createElement("button", { type: "button", className: "secondary-btn", onClick: () => this.dispatch('repay_loan') }, "\u507F\u8FD8\u8D37\u6B3E")),
+                            game.market && React.createElement("div", { className: "bank-actions stock-actions", role: "group", "aria-label": "\u80A1\u7968\u4EA4\u6613" },
+                                React.createElement("strong", null, "\u865A\u62DF\u80A1\u7968\u4EA4\u6613\u6240"),
+                                React.createElement("p", { className: "purchase-info" }, "\u672C\u8F6E\u62A5\u4EF7 \u00B7 \u6BCF\u7B14\u4EA4\u6613\u624B\u7EED\u8D39 0.5%\uFF0C\u6700\u4F4E 1 \u6E38\u620F\u5E01\u3002\u4EC5\u4F7F\u7528\u624B\u6301\u73B0\u91D1\uFF0C\u6309\u5F53\u524D\u5E02\u573A\u4EF7\u6210\u4EA4\uFF1B\u884C\u60C5\u6BCF\u8F6E\u53D8\u5316\u3002"),
+                                React.createElement("label", { htmlFor: "stock-amount" }, "\u80A1\u7968\u4EA4\u6613\u6570\u91CF\uFF08\u80A1\uFF09"),
+                                React.createElement("input", { id: "stock-amount", type: "text", "aria-label": "\u80A1\u7968\u4EA4\u6613\u6570\u91CF", inputMode: "numeric", value: this.state.stockAmountInput, onChange: (event) => this.setState({ stockAmountInput: event.target.value }) }),
+                                STOCKS.map(stock => {
+                                    const quote = quoteMarket(game.market, stock.id);
+                                    const lot = current.holdings?.[stock.id];
+                                    const held = lot?.quantity ?? 0;
+                                    const marketValue = held * quote;
+                                    const pnl = marketValue - (lot?.costBasis ?? 0);
+                                    return React.createElement("div", { className: "stock-entry", key: stock.id },
+                                        React.createElement("div", null,
+                                            React.createElement("strong", null, stock.name),
+                                            "\uFF08",
+                                            stock.id,
+                                            "\uFF09 \u00B7 \u62A5\u4EF7 ",
+                                            quote,
+                                            " \u6E38\u620F\u5E01"),
+                                        React.createElement("div", { className: "purchase-info" },
+                                            "\u6301\u6709 ",
+                                            held,
+                                            " \u80A1 \u00B7 \u6210\u672C ",
+                                            lot?.costBasis ?? 0,
+                                            " \u00B7 \u5E02\u503C ",
+                                            marketValue,
+                                            " \u00B7 \u6D6E\u52A8\u76C8\u4E8F ",
+                                            pnl >= 0 ? '+' : '',
+                                            pnl),
+                                        React.createElement("button", { type: "button", className: "secondary-btn", onClick: () => this.dispatch('buy_stock', undefined, undefined, stock.id) },
+                                            "\u4E70\u5165 ",
+                                            stock.name),
+                                        React.createElement("button", { type: "button", className: "secondary-btn", onClick: () => this.dispatch('sell_stock', undefined, undefined, stock.id) },
+                                            "\u5356\u51FA ",
+                                            stock.name));
+                                }),
+                                React.createElement("p", { className: "purchase-info" },
+                                    "\u6301\u4ED3\u5E02\u503C\uFF1A",
+                                    STOCKS.reduce((sum, stock) => sum + (current.holdings?.[stock.id]?.quantity ?? 0) * quoteMarket(game.market, stock.id), 0).toLocaleString('zh-CN'),
+                                    " \u6E38\u620F\u5E01\u3002")),
                             React.createElement("button", { type: "button", className: "primary-btn", onClick: () => this.dispatch('end_turn') },
                                 "\u7ED3\u675F\u5F53\u524D\u56DE\u5408 ",
                                 React.createElement("span", null, "\u2192"))),
@@ -713,6 +762,7 @@ class App extends React.Component {
                                     " \u53F7\u683C \u00B7 \u73B0\u91D1 ",
                                     p.cash.toLocaleString('zh-CN'),
                                     game.bank ? ` · 存款 ${(p.bankBalance ?? 0).toLocaleString('zh-CN')}` : '',
+                                    game.market ? ` · 股票 ${Object.values(p.holdings ?? {}).reduce((sum, lot) => sum + (lot?.quantity ?? 0), 0)} 股` : '',
                                     game.loan ? ` · 贷款 ${(p.loanBalance ?? 0).toLocaleString('zh-CN')}` : '',
                                     " \u00B7 \u51C0\u8D44\u4EA7 ",
                                     netWorth(game, p.id).toLocaleString('zh-CN'),
@@ -724,7 +774,7 @@ class App extends React.Component {
                     React.createElement("div", { className: "info-card" },
                         React.createElement("strong", null, "\u73A9\u6CD5\u8BF4\u660E"),
                         React.createElement("p", null, "\u2460 \u70B9\u51FB\u300C\u5F00\u59CB\u6E38\u620F\u300D\uFF0C\u8F6E\u5230\u73A9\u5BB6\u65F6\u63B7\u9AB0\u524D\u8FDB\u3002\u2461 \u5230\u65E0\u4E3B\u5730\u4EA7\u53EF\u4E70\u5165\u6216\u653E\u5F03\uFF1B\u7ECF\u8FC7\u5BF9\u624B\u5730\u4EA7\u4F1A\u81EA\u52A8\u4ED8\u79DF\u3002\u2462 \u5904\u7406\u5B8C\u5730\u5757\u540E\u7ED3\u675F\u56DE\u5408\uFF0C\u7535\u8111\u4F1A\u81EA\u52A8\u884C\u52A8\u3002"),
-                        React.createElement("p", null, "\u4ED8\u4E0D\u8D77\u79DF\u91D1\u53EF\u80FD\u51FA\u552E\u5730\u4EA7\u6216\u7834\u4EA7\uFF1B\u6700\u7EC8\u6309\u73B0\u91D1\u3001\u5B58\u6B3E\u3001\u5730\u4EA7\u6210\u672C\u51CF\u8D37\u6B3E\u8BA1\u7B97\u51C0\u8D44\u4EA7\u3002\u7535\u8111\u8D2D\u5730\u540E\u81F3\u5C11\u4FDD\u7559 200 \u6E38\u620F\u5E01\u3002"),
+                        React.createElement("p", null, "\u4ED8\u4E0D\u8D77\u79DF\u91D1\u53EF\u80FD\u51FA\u552E\u5730\u4EA7\u6216\u7834\u4EA7\uFF1B\u6700\u7EC8\u6309\u73B0\u91D1\u3001\u5B58\u6B3E\u3001\u5730\u4EA7\u6210\u672C\u3001\u80A1\u7968\u5E02\u503C\u51CF\u8D37\u6B3E\u8BA1\u7B97\u51C0\u8D44\u4EA7\u3002\u7535\u8111\u8D2D\u5730\u540E\u81F3\u5C11\u4FDD\u7559 200 \u6E38\u620F\u5E01\u3002"),
                         React.createElement("p", null, "P2 \u5DF2\u652F\u6301\u5730\u4EA7\u5347\u7EA7\u3001\u673A\u4F1A\u683C\u3001\u5956\u52B1\u5361\u548C\u6B65\u6570\u5361\uFF1B\u5361\u7247\u5728\u5361\u7247\u7AD9\u83B7\u5F97\uFF0C\u53EA\u80FD\u5728\u63B7\u9AB0\u524D\u4F7F\u7528\u3002\u5B58\u6863\u4E0E\u79BB\u7EBF\u6E38\u73A9\u5747\u5728\u672C\u673A\u5B8C\u6210\u3002")))),
             React.createElement("footer", { className: "footer" }, "\u7EAF\u524D\u7AEF \u00B7 \u7B80\u4F53\u4E2D\u6587 \u00B7 \u4E0D\u9700\u8981\u8D26\u53F7\u3000\uFF5C\u3000IndexedDB \u672C\u673A\u5B58\u6863 \u00B7 \u4E0D\u4E0A\u4F20\u4E91\u7AEF")));
     }

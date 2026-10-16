@@ -7,6 +7,8 @@ export { DEFAULT_MAP, INTERNAL_TEST_MAP, HARBOR_MAP, inferMap, advancePosition, 
 export { makePropertyTile, netWorth, resaleValue } from './property.js';
 export { createLoan, loanLimit, DEFAULT_LOAN_INTEREST_BPS } from './loan.js';
 export { createBank, transferBank, settleBankRound, DEFAULT_INTEREST_BPS } from './bank.js';
+export { stockFee, STOCK_FEE_BPS, MAX_SHARES } from './stocks.js';
+export type { StockHolding, StockHoldings } from './types.js';
 export { STOCKS, createMarket, advanceMarket, quoteMarket, validateMarket } from './market.js';
 export type { StockMarket, StockId } from './market.js';
 import type { GameConfig, GameState, GameAction, ActionResult } from './types.js';

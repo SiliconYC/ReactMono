@@ -1,6 +1,7 @@
 /** Local versioned save contract; migrates historic two-player v1/v2 records. */
 import { SCHEMA_VERSION, UPGRADE_RULES_VERSION, makePropertyTile } from './game.js';
 import { inferMap, validateMap } from './maps.js';
+import { STOCKS } from './market.js';
 import { validateMarket } from './market.js';
 export const SAVE_FORMAT_VERSION = 1;
 export const MAX_SAVE_CHARS = 4_000_000;
@@ -25,7 +26,7 @@ function iso(x) {
 }
 const EVENT_TYPES = new Set([
     'game_started', 'die_rolled', 'player_moved', 'turn_ended', 'tile_landed', 'property_declined',
-    'property_bought', 'property_upgraded', 'property_sold', 'property_liquidated', 'bank_deposited', 'bank_withdrawn', 'bank_interest', 'property_mortgaged', 'property_released', 'loan_borrowed', 'loan_repaid', 'loan_interest', 'loan_default', 'rent_paid', 'event_bonus', 'event_fee', 'card_received', 'card_used', 'player_bankrupt', 'game_finished'
+    'property_bought', 'property_upgraded', 'property_sold', 'property_liquidated', 'bank_deposited', 'bank_withdrawn', 'bank_interest', 'property_mortgaged', 'property_released', 'loan_borrowed', 'loan_repaid', 'loan_interest', 'loan_default', 'stock_bought', 'stock_sold', 'stock_liquidated', 'rent_paid', 'event_bonus', 'event_fee', 'card_received', 'card_used', 'player_bankrupt', 'game_finished'
 ]);
 /** Validate current and migrated legacy states against the same strict bounds. */
 export function validateGameState(value, expectedVersion = SCHEMA_VERSION) {
@@ -100,7 +101,7 @@ export function validateGameState(value, expectedVersion = SCHEMA_VERSION) {
         const p = value.players[i];
         if (!record(p))
             throw new SaveError('INVALID_STATE', '存档数据无效：玩家字段非法');
-        keys(p, ['id', 'name', 'kind', 'position', 'cash', 'bankrupt'], ['cards', ...(expectedVersion >= 4 ? ['bankBalance', 'loanBalance'] : [])]);
+        keys(p, ['id', 'name', 'kind', 'position', 'cash', 'bankrupt'], ['cards', ...(expectedVersion >= 4 ? ['bankBalance', 'loanBalance', 'holdings'] : [])]);
         if (value.bank !== undefined ? !finite(p.bankBalance, 0, 1_000_000_000_000) :
             p.bankBalance !== undefined && p.bankBalance !== 0)
             throw new SaveError('INVALID_STATE', '玩家银行存款非法');
@@ -111,6 +112,19 @@ export function validateGameState(value, expectedVersion = SCHEMA_VERSION) {
             throw new SaveError('INVALID_STATE', '破产玩家存在未处理债务');
         if (p.bankrupt === true && typeof p.bankBalance === 'number' && p.bankBalance > 0)
             throw new SaveError('INVALID_STATE', '破产玩家存在未清算存款');
+        if (p.holdings !== undefined) {
+            if (value.market === undefined || !record(p.holdings))
+                throw new SaveError('INVALID_STATE', '玩家持仓缺少行情或数据非法');
+            for (const [id, lot] of Object.entries(p.holdings)) {
+                if (!STOCKS.some(stock => stock.id === id) || !record(lot))
+                    throw new SaveError('INVALID_STATE', '非法股票代码或持仓');
+                keys(lot, ['quantity', 'costBasis']);
+                if (!finite(lot.quantity, 1, 1_000_000) || !finite(lot.costBasis, 1, 1_000_000_000_000))
+                    throw new SaveError('INVALID_STATE', '股票数量或成本非法');
+                if (p.bankrupt === true)
+                    throw new SaveError('INVALID_STATE', '破产玩家不得持有股票');
+            }
+        }
         if (p.cards !== undefined) {
             if (!record(p.cards))
                 throw new SaveError('INVALID_STATE', '卡片库存无效');
