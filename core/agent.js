@@ -1,4 +1,5 @@
 import { handSize } from './cards.js';
+import { chooseStyledAction } from './strategic-agent.js';
 export function choosePhaseAction(state, reserveCash) {
     if (!Number.isFinite(reserveCash) || reserveCash < 0)
         throw new Error('保留资金必须为非负有限数字');
@@ -70,5 +71,5 @@ export function chooseComputerAction(state, options = {}) {
     const player = state.players[state.currentPlayerIndex];
     if (!player || player.kind !== 'computer')
         return null;
-    return choosePhaseAction(state, reserveCash);
+    return player.computerStyle ? chooseStyledAction(state, player.computerStyle) : choosePhaseAction(state, reserveCash);
 }

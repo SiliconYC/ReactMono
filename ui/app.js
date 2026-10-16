@@ -1,5 +1,6 @@
 import { applyAction, createGame, DEFAULT_CONFIG, HARBOR_CONFIG, netWorth, resaleValue, loanLimit, STOCKS, quoteMarket } from '../core/game.js';
 import { chooseComputerAction } from '../core/agent.js';
+import { COMPUTER_STYLES, COMPUTER_STYLE_NAMES } from '../core/strategic-agent.js';
 import { listSlots, readSlot, writeSlot, deleteSlot } from '../storage/indexeddb.js';
 import { deserializeGame, MAX_SAVE_CHARS } from '../core/save.js';
 /** Read screen positions from map data, never infer them from the tile ID. */
@@ -11,7 +12,7 @@ const kindLabel = { start: '起点', property: '地产', neutral: '休息' };
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput: '100', stockAmountInput: '1', strategyDieInput: '1', roadblockTileInput: '1', playerSetup: [{ id: 'p1', name: '玩家', kind: 'human' }, { id: 'p2', name: '电脑', kind: 'computer' }], roundsInput: '60', selectedMapId: 'classic-24', awaitingHandoff: false, fastMode: false, specialEnabled: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator === 'undefined' ? false : !navigator.onLine, pwaUpdate: false, pwaMessage: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+        this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput: '100', stockAmountInput: '1', strategyDieInput: '1', roadblockTileInput: '1', playerSetup: [{ id: 'p1', name: '玩家', kind: 'human' }, { id: 'p2', name: '电脑', kind: 'computer', computerStyle: 'balanced' }], roundsInput: '60', selectedMapId: 'classic-24', awaitingHandoff: false, fastMode: false, specialEnabled: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator === 'undefined' ? false : !navigator.onLine, pwaUpdate: false, pwaMessage: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
     }
     computerTimer = null;
     saveEpoch = 0;
@@ -207,7 +208,7 @@ class App extends React.Component {
             const saved = await readSlot(slot.id);
             this.setState({ game: saved.game, activeSeed: null, storageBusy: false, awaitingHandoff: false,
                 roundsInput: String(saved.game.maxRounds), selectedMapId: saved.game.map.id,
-                playerSetup: saved.game.players.map(p => ({ id: p.id, name: p.name, kind: p.kind })),
+                playerSetup: saved.game.players.map(p => ({ id: p.id, name: p.name, kind: p.kind, ...(p.computerStyle ? { computerStyle: p.computerStyle } : {}) })),
                 saveStatus: '已读取「' + slot.name + '」', message: '已恢复第 ' + saved.game.round + ' 轮，可从当前阶段继续。' });
         }
         catch (e) {
@@ -242,8 +243,12 @@ class App extends React.Component {
         this.setState({ playerSetup: roster });
     };
     updatePlayer = (index, field, value) => {
-        const roster = this.state.playerSetup.map((p, i) => i !== index ? p : {
-            ...p, [field]: value
+        const roster = this.state.playerSetup.map((p, i) => {
+            if (i !== index)
+                return p;
+            const { computerStyle: _previous, ...rest } = p;
+            return field === 'kind' ? { ...rest, kind: value, ...(value === 'computer' ? { computerStyle: p.computerStyle ?? 'balanced' } : {}) }
+                : { ...p, name: value };
         });
         this.setState({ playerSetup: roster });
     };
@@ -269,7 +274,8 @@ class App extends React.Component {
             this.setState({ message: '最大轮数必须是 1 至 200 的整数。' });
             return;
         }
-        const roster = this.state.playerSetup.map(p => ({ ...p, name: p.name.trim() }));
+        const roster = this.state.playerSetup.map(p => ({ ...p, name: p.name.trim(),
+            ...(p.kind === 'computer' ? { computerStyle: p.computerStyle ?? 'balanced' } : {}) }));
         if (roster.some(p => !p.name || p.name.length > 24) || new Set(roster.map(p => p.name)).size !== roster.length) {
             this.setState({ message: '所有玩家都必须填写不同的姓名（最多 24 字）。' });
             return;
@@ -586,7 +592,10 @@ class App extends React.Component {
                                     "\u7C7B\u578B",
                                     React.createElement("select", { "aria-label": `第 ${i + 1} 位玩家类型`, value: p.kind ?? (i === 0 ? 'human' : 'computer'), onChange: (event) => this.updatePlayer(i, 'kind', event.target.value) },
                                         React.createElement("option", { value: "human" }, "\u771F\u4EBA"),
-                                        React.createElement("option", { value: "computer" }, "\u7535\u8111")))))),
+                                        React.createElement("option", { value: "computer" }, "\u7535\u8111"))),
+                                p.kind === 'computer' && React.createElement("label", null,
+                                    "\u7535\u8111\u7B56\u7565",
+                                    React.createElement("select", { "aria-label": `第 ${i + 1} 位电脑策略`, value: p.computerStyle ?? 'balanced', onChange: (event) => this.setState({ playerSetup: this.state.playerSetup.map((item, j) => j === i ? { ...item, computerStyle: event.target.value } : item) }) }, COMPUTER_STYLES.map(style => React.createElement("option", { key: style, value: style }, COMPUTER_STYLE_NAMES[style]))))))),
                             React.createElement("label", { className: "field-label", htmlFor: "max-rounds" }, "\u6700\u591A\u8F6E\u6570"),
                             React.createElement("input", { id: "max-rounds", "aria-label": "\u6700\u591A\u8F6E\u6570", type: "text", inputMode: "numeric", maxLength: 3, value: this.state.roundsInput, onChange: (event) => this.setState({ roundsInput: event.target.value }) }),
                             React.createElement("label", { className: "fast-setting" },
@@ -604,7 +613,10 @@ class App extends React.Component {
                                 current.name),
                             React.createElement("p", null, "\u8BF7\u628A\u8BBE\u5907\u4EA4\u7ED9\u8FD9\u540D\u73A9\u5BB6\uFF0C\u51C6\u5907\u597D\u4EE5\u540E\u786E\u8BA4\u3002\u4E0A\u4E00\u4F4D\u73A9\u5BB6\u4E0D\u80FD\u7EE7\u7EED\u64CD\u4F5C\u3002"),
                             React.createElement("button", { type: "button", className: "primary-btn", onClick: this.acknowledgeHandoff }, "\u6211\u5DF2\u5C31\u4F4D\uFF0C\u5F00\u59CB\u64CD\u4F5C")),
-                        current.kind === 'computer' && game.status === 'playing' && React.createElement("p", { className: "computer-thinking", role: "status" }, "\u7535\u8111\u6B63\u5728\u81EA\u52A8\u64CD\u4F5C\uFF0C\u4FDD\u7559\u81F3\u5C11 200 \u6E38\u620F\u5E01\u73B0\u91D1\u2026"),
+                        current.kind === 'computer' && game.status === 'playing' && React.createElement("p", { className: "computer-thinking", role: "status" },
+                            "\u7535\u8111\u6B63\u5728\u81EA\u52A8\u64CD\u4F5C\uFF08",
+                            current.computerStyle ? COMPUTER_STYLE_NAMES[current.computerStyle] : '经典',
+                            "\u7B56\u7565\uFF09\u2026"),
                         current.kind === 'human' && !this.state.awaitingHandoff && game.phase === 'await_roll' && current.detention === undefined && React.createElement("div", { className: "purchase-actions" },
                             React.createElement("p", { className: "purchase-info" },
                                 "\u624B\u724C\uFF1A\u5956\u52B1 ",

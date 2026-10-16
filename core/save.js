@@ -129,7 +129,10 @@ export function validateGameState(value, expectedVersion = SCHEMA_VERSION) {
         const p = value.players[i];
         if (!record(p))
             throw new SaveError('INVALID_STATE', '存档数据无效：玩家字段非法');
-        keys(p, ['id', 'name', 'kind', 'position', 'cash', 'bankrupt'], ['cards', ...(expectedVersion >= 4 ? ['bankBalance', 'loanBalance', 'holdings', 'detention'] : [])]);
+        keys(p, ['id', 'name', 'kind', 'position', 'cash', 'bankrupt'], ['cards', ...(expectedVersion >= 4 ? ['bankBalance', 'loanBalance', 'holdings', 'detention', 'computerStyle'] : [])]);
+        if (p.computerStyle !== undefined && (expectedVersion < 4 || p.kind !== 'computer' ||
+            !['conservative', 'balanced', 'aggressive'].includes(String(p.computerStyle))))
+            throw new SaveError('INVALID_STATE', '电脑策略类型非法');
         if (value.bank !== undefined ? !finite(p.bankBalance, 0, 1_000_000_000_000) :
             p.bankBalance !== undefined && p.bankBalance !== 0)
             throw new SaveError('INVALID_STATE', '玩家银行存款非法');

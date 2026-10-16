@@ -52,6 +52,7 @@ export function createGame(seed, config = DEFAULT_CONFIG) {
         ...(config.automaticLiquidation === true ? { automaticLiquidation: true } : {}),
         players: config.players.map((p, index) => ({
             id: p.id, name: p.name, kind: p.kind ?? (index === 0 ? 'human' : 'computer'),
+            ...(p.computerStyle !== undefined ? { computerStyle: p.computerStyle } : {}),
             position: 0, cash: config.initialCash, ...(config.bankEnabled === true ? { bankBalance: 0 } : {}), ...(config.loanEnabled === true ? { loanBalance: 0 } : {}), bankrupt: false, cards: config.strategyEnabled === true ? { reward: 0, stride: 0, remote: 0, roadblock: 0, rent_free: 0 } : { reward: 0, stride: 0 }
         })),
         tiles: config.tiles.map(t => {
