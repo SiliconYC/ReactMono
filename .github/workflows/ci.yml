@@ -32,6 +32,16 @@ jobs:
           path: artifacts/issue63/
           if-no-files-found: warn
           retention-days: 30
+      - name: P4 #64 纸艺双地图真实 Chromium、四人同格与离线回归
+        run: python tests/browser_p4_board_e2e.py
+      - name: 保留 P4 #64 浏览器棋盘截图和地图坐标
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue64-paper-town-board-chromium
+          path: artifacts/issue64/
+          if-no-files-found: warn
+          retention-days: 30
       - name: 真实 Chromium 端到端回归（本地 HTTP 子路径）
         run: |
           python tests/browser_live_e2e.py
