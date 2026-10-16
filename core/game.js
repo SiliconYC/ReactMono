@@ -1,5 +1,7 @@
 /** 独立于页面的确定性回合与棋盘规则核心；第 #4 期加入地产买卖、收租、破产与胜负规则。 */
-export const SCHEMA_VERSION = 1;
+export const SCHEMA_VERSION = 2;
+export const UPGRADE_RULES_VERSION = 1;
+export const DEFAULT_UPGRADES = { costRates: [0.5, 0.8], rentRates: [1, 2, 4] };
 const defaultTiles = Array.from({ length: 24 }, (_, index) => {
     if (index === 0)
         return { id: index, kind: 'start', title: '起点' };
@@ -39,6 +41,11 @@ function validateConfig(config) {
     if (!Number.isFinite(config.initialCash) || config.initialCash < 0 ||
         !Number.isInteger(config.maxRounds) || config.maxRounds < 1)
         throw new Error('游戏经济配置无效');
+    const up = config.upgrades ?? DEFAULT_UPGRADES;
+    if (up.costRates.length !== 2 || up.rentRates.length !== 3 ||
+        ![...up.costRates, ...up.rentRates].every(x => Number.isFinite(x) && x >= 0) ||
+        up.rentRates[0] !== 1)
+        throw new Error('地产升级倍率配置无效');
     if (config.tiles.some(t => t.kind === 'property' &&
         (!Number.isFinite(t.price) || (t.price ?? 0) < 0 || !Number.isFinite(t.rent) || (t.rent ?? 0) < 0))) {
         throw new Error('地产价格或租金无效');
@@ -49,6 +56,7 @@ export function createGame(seed, config = DEFAULT_CONFIG) {
     validateConfig(config);
     return {
         schemaVersion: SCHEMA_VERSION,
+        upgradeRulesVersion: UPGRADE_RULES_VERSION,
         status: 'setup',
         phase: 'setup',
         revision: 0,
@@ -60,17 +68,26 @@ export function createGame(seed, config = DEFAULT_CONFIG) {
             id: p.id, name: p.name, kind: index === 0 ? 'human' : 'computer',
             position: 0, cash: config.initialCash, bankrupt: false
         })),
-        tiles: config.tiles.map(t => ({ ...t, ownerId: null })),
+        tiles: config.tiles.map(t => t.kind === 'property' ? makePropertyTile(t, config.upgrades ?? DEFAULT_UPGRADES) : ({ ...t, ownerId: null })),
         winnerId: null,
         events: []
     };
 }
-/** 按当前现金与未折旧购地价格计算净资产；仅用于回合上限时公平判定。 */
+export function makePropertyTile(t, upgrades = DEFAULT_UPGRADES) {
+    if (t.kind !== 'property')
+        throw new Error('只能升级地产');
+    const up = upgrades ?? DEFAULT_UPGRADES;
+    return { ...t, ownerId: null, level: 0,
+        upgradeCosts: up.costRates.map(r => Math.round((t.price ?? 0) * r)),
+        levelRents: up.rentRates.map(r => Math.round((t.rent ?? 0) * r)) };
+}
+/** 净资产按购地原价与已付升级费用计价，不计未实现收益。 */
 export function netWorth(state, playerId) {
     const player = state.players.find(p => p.id === playerId);
     if (!player)
         throw new Error('玩家不存在');
-    return player.cash + state.tiles.reduce((sum, tile) => sum + (tile.ownerId === playerId && tile.kind === 'property' ? tile.price ?? 0 : 0), 0);
+    return player.cash + state.tiles.reduce((sum, tile) => sum + (tile.ownerId === playerId && tile.kind === 'property'
+        ? (tile.price ?? 0) + (tile.upgradeCosts ?? []).slice(0, tile.level ?? 0).reduce((a, b) => a + b, 0) : 0), 0);
 }
 /** 单一命令入口：始终返回新状态或明确拒绝，不修改传入对象。 */
 export function applyAction(state, action) {
@@ -104,7 +121,7 @@ export function applyAction(state, action) {
                 const landlord = state.players.find(p => p.id === landed.ownerId);
                 if (!landlord)
                     return reject('INVALID_PHASE');
-                const due = landed.rent ?? 0;
+                const due = (landed.level ?? 0) === 0 ? (landed.rent ?? 0) : (landed.levelRents?.[landed.level ?? 0] ?? 0);
                 const paid = Math.min(actor.cash, due);
                 const insolvent = paid < due;
                 const players = movingPlayers.map(p => p.id === actor.id
@@ -120,7 +137,7 @@ export function applyAction(state, action) {
                 return accept(state, events, {
                     randomState: nextState, players,
                     // 结束比赛后被淘汰者的土地回到无主状态；本阶段不实现清算/拍卖。
-                    tiles: insolvent ? state.tiles.map(t => t.ownerId === actor.id ? { ...t, ownerId: null } : t) : state.tiles,
+                    tiles: insolvent ? state.tiles.map(t => t.ownerId === actor.id ? { ...t, ownerId: null, level: 0 } : t) : state.tiles,
                     status: insolvent ? 'finished' : 'playing',
                     winnerId: insolvent ? landlord.id : state.winnerId,
                     phase: insolvent ? 'finished' : 'await_end_turn'
@@ -165,6 +182,23 @@ export function applyAction(state, action) {
                 currentPlayerIndex: (state.currentPlayerIndex + 1) % state.players.length,
                 round: !finished && lastPlayer ? state.round + 1 : state.round,
                 winnerId
+            });
+        }
+        case 'upgrade_property': {
+            if (state.phase !== 'await_end_turn' || !Number.isInteger(action.tileId))
+                return reject('INVALID_PHASE');
+            const tile = state.tiles[action.tileId];
+            if (!tile || tile.kind !== 'property' || tile.ownerId !== actor.id || (tile.level ?? 0) >= 2)
+                return reject('INVALID_PHASE');
+            const level = tile.level ?? 0;
+            const cost = tile.upgradeCosts?.[level];
+            if (cost === undefined)
+                return reject('INVALID_PHASE');
+            if (actor.cash < cost)
+                return reject('INSUFFICIENT_FUNDS');
+            return accept(state, [{ type: 'property_upgraded', actorId: actor.id, details: { tileId: tile.id, level: level + 1, amount: cost } }], {
+                tiles: state.tiles.map(t => t.id === tile.id ? { ...t, level: level + 1 } : t),
+                players: state.players.map(p => p.id === actor.id ? { ...p, cash: p.cash - cost } : p)
             });
         }
         case 'buy_property': {

@@ -1,5 +1,10 @@
 /** 独立于页面的确定性回合与棋盘规则核心；第 #4 期加入地产买卖、收租、破产与胜负规则。 */
-export declare const SCHEMA_VERSION: 1;
+export declare const SCHEMA_VERSION: 2;
+export declare const UPGRADE_RULES_VERSION: 1;
+export declare const DEFAULT_UPGRADES: {
+    readonly costRates: readonly [0.5, 0.8];
+    readonly rentRates: readonly [1, 2, 4];
+};
 export type PlayerId = string;
 export type TileKind = 'start' | 'property' | 'neutral';
 export type Phase = 'setup' | 'await_roll' | 'await_decision' | 'await_end_turn' | 'finished';
@@ -20,6 +25,10 @@ export interface GameConfig {
     readonly tiles: readonly TileConfig[];
     readonly initialCash: number;
     readonly maxRounds: number;
+    readonly upgrades?: {
+        readonly costRates: readonly [number, number];
+        readonly rentRates: readonly [number, number, number];
+    };
 }
 export interface Player {
     readonly id: PlayerId;
@@ -31,14 +40,18 @@ export interface Player {
 }
 export interface Tile extends TileConfig {
     readonly ownerId: PlayerId | null;
+    readonly level?: number;
+    readonly upgradeCosts?: readonly [number, number];
+    readonly levelRents?: readonly [number, number, number];
 }
 export interface GameEvent {
-    readonly type: 'game_started' | 'die_rolled' | 'player_moved' | 'turn_ended' | 'tile_landed' | 'property_declined' | 'property_bought' | 'rent_paid' | 'player_bankrupt' | 'game_finished';
+    readonly type: 'game_started' | 'die_rolled' | 'player_moved' | 'turn_ended' | 'tile_landed' | 'property_declined' | 'property_bought' | 'property_upgraded' | 'rent_paid' | 'player_bankrupt' | 'game_finished';
     readonly actorId?: PlayerId;
     readonly details?: Readonly<Record<string, string | number>>;
 }
 export interface GameState {
     readonly schemaVersion: typeof SCHEMA_VERSION;
+    readonly upgradeRulesVersion: typeof UPGRADE_RULES_VERSION;
     readonly status: 'setup' | 'playing' | 'finished';
     readonly phase: Phase;
     readonly revision: number;
@@ -66,6 +79,10 @@ export type GameAction = {
 } | {
     readonly type: 'end_turn';
     readonly actorId: PlayerId;
+} | {
+    readonly type: 'upgrade_property';
+    readonly actorId: PlayerId;
+    readonly tileId: number;
 };
 export type RejectReason = 'INVALID_PHASE' | 'INVALID_ACTOR' | 'INSUFFICIENT_FUNDS';
 export type ActionResult = {
@@ -88,7 +105,8 @@ export declare function nextDie(randomState: number): {
 };
 /** 新建纯数据状态。每次调用都会创建隔离的玩家、棋盘数组。 */
 export declare function createGame(seed: number, config?: GameConfig): GameState;
-/** 按当前现金与未折旧购地价格计算净资产；仅用于回合上限时公平判定。 */
+export declare function makePropertyTile(t: TileConfig, upgrades?: GameConfig['upgrades']): Tile;
+/** 净资产按购地原价与已付升级费用计价，不计未实现收益。 */
 export declare function netWorth(state: GameState, playerId: PlayerId): number;
 /** 单一命令入口：始终返回新状态或明确拒绝，不修改传入对象。 */
 export declare function applyAction(state: GameState, action: GameAction): ActionResult;

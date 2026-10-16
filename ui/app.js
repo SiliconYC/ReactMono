@@ -279,14 +279,15 @@ class App extends React.Component {
             this.setState({ game: result.state, message: this.describe(result.events, result.state, actor.name) });
         }, this.state.fastMode ? 8 : 220);
     }
-    dispatch = (type) => {
+    dispatch = (type, tileId) => {
         if (this.state.storageBusy)
             return;
         const { game } = this.state;
         const actor = game.players[game.currentPlayerIndex];
         if (actor.kind === 'computer')
             return;
-        const result = applyAction(game, { type, actorId: actor.id });
+        const action = type === 'upgrade_property' ? { type, actorId: actor.id, tileId: tileId ?? -1 } : { type, actorId: actor.id };
+        const result = applyAction(game, action);
         if (!result.ok) {
             const reason = result.reason === 'INSUFFICIENT_FUNDS' ? '资金不足，无法购买这块地产。请放弃购买。' : '当前阶段不能执行这个操作。';
             this.setState({ message: reason });
@@ -303,6 +304,9 @@ class App extends React.Component {
         }
         if (events.some(e => e.type === 'game_started'))
             return '对局已开始！轮到玩家掷骰。';
+        const upgraded = events.find(e => e.type === 'property_upgraded');
+        if (upgraded)
+            return `${actorName}升级了 ${upgraded.details?.tileId} 号地产至 ${upgraded.details?.level} 级，花费 ${upgraded.details?.amount} 游戏币。`;
         const bought = events.find(e => e.type === 'property_bought');
         if (bought)
             return `${actorName}花费 ${bought.details?.amount} 游戏币购买了 ${bought.details?.tileId} 号地产。现在可以结束回合。`;
@@ -326,6 +330,7 @@ class App extends React.Component {
             case 'game_started': return '对局开始';
             case 'die_rolled': return `${person}掷出 ${event.details?.value} 点`;
             case 'tile_landed': return `${person}到达「${event.details?.title}」`;
+            case 'property_upgraded': return `${person}将 ${event.details?.tileId} 号地产升到 ${event.details?.level} 级（${event.details?.amount}）`;
             case 'property_bought': return `${person}买下 ${event.details?.tileId} 号地产（${event.details?.amount}）`;
             case 'rent_paid': return `${person}支付租金 ${event.details?.amount}`;
             case 'player_bankrupt': return `${person}破产`;
@@ -344,7 +349,7 @@ class App extends React.Component {
             React.createElement("span", { className: "tile-name" },
                 kindLabel[tile.kind],
                 tile.kind === 'property' ? ` ${tile.id}` : ''),
-            tile.kind === 'property' && React.createElement("span", { className: "tile-value" }, tile.ownerId ? (tile.ownerId === 'p1' ? '玩家所有' : '电脑所有') : `售价 ${tile.price}`),
+            tile.kind === 'property' && React.createElement("span", { className: "tile-value" }, tile.ownerId ? `${tile.ownerId === 'p1' ? '玩家' : '电脑'} · ${tile.level ?? 0}级 · 租 ${tile.levelRents?.[tile.level ?? 0] ?? tile.rent}` : `售价 ${tile.price}`),
             React.createElement("div", { className: "pieces" }, residents.map(p => React.createElement("span", { key: p.id, className: `piece ${p.kind}`, title: p.name }, p.kind === 'human' ? '人' : '机')))));
     };
     render() {
@@ -452,9 +457,17 @@ class App extends React.Component {
                                 React.createElement("span", null, "\u2302")),
                             !hasMoneyForLand && React.createElement("p", { className: "insufficient-msg" }, "\u8D44\u91D1\u4E0D\u8DB3\uFF0C\u4E0D\u80FD\u8D2D\u4E70\u6B64\u5730\u3002"),
                             React.createElement("button", { type: "button", className: "secondary-btn", onClick: () => this.dispatch('decline_property') }, "\u653E\u5F03\u8D2D\u4E70\uFF0C\u7EE7\u7EED\u56DE\u5408 \u2192")),
-                        current.kind === 'human' && game.phase === 'await_end_turn' && React.createElement("button", { type: "button", className: "primary-btn", onClick: () => this.dispatch('end_turn') },
-                            "\u7ED3\u675F\u5F53\u524D\u56DE\u5408 ",
-                            React.createElement("span", null, "\u2192")),
+                        current.kind === 'human' && game.phase === 'await_end_turn' && React.createElement("div", { className: "purchase-actions" },
+                            game.tiles.filter(t => t.kind === 'property' && t.ownerId === current.id && (t.level ?? 0) < 2).map(tile => React.createElement("button", { type: "button", key: tile.id, className: "secondary-btn", disabled: current.cash < (tile.upgradeCosts?.[tile.level ?? 0] ?? Infinity), onClick: () => this.dispatch('upgrade_property', tile.id) },
+                                "\u5347\u7EA7 ",
+                                tile.title,
+                                " \u2192 ",
+                                (tile.level ?? 0) + 1,
+                                " \u7EA7 \u00B7 \u8D39\u7528 ",
+                                tile.upgradeCosts?.[tile.level ?? 0])),
+                            React.createElement("button", { type: "button", className: "primary-btn", onClick: () => this.dispatch('end_turn') },
+                                "\u7ED3\u675F\u5F53\u524D\u56DE\u5408 ",
+                                React.createElement("span", null, "\u2192"))),
                         game.phase === 'finished' && React.createElement("div", { className: "result-box", role: "status" },
                             React.createElement("strong", null, game.winnerId ? `${game.players.find(p => p.id === game.winnerId)?.name}获胜！` : '双方平局！'),
                             React.createElement("p", null, [...game.events].reverse().find(e => e.type === 'game_finished')?.details?.reason === 'bankruptcy' ? '结束原因：一方无法付清租金' : '结束原因：达到回合上限'),
@@ -531,7 +544,7 @@ class App extends React.Component {
                         React.createElement("strong", null, "\u73A9\u6CD5\u8BF4\u660E"),
                         React.createElement("p", null, "\u2460 \u70B9\u51FB\u300C\u5F00\u59CB\u6E38\u620F\u300D\uFF0C\u8F6E\u5230\u73A9\u5BB6\u65F6\u63B7\u9AB0\u524D\u8FDB\u3002\u2461 \u5230\u65E0\u4E3B\u5730\u4EA7\u53EF\u4E70\u5165\u6216\u653E\u5F03\uFF1B\u7ECF\u8FC7\u5BF9\u624B\u5730\u4EA7\u4F1A\u81EA\u52A8\u4ED8\u79DF\u3002\u2462 \u5904\u7406\u5B8C\u5730\u5757\u540E\u7ED3\u675F\u56DE\u5408\uFF0C\u7535\u8111\u4F1A\u81EA\u52A8\u884C\u52A8\u3002"),
                         React.createElement("p", null, "\u4ED8\u4E0D\u8D77\u79DF\u91D1\u7ACB\u5373\u7834\u4EA7\uFF1B\u5426\u5219\u6700\u591A\u73A9 60 \u8F6E\uFF0C\u6700\u7EC8\u6309\u73B0\u91D1\u52A0\u571F\u5730\u539F\u4EF7\u8BA1\u7B97\u51C0\u8D44\u4EA7\u3002\u7535\u8111\u8D2D\u5730\u540E\u81F3\u5C11\u4FDD\u7559 200 \u6E38\u620F\u5E01\u3002"),
-                        React.createElement("p", null, "\u8FD9\u662F P1 \u7B80\u5316\u53EF\u73A9\u7248\uFF1A\u5C1A\u4E0D\u5305\u542B\u5347\u7EA7\u3001\u80A1\u7968\u3001\u5361\u7247\u3001\u5B58\u6863\u6216\u79BB\u7EBF\u529F\u80FD\uFF0C\u540E\u7EED\u9636\u6BB5\u9010\u6B65\u52A0\u5165\u3002")))),
+                        React.createElement("p", null, "P2 \u5DF2\u652F\u6301\u5347\u7EA7\u3001\u79BB\u7EBF\u53CA\u672C\u5730\u5B58\u6863\uFF1B\u5361\u7247\u548C\u968F\u673A\u4E8B\u4EF6\u5C06\u5728\u540E\u7EED\u52A0\u5165\u3002")))),
             React.createElement("footer", { className: "footer" }, "\u7EAF\u524D\u7AEF \u00B7 \u7B80\u4F53\u4E2D\u6587 \u00B7 \u4E0D\u9700\u8981\u8D26\u53F7\u3000\uFF5C\u3000IndexedDB \u672C\u673A\u5B58\u6863 \u00B7 \u4E0D\u4E0A\u4F20\u4E91\u7AEF")));
     }
 }
