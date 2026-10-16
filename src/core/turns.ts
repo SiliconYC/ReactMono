@@ -8,24 +8,39 @@ import { liquidateStocksForRent } from './stocks.js';
 import { foreclose, settleLoanRound } from './loan.js';
 import { coverRentFromBank, settleBankRound } from './bank.js';
 import { DEFAULT_CARD_RULES } from './config.js';
+import { handSize } from './cards.js';
 import { accept, reject } from './transitions.js';
 export function rollTurn(state: GameState, actor: Player): ActionResult {
       if (state.phase !== 'await_roll') return reject(state,'INVALID_PHASE');
-      const { value, nextState } = nextDie(state.randomState);
+      const draw = nextDie(state.randomState);
+      const value = state.strategyEnabled===true && (state.pendingDie??0)>0 ? state.pendingDie! : draw.value;
+      const nextState=draw.nextState; // consume RNG even for remote dice so replay is stable
       const bonus=state.pendingMoveBonus??0;
-      const position = advancePosition(state.map,actor.position,value+bonus);
+      let position=advancePosition(state.map,actor.position,value+bonus);
+      let blocks=(state.roadblocks??[]).filter(b=>b.expiresRound>=state.round &&
+        !state.players.some(p=>p.id===b.ownerId&&p.bankrupt));
+      let hit:number|undefined;
+      for(let step=1;step<=value+bonus;step++){
+        const traversed=advancePosition(state.map,actor.position,step);
+        if(blocks.some(b=>b.tileId===traversed&&b.ownerId!==actor.id)){
+          position=traversed;hit=traversed;blocks=blocks.filter(b=>b.tileId!==traversed);break;
+        }
+      }
       const landed = state.tiles[position];
       const events: GameEvent[] = [
-        { type: 'die_rolled', actorId: actor.id, details: { value, bonus } },
+        { type: 'die_rolled', actorId: actor.id, details: { value, bonus,...((state.pendingDie??0)>0?{remote:1}:{}) } },
         { type: 'player_moved', actorId: actor.id, details: { from: actor.position, to: position } },
-        { type: 'tile_landed', actorId: actor.id, details: { tileId: landed.id, title: landed.title } }
+        { type: 'tile_landed', actorId: actor.id, details: { tileId: landed.id, title: landed.title } },
+        ...(hit===undefined?[]:[{type:'roadblock_triggered' as const,actorId:actor.id,details:{tileId:hit}}])
       ];
       let movingPlayers = state.players.map(p => p.id === actor.id ? { ...p, position } : p);
       let finalRandomState=nextState;
       if (landed.kind === 'property' && landed.ownerId && landed.ownerId !== actor.id) {
         const landlord = state.players.find(p => p.id === landed.ownerId);
         if (!landlord) return reject(state,'INVALID_PHASE');
-        const due = landed.mortgaged===true ? 0 : (landed.level??0)===0 ? (landed.rent??0) : (landed.levelRents?.[landed.level??0]??0);
+        const baseDue = landed.mortgaged===true ? 0 : (landed.level??0)===0 ? (landed.rent??0) : (landed.levelRents?.[landed.level??0]??0);
+        const due = state.pendingRentWaiver===true?0:baseDue;
+        if(baseDue>0&&state.pendingRentWaiver===true)events.push({type:'rent_waived',actorId:actor.id,details:{tileId:landed.id,amount:baseDue}});
         const funds=coverRentFromBank(state,actor,due);
         if(funds.amount>0)events.push({type:'bank_withdrawn',actorId:actor.id,details:{amount:funds.amount,reason:'rent'}});
         const stockRescue=state.market!==undefined
@@ -78,6 +93,8 @@ export function rollTurn(state: GameState, actor: Player): ActionResult {
         if(loanSettle)events.push(...loanSettle.events);
         return accept(state, events, {
           randomState: nextState, players:loanSettle?.players??interest?.players??players, pendingMoveBonus:0,
+          ...(state.strategyEnabled===true?{pendingDie:0,pendingRentWaiver:false,
+            roadblocks:blocks.filter(b=>!(insolvent&&b.ownerId===actor.id))}:{}),
           ...(interest?{bank:interest.bank}:{}),
           ...(loanSettle?{loan:loanSettle.loan}:{}),
           // Auction at defined resale value before paying rent; residual insolvency releases all land.
@@ -105,10 +122,12 @@ export function rollTurn(state: GameState, actor: Player): ActionResult {
       if(landed.cardStation){
         const owner=movingPlayers.find(p=>p.id===actor.id)!;
         const held=owner.cards??{reward:0,stride:0};
-        if(held.reward+held.stride<(state.cardRules?.maxHand??DEFAULT_CARD_RULES.maxHand)){
+        if(handSize(held)<(state.cardRules?.maxHand??DEFAULT_CARD_RULES.maxHand)){
           const draw=nextDie(finalRandomState);finalRandomState=draw.nextState;
-          const kind:CardKind=draw.value%2===1?'reward':'stride';
-          movingPlayers=movingPlayers.map(p=>p.id===actor.id?{...p,cards:{...held,[kind]:held[kind]+1}}:p);
+          const kind:CardKind=state.strategyEnabled===true
+            ? (['reward','stride','remote','roadblock','rent_free','reward'] as const)[draw.value-1]
+            : draw.value%2===1?'reward':'stride';
+          movingPlayers=movingPlayers.map(p=>p.id===actor.id?{...p,cards:{...held,[kind]:(held[kind]??0)+1}}:p);
           events.push({type:'card_received',actorId:actor.id,details:{tileId:landed.id,cardType:kind}});
         }
       }
@@ -118,6 +137,7 @@ export function rollTurn(state: GameState, actor: Player): ActionResult {
         randomState: finalRandomState,
         players: movingPlayers,
         pendingMoveBonus:0,
+        ...(state.strategyEnabled===true?{pendingDie:0,pendingRentWaiver:false,roadblocks:blocks}:{}),
         phase
       });
 }
