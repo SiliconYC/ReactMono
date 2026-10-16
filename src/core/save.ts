@@ -1,6 +1,7 @@
 /** Local versioned save contract; migrates historic two-player v1/v2 records. */
 import { SCHEMA_VERSION, UPGRADE_RULES_VERSION, makePropertyTile, type GameState } from './game.js';
 import { inferMap, validateMap } from './maps.js';
+import {validateMarket} from './market.js';
 
 export const SAVE_FORMAT_VERSION = 1 as const;
 export const MAX_SAVE_CHARS = 4_000_000;
@@ -39,7 +40,11 @@ export function validateGameState(value: unknown, expectedVersion: number = SCHE
   if (!record(value)) throw new SaveError('INVALID_STATE','存档数据无效：游戏状态必须为对象');
   keys(value,['schemaVersion','status','phase','revision','round','currentPlayerIndex','randomState',
     'maxRounds','players','tiles','winnerId','events','upgradeRulesVersion',
-    ...(expectedVersion>=4?['map']:[])],['cardRules','pendingMoveBonus']);
+    ...(expectedVersion>=4?['map']:[])],['cardRules','pendingMoveBonus',...(expectedVersion>=4?['market']:[])]);
+  if(value.market!==undefined){
+    try{validateMarket(value.market);if(value.market.round!==value.round)throw new Error('round');}
+    catch{throw new SaveError('INVALID_STATE','存档行情快照无效');}
+  }
   if(value.cardRules!==undefined){
     if(!record(value.cardRules))throw new SaveError('INVALID_STATE','卡片参数无效');
     keys(value.cardRules,['rewardCash','moveBonus','maxHand']);
