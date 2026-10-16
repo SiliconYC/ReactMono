@@ -3,7 +3,7 @@ import { chooseComputerAction } from '../core/agent.js';
 import { listSlots, readSlot, writeSlot, deleteSlot, type SlotSummary } from '../storage/indexeddb.js';
 import { deserializeGame, MAX_SAVE_CHARS, type SaveEnvelope } from '../core/save.js';
 
-interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly bankAmountInput: string; readonly stockAmountInput: string; readonly playerSetup: readonly PlayerConfig[]; readonly roundsInput: string; readonly selectedMapId:string; readonly awaitingHandoff: boolean; readonly fastMode: boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; readonly importPreview: SaveEnvelope | null; readonly importName: string; readonly offline: boolean; readonly pwaUpdate: boolean; readonly pwaMessage: string; }
+interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly bankAmountInput: string; readonly stockAmountInput: string; readonly strategyDieInput:string; readonly roadblockTileInput:string; readonly playerSetup: readonly PlayerConfig[]; readonly roundsInput: string; readonly selectedMapId:string; readonly awaitingHandoff: boolean; readonly fastMode: boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; readonly importPreview: SaveEnvelope | null; readonly importName: string; readonly offline: boolean; readonly pwaUpdate: boolean; readonly pwaMessage: string; }
 
 /** Read screen positions from map data, never infer them from the tile ID. */
 function cellPosition(map:GameMap,index:number):{gridColumn:number;gridRow:number}{
@@ -16,7 +16,7 @@ const kindLabel: Record<Tile['kind'], string> = { start: '起点', property: '�
 class App extends React.Component<object, UiState> {
   constructor(props: object) {
     super(props);
-    this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput:'100', stockAmountInput:'1', playerSetup: [{id:'p1',name:'玩家',kind:'human'},{id:'p2',name:'电脑',kind:'computer'}], roundsInput:'60', selectedMapId:'classic-24', awaitingHandoff:false, fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator==='undefined'?false:!navigator.onLine, pwaUpdate:false, pwaMessage:'', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+    this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput:'100', stockAmountInput:'1', strategyDieInput:'1', roadblockTileInput:'1', playerSetup: [{id:'p1',name:'玩家',kind:'human'},{id:'p2',name:'电脑',kind:'computer'}], roundsInput:'60', selectedMapId:'classic-24', awaitingHandoff:false, fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator==='undefined'?false:!navigator.onLine, pwaUpdate:false, pwaMessage:'', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
   }
 
   private computerTimer: number | null = null;
@@ -216,7 +216,7 @@ class App extends React.Component<object, UiState> {
       this.setState({message:'所有玩家都必须填写不同的姓名（最多 24 字）。'});return;
     }
     let fresh:GameState;
-    try{fresh=createGame(seed,{...(this.state.selectedMapId==='harbor-20'?HARBOR_CONFIG:DEFAULT_CONFIG),players:roster,maxRounds:rounds,automaticLiquidation:true,bankEnabled:true,loanEnabled:true,marketEnabled:true});}
+    try{fresh=createGame(seed,{...(this.state.selectedMapId==='harbor-20'?HARBOR_CONFIG:DEFAULT_CONFIG),players:roster,maxRounds:rounds,automaticLiquidation:true,bankEnabled:true,loanEnabled:true,marketEnabled:true,strategyEnabled:true});}
     catch(e){this.setState({message:'开局配置无效：'+(e instanceof Error?e.message:String(e))});return;}
     this.saveEpoch++;
     this.stopTimer();
@@ -262,7 +262,9 @@ class App extends React.Component<object, UiState> {
     const action:GameAction=(type==='buy_stock'||type==='sell_stock')?{type,actorId:actor.id,stockId:stockId??'SEA',quantity:stockAmount}
       :(type==='upgrade_property'||type==='sell_property'||type==='mortgage_property'||type==='release_mortgage')?{type,actorId:actor.id,tileId:tileId??-1}
       :type==='deposit_bank'||type==='withdraw_bank'||type==='borrow_loan'||type==='repay_loan'?{type,actorId:actor.id,amount:bankAmount}
-      :type==='use_card'?{type,actorId:actor.id,cardType:cardType??'reward'}:{type,actorId:actor.id};
+      :type==='use_card'?{type,actorId:actor.id,cardType:cardType??'reward',
+          ...(cardType==='remote'?{dieValue:Number(this.state.strategyDieInput)}:{}),
+          ...(cardType==='roadblock'?{tileId:Number(this.state.roadblockTileInput)}:{})}:{type,actorId:actor.id};
     const result = applyAction(game,action);
     if (!result.ok) {
       const bankAction=type==='deposit_bank'||type==='withdraw_bank'||type==='borrow_loan'||type==='repay_loan';
@@ -298,7 +300,9 @@ class App extends React.Component<object, UiState> {
     const upgraded=events.find(e=>e.type==='property_upgraded');
     if(upgraded)return `${actorName}升级了 ${upgraded.details?.tileId} 号地产至 ${upgraded.details?.level} 级，花费 ${upgraded.details?.amount} 游戏币。`;
     const used=events.find(e=>e.type==='card_used');
-    if(used)return used.details?.cardType==='reward'?`${actorName}使用奖励卡，获得 ${used.details?.amount} 游戏币。`:`${actorName}使用步数卡，下次掷骰额外前进 ${used.details?.moveBonus} 格。`;
+    if(used)return used.details?.cardType==='reward'?`${actorName}使用奖励卡，获得 ${used.details?.amount} 游戏币。`:
+      used.details?.cardType==='stride'?`${actorName}使用步数卡，下次掷骰额外前进 ${used.details?.moveBonus} 格。`:
+      this.describeEvent(used);
     const special=events.find(e=>e.type==='event_bonus'||e.type==='event_fee');
     if(special)return special.type==='event_bonus' ? `${actorName}触发幸运事件，获得 ${special.details?.amount} 游戏币。` : `${actorName}触发费用事件，支付 ${special.details?.amount} 游戏币（应付 ${special.details?.due}）。`;
     const bought = events.find(e => e.type === 'property_bought');
@@ -317,14 +321,21 @@ class App extends React.Component<object, UiState> {
     return '操作完成。';
   };
 
+  private cardName=(kind:unknown):string=>({
+    reward:'奖励卡',stride:'步数卡',remote:'遥控骰子',roadblock:'路障',rent_free:'免租卡'
+  } as Record<string,string>)[String(kind)]??'卡片';
+
   describeEvent = (event: GameEvent): string => {
     const person = this.state.game.players.find(p => p.id === event.actorId)?.name ?? '系统';
     switch (event.type) {
       case 'game_started': return '对局开始';
       case 'die_rolled': return `${person}掷出 ${event.details?.value} 点`;
       case 'tile_landed': return `${person}到达「${event.details?.title}」`;
-      case 'card_received': return `${person}在卡片站获得${event.details?.cardType==='reward'?'奖励卡':'步数卡'}`;
-      case 'card_used': return `${person}使用${event.details?.cardType==='reward'?'奖励卡':'步数卡'}`;
+      case 'card_received': return `${person}在卡片站获得${this.cardName(event.details?.cardType)}`;
+      case 'card_used': return `${person}使用${this.cardName(event.details?.cardType)}${event.details?.cardType==='roadblock'?'，放在 '+event.details?.tileId+' 号格':event.details?.cardType==='remote'?'，指定骰点 '+event.details?.dieValue:''}`;
+      case 'roadblock_triggered': return `${person}碰到 ${event.details?.tileId} 号格路障，提前停下`;
+      case 'rent_waived': return `${person}免除 ${event.details?.amount} 游戏币租金`;
+      case 'card_expired': return `${person}的免租保护已到期`;
       case 'event_bonus': return `${person}在事件格获得 ${event.details?.amount} 游戏币`;
       case 'event_fee': return `${person}在事件格支付 ${event.details?.amount} 游戏币`;
       case 'property_upgraded': return `${person}将 ${event.details?.tileId} 号地产升到 ${event.details?.level} 级（${event.details?.amount}）`;
@@ -357,7 +368,7 @@ class App extends React.Component<object, UiState> {
     const residents = game.players.filter(p => p.position === tile.id && !p.bankrupt);
     return (
       <div key={tile.id} className={`tile tile-${tile.kind} ${tile.ownerId ? `tile-owned-${tile.ownerId}` : ''} ${residents.length ? 'tile-occupied' : ''}`} style={cellPosition(game.map,tile.id)} data-tile-id={tile.id} aria-label={`${tile.id} 号地块，${tile.title}`}>
-        <span className="tile-index">{String(tile.id).padStart(2, '0')}</span>
+        <span className="tile-index">{String(tile.id).padStart(2, '0')}{game.roadblocks?.some(b=>b.tileId===tile.id)?' 🚧':''}</span>
         <span className="tile-icon" aria-hidden="true">{tile.kind === 'start' ? '★' : tile.kind === 'property' ? '⌂' : tile.eventBonus!==undefined ? '✦' : tile.cardStation ? '▣' : '☕'}</span>
         <span className="tile-name">{tile.kind==='property'?tile.title:tile.eventBonus!==undefined?'机会':tile.cardStation?'卡片':kindLabel[tile.kind]}</span>
         {tile.kind === 'property' && <span className="tile-value">{tile.ownerId ? `${game.players.find(p=>p.id===tile.ownerId)?.name??'未知'} · ${tile.level??0}级 · 租 ${tile.levelRents?.[tile.level??0]??tile.rent}` : `售价 ${tile.price}`}</span>}
@@ -378,6 +389,8 @@ class App extends React.Component<object, UiState> {
     const targetTile = game.tiles[current.position];
     const hasMoneyForLand = targetTile.kind === 'property' && targetTile.ownerId === null && current.cash >= (targetTile.price ?? 0);
     const lastEvents = game.events.filter(e => !['player_moved'].includes(e.type)).slice(-6).reverse();
+    const availableRoadblocks=game.tiles.filter(t=>t.id!==0&&t.id!==current.position&&
+      !game.players.some(p=>!p.bankrupt&&p.position===t.id)&&!game.roadblocks?.some(b=>b.tileId===t.id));
     return (
       <main className="app-shell" data-game-status={game.status} data-game-phase={game.phase} data-game-revision={game.revision} data-map-id={game.map.id}>
         <header className="topbar">
@@ -441,9 +454,24 @@ class App extends React.Component<object, UiState> {
               </div>}
               {current.kind === 'computer' && game.status === 'playing' && <p className="computer-thinking" role="status">电脑正在自动操作，保留至少 200 游戏币现金…</p>}
               {current.kind === 'human' && !this.state.awaitingHandoff && game.phase === 'await_roll' && <div className="purchase-actions">
-                <p className="purchase-info">手牌：奖励卡 {current.cards?.reward??0} 张 · 步数卡 {current.cards?.stride??0} 张{(game.pendingMoveBonus??0)>0?` · 已加步数 ${game.pendingMoveBonus}`:''}</p>
+                <p className="purchase-info">手牌：奖励 {current.cards?.reward??0} · 步数 {current.cards?.stride??0}{game.strategyEnabled?' · 遥控 '+(current.cards?.remote??0)+' · 路障 '+(current.cards?.roadblock??0)+' · 免租 '+(current.cards?.rent_free??0):''}{(game.pendingMoveBonus??0)>0?` · 已加步数 ${game.pendingMoveBonus}`:''}{(game.pendingDie??0)>0?` · 已指定骰点 ${game.pendingDie}`:''}{game.pendingRentWaiver?' · 本次免租':''}</p>
                 {(current.cards?.reward??0)>0&&<button type="button" className="secondary-btn" onClick={()=>this.dispatch('use_card',undefined,'reward')}>使用奖励卡（+{game.cardRules?.rewardCash??80} 游戏币）</button>}
                 {(current.cards?.stride??0)>0&&(game.pendingMoveBonus??0)===0&&<button type="button" className="secondary-btn" onClick={()=>this.dispatch('use_card',undefined,'stride')}>使用步数卡（+{game.cardRules?.moveBonus??2} 格）</button>}
+                {game.strategyEnabled&&(current.cards?.remote??0)>0&&(game.pendingDie??0)===0&&<div className="purchase-info">
+                  <label htmlFor="remote-die">遥控骰点 </label>
+                  <select id="remote-die" aria-label="遥控骰点" value={this.state.strategyDieInput} onChange={(e:{target:{value:string}})=>this.setState({strategyDieInput:e.target.value})}>
+                    {[1,2,3,4,5,6].map(n=><option key={n} value={n}>{n} 点</option>)}
+                  </select>
+                  <button type="button" className="secondary-btn" onClick={()=>this.dispatch('use_card',undefined,'remote')}>使用遥控骰子</button>
+                </div>}
+                {game.strategyEnabled&&(current.cards?.roadblock??0)>0&&<div className="purchase-info">
+                  <label htmlFor="roadblock-tile">放置路障 </label>
+                  <select id="roadblock-tile" aria-label="路障目标格" value={this.state.roadblockTileInput} onChange={(e:{target:{value:string}})=>this.setState({roadblockTileInput:e.target.value})}>
+                    {availableRoadblocks.map(t=><option key={t.id} value={t.id}>{t.id} · {t.title}</option>)}
+                  </select>
+                  <button type="button" className="secondary-btn" disabled={availableRoadblocks.length===0} onClick={()=>this.dispatch('use_card',undefined,'roadblock')}>放置路障</button>
+                </div>}
+                {game.strategyEnabled&&(current.cards?.rent_free??0)>0&&!game.pendingRentWaiver&&<button type="button" className="secondary-btn" onClick={()=>this.dispatch('use_card',undefined,'rent_free')}>使用免租卡（本次掷骰有效）</button>}
                 <button type="button" className="primary-btn" onClick={() => this.dispatch('roll')}>掷骰前进 <span>🎲</span></button>
               </div>}
               {current.kind === 'human' && !this.state.awaitingHandoff && game.phase === 'await_decision' && <div className="purchase-actions">
@@ -535,7 +563,7 @@ class App extends React.Component<object, UiState> {
             </div>
             <div className="players-card"><div className="card-label">玩家状态</div>{game.players.map(p => <div key={p.id} className={`player-line ${current.id === p.id && game.status === 'playing' ? 'is-current' : ''}`}><span className={`player-dot ${p.kind}`}>{p.kind === 'human' ? '人' : '机'}</span><div><strong>{p.name}</strong><small>{p.position} 号格 · 现金 {p.cash.toLocaleString('zh-CN')}{game.bank?` · 存款 ${(p.bankBalance??0).toLocaleString('zh-CN')}`:''}{game.market?` · 股票 ${Object.values(p.holdings??{}).reduce((sum,lot)=>sum+(lot?.quantity??0),0)} 股`:''}{game.loan?` · 贷款 ${(p.loanBalance??0).toLocaleString('zh-CN')}`:''} · 净资产 {netWorth(game,p.id).toLocaleString('zh-CN')}{p.bankrupt ? ' · 已破产' : ''}</small></div><span className="player-kind">{p.kind === 'human' ? '真人' : '电脑'}</span></div>)}</div>
             <div className="activity-card"><div className="card-label">最近事件</div><ol>{lastEvents.map((e,i) => <li key={`${game.events.length}-${i}`}>{this.describeEvent(e)}</li>)}</ol></div>
-            <div className="info-card"><strong>玩法说明</strong><p>① 点击「开始游戏」，轮到玩家时掷骰前进。② 到无主地产可买入或放弃；经过对手地产会自动付租。③ 处理完地块后结束回合，电脑会自动行动。</p><p>付不起租金可能出售地产或破产；最终按现金、存款、地产成本、股票市值减贷款计算净资产。电脑购地后至少保留 200 游戏币。</p><p>P2 已支持地产升级、机会格、奖励卡和步数卡；卡片在卡片站获得，只能在掷骰前使用。存档与离线游玩均在本机完成。</p></div>
+            <div className="info-card"><strong>玩法说明</strong><p>① 点击「开始游戏」，轮到玩家时掷骰前进。② 到无主地产可买入或放弃；经过对手地产会自动付租。③ 处理完地块后结束回合，电脑会自动行动。</p><p>付不起租金可能出售地产或破产；最终按现金、存款、地产成本、股票市值减贷款计算净资产。电脑购地后至少保留 200 游戏币。</p><p>卡片站可获得奖励、步数、遥控骰子、路障及免租卡；只在掷骰前使用。路障让对手提前停下，最多持续两轮；免租卡仅保护下一次落地。存档与离线游玩均在本机完成。</p></div>
           </aside>
         </div>
         <footer className="footer">纯前端 · 简体中文 · 不需要账号　｜　IndexedDB 本机存档 · 不上传云端</footer>
