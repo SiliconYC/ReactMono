@@ -33,14 +33,20 @@ function iso(x: unknown): x is string {
 }
 const EVENT_TYPES = new Set([
   'game_started','die_rolled','player_moved','turn_ended','tile_landed','property_declined',
-  'property_bought','property_upgraded','property_sold','property_liquidated','rent_paid','event_bonus','event_fee','card_received','card_used','player_bankrupt','game_finished'
+  'property_bought','property_upgraded','property_sold','property_liquidated','bank_deposited','bank_withdrawn','bank_interest','rent_paid','event_bonus','event_fee','card_received','card_used','player_bankrupt','game_finished'
 ]);
 /** Validate current and migrated legacy states against the same strict bounds. */
 export function validateGameState(value: unknown, expectedVersion: number = SCHEMA_VERSION): asserts value is GameState {
   if (!record(value)) throw new SaveError('INVALID_STATE','存档数据无效：游戏状态必须为对象');
   keys(value,['schemaVersion','status','phase','revision','round','currentPlayerIndex','randomState',
     'maxRounds','players','tiles','winnerId','events','upgradeRulesVersion',
-    ...(expectedVersion>=4?['map']:[])],['cardRules','pendingMoveBonus',...(expectedVersion>=4?['automaticLiquidation','resaleRules','market']:[])]);
+    ...(expectedVersion>=4?['map']:[])],['cardRules','pendingMoveBonus',...(expectedVersion>=4?['automaticLiquidation','resaleRules','market','bank']:[])]);
+  if(value.bank!==undefined){
+    if(!record(value.bank))throw new SaveError('INVALID_STATE','银行状态非法');
+    keys(value.bank,['version','interestBps','lastInterestRound']);
+    if(value.bank.version!==1||!finite(value.bank.interestBps,0,1000)||value.bank.lastInterestRound!==value.round)
+      throw new SaveError('INVALID_STATE','银行重复结息标记或利率非法');
+  }
   if(value.market!==undefined){
     try { validateMarket(value.market); if(value.market.round!==value.round) throw new Error('round'); }
     catch { throw new SaveError('INVALID_STATE','存档行情快照无效'); }
@@ -77,7 +83,11 @@ export function validateGameState(value: unknown, expectedVersion: number = SCHE
   for (let i=0;i<value.players.length;i++) {
     const p: unknown = value.players[i];
     if (!record(p)) throw new SaveError('INVALID_STATE','存档数据无效：玩家字段非法');
-    keys(p,['id','name','kind','position','cash','bankrupt'],['cards']);
+    keys(p,['id','name','kind','position','cash','bankrupt'],['cards',...(expectedVersion>=4?['bankBalance']:[])]);
+    if(value.bank!==undefined ? !finite(p.bankBalance,0,1_000_000_000_000) :
+      p.bankBalance!==undefined && p.bankBalance!==0)
+      throw new SaveError('INVALID_STATE','玩家银行存款非法');
+    if(p.bankrupt===true && typeof p.bankBalance==='number' && p.bankBalance>0)throw new SaveError('INVALID_STATE','破产玩家存在未清算存款');
     if(p.cards!==undefined){
       if(!record(p.cards))throw new SaveError('INVALID_STATE','卡片库存无效');
       keys(p.cards,['reward','stride']);
@@ -199,7 +209,7 @@ export function deserializeGame(raw: string): SaveEnvelope {
     throw new SaveError('INVALID_CHECKSUM','存档内容被修改或已损坏，不能读取');
   if(value.rulesVersion===1){
     const old=value.game;
-    if(!record(old)||old.schemaVersion!==1||!Array.isArray(old.tiles))throw new SaveError('INVALID_STATE','旧版存档结构错误');
+    if(!record(old)||old.schemaVersion!==1||!Array.isArray(old.tiles)||!Array.isArray(old.players))throw new SaveError('INVALID_STATE','旧版存档结构错误');
     // 校验旧版字段，避免以迁移名义接受未知结构；校验码已按旧载荷完成验证。
     keys(old,['schemaVersion','status','phase','revision','round','currentPlayerIndex','randomState','maxRounds','players','tiles','winnerId','events']);
     const tiles=old.tiles.map((tile:unknown)=>{
