@@ -210,3 +210,10 @@
 - 对「立即重调三种策略胜率」延期：#42 第一轮数据不足以推出可信收益；大型动画改进本轮否决。候选六维比较、PR 证据续填与 #33/#38/#41 断点恢复方法见 [P3_EVOLUTION_ROUND2.md](P3_EVOLUTION_ROUND2.md)。
 - 此处**未声称**测试/合并/Pages 通过；真实结果必须以最新 CI、PR 和部署状态为准。模型 Token、调用费用未可核算，不作估算。
 
+
+## 2026-10-17 · P3-15 已收口、P3-16 综合验收（#45，待验收）
+
+- #44 [PR #60](https://github.com/SiliconYC/ReactMono/pull/60) 合并 `1569b19a`；PR CI #38929965764、合并后 dev CI #38930448339、Pages #38930448352 / #38930499631 全部成功；已核实实际 `gh-pages/core/simulator.js` 包含拘留回合计数修复。#44 已正式关闭。
+- #45 从最新 `dev@1569b19a` 建 `p3/issue-45-final-acceptance`；新增独立 1000 局逐步规则/资产/存档验证，保存逐局轨迹与胜负；新增真实公网 Chromium 金融、文件恢复、桌面/手机离线完整对局；将截图及 JSON 记录作为 artifact。
+- 独立验收方法和严格失败门槛见 [P3_FINAL_ACCEPTANCE.md](P3_FINAL_ACCEPTANCE.md)。本记录在 CI 执行前**不宣称完成**。未来必须据实际 CI、PR、合并、Pages 和浏览器原始证据追加最终判定。
+
