@@ -514,6 +514,7 @@ class App extends React.Component {
                         React.createElement("p", { className: "turn-tip", role: "status" }, message)),
                     React.createElement("div", { className: "saves-card" },
                         React.createElement("div", { className: "card-label" }, "\u672C\u5730\u5B58\u6863"),
+                        React.createElement("p", { className: "save-warning" }, "\u6E05\u9664\u6D4F\u89C8\u5668\u7AD9\u70B9\u6570\u636E\u6216\u5378\u8F7D\u5E94\u7528\u53EF\u80FD\u6C38\u4E45\u5220\u9664\u672C\u5730\u5B58\u6863\uFF1B\u8BF7\u5B9A\u671F\u4F7F\u7528\u300C\u5BFC\u51FA\u300D\u4FDD\u5B58 JSON \u5907\u4EFD\u3002"),
                         React.createElement("p", { className: "save-message", role: "status" }, this.state.saveStatus),
                         React.createElement("button", { type: "button", className: "secondary-btn", disabled: game.status === 'setup' || this.state.storageBusy, onClick: () => void this.newManualSlot() }, "\u521B\u5EFA\u624B\u52A8\u5B58\u6863"),
                         React.createElement("ul", { className: "save-list" }, this.state.saveSlots.map(slot => React.createElement("li", { key: slot.id },
