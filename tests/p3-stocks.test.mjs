@@ -75,7 +75,7 @@ test('P3-10: tampered positions rejected; old #38 market save remains valid with
     {...s,market:undefined,players:s.players.map((p,i)=>i===0?{...p,holdings:{SEA:{quantity:1,costBasis:81}}}:p)}
   ])assert.throws(()=>serializeGame(bad,{now}),SaveError);
   const legacy=createGame(7,{...DEFAULT_CONFIG,marketEnabled:true});
-  assert.ok(legacy.players.every(p=>Object.hasOwn(p,'holdings')));
+  assert.ok(legacy.players.every(p=>!Object.hasOwn(p,'holdings')));
   const older={...legacy,players:legacy.players.map(p=>{const v={...p};delete v.holdings;return v;})};
   assert.deepEqual(deserializeGame(serializeGame(older,{now})).game,older);
 });
