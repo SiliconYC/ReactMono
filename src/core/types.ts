@@ -2,7 +2,9 @@
 import type { StockMarket, StockId } from './market.js';
 export const SCHEMA_VERSION = 4 as const;
 export const UPGRADE_RULES_VERSION = 1 as const;
-export type CardKind = 'reward' | 'stride';
+export type CardKind = 'reward' | 'stride' | 'remote' | 'roadblock' | 'rent_free';
+export type CardHand = Readonly<{reward:number;stride:number} & Partial<Record<'remote'|'roadblock'|'rent_free',number>>>;
+export interface Roadblock {readonly tileId:number;readonly ownerId:PlayerId;readonly expiresRound:number;}
 export type PlayerId = string;
 export type TileKind = 'start' | 'property' | 'neutral';
 export type Phase = 'setup' | 'await_roll' | 'await_decision' | 'await_end_turn' | 'finished';
@@ -30,6 +32,8 @@ export interface ResaleRules { readonly landPercent:number; readonly upgradePerc
 export interface LoanState { readonly version:1; readonly interestBps:number; readonly lastInterestRound:number; }
 export interface BankState { readonly version:1; readonly interestBps:number; readonly lastInterestRound:number; }
 export interface GameConfig {
+  /** Enable P3 strategy cards without changing legacy/P2 game semantics. */
+  readonly strategyEnabled?: boolean;
   readonly bankEnabled?: boolean;
   readonly loanEnabled?: boolean;
   readonly loanInterestBps?: number;
@@ -62,7 +66,7 @@ export interface Player {
   readonly loanBalance?: number;
   readonly holdings?: StockHoldings;
   readonly bankrupt: boolean;
-  readonly cards?:Readonly<Record<CardKind,number>>;
+  readonly cards?:CardHand;
 }
 export interface Tile extends TileConfig {
   readonly ownerId: PlayerId | null;
@@ -75,7 +79,7 @@ export interface Tile extends TileConfig {
   readonly cardStation?:boolean;
 }
 export interface GameEvent {
-  readonly type: 'game_started' | 'die_rolled' | 'player_moved' | 'turn_ended' | 'tile_landed' | 'property_declined' | 'property_bought' | 'property_upgraded' | 'property_sold' | 'property_liquidated' | 'bank_deposited' | 'bank_withdrawn' | 'bank_interest' | 'property_mortgaged' | 'property_released' | 'loan_borrowed' | 'loan_repaid' | 'loan_interest' | 'loan_default' | 'stock_bought' | 'stock_sold' | 'stock_liquidated' | 'event_bonus' | 'event_fee' | 'card_received' | 'card_used' | 'rent_paid' | 'player_bankrupt' | 'game_finished';
+  readonly type: 'roadblock_triggered' | 'rent_waived' | 'card_expired' | 'game_started' | 'die_rolled' | 'player_moved' | 'turn_ended' | 'tile_landed' | 'property_declined' | 'property_bought' | 'property_upgraded' | 'property_sold' | 'property_liquidated' | 'bank_deposited' | 'bank_withdrawn' | 'bank_interest' | 'property_mortgaged' | 'property_released' | 'loan_borrowed' | 'loan_repaid' | 'loan_interest' | 'loan_default' | 'stock_bought' | 'stock_sold' | 'stock_liquidated' | 'event_bonus' | 'event_fee' | 'card_received' | 'card_used' | 'rent_paid' | 'player_bankrupt' | 'game_finished';
   readonly actorId?: PlayerId;
   readonly details?: Readonly<Record<string, string | number>>;
 }
@@ -84,6 +88,11 @@ export interface GameState {
   readonly upgradeRulesVersion: typeof UPGRADE_RULES_VERSION;
   readonly cardRules?: {readonly rewardCash:number;readonly moveBonus:number;readonly maxHand:number};
   readonly pendingMoveBonus?:number;
+  readonly strategyEnabled?:true;
+  /** Zero means no remote die selected; valid pending values are 1–6. */
+  readonly pendingDie?:number;
+  readonly pendingRentWaiver?:boolean;
+  readonly roadblocks?:readonly Roadblock[];
   readonly status: 'setup' | 'playing' | 'finished';
   readonly phase: Phase;
   readonly revision: number;
@@ -115,7 +124,7 @@ export type GameAction =
   | { readonly type: 'buy_stock' | 'sell_stock'; readonly actorId:PlayerId; readonly stockId:StockId; readonly quantity:number }
   | { readonly type: 'borrow_loan' | 'repay_loan'; readonly actorId: PlayerId; readonly amount:number }
   | { readonly type: 'deposit_bank' | 'withdraw_bank'; readonly actorId: PlayerId; readonly amount:number }
-  | { readonly type: 'use_card'; readonly actorId:PlayerId; readonly cardType:CardKind; readonly targetId?:PlayerId };
+  | { readonly type: 'use_card'; readonly actorId:PlayerId; readonly cardType:CardKind; readonly targetId?:PlayerId; readonly dieValue?:number; readonly tileId?:number };
 export type RejectReason = 'INVALID_PHASE' | 'INVALID_ACTOR' | 'INSUFFICIENT_FUNDS';
 export type ActionResult =
   | { readonly ok: true; readonly state: GameState; readonly events: readonly GameEvent[] }
