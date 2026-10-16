@@ -77,5 +77,15 @@ jobs:
           path: artifacts/issue62/
           if-no-files-found: warn
           retention-days: 30
+      - name: P4 #63 原创美术 React 切片真实浏览器回归
+        run: python tests/browser_p4_visual_lab_e2e.py
+      - name: 保留 P4 #63 桌面与手机交互截图
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue63-original-art-chromium
+          path: artifacts/issue63/
+          if-no-files-found: warn
+          retention-days: 30
       - name: 确认产物不含第三方运行时引用
         run: "! grep -R -E 'https?://(unpkg|cdn|esm.sh)' dist/index.html"
