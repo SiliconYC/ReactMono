@@ -405,11 +405,10 @@ class App extends React.Component<object, UiState> {
         data-level={level} data-mortgaged={String(!!tile.mortgaged)} data-residents={residents.length}
         aria-label={label} aria-pressed={selected} title={label}
         onClick={()=>this.setState({selectedTileId:tile.id,...(roadblockSelectable?{roadblockTileInput:String(tile.id)}:{})})}>
-        <span className="tile-index">{String(tile.id).padStart(2,'0')}</span>
+        <span className="tile-index">{String(tile.id).padStart(2,'0')}{blocked?' 🚧':''}</span>
         <span className="tile-artwork" aria-hidden="true"><i className="art-roof"/><i className="art-body"/><i className="art-detail"/></span>
         <span className="tile-name">{tile.facility==='hospital'?'医院':tile.facility==='prison'?'监狱':tile.facility==='shop'?'商店':tile.kind==='property'?tile.title:tile.eventBonus!==undefined?'机会':tile.cardStation?'卡片':kindLabel[tile.kind]}</span>
         {tile.kind==='property'&&<span className="tile-value">{owner?`${level}级 · ${tile.mortgaged?'抵押':owner.name}`:`¥${tile.price}`}</span>}
-        {blocked&&<span className="tile-roadblock" aria-label="路障">!</span>}
         {tile.mortgaged&&<span className="tile-mortgage" aria-hidden="true">押</span>}
         {tile.kind==='property'&&owner&&<span className="tile-level" aria-label={`建筑等级 ${level}`}>{'●'.repeat(level+1)}</span>}
         <span className="pieces" aria-label={residents.map(p=>p.name).join('、')}>
