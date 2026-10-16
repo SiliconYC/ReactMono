@@ -57,7 +57,7 @@ def run():
             assert '持有 2 股' in page.locator('.stock-entry').filter(has_text='青禾农业').inner_text()
             assert page.locator('.turn-position').inner_text()==saved_cash
             # Let the opponents take their turns, triggering the seeded quote update.
-            advance=page.evaluate("""async()=>{
+            advance=page.evaluate(r"""async()=>{
               const click=t=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes(t)&&!x.disabled);if(!b)return false;b.click();return true};
               for(let i=0;i<320;i++){
                 const text=document.querySelector('.board-center-label')?.textContent||'';
@@ -79,7 +79,11 @@ def run():
             restored=page.locator('.save-list li').filter(has_text='股票验收（副本）')
             restored.wait_for()
             restored.get_by_role('button',name='读取').click()
-            page.wait_for_function("document.querySelector('.stock-actions')!==null")
+            page.wait_for_function("""()=>{
+              const row=[...document.querySelectorAll('.stock-entry')].find(x=>x.textContent.includes('青禾农业'));
+              return row?.textContent.includes('持有 2 股') &&
+                document.querySelector('.save-message')?.textContent.includes('已读取');
+            }""")
             assert '持有 2 股' in page.locator('.stock-entry').filter(has_text='青禾农业').inner_text()
             assert page.locator('.turn-position').inner_text()==saved_cash
             assert not errors,errors
