@@ -61,7 +61,7 @@ def run():
                   const click=s=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes(s)&&!x.disabled);if(!b)return false;b.click();return true};
                   for(let i=0;i<7000;i++){
                     const main=document.querySelector('main');
-                    if(main?.dataset.gamePhase==='await_shop')return {shop:true,i};
+                    if(main?.dataset.gamePhase==='await_shop'&&[...document.querySelectorAll('button')].some(b=>b.textContent.includes('离开商店')))return {shop:true,i};
                     if(main?.dataset.gameStatus==='finished')return {shop:false,finished:true,i};
                     if(!click('掷骰前进')&&!click('跳过当前停留回合')&&!click('购买地产')&&!click('放弃购买')&&!click('结束当前回合')){}
                     await new Promise(r=>setTimeout(r,12));
