@@ -7,7 +7,7 @@ export function runSimulation(seed, options = {}) {
     const humanReserveCash = options.humanReserveCash ?? 100;
     if (![reserveCash, humanReserveCash].every(x => Number.isFinite(x) && x >= 0))
         throw new Error('保留资金必须为非负有限数字');
-    const maxActions = options.maxActions ?? config.maxRounds * 6;
+    const maxActions = options.maxActions ?? config.maxRounds * config.players.length * 6;
     if (!Number.isInteger(maxActions) || maxActions < 1)
         throw new Error('动作上限必须为正整数');
     const start = createGame(seed, config);

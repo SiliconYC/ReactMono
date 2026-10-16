@@ -28,7 +28,7 @@ export function createGame(seed, config = DEFAULT_CONFIG) {
         randomState: normalizeSeed(seed),
         maxRounds: config.maxRounds,
         players: config.players.map((p, index) => ({
-            id: p.id, name: p.name, kind: index === 0 ? 'human' : 'computer',
+            id: p.id, name: p.name, kind: p.kind ?? (index === 0 ? 'human' : 'computer'),
             position: 0, cash: config.initialCash, bankrupt: false, cards: { reward: 0, stride: 0 }
         })),
         tiles: config.tiles.map(t => {
