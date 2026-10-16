@@ -19,7 +19,8 @@ function oneTurn(state) {
 }
 
 test('掷骰将当前玩家推进 1 到 6 格，输出有序的三类事件', () => {
-  const state = start(99);
+  // 旧三事件骰子契约以无卡片站配置隔离；卡片抽取另有专门回归。
+  const state = start(99,{...DEFAULT_CONFIG,cardRules:{tileIds:[],rewardCash:80,moveBonus:2,maxHand:3}});
   const before = JSON.stringify(state);
   const die = nextDie(state.randomState);
   const result = act(state, 'roll');
@@ -93,7 +94,7 @@ test('固定种子与相同操作产生相同骰子、状态和事件', () => {
 
 test('多轮无界面运行能够推进到第 60 轮边界并完成退出', () => {
   // 旧 P1 的平局基线使用无随机事件地图；事件结算由 events.test 独立覆盖。
-  let state=start(100,{...DEFAULT_CONFIG,eventRules:{tileIds:[],bonus:0,fee:0}});
+  let state=start(100,{...DEFAULT_CONFIG,eventRules:{tileIds:[],bonus:0,fee:0},cardRules:{tileIds:[],rewardCash:80,moveBonus:2,maxHand:3}});
   let count=0;
   while(state.status!=='finished' && count<140) { state=oneTurn(state); count++; }
   assert.equal(count,120);

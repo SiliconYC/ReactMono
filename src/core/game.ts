@@ -1,6 +1,8 @@
 /** 独立于页面的确定性回合与棋盘规则核心；第 #4 期加入地产买卖、收租、破产与胜负规则。 */
 export const SCHEMA_VERSION = 2 as const;
 export const UPGRADE_RULES_VERSION = 1 as const;
+export type CardKind = 'reward' | 'stride';
+export const DEFAULT_CARD_RULES = { tileIds:[6,12,18], rewardCash:80, moveBonus:2, maxHand:3 } as const;
 export const DEFAULT_EVENT_RULES = { tileIds:[3,9,15,21], bonus:120, fee:60 } as const;
 export const DEFAULT_UPGRADES = { costRates: [0.5, 0.8], rentRates: [1, 2, 4] } as const;
 export type PlayerId = string;
@@ -23,6 +25,7 @@ export interface GameConfig {
   readonly maxRounds: number;
   readonly upgrades?: { readonly costRates: readonly [number,number]; readonly rentRates: readonly [number,number,number] };
   readonly eventRules?: {readonly tileIds:readonly number[];readonly bonus:number;readonly fee:number};
+  readonly cardRules?: {readonly tileIds:readonly number[];readonly rewardCash:number;readonly moveBonus:number;readonly maxHand:number};
 }
 export interface Player {
   readonly id: PlayerId;
@@ -31,6 +34,7 @@ export interface Player {
   readonly position: number;
   readonly cash: number;
   readonly bankrupt: boolean;
+  readonly cards?:Readonly<Record<CardKind,number>>;
 }
 export interface Tile extends TileConfig {
   readonly ownerId: PlayerId | null;
@@ -39,15 +43,18 @@ export interface Tile extends TileConfig {
   readonly levelRents?: readonly [number,number,number];
   readonly eventBonus?:number;
   readonly eventFee?:number;
+  readonly cardStation?:boolean;
 }
 export interface GameEvent {
-  readonly type: 'game_started' | 'die_rolled' | 'player_moved' | 'turn_ended' | 'tile_landed' | 'property_declined' | 'property_bought' | 'property_upgraded' | 'event_bonus' | 'event_fee' | 'rent_paid' | 'player_bankrupt' | 'game_finished';
+  readonly type: 'game_started' | 'die_rolled' | 'player_moved' | 'turn_ended' | 'tile_landed' | 'property_declined' | 'property_bought' | 'property_upgraded' | 'event_bonus' | 'event_fee' | 'card_received' | 'card_used' | 'rent_paid' | 'player_bankrupt' | 'game_finished';
   readonly actorId?: PlayerId;
   readonly details?: Readonly<Record<string, string | number>>;
 }
 export interface GameState {
   readonly schemaVersion: typeof SCHEMA_VERSION;
   readonly upgradeRulesVersion: typeof UPGRADE_RULES_VERSION;
+  readonly cardRules?: {readonly rewardCash:number;readonly moveBonus:number;readonly maxHand:number};
+  readonly pendingMoveBonus?:number;
   readonly status: 'setup' | 'playing' | 'finished';
   readonly phase: Phase;
   readonly revision: number;
@@ -66,7 +73,8 @@ export type GameAction =
   | { readonly type: 'buy_property'; readonly actorId: PlayerId }
   | { readonly type: 'decline_property'; readonly actorId: PlayerId }
   | { readonly type: 'end_turn'; readonly actorId: PlayerId }
-  | { readonly type: 'upgrade_property'; readonly actorId: PlayerId; readonly tileId: number };
+  | { readonly type: 'upgrade_property'; readonly actorId: PlayerId; readonly tileId: number }
+  | { readonly type: 'use_card'; readonly actorId:PlayerId; readonly cardType:CardKind; readonly targetId?:PlayerId };
 export type RejectReason = 'INVALID_PHASE' | 'INVALID_ACTOR' | 'INSUFFICIENT_FUNDS';
 export type ActionResult =
   | { readonly ok: true; readonly state: GameState; readonly events: readonly GameEvent[] }
@@ -109,6 +117,11 @@ function validateConfig(config: GameConfig): void {
       config.tiles.some((t, i) => t.id !== i || !t.title.trim())) throw new Error('地图配置无效');
   if (!Number.isFinite(config.initialCash) || config.initialCash < 0 ||
       !Number.isInteger(config.maxRounds) || config.maxRounds < 1) throw new Error('游戏经济配置无效');
+  const cards=config.cardRules??DEFAULT_CARD_RULES;
+  if(![cards.rewardCash,cards.moveBonus,cards.maxHand].every(x=>Number.isSafeInteger(x)&&x>0)||
+    new Set(cards.tileIds).size!==cards.tileIds.length||
+    cards.tileIds.some(i=>!Number.isInteger(i)||i<0||(i<config.tiles.length&&config.tiles[i].kind!=='neutral')))
+    throw new Error('卡片配置无效');
   const ev=config.eventRules??DEFAULT_EVENT_RULES;
   if(![ev.bonus,ev.fee].every(v=>Number.isSafeInteger(v)&&v>=0)||
     new Set(ev.tileIds).size!==ev.tileIds.length||
@@ -130,6 +143,10 @@ export function createGame(seed: number, config: GameConfig = DEFAULT_CONFIG): G
   return {
     schemaVersion: SCHEMA_VERSION,
     upgradeRulesVersion: UPGRADE_RULES_VERSION,
+    cardRules: {rewardCash:(config.cardRules??DEFAULT_CARD_RULES).rewardCash,
+      moveBonus:(config.cardRules??DEFAULT_CARD_RULES).moveBonus,
+      maxHand:(config.cardRules??DEFAULT_CARD_RULES).maxHand},
+    pendingMoveBonus:0,
     status: 'setup',
     phase: 'setup',
     revision: 0,
@@ -139,12 +156,17 @@ export function createGame(seed: number, config: GameConfig = DEFAULT_CONFIG): G
     maxRounds: config.maxRounds,
     players: config.players.map((p, index): Player => ({
       id: p.id, name: p.name, kind: index === 0 ? 'human' : 'computer',
-      position: 0, cash: config.initialCash, bankrupt: false
+      position: 0, cash: config.initialCash, bankrupt: false, cards:{reward:0,stride:0}
     })),
-    tiles: config.tiles.map(t => t.kind==='property' ? makePropertyTile(t,config.upgrades??DEFAULT_UPGRADES)
-      : t.kind==='neutral'&&(config.eventRules??DEFAULT_EVENT_RULES).tileIds.includes(t.id)
-        ? ({...t,ownerId:null,eventBonus:(config.eventRules??DEFAULT_EVENT_RULES).bonus,eventFee:(config.eventRules??DEFAULT_EVENT_RULES).fee})
-        : ({...t,ownerId:null})),
+    tiles: config.tiles.map(t => {
+      if(t.kind==='property')return makePropertyTile(t,config.upgrades??DEFAULT_UPGRADES);
+      const tile:Tile={...t,ownerId:null};
+      if(t.kind==='neutral'&&(config.eventRules??DEFAULT_EVENT_RULES).tileIds.includes(t.id)){
+        Object.assign(tile,{eventBonus:(config.eventRules??DEFAULT_EVENT_RULES).bonus,eventFee:(config.eventRules??DEFAULT_EVENT_RULES).fee});
+      }
+      if(t.kind==='neutral'&&(config.cardRules??DEFAULT_CARD_RULES).tileIds.includes(t.id))Object.assign(tile,{cardStation:true});
+      return tile;
+    }),
     winnerId: null,
     events: []
   };
@@ -184,10 +206,11 @@ export function applyAction(state: GameState, action: GameAction): ActionResult 
     case 'roll': {
       if (state.phase !== 'await_roll') return reject('INVALID_PHASE');
       const { value, nextState } = nextDie(state.randomState);
-      const position = (actor.position + value) % state.tiles.length;
+      const bonus=state.pendingMoveBonus??0;
+      const position = (actor.position + value + bonus) % state.tiles.length;
       const landed = state.tiles[position];
       const events: GameEvent[] = [
-        { type: 'die_rolled', actorId: actor.id, details: { value } },
+        { type: 'die_rolled', actorId: actor.id, details: { value, bonus } },
         { type: 'player_moved', actorId: actor.id, details: { from: actor.position, to: position } },
         { type: 'tile_landed', actorId: actor.id, details: { tileId: landed.id, title: landed.title } }
       ];
@@ -210,7 +233,7 @@ export function applyAction(state: GameState, action: GameAction): ActionResult 
           events.push({ type: 'game_finished', details: { reason: 'bankruptcy', winnerId: landlord.id } });
         }
         return accept(state, events, {
-          randomState: nextState, players,
+          randomState: nextState, players, pendingMoveBonus:0,
           // 结束比赛后被淘汰者的土地回到无主状态；本阶段不实现清算/拍卖。
           tiles: insolvent ? state.tiles.map(t => t.ownerId === actor.id ? { ...t, ownerId: null, level:0 } : t) : state.tiles,
           status: insolvent ? 'finished' : 'playing',
@@ -230,11 +253,22 @@ export function applyAction(state: GameState, action: GameAction): ActionResult 
           events.push({type:'event_fee',actorId:actor.id,details:{tileId:landed.id,due:landed.eventFee,amount:paid,draw:draw.value}});
         }
       }
+      if(landed.cardStation){
+        const owner=movingPlayers.find(p=>p.id===actor.id)!;
+        const held=owner.cards??{reward:0,stride:0};
+        if(held.reward+held.stride<(state.cardRules?.maxHand??DEFAULT_CARD_RULES.maxHand)){
+          const draw=nextDie(finalRandomState);finalRandomState=draw.nextState;
+          const kind:CardKind=draw.value%2===1?'reward':'stride';
+          movingPlayers=movingPlayers.map(p=>p.id===actor.id?{...p,cards:{...held,[kind]:held[kind]+1}}:p);
+          events.push({type:'card_received',actorId:actor.id,details:{tileId:landed.id,cardType:kind}});
+        }
+      }
       const phase: Phase = landed.kind === 'property' && landed.ownerId === null
         ? 'await_decision' : 'await_end_turn';
       return accept(state, events, {
         randomState: finalRandomState,
         players: movingPlayers,
+        pendingMoveBonus:0,
         phase
       });
     }
@@ -265,6 +299,18 @@ export function applyAction(state: GameState, action: GameAction): ActionResult 
         currentPlayerIndex: (state.currentPlayerIndex + 1) % state.players.length,
         round: !finished && lastPlayer ? state.round + 1 : state.round,
         winnerId
+      });
+    }
+    case 'use_card': {
+      if(state.phase!=='await_roll'||(action.targetId!==undefined&&action.targetId!==actor.id)||
+        !['reward','stride'].includes(action.cardType))return reject('INVALID_PHASE');
+      const held=actor.cards??{reward:0,stride:0};
+      if((held[action.cardType]??0)<1||(action.cardType==='stride'&&(state.pendingMoveBonus??0)>0))return reject('INVALID_PHASE');
+      const rules=state.cardRules??DEFAULT_CARD_RULES;
+      const reward=action.cardType==='reward'?rules.rewardCash:0;
+      return accept(state,[{type:'card_used',actorId:actor.id,details:{cardType:action.cardType,amount:reward,moveBonus:action.cardType==='stride'?rules.moveBonus:0}}],{
+        players:state.players.map(p=>p.id===actor.id?{...p,cash:p.cash+reward,cards:{...held,[action.cardType]:held[action.cardType]-1}}:p),
+        pendingMoveBonus:action.cardType==='stride'?rules.moveBonus:(state.pendingMoveBonus??0)
       });
     }
     case 'upgrade_property': {
