@@ -33,6 +33,7 @@ jobs:
           python tests/browser_loan_e2e.py
           python tests/browser_stocks_e2e.py
           python tests/browser_strategy_e2e.py
+          python tests/browser_facilities_e2e.py
           python tests/browser_saves_e2e.py
           python tests/browser_import_e2e.py
           python tests/browser_offline_e2e.py

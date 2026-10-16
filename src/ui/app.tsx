@@ -3,7 +3,7 @@ import { chooseComputerAction } from '../core/agent.js';
 import { listSlots, readSlot, writeSlot, deleteSlot, type SlotSummary } from '../storage/indexeddb.js';
 import { deserializeGame, MAX_SAVE_CHARS, type SaveEnvelope } from '../core/save.js';
 
-interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly bankAmountInput: string; readonly stockAmountInput: string; readonly strategyDieInput:string; readonly roadblockTileInput:string; readonly playerSetup: readonly PlayerConfig[]; readonly roundsInput: string; readonly selectedMapId:string; readonly awaitingHandoff: boolean; readonly fastMode: boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; readonly importPreview: SaveEnvelope | null; readonly importName: string; readonly offline: boolean; readonly pwaUpdate: boolean; readonly pwaMessage: string; }
+interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly bankAmountInput: string; readonly stockAmountInput: string; readonly strategyDieInput:string; readonly roadblockTileInput:string; readonly playerSetup: readonly PlayerConfig[]; readonly roundsInput: string; readonly selectedMapId:string; readonly awaitingHandoff: boolean; readonly fastMode: boolean; readonly specialEnabled:boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; readonly importPreview: SaveEnvelope | null; readonly importName: string; readonly offline: boolean; readonly pwaUpdate: boolean; readonly pwaMessage: string; }
 
 /** Read screen positions from map data, never infer them from the tile ID. */
 function cellPosition(map:GameMap,index:number):{gridColumn:number;gridRow:number}{
@@ -16,7 +16,7 @@ const kindLabel: Record<Tile['kind'], string> = { start: '起点', property: '�
 class App extends React.Component<object, UiState> {
   constructor(props: object) {
     super(props);
-    this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput:'100', stockAmountInput:'1', strategyDieInput:'1', roadblockTileInput:'1', playerSetup: [{id:'p1',name:'玩家',kind:'human'},{id:'p2',name:'电脑',kind:'computer'}], roundsInput:'60', selectedMapId:'classic-24', awaitingHandoff:false, fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator==='undefined'?false:!navigator.onLine, pwaUpdate:false, pwaMessage:'', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+    this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput:'100', stockAmountInput:'1', strategyDieInput:'1', roadblockTileInput:'1', playerSetup: [{id:'p1',name:'玩家',kind:'human'},{id:'p2',name:'电脑',kind:'computer'}], roundsInput:'60', selectedMapId:'classic-24', awaitingHandoff:false, fastMode: false, specialEnabled:false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator==='undefined'?false:!navigator.onLine, pwaUpdate:false, pwaMessage:'', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
   }
 
   private computerTimer: number | null = null;
@@ -216,7 +216,7 @@ class App extends React.Component<object, UiState> {
       this.setState({message:'所有玩家都必须填写不同的姓名（最多 24 字）。'});return;
     }
     let fresh:GameState;
-    try{fresh=createGame(seed,{...(this.state.selectedMapId==='harbor-20'?HARBOR_CONFIG:DEFAULT_CONFIG),players:roster,maxRounds:rounds,automaticLiquidation:true,bankEnabled:true,loanEnabled:true,marketEnabled:true,strategyEnabled:true});}
+    try{fresh=createGame(seed,{...(this.state.selectedMapId==='harbor-20'?HARBOR_CONFIG:DEFAULT_CONFIG),players:roster,maxRounds:rounds,automaticLiquidation:true,bankEnabled:true,loanEnabled:true,marketEnabled:true,strategyEnabled:true,specialEnabled:this.state.specialEnabled});}
     catch(e){this.setState({message:'开局配置无效：'+(e instanceof Error?e.message:String(e))});return;}
     this.saveEpoch++;
     this.stopTimer();
@@ -262,6 +262,7 @@ class App extends React.Component<object, UiState> {
     const action:GameAction=(type==='buy_stock'||type==='sell_stock')?{type,actorId:actor.id,stockId:stockId??'SEA',quantity:stockAmount}
       :(type==='upgrade_property'||type==='sell_property'||type==='mortgage_property'||type==='release_mortgage')?{type,actorId:actor.id,tileId:tileId??-1}
       :type==='deposit_bank'||type==='withdraw_bank'||type==='borrow_loan'||type==='repay_loan'?{type,actorId:actor.id,amount:bankAmount}
+      :type==='buy_shop_card'?{type,actorId:actor.id,cardType:cardType??'reward'}
       :type==='use_card'?{type,actorId:actor.id,cardType:cardType??'reward',
           ...(cardType==='remote'?{dieValue:Number(this.state.strategyDieInput)}:{}),
           ...(cardType==='roadblock'?{tileId:Number(game.tiles.some(t=>t.id===Number(this.state.roadblockTileInput)&&t.id!==0&&t.id!==actor.position&&!game.players.some(p=>!p.bankrupt&&p.position===t.id)&&!game.roadblocks?.some(b=>b.tileId===t.id))?this.state.roadblockTileInput:game.tiles.find(t=>t.id!==0&&t.id!==actor.position&&!game.players.some(p=>!p.bankrupt&&p.position===t.id)&&!game.roadblocks?.some(b=>b.tileId===t.id))?.id??-1)}:{})}:{type,actorId:actor.id};
@@ -335,6 +336,11 @@ class App extends React.Component<object, UiState> {
       case 'card_used': return `${person}使用${this.cardName(event.details?.cardType)}${event.details?.cardType==='roadblock'?'，放在 '+event.details?.tileId+' 号格':event.details?.cardType==='remote'?'，指定骰点 '+event.details?.dieValue:''}`;
       case 'roadblock_triggered': return `${person}碰到 ${event.details?.tileId} 号格路障，提前停下`;
       case 'rent_waived': return `${person}免除 ${event.details?.amount} 游戏币租金`;
+      case 'facility_entered': return `${person}来到${event.details?.kind==='hospital'?'医院':event.details?.kind==='prison'?'监狱':'商店'}${event.details?.turns?'，需跳过 '+event.details.turns+' 回合':'，可以购买道具'}`;
+      case 'detention_skipped': return `${person}暂停行动，剩余 ${event.details?.remaining} 回合`;
+      case 'detention_released': return `${person}获准离开${event.details?.kind==='hospital'?'医院':'监狱'}`;
+      case 'shop_purchased': return `${person}花费 ${event.details?.amount} 游戏币购买${this.cardName(event.details?.cardType)}`;
+      case 'shop_left': return `${person}离开商店`;
       case 'card_expired': return event.details?.cardType==='roadblock'?`${person}放置在 ${event.details?.tileId} 号格的路障已过期`:`${person}的免租保护已到期`;
       case 'event_bonus': return `${person}在事件格获得 ${event.details?.amount} 游戏币`;
       case 'event_fee': return `${person}在事件格支付 ${event.details?.amount} 游戏币`;
@@ -369,8 +375,8 @@ class App extends React.Component<object, UiState> {
     return (
       <div key={tile.id} className={`tile tile-${tile.kind} ${tile.ownerId ? `tile-owned-${tile.ownerId}` : ''} ${residents.length ? 'tile-occupied' : ''}`} style={cellPosition(game.map,tile.id)} data-tile-id={tile.id} aria-label={`${tile.id} 号地块，${tile.title}`}>
         <span className="tile-index">{String(tile.id).padStart(2, '0')}{game.roadblocks?.some(b=>b.tileId===tile.id)?' 🚧':''}</span>
-        <span className="tile-icon" aria-hidden="true">{tile.kind === 'start' ? '★' : tile.kind === 'property' ? '⌂' : tile.eventBonus!==undefined ? '✦' : tile.cardStation ? '▣' : '☕'}</span>
-        <span className="tile-name">{tile.kind==='property'?tile.title:tile.eventBonus!==undefined?'机会':tile.cardStation?'卡片':kindLabel[tile.kind]}</span>
+        <span className="tile-icon" aria-hidden="true">{tile.facility==='hospital'?'✚':tile.facility==='prison'?'▤':tile.facility==='shop'?'▣':tile.kind === 'start' ? '★' : tile.kind === 'property' ? '⌂' : tile.eventBonus!==undefined ? '✦' : tile.cardStation ? '▣' : '☕'}</span>
+        <span className="tile-name">{tile.facility==='hospital'?'医院':tile.facility==='prison'?'监狱':tile.facility==='shop'?'商店':tile.kind==='property'?tile.title:tile.eventBonus!==undefined?'机会':tile.cardStation?'卡片':kindLabel[tile.kind]}</span>
         {tile.kind === 'property' && <span className="tile-value">{tile.ownerId ? `${game.players.find(p=>p.id===tile.ownerId)?.name??'未知'} · ${tile.level??0}级 · 租 ${tile.levelRents?.[tile.level??0]??tile.rent}` : `售价 ${tile.price}`}</span>}
         <div className="pieces">{residents.map(p => <span key={p.id} className={`piece ${p.kind}`} title={p.name}>{p.kind === 'human' ? '人' : '机'}</span>)}</div>
       </div>
@@ -383,12 +389,16 @@ class App extends React.Component<object, UiState> {
     const previousRoll = [...game.events].reverse().find(e => e.type === 'die_rolled');
     const phaseDescription = game.status === 'setup' ? '准备开局'
       : game.status === 'finished' ? '对局已结束'
+      : game.phase === 'await_shop' ? '正在商店购物'
+      : current.detention!==undefined ? '暂停行动 · 剩余 '+current.detention.remaining+' 回合'
       : game.phase === 'await_roll' ? '等待掷骰'
       : game.phase === 'await_decision' ? '等待处理地产'
       : '等待结束回合';
     const targetTile = game.tiles[current.position];
     const hasMoneyForLand = targetTile.kind === 'property' && targetTile.ownerId === null && current.cash >= (targetTile.price ?? 0);
     const lastEvents = game.events.filter(e => !['player_moved'].includes(e.type)).slice(-6).reverse();
+    const currentShop=game.shops?.find(s=>s.tileId===current.position);
+    const cardKinds=['reward','stride','remote','roadblock','rent_free'] as const;
     const availableRoadblocks=game.tiles.filter(t=>t.id!==0&&t.id!==current.position&&
       !game.players.some(p=>!p.bankrupt&&p.position===t.id)&&!game.roadblocks?.some(b=>b.tileId===t.id));
     return (
@@ -444,6 +454,7 @@ class App extends React.Component<object, UiState> {
                 </div>
                 <label className="field-label" htmlFor="max-rounds">最多轮数</label>
                 <input id="max-rounds" aria-label="最多轮数" type="text" inputMode="numeric" maxLength={3} value={this.state.roundsInput} onChange={(event:{target:{value:string}})=>this.setState({roundsInput:event.target.value})}/>
+                <label className="fast-setting"><input type="checkbox" aria-label="启用医院、监狱与商店" checked={this.state.specialEnabled} onChange={(event:{target:{checked:boolean}})=>this.setState({specialEnabled:event.target.checked})}/>启用医院、监狱与商店（经典设施，可关闭保留旧版地图）</label>
                 <label className="fast-setting"><input type="checkbox" aria-label="快速模式" checked={this.state.fastMode} onChange={(event: {target:{checked:boolean}}) => this.setState({ fastMode: event.target.checked })} />快速模式（缩短电脑操作间隔）</label>
                 <button type="button" className="primary-btn" onClick={this.startGame}>开始游戏 <span>→</span></button>
               </div>}
@@ -453,7 +464,7 @@ class App extends React.Component<object, UiState> {
                 <button type="button" className="primary-btn" onClick={this.acknowledgeHandoff}>我已就位，开始操作</button>
               </div>}
               {current.kind === 'computer' && game.status === 'playing' && <p className="computer-thinking" role="status">电脑正在自动操作，保留至少 200 游戏币现金…</p>}
-              {current.kind === 'human' && !this.state.awaitingHandoff && game.phase === 'await_roll' && <div className="purchase-actions">
+              {current.kind === 'human' && !this.state.awaitingHandoff && game.phase === 'await_roll' && current.detention===undefined && <div className="purchase-actions">
                 <p className="purchase-info">手牌：奖励 {current.cards?.reward??0} · 步数 {current.cards?.stride??0}{game.strategyEnabled?' · 遥控 '+(current.cards?.remote??0)+' · 路障 '+(current.cards?.roadblock??0)+' · 免租 '+(current.cards?.rent_free??0):''}{(game.pendingMoveBonus??0)>0?` · 已加步数 ${game.pendingMoveBonus}`:''}{(game.pendingDie??0)>0?` · 已指定骰点 ${game.pendingDie}`:''}{game.pendingRentWaiver?' · 本次免租':''}</p>
                 {(current.cards?.reward??0)>0&&<button type="button" className="secondary-btn" onClick={()=>this.dispatch('use_card',undefined,'reward')}>使用奖励卡（+{game.cardRules?.rewardCash??80} 游戏币）</button>}
                 {(current.cards?.stride??0)>0&&(game.pendingMoveBonus??0)===0&&<button type="button" className="secondary-btn" onClick={()=>this.dispatch('use_card',undefined,'stride')}>使用步数卡（+{game.cardRules?.moveBonus??2} 格）</button>}
@@ -473,6 +484,20 @@ class App extends React.Component<object, UiState> {
                 </div>}
                 {game.strategyEnabled&&(current.cards?.rent_free??0)>0&&!game.pendingRentWaiver&&<button type="button" className="secondary-btn" onClick={()=>this.dispatch('use_card',undefined,'rent_free')}>使用免租卡（本次掷骰有效）</button>}
                 <button type="button" className="primary-btn" onClick={() => this.dispatch('roll')}>掷骰前进 <span>🎲</span></button>
+              </div>}
+              {current.kind === 'human' && !this.state.awaitingHandoff && game.phase==='await_roll' && current.detention!==undefined && <div className="purchase-actions">
+                <p className="purchase-info">正在{current.detention.kind==='hospital'?'住院':'服刑'} · 剩余 {current.detention.remaining} 次轮到你的回合</p>
+                <button type="button" className="primary-btn" onClick={()=>this.dispatch('skip_turn')}>跳过当前停留回合</button>
+              </div>}
+              {current.kind==='human'&&!this.state.awaitingHandoff&&game.phase==='await_shop'&&<div className="purchase-actions">
+                <p className="purchase-info">商店 · 现金 {current.cash} · 手牌上限 {game.cardRules?.maxHand??3}</p>
+                {cardKinds.map(k=><button key={k} type="button" className="secondary-btn"
+                  disabled={!currentShop||(currentShop.cards[k]??0)<1||current.cash<(game.facilityRules?.prices[k]??Infinity)||
+                    cardKinds.reduce((sum,x)=>sum+(current.cards?.[x]??0),0)>=(game.cardRules?.maxHand??3)}
+                  onClick={()=>this.dispatch('buy_shop_card',undefined,k)}>
+                    购买{this.cardName(k)} · {game.facilityRules?.prices[k]??0} 币 · 剩余 {currentShop?.cards[k]??0}
+                  </button>)}
+                <button type="button" className="primary-btn" onClick={()=>this.dispatch('leave_shop')}>离开商店</button>
               </div>}
               {current.kind === 'human' && !this.state.awaitingHandoff && game.phase === 'await_decision' && <div className="purchase-actions">
                 <p className="purchase-info">{targetTile.title}　售价 <b>{targetTile.price}</b>　过路费 <b>{targetTile.rent}</b></p>
@@ -561,7 +586,7 @@ class App extends React.Component<object, UiState> {
                 <button type="button" className="secondary-btn" onClick={()=>this.setState({importPreview:null,importName:'',saveStatus:'已取消导入'})}>取消导入</button>
               </div>}
             </div>
-            <div className="players-card"><div className="card-label">玩家状态</div>{game.players.map(p => <div key={p.id} className={`player-line ${current.id === p.id && game.status === 'playing' ? 'is-current' : ''}`}><span className={`player-dot ${p.kind}`}>{p.kind === 'human' ? '人' : '机'}</span><div><strong>{p.name}</strong><small>{p.position} 号格 · 现金 {p.cash.toLocaleString('zh-CN')}{game.bank?` · 存款 ${(p.bankBalance??0).toLocaleString('zh-CN')}`:''}{game.market?` · 股票 ${Object.values(p.holdings??{}).reduce((sum,lot)=>sum+(lot?.quantity??0),0)} 股`:''}{game.loan?` · 贷款 ${(p.loanBalance??0).toLocaleString('zh-CN')}`:''} · 净资产 {netWorth(game,p.id).toLocaleString('zh-CN')}{p.bankrupt ? ' · 已破产' : ''}</small></div><span className="player-kind">{p.kind === 'human' ? '真人' : '电脑'}</span></div>)}</div>
+            <div className="players-card"><div className="card-label">玩家状态</div>{game.players.map(p => <div key={p.id} className={`player-line ${current.id === p.id && game.status === 'playing' ? 'is-current' : ''}`}><span className={`player-dot ${p.kind}`}>{p.kind === 'human' ? '人' : '机'}</span><div><strong>{p.name}</strong><small>{p.position} 号格 · 现金 {p.cash.toLocaleString('zh-CN')}{game.bank?` · 存款 ${(p.bankBalance??0).toLocaleString('zh-CN')}`:''}{game.market?` · 股票 ${Object.values(p.holdings??{}).reduce((sum,lot)=>sum+(lot?.quantity??0),0)} 股`:''}{game.loan?` · 贷款 ${(p.loanBalance??0).toLocaleString('zh-CN')}`:''} · 净资产 {netWorth(game,p.id).toLocaleString('zh-CN')}{p.detention?` · ${p.detention.kind==='hospital'?'住院':'入狱'}剩余 ${p.detention.remaining} 回合`:''}{p.bankrupt ? ' · 已破产' : ''}</small></div><span className="player-kind">{p.kind === 'human' ? '真人' : '电脑'}</span></div>)}</div>
             <div className="activity-card"><div className="card-label">最近事件</div><ol>{lastEvents.map((e,i) => <li key={`${game.events.length}-${i}`}>{this.describeEvent(e)}</li>)}</ol></div>
             <div className="info-card"><strong>玩法说明</strong><p>① 点击「开始游戏」，轮到玩家时掷骰前进。② 到无主地产可买入或放弃；经过对手地产会自动付租。③ 处理完地块后结束回合，电脑会自动行动。</p><p>付不起租金可能出售地产或破产；最终按现金、存款、地产成本、股票市值减贷款计算净资产。电脑购地后至少保留 200 游戏币。</p><p>卡片站可获得奖励、步数、遥控骰子、路障及免租卡；只在掷骰前使用。路障让对手提前停下，最多持续两轮；免租卡仅保护下一次落地。存档与离线游玩均在本机完成。</p></div>
           </aside>

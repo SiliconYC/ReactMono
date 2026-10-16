@@ -11,7 +11,7 @@ import { DEFAULT_CARD_RULES } from './config.js';
 import { handSize } from './cards.js';
 import { accept, reject } from './transitions.js';
 export function rollTurn(state: GameState, actor: Player): ActionResult {
-      if (state.phase !== 'await_roll') return reject(state,'INVALID_PHASE');
+      if (state.phase !== 'await_roll'||actor.detention!==undefined) return reject(state,'INVALID_PHASE');
       const draw = nextDie(state.randomState);
       const value = state.strategyEnabled===true && (state.pendingDie??0)>0 ? state.pendingDie! : draw.value;
       const nextState=draw.nextState; // consume RNG even for remote dice so replay is stable
@@ -113,6 +113,18 @@ export function rollTurn(state: GameState, actor: Player): ActionResult {
           ...(state.market && !finished && wrapped ? {market:advanceMarket(state.market,state.round+1)} : {})
         });
       }
+      if(landed.facility==='hospital'||landed.facility==='prison'){
+        const kind=landed.facility;
+        const turns=kind==='hospital'?state.facilityRules!.hospitalTurns:state.facilityRules!.prisonTurns;
+        const fee=kind==='hospital'?state.facilityRules!.hospitalFee:state.facilityRules!.prisonFee;
+        const owner=movingPlayers.find(p=>p.id===actor.id)!;
+        const paid=Math.min(owner.cash,fee);
+        movingPlayers=movingPlayers.map(p=>p.id===actor.id?{...p,cash:p.cash-paid,
+          detention:{kind,remaining:turns}}:p);
+        events.push({type:'facility_entered',actorId:actor.id,details:{kind,tileId:landed.id,turns,due:fee,amount:paid}});
+      }else if(landed.facility==='shop'){
+        events.push({type:'facility_entered',actorId:actor.id,details:{kind:'shop',tileId:landed.id,amount:0}});
+      }
       if(landed.kind==='neutral'&&landed.eventBonus!==undefined&&landed.eventFee!==undefined){
         const draw=nextDie(finalRandomState);
         finalRandomState=draw.nextState;
@@ -137,8 +149,8 @@ export function rollTurn(state: GameState, actor: Player): ActionResult {
           events.push({type:'card_received',actorId:actor.id,details:{tileId:landed.id,cardType:kind}});
         }
       }
-      const phase: Phase = landed.kind === 'property' && landed.ownerId === null
-        ? 'await_decision' : 'await_end_turn';
+      const phase: Phase = landed.facility==='shop'?'await_shop'
+        :landed.kind === 'property' && landed.ownerId === null?'await_decision':'await_end_turn';
       return accept(state, events, {
         randomState: finalRandomState,
         players: movingPlayers,
