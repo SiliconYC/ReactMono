@@ -148,3 +148,10 @@
 - 明确规则：默认售地价=75% 原价+50% 已付升级费，提供可校验的 `resaleRules` 游戏配置与存档；新 UI 对局启用自动变现救济，旧两人引擎与 v1～v4 旧存档保留原破产结果。拒绝非法出售、越权或重复扣费。
 - 真实失败记录：首次 [CI #38854919951](https://github.com/SiliconYC/ReactMono/actions/runs/38854919951) 新测试用无效小地图配置；[CI #38855153690](https://github.com/SiliconYC/ReactMono/actions/runs/38855153690) 仍缺卡片默认参数；两者修复后 65/65 Node 通过。[CI #38855296634](https://github.com/SiliconYC/ReactMono/actions/runs/38855296634) browser_offline 操作次数不足；[CI #38855540919](https://github.com/SiliconYC/ReactMono/actions/runs/38855540919) 离线整局已 PASS，但 P2 联合流程亦需扩大操作次数。保留原「真终局、联网备份→断网读档、事件与卡片」断言不变。
 - 浏览器与后续验收：本分支已实际运行卖地→收款→存档恢复、两张地图与 2～4 人对局、PWA 离线完整对局；当前整条工作流仍须绿灯、PR Merge Commit、合并后 dev CI 与 Pages 成功才算完成。正式阶段规则文档见 [P3_PROPERTY_LIQUIDATION.md](P3_PROPERTY_LIQUIDATION.md)。
+
+
+## 2026-10-16 · P3-06/09 合并后收尾核验与 P3-07 银行实验
+
+- #35 / [PR #51](https://github.com/SiliconYC/ReactMono/pull/51)：合并 `dd6aad2`，合并后 [CI #38856476801](https://github.com/SiliconYC/ReactMono/actions/runs/38856476801)、[Pages #38856476886](https://github.com/SiliconYC/ReactMono/actions/runs/38856476886) 成功，完成后关闭。
+- #38 / [PR #52](https://github.com/SiliconYC/ReactMono/pull/52)：保留九次原子提交，合并冲突通过双亲 `45d43f7` 解决；[PR CI #38859862066](https://github.com/SiliconYC/ReactMono/actions/runs/38859862066) 通过，合并 `83b8652` 后 [dev CI #38860146550](https://github.com/SiliconYC/ReactMono/actions/runs/38860146550)、[Pages #38860146659](https://github.com/SiliconYC/ReactMono/actions/runs/38860146659) 成功，Issue 已关闭。
+- #36：独立分支 `p3/issue-36-banking` 从 `dev@83b8652` 建立；先写银行不变量/旧档/离线测试，再实现本地账本、银行救济与利息，界面实测与全 CI **尚须绿色验证，不提前标记完成**。细节参见 [P3_BANK.md](P3_BANK.md)。

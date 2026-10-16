@@ -209,7 +209,7 @@ export function deserializeGame(raw: string): SaveEnvelope {
     throw new SaveError('INVALID_CHECKSUM','存档内容被修改或已损坏，不能读取');
   if(value.rulesVersion===1){
     const old=value.game;
-    if(!record(old)||old.schemaVersion!==1||!Array.isArray(old.tiles))throw new SaveError('INVALID_STATE','旧版存档结构错误');
+    if(!record(old)||old.schemaVersion!==1||!Array.isArray(old.tiles)||!Array.isArray(old.players))throw new SaveError('INVALID_STATE','旧版存档结构错误');
     // 校验旧版字段，避免以迁移名义接受未知结构；校验码已按旧载荷完成验证。
     keys(old,['schemaVersion','status','phase','revision','round','currentPlayerIndex','randomState','maxRounds','players','tiles','winnerId','events']);
     const tiles=old.tiles.map((tile:unknown)=>{

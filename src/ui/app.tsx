@@ -393,7 +393,7 @@ class App extends React.Component<object, UiState> {
             <div className="turn-card">
               <div className="card-label">当前行动</div>
               <div className="turn-person"><span className={`portrait ${current.kind}`}>{current.kind === 'human' ? '人' : '机'}</span><div><strong>{current.name}</strong><small>{phaseDescription}</small></div></div>
-              <div className="turn-position">位置：<b>{current.position} 号格</b><span>·</span>资金：<b>{current.cash.toLocaleString('zh-CN')}</b>{game.bank&&<><span>·</span>银行存款：<b>{(current.bankBalance??0).toLocaleString('zh-CN')}</b></>}</div>
+              <div className="turn-position">位置：<b>{current.position} 号格</b><span>·</span>资金：<b>{current.cash.toLocaleString('zh-CN')}</b>{game.bank&&<span> · 银行存款：<b>{(current.bankBalance??0).toLocaleString('zh-CN')}</b></span>}</div>
               {game.status === 'setup' && <div className="start-form">
                 <label className="field-label" htmlFor="game-map">游戏地图 <small>经典环线 24 格；原创海港 20 格（价格与地名不同）</small></label>
                  <select id="game-map" aria-label="游戏地图" value={this.state.selectedMapId} onChange={(event:{target:{value:string}})=>this.selectMap(event.target.value)}>

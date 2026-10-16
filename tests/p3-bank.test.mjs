@@ -99,3 +99,62 @@ test('P3-07: optional bank never changes legacy P2 default game and rejects tamp
     {...s,players:s.players.map((p,i)=>i===0?{...p,bankBalance:1.5}:p)}
   ])assert.throws(()=>serializeGame(bad,{now}),SaveError);
 });
+
+test('P3-07: migrated v1/v2 records initialize zero balance without retroactive interest',()=>{
+  function checksum(data){let h=0x811c9dc5;for(let i=0;i<data.length;i++){h^=data.charCodeAt(i);h=Math.imul(h,0x01000193)}return(h>>>0).toString(16).padStart(8,'0');}
+  const initial=createGame(19);
+  for(const version of [1,2]){
+    const older={...initial,schemaVersion:version};
+    delete older.map;
+    if(version===1){
+      delete older.upgradeRulesVersion;delete older.cardRules;delete older.pendingMoveBonus;
+      older.players=older.players.map(p=>{const v={...p};delete v.cards;return v;});
+      older.tiles=older.tiles.map(t=>{const v={...t};for(const f of ['level','upgradeCosts','levelRents','cardStation','eventBonus','eventFee'])delete v[f];return v;});
+    }
+    const payload={format:'reactmono-save',formatVersion:1,rulesVersion:version,createdAt:now,updatedAt:now,game:older};
+    const migrated=deserializeGame(JSON.stringify({...payload,checksum:checksum(JSON.stringify(payload))})).game;
+    assert.deepEqual(migrated.players.map(p=>p.bankBalance),[0,0]);
+    assert.equal(netWorth(migrated,'p1'),netWorth(initial,'p1'));
+    assert.ok(!migrated.bank);
+    assert.deepEqual(deserializeGame(serializeGame(migrated,{now})).game,migrated);
+  }
+});
+test('P3-07: 100 seeded games across 3/4 seats conserve transfers, replay and interest bounds',()=>{
+  for(const seats of [3,4])for(let seed=0;seed<100;seed++){
+    let state=createGame(seed,config(seats));state=doAction(state,'start_game');
+    let moves=0;
+    while(state.status==='playing'&&moves<200){
+      state=advanceToEnd(state);
+      const actor=state.players[state.currentPlayerIndex];
+      if(actor.cash>50){
+        const amount=Math.min(actor.cash,50+(seed%31));
+        const before=actor.cash+(actor.bankBalance??0);
+        state=doAction(state,'deposit_bank',{amount});
+        const changed=state.players[state.currentPlayerIndex];
+        assert.equal(changed.cash+(changed.bankBalance??0),before);
+      }
+      const available=state.players[state.currentPlayerIndex].bankBalance??0;
+      if(available>=10){
+        const before=state.players[state.currentPlayerIndex].cash+available;
+        state=doAction(state,'withdraw_bank',{amount:10});
+        const changed=state.players[state.currentPlayerIndex];
+        assert.equal(changed.cash+(changed.bankBalance??0),before);
+      }
+      state=doAction(state,'end_turn');moves++;
+      assert.equal(state.bank.lastInterestRound,state.round);
+      assert.ok(state.players.every(p=>Number.isSafeInteger(p.bankBalance)&&p.bankBalance>=0&&p.bankBalance<=1e12));
+      if(moves%7===0)assert.deepEqual(deserializeGame(serializeGame(state,{now})).game,state);
+    }
+    assert.equal(state.status,'finished','seed '+seed+' seats '+seats);
+  }
+});
+test('P3-07: computer has a legal bank action without touching P2 agent semantics',async()=>{
+  const {chooseComputerAction}=await import('../dist/core/agent.js');
+  const s=createGame(7,{...DEFAULT_CONFIG,bankEnabled:true,initialCash:5000});
+  const turn={...s,status:'playing',phase:'await_end_turn',currentPlayerIndex:1};
+  const action=chooseComputerAction(turn);
+  assert.equal(action.type,'deposit_bank');
+  const result=applyAction(turn,action);
+  assert.equal(result.ok,true);
+  assert.equal(result.state.players[1].bankBalance,1000);
+});
