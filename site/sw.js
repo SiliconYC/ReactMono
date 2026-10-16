@@ -30,8 +30,12 @@ self.addEventListener('fetch',event=>{
     // 正式游戏仍使用原有 index.html；美术样例只匹配自身路径，
     // 禁止将所有导航错误地回退至主页（否则离线样例变成另一款游戏）。
     const labPath=new URL('./visual-lab.html',self.registration.scope).pathname;
-    const documentPath=url.pathname===labPath?'./visual-lab.html':'./index.html';
-    event.respondWith(caches.match(new URL(documentPath,self.registration.scope).href)
+    if(url.pathname===labPath){
+      event.respondWith(caches.match(new URL('./visual-lab.html',self.registration.scope).href)
+        .then(hit=>hit||fetch(request).catch(()=>Response.error())));
+      return;
+    }
+    event.respondWith(caches.match(new URL('./index.html',self.registration.scope).href)
       .then(hit=>hit||fetch(request).catch(()=>Response.error())));
     return;
   }
