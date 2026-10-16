@@ -29,4 +29,6 @@ test('Service Worker 同源预缓存完整运行依赖，不使用 CDN 或缓存
   assert.ok(html.includes('manifest.webmanifest'));
   assert.ok(!/unpkg\.com|cdn\.jsdelivr/.test(html));
   assert.ok(!sw.includes('put(userSave')&&!sw.includes('fetch("https:'));
+  assert.match(sw,/始终先返回与缓存脚本同版本的页面/);
+  assert.match(sw,/event\.respondWith\(caches\.match\(new URL\('\.\/index\.html'/);
 });

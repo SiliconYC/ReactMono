@@ -24,8 +24,9 @@ self.addEventListener('fetch',event=>{
   const request=event.request,url=new URL(request.url);
   if(request.method!=='GET'||url.origin!==origin||!url.href.startsWith(self.registration.scope))return;
   if(request.mode==='navigate'){
-    event.respondWith(fetch(request).catch(async()=>
-      await caches.match(new URL('./index.html',self.registration.scope).href) || Response.error()));
+    // 始终先返回与缓存脚本同版本的页面；版本切换由玩家确认。
+    event.respondWith(caches.match(new URL('./index.html',self.registration.scope).href)
+      .then(hit=>hit||fetch(request).catch(()=>Response.error())));
     return;
   }
   if(urls.includes(url.href)){
