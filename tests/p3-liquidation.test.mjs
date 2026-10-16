@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createGame, applyAction, DEFAULT_CONFIG, resaleValue, netWorth} from '../dist/core/game.js';
+import {createGame, applyAction, DEFAULT_CONFIG, DEFAULT_CARD_RULES, DEFAULT_EVENT_RULES, resaleValue, netWorth} from '../dist/core/game.js';
 import {serializeGame, deserializeGame} from '../dist/core/save.js';
 import {runSimulation} from '../dist/core/simulator.js';
 
@@ -11,7 +11,7 @@ const tiles=[
   {id:3,kind:'property',title:'小地',price:50,rent:10}
 ];
 const config=(count=2)=>({...DEFAULT_CONFIG,tiles,initialCash:100,maxRounds:8,automaticLiquidation:true,
-  eventRules:{...DEFAULT_CONFIG.eventRules,tileIds:[]},cardRules:{...DEFAULT_CONFIG.cardRules,tileIds:[]},
+  eventRules:{...DEFAULT_EVENT_RULES,tileIds:[]},cardRules:{...DEFAULT_CARD_RULES,tileIds:[]},
   players:Array.from({length:count},(_,i)=>({id:'p'+(i+1),name:'玩家'+(i+1),kind:'human'}))});
 const base=(count=2)=>createGame(2,config(count));
 const setup=(count=2)=>{const s=base(count);return {...s,status:'playing',phase:'await_roll',
