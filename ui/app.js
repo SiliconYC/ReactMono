@@ -12,7 +12,7 @@ const kindLabel = { start: '起点', property: '地产', neutral: '休息' };
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput: '100', stockAmountInput: '1', strategyDieInput: '1', roadblockTileInput: '1', playerSetup: [{ id: 'p1', name: '玩家', kind: 'human' }, { id: 'p2', name: '电脑', kind: 'computer', computerStyle: 'balanced' }], roundsInput: '60', selectedMapId: 'classic-24', awaitingHandoff: false, fastMode: false, specialEnabled: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator === 'undefined' ? false : !navigator.onLine, pwaUpdate: false, pwaMessage: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+        this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput: '100', stockAmountInput: '1', strategyDieInput: '1', roadblockTileInput: '1', playerSetup: [{ id: 'p1', name: '玩家', kind: 'human' }, { id: 'p2', name: '电脑', kind: 'computer', computerStyle: 'balanced' }], roundsInput: '60', selectedMapId: 'classic-24', selectedTileId: 0, awaitingHandoff: false, fastMode: false, specialEnabled: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator === 'undefined' ? false : !navigator.onLine, pwaUpdate: false, pwaMessage: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
     }
     computerTimer = null;
     saveEpoch = 0;
@@ -207,7 +207,7 @@ class App extends React.Component {
             await this.saveQueue;
             const saved = await readSlot(slot.id);
             this.setState({ game: saved.game, activeSeed: null, storageBusy: false, awaitingHandoff: false,
-                roundsInput: String(saved.game.maxRounds), selectedMapId: saved.game.map.id,
+                roundsInput: String(saved.game.maxRounds), selectedMapId: saved.game.map.id, selectedTileId: saved.game.players[saved.game.currentPlayerIndex].position,
                 playerSetup: saved.game.players.map(p => ({ id: p.id, name: p.name, kind: p.kind, ...(p.computerStyle ? { computerStyle: p.computerStyle } : {}) })),
                 saveStatus: '已读取「' + slot.name + '」', message: '已恢复第 ' + saved.game.round + ' 轮，可从当前阶段继续。' });
         }
@@ -231,7 +231,7 @@ class App extends React.Component {
         this.saveEpoch++;
         this.stopTimer();
         const base = this.state.selectedMapId === 'harbor-20' ? HARBOR_CONFIG : DEFAULT_CONFIG;
-        this.setState({ game: createGame(20261015, base), activeSeed: null, awaitingHandoff: false, message: '已返回新游戏页面。可调整种子及地图后重新开始。' });
+        this.setState({ game: createGame(20261015, base), activeSeed: null, selectedTileId: 0, awaitingHandoff: false, message: '已返回新游戏页面。可调整种子及地图后重新开始。' });
     };
     /** Keep stable IDs when the local seating plan changes. */
     setPlayerCount = (count) => {
@@ -256,7 +256,7 @@ class App extends React.Component {
         if (id !== 'classic-24' && id !== 'harbor-20')
             return;
         const base = id === 'harbor-20' ? HARBOR_CONFIG : DEFAULT_CONFIG;
-        this.setState({ selectedMapId: id, game: createGame(20261015, { ...base, players: this.state.playerSetup }),
+        this.setState({ selectedMapId: id, selectedTileId: 0, game: createGame(20261015, { ...base, players: this.state.playerSetup }),
             message: id === 'harbor-20' ? '已选择海港环线：20 格，独立价格及海港主题地产。' : '已选择经典环线：24 格，原有规则完整保留。' });
     };
     acknowledgeHandoff = () => {
@@ -295,7 +295,7 @@ class App extends React.Component {
             this.setState({ message: '无法开始对局，请重新开局。' });
             return;
         }
-        this.setState({ game: result.state, activeSeed: seed, awaitingHandoff: false, message: '游戏已开始！轮到' + fresh.players[0].name + '掷骰。' });
+        this.setState({ game: result.state, activeSeed: seed, selectedTileId: 0, awaitingHandoff: false, message: '游戏已开始！轮到' + fresh.players[0].name + '掷骰。' });
     };
     componentWillUnmount() {
         window.removeEventListener('online', this.updateOnline);
@@ -469,17 +469,33 @@ class App extends React.Component {
             case 'player_moved': return `${person}移动到 ${event.details?.to} 号格`;
         }
     };
+    /** Pure presentation: a board button selects a map node; the engine owns all movement and economy. */
     renderTile = (tile) => {
         const { game } = this.state;
         const residents = game.players.filter(p => p.position === tile.id && !p.bankrupt);
-        return (React.createElement("div", { key: tile.id, className: `tile tile-${tile.kind} ${tile.ownerId ? `tile-owned-${tile.ownerId}` : ''} ${residents.length ? 'tile-occupied' : ''}`, style: cellPosition(game.map, tile.id), "data-tile-id": tile.id, "aria-label": `${tile.id} 号地块，${tile.title}` },
+        const owner = game.players.find(p => p.id === tile.ownerId);
+        const type = tile.facility ?? (tile.kind === 'start' ? 'start' : tile.kind === 'property' ? 'property' :
+            tile.cardStation ? 'card' : tile.eventBonus !== undefined ? 'chance' : 'rest');
+        const blocked = game.roadblocks?.some(b => b.tileId === tile.id) ?? false;
+        const selected = this.state.selectedTileId === tile.id;
+        const active = game.status === 'playing' && residents.some(p => p.id === game.players[game.currentPlayerIndex].id);
+        const level = tile.level ?? 0;
+        const roadblockSelectable = tile.id !== 0 && tile.id !== game.players[game.currentPlayerIndex].position &&
+            residents.length === 0 && !blocked;
+        const label = `${tile.id} 号地块，${tile.title}${owner ? '，' + owner.name + '所有，' + level + '级' : ''}${tile.mortgaged ? '，已抵押' : ''}${blocked ? '，有路障' : ''}${residents.length ? '，停留玩家：' + residents.map(p => p.name).join('、') : ''}`;
+        return (React.createElement("button", { type: "button", key: tile.id, className: `tile tile-${tile.kind} tile-art-${type} ${tile.ownerId ? `tile-owned-${tile.ownerId}` : ''} ${residents.length ? 'tile-occupied' : ''} ${active ? 'tile-current' : ''} ${tile.mortgaged ? 'tile-mortgaged' : ''} ${blocked ? 'tile-blocked' : ''}`, style: cellPosition(game.map, tile.id), "data-tile-id": tile.id, "data-owner-id": tile.ownerId ?? '', "data-level": level, "data-mortgaged": String(!!tile.mortgaged), "data-residents": residents.length, "aria-label": label, "aria-pressed": selected, title: label, onClick: () => this.setState({ selectedTileId: tile.id, ...(roadblockSelectable ? { roadblockTileInput: String(tile.id) } : {}) }) },
             React.createElement("span", { className: "tile-index" },
                 String(tile.id).padStart(2, '0'),
-                game.roadblocks?.some(b => b.tileId === tile.id) ? ' 🚧' : ''),
-            React.createElement("span", { className: "tile-icon", "aria-hidden": "true" }, tile.facility === 'hospital' ? '✚' : tile.facility === 'prison' ? '▤' : tile.facility === 'shop' ? '▣' : tile.kind === 'start' ? '★' : tile.kind === 'property' ? '⌂' : tile.eventBonus !== undefined ? '✦' : tile.cardStation ? '▣' : '☕'),
+                blocked ? ' 🚧' : ''),
+            React.createElement("span", { className: "tile-artwork", "aria-hidden": "true" },
+                React.createElement("i", { className: "art-roof" }),
+                React.createElement("i", { className: "art-body" }),
+                React.createElement("i", { className: "art-detail" })),
             React.createElement("span", { className: "tile-name" }, tile.facility === 'hospital' ? '医院' : tile.facility === 'prison' ? '监狱' : tile.facility === 'shop' ? '商店' : tile.kind === 'property' ? tile.title : tile.eventBonus !== undefined ? '机会' : tile.cardStation ? '卡片' : kindLabel[tile.kind]),
-            tile.kind === 'property' && React.createElement("span", { className: "tile-value" }, tile.ownerId ? `${game.players.find(p => p.id === tile.ownerId)?.name ?? '未知'} · ${tile.level ?? 0}级 · 租 ${tile.levelRents?.[tile.level ?? 0] ?? tile.rent}` : `售价 ${tile.price}`),
-            React.createElement("div", { className: "pieces" }, residents.map(p => React.createElement("span", { key: p.id, className: `piece ${p.kind}`, title: p.name }, p.kind === 'human' ? '人' : '机')))));
+            tile.kind === 'property' && React.createElement("span", { className: "tile-value" }, owner ? `${level}级 · ${tile.mortgaged ? '抵押' : owner.name}` : `¥${tile.price}`),
+            tile.mortgaged && React.createElement("span", { className: "tile-mortgage", "aria-hidden": "true" }, "\u62BC"),
+            tile.kind === 'property' && owner && React.createElement("span", { className: "tile-level", "aria-label": `建筑等级 ${level}` }, '●'.repeat(level + 1)),
+            React.createElement("span", { className: "pieces", "aria-label": residents.map(p => p.name).join('、') }, residents.map(p => React.createElement("span", { key: p.id, className: `piece piece-${game.players.indexOf(p) + 1} ${p.kind}`, title: p.name, "aria-label": p.name }, game.players.indexOf(p) + 1)))));
     };
     render() {
         const { game, message } = this.state;
@@ -510,15 +526,15 @@ class App extends React.Component {
                 React.createElement("span", { className: "network-indicator", role: "status" },
                     this.state.offline ? '已断网 · 可用本地缓存' : '已联网',
                     this.state.pwaMessage ? ' · ' + this.state.pwaMessage : ''),
-                this.state.pwaUpdate && React.createElement("button", { className: "secondary-btn", type: "button", onClick: () => void this.applyPwaUpdate() }, "\u68C0\u6D4B\u5230\u65B0\u7248\uFF0C\u4FDD\u5B58\u5E76\u66F4\u65B0")),
+                this.state.pwaUpdate && React.createElement("button", { className: "secondary-btn", type: "button", onClick: () => void this.applyPwaUpdate() }, "\u68C0\u6D4B\u5230\u65B0\u7248\uFF0C\u4FDD\u5B58\u5E76\u66F4\u65B0"),
+                React.createElement("button", { type: "button", className: "reset-btn", onClick: this.reset }, "\u21BB \u91CD\u65B0\u5F00\u5C40")),
             React.createElement("section", { className: "headline" },
                 React.createElement("div", null,
                     React.createElement("span", { className: "section-eyebrow" },
                         game.tiles.length,
                         " \u683C \u00B7 \u4E24\u5F20\u5730\u56FE \u00B7 2\uFF5E4 \u4EBA \u00B7 \u672C\u673A\u8F6E\u6D41"),
                     React.createElement("h1", null, "\u6BCF\u4E00\u6B65\uFF0C\u90FD\u662F\u4E00\u7B14\u751F\u610F\u3002"),
-                    React.createElement("p", null, "\u9080\u8BF7\u670B\u53CB\u5728\u540C\u4E00\u8BBE\u5907\u8F6E\u6D41\u884C\u52A8\uFF0C\u4E5F\u53EF\u4EE5\u4E0E\u4E00\u540D\u6216\u591A\u540D\u7535\u8111\u73A9\u5BB6\u5BF9\u6297\u3002\u6240\u6709\u5BF9\u5C40\u90FD\u5728\u672C\u5730\u5B8C\u6210\u3002")),
-                React.createElement("button", { type: "button", className: "reset-btn", onClick: this.reset }, "\u21BB \u91CD\u65B0\u5F00\u5C40")),
+                    React.createElement("p", null, "\u9080\u8BF7\u670B\u53CB\u5728\u540C\u4E00\u8BBE\u5907\u8F6E\u6D41\u884C\u52A8\uFF0C\u4E5F\u53EF\u4EE5\u4E0E\u4E00\u540D\u6216\u591A\u540D\u7535\u8111\u73A9\u5BB6\u5BF9\u6297\u3002\u6240\u6709\u5BF9\u5C40\u90FD\u5728\u672C\u5730\u5B8C\u6210\u3002"))),
             game.status !== 'setup' && React.createElement("section", { className: "asset-overview", "aria-label": "\u591A\u4EBA\u8D44\u4EA7\u603B\u89C8" },
                 React.createElement("div", { className: "asset-heading" },
                     React.createElement("strong", null, "\u591A\u4EBA\u8D44\u4EA7\u603B\u89C8"),
@@ -572,41 +588,44 @@ class App extends React.Component {
                 }))),
             React.createElement("div", { className: "layout" },
                 React.createElement("section", { className: "board-card", "aria-label": `${game.tiles.length} 格游戏棋盘` },
-                    React.createElement("div", { className: "board", style: {
-                            gridTemplateColumns: `repeat(${game.map.columns},minmax(0,1fr))`,
-                            gridTemplateRows: `repeat(${game.map.rows},minmax(0,1fr))`,
-                            ...(game.map.id === 'classic-24' ? {} : { aspectRatio: `${game.map.columns}/${game.map.rows}` })
-                        } },
-                        game.tiles.map(this.renderTile),
-                        game.map.columns > 2 && game.map.rows > 2 && game.map.cells.every(p => p.row === 1 || p.row === game.map.rows || p.column === 1 || p.column === game.map.columns) &&
-                            React.createElement("div", { className: "board-center", style: { gridColumn: `2/${game.map.columns}`, gridRow: `2/${game.map.rows}` } },
-                                React.createElement("div", { className: "board-center-label" },
-                                    "\u5F53\u524D\u7B2C ",
-                                    React.createElement("b", null, game.round),
-                                    " / ",
-                                    game.maxRounds,
-                                    " \u8F6E"),
-                                React.createElement("div", { className: "center-title" },
-                                    game.map.id === 'harbor-20' ? '海港环线' : '环游大富翁',
-                                    React.createElement("span", null, "\u4F53\u9A8C\u68CB\u76D8")),
-                                React.createElement("div", { className: "dice-display", "aria-label": "\u4E0A\u4E00\u6B21\u9AB0\u5B50\u70B9\u6570" }, previousRoll ? '⚀⚁⚂⚃⚄⚅'[Number(previousRoll.details?.value) - 1] : '⚄'),
-                                React.createElement("div", { className: "center-subtitle" }, previousRoll ? `上次掷出 ${previousRoll.details?.value} 点` : '等待第一颗骰子'))),
-                    React.createElement("div", { className: "board-legend" },
-                        React.createElement("span", null,
-                            React.createElement("i", { className: "legend-property" }),
-                            "\u65E0\u4E3B\u5730\u4EA7"),
-                        React.createElement("span", null,
-                            React.createElement("i", { className: "legend-owned-human" }),
-                            "\u73A9\u5BB6\u5730\u4EA7"),
-                        React.createElement("span", null,
-                            React.createElement("i", { className: "legend-owned-computer" }),
-                            "\u7535\u8111\u5730\u4EA7"),
-                        React.createElement("span", null,
-                            React.createElement("i", { className: "legend-neutral" }),
-                            "\u666E\u901A\u683C"),
-                        React.createElement("span", null,
-                            React.createElement("i", { className: "legend-start" }),
-                            "\u8D77\u70B9"))),
+                    React.createElement("div", { className: "board-viewport", tabIndex: 0, "aria-label": "\u68CB\u76D8\u6D4F\u89C8\u533A\uFF1B\u7A84\u5C4F\u53EF\u6A2A\u5411\u6EDA\u52A8" },
+                        React.createElement("div", { className: `board board-${game.map.id === 'harbor-20' ? 'harbor' : 'classic'}`, "data-board-theme": game.map.id, style: {
+                                gridTemplateColumns: `repeat(${game.map.columns},minmax(0,1fr))`,
+                                gridTemplateRows: `repeat(${game.map.rows},minmax(0,1fr))`,
+                                aspectRatio: `${game.map.columns}/${game.map.rows}`
+                            } },
+                            game.tiles.map(this.renderTile),
+                            game.map.columns > 2 && game.map.rows > 2 && game.map.cells.every(p => p.row === 1 || p.row === game.map.rows || p.column === 1 || p.column === game.map.columns) &&
+                                React.createElement("div", { className: "board-center", style: { gridColumn: `2/${game.map.columns}`, gridRow: `2/${game.map.rows}` } },
+                                    React.createElement("div", { className: "scene-horizon", "aria-hidden": "true" },
+                                        React.createElement("span", { className: "scene-hill" }),
+                                        React.createElement("span", { className: "scene-house house-one" }),
+                                        React.createElement("span", { className: "scene-house house-two" }),
+                                        React.createElement("span", { className: "scene-tree tree-one" }),
+                                        React.createElement("span", { className: "scene-tree tree-two" }),
+                                        React.createElement("span", { className: "scene-boat" })),
+                                    React.createElement("div", { className: "scene-info" },
+                                        React.createElement("div", { className: "center-title" }, game.map.id === 'harbor-20' ? '海风港' : '纸艺小镇'),
+                                        React.createElement("div", { className: "board-center-label" },
+                                            "\u7B2C ",
+                                            game.round,
+                                            " / ",
+                                            game.maxRounds,
+                                            " \u8F6E"),
+                                        React.createElement("div", { className: "dice-display", "aria-label": "\u4E0A\u4E00\u6B21\u9AB0\u5B50\u70B9\u6570" }, previousRoll ? '⚀⚁⚂⚃⚄⚅'[Number(previousRoll.details?.value) - 1] : '⚄'),
+                                        React.createElement("div", { className: "center-subtitle" }, previousRoll ? `掷出 ${previousRoll.details?.value} 点` : '准备出发'))))),
+                    this.state.selectedTileId !== null && game.tiles[this.state.selectedTileId] && (() => {
+                        const tile = game.tiles[this.state.selectedTileId], owner = game.players.find(p => p.id === tile.ownerId);
+                        return React.createElement("div", { className: "board-inspector", role: "status", "aria-live": "polite" },
+                            React.createElement("strong", null,
+                                tile.id,
+                                " \u00B7 ",
+                                tile.title),
+                            React.createElement("span", null,
+                                tile.kind === 'property' ? `售价 ${tile.price} · ${owner ? `归属 ${owner.name} · ${tile.level ?? 0} 级 · ${tile.mortgaged ? '已抵押' : '当前租金 ' + (tile.levelRents?.[tile.level ?? 0] ?? tile.rent)}` : '尚未出售'}` :
+                                    tile.facility ? { hospital: '医院', prison: '监狱', shop: '商店' }[tile.facility] : tile.cardStation ? '卡片站' : tile.eventBonus !== undefined ? '机会事件' : '公共地块',
+                                game.roadblocks?.some(b => b.tileId === tile.id) ? ' · 有路障' : ''));
+                    })()),
                 React.createElement("aside", { className: "sidebar" },
                     React.createElement("div", { className: "turn-card" },
                         React.createElement("div", { className: "card-label" }, "\u5F53\u524D\u884C\u52A8"),

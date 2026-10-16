@@ -1,6 +1,6 @@
 /* 精确版本的同源静态资源缓存；IndexedDB 和用户文件不归服务工作线程管理。 */
-const VERSION='reactmono-0070e7f19beeea20';
-const PRECACHE=['./','./index.html','./style.css',
+const VERSION='reactmono-3398ce29c0fd8306';
+const PRECACHE=['./','./index.html','./style.css','./board-art.css',
  './visual-lab.html','./visual-lab.css','./visual-tokens.css','./art-manifest.json',
  './art/house.svg','./art/coin.svg',
  './core/agent.js',
