@@ -47,7 +47,7 @@ def run():
             page.locator('.save-list li').filter(has_text='股票验收').wait_for()
             with page.expect_download() as info:
                 page.locator('.save-list li').filter(has_text='股票验收').get_by_role('button',name='导出').click()
-            target=str(Path(folder)/'stock-backup.json')
+            target=str(Path(folder)/info.value.suggested_filename)
             info.value.save_as(target)
             saved_cash=page.locator('.turn-position').inner_text()
             page.reload(wait_until='load')
