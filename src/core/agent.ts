@@ -7,7 +7,12 @@ export function choosePhaseAction(state: GameState, reserveCash: number): GameAc
   const player = state.players[state.currentPlayerIndex];
   if (!player) return null;
   switch (state.phase) {
-    case 'await_roll': return { type: 'roll', actorId: player.id };
+    case 'await_roll': {
+      const held=player.cards??{reward:0,stride:0};
+      if(held.reward>0)return {type:'use_card',actorId:player.id,cardType:'reward'};
+      if(held.stride>0&&(state.pendingMoveBonus??0)===0)return {type:'use_card',actorId:player.id,cardType:'stride'};
+      return {type:'roll',actorId:player.id};
+    }
     case 'await_decision': {
       const tile = state.tiles[player.position];
       if (!tile || tile.kind !== 'property' || tile.ownerId !== null) throw new Error('待购地状态与棋盘数据不一致');
