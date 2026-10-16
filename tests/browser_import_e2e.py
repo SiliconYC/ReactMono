@@ -40,6 +40,8 @@ def main():
             row=page.locator('.save-list li').filter(has_text='备份样本')
             row.wait_for()
             row.get_by_role('button',name='读取').click()
+            # 必须等待真正的异步读档完成。修订号可能原本就相同，不可据此判定已读取。
+            page.wait_for_function("document.querySelector('.save-message')?.textContent.includes('已读取「备份样本」')")
             page.wait_for_function('(revision)=>document.querySelector("main")?.dataset.gameRevision===revision',arg=revision)
             modified=json.loads(contents)
             modified['game']['randomState']=17
