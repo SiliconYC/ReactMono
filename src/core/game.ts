@@ -1,6 +1,6 @@
 /** Stable public API; the implementation remains deterministic and React-independent. */
 export { SCHEMA_VERSION, UPGRADE_RULES_VERSION } from './types.js';
-export type { CardKind, PlayerId, TileKind, Phase, PlayerKind, PlayerConfig, TileConfig, GameMap, MapCell, GameConfig, Player, Tile, GameEvent, GameState, GameAction, RejectReason, ActionResult } from './types.js';
+export type { CardKind, PlayerId, TileKind, Phase, PlayerKind, ComputerStyle, PlayerConfig, TileConfig, GameMap, MapCell, GameConfig, Player, Tile, GameEvent, GameState, GameAction, RejectReason, ActionResult } from './types.js';
 export { DEFAULT_CARD_RULES, DEFAULT_EVENT_RULES, DEFAULT_FACILITIES, DEFAULT_UPGRADES, DEFAULT_CONFIG, HARBOR_CONFIG, DEFAULT_RESALE_RULES } from './config.js';
 export { normalizeSeed, nextDie } from './random.js';
 export { DEFAULT_MAP, INTERNAL_TEST_MAP, HARBOR_MAP, inferMap, advancePosition, validateMap } from './maps.js';
@@ -56,6 +56,7 @@ export function createGame(seed: number, config: GameConfig = DEFAULT_CONFIG): G
     ...(config.automaticLiquidation===true?{automaticLiquidation:true as const}:{}),
     players: config.players.map((p, index): Player => ({
       id: p.id, name: p.name, kind: p.kind ?? (index === 0 ? 'human' : 'computer'),
+      ...(p.computerStyle!==undefined?{computerStyle:p.computerStyle}:{}),
       position: 0, cash: config.initialCash, ...(config.bankEnabled===true?{bankBalance:0}:{}), ...(config.loanEnabled===true?{loanBalance:0}:{}), bankrupt: false, cards:config.strategyEnabled===true?{reward:0,stride:0,remote:0,roadblock:0,rent_free:0}:{reward:0,stride:0}
     })),
     tiles: config.tiles.map(t => {
