@@ -1,6 +1,7 @@
 /** 独立于页面的确定性回合与棋盘规则核心；第 #4 期加入地产买卖、收租、破产与胜负规则。 */
 export const SCHEMA_VERSION = 2 as const;
 export const UPGRADE_RULES_VERSION = 1 as const;
+export const DEFAULT_EVENT_RULES = { tileIds:[3,9,15,21], bonus:120, fee:60 } as const;
 export const DEFAULT_UPGRADES = { costRates: [0.5, 0.8], rentRates: [1, 2, 4] } as const;
 export type PlayerId = string;
 export type TileKind = 'start' | 'property' | 'neutral';
@@ -21,6 +22,7 @@ export interface GameConfig {
   readonly initialCash: number;
   readonly maxRounds: number;
   readonly upgrades?: { readonly costRates: readonly [number,number]; readonly rentRates: readonly [number,number,number] };
+  readonly eventRules?: {readonly tileIds:readonly number[];readonly bonus:number;readonly fee:number};
 }
 export interface Player {
   readonly id: PlayerId;
@@ -35,9 +37,11 @@ export interface Tile extends TileConfig {
   readonly level?: number;
   readonly upgradeCosts?: readonly [number,number];
   readonly levelRents?: readonly [number,number,number];
+  readonly eventBonus?:number;
+  readonly eventFee?:number;
 }
 export interface GameEvent {
-  readonly type: 'game_started' | 'die_rolled' | 'player_moved' | 'turn_ended' | 'tile_landed' | 'property_declined' | 'property_bought' | 'property_upgraded' | 'rent_paid' | 'player_bankrupt' | 'game_finished';
+  readonly type: 'game_started' | 'die_rolled' | 'player_moved' | 'turn_ended' | 'tile_landed' | 'property_declined' | 'property_bought' | 'property_upgraded' | 'event_bonus' | 'event_fee' | 'rent_paid' | 'player_bankrupt' | 'game_finished';
   readonly actorId?: PlayerId;
   readonly details?: Readonly<Record<string, string | number>>;
 }
@@ -105,6 +109,11 @@ function validateConfig(config: GameConfig): void {
       config.tiles.some((t, i) => t.id !== i || !t.title.trim())) throw new Error('地图配置无效');
   if (!Number.isFinite(config.initialCash) || config.initialCash < 0 ||
       !Number.isInteger(config.maxRounds) || config.maxRounds < 1) throw new Error('游戏经济配置无效');
+  const ev=config.eventRules??DEFAULT_EVENT_RULES;
+  if(![ev.bonus,ev.fee].every(v=>Number.isSafeInteger(v)&&v>=0)||
+    new Set(ev.tileIds).size!==ev.tileIds.length||
+    ev.tileIds.some(i=>!Number.isInteger(i)||i<0||(i<config.tiles.length&&config.tiles[i].kind!=='neutral')))
+    throw new Error('随机事件配置无效');
   const up=config.upgrades ?? DEFAULT_UPGRADES;
   if(up.costRates.length!==2 || up.rentRates.length!==3 ||
     ![...up.costRates,...up.rentRates].every(x=>Number.isFinite(x)&&x>=0) ||
@@ -132,7 +141,10 @@ export function createGame(seed: number, config: GameConfig = DEFAULT_CONFIG): G
       id: p.id, name: p.name, kind: index === 0 ? 'human' : 'computer',
       position: 0, cash: config.initialCash, bankrupt: false
     })),
-    tiles: config.tiles.map(t => t.kind==='property' ? makePropertyTile(t,config.upgrades??DEFAULT_UPGRADES) : ({...t,ownerId:null})),
+    tiles: config.tiles.map(t => t.kind==='property' ? makePropertyTile(t,config.upgrades??DEFAULT_UPGRADES)
+      : t.kind==='neutral'&&(config.eventRules??DEFAULT_EVENT_RULES).tileIds.includes(t.id)
+        ? ({...t,ownerId:null,eventBonus:(config.eventRules??DEFAULT_EVENT_RULES).bonus,eventFee:(config.eventRules??DEFAULT_EVENT_RULES).fee})
+        : ({...t,ownerId:null})),
     winnerId: null,
     events: []
   };
@@ -179,7 +191,8 @@ export function applyAction(state: GameState, action: GameAction): ActionResult 
         { type: 'player_moved', actorId: actor.id, details: { from: actor.position, to: position } },
         { type: 'tile_landed', actorId: actor.id, details: { tileId: landed.id, title: landed.title } }
       ];
-      const movingPlayers = state.players.map(p => p.id === actor.id ? { ...p, position } : p);
+      let movingPlayers = state.players.map(p => p.id === actor.id ? { ...p, position } : p);
+      let finalRandomState=nextState;
       if (landed.kind === 'property' && landed.ownerId && landed.ownerId !== actor.id) {
         const landlord = state.players.find(p => p.id === landed.ownerId);
         if (!landlord) return reject('INVALID_PHASE');
@@ -205,10 +218,22 @@ export function applyAction(state: GameState, action: GameAction): ActionResult 
           phase: insolvent ? 'finished' : 'await_end_turn'
         });
       }
+      if(landed.kind==='neutral'&&landed.eventBonus!==undefined&&landed.eventFee!==undefined){
+        const draw=nextDie(finalRandomState);
+        finalRandomState=draw.nextState;
+        if(draw.value%2===1){
+          movingPlayers=movingPlayers.map(p=>p.id===actor.id?{...p,cash:p.cash+landed.eventBonus!}:p);
+          events.push({type:'event_bonus',actorId:actor.id,details:{tileId:landed.id,amount:landed.eventBonus,draw:draw.value}});
+        }else{
+          const paid=Math.min(actor.cash,landed.eventFee);
+          movingPlayers=movingPlayers.map(p=>p.id===actor.id?{...p,cash:p.cash-paid}:p);
+          events.push({type:'event_fee',actorId:actor.id,details:{tileId:landed.id,due:landed.eventFee,amount:paid,draw:draw.value}});
+        }
+      }
       const phase: Phase = landed.kind === 'property' && landed.ownerId === null
         ? 'await_decision' : 'await_end_turn';
       return accept(state, events, {
-        randomState: nextState,
+        randomState: finalRandomState,
         players: movingPlayers,
         phase
       });
