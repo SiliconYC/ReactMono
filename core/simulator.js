@@ -36,7 +36,9 @@ export function runSimulation(seed, options = {}) {
             throw new Error('seed=' + seed + ' 现金、位置或产权非法');
         actions++;
         trace.push(actions + ':' + actor.id + ':' + action.type + ':' + state.phase);
-        if (action.type === 'roll')
+        // Both rolling and serving a hospital/prison detention consume one player's turn.
+        // This metric feeds the P3 strategy benchmark; do not undercount skipped turns.
+        if (action.type === 'roll' || action.type === 'skip_turn')
             playerTurns++;
     }
     if (playerTurns > config.maxRounds * state.players.length)
