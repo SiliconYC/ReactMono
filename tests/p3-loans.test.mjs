@@ -89,3 +89,38 @@ test('P3-08: strict finance save rejects negative debt, lien without loan featur
     {...s,loan:undefined,tiles:s.tiles.map(t=>t.id===1?{...t,mortgaged:true}:t)}
   ])assert.throws(()=>serializeGame(bad,{now}),SaveError);
 });
+
+test('P3-08: 100 deterministic seeded secured accounts across three local players',()=>{
+  for(let seed=0;seed<100;seed++){
+    let a=makeOwned(seed),b=makeOwned(seed);
+    for(const type of ['mortgage_property','borrow_loan']){
+      const extra=type==='mortgage_property'?{tileId:1}:{amount:20};
+      a=doIt(a,type,extra);b=doIt(b,type,extra);
+    }
+    a=doIt(a,'end_turn');b=doIt(b,'end_turn');
+    for(let i=1;i<3;i++){
+      a=doIt({...a,phase:'await_end_turn'},'end_turn');
+      b=doIt({...b,phase:'await_end_turn'},'end_turn');
+    }
+    assert.deepEqual(a,b);
+    assert.equal(a.loan.lastInterestRound,2);
+    assert.equal(a.players[0].loanBalance,20);
+    assert.equal(a.events.filter(e=>e.type==='loan_interest').length,1);
+    assert.deepEqual(deserializeGame(serializeGame(a,{now})).game,a);
+  }
+});
+test('P3-08: pledged land yields zero rent to the lender without losing ownership',async()=>{
+  const {nextDie}=await import('../dist/core/random.js');
+  const {advancePosition}=await import('../dist/core/maps.js');
+  let s=doIt(createGame(72,config),'start_game');
+  const target=advancePosition(s.map,0,nextDie(s.randomState).value);
+  s={...s,currentPlayerIndex:1,tiles:s.tiles.map(t=>t.id===target?
+    {...t,kind:'property',ownerId:'p1',price:200,rent:80,level:0,upgradeCosts:[100,160],
+      levelRents:[80,160,320],mortgaged:true}:t)};
+  const money=s.players.map(p=>p.cash);
+  const result=applyAction(s,{type:'roll',actorId:'p2'});
+  assert.equal(result.ok,true);
+  assert.deepEqual(result.state.players.map(p=>p.cash),money);
+  assert.equal(result.state.tiles[target].ownerId,'p1');
+  assert.ok(result.events.some(e=>e.type==='rent_paid'&&e.details.amount===0));
+});
