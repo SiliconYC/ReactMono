@@ -2,6 +2,7 @@ import { inferMap, validateMap, HARBOR_MAP } from './maps.js';
 export const DEFAULT_CARD_RULES = { tileIds: [6, 12, 18], rewardCash: 80, moveBonus: 2, maxHand: 3 };
 export const DEFAULT_EVENT_RULES = { tileIds: [3, 9, 15, 21], bonus: 120, fee: 60 };
 export const DEFAULT_UPGRADES = { costRates: [0.5, 0.8], rentRates: [1, 2, 4] };
+export const DEFAULT_RESALE_RULES = { landPercent: 0.75, upgradePercent: 0.5 };
 const defaultTiles = Array.from({ length: 24 }, (_, index) => {
     if (index === 0)
         return { id: index, kind: 'start', title: '起点' };
@@ -55,6 +56,9 @@ export function validateConfig(config) {
         new Set(ev.tileIds).size !== ev.tileIds.length ||
         ev.tileIds.some(i => !Number.isInteger(i) || i < 0 || (i < config.tiles.length && config.tiles[i].kind !== 'neutral')))
         throw new Error('随机事件配置无效');
+    const resale = config.resaleRules ?? DEFAULT_RESALE_RULES;
+    if (![resale.landPercent, resale.upgradePercent].every(x => Number.isFinite(x) && x >= 0 && x <= 1))
+        throw new Error('地产出售折价比例无效');
     const up = config.upgrades ?? DEFAULT_UPGRADES;
     if (up.costRates.length !== 2 || up.rentRates.length !== 3 ||
         ![...up.costRates, ...up.rentRates].every(x => Number.isFinite(x) && x >= 0) ||

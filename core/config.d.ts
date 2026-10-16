@@ -15,6 +15,10 @@ export declare const DEFAULT_UPGRADES: {
     readonly costRates: readonly [0.5, 0.8];
     readonly rentRates: readonly [1, 2, 4];
 };
+export declare const DEFAULT_RESALE_RULES: {
+    readonly landPercent: 0.75;
+    readonly upgradePercent: 0.5;
+};
 export declare const DEFAULT_CONFIG: GameConfig;
 export declare const HARBOR_CONFIG: GameConfig;
 export declare function validateConfig(config: GameConfig): void;

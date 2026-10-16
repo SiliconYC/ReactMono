@@ -1,4 +1,4 @@
-import { applyAction, createGame, DEFAULT_CONFIG, HARBOR_CONFIG, netWorth } from '../core/game.js';
+import { applyAction, createGame, DEFAULT_CONFIG, HARBOR_CONFIG, netWorth, resaleValue } from '../core/game.js';
 import { chooseComputerAction } from '../core/agent.js';
 import { listSlots, readSlot, writeSlot, deleteSlot } from '../storage/indexeddb.js';
 import { deserializeGame, MAX_SAVE_CHARS } from '../core/save.js';
@@ -276,7 +276,7 @@ class App extends React.Component {
         }
         let fresh;
         try {
-            fresh = createGame(seed, { ...(this.state.selectedMapId === 'harbor-20' ? HARBOR_CONFIG : DEFAULT_CONFIG), players: roster, maxRounds: rounds });
+            fresh = createGame(seed, { ...(this.state.selectedMapId === 'harbor-20' ? HARBOR_CONFIG : DEFAULT_CONFIG), players: roster, maxRounds: rounds, automaticLiquidation: true });
         }
         catch (e) {
             this.setState({ message: '开局配置无效：' + (e instanceof Error ? e.message : String(e)) });
@@ -329,7 +329,7 @@ class App extends React.Component {
         const actor = game.players[game.currentPlayerIndex];
         if (actor.kind === 'computer')
             return;
-        const action = type === 'upgrade_property' ? { type, actorId: actor.id, tileId: tileId ?? -1 }
+        const action = (type === 'upgrade_property' || type === 'sell_property') ? { type, actorId: actor.id, tileId: tileId ?? -1 }
             : type === 'use_card' ? { type, actorId: actor.id, cardType: cardType ?? 'reward' } : { type, actorId: actor.id };
         const result = applyAction(game, action);
         if (!result.ok) {
@@ -364,9 +364,12 @@ class App extends React.Component {
         const bought = events.find(e => e.type === 'property_bought');
         if (bought)
             return `${actorName}花费 ${bought.details?.amount} 游戏币购买了 ${bought.details?.tileId} 号地产。现在可以结束回合。`;
+        const sold = events.find(e => e.type === 'property_sold');
+        if (sold)
+            return `${actorName}出售了 ${sold.details?.tileId} 号地产，获得 ${sold.details?.amount} 游戏币。`;
         const rent = events.find(e => e.type === 'rent_paid');
         if (rent)
-            return `${actorName}落在对手地产，支付 ${rent.details?.amount} 游戏币租金。现在可以结束回合。`;
+            return `${actorName}落在对手地产，${events.some(e => e.type === 'property_liquidated') ? '已自动出售地产救急，' : ''}支付 ${rent.details?.amount} 游戏币租金。${state.status === 'playing' ? '现在可以结束回合。' : ''}`;
         const dice = events.find(e => e.type === 'die_rolled');
         if (dice) {
             const tile = state.tiles[state.players[state.currentPlayerIndex].position];
@@ -390,6 +393,8 @@ class App extends React.Component {
             case 'event_fee': return `${person}在事件格支付 ${event.details?.amount} 游戏币`;
             case 'property_upgraded': return `${person}将 ${event.details?.tileId} 号地产升到 ${event.details?.level} 级（${event.details?.amount}）`;
             case 'property_bought': return `${person}买下 ${event.details?.tileId} 号地产（${event.details?.amount}）`;
+            case 'property_sold': return `${person}出售 ${event.details?.tileId} 号地产，回收 ${event.details?.amount} 游戏币`;
+            case 'property_liquidated': return `${person}欠费救济，变卖 ${event.details?.tileId} 号地产收回 ${event.details?.amount} 游戏币`;
             case 'rent_paid': return `${person}支付租金 ${event.details?.amount}`;
             case 'player_bankrupt': return `${person}破产`;
             case 'game_finished': return '对局结束';
@@ -573,6 +578,15 @@ class App extends React.Component {
                                 (tile.level ?? 0) + 1,
                                 " \u7EA7 \u00B7 \u8D39\u7528 ",
                                 tile.upgradeCosts?.[tile.level ?? 0])),
+                            game.tiles.filter(t => t.kind === 'property' && t.ownerId === current.id).map(tile => React.createElement("button", { type: "button", key: 'sell-' + tile.id, className: "secondary-btn", onClick: () => {
+                                    if (window.confirm('确认出售「' + tile.title + '」？价格 ' + resaleValue(tile, game.resaleRules) + ' 游戏币，建筑升级不返还原价。'))
+                                        this.dispatch('sell_property', tile.id);
+                                } },
+                                "\u51FA\u552E ",
+                                tile.title,
+                                " \u00B7 \u56DE\u6536 ",
+                                resaleValue(tile, game.resaleRules),
+                                " \u6E38\u620F\u5E01")),
                             React.createElement("button", { type: "button", className: "primary-btn", onClick: () => this.dispatch('end_turn') },
                                 "\u7ED3\u675F\u5F53\u524D\u56DE\u5408 ",
                                 React.createElement("span", null, "\u2192"))),

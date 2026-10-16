@@ -1,6 +1,6 @@
 import { nextDie } from './random.js';
 import { advancePosition } from './maps.js';
-import { netWorth } from './property.js';
+import { netWorth, liquidateForRent } from './property.js';
 import { DEFAULT_CARD_RULES } from './config.js';
 import { accept, reject } from './transitions.js';
 export function rollTurn(state, actor) {
@@ -22,10 +22,14 @@ export function rollTurn(state, actor) {
         if (!landlord)
             return reject(state, 'INVALID_PHASE');
         const due = (landed.level ?? 0) === 0 ? (landed.rent ?? 0) : (landed.levelRents?.[landed.level ?? 0] ?? 0);
-        const paid = Math.min(actor.cash, due);
+        const rescue = state.automaticLiquidation === true
+            ? liquidateForRent(state, actor, due, landlord.id)
+            : { cash: actor.cash, tiles: state.tiles, events: [] };
+        events.push(...rescue.events);
+        const paid = Math.min(rescue.cash, due);
         const insolvent = paid < due;
         const players = movingPlayers.map(p => p.id === actor.id
-            ? { ...p, cash: p.cash - paid, bankrupt: insolvent }
+            ? { ...p, cash: rescue.cash - paid, bankrupt: insolvent }
             : p.id === landlord.id ? { ...p, cash: p.cash + paid } : p);
         events.push({ type: 'rent_paid', actorId: actor.id, details: {
                 tileId: landed.id, fromId: actor.id, toId: landlord.id, due, amount: paid
@@ -46,8 +50,8 @@ export function rollTurn(state, actor) {
         }
         return accept(state, events, {
             randomState: nextState, players, pendingMoveBonus: 0,
-            // P3-06 will add optional asset liquidation; until then properties revert to unowned.
-            tiles: insolvent ? state.tiles.map(t => t.ownerId === actor.id ? { ...t, ownerId: null, level: 0 } : t) : state.tiles,
+            // Auction at defined resale value before paying rent; residual insolvency releases all land.
+            tiles: insolvent ? rescue.tiles.map(t => t.ownerId === actor.id ? { ...t, ownerId: null, level: 0 } : t) : rescue.tiles,
             status: finished ? 'finished' : 'playing',
             winnerId: finished ? winnerId : state.winnerId,
             phase: finished ? 'finished' : insolvent ? 'await_roll' : 'await_end_turn',
