@@ -17,8 +17,9 @@ export function rollTurn(state: GameState, actor: Player): ActionResult {
       const nextState=draw.nextState; // consume RNG even for remote dice so replay is stable
       const bonus=state.pendingMoveBonus??0;
       let position=advancePosition(state.map,actor.position,value+bonus);
-      let blocks=(state.roadblocks??[]).filter(b=>b.expiresRound>=state.round &&
-        !state.players.some(p=>p.id===b.ownerId&&p.bankrupt));
+      const expiredBlocks=(state.roadblocks??[]).filter(b=>b.expiresRound<state.round ||
+        state.players.some(p=>p.id===b.ownerId&&p.bankrupt));
+      let blocks=(state.roadblocks??[]).filter(b=>!expiredBlocks.includes(b));
       let hit:number|undefined;
       for(let step=1;step<=value+bonus;step++){
         const traversed=advancePosition(state.map,actor.position,step);
@@ -31,8 +32,13 @@ export function rollTurn(state: GameState, actor: Player): ActionResult {
         { type: 'die_rolled', actorId: actor.id, details: { value, bonus,...((state.pendingDie??0)>0?{remote:1}:{}) } },
         { type: 'player_moved', actorId: actor.id, details: { from: actor.position, to: position } },
         { type: 'tile_landed', actorId: actor.id, details: { tileId: landed.id, title: landed.title } },
-        ...(hit===undefined?[]:[{type:'roadblock_triggered' as const,actorId:actor.id,details:{tileId:hit}}])
+        ...(hit===undefined?[]:[{type:'roadblock_triggered' as const,actorId:actor.id,details:{tileId:hit}}]),
+        ...expiredBlocks.map(b=>({type:'card_expired' as const,actorId:b.ownerId,details:{cardType:'roadblock',tileId:b.tileId}}))
       ];
+      if(state.pendingRentWaiver===true &&
+        !(landed.kind==='property'&&landed.ownerId!==null&&landed.ownerId!==actor.id&&landed.mortgaged!==true)){
+        events.push({type:'card_expired',actorId:actor.id,details:{cardType:'rent_free'}});
+      }
       let movingPlayers = state.players.map(p => p.id === actor.id ? { ...p, position } : p);
       let finalRandomState=nextState;
       if (landed.kind === 'property' && landed.ownerId && landed.ownerId !== actor.id) {
