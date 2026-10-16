@@ -51,9 +51,10 @@ def main():
             page.wait_for_function("document.querySelector('main')?.dataset.gameStatus==='playing'")
             report=page.evaluate("""async()=>{
                 const click=s=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes(s)&&!x.disabled);if(!b)return false;b.click();return true};
-                const wait=()=>new Promise(r=>setTimeout(r,20));
+                const wait=()=>new Promise(r=>setTimeout(r,12));
                 let rolls=0,upgrades=0,cards=0,sawEvent=false;
-                for(let i=0;i<1800;i++){
+                // Rent rescue can extend legitimate sessions to all 60 rounds.
+                for(let i=0;i<7000;i++){
                     let activity=document.querySelector('.activity-card')?.textContent||'';
                     if(activity.includes('事件格'))sawEvent=true;
                     if(document.querySelector('main')?.dataset.gameStatus==='finished')
