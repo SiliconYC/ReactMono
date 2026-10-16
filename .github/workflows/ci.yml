@@ -67,5 +67,15 @@ jobs:
           path: artifacts/issue45/
           if-no-files-found: warn
           retention-days: 30
+      - name: P4 #62 六视口真实 Chromium 体验基线
+        run: python tests/browser_p4_baseline_e2e.py
+      - name: 保留 P4 #62 浏览器审计原始截图和指标
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue62-experience-baseline
+          path: artifacts/issue62/
+          if-no-files-found: warn
+          retention-days: 30
       - name: 确认产物不含第三方运行时引用
         run: "! grep -R -E 'https?://(unpkg|cdn|esm.sh)' dist/index.html"
