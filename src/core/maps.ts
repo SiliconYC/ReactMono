@@ -46,7 +46,7 @@ function registered(id:string,length:number):GameMap|null {
 }
 /** Reject forged paths, unknown IDs/versions, duplicate/out-of-grid cells and stale geometry. */
 export function validateMap(map:unknown,tileCount:number):void {
-  const fail=()=>{throw new Error('地图标识、版本或路径配置无效');};
+  const fail=():never=>{throw new Error('地图标识、版本或路径配置无效');};
   if(!record(map)||Object.keys(map).sort().join(',')!=='cells,columns,id,route,rows,version'||
     typeof map.id!=='string'||!Array.isArray(map.cells)||!Array.isArray(map.route)||
     !Number.isInteger(map.version)||!Number.isInteger(map.columns)||!Number.isInteger(map.rows)||
