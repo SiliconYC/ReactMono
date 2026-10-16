@@ -57,7 +57,7 @@ test('P3-10: multiplayer accounts + deposits + secured loans + saved determinist
   s=run(s,'buy_stock',{stockId:'STAR',quantity:1});
   assert.deepEqual(Object.keys(s.players[0].holdings),['SEA']);
   assert.deepEqual(Object.keys(s.players[1].holdings),['STAR']);
-  assert.equal(s.players[2].holdings.STAR,undefined);
+  assert.equal(s.players[2].holdings?.STAR,undefined);
   const saved=deserializeGame(serializeGame(s,{now})).game;
   assert.deepEqual(saved,s);
   assert.equal(saved.market.round,1);
