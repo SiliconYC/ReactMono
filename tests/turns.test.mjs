@@ -19,7 +19,8 @@ function oneTurn(state) {
 }
 
 test('掷骰将当前玩家推进 1 到 6 格，输出有序的三类事件', () => {
-  const state = start(99);
+  // 旧三事件骰子契约以无卡片站配置隔离；卡片抽取另有专门回归。
+  const state = start(99,{...DEFAULT_CONFIG,cardRules:{tileIds:[],rewardCash:80,moveBonus:2,maxHand:3}});
   const before = JSON.stringify(state);
   const die = nextDie(state.randomState);
   const result = act(state, 'roll');
