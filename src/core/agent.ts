@@ -1,6 +1,7 @@
 /** 简单、确定性电脑玩家：从只读状态选择合法命令，不直接修改引擎数据。 */
 import { type GameAction, type GameState } from './game.js';
 import { handSize } from './cards.js';
+import {chooseStyledAction} from './strategic-agent.js';
 export interface ComputerOptions { readonly reserveCash?: number }
 export function choosePhaseAction(state: GameState, reserveCash: number): GameAction | null {
   if (!Number.isFinite(reserveCash) || reserveCash < 0) throw new Error('保留资金必须为非负有限数字');
@@ -60,5 +61,5 @@ export function chooseComputerAction(state: GameState, options: ComputerOptions 
   if (!Number.isFinite(reserveCash) || reserveCash < 0) throw new Error('保留资金必须为非负有限数字');
   const player = state.players[state.currentPlayerIndex];
   if (!player || player.kind !== 'computer') return null;
-  return choosePhaseAction(state, reserveCash);
+  return player.computerStyle ? chooseStyledAction(state,player.computerStyle) : choosePhaseAction(state, reserveCash);
 }

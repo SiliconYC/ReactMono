@@ -18,8 +18,10 @@ export interface ShopStock {readonly tileId:number;readonly cards:Readonly<Recor
 export type TileKind = 'start' | 'property' | 'neutral';
 export type Phase = 'setup' | 'await_roll' | 'await_decision' | 'await_end_turn' | 'await_shop' | 'finished';
 export type PlayerKind = 'human' | 'computer';
+/** Optional so P1/P2/P3 historic saves remain byte-compatible. */
+export type ComputerStyle = 'conservative' | 'balanced' | 'aggressive';
 
-export interface PlayerConfig { readonly id: PlayerId; readonly name: string; readonly kind?: PlayerKind; }
+export interface PlayerConfig { readonly id: PlayerId; readonly name: string; readonly kind?: PlayerKind; readonly computerStyle?: ComputerStyle; }
 export interface TileConfig {
   readonly id: number;
   readonly kind: TileKind;
@@ -71,6 +73,7 @@ export interface Player {
   readonly id: PlayerId;
   readonly name: string;
   readonly kind: PlayerKind;
+  readonly computerStyle?: ComputerStyle;
   readonly position: number;
   readonly cash: number;
   /** Optional for legacy states; enabled games always initialize to zero. */
