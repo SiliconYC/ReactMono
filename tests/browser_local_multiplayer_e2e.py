@@ -28,6 +28,19 @@ def scenario(browser,url,n,computer_positions):
     page.get_by_label('对局种子').fill('17')
     page.get_by_role('button',name=re.compile('开始游戏')).click()
     assert page.locator('.player-line').count()==n, page.locator('body').inner_text()
+    # The versioned save retains player order, names, roles and configured rounds.
+    if n==4 and not computer_positions:
+        page.on('dialog',lambda dialog:dialog.accept('四人续局' if dialog.type=='prompt' else None))
+        page.get_by_role('button',name='创建手动存档').click()
+        page.locator('.save-list').get_by_text('四人续局').wait_for()
+        page.reload()
+        page.locator('.save-list').get_by_text('四人续局').wait_for()
+        page.locator('.save-list li').filter(has_text='四人续局').get_by_role('button',name='读取').click()
+        page.wait_for_function("document.querySelector('main')?.dataset.gameStatus==='playing'")
+        assert page.locator('.player-line').count()==4
+        for i in range(4):
+            assert page.locator('.player-line').filter(has_text=f'测试者{i+1}').count()==1
+        assert page.get_by_label('对局种子').count()==0
     report=page.evaluate("""async()=>{
       const pause=()=>new Promise(r=>setTimeout(r,15));
       const click=s=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes(s)&&!x.disabled);if(!b)return false;b.click();return true};
