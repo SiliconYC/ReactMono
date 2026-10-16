@@ -35,7 +35,7 @@ class VisualLab extends React.Component<object,LabState> {
     const next=result.state.players[result.state.currentPlayerIndex];
     this.setState({game:result.state,selected:result.state.players[result.state.currentPlayerIndex].position,
       message:result.state.status==='finished'?'本局结束 · 可更换地图重新玩'
-        :type==='roll'?'走到了 '+(result.state.tiles.find(t=>t.id===actor.position)?.title??'新位置')
+        :type==='roll'?'走到了 '+(result.state.tiles.find(t=>t.id===result.state.players.find(x=>x.id===actor.id)?.position)?.title??'新位置')
         :'轮到 '+next.name+' · '+(result.state.phase==='await_roll'?'请掷骰':'继续选择')});
   };
   render():unknown {
