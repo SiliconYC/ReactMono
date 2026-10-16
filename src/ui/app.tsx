@@ -335,7 +335,7 @@ class App extends React.Component<object, UiState> {
       case 'card_used': return `${person}使用${this.cardName(event.details?.cardType)}${event.details?.cardType==='roadblock'?'，放在 '+event.details?.tileId+' 号格':event.details?.cardType==='remote'?'，指定骰点 '+event.details?.dieValue:''}`;
       case 'roadblock_triggered': return `${person}碰到 ${event.details?.tileId} 号格路障，提前停下`;
       case 'rent_waived': return `${person}免除 ${event.details?.amount} 游戏币租金`;
-      case 'card_expired': return `${person}的免租保护已到期`;
+      case 'card_expired': return event.details?.cardType==='roadblock'?`${person}放置在 ${event.details?.tileId} 号格的路障已过期`:`${person}的免租保护已到期`;
       case 'event_bonus': return `${person}在事件格获得 ${event.details?.amount} 游戏币`;
       case 'event_fee': return `${person}在事件格支付 ${event.details?.amount} 游戏币`;
       case 'property_upgraded': return `${person}将 ${event.details?.tileId} 号地产升到 ${event.details?.level} 级（${event.details?.amount}）`;
