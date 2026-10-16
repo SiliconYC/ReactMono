@@ -92,7 +92,8 @@ test('固定种子与相同操作产生相同骰子、状态和事件', () => {
 });
 
 test('多轮无界面运行能够推进到第 60 轮边界并完成退出', () => {
-  let state=start(100);
+  // 旧 P1 的平局基线使用无随机事件地图；事件结算由 events.test 独立覆盖。
+  let state=start(100,{...DEFAULT_CONFIG,eventRules:{tileIds:[],bonus:0,fee:0}});
   let count=0;
   while(state.status!=='finished' && count<140) { state=oneTurn(state); count++; }
   assert.equal(count,120);
