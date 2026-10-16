@@ -22,7 +22,9 @@ export function rollTurn(state: GameState, actor: Player): ActionResult {
         const landlord = state.players.find(p => p.id === landed.ownerId);
         if (!landlord) return reject(state,'INVALID_PHASE');
         const due = (landed.level??0)===0 ? (landed.rent??0) : (landed.levelRents?.[landed.level??0]??0);
-        const rescue=liquidateForRent(state,actor,due,landlord.id);
+        const rescue=state.automaticLiquidation===true
+          ? liquidateForRent(state,actor,due,landlord.id)
+          : {cash:actor.cash,tiles:state.tiles,events:[]};
         events.push(...rescue.events);
         const paid = Math.min(rescue.cash, due);
         const insolvent = paid < due;
