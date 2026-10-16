@@ -40,11 +40,29 @@ def main():
             row=page.locator('.save-list li').filter(has_text='备份样本')
             row.wait_for()
             row.get_by_role('button',name='读取').click()
+            # 必须等待真正的异步读档完成。修订号可能原本就相同，不可据此判定已读取。
+            try:
+                page.wait_for_function("document.querySelector('.save-message')?.textContent.includes('已读取「备份样本」')",timeout=7000)
+            except Exception:
+                print('读档诊断',page.evaluate("""()=>({message:document.querySelector('.save-message')?.textContent,
+                   status:document.querySelector('main')?.dataset.gameStatus,revision:document.querySelector('main')?.dataset.gameRevision,
+                   slots:document.querySelector('.save-list')?.textContent})"""),flush=True)
+                raise
             page.wait_for_function('(revision)=>document.querySelector("main")?.dataset.gameRevision===revision',arg=revision)
             modified=json.loads(contents)
             modified['game']['randomState']=17
             selector.set_input_files({'name':'corrupted.json','mimeType':'application/json','buffer':json.dumps(modified,ensure_ascii=False).encode()})
-            page.wait_for_function("document.querySelector('.save-message')?.textContent.includes('导入失败')")
+            try:
+                page.wait_for_function("document.querySelector('.save-message')?.textContent.includes('导入失败')", timeout=8000)
+            except Exception:
+                print('导入诊断', page.evaluate("""() => ({
+                    message: document.querySelector('.save-message')?.textContent,
+                    preview: document.querySelector('.import-preview')?.textContent,
+                    filename: document.querySelector('input[type=file]')?.value,
+                    state: document.querySelector('main')?.dataset.gameStatus,
+                    slots: document.querySelector('.save-list')?.textContent
+                })"""), flush=True)
+                raise
             assert row.count()==1
             selector.set_input_files({'name':download.suggested_filename,'mimeType':'application/json','buffer':contents})
             page.get_by_role('button',name='另存为副本').click()

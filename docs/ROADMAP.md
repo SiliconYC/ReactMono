@@ -57,6 +57,14 @@
 
 建议先分别推进 #12（静态打包）与 #13（存档契约），#17–#19 改动同一规则核心时按先后协调，#20 最后独立验收。依赖、退出标准与延期方向详见 [P2_QUEUE.md](P2_QUEUE.md)。
 
+## 2026-10-16：P2 实际交付与验收
+
+[#12–#19](https://github.com/SiliconYC/ReactMono/issues) 已逐项合并到 `dev`，离线 PWA、IndexedDB 多档位与自动存档、文件备份、地产分级、机会格、奖励卡和步数卡均已进入实际游戏。#16 从先前未完成的 `issue-16-pwa-offline` 和 [PR #25](https://github.com/SiliconYC/ReactMono/pull/25) 接续开发，没有重新建造。
+
+[#20 / PR #29](https://github.com/SiliconYC/ReactMono/pull/29) 为独立整合验收：保留 P1 的核心回归，扩充跨系统百种子不变量、双 Service Worker 缓存版本、真实 Chromium 文件备份往返加断网续局，以及公开 [Pages 游戏](https://siliconyc.github.io/ReactMono/) 的真实操作。验收日志与 CI 链接见 [EVOLUTION_LOG](EVOLUTION_LOG.md)。仅测试成功、合并且 Pages 部署可证后视为 P2 收口；构建成功不代替公网实际互动。
+
+P2 仍属简化版，不包含股票、银行、多地图、复杂道具或原版受保护素材。清除浏览器站点数据可能删除全部本地存档，用户需导出 JSON 备份。下一阶段 P3 应根据真实可玩性、经济和测试数据扩展，而非凭新增 Issue 的数量评估 AI 自主演化。
+
 ## 首批研究方向与下一步
 
 首批五份正式仓库提案已经落在 [候选池](EVOLUTION_POOL.md)，分别讨论阶段路线、P1 可玩边界、Pages/PWA/存档、AI 自主晋升机制和经典玩法。提案可以持续更新，但不自动创建 Issue。
