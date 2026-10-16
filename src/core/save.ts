@@ -218,13 +218,13 @@ export function deserializeGame(raw: string): SaveEnvelope {
       keys(tile,['id','kind','title','price','rent','ownerId']);
       return {...makePropertyTile(tile as unknown as {id:number;kind:'property';title:string;price:number;rent:number}),ownerId:tile.ownerId};
     });
-    const upgraded={...old, schemaVersion:SCHEMA_VERSION,upgradeRulesVersion:UPGRADE_RULES_VERSION,tiles,map:inferMap(tiles.length),players:old.players.map((p:Dict)=>({...p,bankBalance:0}))};
+    const upgraded={...old, schemaVersion:SCHEMA_VERSION,upgradeRulesVersion:UPGRADE_RULES_VERSION,tiles,map:inferMap(tiles.length)};
     validateGameState(upgraded);
     return JSON.parse(serializeGame(upgraded,{createdAt:value.createdAt,now:value.updatedAt})) as SaveEnvelope;
   }
   if(value.rulesVersion===2 || value.rulesVersion===3){
     validateGameState(value.game,value.rulesVersion as number);
-    const upgraded={...value.game, schemaVersion:SCHEMA_VERSION,map:inferMap(value.game.tiles.length),players:value.game.players.map(p=>({...p,bankBalance:0}))};
+    const upgraded={...value.game, schemaVersion:SCHEMA_VERSION,map:inferMap(value.game.tiles.length)};
     validateGameState(upgraded);
     return JSON.parse(serializeGame(upgraded,{createdAt:value.createdAt,now:value.updatedAt})) as SaveEnvelope;
   }
