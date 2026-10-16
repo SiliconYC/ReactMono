@@ -547,7 +547,7 @@ class App extends React.Component<object, UiState> {
               </div>}
               {current.kind === 'human' && !this.state.awaitingHandoff && game.phase === 'await_end_turn' && <div className="purchase-actions">
                 <div className="action-navigation" role="navigation" aria-label="交易操作快捷入口">
-                  {([{id:'property-management',label:'地产管理'},...(game.bank?[{id:'bank-actions',label:'银行存取'}]:[]),...(game.loan?[{id:'loan-actions',label:'抵押借贷'}]:[]),...(game.market?[{id:'stock-actions',label:'股票交易'}]:[])]).map(link=>
+                  {([{id:'property-management',label:'地产管理'},...(game.bank?[{id:'bank-actions',label:'银行存取'}]:[]),...(game.loan?[{id:'loan-actions',label:'贷款与抵押入口'}]:[]),...(game.market?[{id:'stock-actions',label:'股票交易'}]:[])]).map(link=>
                     <button key={link.id} type="button" onClick={()=>document.getElementById(link.id)?.scrollIntoView({behavior:'smooth',block:'start'})}>{link.label} ↓</button>)}
                 </div>
                 <strong id="property-management" className="management-heading">地产管理 · {current.name}</strong>
