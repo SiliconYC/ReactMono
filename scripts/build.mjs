@@ -8,6 +8,7 @@ import { createIcons } from './icons.mjs';
 await mkdir('dist/vendor', { recursive: true });
 await cp('site/index.html', 'dist/index.html');
 await cp('site/style.css', 'dist/style.css');
+await cp('site/board-art.css', 'dist/board-art.css');
 for(const name of ['visual-lab.html','visual-lab.css','visual-tokens.css','art-manifest.json']){
   await cp('site/'+name,'dist/'+name);
 }
