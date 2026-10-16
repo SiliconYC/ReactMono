@@ -1,4 +1,4 @@
-import { applyAction, createGame, type GameAction, type CardKind, type GameEvent, type GameState, type Tile, type GameMap, type PlayerConfig, DEFAULT_CONFIG, HARBOR_CONFIG, netWorth } from '../core/game.js';
+import { applyAction, createGame, type GameAction, type CardKind, type GameEvent, type GameState, type Tile, type GameMap, type PlayerConfig, DEFAULT_CONFIG, HARBOR_CONFIG, netWorth, resaleValue } from '../core/game.js';
 import { chooseComputerAction } from '../core/agent.js';
 import { listSlots, readSlot, writeSlot, deleteSlot, type SlotSummary } from '../storage/indexeddb.js';
 import { deserializeGame, MAX_SAVE_CHARS, type SaveEnvelope } from '../core/save.js';
@@ -216,7 +216,7 @@ class App extends React.Component<object, UiState> {
       this.setState({message:'所有玩家都必须填写不同的姓名（最多 24 字）。'});return;
     }
     let fresh:GameState;
-    try{fresh=createGame(seed,{...(this.state.selectedMapId==='harbor-20'?HARBOR_CONFIG:DEFAULT_CONFIG),players:roster,maxRounds:rounds});}
+    try{fresh=createGame(seed,{...(this.state.selectedMapId==='harbor-20'?HARBOR_CONFIG:DEFAULT_CONFIG),players:roster,maxRounds:rounds,automaticLiquidation:true});}
     catch(e){this.setState({message:'开局配置无效：'+(e instanceof Error?e.message:String(e))});return;}
     this.saveEpoch++;
     this.stopTimer();
@@ -257,7 +257,7 @@ class App extends React.Component<object, UiState> {
     const { game } = this.state;
     const actor = game.players[game.currentPlayerIndex];
     if (actor.kind === 'computer') return;
-    const action:GameAction=type==='upgrade_property'?{type,actorId:actor.id,tileId:tileId??-1}
+    const action:GameAction=(type==='upgrade_property'||type==='sell_property')?{type,actorId:actor.id,tileId:tileId??-1}
       :type==='use_card'?{type,actorId:actor.id,cardType:cardType??'reward'}:{type,actorId:actor.id};
     const result = applyAction(game,action);
     if (!result.ok) {
@@ -288,8 +288,10 @@ class App extends React.Component<object, UiState> {
     if(special)return special.type==='event_bonus' ? `${actorName}触发幸运事件，获得 ${special.details?.amount} 游戏币。` : `${actorName}触发费用事件，支付 ${special.details?.amount} 游戏币（应付 ${special.details?.due}）。`;
     const bought = events.find(e => e.type === 'property_bought');
     if (bought) return `${actorName}花费 ${bought.details?.amount} 游戏币购买了 ${bought.details?.tileId} 号地产。现在可以结束回合。`;
+    const sold=events.find(e=>e.type==='property_sold');
+    if(sold)return `${actorName}出售了 ${sold.details?.tileId} 号地产，获得 ${sold.details?.amount} 游戏币。`;
     const rent = events.find(e => e.type === 'rent_paid');
-    if (rent) return `${actorName}落在对手地产，支付 ${rent.details?.amount} 游戏币租金。现在可以结束回合。`;
+    if (rent) return `${actorName}落在对手地产，${events.some(e=>e.type==='property_liquidated')?'已自动出售地产救急，':''}支付 ${rent.details?.amount} 游戏币租金。${state.status==='playing'?'现在可以结束回合。':''}`;
     const dice = events.find(e => e.type === 'die_rolled');
     if (dice) {
       const tile = state.tiles[state.players[state.currentPlayerIndex].position];
@@ -312,6 +314,8 @@ class App extends React.Component<object, UiState> {
       case 'event_fee': return `${person}在事件格支付 ${event.details?.amount} 游戏币`;
       case 'property_upgraded': return `${person}将 ${event.details?.tileId} 号地产升到 ${event.details?.level} 级（${event.details?.amount}）`;
       case 'property_bought': return `${person}买下 ${event.details?.tileId} 号地产（${event.details?.amount}）`;
+      case 'property_sold': return `${person}出售 ${event.details?.tileId} 号地产，回收 ${event.details?.amount} 游戏币`;
+      case 'property_liquidated': return `${person}欠费救济，变卖 ${event.details?.tileId} 号地产收回 ${event.details?.amount} 游戏币`;
       case 'rent_paid': return `${person}支付租金 ${event.details?.amount}`;
       case 'player_bankrupt': return `${person}破产`;
       case 'game_finished': return '对局结束';
@@ -423,6 +427,9 @@ class App extends React.Component<object, UiState> {
               </div>}
               {current.kind === 'human' && !this.state.awaitingHandoff && game.phase === 'await_end_turn' && <div className="purchase-actions">
                 {game.tiles.filter(t=>t.kind==='property'&&t.ownerId===current.id&&(t.level??0)<2).map(tile=><button type="button" key={tile.id} className="secondary-btn" disabled={current.cash<(tile.upgradeCosts?.[tile.level??0]??Infinity)} onClick={()=>this.dispatch('upgrade_property',tile.id)}>升级 {tile.title} → {(tile.level??0)+1} 级 · 费用 {tile.upgradeCosts?.[tile.level??0]}</button>)}
+                {game.tiles.filter(t=>t.kind==='property'&&t.ownerId===current.id).map(tile=><button type="button" key={'sell-'+tile.id} className="secondary-btn" onClick={()=>{
+                  if(window.confirm('确认出售「'+tile.title+'」？价格 '+resaleValue(tile,game.resaleRules)+' 游戏币，建筑升级不返还原价。'))this.dispatch('sell_property',tile.id);
+                }}>出售 {tile.title} · 回收 {resaleValue(tile,game.resaleRules)} 游戏币</button>)}
                 <button type="button" className="primary-btn" onClick={() => this.dispatch('end_turn')}>结束当前回合 <span>→</span></button>
               </div>}
               {game.phase === 'finished' && <div className="result-box" role="status"><strong>{game.winnerId ? `${game.players.find(p => p.id === game.winnerId)?.name}获胜！` : '净资产并列，平局！'}</strong><p>{[...game.events].reverse().find(e => e.type === 'game_finished')?.details?.reason === 'bankruptcy' ? '结束原因：一方无法付清租金' : '结束原因：达到回合上限'}</p><p>最终净资产：{game.players.map(p=>`${p.name} ${netWorth(game,p.id)}`).join(' · ')}</p><p>本局种子：{this.state.activeSeed}</p><button type="button" className="primary-btn" onClick={this.reset}>再来一局 <span>↻</span></button></div>}

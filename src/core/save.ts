@@ -1,7 +1,7 @@
 /** Local versioned save contract; migrates historic two-player v1/v2 records. */
 import { SCHEMA_VERSION, UPGRADE_RULES_VERSION, makePropertyTile, type GameState } from './game.js';
 import { inferMap, validateMap } from './maps.js';
-import {validateMarket} from './market.js';
+import { validateMarket } from './market.js';
 
 export const SAVE_FORMAT_VERSION = 1 as const;
 export const MAX_SAVE_CHARS = 4_000_000;
@@ -33,18 +33,25 @@ function iso(x: unknown): x is string {
 }
 const EVENT_TYPES = new Set([
   'game_started','die_rolled','player_moved','turn_ended','tile_landed','property_declined',
-  'property_bought','property_upgraded','rent_paid','event_bonus','event_fee','card_received','card_used','player_bankrupt','game_finished'
+  'property_bought','property_upgraded','property_sold','property_liquidated','rent_paid','event_bonus','event_fee','card_received','card_used','player_bankrupt','game_finished'
 ]);
 /** Validate current and migrated legacy states against the same strict bounds. */
 export function validateGameState(value: unknown, expectedVersion: number = SCHEMA_VERSION): asserts value is GameState {
   if (!record(value)) throw new SaveError('INVALID_STATE','存档数据无效：游戏状态必须为对象');
   keys(value,['schemaVersion','status','phase','revision','round','currentPlayerIndex','randomState',
     'maxRounds','players','tiles','winnerId','events','upgradeRulesVersion',
-    ...(expectedVersion>=4?['map']:[])],['cardRules','pendingMoveBonus',...(expectedVersion>=4?['market']:[])]);
+    ...(expectedVersion>=4?['map']:[])],['cardRules','pendingMoveBonus',...(expectedVersion>=4?['automaticLiquidation','resaleRules','market']:[])]);
   if(value.market!==undefined){
-    try{validateMarket(value.market);if(value.market.round!==value.round)throw new Error('round');}
-    catch{throw new SaveError('INVALID_STATE','存档行情快照无效');}
+    try { validateMarket(value.market); if(value.market.round!==value.round) throw new Error('round'); }
+    catch { throw new SaveError('INVALID_STATE','存档行情快照无效'); }
   }
+  if(value.resaleRules!==undefined){
+    if(!record(value.resaleRules))throw new SaveError('INVALID_STATE','地产出售比例非法');
+    keys(value.resaleRules,['landPercent','upgradePercent']);
+    if(![value.resaleRules.landPercent,value.resaleRules.upgradePercent].every(v=>typeof v==='number'&&Number.isFinite(v)&&v>=0&&v<=1))throw new SaveError('INVALID_STATE','地产出售比例非法');
+  }
+  if(value.automaticLiquidation!==undefined&&value.automaticLiquidation!==true)
+    throw new SaveError('INVALID_STATE','地产救济规则标识非法');
   if(value.cardRules!==undefined){
     if(!record(value.cardRules))throw new SaveError('INVALID_STATE','卡片参数无效');
     keys(value.cardRules,['rewardCash','moveBonus','maxHand']);
