@@ -264,7 +264,7 @@ class App extends React.Component<object, UiState> {
       :type==='deposit_bank'||type==='withdraw_bank'||type==='borrow_loan'||type==='repay_loan'?{type,actorId:actor.id,amount:bankAmount}
       :type==='use_card'?{type,actorId:actor.id,cardType:cardType??'reward',
           ...(cardType==='remote'?{dieValue:Number(this.state.strategyDieInput)}:{}),
-          ...(cardType==='roadblock'?{tileId:Number(this.state.roadblockTileInput)}:{})}:{type,actorId:actor.id};
+          ...(cardType==='roadblock'?{tileId:Number(game.tiles.some(t=>t.id===Number(this.state.roadblockTileInput)&&t.id!==0&&t.id!==actor.position&&!game.players.some(p=>!p.bankrupt&&p.position===t.id)&&!game.roadblocks?.some(b=>b.tileId===t.id))?this.state.roadblockTileInput:game.tiles.find(t=>t.id!==0&&t.id!==actor.position&&!game.players.some(p=>!p.bankrupt&&p.position===t.id)&&!game.roadblocks?.some(b=>b.tileId===t.id))?.id??-1)}:{})}:{type,actorId:actor.id};
     const result = applyAction(game,action);
     if (!result.ok) {
       const bankAction=type==='deposit_bank'||type==='withdraw_bank'||type==='borrow_loan'||type==='repay_loan';
@@ -466,7 +466,7 @@ class App extends React.Component<object, UiState> {
                 </div>}
                 {game.strategyEnabled&&(current.cards?.roadblock??0)>0&&<div className="purchase-info">
                   <label htmlFor="roadblock-tile">放置路障 </label>
-                  <select id="roadblock-tile" aria-label="路障目标格" value={this.state.roadblockTileInput} onChange={(e:{target:{value:string}})=>this.setState({roadblockTileInput:e.target.value})}>
+                  <select id="roadblock-tile" aria-label="路障目标格" value={availableRoadblocks.some(t=>String(t.id)===this.state.roadblockTileInput)?this.state.roadblockTileInput:String(availableRoadblocks[0]?.id??'')} onChange={(e:{target:{value:string}})=>this.setState({roadblockTileInput:e.target.value})}>
                     {availableRoadblocks.map(t=><option key={t.id} value={t.id}>{t.id} · {t.title}</option>)}
                   </select>
                   <button type="button" className="secondary-btn" disabled={availableRoadblocks.length===0} onClick={()=>this.dispatch('use_card',undefined,'roadblock')}>放置路障</button>
