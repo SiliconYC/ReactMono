@@ -27,7 +27,10 @@ export interface GameMap {
   readonly route:readonly number[];
 }
 export interface ResaleRules { readonly landPercent:number; readonly upgradePercent:number; }
+export interface BankState { readonly version:1; readonly interestBps:number; readonly lastInterestRound:number; }
 export interface GameConfig {
+  readonly bankEnabled?: boolean;
+  readonly bankInterestBps?: number;
   /** Optional deterministic virtual exchange, separate from the dice RNG. */
   readonly marketEnabled?: boolean;
   /** Opt in to deterministic resale-based rent rescue; old saves keep P2 behaviour. */
@@ -49,6 +52,8 @@ export interface Player {
   readonly kind: PlayerKind;
   readonly position: number;
   readonly cash: number;
+  /** Optional for legacy states; enabled games always initialize to zero. */
+  readonly bankBalance?: number;
   readonly bankrupt: boolean;
   readonly cards?:Readonly<Record<CardKind,number>>;
 }
@@ -62,7 +67,7 @@ export interface Tile extends TileConfig {
   readonly cardStation?:boolean;
 }
 export interface GameEvent {
-  readonly type: 'game_started' | 'die_rolled' | 'player_moved' | 'turn_ended' | 'tile_landed' | 'property_declined' | 'property_bought' | 'property_upgraded' | 'property_sold' | 'property_liquidated' | 'event_bonus' | 'event_fee' | 'card_received' | 'card_used' | 'rent_paid' | 'player_bankrupt' | 'game_finished';
+  readonly type: 'game_started' | 'die_rolled' | 'player_moved' | 'turn_ended' | 'tile_landed' | 'property_declined' | 'property_bought' | 'property_upgraded' | 'property_sold' | 'property_liquidated' | 'bank_deposited' | 'bank_withdrawn' | 'bank_interest' | 'event_bonus' | 'event_fee' | 'card_received' | 'card_used' | 'rent_paid' | 'player_bankrupt' | 'game_finished';
   readonly actorId?: PlayerId;
   readonly details?: Readonly<Record<string, string | number>>;
 }
@@ -80,6 +85,7 @@ export interface GameState {
   readonly maxRounds: number;
   readonly map: GameMap;
   readonly market?: StockMarket;
+  readonly bank?: BankState;
   /** Undefined preserves pre-P3-06 rent behaviour, including old saved games. */
   readonly automaticLiquidation?:true;
   readonly resaleRules?:ResaleRules;
@@ -96,6 +102,7 @@ export type GameAction =
   | { readonly type: 'end_turn'; readonly actorId: PlayerId }
   | { readonly type: 'upgrade_property'; readonly actorId: PlayerId; readonly tileId: number }
   | { readonly type: 'sell_property'; readonly actorId: PlayerId; readonly tileId: number }
+  | { readonly type: 'deposit_bank' | 'withdraw_bank'; readonly actorId: PlayerId; readonly amount:number }
   | { readonly type: 'use_card'; readonly actorId:PlayerId; readonly cardType:CardKind; readonly targetId?:PlayerId };
 export type RejectReason = 'INVALID_PHASE' | 'INVALID_ACTOR' | 'INSUFFICIENT_FUNDS';
 export type ActionResult =

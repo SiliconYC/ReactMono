@@ -33,14 +33,20 @@ function iso(x: unknown): x is string {
 }
 const EVENT_TYPES = new Set([
   'game_started','die_rolled','player_moved','turn_ended','tile_landed','property_declined',
-  'property_bought','property_upgraded','property_sold','property_liquidated','rent_paid','event_bonus','event_fee','card_received','card_used','player_bankrupt','game_finished'
+  'property_bought','property_upgraded','property_sold','property_liquidated','bank_deposited','bank_withdrawn','bank_interest','rent_paid','event_bonus','event_fee','card_received','card_used','player_bankrupt','game_finished'
 ]);
 /** Validate current and migrated legacy states against the same strict bounds. */
 export function validateGameState(value: unknown, expectedVersion: number = SCHEMA_VERSION): asserts value is GameState {
   if (!record(value)) throw new SaveError('INVALID_STATE','存档数据无效：游戏状态必须为对象');
   keys(value,['schemaVersion','status','phase','revision','round','currentPlayerIndex','randomState',
     'maxRounds','players','tiles','winnerId','events','upgradeRulesVersion',
-    ...(expectedVersion>=4?['map']:[])],['cardRules','pendingMoveBonus',...(expectedVersion>=4?['automaticLiquidation','resaleRules','market']:[])]);
+    ...(expectedVersion>=4?['map']:[])],['cardRules','pendingMoveBonus',...(expectedVersion>=4?['automaticLiquidation','resaleRules','market','bank']:[])]);
+  if(value.bank!==undefined){
+    if(!record(value.bank))throw new SaveError('INVALID_STATE','银行状态非法');
+    keys(value.bank,['version','interestBps','lastInterestRound']);
+    if(value.bank.version!==1||!finite(value.bank.interestBps,0,1000)||value.bank.lastInterestRound!==value.round)
+      throw new SaveError('INVALID_STATE','银行重复结息标记或利率非法');
+  }
   if(value.market!==undefined){
     try { validateMarket(value.market); if(value.market.round!==value.round) throw new Error('round'); }
     catch { throw new SaveError('INVALID_STATE','存档行情快照无效'); }
@@ -77,7 +83,11 @@ export function validateGameState(value: unknown, expectedVersion: number = SCHE
   for (let i=0;i<value.players.length;i++) {
     const p: unknown = value.players[i];
     if (!record(p)) throw new SaveError('INVALID_STATE','存档数据无效：玩家字段非法');
-    keys(p,['id','name','kind','position','cash','bankrupt'],['cards']);
+    keys(p,['id','name','kind','position','cash','bankrupt'],['cards',...(expectedVersion>=4?['bankBalance']:[])]);
+    if(value.bank!==undefined ? !finite(p.bankBalance,0,1_000_000_000_000) :
+      p.bankBalance!==undefined && p.bankBalance!==0)
+      throw new SaveError('INVALID_STATE','玩家银行存款非法');
+    if(p.bankrupt===true && (p.bankBalance??0)>0)throw new SaveError('INVALID_STATE','破产玩家存在未清算存款');
     if(p.cards!==undefined){
       if(!record(p.cards))throw new SaveError('INVALID_STATE','卡片库存无效');
       keys(p.cards,['reward','stride']);
@@ -208,13 +218,13 @@ export function deserializeGame(raw: string): SaveEnvelope {
       keys(tile,['id','kind','title','price','rent','ownerId']);
       return {...makePropertyTile(tile as unknown as {id:number;kind:'property';title:string;price:number;rent:number}),ownerId:tile.ownerId};
     });
-    const upgraded={...old, schemaVersion:SCHEMA_VERSION,upgradeRulesVersion:UPGRADE_RULES_VERSION,tiles,map:inferMap(tiles.length)};
+    const upgraded={...old, schemaVersion:SCHEMA_VERSION,upgradeRulesVersion:UPGRADE_RULES_VERSION,tiles,map:inferMap(tiles.length),players:old.players.map((p:Dict)=>({...p,bankBalance:0}))};
     validateGameState(upgraded);
     return JSON.parse(serializeGame(upgraded,{createdAt:value.createdAt,now:value.updatedAt})) as SaveEnvelope;
   }
   if(value.rulesVersion===2 || value.rulesVersion===3){
     validateGameState(value.game,value.rulesVersion as number);
-    const upgraded={...value.game, schemaVersion:SCHEMA_VERSION,map:inferMap(value.game.tiles.length)};
+    const upgraded={...value.game, schemaVersion:SCHEMA_VERSION,map:inferMap(value.game.tiles.length),players:value.game.players.map((p:Dict)=>({...p,bankBalance:0}))};
     validateGameState(upgraded);
     return JSON.parse(serializeGame(upgraded,{createdAt:value.createdAt,now:value.updatedAt})) as SaveEnvelope;
   }
