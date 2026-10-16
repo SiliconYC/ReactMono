@@ -4,6 +4,8 @@ import type { GameMap } from './types.js';
 export declare function makeRingMap(id: string, version: number, columns: number, rows: number): GameMap;
 export declare const DEFAULT_MAP: GameMap;
 export declare const INTERNAL_TEST_MAP: GameMap;
+/** Original nautical-themed 20-tile board; playable preset supplied by config.ts. */
+export declare const HARBOR_MAP: GameMap;
 /** Supports tiny custom boards in legacy rules tests and old saved 2-tile fixtures. */
 export declare function inferMap(count: number): GameMap;
 export declare function cloneMap(map: GameMap): GameMap;

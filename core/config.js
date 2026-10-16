@@ -1,4 +1,4 @@
-import { inferMap, validateMap } from './maps.js';
+import { inferMap, validateMap, HARBOR_MAP } from './maps.js';
 export const DEFAULT_CARD_RULES = { tileIds: [6, 12, 18], rewardCash: 80, moveBonus: 2, maxHand: 3 };
 export const DEFAULT_EVENT_RULES = { tileIds: [3, 9, 15, 21], bonus: 120, fee: 60 };
 export const DEFAULT_UPGRADES = { costRates: [0.5, 0.8], rentRates: [1, 2, 4] };
@@ -14,6 +14,22 @@ export const DEFAULT_CONFIG = {
     tiles: defaultTiles,
     initialCash: 1500,
     maxRounds: 60
+};
+/** 原创海港环线：20 格 6×6，包含独立地名、定价、机会格与卡片站。 */
+const HARBOR_NAMES = [
+    '海港起点', '灯塔街道', '海风大道', '海潮广场', '集装箱港', '造船工坊',
+    '旅人驿站', '北岸船坞', '海鲜市场', '海洋公园', '防波堤路', '港湾旅馆',
+    '航海卡站', '海滨大道', '海事学堂', '望海平台', '游艇码头', '水手巷',
+    '补给卡站', '港务中心'
+];
+export const HARBOR_CONFIG = {
+    ...DEFAULT_CONFIG,
+    map: HARBOR_MAP,
+    tiles: HARBOR_NAMES.map((title, index) => index === 0 ? { id: index, kind: 'start', title } :
+        index % 3 === 0 ? { id: index, kind: 'neutral', title } :
+            { id: index, kind: 'property', title, price: 90 + index * 14, rent: 18 + index * 3 }),
+    eventRules: { ...DEFAULT_EVENT_RULES, tileIds: [3, 9, 15] },
+    cardRules: { ...DEFAULT_CARD_RULES, tileIds: [6, 12, 18] }
 };
 export function validateConfig(config) {
     if (config.players.length < 2 || config.players.length > 4 ||

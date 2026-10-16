@@ -1,4 +1,4 @@
-import { applyAction, createGame, DEFAULT_CONFIG, netWorth } from '../core/game.js';
+import { applyAction, createGame, DEFAULT_CONFIG, HARBOR_CONFIG, netWorth } from '../core/game.js';
 import { chooseComputerAction } from '../core/agent.js';
 import { listSlots, readSlot, writeSlot, deleteSlot } from '../storage/indexeddb.js';
 import { deserializeGame, MAX_SAVE_CHARS } from '../core/save.js';
@@ -11,7 +11,7 @@ const kindLabel = { start: '起点', property: '地产', neutral: '休息' };
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { game: createGame(20261015), seedInput: '20261015', playerSetup: [{ id: 'p1', name: '玩家', kind: 'human' }, { id: 'p2', name: '电脑', kind: 'computer' }], roundsInput: '60', awaitingHandoff: false, fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator === 'undefined' ? false : !navigator.onLine, pwaUpdate: false, pwaMessage: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+        this.state = { game: createGame(20261015), seedInput: '20261015', playerSetup: [{ id: 'p1', name: '玩家', kind: 'human' }, { id: 'p2', name: '电脑', kind: 'computer' }], roundsInput: '60', selectedMapId: 'classic-24', awaitingHandoff: false, fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator === 'undefined' ? false : !navigator.onLine, pwaUpdate: false, pwaMessage: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
     }
     computerTimer = null;
     saveEpoch = 0;
@@ -206,7 +206,7 @@ class App extends React.Component {
             await this.saveQueue;
             const saved = await readSlot(slot.id);
             this.setState({ game: saved.game, activeSeed: null, storageBusy: false, awaitingHandoff: false,
-                roundsInput: String(saved.game.maxRounds),
+                roundsInput: String(saved.game.maxRounds), selectedMapId: saved.game.map.id,
                 playerSetup: saved.game.players.map(p => ({ id: p.id, name: p.name, kind: p.kind })),
                 saveStatus: '已读取「' + slot.name + '」', message: '已恢复第 ' + saved.game.round + ' 轮，可从当前阶段继续。' });
         }
@@ -229,7 +229,8 @@ class App extends React.Component {
     reset = () => {
         this.saveEpoch++;
         this.stopTimer();
-        this.setState({ game: createGame(20261015), activeSeed: null, awaitingHandoff: false, message: '已返回新游戏页面。可调整种子后重新开始。' });
+        const base = this.state.selectedMapId === 'harbor-20' ? HARBOR_CONFIG : DEFAULT_CONFIG;
+        this.setState({ game: createGame(20261015, base), activeSeed: null, awaitingHandoff: false, message: '已返回新游戏页面。可调整种子及地图后重新开始。' });
     };
     /** Keep stable IDs when the local seating plan changes. */
     setPlayerCount = (count) => {
@@ -245,6 +246,13 @@ class App extends React.Component {
             ...p, [field]: value
         });
         this.setState({ playerSetup: roster });
+    };
+    selectMap = (id) => {
+        if (id !== 'classic-24' && id !== 'harbor-20')
+            return;
+        const base = id === 'harbor-20' ? HARBOR_CONFIG : DEFAULT_CONFIG;
+        this.setState({ selectedMapId: id, game: createGame(20261015, { ...base, players: this.state.playerSetup }),
+            message: id === 'harbor-20' ? '已选择海港环线：20 格，独立价格及海港主题地产。' : '已选择经典环线：24 格，原有规则完整保留。' });
     };
     acknowledgeHandoff = () => {
         this.setState({ awaitingHandoff: false, message: '已轮到' + this.state.game.players[this.state.game.currentPlayerIndex].name + '操作。' });
@@ -268,7 +276,7 @@ class App extends React.Component {
         }
         let fresh;
         try {
-            fresh = createGame(seed, { ...DEFAULT_CONFIG, players: roster, maxRounds: rounds });
+            fresh = createGame(seed, { ...(this.state.selectedMapId === 'harbor-20' ? HARBOR_CONFIG : DEFAULT_CONFIG), players: roster, maxRounds: rounds });
         }
         catch (e) {
             this.setState({ message: '开局配置无效：' + (e instanceof Error ? e.message : String(e)) });
@@ -396,9 +404,7 @@ class App extends React.Component {
         return (React.createElement("div", { key: tile.id, className: `tile tile-${tile.kind} ${tile.ownerId ? `tile-owned-${tile.ownerId}` : ''} ${residents.length ? 'tile-occupied' : ''}`, style: cellPosition(game.map, tile.id), "data-tile-id": tile.id, "aria-label": `${tile.id} 号地块，${tile.title}` },
             React.createElement("span", { className: "tile-index" }, String(tile.id).padStart(2, '0')),
             React.createElement("span", { className: "tile-icon", "aria-hidden": "true" }, tile.kind === 'start' ? '★' : tile.kind === 'property' ? '⌂' : tile.eventBonus !== undefined ? '✦' : tile.cardStation ? '▣' : '☕'),
-            React.createElement("span", { className: "tile-name" },
-                tile.eventBonus !== undefined ? '机会' : tile.cardStation ? '卡片' : kindLabel[tile.kind],
-                tile.kind === 'property' ? ` ${tile.id}` : ''),
+            React.createElement("span", { className: "tile-name" }, tile.kind === 'property' ? tile.title : tile.eventBonus !== undefined ? '机会' : tile.cardStation ? '卡片' : kindLabel[tile.kind]),
             tile.kind === 'property' && React.createElement("span", { className: "tile-value" }, tile.ownerId ? `${game.players.find(p => p.id === tile.ownerId)?.name ?? '未知'} · ${tile.level ?? 0}级 · 租 ${tile.levelRents?.[tile.level ?? 0] ?? tile.rent}` : `售价 ${tile.price}`),
             React.createElement("div", { className: "pieces" }, residents.map(p => React.createElement("span", { key: p.id, className: `piece ${p.kind}`, title: p.name }, p.kind === 'human' ? '人' : '机')))));
     };
@@ -414,7 +420,7 @@ class App extends React.Component {
         const targetTile = game.tiles[current.position];
         const hasMoneyForLand = targetTile.kind === 'property' && targetTile.ownerId === null && current.cash >= (targetTile.price ?? 0);
         const lastEvents = game.events.filter(e => !['player_moved'].includes(e.type)).slice(-6).reverse();
-        return (React.createElement("main", { className: "app-shell", "data-game-status": game.status, "data-game-phase": game.phase, "data-game-revision": game.revision },
+        return (React.createElement("main", { className: "app-shell", "data-game-status": game.status, "data-game-phase": game.phase, "data-game-revision": game.revision, "data-map-id": game.map.id },
             React.createElement("header", { className: "topbar" },
                 React.createElement("div", { className: "brand" },
                     React.createElement("span", { className: "brand-mark" }, "\u5BCC"),
@@ -428,7 +434,9 @@ class App extends React.Component {
                 this.state.pwaUpdate && React.createElement("button", { className: "secondary-btn", type: "button", onClick: () => void this.applyPwaUpdate() }, "\u68C0\u6D4B\u5230\u65B0\u7248\uFF0C\u4FDD\u5B58\u5E76\u66F4\u65B0")),
             React.createElement("section", { className: "headline" },
                 React.createElement("div", null,
-                    React.createElement("span", { className: "section-eyebrow" }, "24 \u683C \u00B7 2\uFF5E4 \u4EBA \u00B7 \u672C\u673A\u8F6E\u6D41"),
+                    React.createElement("span", { className: "section-eyebrow" },
+                        game.tiles.length,
+                        " \u683C \u00B7 \u4E24\u5F20\u5730\u56FE \u00B7 2\uFF5E4 \u4EBA \u00B7 \u672C\u673A\u8F6E\u6D41"),
                     React.createElement("h1", null, "\u6BCF\u4E00\u6B65\uFF0C\u90FD\u662F\u4E00\u7B14\u751F\u610F\u3002"),
                     React.createElement("p", null, "\u9080\u8BF7\u670B\u53CB\u5728\u540C\u4E00\u8BBE\u5907\u8F6E\u6D41\u884C\u52A8\uFF0C\u4E5F\u53EF\u4EE5\u4E0E\u4E00\u540D\u6216\u591A\u540D\u7535\u8111\u73A9\u5BB6\u5BF9\u6297\u3002\u6240\u6709\u5BF9\u5C40\u90FD\u5728\u672C\u5730\u5B8C\u6210\u3002")),
                 React.createElement("button", { type: "button", className: "reset-btn", onClick: this.reset }, "\u21BB \u91CD\u65B0\u5F00\u5C40")),
@@ -449,7 +457,7 @@ class App extends React.Component {
                                     game.maxRounds,
                                     " \u8F6E"),
                                 React.createElement("div", { className: "center-title" },
-                                    "\u73AF\u6E38\u5927\u5BCC\u7FC1",
+                                    game.map.id === 'harbor-20' ? '海港环线' : '环游大富翁',
                                     React.createElement("span", null, "\u4F53\u9A8C\u68CB\u76D8")),
                                 React.createElement("div", { className: "dice-display", "aria-label": "\u4E0A\u4E00\u6B21\u9AB0\u5B50\u70B9\u6570" }, previousRoll ? '⚀⚁⚂⚃⚄⚅'[Number(previousRoll.details?.value) - 1] : '⚄'),
                                 React.createElement("div", { className: "center-subtitle" }, previousRoll ? `上次掷出 ${previousRoll.details?.value} 点` : '等待第一颗骰子'))),
@@ -486,6 +494,12 @@ class App extends React.Component {
                             "\u8D44\u91D1\uFF1A",
                             React.createElement("b", null, current.cash.toLocaleString('zh-CN'))),
                         game.status === 'setup' && React.createElement("div", { className: "start-form" },
+                            React.createElement("label", { className: "field-label", htmlFor: "game-map" },
+                                "\u6E38\u620F\u5730\u56FE ",
+                                React.createElement("small", null, "\u7ECF\u5178\u73AF\u7EBF 24 \u683C\uFF1B\u539F\u521B\u6D77\u6E2F 20 \u683C\uFF08\u4EF7\u683C\u4E0E\u5730\u540D\u4E0D\u540C\uFF09")),
+                            React.createElement("select", { id: "game-map", "aria-label": "\u6E38\u620F\u5730\u56FE", value: this.state.selectedMapId, onChange: (event) => this.selectMap(event.target.value) },
+                                React.createElement("option", { value: "classic-24" }, "\u7ECF\u5178\u73AF\u7EBF \u00B7 24 \u683C"),
+                                React.createElement("option", { value: "harbor-20" }, "\u6D77\u6E2F\u73AF\u7EBF \u00B7 20 \u683C")),
                             React.createElement("label", { className: "field-label", htmlFor: "game-seed" },
                                 "\u5BF9\u5C40\u79CD\u5B50 ",
                                 React.createElement("small", null, "\u76F8\u540C\u79CD\u5B50\u53EF\u91CD\u73B0\u9AB0\u5B50\u7ED3\u679C")),

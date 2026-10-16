@@ -16,4 +16,5 @@ export declare const DEFAULT_UPGRADES: {
     readonly rentRates: readonly [1, 2, 4];
 };
 export declare const DEFAULT_CONFIG: GameConfig;
+export declare const HARBOR_CONFIG: GameConfig;
 export declare function validateConfig(config: GameConfig): void;
