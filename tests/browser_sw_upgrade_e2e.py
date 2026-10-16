@@ -46,9 +46,11 @@ def main():
             UpdateHandler.version=1
             page.evaluate("async()=>{const r=await navigator.serviceWorker.ready;await r.update()}")
             page.get_by_role('button',name='检测到新版，保存并更新').wait_for(timeout=12000)
-            page.get_by_role('button',name='检测到新版，保存并更新').click()
-            page.wait_for_load_state('load')
+            # 严格等待更新确认触发的真实导航结束，防止和后续离线 reload 竞争。
+            with page.expect_navigation(wait_until='load',timeout=20000):
+                page.get_by_role('button',name='检测到新版，保存并更新').click()
             page.wait_for_function("navigator.serviceWorker.controller!==null")
+            page.wait_for_function("async()=>{const keys=await caches.keys();return keys.includes('reactmono-0123456789abcdef')&&keys.filter(k=>k.startsWith('reactmono-')).length===1}")
             page.locator('.save-list li').filter(has_text='更新前备份').wait_for()
             assert page.locator('.tile').count()==24
             context.set_offline(True)
