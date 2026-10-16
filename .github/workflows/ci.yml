@@ -42,6 +42,7 @@ jobs:
           python tests/browser_public_e2e.py
           python tests/browser_agent_styles_e2e.py
           python tests/browser_assets_e2e.py
+          python tests/browser_p3_public_final_e2e.py
       - name: 留存 #43 桌面与手机 Chromium 截图
         if: always()
         uses: actions/upload-artifact@v4
@@ -58,5 +59,13 @@ jobs:
           path: artifacts/issue42/*.png
           if-no-files-found: ignore
           retention-days: 7
+      - name: 留存 #45 1000 局原始记录与公网 Chromium 截图
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue45-final-acceptance
+          path: artifacts/issue45/
+          if-no-files-found: warn
+          retention-days: 30
       - name: 确认产物不含第三方运行时引用
         run: "! grep -R -E 'https?://(unpkg|cdn|esm.sh)' dist/index.html"
