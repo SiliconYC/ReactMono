@@ -1,6 +1,8 @@
 /* 精确版本的同源静态资源缓存；IndexedDB 和用户文件不归服务工作线程管理。 */
-const VERSION='reactmono-2ef41b8487e16b66';
+const VERSION='reactmono-0070e7f19beeea20';
 const PRECACHE=['./','./index.html','./style.css',
+ './visual-lab.html','./visual-lab.css','./visual-tokens.css','./art-manifest.json',
+ './art/house.svg','./art/coin.svg',
  './core/agent.js',
  './core/bank.js',
  './core/benchmark.js',
@@ -22,6 +24,7 @@ const PRECACHE=['./','./index.html','./style.css',
  './core/types.js',
  './storage/indexeddb.js',
  './ui/app.js',
+ './ui/visual-lab.js',
  './vendor/react.production.min.js','./vendor/react-dom.production.min.js',
  './manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png'];
 const urls=PRECACHE.map(path=>new URL(path,self.registration.scope).href);
@@ -45,6 +48,14 @@ self.addEventListener('fetch',event=>{
   if(request.method!=='GET'||url.origin!==origin||!url.href.startsWith(self.registration.scope))return;
   if(request.mode==='navigate'){
     // 始终先返回与缓存脚本同版本的页面；版本切换由玩家确认。
+    // 正式游戏仍使用原有 index.html；美术样例只匹配自身路径，
+    // 禁止将所有导航错误地回退至主页（否则离线样例变成另一款游戏）。
+    const labPath=new URL('./visual-lab.html',self.registration.scope).pathname;
+    if(url.pathname===labPath){
+      event.respondWith(caches.match(new URL('./visual-lab.html',self.registration.scope).href)
+        .then(hit=>hit||fetch(request).catch(()=>Response.error())));
+      return;
+    }
     event.respondWith(caches.match(new URL('./index.html',self.registration.scope).href)
       .then(hit=>hit||fetch(request).catch(()=>Response.error())));
     return;
