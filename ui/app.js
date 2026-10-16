@@ -11,7 +11,7 @@ const kindLabel = { start: '起点', property: '地产', neutral: '休息' };
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput: '100', stockAmountInput: '1', playerSetup: [{ id: 'p1', name: '玩家', kind: 'human' }, { id: 'p2', name: '电脑', kind: 'computer' }], roundsInput: '60', selectedMapId: 'classic-24', awaitingHandoff: false, fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator === 'undefined' ? false : !navigator.onLine, pwaUpdate: false, pwaMessage: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+        this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput: '100', stockAmountInput: '1', strategyDieInput: '1', roadblockTileInput: '1', playerSetup: [{ id: 'p1', name: '玩家', kind: 'human' }, { id: 'p2', name: '电脑', kind: 'computer' }], roundsInput: '60', selectedMapId: 'classic-24', awaitingHandoff: false, fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator === 'undefined' ? false : !navigator.onLine, pwaUpdate: false, pwaMessage: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
     }
     computerTimer = null;
     saveEpoch = 0;
@@ -276,7 +276,7 @@ class App extends React.Component {
         }
         let fresh;
         try {
-            fresh = createGame(seed, { ...(this.state.selectedMapId === 'harbor-20' ? HARBOR_CONFIG : DEFAULT_CONFIG), players: roster, maxRounds: rounds, automaticLiquidation: true, bankEnabled: true, loanEnabled: true, marketEnabled: true });
+            fresh = createGame(seed, { ...(this.state.selectedMapId === 'harbor-20' ? HARBOR_CONFIG : DEFAULT_CONFIG), players: roster, maxRounds: rounds, automaticLiquidation: true, bankEnabled: true, loanEnabled: true, marketEnabled: true, strategyEnabled: true });
         }
         catch (e) {
             this.setState({ message: '开局配置无效：' + (e instanceof Error ? e.message : String(e)) });
@@ -334,7 +334,9 @@ class App extends React.Component {
         const action = (type === 'buy_stock' || type === 'sell_stock') ? { type, actorId: actor.id, stockId: stockId ?? 'SEA', quantity: stockAmount }
             : (type === 'upgrade_property' || type === 'sell_property' || type === 'mortgage_property' || type === 'release_mortgage') ? { type, actorId: actor.id, tileId: tileId ?? -1 }
                 : type === 'deposit_bank' || type === 'withdraw_bank' || type === 'borrow_loan' || type === 'repay_loan' ? { type, actorId: actor.id, amount: bankAmount }
-                    : type === 'use_card' ? { type, actorId: actor.id, cardType: cardType ?? 'reward' } : { type, actorId: actor.id };
+                    : type === 'use_card' ? { type, actorId: actor.id, cardType: cardType ?? 'reward',
+                        ...(cardType === 'remote' ? { dieValue: Number(this.state.strategyDieInput) } : {}),
+                        ...(cardType === 'roadblock' ? { tileId: Number(game.tiles.some(t => t.id === Number(this.state.roadblockTileInput) && t.id !== 0 && t.id !== actor.position && !game.players.some(p => !p.bankrupt && p.position === t.id) && !game.roadblocks?.some(b => b.tileId === t.id)) ? this.state.roadblockTileInput : game.tiles.find(t => t.id !== 0 && t.id !== actor.position && !game.players.some(p => !p.bankrupt && p.position === t.id) && !game.roadblocks?.some(b => b.tileId === t.id))?.id ?? -1) } : {}) } : { type, actorId: actor.id };
         const result = applyAction(game, action);
         if (!result.ok) {
             const bankAction = type === 'deposit_bank' || type === 'withdraw_bank' || type === 'borrow_loan' || type === 'repay_loan';
@@ -376,7 +378,9 @@ class App extends React.Component {
             return `${actorName}升级了 ${upgraded.details?.tileId} 号地产至 ${upgraded.details?.level} 级，花费 ${upgraded.details?.amount} 游戏币。`;
         const used = events.find(e => e.type === 'card_used');
         if (used)
-            return used.details?.cardType === 'reward' ? `${actorName}使用奖励卡，获得 ${used.details?.amount} 游戏币。` : `${actorName}使用步数卡，下次掷骰额外前进 ${used.details?.moveBonus} 格。`;
+            return used.details?.cardType === 'reward' ? `${actorName}使用奖励卡，获得 ${used.details?.amount} 游戏币。` :
+                used.details?.cardType === 'stride' ? `${actorName}使用步数卡，下次掷骰额外前进 ${used.details?.moveBonus} 格。` :
+                    this.describeEvent(used);
         const special = events.find(e => e.type === 'event_bonus' || e.type === 'event_fee');
         if (special)
             return special.type === 'event_bonus' ? `${actorName}触发幸运事件，获得 ${special.details?.amount} 游戏币。` : `${actorName}触发费用事件，支付 ${special.details?.amount} 游戏币（应付 ${special.details?.due}）。`;
@@ -400,14 +404,20 @@ class App extends React.Component {
             return `轮到${state.players[state.currentPlayerIndex].name}行动，点击掷骰继续。`;
         return '操作完成。';
     };
+    cardName = (kind) => ({
+        reward: '奖励卡', stride: '步数卡', remote: '遥控骰子', roadblock: '路障', rent_free: '免租卡'
+    }[String(kind)] ?? '卡片');
     describeEvent = (event) => {
         const person = this.state.game.players.find(p => p.id === event.actorId)?.name ?? '系统';
         switch (event.type) {
             case 'game_started': return '对局开始';
             case 'die_rolled': return `${person}掷出 ${event.details?.value} 点`;
             case 'tile_landed': return `${person}到达「${event.details?.title}」`;
-            case 'card_received': return `${person}在卡片站获得${event.details?.cardType === 'reward' ? '奖励卡' : '步数卡'}`;
-            case 'card_used': return `${person}使用${event.details?.cardType === 'reward' ? '奖励卡' : '步数卡'}`;
+            case 'card_received': return `${person}在卡片站获得${this.cardName(event.details?.cardType)}`;
+            case 'card_used': return `${person}使用${this.cardName(event.details?.cardType)}${event.details?.cardType === 'roadblock' ? '，放在 ' + event.details?.tileId + ' 号格' : event.details?.cardType === 'remote' ? '，指定骰点 ' + event.details?.dieValue : ''}`;
+            case 'roadblock_triggered': return `${person}碰到 ${event.details?.tileId} 号格路障，提前停下`;
+            case 'rent_waived': return `${person}免除 ${event.details?.amount} 游戏币租金`;
+            case 'card_expired': return event.details?.cardType === 'roadblock' ? `${person}放置在 ${event.details?.tileId} 号格的路障已过期` : `${person}的免租保护已到期`;
             case 'event_bonus': return `${person}在事件格获得 ${event.details?.amount} 游戏币`;
             case 'event_fee': return `${person}在事件格支付 ${event.details?.amount} 游戏币`;
             case 'property_upgraded': return `${person}将 ${event.details?.tileId} 号地产升到 ${event.details?.level} 级（${event.details?.amount}）`;
@@ -438,7 +448,9 @@ class App extends React.Component {
         const { game } = this.state;
         const residents = game.players.filter(p => p.position === tile.id && !p.bankrupt);
         return (React.createElement("div", { key: tile.id, className: `tile tile-${tile.kind} ${tile.ownerId ? `tile-owned-${tile.ownerId}` : ''} ${residents.length ? 'tile-occupied' : ''}`, style: cellPosition(game.map, tile.id), "data-tile-id": tile.id, "aria-label": `${tile.id} 号地块，${tile.title}` },
-            React.createElement("span", { className: "tile-index" }, String(tile.id).padStart(2, '0')),
+            React.createElement("span", { className: "tile-index" },
+                String(tile.id).padStart(2, '0'),
+                game.roadblocks?.some(b => b.tileId === tile.id) ? ' 🚧' : ''),
             React.createElement("span", { className: "tile-icon", "aria-hidden": "true" }, tile.kind === 'start' ? '★' : tile.kind === 'property' ? '⌂' : tile.eventBonus !== undefined ? '✦' : tile.cardStation ? '▣' : '☕'),
             React.createElement("span", { className: "tile-name" }, tile.kind === 'property' ? tile.title : tile.eventBonus !== undefined ? '机会' : tile.cardStation ? '卡片' : kindLabel[tile.kind]),
             tile.kind === 'property' && React.createElement("span", { className: "tile-value" }, tile.ownerId ? `${game.players.find(p => p.id === tile.ownerId)?.name ?? '未知'} · ${tile.level ?? 0}级 · 租 ${tile.levelRents?.[tile.level ?? 0] ?? tile.rent}` : `售价 ${tile.price}`),
@@ -456,6 +468,8 @@ class App extends React.Component {
         const targetTile = game.tiles[current.position];
         const hasMoneyForLand = targetTile.kind === 'property' && targetTile.ownerId === null && current.cash >= (targetTile.price ?? 0);
         const lastEvents = game.events.filter(e => !['player_moved'].includes(e.type)).slice(-6).reverse();
+        const availableRoadblocks = game.tiles.filter(t => t.id !== 0 && t.id !== current.position &&
+            !game.players.some(p => !p.bankrupt && p.position === t.id) && !game.roadblocks?.some(b => b.tileId === t.id));
         return (React.createElement("main", { className: "app-shell", "data-game-status": game.status, "data-game-phase": game.phase, "data-game-revision": game.revision, "data-map-id": game.map.id },
             React.createElement("header", { className: "topbar" },
                 React.createElement("div", { className: "brand" },
@@ -580,12 +594,14 @@ class App extends React.Component {
                         current.kind === 'computer' && game.status === 'playing' && React.createElement("p", { className: "computer-thinking", role: "status" }, "\u7535\u8111\u6B63\u5728\u81EA\u52A8\u64CD\u4F5C\uFF0C\u4FDD\u7559\u81F3\u5C11 200 \u6E38\u620F\u5E01\u73B0\u91D1\u2026"),
                         current.kind === 'human' && !this.state.awaitingHandoff && game.phase === 'await_roll' && React.createElement("div", { className: "purchase-actions" },
                             React.createElement("p", { className: "purchase-info" },
-                                "\u624B\u724C\uFF1A\u5956\u52B1\u5361 ",
+                                "\u624B\u724C\uFF1A\u5956\u52B1 ",
                                 current.cards?.reward ?? 0,
-                                " \u5F20 \u00B7 \u6B65\u6570\u5361 ",
+                                " \u00B7 \u6B65\u6570 ",
                                 current.cards?.stride ?? 0,
-                                " \u5F20",
-                                (game.pendingMoveBonus ?? 0) > 0 ? ` · 已加步数 ${game.pendingMoveBonus}` : ''),
+                                game.strategyEnabled ? ' · 遥控 ' + (current.cards?.remote ?? 0) + ' · 路障 ' + (current.cards?.roadblock ?? 0) + ' · 免租 ' + (current.cards?.rent_free ?? 0) : '',
+                                (game.pendingMoveBonus ?? 0) > 0 ? ` · 已加步数 ${game.pendingMoveBonus}` : '',
+                                (game.pendingDie ?? 0) > 0 ? ` · 已指定骰点 ${game.pendingDie}` : '',
+                                game.pendingRentWaiver ? ' · 本次免租' : ''),
                             (current.cards?.reward ?? 0) > 0 && React.createElement("button", { type: "button", className: "secondary-btn", onClick: () => this.dispatch('use_card', undefined, 'reward') },
                                 "\u4F7F\u7528\u5956\u52B1\u5361\uFF08+",
                                 game.cardRules?.rewardCash ?? 80,
@@ -594,6 +610,20 @@ class App extends React.Component {
                                 "\u4F7F\u7528\u6B65\u6570\u5361\uFF08+",
                                 game.cardRules?.moveBonus ?? 2,
                                 " \u683C\uFF09"),
+                            game.strategyEnabled && (current.cards?.remote ?? 0) > 0 && (game.pendingDie ?? 0) === 0 && React.createElement("div", { className: "purchase-info" },
+                                React.createElement("label", { htmlFor: "remote-die" }, "\u9065\u63A7\u9AB0\u70B9 "),
+                                React.createElement("select", { id: "remote-die", "aria-label": "\u9065\u63A7\u9AB0\u70B9", value: this.state.strategyDieInput, onChange: (e) => this.setState({ strategyDieInput: e.target.value }) }, [1, 2, 3, 4, 5, 6].map(n => React.createElement("option", { key: n, value: n },
+                                    n,
+                                    " \u70B9"))),
+                                React.createElement("button", { type: "button", className: "secondary-btn", onClick: () => this.dispatch('use_card', undefined, 'remote') }, "\u4F7F\u7528\u9065\u63A7\u9AB0\u5B50")),
+                            game.strategyEnabled && (current.cards?.roadblock ?? 0) > 0 && React.createElement("div", { className: "purchase-info" },
+                                React.createElement("label", { htmlFor: "roadblock-tile" }, "\u653E\u7F6E\u8DEF\u969C "),
+                                React.createElement("select", { id: "roadblock-tile", "aria-label": "\u8DEF\u969C\u76EE\u6807\u683C", value: availableRoadblocks.some(t => String(t.id) === this.state.roadblockTileInput) ? this.state.roadblockTileInput : String(availableRoadblocks[0]?.id ?? ''), onChange: (e) => this.setState({ roadblockTileInput: e.target.value }) }, availableRoadblocks.map(t => React.createElement("option", { key: t.id, value: t.id },
+                                    t.id,
+                                    " \u00B7 ",
+                                    t.title))),
+                                React.createElement("button", { type: "button", className: "secondary-btn", disabled: availableRoadblocks.length === 0, onClick: () => this.dispatch('use_card', undefined, 'roadblock') }, "\u653E\u7F6E\u8DEF\u969C")),
+                            game.strategyEnabled && (current.cards?.rent_free ?? 0) > 0 && !game.pendingRentWaiver && React.createElement("button", { type: "button", className: "secondary-btn", onClick: () => this.dispatch('use_card', undefined, 'rent_free') }, "\u4F7F\u7528\u514D\u79DF\u5361\uFF08\u672C\u6B21\u63B7\u9AB0\u6709\u6548\uFF09"),
                             React.createElement("button", { type: "button", className: "primary-btn", onClick: () => this.dispatch('roll') },
                                 "\u63B7\u9AB0\u524D\u8FDB ",
                                 React.createElement("span", null, "\uD83C\uDFB2"))),
@@ -775,7 +805,7 @@ class App extends React.Component {
                         React.createElement("strong", null, "\u73A9\u6CD5\u8BF4\u660E"),
                         React.createElement("p", null, "\u2460 \u70B9\u51FB\u300C\u5F00\u59CB\u6E38\u620F\u300D\uFF0C\u8F6E\u5230\u73A9\u5BB6\u65F6\u63B7\u9AB0\u524D\u8FDB\u3002\u2461 \u5230\u65E0\u4E3B\u5730\u4EA7\u53EF\u4E70\u5165\u6216\u653E\u5F03\uFF1B\u7ECF\u8FC7\u5BF9\u624B\u5730\u4EA7\u4F1A\u81EA\u52A8\u4ED8\u79DF\u3002\u2462 \u5904\u7406\u5B8C\u5730\u5757\u540E\u7ED3\u675F\u56DE\u5408\uFF0C\u7535\u8111\u4F1A\u81EA\u52A8\u884C\u52A8\u3002"),
                         React.createElement("p", null, "\u4ED8\u4E0D\u8D77\u79DF\u91D1\u53EF\u80FD\u51FA\u552E\u5730\u4EA7\u6216\u7834\u4EA7\uFF1B\u6700\u7EC8\u6309\u73B0\u91D1\u3001\u5B58\u6B3E\u3001\u5730\u4EA7\u6210\u672C\u3001\u80A1\u7968\u5E02\u503C\u51CF\u8D37\u6B3E\u8BA1\u7B97\u51C0\u8D44\u4EA7\u3002\u7535\u8111\u8D2D\u5730\u540E\u81F3\u5C11\u4FDD\u7559 200 \u6E38\u620F\u5E01\u3002"),
-                        React.createElement("p", null, "P2 \u5DF2\u652F\u6301\u5730\u4EA7\u5347\u7EA7\u3001\u673A\u4F1A\u683C\u3001\u5956\u52B1\u5361\u548C\u6B65\u6570\u5361\uFF1B\u5361\u7247\u5728\u5361\u7247\u7AD9\u83B7\u5F97\uFF0C\u53EA\u80FD\u5728\u63B7\u9AB0\u524D\u4F7F\u7528\u3002\u5B58\u6863\u4E0E\u79BB\u7EBF\u6E38\u73A9\u5747\u5728\u672C\u673A\u5B8C\u6210\u3002")))),
+                        React.createElement("p", null, "\u5361\u7247\u7AD9\u53EF\u83B7\u5F97\u5956\u52B1\u3001\u6B65\u6570\u3001\u9065\u63A7\u9AB0\u5B50\u3001\u8DEF\u969C\u53CA\u514D\u79DF\u5361\uFF1B\u53EA\u5728\u63B7\u9AB0\u524D\u4F7F\u7528\u3002\u8DEF\u969C\u8BA9\u5BF9\u624B\u63D0\u524D\u505C\u4E0B\uFF0C\u6700\u591A\u6301\u7EED\u4E24\u8F6E\uFF1B\u514D\u79DF\u5361\u4EC5\u4FDD\u62A4\u4E0B\u4E00\u6B21\u843D\u5730\u3002\u5B58\u6863\u4E0E\u79BB\u7EBF\u6E38\u73A9\u5747\u5728\u672C\u673A\u5B8C\u6210\u3002")))),
             React.createElement("footer", { className: "footer" }, "\u7EAF\u524D\u7AEF \u00B7 \u7B80\u4F53\u4E2D\u6587 \u00B7 \u4E0D\u9700\u8981\u8D26\u53F7\u3000\uFF5C\u3000IndexedDB \u672C\u673A\u5B58\u6863 \u00B7 \u4E0D\u4E0A\u4F20\u4E91\u7AEF")));
     }
 }

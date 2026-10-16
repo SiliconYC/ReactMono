@@ -13,6 +13,19 @@ export function choosePhaseAction(state, reserveCash) {
                 return { type: 'use_card', actorId: player.id, cardType: 'reward' };
             if (held.stride > 0 && (state.pendingMoveBonus ?? 0) === 0)
                 return { type: 'use_card', actorId: player.id, cardType: 'stride' };
+            if (state.strategyEnabled === true) {
+                if ((held.remote ?? 0) > 0 && (state.pendingDie ?? 0) === 0)
+                    return { type: 'use_card', actorId: player.id, cardType: 'remote', dieValue: 6 };
+                if ((held.rent_free ?? 0) > 0 && !state.pendingRentWaiver)
+                    return { type: 'use_card', actorId: player.id, cardType: 'rent_free' };
+                if ((held.roadblock ?? 0) > 0) {
+                    const target = state.tiles.find(t => t.id !== 0 && t.id !== player.position &&
+                        !state.players.some(p => !p.bankrupt && p.position === t.id) &&
+                        !state.roadblocks?.some(b => b.tileId === t.id));
+                    if (target)
+                        return { type: 'use_card', actorId: player.id, cardType: 'roadblock', tileId: target.id };
+                }
+            }
             return { type: 'roll', actorId: player.id };
         }
         case 'await_decision': {

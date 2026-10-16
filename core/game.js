@@ -30,6 +30,7 @@ export function createGame(seed, config = DEFAULT_CONFIG) {
             moveBonus: (config.cardRules ?? DEFAULT_CARD_RULES).moveBonus,
             maxHand: (config.cardRules ?? DEFAULT_CARD_RULES).maxHand },
         pendingMoveBonus: 0,
+        ...(config.strategyEnabled === true ? { strategyEnabled: true, pendingDie: 0, pendingRentWaiver: false, roadblocks: [] } : {}),
         ...(config.resaleRules ? { resaleRules: { ...config.resaleRules } } : {}),
         status: 'setup',
         phase: 'setup',
@@ -45,7 +46,7 @@ export function createGame(seed, config = DEFAULT_CONFIG) {
         ...(config.automaticLiquidation === true ? { automaticLiquidation: true } : {}),
         players: config.players.map((p, index) => ({
             id: p.id, name: p.name, kind: p.kind ?? (index === 0 ? 'human' : 'computer'),
-            position: 0, cash: config.initialCash, ...(config.bankEnabled === true ? { bankBalance: 0 } : {}), ...(config.loanEnabled === true ? { loanBalance: 0 } : {}), bankrupt: false, cards: { reward: 0, stride: 0 }
+            position: 0, cash: config.initialCash, ...(config.bankEnabled === true ? { bankBalance: 0 } : {}), ...(config.loanEnabled === true ? { loanBalance: 0 } : {}), bankrupt: false, cards: config.strategyEnabled === true ? { reward: 0, stride: 0, remote: 0, roadblock: 0, rent_free: 0 } : { reward: 0, stride: 0 }
         })),
         tiles: config.tiles.map(t => {
             if (t.kind === 'property')

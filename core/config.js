@@ -33,6 +33,8 @@ export const HARBOR_CONFIG = {
     cardRules: { ...DEFAULT_CARD_RULES, tileIds: [6, 12, 18] }
 };
 export function validateConfig(config) {
+    if (config.strategyEnabled !== undefined && typeof config.strategyEnabled !== 'boolean')
+        throw new Error('策略卡开关无效');
     if (config.loanEnabled !== undefined && typeof config.loanEnabled !== 'boolean')
         throw new Error('贷款开关无效');
     if (config.loanEnabled === true && config.bankEnabled !== true)

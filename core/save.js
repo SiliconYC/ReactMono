@@ -26,7 +26,7 @@ function iso(x) {
 }
 const EVENT_TYPES = new Set([
     'game_started', 'die_rolled', 'player_moved', 'turn_ended', 'tile_landed', 'property_declined',
-    'property_bought', 'property_upgraded', 'property_sold', 'property_liquidated', 'bank_deposited', 'bank_withdrawn', 'bank_interest', 'property_mortgaged', 'property_released', 'loan_borrowed', 'loan_repaid', 'loan_interest', 'loan_default', 'stock_bought', 'stock_sold', 'stock_liquidated', 'rent_paid', 'event_bonus', 'event_fee', 'card_received', 'card_used', 'player_bankrupt', 'game_finished'
+    'property_bought', 'property_upgraded', 'property_sold', 'property_liquidated', 'bank_deposited', 'bank_withdrawn', 'bank_interest', 'property_mortgaged', 'property_released', 'loan_borrowed', 'loan_repaid', 'loan_interest', 'loan_default', 'stock_bought', 'stock_sold', 'stock_liquidated', 'rent_paid', 'event_bonus', 'event_fee', 'card_received', 'card_used', 'roadblock_triggered', 'rent_waived', 'card_expired', 'player_bankrupt', 'game_finished'
 ]);
 /** Validate current and migrated legacy states against the same strict bounds. */
 export function validateGameState(value, expectedVersion = SCHEMA_VERSION) {
@@ -34,7 +34,18 @@ export function validateGameState(value, expectedVersion = SCHEMA_VERSION) {
         throw new SaveError('INVALID_STATE', '存档数据无效：游戏状态必须为对象');
     keys(value, ['schemaVersion', 'status', 'phase', 'revision', 'round', 'currentPlayerIndex', 'randomState',
         'maxRounds', 'players', 'tiles', 'winnerId', 'events', 'upgradeRulesVersion',
-        ...(expectedVersion >= 4 ? ['map'] : [])], ['cardRules', 'pendingMoveBonus', ...(expectedVersion >= 4 ? ['automaticLiquidation', 'resaleRules', 'market', 'bank', 'loan'] : [])]);
+        ...(expectedVersion >= 4 ? ['map'] : [])], ['cardRules', 'pendingMoveBonus', ...(expectedVersion >= 4 ? ['automaticLiquidation', 'resaleRules', 'market', 'bank', 'loan', 'strategyEnabled', 'pendingDie', 'pendingRentWaiver', 'roadblocks'] : [])]);
+    if (value.strategyEnabled !== undefined && value.strategyEnabled !== true)
+        throw new SaveError('INVALID_STATE', '策略卡规则标识非法');
+    if (value.strategyEnabled === true) {
+        if (!finite(value.pendingDie, 0, 6) || typeof value.pendingRentWaiver !== 'boolean' ||
+            !Array.isArray(value.roadblocks) || value.roadblocks.length > 24)
+            throw new SaveError('INVALID_STATE', '策略卡待执行状态非法');
+        if (value.phase !== 'await_roll' && (value.pendingDie !== 0 || value.pendingRentWaiver !== false))
+            throw new SaveError('INVALID_STATE', '策略卡存在非法残留效果');
+    }
+    else if (value.pendingDie !== undefined || value.pendingRentWaiver !== undefined || value.roadblocks !== undefined)
+        throw new SaveError('INVALID_STATE', '旧版对局不能携带策略卡状态');
     if (value.bank !== undefined) {
         if (!record(value.bank))
             throw new SaveError('INVALID_STATE', '银行状态非法');
@@ -128,9 +139,12 @@ export function validateGameState(value, expectedVersion = SCHEMA_VERSION) {
         if (p.cards !== undefined) {
             if (!record(p.cards))
                 throw new SaveError('INVALID_STATE', '卡片库存无效');
-            keys(p.cards, ['reward', 'stride']);
+            keys(p.cards, ['reward', 'stride'], value.strategyEnabled === true ? ['remote', 'roadblock', 'rent_free'] : []);
             if (!finite(p.cards.reward, 0, 1000) || !finite(p.cards.stride, 0, 1000) ||
-                p.cards.reward + p.cards.stride > (record(value.cardRules) ? value.cardRules.maxHand : 3))
+                !['remote', 'roadblock', 'rent_free'].every(k => p.cards[k] === undefined || (value.strategyEnabled === true && finite(p.cards[k], 0, 1000))) ||
+                p.cards.reward + p.cards.stride +
+                    Number(p.cards.remote ?? 0) + Number(p.cards.roadblock ?? 0) + Number(p.cards.rent_free ?? 0) >
+                    (record(value.cardRules) ? value.cardRules.maxHand : 3))
                 throw new SaveError('INVALID_STATE', '卡片库存超过上限');
         }
         if (!string(p.id, 64) || !string(p.name, 80) || ids.includes(p.id) ||
@@ -183,6 +197,19 @@ export function validateGameState(value, expectedVersion = SCHEMA_VERSION) {
             startCount++;
         if (t.id !== i || !string(t.title, 100))
             throw new SaveError('INVALID_STATE', '存档数据无效：地图位置或名称非法');
+    }
+    if (value.strategyEnabled === true) {
+        const used = new Set();
+        for (const b of value.roadblocks) {
+            if (!record(b))
+                throw new SaveError('INVALID_STATE', '路障记录非法');
+            keys(b, ['tileId', 'ownerId', 'expiresRound']);
+            if (!finite(b.tileId, 1, value.tiles.length - 1) || used.has(b.tileId) ||
+                !ids.includes(String(b.ownerId)) || value.players.some((p) => p.id === b.ownerId && p.bankrupt === true) ||
+                !finite(b.expiresRound, 1, value.maxRounds + 2))
+                throw new SaveError('INVALID_STATE', '路障目标、期限或归属非法');
+            used.add(b.tileId);
+        }
     }
     if (value.loan !== undefined) {
         for (const p of value.players) {
