@@ -1,4 +1,5 @@
 /** P3-01: stable pure-data contracts. No UI, storage or rules imports. */
+import type { StockMarket } from './market.js';
 export declare const SCHEMA_VERSION: 4;
 export declare const UPGRADE_RULES_VERSION: 1;
 export type CardKind = 'reward' | 'stride';
@@ -36,6 +37,8 @@ export interface ResaleRules {
     readonly upgradePercent: number;
 }
 export interface GameConfig {
+    /** Optional deterministic virtual exchange, separate from the dice RNG. */
+    readonly marketEnabled?: boolean;
     /** Opt in to deterministic resale-based rent rescue; old saves keep P2 behaviour. */
     readonly automaticLiquidation?: boolean;
     /** Optional deterministic resale percentages; old saves use stable defaults. */
@@ -101,6 +104,7 @@ export interface GameState {
     readonly randomState: number;
     readonly maxRounds: number;
     readonly map: GameMap;
+    readonly market?: StockMarket;
     /** Undefined preserves pre-P3-06 rent behaviour, including old saved games. */
     readonly automaticLiquidation?: true;
     readonly resaleRules?: ResaleRules;

@@ -1,6 +1,7 @@
 /** Local versioned save contract; migrates historic two-player v1/v2 records. */
 import { SCHEMA_VERSION, UPGRADE_RULES_VERSION, makePropertyTile } from './game.js';
 import { inferMap, validateMap } from './maps.js';
+import { validateMarket } from './market.js';
 export const SAVE_FORMAT_VERSION = 1;
 export const MAX_SAVE_CHARS = 4_000_000;
 export class SaveError extends Error {
@@ -32,7 +33,17 @@ export function validateGameState(value, expectedVersion = SCHEMA_VERSION) {
         throw new SaveError('INVALID_STATE', '存档数据无效：游戏状态必须为对象');
     keys(value, ['schemaVersion', 'status', 'phase', 'revision', 'round', 'currentPlayerIndex', 'randomState',
         'maxRounds', 'players', 'tiles', 'winnerId', 'events', 'upgradeRulesVersion',
-        ...(expectedVersion >= 4 ? ['map'] : [])], ['cardRules', 'pendingMoveBonus', ...(expectedVersion >= 4 ? ['automaticLiquidation', 'resaleRules'] : [])]);
+        ...(expectedVersion >= 4 ? ['map'] : [])], ['cardRules', 'pendingMoveBonus', ...(expectedVersion >= 4 ? ['automaticLiquidation', 'resaleRules', 'market'] : [])]);
+    if (value.market !== undefined) {
+        try {
+            validateMarket(value.market);
+            if (value.market.round !== value.round)
+                throw new Error('round');
+        }
+        catch {
+            throw new SaveError('INVALID_STATE', '存档行情快照无效');
+        }
+    }
     if (value.resaleRules !== undefined) {
         if (!record(value.resaleRules))
             throw new SaveError('INVALID_STATE', '地产出售比例非法');

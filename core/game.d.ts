@@ -5,6 +5,8 @@ export { DEFAULT_CARD_RULES, DEFAULT_EVENT_RULES, DEFAULT_UPGRADES, DEFAULT_CONF
 export { normalizeSeed, nextDie } from './random.js';
 export { DEFAULT_MAP, INTERNAL_TEST_MAP, HARBOR_MAP, inferMap, advancePosition, validateMap } from './maps.js';
 export { makePropertyTile, netWorth, resaleValue } from './property.js';
+export { STOCKS, createMarket, advanceMarket, quoteMarket, validateMarket } from './market.js';
+export type { StockMarket, StockId } from './market.js';
 import type { GameConfig, GameState, GameAction, ActionResult } from './types.js';
 /** 新建纯数据状态。每次调用都会创建隔离的玩家、棋盘数组。 */
 export declare function createGame(seed: number, config?: GameConfig): GameState;
