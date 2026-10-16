@@ -1,4 +1,5 @@
 /** P3-01: stable pure-data contracts. No UI, storage or rules imports. */
+import type {StockMarket} from './market.js';
 export const SCHEMA_VERSION = 4 as const;
 export const UPGRADE_RULES_VERSION = 1 as const;
 export type CardKind = 'reward' | 'stride';
@@ -26,6 +27,8 @@ export interface GameMap {
   readonly route:readonly number[];
 }
 export interface GameConfig {
+  /** Enable optional market clock without changing legacy games or dice. */
+  readonly marketEnabled?:boolean;
   readonly map?:GameMap;
   readonly players: readonly PlayerConfig[];
   readonly tiles: readonly TileConfig[];
@@ -71,6 +74,7 @@ export interface GameState {
   readonly randomState: number;
   readonly maxRounds: number;
   readonly map: GameMap;
+  readonly market?:StockMarket;
   readonly players: readonly Player[];
   readonly tiles: readonly Tile[];
   readonly winnerId: PlayerId | null;
