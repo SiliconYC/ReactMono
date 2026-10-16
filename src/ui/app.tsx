@@ -240,6 +240,8 @@ class App extends React.Component<object, UiState> {
     if (events.some(e => e.type === 'game_started')) return '对局已开始！轮到玩家掷骰。';
     const upgraded=events.find(e=>e.type==='property_upgraded');
     if(upgraded)return `${actorName}升级了 ${upgraded.details?.tileId} 号地产至 ${upgraded.details?.level} 级，花费 ${upgraded.details?.amount} 游戏币。`;
+    const special=events.find(e=>e.type==='event_bonus'||e.type==='event_fee');
+    if(special)return special.type==='event_bonus' ? `${actorName}触发幸运事件，获得 ${special.details?.amount} 游戏币。` : `${actorName}触发费用事件，支付 ${special.details?.amount} 游戏币（应付 ${special.details?.due}）。`;
     const bought = events.find(e => e.type === 'property_bought');
     if (bought) return `${actorName}花费 ${bought.details?.amount} 游戏币购买了 ${bought.details?.tileId} 号地产。现在可以结束回合。`;
     const rent = events.find(e => e.type === 'rent_paid');
@@ -260,6 +262,8 @@ class App extends React.Component<object, UiState> {
       case 'game_started': return '对局开始';
       case 'die_rolled': return `${person}掷出 ${event.details?.value} 点`;
       case 'tile_landed': return `${person}到达「${event.details?.title}」`;
+      case 'event_bonus': return `${person}在事件格获得 ${event.details?.amount} 游戏币`;
+      case 'event_fee': return `${person}在事件格支付 ${event.details?.amount} 游戏币`;
       case 'property_upgraded': return `${person}将 ${event.details?.tileId} 号地产升到 ${event.details?.level} 级（${event.details?.amount}）`;
       case 'property_bought': return `${person}买下 ${event.details?.tileId} 号地产（${event.details?.amount}）`;
       case 'rent_paid': return `${person}支付租金 ${event.details?.amount}`;
@@ -277,8 +281,8 @@ class App extends React.Component<object, UiState> {
     return (
       <div key={tile.id} className={`tile tile-${tile.kind} ${tile.ownerId ? `tile-owned-${tile.ownerId}` : ''} ${residents.length ? 'tile-occupied' : ''}`} style={cellPosition(tile.id)} data-tile-id={tile.id} aria-label={`${tile.id} 号地块，${tile.title}`}>
         <span className="tile-index">{String(tile.id).padStart(2, '0')}</span>
-        <span className="tile-icon" aria-hidden="true">{tile.kind === 'start' ? '★' : tile.kind === 'property' ? '⌂' : '☕'}</span>
-        <span className="tile-name">{kindLabel[tile.kind]}{tile.kind === 'property' ? ` ${tile.id}` : ''}</span>
+        <span className="tile-icon" aria-hidden="true">{tile.kind === 'start' ? '★' : tile.kind === 'property' ? '⌂' : tile.eventBonus!==undefined ? '✦' : '☕'}</span>
+        <span className="tile-name">{tile.eventBonus!==undefined?'机会':kindLabel[tile.kind]}{tile.kind === 'property' ? ` ${tile.id}` : ''}</span>
         {tile.kind === 'property' && <span className="tile-value">{tile.ownerId ? `${tile.ownerId === 'p1' ? '玩家' : '电脑'} · ${tile.level??0}级 · 租 ${tile.levelRents?.[tile.level??0]??tile.rent}` : `售价 ${tile.price}`}</span>}
         <div className="pieces">{residents.map(p => <span key={p.id} className={`piece ${p.kind}`} title={p.name}>{p.kind === 'human' ? '人' : '机'}</span>)}</div>
       </div>
@@ -376,7 +380,7 @@ class App extends React.Component<object, UiState> {
             </div>
             <div className="players-card"><div className="card-label">玩家状态</div>{game.players.map(p => <div key={p.id} className={`player-line ${current.id === p.id && game.status === 'playing' ? 'is-current' : ''}`}><span className={`player-dot ${p.kind}`}>{p.kind === 'human' ? '人' : '机'}</span><div><strong>{p.name}</strong><small>{p.position} 号格 · 现金 {p.cash.toLocaleString('zh-CN')} · 资产 {netWorth(game,p.id).toLocaleString('zh-CN')}{p.bankrupt ? ' · 已破产' : ''}</small></div><span className="player-kind">{p.kind === 'human' ? '真人' : '电脑'}</span></div>)}</div>
             <div className="activity-card"><div className="card-label">最近事件</div><ol>{lastEvents.map((e,i) => <li key={`${game.events.length}-${i}`}>{this.describeEvent(e)}</li>)}</ol></div>
-            <div className="info-card"><strong>玩法说明</strong><p>① 点击「开始游戏」，轮到玩家时掷骰前进。② 到无主地产可买入或放弃；经过对手地产会自动付租。③ 处理完地块后结束回合，电脑会自动行动。</p><p>付不起租金立即破产；否则最多玩 60 轮，最终按现金加土地原价计算净资产。电脑购地后至少保留 200 游戏币。</p><p>P2 已支持升级、离线及本地存档；卡片和随机事件将在后续加入。</p></div>
+            <div className="info-card"><strong>玩法说明</strong><p>① 点击「开始游戏」，轮到玩家时掷骰前进。② 到无主地产可买入或放弃；经过对手地产会自动付租。③ 处理完地块后结束回合，电脑会自动行动。</p><p>付不起租金立即破产；否则最多玩 60 轮，最终按现金加土地原价计算净资产。电脑购地后至少保留 200 游戏币。</p><p>P2 已支持升级、离线、本地存档和可复现的随机事件；卡片随后加入。</p></div>
           </aside>
         </div>
         <footer className="footer">纯前端 · 简体中文 · 不需要账号　｜　IndexedDB 本机存档 · 不上传云端</footer>
