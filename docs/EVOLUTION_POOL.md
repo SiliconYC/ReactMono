@@ -20,9 +20,9 @@
 | --- | --- | --- | --- | --- |
 | [P001](proposals/P001-roadmap.md) | 六阶段目标与退出标准 | P0–P5 | 阶段基线已确定；持续复核 | 有明确缺失的当前阶段可验收工作，不开通用路线图 Issue |
 | [P002](proposals/P002-first-playable.md) | 第一局能玩到底的玩法边界 | P1 | **#2–#6 已合并；P1 简化可玩闭环完成沙盒浏览器验收** | [#2](https://github.com/SiliconYC/ReactMono/issues/2)、[#3](https://github.com/SiliconYC/ReactMono/issues/3)、[#4](https://github.com/SiliconYC/ReactMono/issues/4)、[#5](https://github.com/SiliconYC/ReactMono/issues/5)、[#6](https://github.com/SiliconYC/ReactMono/issues/6)；P2 可继续体验/离线/存档改进 |
-| [P003](proposals/P003-local-pwa.md) | Pages / PWA / 本地存档 | P2（兼顾 P1） | **已晋升 #12–#16，待执行** | CDN 本地打包、版本化状态、IndexedDB、备份、PWA；详见 [P2 队列](P2_QUEUE.md) |
+| [P003](proposals/P003-local-pwa.md) | Pages / PWA / 本地存档 | P2（兼顾 P1） | **#12–#16 已完成集成：静态运行时、存档、离线 PWA** | CDN 本地打包、版本化状态、IndexedDB、备份、PWA；详见 [P2 队列](P2_QUEUE.md) |
 | [P004](proposals/P004-evolution-governance.md) | AI 发现、筛选、实施与独立验收 | 全阶段 | **已实施第一次提案筛选；效果待验证** | #2–#6 从候选进入执行；尚无自主编码、PR 或独立验收成绩 |
-| [P005](proposals/P005-classic-mechanics.md) | 经典玩法保留与再设计 | P1–P4 | **P2 最小玩法 #17–#19 已晋升；其余研究/延期** | 有限地产升级、少量事件及基础卡片；股票、多地图、完整音画未晋升 |
+| [P005](proposals/P005-classic-mechanics.md) | 经典玩法保留与再设计 | P1–P4 | **#17–#19 已交付地产升级、机会格与基础卡片；其余研究/延期** | 有限地产升级、少量事件及基础卡片；股票、多地图、完整音画未晋升 |
 
 **状态词表**：待评估、研究中、延期、已否决、已晋升（注明 Issue）、已归档；已确定阶段基线/已实施治理属于事实备注，不代表代码已完成。已经确定的产品硬约束不是“待决定”；提案状态只指尚未解决的实施选择。每次改变状态须记录证据/原因和日期，防止越审越乱。
 
@@ -38,7 +38,14 @@
 
 - **批准** [#12–#20 九项实施任务](P2_QUEUE.md)；其中 #20 是真正的 P2 退出验收，不是提前宣布 P2 完成。
 - 其他长期方向维持待研究或延期状态，不因本次筛选形成重复 Issue。
-- P2 尚无游戏代码改动、测试成绩或 Pages 新部署。具体原因与约束见 [决策记录](EVOLUTION_LOG.md)。
+- 该条是当日候选筛选时的历史结论；截至 2026-10-16 #12–#19 已交付，#20 的独立验收见 [PR #29](https://github.com/SiliconYC/ReactMono/pull/29) 与 [决策记录](EVOLUTION_LOG.md)。
+
+## 2026-10-16：P2 执行与证据更新
+
+- P003 的本地打包、校验存档、IndexedDB、文件备份和 PWA 现已实际运行；#16 为断线后在原分支继续实施。
+- P005 的地产等级、机会格和两种卡片先后从 `dev` 独立实施合并；100 个种子的模拟与真实浏览器不作为纯文档任务计功。
+- P004 的定向进化工作流已有真实 Issue→分支→原子提交→CI→PR→`dev`→Pages 证据；但不等于已经实现自动调度连续 30 轮，也不能冒充外部独立人类评审。
+- P3/P4 股票、银行、多地图、精细音画、复杂卡片仍为研究方向，不在本轮重复创建 Issue。
 
 ## 当前执行入口
 
