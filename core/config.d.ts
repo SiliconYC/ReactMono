@@ -1,11 +1,12 @@
 /** P3-01: board defaults and configuration validation. */
-import type { GameConfig } from './types.js';
+import type { GameConfig, FacilityConfig } from './types.js';
 export declare const DEFAULT_CARD_RULES: {
     readonly tileIds: readonly [6, 12, 18];
     readonly rewardCash: 80;
     readonly moveBonus: 2;
     readonly maxHand: 3;
 };
+export declare const DEFAULT_FACILITIES: FacilityConfig;
 export declare const DEFAULT_EVENT_RULES: {
     readonly tileIds: readonly [3, 9, 15, 21];
     readonly bonus: 120;

@@ -1,3 +1,4 @@
+import { handSize } from './cards.js';
 export function choosePhaseAction(state, reserveCash) {
     if (!Number.isFinite(reserveCash) || reserveCash < 0)
         throw new Error('保留资金必须为非负有限数字');
@@ -8,6 +9,8 @@ export function choosePhaseAction(state, reserveCash) {
         return null;
     switch (state.phase) {
         case 'await_roll': {
+            if (player.detention !== undefined)
+                return { type: 'skip_turn', actorId: player.id };
             const held = player.cards ?? { reward: 0, stride: 0 };
             if (held.reward > 0)
                 return { type: 'use_card', actorId: player.id, cardType: 'reward' };
@@ -27,6 +30,17 @@ export function choosePhaseAction(state, reserveCash) {
                 }
             }
             return { type: 'roll', actorId: player.id };
+        }
+        case 'await_shop': {
+            const shop = state.shops?.find(s => s.tileId === player.position);
+            if (shop && handSize(player.cards) < (state.cardRules?.maxHand ?? 3)) {
+                for (const cardType of ['remote', 'roadblock', 'rent_free', 'reward', 'stride']) {
+                    const price = state.facilityRules?.prices[cardType] ?? Infinity;
+                    if (shop.cards[cardType] > 0 && player.cash >= price + reserveCash)
+                        return { type: 'buy_shop_card', actorId: player.id, cardType };
+                }
+            }
+            return { type: 'leave_shop', actorId: player.id };
         }
         case 'await_decision': {
             const tile = state.tiles[player.position];

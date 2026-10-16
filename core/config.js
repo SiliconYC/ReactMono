@@ -1,5 +1,11 @@
 import { inferMap, validateMap, HARBOR_MAP } from './maps.js';
 export const DEFAULT_CARD_RULES = { tileIds: [6, 12, 18], rewardCash: 80, moveBonus: 2, maxHand: 3 };
+export const DEFAULT_FACILITIES = {
+    hospitalTiles: [3], prisonTiles: [9], shopTiles: [12],
+    hospitalTurns: 2, prisonTurns: 3, hospitalFee: 50, prisonFee: 80,
+    prices: { reward: 120, stride: 110, remote: 210, roadblock: 180, rent_free: 160 },
+    stock: { reward: 2, stride: 2, remote: 2, roadblock: 2, rent_free: 2 }
+};
 export const DEFAULT_EVENT_RULES = { tileIds: [3, 9, 15, 21], bonus: 120, fee: 60 };
 export const DEFAULT_UPGRADES = { costRates: [0.5, 0.8], rentRates: [1, 2, 4] };
 export const DEFAULT_RESALE_RULES = { landPercent: 0.75, upgradePercent: 0.5 };
@@ -35,6 +41,10 @@ export const HARBOR_CONFIG = {
 export function validateConfig(config) {
     if (config.strategyEnabled !== undefined && typeof config.strategyEnabled !== 'boolean')
         throw new Error('策略卡开关无效');
+    if (config.specialEnabled !== undefined && typeof config.specialEnabled !== 'boolean')
+        throw new Error('特殊设施开关无效');
+    if (config.specialEnabled === true && config.strategyEnabled !== true)
+        throw new Error('特殊设施依赖策略卡');
     if (config.loanEnabled !== undefined && typeof config.loanEnabled !== 'boolean')
         throw new Error('贷款开关无效');
     if (config.loanEnabled === true && config.bankEnabled !== true)
@@ -55,6 +65,19 @@ export function validateConfig(config) {
         config.tiles.some((t, i) => t.id !== i || !t.title.trim()))
         throw new Error('地图配置无效');
     validateMap(config.map ?? inferMap(config.tiles.length), config.tiles.length);
+    if (config.specialEnabled === true) {
+        const f = config.facilityConfig ?? DEFAULT_FACILITIES;
+        const ids = [...f.hospitalTiles, ...f.prisonTiles, ...f.shopTiles];
+        if (new Set(ids).size !== ids.length || f.hospitalTiles.length < 1 || f.prisonTiles.length < 1 || f.shopTiles.length < 1 ||
+            ids.some(i => !Number.isInteger(i) || i <= 0 || i >= config.tiles.length || config.tiles[i].kind !== 'neutral') ||
+            ![f.hospitalTurns, f.prisonTurns].every(n => Number.isSafeInteger(n) && n >= 1 && n <= 20) ||
+            ![f.hospitalFee, f.prisonFee].every(n => Number.isSafeInteger(n) && n >= 0 && n <= 1_000_000) ||
+            !['reward', 'stride', 'remote', 'roadblock', 'rent_free'].every(k => Number.isSafeInteger(f.prices[k]) && f.prices[k] > 0 &&
+                f.prices[k] <= 1_000_000 &&
+                Number.isSafeInteger(f.stock[k]) && f.stock[k] >= 0 &&
+                f.stock[k] <= 100))
+            throw new Error('医院、监狱或商店配置无效');
+    }
     if (!Number.isFinite(config.initialCash) || config.initialCash < 0 ||
         !Number.isInteger(config.maxRounds) || config.maxRounds < 1)
         throw new Error('游戏经济配置无效');

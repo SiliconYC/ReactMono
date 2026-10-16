@@ -26,7 +26,7 @@ function iso(x) {
 }
 const EVENT_TYPES = new Set([
     'game_started', 'die_rolled', 'player_moved', 'turn_ended', 'tile_landed', 'property_declined',
-    'property_bought', 'property_upgraded', 'property_sold', 'property_liquidated', 'bank_deposited', 'bank_withdrawn', 'bank_interest', 'property_mortgaged', 'property_released', 'loan_borrowed', 'loan_repaid', 'loan_interest', 'loan_default', 'stock_bought', 'stock_sold', 'stock_liquidated', 'rent_paid', 'event_bonus', 'event_fee', 'card_received', 'card_used', 'roadblock_triggered', 'rent_waived', 'card_expired', 'player_bankrupt', 'game_finished'
+    'property_bought', 'property_upgraded', 'property_sold', 'property_liquidated', 'bank_deposited', 'bank_withdrawn', 'bank_interest', 'property_mortgaged', 'property_released', 'loan_borrowed', 'loan_repaid', 'loan_interest', 'loan_default', 'stock_bought', 'stock_sold', 'stock_liquidated', 'rent_paid', 'event_bonus', 'event_fee', 'card_received', 'card_used', 'roadblock_triggered', 'rent_waived', 'card_expired', 'facility_entered', 'detention_skipped', 'detention_released', 'shop_purchased', 'shop_left', 'player_bankrupt', 'game_finished'
 ]);
 /** Validate current and migrated legacy states against the same strict bounds. */
 export function validateGameState(value, expectedVersion = SCHEMA_VERSION) {
@@ -34,7 +34,7 @@ export function validateGameState(value, expectedVersion = SCHEMA_VERSION) {
         throw new SaveError('INVALID_STATE', '存档数据无效：游戏状态必须为对象');
     keys(value, ['schemaVersion', 'status', 'phase', 'revision', 'round', 'currentPlayerIndex', 'randomState',
         'maxRounds', 'players', 'tiles', 'winnerId', 'events', 'upgradeRulesVersion',
-        ...(expectedVersion >= 4 ? ['map'] : [])], ['cardRules', 'pendingMoveBonus', ...(expectedVersion >= 4 ? ['automaticLiquidation', 'resaleRules', 'market', 'bank', 'loan', 'strategyEnabled', 'pendingDie', 'pendingRentWaiver', 'roadblocks'] : [])]);
+        ...(expectedVersion >= 4 ? ['map'] : [])], ['cardRules', 'pendingMoveBonus', ...(expectedVersion >= 4 ? ['automaticLiquidation', 'resaleRules', 'market', 'bank', 'loan', 'strategyEnabled', 'pendingDie', 'pendingRentWaiver', 'roadblocks', 'specialEnabled', 'facilityRules', 'shops'] : [])]);
     if (value.strategyEnabled !== undefined && value.strategyEnabled !== true)
         throw new SaveError('INVALID_STATE', '策略卡规则标识非法');
     if (value.strategyEnabled === true) {
@@ -46,6 +46,23 @@ export function validateGameState(value, expectedVersion = SCHEMA_VERSION) {
     }
     else if (value.pendingDie !== undefined || value.pendingRentWaiver !== undefined || value.roadblocks !== undefined)
         throw new SaveError('INVALID_STATE', '旧版对局不能携带策略卡状态');
+    if (value.specialEnabled !== undefined && value.specialEnabled !== true)
+        throw new SaveError('INVALID_STATE', '特殊设施开关非法');
+    if (value.specialEnabled === true) {
+        if (value.strategyEnabled !== true || !record(value.facilityRules) || !Array.isArray(value.shops))
+            throw new SaveError('INVALID_STATE', '特殊设施状态缺失');
+        keys(value.facilityRules, ['version', 'hospitalTurns', 'prisonTurns', 'hospitalFee', 'prisonFee', 'prices']);
+        const f = value.facilityRules;
+        if (f.version !== 1 || !finite(f.hospitalTurns, 1, 20) || !finite(f.prisonTurns, 1, 20) ||
+            !finite(f.hospitalFee, 0, 1000000) || !finite(f.prisonFee, 0, 1000000) ||
+            !record(f.prices) || value.shops.length > 24)
+            throw new SaveError('INVALID_STATE', '医院、监狱配置非法');
+        keys(f.prices, ['reward', 'stride', 'remote', 'roadblock', 'rent_free']);
+        if (!Object.values(f.prices).every(p => finite(p, 1, 1000000)))
+            throw new SaveError('INVALID_STATE', '商店价格非法');
+    }
+    else if (value.facilityRules !== undefined || value.shops !== undefined)
+        throw new SaveError('INVALID_STATE', '旧对局不得持有特殊设施');
     if (value.bank !== undefined) {
         if (!record(value.bank))
             throw new SaveError('INVALID_STATE', '银行状态非法');
@@ -94,7 +111,7 @@ export function validateGameState(value, expectedVersion = SCHEMA_VERSION) {
     if (value.schemaVersion !== expectedVersion)
         throw new SaveError('INCOMPATIBLE_VERSION', '游戏规则版本不兼容');
     if (!['setup', 'playing', 'finished'].includes(String(value.status)) ||
-        !['setup', 'await_roll', 'await_decision', 'await_end_turn', 'finished'].includes(String(value.phase)))
+        !['setup', 'await_roll', 'await_decision', 'await_end_turn', 'await_shop', 'finished'].includes(String(value.phase)))
         throw new SaveError('INVALID_STATE', '存档数据无效：阶段不合法');
     if ((value.status === 'setup') !== (value.phase === 'setup') ||
         (value.status === 'finished') !== (value.phase === 'finished'))
@@ -112,7 +129,7 @@ export function validateGameState(value, expectedVersion = SCHEMA_VERSION) {
         const p = value.players[i];
         if (!record(p))
             throw new SaveError('INVALID_STATE', '存档数据无效：玩家字段非法');
-        keys(p, ['id', 'name', 'kind', 'position', 'cash', 'bankrupt'], ['cards', ...(expectedVersion >= 4 ? ['bankBalance', 'loanBalance', 'holdings'] : [])]);
+        keys(p, ['id', 'name', 'kind', 'position', 'cash', 'bankrupt'], ['cards', ...(expectedVersion >= 4 ? ['bankBalance', 'loanBalance', 'holdings', 'detention'] : [])]);
         if (value.bank !== undefined ? !finite(p.bankBalance, 0, 1_000_000_000_000) :
             p.bankBalance !== undefined && p.bankBalance !== 0)
             throw new SaveError('INVALID_STATE', '玩家银行存款非法');
@@ -135,6 +152,15 @@ export function validateGameState(value, expectedVersion = SCHEMA_VERSION) {
                 if (p.bankrupt === true)
                     throw new SaveError('INVALID_STATE', '破产玩家不得持有股票');
             }
+        }
+        if (p.detention !== undefined) {
+            if (value.specialEnabled !== true || !record(p.detention) || p.bankrupt === true)
+                throw new SaveError('INVALID_STATE', '停留玩家无效');
+            keys(p.detention, ['kind', 'remaining']);
+            if (!['hospital', 'prison'].includes(String(p.detention.kind)) || !finite(p.detention.remaining, 1, 20) ||
+                p.detention.remaining > (p.detention.kind === 'hospital' ?
+                    value.facilityRules.hospitalTurns : value.facilityRules.prisonTurns))
+                throw new SaveError('INVALID_STATE', '医院或监狱剩余回合非法');
         }
         if (p.cards !== undefined) {
             if (!record(p.cards))
@@ -183,7 +209,13 @@ export function validateGameState(value, expectedVersion = SCHEMA_VERSION) {
                 throw new SaveError('INVALID_STATE', '存档数据无效：地产价格、租金或产权非法');
         }
         else {
-            keys(t, ['id', 'kind', 'title', 'ownerId'], ['eventBonus', 'eventFee', 'cardStation']);
+            keys(t, ['id', 'kind', 'title', 'ownerId'], ['eventBonus', 'eventFee', 'cardStation', ...(expectedVersion >= 4 ? ['facility'] : [])]);
+            if (t.facility !== undefined) {
+                if (value.specialEnabled !== true || t.kind !== 'neutral' ||
+                    !['hospital', 'prison', 'shop'].includes(String(t.facility)) ||
+                    t.cardStation !== undefined || t.eventBonus !== undefined || t.eventFee !== undefined)
+                    throw new SaveError('INVALID_STATE', '特殊地块非法');
+            }
             if (t.cardStation !== undefined && (t.kind !== 'neutral' || t.cardStation !== true))
                 throw new SaveError('INVALID_STATE', '卡片格状态非法');
             if (t.eventBonus !== undefined || t.eventFee !== undefined) {
@@ -198,6 +230,32 @@ export function validateGameState(value, expectedVersion = SCHEMA_VERSION) {
         if (t.id !== i || !string(t.title, 100))
             throw new SaveError('INVALID_STATE', '存档数据无效：地图位置或名称非法');
     }
+    if (value.specialEnabled === true) {
+        const shops = value.shops, used = new Set();
+        for (const stock of shops) {
+            if (!record(stock))
+                throw new SaveError('INVALID_STATE', '商店存货记录非法');
+            keys(stock, ['tileId', 'cards']);
+            if (!finite(stock.tileId, 1, value.tiles.length - 1) || used.has(stock.tileId) ||
+                value.tiles[stock.tileId].facility !== 'shop' || !record(stock.cards))
+                throw new SaveError('INVALID_STATE', '商店地点重复或无效');
+            keys(stock.cards, ['reward', 'stride', 'remote', 'roadblock', 'rent_free']);
+            if (!Object.values(stock.cards).every(v => finite(v, 0, 100)))
+                throw new SaveError('INVALID_STATE', '商店存货非法');
+            used.add(stock.tileId);
+        }
+        if (value.tiles.some((t) => t.facility === 'shop' && !used.has(t.id)) ||
+            !value.tiles.some((t) => t.facility === 'hospital') ||
+            !value.tiles.some((t) => t.facility === 'prison'))
+            throw new SaveError('INVALID_STATE', '设施配置与商店清单不符');
+        for (const p of value.players) {
+            if (p.detention !== undefined && value.tiles[p.position].facility !== p.detention.kind)
+                throw new SaveError('INVALID_STATE', '被拘留玩家不在设施内');
+        }
+    }
+    else if (value.players.some((p) => p.detention !== undefined) ||
+        value.tiles.some((t) => t.facility !== undefined))
+        throw new SaveError('INVALID_STATE', '普通对局出现特殊设施');
     if (value.strategyEnabled === true) {
         const used = new Set();
         for (const b of value.roadblocks) {
@@ -236,6 +294,11 @@ export function validateGameState(value, expectedVersion = SCHEMA_VERSION) {
         throw new SaveError('INVALID_STATE', '存档数据无效：胜利者身份非法');
     if (value.status !== 'finished' && value.winnerId !== null)
         throw new SaveError('INVALID_STATE', '存档数据无效：未结束对局不能提前有胜利者');
+    if (value.phase === 'await_shop') {
+        const p = value.players[value.currentPlayerIndex];
+        if (value.specialEnabled !== true || value.tiles[p.position].facility !== 'shop' || p.detention !== undefined)
+            throw new SaveError('INVALID_STATE', '商店阶段与玩家位置不匹配');
+    }
     if (value.phase === 'await_decision') {
         const p = value.players[value.currentPlayerIndex];
         const tile = value.tiles[p.position];

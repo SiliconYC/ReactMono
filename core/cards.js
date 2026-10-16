@@ -10,7 +10,7 @@ export function handSize(cards) {
     return (cards?.reward ?? 0) + (cards?.stride ?? 0) + (cards?.remote ?? 0) + (cards?.roadblock ?? 0) + (cards?.rent_free ?? 0);
 }
 export function useCard(state, actor, action) {
-    if (state.phase !== 'await_roll' || (action.targetId !== undefined && action.targetId !== actor.id) ||
+    if (state.phase !== 'await_roll' || actor.detention !== undefined || (action.targetId !== undefined && action.targetId !== actor.id) ||
         ![...CLASSIC, ...(state.strategyEnabled === true ? STRATEGY : [])].includes(action.cardType))
         return reject(state, 'INVALID_PHASE');
     const held = actor.cards ?? { reward: 0, stride: 0 };

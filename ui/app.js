@@ -11,7 +11,7 @@ const kindLabel = { start: '起点', property: '地产', neutral: '休息' };
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput: '100', stockAmountInput: '1', strategyDieInput: '1', roadblockTileInput: '1', playerSetup: [{ id: 'p1', name: '玩家', kind: 'human' }, { id: 'p2', name: '电脑', kind: 'computer' }], roundsInput: '60', selectedMapId: 'classic-24', awaitingHandoff: false, fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator === 'undefined' ? false : !navigator.onLine, pwaUpdate: false, pwaMessage: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+        this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput: '100', stockAmountInput: '1', strategyDieInput: '1', roadblockTileInput: '1', playerSetup: [{ id: 'p1', name: '玩家', kind: 'human' }, { id: 'p2', name: '电脑', kind: 'computer' }], roundsInput: '60', selectedMapId: 'classic-24', awaitingHandoff: false, fastMode: false, specialEnabled: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator === 'undefined' ? false : !navigator.onLine, pwaUpdate: false, pwaMessage: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
     }
     computerTimer = null;
     saveEpoch = 0;
@@ -276,7 +276,7 @@ class App extends React.Component {
         }
         let fresh;
         try {
-            fresh = createGame(seed, { ...(this.state.selectedMapId === 'harbor-20' ? HARBOR_CONFIG : DEFAULT_CONFIG), players: roster, maxRounds: rounds, automaticLiquidation: true, bankEnabled: true, loanEnabled: true, marketEnabled: true, strategyEnabled: true });
+            fresh = createGame(seed, { ...(this.state.selectedMapId === 'harbor-20' ? HARBOR_CONFIG : DEFAULT_CONFIG), players: roster, maxRounds: rounds, automaticLiquidation: true, bankEnabled: true, loanEnabled: true, marketEnabled: true, strategyEnabled: true, specialEnabled: this.state.specialEnabled });
         }
         catch (e) {
             this.setState({ message: '开局配置无效：' + (e instanceof Error ? e.message : String(e)) });
@@ -334,9 +334,10 @@ class App extends React.Component {
         const action = (type === 'buy_stock' || type === 'sell_stock') ? { type, actorId: actor.id, stockId: stockId ?? 'SEA', quantity: stockAmount }
             : (type === 'upgrade_property' || type === 'sell_property' || type === 'mortgage_property' || type === 'release_mortgage') ? { type, actorId: actor.id, tileId: tileId ?? -1 }
                 : type === 'deposit_bank' || type === 'withdraw_bank' || type === 'borrow_loan' || type === 'repay_loan' ? { type, actorId: actor.id, amount: bankAmount }
-                    : type === 'use_card' ? { type, actorId: actor.id, cardType: cardType ?? 'reward',
-                        ...(cardType === 'remote' ? { dieValue: Number(this.state.strategyDieInput) } : {}),
-                        ...(cardType === 'roadblock' ? { tileId: Number(game.tiles.some(t => t.id === Number(this.state.roadblockTileInput) && t.id !== 0 && t.id !== actor.position && !game.players.some(p => !p.bankrupt && p.position === t.id) && !game.roadblocks?.some(b => b.tileId === t.id)) ? this.state.roadblockTileInput : game.tiles.find(t => t.id !== 0 && t.id !== actor.position && !game.players.some(p => !p.bankrupt && p.position === t.id) && !game.roadblocks?.some(b => b.tileId === t.id))?.id ?? -1) } : {}) } : { type, actorId: actor.id };
+                    : type === 'buy_shop_card' ? { type, actorId: actor.id, cardType: cardType ?? 'reward' }
+                        : type === 'use_card' ? { type, actorId: actor.id, cardType: cardType ?? 'reward',
+                            ...(cardType === 'remote' ? { dieValue: Number(this.state.strategyDieInput) } : {}),
+                            ...(cardType === 'roadblock' ? { tileId: Number(game.tiles.some(t => t.id === Number(this.state.roadblockTileInput) && t.id !== 0 && t.id !== actor.position && !game.players.some(p => !p.bankrupt && p.position === t.id) && !game.roadblocks?.some(b => b.tileId === t.id)) ? this.state.roadblockTileInput : game.tiles.find(t => t.id !== 0 && t.id !== actor.position && !game.players.some(p => !p.bankrupt && p.position === t.id) && !game.roadblocks?.some(b => b.tileId === t.id))?.id ?? -1) } : {}) } : { type, actorId: actor.id };
         const result = applyAction(game, action);
         if (!result.ok) {
             const bankAction = type === 'deposit_bank' || type === 'withdraw_bank' || type === 'borrow_loan' || type === 'repay_loan';
@@ -417,6 +418,11 @@ class App extends React.Component {
             case 'card_used': return `${person}使用${this.cardName(event.details?.cardType)}${event.details?.cardType === 'roadblock' ? '，放在 ' + event.details?.tileId + ' 号格' : event.details?.cardType === 'remote' ? '，指定骰点 ' + event.details?.dieValue : ''}`;
             case 'roadblock_triggered': return `${person}碰到 ${event.details?.tileId} 号格路障，提前停下`;
             case 'rent_waived': return `${person}免除 ${event.details?.amount} 游戏币租金`;
+            case 'facility_entered': return `${person}来到${event.details?.kind === 'hospital' ? '医院' : event.details?.kind === 'prison' ? '监狱' : '商店'}${event.details?.turns ? '，需跳过 ' + event.details.turns + ' 回合' : '，可以购买道具'}`;
+            case 'detention_skipped': return `${person}暂停行动，剩余 ${event.details?.remaining} 回合`;
+            case 'detention_released': return `${person}获准离开${event.details?.kind === 'hospital' ? '医院' : '监狱'}`;
+            case 'shop_purchased': return `${person}花费 ${event.details?.amount} 游戏币购买${this.cardName(event.details?.cardType)}`;
+            case 'shop_left': return `${person}离开商店`;
             case 'card_expired': return event.details?.cardType === 'roadblock' ? `${person}放置在 ${event.details?.tileId} 号格的路障已过期` : `${person}的免租保护已到期`;
             case 'event_bonus': return `${person}在事件格获得 ${event.details?.amount} 游戏币`;
             case 'event_fee': return `${person}在事件格支付 ${event.details?.amount} 游戏币`;
@@ -451,8 +457,8 @@ class App extends React.Component {
             React.createElement("span", { className: "tile-index" },
                 String(tile.id).padStart(2, '0'),
                 game.roadblocks?.some(b => b.tileId === tile.id) ? ' 🚧' : ''),
-            React.createElement("span", { className: "tile-icon", "aria-hidden": "true" }, tile.kind === 'start' ? '★' : tile.kind === 'property' ? '⌂' : tile.eventBonus !== undefined ? '✦' : tile.cardStation ? '▣' : '☕'),
-            React.createElement("span", { className: "tile-name" }, tile.kind === 'property' ? tile.title : tile.eventBonus !== undefined ? '机会' : tile.cardStation ? '卡片' : kindLabel[tile.kind]),
+            React.createElement("span", { className: "tile-icon", "aria-hidden": "true" }, tile.facility === 'hospital' ? '✚' : tile.facility === 'prison' ? '▤' : tile.facility === 'shop' ? '▣' : tile.kind === 'start' ? '★' : tile.kind === 'property' ? '⌂' : tile.eventBonus !== undefined ? '✦' : tile.cardStation ? '▣' : '☕'),
+            React.createElement("span", { className: "tile-name" }, tile.facility === 'hospital' ? '医院' : tile.facility === 'prison' ? '监狱' : tile.facility === 'shop' ? '商店' : tile.kind === 'property' ? tile.title : tile.eventBonus !== undefined ? '机会' : tile.cardStation ? '卡片' : kindLabel[tile.kind]),
             tile.kind === 'property' && React.createElement("span", { className: "tile-value" }, tile.ownerId ? `${game.players.find(p => p.id === tile.ownerId)?.name ?? '未知'} · ${tile.level ?? 0}级 · 租 ${tile.levelRents?.[tile.level ?? 0] ?? tile.rent}` : `售价 ${tile.price}`),
             React.createElement("div", { className: "pieces" }, residents.map(p => React.createElement("span", { key: p.id, className: `piece ${p.kind}`, title: p.name }, p.kind === 'human' ? '人' : '机')))));
     };
@@ -462,12 +468,16 @@ class App extends React.Component {
         const previousRoll = [...game.events].reverse().find(e => e.type === 'die_rolled');
         const phaseDescription = game.status === 'setup' ? '准备开局'
             : game.status === 'finished' ? '对局已结束'
-                : game.phase === 'await_roll' ? '等待掷骰'
-                    : game.phase === 'await_decision' ? '等待处理地产'
-                        : '等待结束回合';
+                : game.phase === 'await_shop' ? '正在商店购物'
+                    : current.detention !== undefined ? '暂停行动 · 剩余 ' + current.detention.remaining + ' 回合'
+                        : game.phase === 'await_roll' ? '等待掷骰'
+                            : game.phase === 'await_decision' ? '等待处理地产'
+                                : '等待结束回合';
         const targetTile = game.tiles[current.position];
         const hasMoneyForLand = targetTile.kind === 'property' && targetTile.ownerId === null && current.cash >= (targetTile.price ?? 0);
         const lastEvents = game.events.filter(e => !['player_moved'].includes(e.type)).slice(-6).reverse();
+        const currentShop = game.shops?.find(s => s.tileId === current.position);
+        const cardKinds = ['reward', 'stride', 'remote', 'roadblock', 'rent_free'];
         const availableRoadblocks = game.tiles.filter(t => t.id !== 0 && t.id !== current.position &&
             !game.players.some(p => !p.bankrupt && p.position === t.id) && !game.roadblocks?.some(b => b.tileId === t.id));
         return (React.createElement("main", { className: "app-shell", "data-game-status": game.status, "data-game-phase": game.phase, "data-game-revision": game.revision, "data-map-id": game.map.id },
@@ -580,6 +590,9 @@ class App extends React.Component {
                             React.createElement("label", { className: "field-label", htmlFor: "max-rounds" }, "\u6700\u591A\u8F6E\u6570"),
                             React.createElement("input", { id: "max-rounds", "aria-label": "\u6700\u591A\u8F6E\u6570", type: "text", inputMode: "numeric", maxLength: 3, value: this.state.roundsInput, onChange: (event) => this.setState({ roundsInput: event.target.value }) }),
                             React.createElement("label", { className: "fast-setting" },
+                                React.createElement("input", { type: "checkbox", "aria-label": "\u542F\u7528\u533B\u9662\u3001\u76D1\u72F1\u4E0E\u5546\u5E97", checked: this.state.specialEnabled, onChange: (event) => this.setState({ specialEnabled: event.target.checked }) }),
+                                "\u542F\u7528\u533B\u9662\u3001\u76D1\u72F1\u4E0E\u5546\u5E97\uFF08\u7ECF\u5178\u8BBE\u65BD\uFF0C\u53EF\u5173\u95ED\u4FDD\u7559\u65E7\u7248\u5730\u56FE\uFF09"),
+                            React.createElement("label", { className: "fast-setting" },
                                 React.createElement("input", { type: "checkbox", "aria-label": "\u5FEB\u901F\u6A21\u5F0F", checked: this.state.fastMode, onChange: (event) => this.setState({ fastMode: event.target.checked }) }),
                                 "\u5FEB\u901F\u6A21\u5F0F\uFF08\u7F29\u77ED\u7535\u8111\u64CD\u4F5C\u95F4\u9694\uFF09"),
                             React.createElement("button", { type: "button", className: "primary-btn", onClick: this.startGame },
@@ -592,7 +605,7 @@ class App extends React.Component {
                             React.createElement("p", null, "\u8BF7\u628A\u8BBE\u5907\u4EA4\u7ED9\u8FD9\u540D\u73A9\u5BB6\uFF0C\u51C6\u5907\u597D\u4EE5\u540E\u786E\u8BA4\u3002\u4E0A\u4E00\u4F4D\u73A9\u5BB6\u4E0D\u80FD\u7EE7\u7EED\u64CD\u4F5C\u3002"),
                             React.createElement("button", { type: "button", className: "primary-btn", onClick: this.acknowledgeHandoff }, "\u6211\u5DF2\u5C31\u4F4D\uFF0C\u5F00\u59CB\u64CD\u4F5C")),
                         current.kind === 'computer' && game.status === 'playing' && React.createElement("p", { className: "computer-thinking", role: "status" }, "\u7535\u8111\u6B63\u5728\u81EA\u52A8\u64CD\u4F5C\uFF0C\u4FDD\u7559\u81F3\u5C11 200 \u6E38\u620F\u5E01\u73B0\u91D1\u2026"),
-                        current.kind === 'human' && !this.state.awaitingHandoff && game.phase === 'await_roll' && React.createElement("div", { className: "purchase-actions" },
+                        current.kind === 'human' && !this.state.awaitingHandoff && game.phase === 'await_roll' && current.detention === undefined && React.createElement("div", { className: "purchase-actions" },
                             React.createElement("p", { className: "purchase-info" },
                                 "\u624B\u724C\uFF1A\u5956\u52B1 ",
                                 current.cards?.reward ?? 0,
@@ -627,6 +640,29 @@ class App extends React.Component {
                             React.createElement("button", { type: "button", className: "primary-btn", onClick: () => this.dispatch('roll') },
                                 "\u63B7\u9AB0\u524D\u8FDB ",
                                 React.createElement("span", null, "\uD83C\uDFB2"))),
+                        current.kind === 'human' && !this.state.awaitingHandoff && game.phase === 'await_roll' && current.detention !== undefined && React.createElement("div", { className: "purchase-actions" },
+                            React.createElement("p", { className: "purchase-info" },
+                                "\u6B63\u5728",
+                                current.detention.kind === 'hospital' ? '住院' : '服刑',
+                                " \u00B7 \u5269\u4F59 ",
+                                current.detention.remaining,
+                                " \u6B21\u8F6E\u5230\u4F60\u7684\u56DE\u5408"),
+                            React.createElement("button", { type: "button", className: "primary-btn", onClick: () => this.dispatch('skip_turn') }, "\u8DF3\u8FC7\u5F53\u524D\u505C\u7559\u56DE\u5408")),
+                        current.kind === 'human' && !this.state.awaitingHandoff && game.phase === 'await_shop' && React.createElement("div", { className: "purchase-actions" },
+                            React.createElement("p", { className: "purchase-info" },
+                                "\u5546\u5E97 \u00B7 \u73B0\u91D1 ",
+                                current.cash,
+                                " \u00B7 \u624B\u724C\u4E0A\u9650 ",
+                                game.cardRules?.maxHand ?? 3),
+                            cardKinds.map(k => React.createElement("button", { key: k, type: "button", className: "secondary-btn", disabled: !currentShop || (currentShop.cards[k] ?? 0) < 1 || current.cash < (game.facilityRules?.prices[k] ?? Infinity) ||
+                                    cardKinds.reduce((sum, x) => sum + (current.cards?.[x] ?? 0), 0) >= (game.cardRules?.maxHand ?? 3), onClick: () => this.dispatch('buy_shop_card', undefined, k) },
+                                "\u8D2D\u4E70",
+                                this.cardName(k),
+                                " \u00B7 ",
+                                game.facilityRules?.prices[k] ?? 0,
+                                " \u5E01 \u00B7 \u5269\u4F59 ",
+                                currentShop?.cards[k] ?? 0)),
+                            React.createElement("button", { type: "button", className: "primary-btn", onClick: () => this.dispatch('leave_shop') }, "\u79BB\u5F00\u5546\u5E97")),
                         current.kind === 'human' && !this.state.awaitingHandoff && game.phase === 'await_decision' && React.createElement("div", { className: "purchase-actions" },
                             React.createElement("p", { className: "purchase-info" },
                                 targetTile.title,
@@ -796,6 +832,7 @@ class App extends React.Component {
                                     game.loan ? ` · 贷款 ${(p.loanBalance ?? 0).toLocaleString('zh-CN')}` : '',
                                     " \u00B7 \u51C0\u8D44\u4EA7 ",
                                     netWorth(game, p.id).toLocaleString('zh-CN'),
+                                    p.detention ? ` · ${p.detention.kind === 'hospital' ? '住院' : '入狱'}剩余 ${p.detention.remaining} 回合` : '',
                                     p.bankrupt ? ' · 已破产' : '')),
                             React.createElement("span", { className: "player-kind" }, p.kind === 'human' ? '真人' : '电脑')))),
                     React.createElement("div", { className: "activity-card" },

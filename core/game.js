@@ -1,6 +1,6 @@
 /** Stable public API; the implementation remains deterministic and React-independent. */
 export { SCHEMA_VERSION, UPGRADE_RULES_VERSION } from './types.js';
-export { DEFAULT_CARD_RULES, DEFAULT_EVENT_RULES, DEFAULT_UPGRADES, DEFAULT_CONFIG, HARBOR_CONFIG, DEFAULT_RESALE_RULES } from './config.js';
+export { DEFAULT_CARD_RULES, DEFAULT_EVENT_RULES, DEFAULT_FACILITIES, DEFAULT_UPGRADES, DEFAULT_CONFIG, HARBOR_CONFIG, DEFAULT_RESALE_RULES } from './config.js';
 export { normalizeSeed, nextDie } from './random.js';
 export { DEFAULT_MAP, INTERNAL_TEST_MAP, HARBOR_MAP, inferMap, advancePosition, validateMap } from './maps.js';
 export { makePropertyTile, netWorth, resaleValue } from './property.js';
@@ -9,7 +9,7 @@ export { createBank, transferBank, settleBankRound, DEFAULT_INTEREST_BPS } from 
 export { stockFee, STOCK_FEE_BPS, MAX_SHARES } from './stocks.js';
 export { STOCKS, createMarket, advanceMarket, quoteMarket, validateMarket } from './market.js';
 import { SCHEMA_VERSION, UPGRADE_RULES_VERSION } from './types.js';
-import { DEFAULT_CARD_RULES, DEFAULT_EVENT_RULES, DEFAULT_UPGRADES, DEFAULT_CONFIG, validateConfig } from './config.js';
+import { DEFAULT_CARD_RULES, DEFAULT_EVENT_RULES, DEFAULT_FACILITIES, DEFAULT_UPGRADES, DEFAULT_CONFIG, validateConfig } from './config.js';
 import { normalizeSeed } from './random.js';
 import { inferMap, cloneMap } from './maps.js';
 import { createMarket } from './market.js';
@@ -20,9 +20,11 @@ import { makePropertyTile, declineProperty, upgradeProperty, buyProperty, sellPr
 import { accept, reject } from './transitions.js';
 import { rollTurn, endTurn } from './turns.js';
 import { useCard } from './cards.js';
+import { buyShopCard, leaveShop, skipDetentionTurn } from './facilities.js';
 /** 新建纯数据状态。每次调用都会创建隔离的玩家、棋盘数组。 */
 export function createGame(seed, config = DEFAULT_CONFIG) {
     validateConfig(config);
+    const facilities = config.facilityConfig ?? DEFAULT_FACILITIES;
     return {
         schemaVersion: SCHEMA_VERSION,
         upgradeRulesVersion: UPGRADE_RULES_VERSION,
@@ -31,6 +33,10 @@ export function createGame(seed, config = DEFAULT_CONFIG) {
             maxHand: (config.cardRules ?? DEFAULT_CARD_RULES).maxHand },
         pendingMoveBonus: 0,
         ...(config.strategyEnabled === true ? { strategyEnabled: true, pendingDie: 0, pendingRentWaiver: false, roadblocks: [] } : {}),
+        ...(config.specialEnabled === true ? { specialEnabled: true,
+            facilityRules: { version: 1, hospitalTurns: facilities.hospitalTurns, prisonTurns: facilities.prisonTurns,
+                hospitalFee: facilities.hospitalFee, prisonFee: facilities.prisonFee, prices: { ...facilities.prices } },
+            shops: facilities.shopTiles.map(tileId => ({ tileId, cards: { ...facilities.stock } })) } : {}),
         ...(config.resaleRules ? { resaleRules: { ...config.resaleRules } } : {}),
         status: 'setup',
         phase: 'setup',
@@ -51,6 +57,13 @@ export function createGame(seed, config = DEFAULT_CONFIG) {
         tiles: config.tiles.map(t => {
             if (t.kind === 'property')
                 return makePropertyTile(t, config.upgrades ?? DEFAULT_UPGRADES);
+            const facility = config.specialEnabled === true
+                ? facilities.hospitalTiles.includes(t.id) ? 'hospital'
+                    : facilities.prisonTiles.includes(t.id) ? 'prison'
+                        : facilities.shopTiles.includes(t.id) ? 'shop' : null
+                : null;
+            if (facility !== null)
+                return { ...t, ownerId: null, facility };
             const tile = { ...t, ownerId: null };
             if (t.kind === 'neutral' && (config.eventRules ?? DEFAULT_EVENT_RULES).tileIds.includes(t.id)) {
                 Object.assign(tile, { eventBonus: (config.eventRules ?? DEFAULT_EVENT_RULES).bonus, eventFee: (config.eventRules ?? DEFAULT_EVENT_RULES).fee });
@@ -79,6 +92,9 @@ export function applyAction(state, action) {
         return reject(state, 'INVALID_PHASE');
     switch (action.type) {
         case 'roll': return rollTurn(state, actor);
+        case 'skip_turn': return skipDetentionTurn(state, actor);
+        case 'buy_shop_card': return buyShopCard(state, actor, action);
+        case 'leave_shop': return leaveShop(state, actor);
         case 'decline_property': return declineProperty(state, actor);
         case 'end_turn': return endTurn(state, actor);
         case 'use_card': return useCard(state, actor, action);
