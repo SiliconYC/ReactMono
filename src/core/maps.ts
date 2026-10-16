@@ -18,6 +18,8 @@ export function makeRingMap(id:string,version:number,columns:number,rows:number)
 }
 export const DEFAULT_MAP:GameMap=makeRingMap('classic-24',1,8,6);
 export const INTERNAL_TEST_MAP:GameMap=makeRingMap('internal-square-16',1,5,5);
+/** Original nautical-themed 20-tile board; playable preset supplied by config.ts. */
+export const HARBOR_MAP:GameMap=makeRingMap('harbor-20',1,6,6);
 
 /** Supports tiny custom boards in legacy rules tests and old saved 2-tile fixtures. */
 export function inferMap(count:number):GameMap {
@@ -41,6 +43,7 @@ const record=(x:unknown):x is Record<string,unknown>=>x!==null&&typeof x==='obje
 function registered(id:string,length:number):GameMap|null {
   if(id===DEFAULT_MAP.id)return DEFAULT_MAP;
   if(id===INTERNAL_TEST_MAP.id)return INTERNAL_TEST_MAP;
+  if(id===HARBOR_MAP.id)return HARBOR_MAP;
   if(id==='custom-'+length)return inferMap(length);
   return null;
 }
