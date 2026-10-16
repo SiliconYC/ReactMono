@@ -21,6 +21,7 @@ def main():
             page.goto(f'http://127.0.0.1:{server.server_port}/ReactMono/')
             page.wait_for_function("navigator.serviceWorker.controller!==null")
             assert page.locator('.tile').count()==24
+            assert '清除浏览器站点数据' in page.locator('.save-warning').inner_text()
             page.get_by_label('对局种子').fill('17')
             page.get_by_label('快速模式').check()
             page.get_by_role('button',name=re.compile('开始游戏')).click()
