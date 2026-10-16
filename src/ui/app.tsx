@@ -215,12 +215,13 @@ class App extends React.Component<object, UiState> {
     }, this.state.fastMode ? 8 : 220);
   }
 
-  dispatch = (type: GameAction['type']): void => {
+  dispatch = (type: GameAction['type'],tileId?:number): void => {
     if(this.state.storageBusy)return;
     const { game } = this.state;
     const actor = game.players[game.currentPlayerIndex];
     if (actor.kind === 'computer') return;
-    const result = applyAction(game, { type, actorId: actor.id });
+    const action:GameAction=type==='upgrade_property'?{type,actorId:actor.id,tileId:tileId??-1}:{type,actorId:actor.id};
+    const result = applyAction(game,action);
     if (!result.ok) {
       const reason = result.reason === 'INSUFFICIENT_FUNDS' ? '资金不足，无法购买这块地产。请放弃购买。' : '当前阶段不能执行这个操作。';
       this.setState({ message: reason });
@@ -237,6 +238,8 @@ class App extends React.Component<object, UiState> {
       return `${reason}${winner ? `赢家是${winner.name}！` : '双方净资产相同，平局！'}`;
     }
     if (events.some(e => e.type === 'game_started')) return '对局已开始！轮到玩家掷骰。';
+    const upgraded=events.find(e=>e.type==='property_upgraded');
+    if(upgraded)return `${actorName}升级了 ${upgraded.details?.tileId} 号地产至 ${upgraded.details?.level} 级，花费 ${upgraded.details?.amount} 游戏币。`;
     const bought = events.find(e => e.type === 'property_bought');
     if (bought) return `${actorName}花费 ${bought.details?.amount} 游戏币购买了 ${bought.details?.tileId} 号地产。现在可以结束回合。`;
     const rent = events.find(e => e.type === 'rent_paid');
@@ -257,6 +260,7 @@ class App extends React.Component<object, UiState> {
       case 'game_started': return '对局开始';
       case 'die_rolled': return `${person}掷出 ${event.details?.value} 点`;
       case 'tile_landed': return `${person}到达「${event.details?.title}」`;
+      case 'property_upgraded': return `${person}将 ${event.details?.tileId} 号地产升到 ${event.details?.level} 级（${event.details?.amount}）`;
       case 'property_bought': return `${person}买下 ${event.details?.tileId} 号地产（${event.details?.amount}）`;
       case 'rent_paid': return `${person}支付租金 ${event.details?.amount}`;
       case 'player_bankrupt': return `${person}破产`;
@@ -275,7 +279,7 @@ class App extends React.Component<object, UiState> {
         <span className="tile-index">{String(tile.id).padStart(2, '0')}</span>
         <span className="tile-icon" aria-hidden="true">{tile.kind === 'start' ? '★' : tile.kind === 'property' ? '⌂' : '☕'}</span>
         <span className="tile-name">{kindLabel[tile.kind]}{tile.kind === 'property' ? ` ${tile.id}` : ''}</span>
-        {tile.kind === 'property' && <span className="tile-value">{tile.ownerId ? (tile.ownerId === 'p1' ? '玩家所有' : '电脑所有') : `售价 ${tile.price}`}</span>}
+        {tile.kind === 'property' && <span className="tile-value">{tile.ownerId ? `${tile.ownerId === 'p1' ? '玩家' : '电脑'} · ${tile.level??0}级 · 租 ${tile.levelRents?.[tile.level??0]??tile.rent}` : `售价 ${tile.price}`}</span>}
         <div className="pieces">{residents.map(p => <span key={p.id} className={`piece ${p.kind}`} title={p.name}>{p.kind === 'human' ? '人' : '机'}</span>)}</div>
       </div>
     );
@@ -334,7 +338,10 @@ class App extends React.Component<object, UiState> {
                 {!hasMoneyForLand && <p className="insufficient-msg">资金不足，不能购买此地。</p>}
                 <button type="button" className="secondary-btn" onClick={() => this.dispatch('decline_property')}>放弃购买，继续回合 →</button>
               </div>}
-              {current.kind === 'human' && game.phase === 'await_end_turn' && <button type="button" className="primary-btn" onClick={() => this.dispatch('end_turn')}>结束当前回合 <span>→</span></button>}
+              {current.kind === 'human' && game.phase === 'await_end_turn' && <div className="purchase-actions">
+                {game.tiles.filter(t=>t.kind==='property'&&t.ownerId===current.id&&(t.level??0)<2).map(tile=><button type="button" key={tile.id} className="secondary-btn" disabled={current.cash<(tile.upgradeCosts?.[tile.level??0]??Infinity)} onClick={()=>this.dispatch('upgrade_property',tile.id)}>升级 {tile.title} → {(tile.level??0)+1} 级 · 费用 {tile.upgradeCosts?.[tile.level??0]}</button>)}
+                <button type="button" className="primary-btn" onClick={() => this.dispatch('end_turn')}>结束当前回合 <span>→</span></button>
+              </div>}
               {game.phase === 'finished' && <div className="result-box" role="status"><strong>{game.winnerId ? `${game.players.find(p => p.id === game.winnerId)?.name}获胜！` : '双方平局！'}</strong><p>{[...game.events].reverse().find(e => e.type === 'game_finished')?.details?.reason === 'bankruptcy' ? '结束原因：一方无法付清租金' : '结束原因：达到回合上限'}</p><p>最终净资产：玩家 {netWorth(game,'p1')} · 电脑 {netWorth(game,'p2')}</p><p>本局种子：{this.state.activeSeed}</p><button type="button" className="primary-btn" onClick={this.reset}>再来一局 <span>↻</span></button></div>}
               <p className="turn-tip" role="status">{message}</p>
             </div>
@@ -369,7 +376,7 @@ class App extends React.Component<object, UiState> {
             </div>
             <div className="players-card"><div className="card-label">玩家状态</div>{game.players.map(p => <div key={p.id} className={`player-line ${current.id === p.id && game.status === 'playing' ? 'is-current' : ''}`}><span className={`player-dot ${p.kind}`}>{p.kind === 'human' ? '人' : '机'}</span><div><strong>{p.name}</strong><small>{p.position} 号格 · 现金 {p.cash.toLocaleString('zh-CN')} · 资产 {netWorth(game,p.id).toLocaleString('zh-CN')}{p.bankrupt ? ' · 已破产' : ''}</small></div><span className="player-kind">{p.kind === 'human' ? '真人' : '电脑'}</span></div>)}</div>
             <div className="activity-card"><div className="card-label">最近事件</div><ol>{lastEvents.map((e,i) => <li key={`${game.events.length}-${i}`}>{this.describeEvent(e)}</li>)}</ol></div>
-            <div className="info-card"><strong>玩法说明</strong><p>① 点击「开始游戏」，轮到玩家时掷骰前进。② 到无主地产可买入或放弃；经过对手地产会自动付租。③ 处理完地块后结束回合，电脑会自动行动。</p><p>付不起租金立即破产；否则最多玩 60 轮，最终按现金加土地原价计算净资产。电脑购地后至少保留 200 游戏币。</p><p>这是 P1 简化可玩版：尚不包含升级、股票、卡片、存档或离线功能，后续阶段逐步加入。</p></div>
+            <div className="info-card"><strong>玩法说明</strong><p>① 点击「开始游戏」，轮到玩家时掷骰前进。② 到无主地产可买入或放弃；经过对手地产会自动付租。③ 处理完地块后结束回合，电脑会自动行动。</p><p>付不起租金立即破产；否则最多玩 60 轮，最终按现金加土地原价计算净资产。电脑购地后至少保留 200 游戏币。</p><p>P2 已支持升级、离线及本地存档；卡片和随机事件将在后续加入。</p></div>
           </aside>
         </div>
         <footer className="footer">纯前端 · 简体中文 · 不需要账号　｜　IndexedDB 本机存档 · 不上传云端</footer>
