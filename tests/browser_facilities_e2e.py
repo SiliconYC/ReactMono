@@ -47,6 +47,22 @@ def run():
             page.get_by_role('button',name='跳过当前停留回合').click()
             page.get_by_role('button',name=re.compile('掷骰前进')).wait_for(timeout=25000)
             assert '住院剩余' not in page.locator('.players-card').inner_text()
+            # Seed 104: human rolls 5, computer rolls 1, human rolls 4 -> prison #9.
+            page.reload(wait_until='load')
+            page.get_by_label('对局种子').fill('104')
+            page.get_by_label('启用医院、监狱与商店').check()
+            page.get_by_label('快速模式').check()
+            page.get_by_role('button',name=re.compile('开始游戏')).click()
+            page.get_by_role('button',name=re.compile('掷骰前进')).click()
+            page.get_by_role('button',name='购买地产').click()
+            page.get_by_role('button',name='结束当前回合').click()
+            page.get_by_role('button',name=re.compile('掷骰前进')).wait_for(timeout=25000)
+            page.get_by_role('button',name=re.compile('掷骰前进')).click()
+            page.wait_for_function("document.querySelector('.players-card')?.textContent.includes('入狱剩余 3 回合')")
+            page.get_by_role('button',name='结束当前回合').click()
+            page.get_by_role('button',name='跳过当前停留回合').wait_for(timeout=25000)
+            page.get_by_role('button',name='跳过当前停留回合').click()
+            assert '入狱剩余 2 回合' in page.locator('.players-card').inner_text()
             # Visit the shop on each original map, while keeping the whole route real,
             # no mutable engine state injection, no fake React rendering.
             for board in ['classic-24','harbor-20']:
