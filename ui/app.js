@@ -89,7 +89,9 @@ class App extends React.Component {
             await writeSlot('auto', '自动存档', 'auto', game);
             if (epoch !== this.saveEpoch)
                 return;
-            this.setState({ saveStatus: '自动保存成功 · 第 ' + game.round + ' 轮' });
+            // 后台自动保存不可盖掉文件损坏、导入冲突等用户必须看见的提示。
+            if (this.state.saveStatus === '本地存档已就绪' || this.state.saveStatus.startsWith('自动保存成功'))
+                this.setState({ saveStatus: '自动保存成功 · 第 ' + game.round + ' 轮' });
             await this.refreshSlots();
         }).catch(e => {
             if (epoch === this.saveEpoch)
@@ -307,6 +309,9 @@ class App extends React.Component {
         const upgraded = events.find(e => e.type === 'property_upgraded');
         if (upgraded)
             return `${actorName}升级了 ${upgraded.details?.tileId} 号地产至 ${upgraded.details?.level} 级，花费 ${upgraded.details?.amount} 游戏币。`;
+        const special = events.find(e => e.type === 'event_bonus' || e.type === 'event_fee');
+        if (special)
+            return special.type === 'event_bonus' ? `${actorName}触发幸运事件，获得 ${special.details?.amount} 游戏币。` : `${actorName}触发费用事件，支付 ${special.details?.amount} 游戏币（应付 ${special.details?.due}）。`;
         const bought = events.find(e => e.type === 'property_bought');
         if (bought)
             return `${actorName}花费 ${bought.details?.amount} 游戏币购买了 ${bought.details?.tileId} 号地产。现在可以结束回合。`;
@@ -330,6 +335,8 @@ class App extends React.Component {
             case 'game_started': return '对局开始';
             case 'die_rolled': return `${person}掷出 ${event.details?.value} 点`;
             case 'tile_landed': return `${person}到达「${event.details?.title}」`;
+            case 'event_bonus': return `${person}在事件格获得 ${event.details?.amount} 游戏币`;
+            case 'event_fee': return `${person}在事件格支付 ${event.details?.amount} 游戏币`;
             case 'property_upgraded': return `${person}将 ${event.details?.tileId} 号地产升到 ${event.details?.level} 级（${event.details?.amount}）`;
             case 'property_bought': return `${person}买下 ${event.details?.tileId} 号地产（${event.details?.amount}）`;
             case 'rent_paid': return `${person}支付租金 ${event.details?.amount}`;
@@ -345,9 +352,9 @@ class App extends React.Component {
         const residents = game.players.filter(p => p.position === tile.id);
         return (React.createElement("div", { key: tile.id, className: `tile tile-${tile.kind} ${tile.ownerId ? `tile-owned-${tile.ownerId}` : ''} ${residents.length ? 'tile-occupied' : ''}`, style: cellPosition(tile.id), "data-tile-id": tile.id, "aria-label": `${tile.id} 号地块，${tile.title}` },
             React.createElement("span", { className: "tile-index" }, String(tile.id).padStart(2, '0')),
-            React.createElement("span", { className: "tile-icon", "aria-hidden": "true" }, tile.kind === 'start' ? '★' : tile.kind === 'property' ? '⌂' : '☕'),
+            React.createElement("span", { className: "tile-icon", "aria-hidden": "true" }, tile.kind === 'start' ? '★' : tile.kind === 'property' ? '⌂' : tile.eventBonus !== undefined ? '✦' : '☕'),
             React.createElement("span", { className: "tile-name" },
-                kindLabel[tile.kind],
+                tile.eventBonus !== undefined ? '机会' : kindLabel[tile.kind],
                 tile.kind === 'property' ? ` ${tile.id}` : ''),
             tile.kind === 'property' && React.createElement("span", { className: "tile-value" }, tile.ownerId ? `${tile.ownerId === 'p1' ? '玩家' : '电脑'} · ${tile.level ?? 0}级 · 租 ${tile.levelRents?.[tile.level ?? 0] ?? tile.rent}` : `售价 ${tile.price}`),
             React.createElement("div", { className: "pieces" }, residents.map(p => React.createElement("span", { key: p.id, className: `piece ${p.kind}`, title: p.name }, p.kind === 'human' ? '人' : '机')))));
@@ -544,7 +551,7 @@ class App extends React.Component {
                         React.createElement("strong", null, "\u73A9\u6CD5\u8BF4\u660E"),
                         React.createElement("p", null, "\u2460 \u70B9\u51FB\u300C\u5F00\u59CB\u6E38\u620F\u300D\uFF0C\u8F6E\u5230\u73A9\u5BB6\u65F6\u63B7\u9AB0\u524D\u8FDB\u3002\u2461 \u5230\u65E0\u4E3B\u5730\u4EA7\u53EF\u4E70\u5165\u6216\u653E\u5F03\uFF1B\u7ECF\u8FC7\u5BF9\u624B\u5730\u4EA7\u4F1A\u81EA\u52A8\u4ED8\u79DF\u3002\u2462 \u5904\u7406\u5B8C\u5730\u5757\u540E\u7ED3\u675F\u56DE\u5408\uFF0C\u7535\u8111\u4F1A\u81EA\u52A8\u884C\u52A8\u3002"),
                         React.createElement("p", null, "\u4ED8\u4E0D\u8D77\u79DF\u91D1\u7ACB\u5373\u7834\u4EA7\uFF1B\u5426\u5219\u6700\u591A\u73A9 60 \u8F6E\uFF0C\u6700\u7EC8\u6309\u73B0\u91D1\u52A0\u571F\u5730\u539F\u4EF7\u8BA1\u7B97\u51C0\u8D44\u4EA7\u3002\u7535\u8111\u8D2D\u5730\u540E\u81F3\u5C11\u4FDD\u7559 200 \u6E38\u620F\u5E01\u3002"),
-                        React.createElement("p", null, "P2 \u5DF2\u652F\u6301\u5347\u7EA7\u3001\u79BB\u7EBF\u53CA\u672C\u5730\u5B58\u6863\uFF1B\u5361\u7247\u548C\u968F\u673A\u4E8B\u4EF6\u5C06\u5728\u540E\u7EED\u52A0\u5165\u3002")))),
+                        React.createElement("p", null, "P2 \u5DF2\u652F\u6301\u5347\u7EA7\u3001\u79BB\u7EBF\u3001\u672C\u5730\u5B58\u6863\u548C\u53EF\u590D\u73B0\u7684\u968F\u673A\u4E8B\u4EF6\uFF1B\u5361\u7247\u968F\u540E\u52A0\u5165\u3002")))),
             React.createElement("footer", { className: "footer" }, "\u7EAF\u524D\u7AEF \u00B7 \u7B80\u4F53\u4E2D\u6587 \u00B7 \u4E0D\u9700\u8981\u8D26\u53F7\u3000\uFF5C\u3000IndexedDB \u672C\u673A\u5B58\u6863 \u00B7 \u4E0D\u4E0A\u4F20\u4E91\u7AEF")));
     }
 }

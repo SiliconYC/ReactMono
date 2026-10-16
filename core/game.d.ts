@@ -1,6 +1,11 @@
 /** 独立于页面的确定性回合与棋盘规则核心；第 #4 期加入地产买卖、收租、破产与胜负规则。 */
 export declare const SCHEMA_VERSION: 2;
 export declare const UPGRADE_RULES_VERSION: 1;
+export declare const DEFAULT_EVENT_RULES: {
+    readonly tileIds: readonly [3, 9, 15, 21];
+    readonly bonus: 120;
+    readonly fee: 60;
+};
 export declare const DEFAULT_UPGRADES: {
     readonly costRates: readonly [0.5, 0.8];
     readonly rentRates: readonly [1, 2, 4];
@@ -29,6 +34,11 @@ export interface GameConfig {
         readonly costRates: readonly [number, number];
         readonly rentRates: readonly [number, number, number];
     };
+    readonly eventRules?: {
+        readonly tileIds: readonly number[];
+        readonly bonus: number;
+        readonly fee: number;
+    };
 }
 export interface Player {
     readonly id: PlayerId;
@@ -43,9 +53,11 @@ export interface Tile extends TileConfig {
     readonly level?: number;
     readonly upgradeCosts?: readonly [number, number];
     readonly levelRents?: readonly [number, number, number];
+    readonly eventBonus?: number;
+    readonly eventFee?: number;
 }
 export interface GameEvent {
-    readonly type: 'game_started' | 'die_rolled' | 'player_moved' | 'turn_ended' | 'tile_landed' | 'property_declined' | 'property_bought' | 'property_upgraded' | 'rent_paid' | 'player_bankrupt' | 'game_finished';
+    readonly type: 'game_started' | 'die_rolled' | 'player_moved' | 'turn_ended' | 'tile_landed' | 'property_declined' | 'property_bought' | 'property_upgraded' | 'event_bonus' | 'event_fee' | 'rent_paid' | 'player_bankrupt' | 'game_finished';
     readonly actorId?: PlayerId;
     readonly details?: Readonly<Record<string, string | number>>;
 }

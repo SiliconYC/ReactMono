@@ -23,7 +23,7 @@ function iso(x) {
 }
 const EVENT_TYPES = new Set([
     'game_started', 'die_rolled', 'player_moved', 'turn_ended', 'tile_landed', 'property_declined',
-    'property_bought', 'property_upgraded', 'rent_paid', 'player_bankrupt', 'game_finished'
+    'property_bought', 'property_upgraded', 'rent_paid', 'event_bonus', 'event_fee', 'player_bankrupt', 'game_finished'
 ]);
 /** 校验当前规则 v1 的每一项持久化字段，避免不完整对象影响回合结算。 */
 export function validateGameState(value) {
@@ -78,7 +78,11 @@ export function validateGameState(value) {
                 throw new SaveError('INVALID_STATE', '存档数据无效：地产价格、租金或产权非法');
         }
         else {
-            keys(t, ['id', 'kind', 'title', 'ownerId']);
+            keys(t, ['id', 'kind', 'title', 'ownerId'], ['eventBonus', 'eventFee']);
+            if (t.eventBonus !== undefined || t.eventFee !== undefined) {
+                if (t.kind !== 'neutral' || !finite(t.eventBonus, 0, 1_000_000_000_000) || !finite(t.eventFee, 0, 1_000_000_000_000))
+                    throw new SaveError('INVALID_STATE', '存档数据无效：随机事件配置错误');
+            }
             if ((t.kind !== 'start' && t.kind !== 'neutral') || t.ownerId !== null)
                 throw new SaveError('INVALID_STATE', '存档数据无效：普通格或起点数据非法');
         }
