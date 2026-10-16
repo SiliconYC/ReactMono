@@ -536,18 +536,25 @@ class App extends React.Component<object, UiState> {
                 <button type="button" className="secondary-btn" onClick={() => this.dispatch('decline_property')}>放弃购买，继续回合 →</button>
               </div>}
               {current.kind === 'human' && !this.state.awaitingHandoff && game.phase === 'await_end_turn' && <div className="purchase-actions">
+                <div className="action-navigation" role="navigation" aria-label="交易操作快捷入口">
+                  {([{id:'property-management',label:'地产管理'},...(game.bank?[{id:'bank-actions',label:'银行存取'}]:[]),...(game.loan?[{id:'loan-actions',label:'抵押借贷'}]:[]),...(game.market?[{id:'stock-actions',label:'股票交易'}]:[])]).map(link=>
+                    <button key={link.id} type="button" onClick={()=>document.getElementById(link.id)?.scrollIntoView({behavior:'smooth',block:'start'})}>{link.label} ↓</button>)}
+                </div>
+                <strong id="property-management" className="management-heading">地产管理 · {current.name}</strong>
                 {game.tiles.filter(t=>t.kind==='property'&&t.ownerId===current.id&&t.mortgaged!==true&&(t.level??0)<2).map(tile=><button type="button" key={tile.id} className="secondary-btn" disabled={current.cash<(tile.upgradeCosts?.[tile.level??0]??Infinity)} onClick={()=>this.dispatch('upgrade_property',tile.id)}>升级 {tile.title} → {(tile.level??0)+1} 级 · 费用 {tile.upgradeCosts?.[tile.level??0]}</button>)}
                 {game.tiles.filter(t=>t.kind==='property'&&t.ownerId===current.id&&t.mortgaged!==true).map(tile=><button type="button" key={'sell-'+tile.id} className="secondary-btn" onClick={()=>{
                   if(window.confirm('确认出售「'+tile.title+'」？价格 '+resaleValue(tile,game.resaleRules)+' 游戏币，建筑升级不返还原价。'))this.dispatch('sell_property',tile.id);
                 }}>出售 {tile.title} · 回收 {resaleValue(tile,game.resaleRules)} 游戏币</button>)}
-                {game.bank&&<div className="bank-actions" role="group" aria-label="银行操作">
+                {game.bank&&<div id="bank-actions" className="bank-actions" role="group" aria-label="银行操作">
+                  <strong className="management-heading">银行存取 · {current.name}</strong>
                   <p className="purchase-info">银行：每完成一轮按 {game.bank.interestBps/100}% 结息，现金与存款分开计算，欠租时优先自动取款。</p>
                   <label htmlFor="bank-amount">银行交易金额（游戏币）</label>
                   <input id="bank-amount" aria-label="银行交易金额" inputMode="numeric" type="text" value={this.state.bankAmountInput} onChange={(e:{target:{value:string}})=>this.setState({bankAmountInput:e.target.value})}/>
-                  <button type="button" className="secondary-btn" onClick={()=>this.dispatch('deposit_bank')}>存入银行</button>
-                  <button type="button" className="secondary-btn" onClick={()=>this.dispatch('withdraw_bank')}>从银行取款</button>
+                  <button type="button" className="secondary-btn" disabled={!/^[1-9][0-9]*$/.test(this.state.bankAmountInput)||Number(this.state.bankAmountInput)>current.cash} onClick={()=>this.dispatch('deposit_bank')}>存入银行</button>
+                  <button type="button" className="secondary-btn" disabled={!/^[1-9][0-9]*$/.test(this.state.bankAmountInput)||Number(this.state.bankAmountInput)>(current.bankBalance??0)} onClick={()=>this.dispatch('withdraw_bank')}>从银行取款</button>
                 </div>}
-                {game.loan&&<div className="bank-actions loan-actions" role="group" aria-label="地产抵押与贷款">
+                {game.loan&&<div id="loan-actions" className="bank-actions loan-actions" role="group" aria-label="地产抵押与贷款">
+                  <strong className="management-heading">抵押借贷 · {current.name}</strong>
                    <p className="purchase-info">贷款 {(current.loanBalance??0).toLocaleString('zh-CN')} · 抵押额度 {loanLimit(game,current.id)} · 每轮利率 {game.loan.interestBps/100}%。抵押地产暂停租金、升级和出售；超额时银行收回抵押物。</p>
                    {game.tiles.filter(t=>t.kind==='property'&&t.ownerId===current.id).map(tile=>
                      <button type="button" key={'lien-'+tile.id} className="secondary-btn"
@@ -556,11 +563,11 @@ class App extends React.Component<object, UiState> {
                        {tile.mortgaged===true?'解除抵押':'抵押'} {tile.title}
                      </button>)}
                    <p className="purchase-info">上方银行交易金额同样用于借贷。当前可借 {Math.max(0,loanLimit(game,current.id)-(current.loanBalance??0))} 游戏币。</p>
-                   <button type="button" className="secondary-btn" onClick={()=>this.dispatch('borrow_loan')}>借入贷款</button>
-                   <button type="button" className="secondary-btn" onClick={()=>this.dispatch('repay_loan')}>偿还贷款</button>
+                   <button type="button" className="secondary-btn" disabled={!/^[1-9][0-9]*$/.test(this.state.bankAmountInput)||Number(this.state.bankAmountInput)>loanLimit(game,current.id)-(current.loanBalance??0)} onClick={()=>this.dispatch('borrow_loan')}>借入贷款</button>
+                   <button type="button" className="secondary-btn" disabled={!/^[1-9][0-9]*$/.test(this.state.bankAmountInput)||Number(this.state.bankAmountInput)>Math.min(current.cash,current.loanBalance??0)} onClick={()=>this.dispatch('repay_loan')}>偿还贷款</button>
                  </div>}
-                 {game.market&&<div className="bank-actions stock-actions" role="group" aria-label="股票交易">
-                    <strong>虚拟股票交易所</strong>
+                 {game.market&&<div id="stock-actions" className="bank-actions stock-actions" role="group" aria-label="股票交易">
+                    <strong>虚拟股票交易所 · {current.name}</strong>
                     <p className="purchase-info">本轮报价 · 每笔交易手续费 0.5%，最低 1 游戏币。仅使用手持现金，按当前市场价成交；行情每轮变化。</p>
                     <label htmlFor="stock-amount">股票交易数量（股）</label>
                     <input id="stock-amount" type="text" aria-label="股票交易数量" inputMode="numeric"
@@ -575,8 +582,8 @@ class App extends React.Component<object, UiState> {
                       return <div className="stock-entry" key={stock.id}>
                         <div><strong>{stock.name}</strong>（{stock.id}） · 报价 {quote} 游戏币</div>
                         <div className="purchase-info">持有 {held} 股 · 成本 {lot?.costBasis??0} · 市值 {marketValue} · 浮动盈亏 {pnl>=0?'+':''}{pnl}</div>
-                        <button type="button" className="secondary-btn" onClick={()=>this.dispatch('buy_stock',undefined,undefined,stock.id)}>买入 {stock.name}</button>
-                        <button type="button" className="secondary-btn" onClick={()=>this.dispatch('sell_stock',undefined,undefined,stock.id)}>卖出 {stock.name}</button>
+                        <button type="button" className="secondary-btn" disabled={!/^[1-9][0-9]*$/.test(this.state.stockAmountInput)||quote*Number(this.state.stockAmountInput)+Math.max(1,Math.ceil(quote*Number(this.state.stockAmountInput)*0.005))>current.cash} onClick={()=>this.dispatch('buy_stock',undefined,undefined,stock.id)}>买入 {stock.name}</button>
+                        <button type="button" className="secondary-btn" disabled={!/^[1-9][0-9]*$/.test(this.state.stockAmountInput)||Number(this.state.stockAmountInput)>held} onClick={()=>this.dispatch('sell_stock',undefined,undefined,stock.id)}>卖出 {stock.name}</button>
                       </div>;
                     })}
                     <p className="purchase-info">持仓市值：{STOCKS.reduce((sum,stock)=>sum+(current.holdings?.[stock.id]?.quantity??0)*quoteMarket(game.market!,stock.id),0).toLocaleString('zh-CN')} 游戏币。</p>
