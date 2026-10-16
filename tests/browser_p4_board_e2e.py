@@ -81,7 +81,7 @@ def run():
           assert not report['bad'] and not report['overlaps'],report
           assert not report['pieceOverlap'] and report['pieces']==['1','2','3','4'],report
           assert report['artwork'] and report['selected']==1,report
-          assert report['documentWidth']<=width+2,report
+          assert report['viewport']<=width+2 and report['documentWidth']<=width+2,report
           if width==320:assert report['scrollable'],report
           else:assert not report['scrollable'],report
           assert page.locator('.tile-current').count()==1
@@ -108,7 +108,8 @@ def run():
             page.wait_for_function('navigator.serviceWorker.controller!==null',timeout=30000)
             context.set_offline(True)
             page.reload(wait_until='load')
-            assert page.locator('.tile').count()==20 or page.locator('.tile').count()==24
+            page.get_by_label('游戏地图').select_option('harbor-20')
+            assert page.locator('.tile').count()==20
             assert page.locator('.tile-artwork').count()==page.locator('.tile').count()
             assert page.locator('link[href="./board-art.css"]').count()==1
             assert page.locator('.tile').first.evaluate(
