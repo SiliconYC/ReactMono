@@ -20,7 +20,7 @@ test('P3-02: 2 to 4 configurable player kinds and illegal configs', () => {
     const s=createGame(77,config(n));
     assert.equal(s.players.length,n);
     assert.deepEqual(s.players.map(p=>p.kind),players(n).map(p=>p.kind));
-    assert.equal(s.schemaVersion,3);
+    assert.equal(s.schemaVersion,4);
   }
   for (const n of [1,5]) assert.throws(()=>createGame(1,config(n)),/玩家/);
   assert.throws(()=>createGame(1,{...config(3),players:[...players(2),{...players(2)[0]}]}),/玩家/);
@@ -75,12 +75,13 @@ test('P3-02: 100 deterministic complete games for each of 2/3/4 players', () => 
 test('P3-02: legacy v2 two-player save upgrades to v3 without lost property, events or PRNG state', () => {
   let current=ok(createGame(31),'start_game');
   current=ok(current,'roll');
-  const old={...current,schemaVersion:2};
+  const old={...current,schemaVersion:2};delete old.map;
   const payload={format:'reactmono-save',formatVersion:1,rulesVersion:2,
     createdAt:'2026-10-15T00:00:00.000Z',updatedAt:'2026-10-15T00:00:00.000Z',game:old};
   const imported=deserializeGame(JSON.stringify({...payload,checksum:checksum(JSON.stringify(payload))}));
-  assert.equal(imported.rulesVersion,3);
-  assert.equal(imported.game.schemaVersion,3);
-  assert.deepEqual({...imported.game,schemaVersion:2},old);
+  assert.equal(imported.rulesVersion,4);
+  assert.equal(imported.game.schemaVersion,4);
+  const {map,...recovered}=imported.game;
+  assert.deepEqual({...recovered,schemaVersion:2},old);
   assert.deepEqual(deserializeGame(serializeGame(imported.game)).game,imported.game);
 });
