@@ -169,3 +169,16 @@
 - 发现 #38 行情引擎既有回归要求市场启用与否不得改变空仓玩家形状；修复为首次实际交易才生成 holdings，`7f97795`。测试用例原先直接手改 round 导致银行时钟不一致；更改为真实四人逐一结束回合，`c6fa190`。未交易玩家允许缺少 holdings 字段，`edad970`。均保留旧测试不变。
 - 股票交易规则及资产边界见 [P3_STOCKS.md](P3_STOCKS.md)：单次手续费 0.5% 最低 1 游戏币，成本按股数分摊，股票按实时模拟行情计入净资产，租金不够时先强制平仓，再清算地产/贷款。市场随机流不受交易影响。
 - 独立真实 Chrome 离线验收 `tests/browser_stocks_e2e.py` 已加入 PR CI，执行买入、跨轮、卖出、JSON 备份导出和重新导入；100 个种子的交易复演同时验证。最终最新提交 CI、合并后 dev CI、Pages 发布状态尚待核验，在这些检查完成前不得宣布 #39 交付成功。
+
+
+## 2026-10-16 · P3-11 策略卡（#40，已验收）
+
+- 自 `dev@e3043aea` 建立独立分支 `issue-40-strategy-cards`，分步推送并经 [PR #56](https://github.com/SiliconYC/ReactMono/pull/56) 合并到 `dev`（`5ac4017d18f43d3b2396c91fd539618eb4c700b2`），#40 关闭。没有修改 main。
+- 新增遥控骰子、路障和免租卡的合法命令、多人经济结算和中文界面，兼容旧版 v4 存档；确定性 100 种子及实际 Chromium 本地离线验收纳入持续集成。
+- 验收证据：[PR CI #38869659735](https://github.com/SiliconYC/ReactMono/actions/runs/38869659735)、[dev CI #38870093002](https://github.com/SiliconYC/ReactMono/actions/runs/38870093002) 和 [Pages #38870093177](https://github.com/SiliconYC/ReactMono/actions/runs/38870093177) 均成功。已核对 gh-pages 发布产物包含新版界面和策略引擎；未声称额外的公网浏览器人工实测。规则及回滚见 [P3_STRATEGY_CARDS.md](P3_STRATEGY_CARDS.md)。
+
+## 2026-10-16 · P3-12 医院、监狱与商店（#41，正在验收）
+
+- 在 #40 合并并关闭后才从 `dev@5ac4017d` 创建独立 `issue-41-special-facilities`，Draft [PR #57](https://github.com/SiliconYC/ReactMono/pull/57)，按子任务推送设施配置、可选状态、玩家暂停/释放、商店库存和经济、持久化验证、AI 与中文操作页面。
+- 选择**显式启用经典设施**，以免新医院/监狱覆盖旧机会格后改变原有浏览器回归语义；旧地图和旧存档仍原样工作。严格存档验证不允许把设施状态伪造到老对局。
+- 开发中曾遇到 UI 对新 `GameAction` 的 TypeScript 分支收窄错误，修复后 Node 全套已成功运行。正在补实际 Chromium 断网、跨图购物及医院存档恢复验收；此日志**不代表 #41 已合并或已完成**。详情见 [P3_FACILITIES.md](P3_FACILITIES.md)。
