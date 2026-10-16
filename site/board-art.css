@@ -131,3 +131,11 @@
 }
 @media(max-width:365px){.board{min-width:360px}.board-viewport{scroll-snap-type:x proximity}.board .tile{scroll-snap-align:start}}
 @media(prefers-reduced-motion:reduce){.board .tile{transition:none}}
+
+/* Reset stays reachable from the header during a live game; no headline needed. */
+.topbar .reset-btn{margin-left:auto;flex:none;font-size:13px;padding:9px 12px;border-radius:9px}
+@media(max-width:650px){
+ .topbar .version-tag{display:none}
+ .topbar .reset-btn{padding:7px 9px;font-size:12px}
+ .topbar .network-indicator{margin-left:auto}
+}
