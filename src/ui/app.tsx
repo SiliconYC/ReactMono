@@ -1,16 +1,14 @@
-import { applyAction, createGame, type GameAction, type CardKind, type GameEvent, type GameState, type Tile, type PlayerConfig, DEFAULT_CONFIG, netWorth } from '../core/game.js';
+import { applyAction, createGame, type GameAction, type CardKind, type GameEvent, type GameState, type Tile, type GameMap, type PlayerConfig, DEFAULT_CONFIG, netWorth } from '../core/game.js';
 import { chooseComputerAction } from '../core/agent.js';
 import { listSlots, readSlot, writeSlot, deleteSlot, type SlotSummary } from '../storage/indexeddb.js';
 import { deserializeGame, MAX_SAVE_CHARS, type SaveEnvelope } from '../core/save.js';
 
 interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly playerSetup: readonly PlayerConfig[]; readonly roundsInput: string; readonly awaitingHandoff: boolean; readonly fastMode: boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; readonly importPreview: SaveEnvelope | null; readonly importName: string; readonly offline: boolean; readonly pwaUpdate: boolean; readonly pwaMessage: string; }
 
-/** 环形棋盘固定 8 列 × 6 行：8 + 4 + 8 + 4 = 24 格。 */
-function cellPosition(index: number): { gridColumn: number; gridRow: number } {
-  if (index < 8) return { gridColumn: index + 1, gridRow: 1 };
-  if (index < 12) return { gridColumn: 8, gridRow: index - 6 };
-  if (index < 20) return { gridColumn: 20 - index, gridRow: 6 };
-  return { gridColumn: 1, gridRow: 25 - index };
+/** Read screen positions from map data, never infer them from the tile ID. */
+function cellPosition(map:GameMap,index:number):{gridColumn:number;gridRow:number}{
+  const point=map.cells[index];
+  return {gridColumn:point.column,gridRow:point.row};
 }
 
 const kindLabel: Record<Tile['kind'], string> = { start: '起点', property: '地产', neutral: '休息' };
@@ -320,7 +318,7 @@ class App extends React.Component<object, UiState> {
     const { game } = this.state;
     const residents = game.players.filter(p => p.position === tile.id && !p.bankrupt);
     return (
-      <div key={tile.id} className={`tile tile-${tile.kind} ${tile.ownerId ? `tile-owned-${tile.ownerId}` : ''} ${residents.length ? 'tile-occupied' : ''}`} style={cellPosition(tile.id)} data-tile-id={tile.id} aria-label={`${tile.id} 号地块，${tile.title}`}>
+      <div key={tile.id} className={`tile tile-${tile.kind} ${tile.ownerId ? `tile-owned-${tile.ownerId}` : ''} ${residents.length ? 'tile-occupied' : ''}`} style={cellPosition(game.map,tile.id)} data-tile-id={tile.id} aria-label={`${tile.id} 号地块，${tile.title}`}>
         <span className="tile-index">{String(tile.id).padStart(2, '0')}</span>
         <span className="tile-icon" aria-hidden="true">{tile.kind === 'start' ? '★' : tile.kind === 'property' ? '⌂' : tile.eventBonus!==undefined ? '✦' : tile.cardStation ? '▣' : '☕'}</span>
         <span className="tile-name">{tile.eventBonus!==undefined?'机会':tile.cardStation?'卡片':kindLabel[tile.kind]}{tile.kind === 'property' ? ` ${tile.id}` : ''}</span>
@@ -352,15 +350,20 @@ class App extends React.Component<object, UiState> {
         </header>
         <section className="headline"><div><span className="section-eyebrow">24 格 · 2～4 人 · 本机轮流</span><h1>每一步，都是一笔生意。</h1><p>邀请朋友在同一设备轮流行动，也可以与一名或多名电脑玩家对抗。所有对局都在本地完成。</p></div><button type="button" className="reset-btn" onClick={this.reset}>↻ 重新开局</button></section>
         <div className="layout">
-          <section className="board-card" aria-label="24 格游戏棋盘">
-            <div className="board">
+          <section className="board-card" aria-label={`${game.tiles.length} 格游戏棋盘`}>
+            <div className="board" style={{
+              gridTemplateColumns:`repeat(${game.map.columns},minmax(0,1fr))`,
+              gridTemplateRows:`repeat(${game.map.rows},minmax(0,1fr))`,
+              ...(game.map.id==='classic-24'?{}:{aspectRatio:`${game.map.columns}/${game.map.rows}`})
+            }}>
               {game.tiles.map(this.renderTile)}
-              <div className="board-center">
+              {game.map.columns>2&&game.map.rows>2&&game.map.cells.every(p=>p.row===1||p.row===game.map.rows||p.column===1||p.column===game.map.columns)&&
+              <div className="board-center" style={{gridColumn:`2/${game.map.columns}`,gridRow:`2/${game.map.rows}`}}>
                 <div className="board-center-label">当前第 <b>{game.round}</b> / {game.maxRounds} 轮</div>
                 <div className="center-title">环游大富翁<span>体验棋盘</span></div>
                 <div className="dice-display" aria-label="上一次骰子点数">{previousRoll ? '⚀⚁⚂⚃⚄⚅'[Number(previousRoll.details?.value) - 1] : '⚄'}</div>
                 <div className="center-subtitle">{previousRoll ? `上次掷出 ${previousRoll.details?.value} 点` : '等待第一颗骰子'}</div>
-              </div>
+              </div>}
             </div>
             <div className="board-legend"><span><i className="legend-property"/>无主地产</span><span><i className="legend-owned-human"/>玩家地产</span><span><i className="legend-owned-computer"/>电脑地产</span><span><i className="legend-neutral"/>普通格</span><span><i className="legend-start"/>起点</span></div>
           </section>
