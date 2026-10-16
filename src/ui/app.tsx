@@ -470,7 +470,7 @@ class App extends React.Component<object, UiState> {
         </section>}
         <div className="layout">
           <section className="board-card" aria-label={`${game.tiles.length} 格游戏棋盘`}>
-            <div className="board-viewport" tabIndex={0} aria-label="可交互游戏地图；小屏可横向滚动">
+            <div className="board-viewport" tabIndex={0} aria-label="棋盘浏览区；窄屏可横向滚动">
               <div className={`board board-${game.map.id==='harbor-20'?'harbor':'classic'}`} data-board-theme={game.map.id}
                 style={{
                   gridTemplateColumns:`repeat(${game.map.columns},minmax(0,1fr))`,
