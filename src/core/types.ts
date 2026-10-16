@@ -1,5 +1,5 @@
 /** P3-01: stable pure-data contracts. No UI, storage or rules imports. */
-import type { StockMarket } from './market.js';
+import type { StockMarket, StockId } from './market.js';
 export const SCHEMA_VERSION = 4 as const;
 export const UPGRADE_RULES_VERSION = 1 as const;
 export type CardKind = 'reward' | 'stride';
@@ -49,6 +49,8 @@ export interface GameConfig {
   readonly eventRules?: {readonly tileIds:readonly number[];readonly bonus:number;readonly fee:number};
   readonly cardRules?: {readonly tileIds:readonly number[];readonly rewardCash:number;readonly moveBonus:number;readonly maxHand:number};
 }
+export interface StockHolding { readonly quantity:number; readonly costBasis:number; }
+export type StockHoldings = Readonly<Partial<Record<StockId,StockHolding>>>;
 export interface Player {
   readonly id: PlayerId;
   readonly name: string;
@@ -58,6 +60,7 @@ export interface Player {
   /** Optional for legacy states; enabled games always initialize to zero. */
   readonly bankBalance?: number;
   readonly loanBalance?: number;
+  readonly holdings?: StockHoldings;
   readonly bankrupt: boolean;
   readonly cards?:Readonly<Record<CardKind,number>>;
 }
@@ -72,7 +75,7 @@ export interface Tile extends TileConfig {
   readonly cardStation?:boolean;
 }
 export interface GameEvent {
-  readonly type: 'game_started' | 'die_rolled' | 'player_moved' | 'turn_ended' | 'tile_landed' | 'property_declined' | 'property_bought' | 'property_upgraded' | 'property_sold' | 'property_liquidated' | 'bank_deposited' | 'bank_withdrawn' | 'bank_interest' | 'property_mortgaged' | 'property_released' | 'loan_borrowed' | 'loan_repaid' | 'loan_interest' | 'loan_default' | 'event_bonus' | 'event_fee' | 'card_received' | 'card_used' | 'rent_paid' | 'player_bankrupt' | 'game_finished';
+  readonly type: 'game_started' | 'die_rolled' | 'player_moved' | 'turn_ended' | 'tile_landed' | 'property_declined' | 'property_bought' | 'property_upgraded' | 'property_sold' | 'property_liquidated' | 'bank_deposited' | 'bank_withdrawn' | 'bank_interest' | 'property_mortgaged' | 'property_released' | 'loan_borrowed' | 'loan_repaid' | 'loan_interest' | 'loan_default' | 'stock_bought' | 'stock_sold' | 'stock_liquidated' | 'event_bonus' | 'event_fee' | 'card_received' | 'card_used' | 'rent_paid' | 'player_bankrupt' | 'game_finished';
   readonly actorId?: PlayerId;
   readonly details?: Readonly<Record<string, string | number>>;
 }
@@ -109,6 +112,7 @@ export type GameAction =
   | { readonly type: 'upgrade_property'; readonly actorId: PlayerId; readonly tileId: number }
   | { readonly type: 'sell_property'; readonly actorId: PlayerId; readonly tileId: number }
   | { readonly type: 'mortgage_property' | 'release_mortgage'; readonly actorId: PlayerId; readonly tileId:number }
+  | { readonly type: 'buy_stock' | 'sell_stock'; readonly actorId:PlayerId; readonly stockId:StockId; readonly quantity:number }
   | { readonly type: 'borrow_loan' | 'repay_loan'; readonly actorId: PlayerId; readonly amount:number }
   | { readonly type: 'deposit_bank' | 'withdraw_bank'; readonly actorId: PlayerId; readonly amount:number }
   | { readonly type: 'use_card'; readonly actorId:PlayerId; readonly cardType:CardKind; readonly targetId?:PlayerId };
