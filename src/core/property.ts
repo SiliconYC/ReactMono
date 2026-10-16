@@ -1,5 +1,6 @@
 /** P3-01: pure property creation and net worth valuation. */
 import type { TileConfig, Tile, GameConfig, GameState, PlayerId, Player, GameAction, ActionResult, GameEvent, ResaleRules } from './types.js';
+import { quoteMarket } from './market.js';
 import { DEFAULT_UPGRADES, DEFAULT_RESALE_RULES } from './config.js';
 import { accept, reject } from './transitions.js';
 export function makePropertyTile(t: TileConfig, upgrades: GameConfig['upgrades']=DEFAULT_UPGRADES): Tile {
@@ -14,7 +15,7 @@ export function makePropertyTile(t: TileConfig, upgrades: GameConfig['upgrades']
 export function netWorth(state: GameState, playerId: PlayerId): number {
   const player = state.players.find(p => p.id === playerId);
   if (!player) throw new Error('玩家不存在');
-  return player.cash + (player.bankBalance??0) - (player.loanBalance??0) + state.tiles.reduce((sum, tile) =>
+  return player.cash + (player.bankBalance??0) - (player.loanBalance??0) + (state.market?Object.entries(player.holdings??{}).reduce((sum,[id,lot])=>sum+lot.quantity*quoteMarket(state.market!,id),0):0) + state.tiles.reduce((sum, tile) =>
     sum + (tile.ownerId === playerId && tile.kind === 'property'
       ? (tile.price??0)+(tile.upgradeCosts??[]).slice(0,tile.level??0).reduce((a,b)=>a+b,0) : 0), 0);
 }
