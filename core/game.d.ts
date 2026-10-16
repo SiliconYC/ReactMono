@@ -1,6 +1,13 @@
 /** 独立于页面的确定性回合与棋盘规则核心；第 #4 期加入地产买卖、收租、破产与胜负规则。 */
 export declare const SCHEMA_VERSION: 2;
 export declare const UPGRADE_RULES_VERSION: 1;
+export type CardKind = 'reward' | 'stride';
+export declare const DEFAULT_CARD_RULES: {
+    readonly tileIds: readonly [6, 12, 18];
+    readonly rewardCash: 80;
+    readonly moveBonus: 2;
+    readonly maxHand: 3;
+};
 export declare const DEFAULT_EVENT_RULES: {
     readonly tileIds: readonly [3, 9, 15, 21];
     readonly bonus: 120;
@@ -39,6 +46,12 @@ export interface GameConfig {
         readonly bonus: number;
         readonly fee: number;
     };
+    readonly cardRules?: {
+        readonly tileIds: readonly number[];
+        readonly rewardCash: number;
+        readonly moveBonus: number;
+        readonly maxHand: number;
+    };
 }
 export interface Player {
     readonly id: PlayerId;
@@ -47,6 +60,7 @@ export interface Player {
     readonly position: number;
     readonly cash: number;
     readonly bankrupt: boolean;
+    readonly cards?: Readonly<Record<CardKind, number>>;
 }
 export interface Tile extends TileConfig {
     readonly ownerId: PlayerId | null;
@@ -55,15 +69,22 @@ export interface Tile extends TileConfig {
     readonly levelRents?: readonly [number, number, number];
     readonly eventBonus?: number;
     readonly eventFee?: number;
+    readonly cardStation?: boolean;
 }
 export interface GameEvent {
-    readonly type: 'game_started' | 'die_rolled' | 'player_moved' | 'turn_ended' | 'tile_landed' | 'property_declined' | 'property_bought' | 'property_upgraded' | 'event_bonus' | 'event_fee' | 'rent_paid' | 'player_bankrupt' | 'game_finished';
+    readonly type: 'game_started' | 'die_rolled' | 'player_moved' | 'turn_ended' | 'tile_landed' | 'property_declined' | 'property_bought' | 'property_upgraded' | 'event_bonus' | 'event_fee' | 'card_received' | 'card_used' | 'rent_paid' | 'player_bankrupt' | 'game_finished';
     readonly actorId?: PlayerId;
     readonly details?: Readonly<Record<string, string | number>>;
 }
 export interface GameState {
     readonly schemaVersion: typeof SCHEMA_VERSION;
     readonly upgradeRulesVersion: typeof UPGRADE_RULES_VERSION;
+    readonly cardRules?: {
+        readonly rewardCash: number;
+        readonly moveBonus: number;
+        readonly maxHand: number;
+    };
+    readonly pendingMoveBonus?: number;
     readonly status: 'setup' | 'playing' | 'finished';
     readonly phase: Phase;
     readonly revision: number;
@@ -95,6 +116,11 @@ export type GameAction = {
     readonly type: 'upgrade_property';
     readonly actorId: PlayerId;
     readonly tileId: number;
+} | {
+    readonly type: 'use_card';
+    readonly actorId: PlayerId;
+    readonly cardType: CardKind;
+    readonly targetId?: PlayerId;
 };
 export type RejectReason = 'INVALID_PHASE' | 'INVALID_ACTOR' | 'INSUFFICIENT_FUNDS';
 export type ActionResult = {
