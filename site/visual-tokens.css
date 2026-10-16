@@ -1,0 +1,54 @@
+/* P4 #63: 原创“纸艺小镇”设计令牌。所有 UI 资源同源，离线可用。 */
+:root, .v-theme-paper {
+  --rm-bg:#f8f5ed;
+  --rm-surface:#fffdf7;
+  --rm-ink:#293d34;
+  --rm-muted:#647769;
+  --rm-primary:#286b50;
+  --rm-primary-ink:#ffffff;
+  --rm-secondary:#e5efe3;
+  --rm-accent:#e9a45c;
+  --rm-line:#d5ddce;
+  --rm-land:#c8e5bd;
+  --rm-water:#a6d7dd;
+  --rm-danger:#af514b;
+  --rm-player-a:#2879a4;
+  --rm-player-b:#c45b48;
+  --rm-radius-sm:10px;
+  --rm-radius-lg:22px;
+  --rm-space:8px;
+  --rm-font:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  --rm-shadow:0 8px 22px #263b2f12;
+  --rm-focus:0 0 0 3px #eeaa64;
+}
+/* 对照候选：糖果霓虹。保留可测试变体，不应用于正式游戏。 */
+.v-theme-candy {
+  --rm-bg:#f8eefe;
+  --rm-surface:#ffffff;
+  --rm-ink:#342352;
+  --rm-muted:#74638a;
+  --rm-primary:#6945c5;
+  --rm-secondary:#f0e0ff;
+  --rm-accent:#ff8b75;
+  --rm-line:#dfcffa;
+  --rm-land:#ffe1ad;
+  --rm-water:#b9e6fe;
+  --rm-player-a:#8456d5;
+  --rm-player-b:#e7679c;
+  --rm-shadow:0 10px 24px #613a921a;
+}
+/* P4 渐进接入：不触碰布局、命令和存档状态；这里只替换统一的视觉语义。 */
+.app-shell { font-family:var(--rm-font);color:var(--rm-ink); }
+.app-shell .primary-btn { background:var(--rm-primary);color:var(--rm-primary-ink); }
+.app-shell .primary-btn:hover:not(:disabled) { background:#215b44; }
+.app-shell .primary-btn:focus-visible,
+.app-shell .secondary-btn:focus-visible,
+.app-shell a:focus-visible { outline:3px solid var(--rm-accent);outline-offset:3px; }
+.app-shell .tile:not(.tile-start):not([class*="tile-owned-"]) { border-color:var(--rm-line); }
+.app-shell .board-card,.app-shell .turn-card,.app-shell .players-card,
+.app-shell .activity-card,.app-shell .asset-overview { box-shadow:var(--rm-shadow); }
+.visual-lab-link { color:var(--rm-primary);font-size:13px;font-weight:750;text-underline-offset:4px;white-space:nowrap; }
+@media(max-width:650px){.visual-lab-link{font-size:12px}}
+@media(prefers-reduced-motion:reduce){
+  .app-shell *, .visual-lab * { animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important; }
+}

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "policy": "All resources from this repository; no runtime CDN or external fonts; cache offline.",
+  "assets": [
+    {
+      "path": "art/house.svg",
+      "type": "image/svg+xml",
+      "purpose": "棋盘地产",
+      "source": "原创手绘 SVG",
+      "author": "ReactMono P4",
+      "license": "CC0-1.0"
+    },
+    {
+      "path": "art/coin.svg",
+      "type": "image/svg+xml",
+      "purpose": "棋盘起点",
+      "source": "原创手绘 SVG",
+      "author": "ReactMono P4",
+      "license": "CC0-1.0"
+    }
+  ],
+  "font": {
+    "stack": "system-ui, PingFang SC, Microsoft YaHei",
+    "externalDownloads": false
+  },
+  "audio": []
+}
