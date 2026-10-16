@@ -1,5 +1,6 @@
 /** 简单、确定性电脑玩家：从只读状态选择合法命令，不直接修改引擎数据。 */
 import { type GameAction, type GameState } from './game.js';
+import { handSize } from './cards.js';
 export interface ComputerOptions { readonly reserveCash?: number }
 export function choosePhaseAction(state: GameState, reserveCash: number): GameAction | null {
   if (!Number.isFinite(reserveCash) || reserveCash < 0) throw new Error('保留资金必须为非负有限数字');
@@ -8,6 +9,7 @@ export function choosePhaseAction(state: GameState, reserveCash: number): GameAc
   if (!player) return null;
   switch (state.phase) {
     case 'await_roll': {
+      if(player.detention!==undefined)return {type:'skip_turn',actorId:player.id};
       const held=player.cards??{reward:0,stride:0};
       if(held.reward>0)return {type:'use_card',actorId:player.id,cardType:'reward'};
       if(held.stride>0&&(state.pendingMoveBonus??0)===0)return {type:'use_card',actorId:player.id,cardType:'stride'};
@@ -24,6 +26,17 @@ export function choosePhaseAction(state: GameState, reserveCash: number): GameAc
         }
       }
       return {type:'roll',actorId:player.id};
+    }
+    case 'await_shop': {
+      const shop=state.shops?.find(s=>s.tileId===player.position);
+      if(shop&&handSize(player.cards)<(state.cardRules?.maxHand??3)){
+        for(const cardType of ['remote','roadblock','rent_free','reward','stride'] as const){
+          const price=state.facilityRules?.prices[cardType]??Infinity;
+          if(shop.cards[cardType]>0&&player.cash>=price+reserveCash)
+            return {type:'buy_shop_card',actorId:player.id,cardType};
+        }
+      }
+      return {type:'leave_shop',actorId:player.id};
     }
     case 'await_decision': {
       const tile = state.tiles[player.position];
