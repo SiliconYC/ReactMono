@@ -12,7 +12,12 @@ const code = ts.transpileModule(source, {
   compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022 }
 }).outputText;
 const p2 = await import('data:text/javascript;base64,' + Buffer.from(code).toString('base64'));
-const normalize = value => JSON.parse(JSON.stringify(value));
+const normalize = value => {
+  const result=JSON.parse(JSON.stringify(value));
+  if(result.schemaVersion===3)result.schemaVersion=2;
+  if(result.state?.schemaVersion===3)result.state.schemaVersion=2;
+  return result;
+};
 
 test('P3-01: P2 compatibility reference: 100 seeds, all intermediate states and events', () => {
   for (let seed=0; seed<100; seed++) {

@@ -17,8 +17,11 @@ export const DEFAULT_CONFIG: GameConfig = {
 };
 
 export function validateConfig(config: GameConfig): void {
-  if (config.players.length !== 2 || new Set(config.players.map(p => p.id)).size !== 2 ||
-      config.players.some(p => !p.id.trim() || !p.name.trim())) throw new Error('玩家配置必须包含两名不同玩家');
+  if (config.players.length < 2 || config.players.length > 4 ||
+      new Set(config.players.map(p => p.id)).size !== config.players.length ||
+      config.players.some(p => !p.id?.trim() || !p.name?.trim() ||
+        (p.kind !== undefined && p.kind !== 'human' && p.kind !== 'computer')))
+    throw new Error('玩家配置必须包含两至四名合法且不同的玩家');
   if (config.tiles.length < 2 || config.tiles[0]?.kind !== 'start' ||
       config.tiles.filter(t => t.kind === 'start').length !== 1 ||
       config.tiles.some((t, i) => t.id !== i || !t.title.trim())) throw new Error('地图配置无效');

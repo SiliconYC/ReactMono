@@ -1,4 +1,4 @@
-/** 纯数据的 v1 对局存档契约；不触碰浏览器、React、文件系统。 */
+/** Local versioned save contract; migrates historic two-player v1/v2 records. */
 import { SCHEMA_VERSION, UPGRADE_RULES_VERSION, makePropertyTile, type GameState } from './game.js';
 
 export const SAVE_FORMAT_VERSION = 1 as const;
@@ -33,8 +33,8 @@ const EVENT_TYPES = new Set([
   'game_started','die_rolled','player_moved','turn_ended','tile_landed','property_declined',
   'property_bought','property_upgraded','rent_paid','event_bonus','event_fee','card_received','card_used','player_bankrupt','game_finished'
 ]);
-/** 校验当前规则 v1 的每一项持久化字段，避免不完整对象影响回合结算。 */
-export function validateGameState(value: unknown): asserts value is GameState {
+/** Validate current and migrated legacy states against the same strict bounds. */
+export function validateGameState(value: unknown, expectedVersion: number = SCHEMA_VERSION): asserts value is GameState {
   if (!record(value)) throw new SaveError('INVALID_STATE','存档数据无效：游戏状态必须为对象');
   keys(value,['schemaVersion','status','phase','revision','round','currentPlayerIndex','randomState',
     'maxRounds','players','tiles','winnerId','events','upgradeRulesVersion'],['cardRules','pendingMoveBonus']);
@@ -47,17 +47,20 @@ export function validateGameState(value: unknown): asserts value is GameState {
   if(value.pendingMoveBonus!==undefined&&!(value.pendingMoveBonus===0||value.pendingMoveBonus===(record(value.cardRules)?value.cardRules.moveBonus:2)))
     throw new SaveError('INVALID_STATE','移动修正无效');
   if(value.upgradeRulesVersion!==UPGRADE_RULES_VERSION) throw new SaveError('INCOMPATIBLE_VERSION','地产升级规则版本不兼容');
-  if (value.schemaVersion !== SCHEMA_VERSION) throw new SaveError('INCOMPATIBLE_VERSION','游戏规则版本不兼容');
+  if (value.schemaVersion !== expectedVersion) throw new SaveError('INCOMPATIBLE_VERSION','游戏规则版本不兼容');
   if (!['setup','playing','finished'].includes(String(value.status)) ||
       !['setup','await_roll','await_decision','await_end_turn','finished'].includes(String(value.phase))) throw new SaveError('INVALID_STATE','存档数据无效：阶段不合法');
   if ((value.status==='setup') !== (value.phase==='setup') ||
       (value.status==='finished') !== (value.phase==='finished')) throw new SaveError('INVALID_STATE','存档数据无效：状态与阶段不匹配');
   if (!finite(value.revision,0,100000) || !finite(value.maxRounds,1,100000) ||
-      !finite(value.round,1,value.maxRounds as number) || !finite(value.currentPlayerIndex,0,1) ||
+      !finite(value.round,1,value.maxRounds as number) || !finite(value.currentPlayerIndex,0,3) ||
       !finite(value.randomState,1,0xffffffff)) throw new SaveError('INVALID_STATE','存档数据无效：回合、修订或随机数状态非法');
-  if (!Array.isArray(value.players) || value.players.length!==2) throw new SaveError('INVALID_STATE','存档数据无效：玩家数量非法');
+  if (!Array.isArray(value.players) || value.players.length<2 || value.players.length>4 ||
+      (expectedVersion===2 && value.players.length!==2) ||
+      (value.currentPlayerIndex as number)>=value.players.length)
+    throw new SaveError('INVALID_STATE','存档数据无效：玩家数量或行动索引非法');
   const ids: string[] = [];
-  for (let i=0;i<2;i++) {
+  for (let i=0;i<value.players.length;i++) {
     const p: unknown = value.players[i];
     if (!record(p)) throw new SaveError('INVALID_STATE','存档数据无效：玩家字段非法');
     keys(p,['id','name','kind','position','cash','bankrupt'],['cards']);
@@ -69,7 +72,8 @@ export function validateGameState(value: unknown): asserts value is GameState {
         throw new SaveError('INVALID_STATE','卡片库存超过上限');
     }
     if (!string(p.id,64) || !string(p.name,80) || ids.includes(p.id) ||
-        p.kind!==(i===0?'human':'computer') || typeof p.bankrupt!=='boolean' ||
+        (p.kind!=='human'&&p.kind!=='computer') ||
+        (expectedVersion===2 && p.kind!==(i===0?'human':'computer')) || typeof p.bankrupt!=='boolean' ||
         !finite(p.cash,0,1_000_000_000_000)) throw new SaveError('INVALID_STATE','存档数据无效：玩家身份、现金或状态非法');
     ids.push(p.id);
   }
@@ -111,7 +115,13 @@ export function validateGameState(value: unknown): asserts value is GameState {
     const tile=value.tiles[p.position];
     if (tile.kind!=='property' || tile.ownerId!==null) throw new SaveError('INVALID_STATE','存档数据无效：购地阶段未落在无主地产');
   }
-  if (value.status!=='finished' && value.players.some((p: Dict)=>p.bankrupt===true)) throw new SaveError('INVALID_STATE','存档数据无效：未结束对局出现破产');
+  const live = value.players.filter((p: Dict)=>p.bankrupt!==true);
+  if(live.length<1 || (value.status!=='finished' && (live.length<2 || value.players[value.currentPlayerIndex as number].bankrupt)) ||
+      (expectedVersion===2 && value.status!=='finished' && live.length!==value.players.length))
+    throw new SaveError('INVALID_STATE','存档数据无效：存活玩家或行动顺序非法');
+  const checkedPlayers=value.players as Dict[];
+  if(value.tiles.some((t: Dict)=>t.ownerId!==null && checkedPlayers.some((p: Dict)=>p.id===t.ownerId&&p.bankrupt)))
+    throw new SaveError('INVALID_STATE','破产玩家不能持有地产');
   if (!Array.isArray(value.events)) throw new SaveError('INVALID_STATE','存档数据无效：事件列表缺失');
   if (value.status==='setup' && (value.revision!==0 || value.round!==1 ||
       value.currentPlayerIndex!==0 || value.events.length!==0)) throw new SaveError('INVALID_STATE','存档数据无效：未开始对局已有行动');
@@ -157,7 +167,7 @@ export function deserializeGame(raw: string): SaveEnvelope {
   catch { throw new SaveError('INVALID_JSON','存档不是有效的 JSON 文件'); }
   if (!record(value)) throw new SaveError('INVALID_FORMAT','存档格式错误');
   if (value.format!=='reactmono-save') throw new SaveError('INVALID_FORMAT','不是大富翁存档文件');
-  if (value.formatVersion!==SAVE_FORMAT_VERSION || ![1,SCHEMA_VERSION].includes(value.rulesVersion as number))
+  if (value.formatVersion!==SAVE_FORMAT_VERSION || ![1,2,SCHEMA_VERSION].includes(value.rulesVersion as number))
     throw new SaveError('INCOMPATIBLE_VERSION','存档版本不兼容');
   keys(value,['format','formatVersion','rulesVersion','createdAt','updatedAt','game','checksum']);
   if (!iso(value.createdAt) || !iso(value.updatedAt) || value.createdAt>value.updatedAt)
@@ -180,6 +190,12 @@ export function deserializeGame(raw: string): SaveEnvelope {
       return {...makePropertyTile(tile as unknown as {id:number;kind:'property';title:string;price:number;rent:number}),ownerId:tile.ownerId};
     });
     const upgraded={...old, schemaVersion:SCHEMA_VERSION,upgradeRulesVersion:UPGRADE_RULES_VERSION,tiles};
+    validateGameState(upgraded);
+    return JSON.parse(serializeGame(upgraded,{createdAt:value.createdAt,now:value.updatedAt})) as SaveEnvelope;
+  }
+  if(value.rulesVersion===2){
+    validateGameState(value.game,2);
+    const upgraded={...value.game, schemaVersion:SCHEMA_VERSION};
     validateGameState(upgraded);
     return JSON.parse(serializeGame(upgraded,{createdAt:value.createdAt,now:value.updatedAt})) as SaveEnvelope;
   }

@@ -29,17 +29,28 @@ export function rollTurn(state: GameState, actor: Player): ActionResult {
         events.push({ type: 'rent_paid', actorId: actor.id, details: {
           tileId: landed.id, fromId: actor.id, toId: landlord.id, due, amount: paid
         } });
+        // Multiplayer: eliminate only the insolvent player; keep surviving players' turns.
+        const alive=players.filter(p=>!p.bankrupt);
+        const next=insolvent && alive.length>1 ? nextActiveIndex(players,state.currentPlayerIndex) : state.currentPlayerIndex;
+        const wrapped=insolvent && next<=state.currentPlayerIndex;
+        const roundLimit=insolvent && alive.length>1 && wrapped && state.round>=state.maxRounds;
+        const finished=insolvent && (alive.length===1 || roundLimit);
+        const winnerId=alive.length===1 ? alive[0].id : roundLimit ? leadingPlayer(state,players) : null;
         if (insolvent) {
           events.push({ type: 'player_bankrupt', actorId: actor.id, details: { creditorId: landlord.id } });
-          events.push({ type: 'game_finished', details: { reason: 'bankruptcy', winnerId: landlord.id } });
+          if(finished)events.push({type:'game_finished',details:roundLimit
+            ? {reason:'round_limit',draw:winnerId===null?1:0,...(winnerId?{winnerId}:{})}
+            : {reason:'bankruptcy',winnerId:winnerId!}});
         }
         return accept(state, events, {
           randomState: nextState, players, pendingMoveBonus:0,
-          // 结束比赛后被淘汰者的土地回到无主状态；本阶段不实现清算/拍卖。
+          // P3-06 will add optional asset liquidation; until then properties revert to unowned.
           tiles: insolvent ? state.tiles.map(t => t.ownerId === actor.id ? { ...t, ownerId: null, level:0 } : t) : state.tiles,
-          status: insolvent ? 'finished' : 'playing',
-          winnerId: insolvent ? landlord.id : state.winnerId,
-          phase: insolvent ? 'finished' : 'await_end_turn'
+          status: finished ? 'finished' : 'playing',
+          winnerId: finished ? winnerId : state.winnerId,
+          phase: finished ? 'finished' : insolvent ? 'await_roll' : 'await_end_turn',
+          currentPlayerIndex: next,
+          round: !finished && wrapped ? state.round+1 : state.round
         });
       }
       if(landed.kind==='neutral'&&landed.eventBonus!==undefined&&landed.eventFee!==undefined){
@@ -73,24 +84,39 @@ export function rollTurn(state: GameState, actor: Player): ActionResult {
         phase
       });
 }
+/** The next live participant, wrapping past bankrupt seats. */
+export function nextActiveIndex(players: readonly Player[], current: number): number {
+  for(let step=1;step<=players.length;step++){
+    const index=(current+step)%players.length;
+    if(!players[index].bankrupt)return index;
+  }
+  throw new Error('无存活玩家，回合状态无效');
+}
+function leadingPlayer(state: GameState, players: readonly Player[]): string | null {
+  const live=players.filter(p=>!p.bankrupt);
+  const scores=live.map(p=>({id:p.id,value:netWorth({...state,players},p.id)}));
+  const high=Math.max(...scores.map(x=>x.value));
+  const leaders=scores.filter(x=>x.value===high);
+  return leaders.length===1?leaders[0].id:null;
+}
 export function endTurn(state: GameState, actor: Player): ActionResult {
-      if (state.phase !== 'await_end_turn') return reject(state,'INVALID_PHASE');
-      const lastPlayer = state.currentPlayerIndex === state.players.length - 1;
-      const finished = lastPlayer && state.round >= state.maxRounds;
-      const assets = state.players.map(p => netWorth(state, p.id));
-      const winnerId = finished && assets[0] !== assets[1]
-        ? state.players[assets[0] > assets[1] ? 0 : 1].id : null;
-      const events: GameEvent[] = [{ type: 'turn_ended', actorId: actor.id }];
-      if (finished) events.push({ type: 'game_finished', details: {
-        reason: 'round_limit', draw: winnerId === null ? 1 : 0,
-        firstNetWorth: assets[0], secondNetWorth: assets[1],
-        ...(winnerId ? { winnerId } : {})
-      } });
-      return accept(state, events, {
-        status: finished ? 'finished' : 'playing',
-        phase: finished ? 'finished' : 'await_roll',
-        currentPlayerIndex: (state.currentPlayerIndex + 1) % state.players.length,
-        round: !finished && lastPlayer ? state.round + 1 : state.round,
-        winnerId
-      });
+  if(state.phase!=='await_end_turn')return reject(state,'INVALID_PHASE');
+  const next=nextActiveIndex(state.players,state.currentPlayerIndex);
+  const wrapped=next<=state.currentPlayerIndex;
+  const finished=wrapped && state.round>=state.maxRounds;
+  const assets=state.players.map(p=>netWorth(state,p.id));
+  const winnerId=finished?leadingPlayer(state,state.players):null;
+  const events: GameEvent[]=[{type:'turn_ended',actorId:actor.id}];
+  if(finished)events.push({type:'game_finished',details:{
+    reason:'round_limit',draw:winnerId===null?1:0,
+    firstNetWorth:assets[0],secondNetWorth:assets[1],
+    ...(winnerId?{winnerId}:{})
+  }});
+  return accept(state,events,{
+    status:finished?'finished':'playing',
+    phase:finished?'finished':'await_roll',
+    currentPlayerIndex:next,
+    round:!finished&&wrapped?state.round+1:state.round,
+    winnerId
+  });
 }
