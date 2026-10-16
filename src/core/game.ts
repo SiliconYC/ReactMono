@@ -5,11 +5,14 @@ export { DEFAULT_CARD_RULES, DEFAULT_EVENT_RULES, DEFAULT_UPGRADES, DEFAULT_CONF
 export { normalizeSeed, nextDie } from './random.js';
 export { DEFAULT_MAP, INTERNAL_TEST_MAP, HARBOR_MAP, inferMap, advancePosition, validateMap } from './maps.js';
 export { makePropertyTile, netWorth } from './property.js';
+export {STOCKS, createMarket, advanceMarket, quoteMarket, validateMarket} from './market.js';
+export type {StockMarket,StockId} from './market.js';
 import { SCHEMA_VERSION, UPGRADE_RULES_VERSION } from './types.js';
 import type { CardKind, PlayerId, Phase, PlayerConfig, TileConfig, GameConfig, Player, Tile, GameEvent, GameState, GameAction, RejectReason, ActionResult } from './types.js';
 import { DEFAULT_CARD_RULES, DEFAULT_EVENT_RULES, DEFAULT_UPGRADES, DEFAULT_CONFIG, validateConfig } from './config.js';
 import { normalizeSeed, nextDie } from './random.js';
 import { inferMap, cloneMap } from './maps.js';
+import { createMarket } from './market.js';
 import { makePropertyTile, declineProperty, upgradeProperty, buyProperty } from './property.js';
 import { accept, reject } from './transitions.js';
 import { rollTurn, endTurn } from './turns.js';
@@ -32,6 +35,7 @@ export function createGame(seed: number, config: GameConfig = DEFAULT_CONFIG): G
     randomState: normalizeSeed(seed),
     maxRounds: config.maxRounds,
     map:cloneMap(config.map??inferMap(config.tiles.length)),
+    ...(config.marketEnabled===true?{market:createMarket(seed)}:{}),
     players: config.players.map((p, index): Player => ({
       id: p.id, name: p.name, kind: p.kind ?? (index === 0 ? 'human' : 'computer'),
       position: 0, cash: config.initialCash, bankrupt: false, cards:{reward:0,stride:0}
