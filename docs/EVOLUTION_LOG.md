@@ -155,3 +155,9 @@
 - #35 / [PR #51](https://github.com/SiliconYC/ReactMono/pull/51)：合并 `dd6aad2`，合并后 [CI #38856476801](https://github.com/SiliconYC/ReactMono/actions/runs/38856476801)、[Pages #38856476886](https://github.com/SiliconYC/ReactMono/actions/runs/38856476886) 成功，完成后关闭。
 - #38 / [PR #52](https://github.com/SiliconYC/ReactMono/pull/52)：保留九次原子提交，合并冲突通过双亲 `45d43f7` 解决；[PR CI #38859862066](https://github.com/SiliconYC/ReactMono/actions/runs/38859862066) 通过，合并 `83b8652` 后 [dev CI #38860146550](https://github.com/SiliconYC/ReactMono/actions/runs/38860146550)、[Pages #38860146659](https://github.com/SiliconYC/ReactMono/actions/runs/38860146659) 成功，Issue 已关闭。
 - #36：独立分支 `p3/issue-36-banking` 从 `dev@83b8652` 建立；先写银行不变量/旧档/离线测试，再实现本地账本、银行救济与利息，界面实测与全 CI **尚须绿色验证，不提前标记完成**。细节参见 [P3_BANK.md](P3_BANK.md)。
+
+## 2026-10-16 · P3-08 抵押借贷与违约（#37，开发中）
+
+- 从 `dev@5fdb1e2` 创建 `p3/issue-37-mortgage-loans`，Draft [PR #54](https://github.com/SiliconYC/ReactMono/pull/54)，独立原子化提交。测试先行 `e70e38a`；实现 `loan.ts`、状态校验、租金与破产回收以及简体中文借还和抵押界面。
+- 利用银行模块，额度为抵押地产折价出售价值的 50%，借款现金与债务平衡；利息整轮结算，违约抵押物由银行收回，坏账写事件，银行不向其他真人玩家扣款。净资产扣除贷款；旧档不自动获得贷款字段。
+- 修复真实 CI TypeScript 错误（联合动作类型收窄，提交 `3052930`）；[CI #38863595398](https://github.com/SiliconYC/ReactMono/actions/runs/38863595398) 已通过旧全套测试和 Chromium 测试。后续补充真实离线贷款用例、百种子重复测试、PR 并发取消策略，**最终提交仍须完整 CI、合并后 CI 和 Pages 验收**。
