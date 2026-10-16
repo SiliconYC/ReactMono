@@ -27,16 +27,18 @@ export function runStyleBenchmark(games=1000):TournamentReport {
   for(let i=0;i<games;i++){
     const count=2+i%3;
     const base=i%2===0?DEFAULT_CONFIG:HARBOR_CONFIG;
+    const maxRounds=[12,24,36,60][i%4];
+    const initialCash=[450,800,1500,2500,3500][i%5];
     const names=COMPUTER_STYLES;
     const players=Array.from({length:count},(_,seat)=>({
       id:'p'+(seat+1),name:'电脑'+(seat+1),kind:'computer' as const,
       computerStyle:names[(seat+Math.floor(i/3))%names.length]
     }));
-    const config:GameConfig={...base,players,maxRounds:20,strategyEnabled:true,
+    const config:GameConfig={...base,players,maxRounds,initialCash,strategyEnabled:true,
       specialEnabled:true,bankEnabled:true,loanEnabled:true,marketEnabled:true,automaticLiquidation:true};
     const seed=12345+i*7919;
     // Rejected/unfinished games are fatal, never omitted from aggregates.
-    const game=runSimulation(seed,{config,maxActions:20*count*24});
+    const game=runSimulation(seed,{config,maxActions:maxRounds*count*24});
     if(game.finalState.status!=='finished'||game.rejections!==0)throw new Error('评测未完成 seed='+seed);
     totalActions+=game.actions;
     illegalActions+=game.rejections;
