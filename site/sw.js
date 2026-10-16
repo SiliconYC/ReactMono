@@ -26,6 +26,7 @@ self.addEventListener('fetch',event=>{
   const request=event.request,url=new URL(request.url);
   if(request.method!=='GET'||url.origin!==origin||!url.href.startsWith(self.registration.scope))return;
   if(request.mode==='navigate'){
+    // 始终先返回与缓存脚本同版本的页面；版本切换由玩家确认。
     // 正式游戏仍使用原有 index.html；美术样例只匹配自身路径，
     // 禁止将所有导航错误地回退至主页（否则离线样例变成另一款游戏）。
     const labPath=new URL('./visual-lab.html',self.registration.scope).pathname;
