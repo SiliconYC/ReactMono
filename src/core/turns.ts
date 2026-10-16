@@ -31,7 +31,7 @@ export function rollTurn(state: GameState, actor: Player): ActionResult {
         } });
         // Multiplayer: eliminate only the insolvent player; keep surviving players' turns.
         const alive=players.filter(p=>!p.bankrupt);
-        const next=insolvent ? nextActiveIndex(players,state.currentPlayerIndex) : state.currentPlayerIndex;
+        const next=insolvent && alive.length>1 ? nextActiveIndex(players,state.currentPlayerIndex) : state.currentPlayerIndex;
         const wrapped=insolvent && next<=state.currentPlayerIndex;
         const roundLimit=insolvent && alive.length>1 && wrapped && state.round>=state.maxRounds;
         const finished=insolvent && (alive.length===1 || roundLimit);
