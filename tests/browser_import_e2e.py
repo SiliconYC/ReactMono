@@ -41,7 +41,13 @@ def main():
             row.wait_for()
             row.get_by_role('button',name='读取').click()
             # 必须等待真正的异步读档完成。修订号可能原本就相同，不可据此判定已读取。
-            page.wait_for_function("document.querySelector('.save-message')?.textContent.includes('已读取「备份样本」')")
+            try:
+                page.wait_for_function("document.querySelector('.save-message')?.textContent.includes('已读取「备份样本」')",timeout=7000)
+            except Exception:
+                print('读档诊断',page.evaluate("""()=>({message:document.querySelector('.save-message')?.textContent,
+                   status:document.querySelector('main')?.dataset.gameStatus,revision:document.querySelector('main')?.dataset.gameRevision,
+                   slots:document.querySelector('.save-list')?.textContent})"""),flush=True)
+                raise
             page.wait_for_function('(revision)=>document.querySelector("main")?.dataset.gameRevision===revision',arg=revision)
             modified=json.loads(contents)
             modified['game']['randomState']=17
