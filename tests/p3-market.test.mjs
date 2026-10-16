@@ -46,3 +46,29 @@ test('P3-09: 500 seeds × 200 complete rounds prices bounded and never overflow'
     }
   }
 });
+\n
+test('P3-09: optional quotes settle precisely once per turn cycle, never consume dice RNG',async()=>{
+  const {createGame,applyAction,DEFAULT_CONFIG}=await import('../dist/core/game.js');
+  const {serializeGame,deserializeGame}=await import('../dist/core/save.js');
+  const config={...DEFAULT_CONFIG,tiles:[{id:0,kind:'start',title:'起点'},{id:1,kind:'neutral',title:'空地'}],maxRounds:4,marketEnabled:true};
+  const plain={...config,marketEnabled:false};
+  let a=createGame(42,config),b=createGame(42,plain);
+  assert.deepEqual(a.market,createMarket(42));
+  const start=(st)=>applyAction(st,{type:'start_game',actorId:'p1'}).state;
+  a=start(a);b=start(b);
+  for(let round=1;round<=3;round++)for(let seat=0;seat<2;seat++){
+    for(const type of ['roll','end_turn']){
+      const action={type,actorId:a.players[a.currentPlayerIndex].id};
+      const aa=applyAction(a,action),bb=applyAction(b,action);
+      assert.equal(aa.ok,true);assert.equal(bb.ok,true);
+      a=aa.state;b=bb.state;
+      assert.equal(a.randomState,b.randomState);
+      assert.deepEqual(a.players,b.players);
+    }
+    assert.equal(a.market.round,a.round);
+  }
+  assert.equal(a.market.round,4);
+  assert.deepEqual(deserializeGame(serializeGame(a)).game,a);
+  const tampered={...a,market:{...a.market,round:1}};
+  assert.throws(()=>serializeGame(tampered),/行情/);
+});
