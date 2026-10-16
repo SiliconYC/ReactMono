@@ -2,6 +2,7 @@ import { nextDie } from './random.js';
 import { advancePosition } from './maps.js';
 import { netWorth, liquidateForRent } from './property.js';
 import { advanceMarket } from './market.js';
+import { coverRentFromBank, settleBankRound } from './bank.js';
 import { DEFAULT_CARD_RULES } from './config.js';
 import { accept, reject } from './transitions.js';
 export function rollTurn(state, actor) {
@@ -23,14 +24,17 @@ export function rollTurn(state, actor) {
         if (!landlord)
             return reject(state, 'INVALID_PHASE');
         const due = (landed.level ?? 0) === 0 ? (landed.rent ?? 0) : (landed.levelRents?.[landed.level ?? 0] ?? 0);
+        const funds = coverRentFromBank(state, actor, due);
+        if (funds.amount > 0)
+            events.push({ type: 'bank_withdrawn', actorId: actor.id, details: { amount: funds.amount, reason: 'rent' } });
         const rescue = state.automaticLiquidation === true
-            ? liquidateForRent(state, actor, due, landlord.id)
-            : { cash: actor.cash, tiles: state.tiles, events: [] };
+            ? liquidateForRent(state, { ...actor, cash: funds.cash }, due, landlord.id)
+            : { cash: funds.cash, tiles: state.tiles, events: [] };
         events.push(...rescue.events);
         const paid = Math.min(rescue.cash, due);
         const insolvent = paid < due;
         const players = movingPlayers.map(p => p.id === actor.id
-            ? { ...p, cash: rescue.cash - paid, bankrupt: insolvent }
+            ? { ...p, cash: rescue.cash - paid, ...(funds.amount > 0 ? { bankBalance: funds.bankBalance } : {}), bankrupt: insolvent }
             : p.id === landlord.id ? { ...p, cash: p.cash + paid } : p);
         events.push({ type: 'rent_paid', actorId: actor.id, details: {
                 tileId: landed.id, fromId: actor.id, toId: landlord.id, due, amount: paid
@@ -49,8 +53,12 @@ export function rollTurn(state, actor) {
                         ? { reason: 'round_limit', draw: winnerId === null ? 1 : 0, ...(winnerId ? { winnerId } : {}) }
                         : { reason: 'bankruptcy', winnerId: winnerId } });
         }
+        const interest = state.bank && !finished && wrapped ? settleBankRound(state, players, state.round + 1) : null;
+        if (interest)
+            events.push(...interest.events);
         return accept(state, events, {
-            randomState: nextState, players, pendingMoveBonus: 0,
+            randomState: nextState, players: interest?.players ?? players, pendingMoveBonus: 0,
+            ...(interest ? { bank: interest.bank } : {}),
             // Auction at defined resale value before paying rent; residual insolvency releases all land.
             tiles: insolvent ? rescue.tiles.map(t => t.ownerId === actor.id ? { ...t, ownerId: null, level: 0 } : t) : rescue.tiles,
             status: finished ? 'finished' : 'playing',
@@ -125,7 +133,11 @@ export function endTurn(state, actor) {
                 firstNetWorth: assets[0], secondNetWorth: assets[1],
                 ...(winnerId ? { winnerId } : {})
             } });
+    const interest = state.bank && !finished && wrapped ? settleBankRound(state, state.players, state.round + 1) : null;
+    if (interest)
+        events.push(...interest.events);
     return accept(state, events, {
+        ...(interest ? { bank: interest.bank, players: interest.players } : {}),
         status: finished ? 'finished' : 'playing',
         phase: finished ? 'finished' : 'await_roll',
         currentPlayerIndex: next,

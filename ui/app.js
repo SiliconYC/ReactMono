@@ -11,7 +11,7 @@ const kindLabel = { start: '起点', property: '地产', neutral: '休息' };
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { game: createGame(20261015), seedInput: '20261015', playerSetup: [{ id: 'p1', name: '玩家', kind: 'human' }, { id: 'p2', name: '电脑', kind: 'computer' }], roundsInput: '60', selectedMapId: 'classic-24', awaitingHandoff: false, fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator === 'undefined' ? false : !navigator.onLine, pwaUpdate: false, pwaMessage: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+        this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput: '100', playerSetup: [{ id: 'p1', name: '玩家', kind: 'human' }, { id: 'p2', name: '电脑', kind: 'computer' }], roundsInput: '60', selectedMapId: 'classic-24', awaitingHandoff: false, fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator === 'undefined' ? false : !navigator.onLine, pwaUpdate: false, pwaMessage: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
     }
     computerTimer = null;
     saveEpoch = 0;
@@ -276,7 +276,7 @@ class App extends React.Component {
         }
         let fresh;
         try {
-            fresh = createGame(seed, { ...(this.state.selectedMapId === 'harbor-20' ? HARBOR_CONFIG : DEFAULT_CONFIG), players: roster, maxRounds: rounds, automaticLiquidation: true });
+            fresh = createGame(seed, { ...(this.state.selectedMapId === 'harbor-20' ? HARBOR_CONFIG : DEFAULT_CONFIG), players: roster, maxRounds: rounds, automaticLiquidation: true, bankEnabled: true });
         }
         catch (e) {
             this.setState({ message: '开局配置无效：' + (e instanceof Error ? e.message : String(e)) });
@@ -329,11 +329,15 @@ class App extends React.Component {
         const actor = game.players[game.currentPlayerIndex];
         if (actor.kind === 'computer')
             return;
+        const bankAmount = /^[1-9][0-9]{0,12}$/.test(this.state.bankAmountInput.trim()) ? Number(this.state.bankAmountInput.trim()) : NaN;
         const action = (type === 'upgrade_property' || type === 'sell_property') ? { type, actorId: actor.id, tileId: tileId ?? -1 }
-            : type === 'use_card' ? { type, actorId: actor.id, cardType: cardType ?? 'reward' } : { type, actorId: actor.id };
+            : type === 'deposit_bank' || type === 'withdraw_bank' ? { type, actorId: actor.id, amount: bankAmount }
+                : type === 'use_card' ? { type, actorId: actor.id, cardType: cardType ?? 'reward' } : { type, actorId: actor.id };
         const result = applyAction(game, action);
         if (!result.ok) {
-            const reason = result.reason === 'INSUFFICIENT_FUNDS' ? '资金不足，无法购买这块地产。请放弃购买。' : '当前阶段不能执行这个操作。';
+            const bankAction = type === 'deposit_bank' || type === 'withdraw_bank';
+            const reason = bankAction ? (result.reason === 'INSUFFICIENT_FUNDS' ? '现金或存款不足。' : '请输入合法的正整数，并在本回合操作银行。') :
+                result.reason === 'INSUFFICIENT_FUNDS' ? '资金不足，无法购买这块地产。请放弃购买。' : '当前阶段不能执行这个操作。';
             this.setState({ message: reason });
             return;
         }
@@ -352,6 +356,12 @@ class App extends React.Component {
         }
         if (events.some(e => e.type === 'game_started'))
             return '对局已开始！';
+        const bankEvent = events.find(e => e.type === 'bank_deposited' || e.type === 'bank_withdrawn');
+        if (bankEvent)
+            return bankEvent.type === 'bank_deposited' ? `${actorName}存入银行 ${bankEvent.details?.amount} 游戏币。` : `${actorName}取出存款 ${bankEvent.details?.amount} 游戏币。`;
+        const interest = events.filter(e => e.type === 'bank_interest');
+        if (interest.length)
+            return `本轮银行结息 ${interest.length} 笔，总计 ${interest.reduce((sum, e) => sum + Number(e.details?.amount ?? 0), 0)} 游戏币。`;
         const upgraded = events.find(e => e.type === 'property_upgraded');
         if (upgraded)
             return `${actorName}升级了 ${upgraded.details?.tileId} 号地产至 ${upgraded.details?.level} 级，花费 ${upgraded.details?.amount} 游戏币。`;
@@ -395,6 +405,9 @@ class App extends React.Component {
             case 'property_bought': return `${person}买下 ${event.details?.tileId} 号地产（${event.details?.amount}）`;
             case 'property_sold': return `${person}出售 ${event.details?.tileId} 号地产，回收 ${event.details?.amount} 游戏币`;
             case 'property_liquidated': return `${person}欠费救济，变卖 ${event.details?.tileId} 号地产收回 ${event.details?.amount} 游戏币`;
+            case 'bank_deposited': return `${person}存入银行 ${event.details?.amount} 游戏币`;
+            case 'bank_withdrawn': return `${person}${event.details?.reason === 'rent' ? '自动取款支付租金' : '从银行取出'} ${event.details?.amount} 游戏币`;
+            case 'bank_interest': return `${person}获得本轮银行利息 ${event.details?.amount} 游戏币`;
             case 'rent_paid': return `${person}支付租金 ${event.details?.amount}`;
             case 'player_bankrupt': return `${person}破产`;
             case 'game_finished': return '对局结束';
@@ -497,7 +510,10 @@ class App extends React.Component {
                                 " \u53F7\u683C"),
                             React.createElement("span", null, "\u00B7"),
                             "\u8D44\u91D1\uFF1A",
-                            React.createElement("b", null, current.cash.toLocaleString('zh-CN'))),
+                            React.createElement("b", null, current.cash.toLocaleString('zh-CN')),
+                            game.bank && React.createElement("span", null,
+                                " \u00B7 \u94F6\u884C\u5B58\u6B3E\uFF1A",
+                                React.createElement("b", null, (current.bankBalance ?? 0).toLocaleString('zh-CN')))),
                         game.status === 'setup' && React.createElement("div", { className: "start-form" },
                             React.createElement("label", { className: "field-label", htmlFor: "game-map" },
                                 "\u6E38\u620F\u5730\u56FE ",
@@ -587,6 +603,15 @@ class App extends React.Component {
                                 " \u00B7 \u56DE\u6536 ",
                                 resaleValue(tile, game.resaleRules),
                                 " \u6E38\u620F\u5E01")),
+                            game.bank && React.createElement("div", { className: "bank-actions", role: "group", "aria-label": "\u94F6\u884C\u64CD\u4F5C" },
+                                React.createElement("p", { className: "purchase-info" },
+                                    "\u94F6\u884C\uFF1A\u6BCF\u5B8C\u6210\u4E00\u8F6E\u6309 ",
+                                    game.bank.interestBps / 100,
+                                    "% \u7ED3\u606F\uFF0C\u73B0\u91D1\u4E0E\u5B58\u6B3E\u5206\u5F00\u8BA1\u7B97\uFF0C\u6B20\u79DF\u65F6\u4F18\u5148\u81EA\u52A8\u53D6\u6B3E\u3002"),
+                                React.createElement("label", { htmlFor: "bank-amount" }, "\u94F6\u884C\u4EA4\u6613\u91D1\u989D\uFF08\u6E38\u620F\u5E01\uFF09"),
+                                React.createElement("input", { id: "bank-amount", "aria-label": "\u94F6\u884C\u4EA4\u6613\u91D1\u989D", inputMode: "numeric", type: "text", value: this.state.bankAmountInput, onChange: (e) => this.setState({ bankAmountInput: e.target.value }) }),
+                                React.createElement("button", { type: "button", className: "secondary-btn", onClick: () => this.dispatch('deposit_bank') }, "\u5B58\u5165\u94F6\u884C"),
+                                React.createElement("button", { type: "button", className: "secondary-btn", onClick: () => this.dispatch('withdraw_bank') }, "\u4ECE\u94F6\u884C\u53D6\u6B3E")),
                             React.createElement("button", { type: "button", className: "primary-btn", onClick: () => this.dispatch('end_turn') },
                                 "\u7ED3\u675F\u5F53\u524D\u56DE\u5408 ",
                                 React.createElement("span", null, "\u2192"))),
@@ -654,6 +679,7 @@ class App extends React.Component {
                                     p.position,
                                     " \u53F7\u683C \u00B7 \u73B0\u91D1 ",
                                     p.cash.toLocaleString('zh-CN'),
+                                    game.bank ? ` · 存款 ${(p.bankBalance ?? 0).toLocaleString('zh-CN')}` : '',
                                     " \u00B7 \u8D44\u4EA7 ",
                                     netWorth(game, p.id).toLocaleString('zh-CN'),
                                     p.bankrupt ? ' · 已破产' : '')),

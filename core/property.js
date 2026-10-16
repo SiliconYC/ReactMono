@@ -13,7 +13,7 @@ export function netWorth(state, playerId) {
     const player = state.players.find(p => p.id === playerId);
     if (!player)
         throw new Error('玩家不存在');
-    return player.cash + state.tiles.reduce((sum, tile) => sum + (tile.ownerId === playerId && tile.kind === 'property'
+    return player.cash + (player.bankBalance ?? 0) + state.tiles.reduce((sum, tile) => sum + (tile.ownerId === playerId && tile.kind === 'property'
         ? (tile.price ?? 0) + (tile.upgradeCosts ?? []).slice(0, tile.level ?? 0).reduce((a, b) => a + b, 0) : 0), 0);
 }
 /** Transparent resale: 75% of land cost plus 50% of paid upgrade costs. */

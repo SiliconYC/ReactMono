@@ -24,7 +24,14 @@ export function choosePhaseAction(state, reserveCash) {
         case 'await_end_turn': {
             const target = state.tiles.find(t => t.kind === 'property' && t.ownerId === player.id &&
                 (t.level ?? 0) < 2 && player.cash >= (t.upgradeCosts?.[t.level ?? 0] ?? Infinity) + reserveCash);
-            return target ? { type: 'upgrade_property', actorId: player.id, tileId: target.id } : { type: 'end_turn', actorId: player.id };
+            if (target)
+                return { type: 'upgrade_property', actorId: player.id, tileId: target.id };
+            // Banking is strictly opt-in; never affect the P2 reference agent.
+            if (state.bank && player.cash > 3000)
+                return { type: 'deposit_bank', actorId: player.id, amount: Math.min(1000, player.cash - 1000) };
+            if (state.bank && player.cash < 100 && (player.bankBalance ?? 0) > 0)
+                return { type: 'withdraw_bank', actorId: player.id, amount: Math.min(200 - player.cash, player.bankBalance ?? 0) };
+            return { type: 'end_turn', actorId: player.id };
         }
         default: return null;
     }
