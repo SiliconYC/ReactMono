@@ -39,6 +39,7 @@ def run():
             page.locator('.save-list li').filter(has_text='电脑策略存档').wait_for()
             page.get_by_role('button',name=re.compile('重新开局')).click()
             page.locator('.save-list li').filter(has_text='电脑策略存档').get_by_role('button',name='读取').click()
+            page.wait_for_function("document.querySelector('main')?.dataset.gameStatus==='finished'",timeout=15000)
             assert page.locator('main').get_attribute('data-game-status')=='finished'
             assert page.get_by_text('电脑策略存档').count()>0
             context.close()
