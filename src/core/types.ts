@@ -10,10 +10,10 @@ export type FacilityKind='hospital'|'prison'|'shop';
 export interface Detention {readonly kind:'hospital'|'prison';readonly remaining:number;}
 export interface FacilityConfig {
   readonly hospitalTiles:readonly number[];readonly prisonTiles:readonly number[];readonly shopTiles:readonly number[];
-  readonly hospitalTurns:number;readonly prisonTurns:number;
+  readonly hospitalTurns:number;readonly prisonTurns:number;readonly hospitalFee:number;readonly prisonFee:number;
   readonly prices:Readonly<Record<CardKind,number>>;readonly stock:Readonly<Record<CardKind,number>>;
 }
-export interface FacilityRules {readonly version:1;readonly hospitalTurns:number;readonly prisonTurns:number;readonly prices:Readonly<Record<CardKind,number>>;}
+export interface FacilityRules {readonly version:1;readonly hospitalTurns:number;readonly prisonTurns:number;readonly hospitalFee:number;readonly prisonFee:number;readonly prices:Readonly<Record<CardKind,number>>;}
 export interface ShopStock {readonly tileId:number;readonly cards:Readonly<Record<CardKind,number>>;}
 export type TileKind = 'start' | 'property' | 'neutral';
 export type Phase = 'setup' | 'await_roll' | 'await_decision' | 'await_end_turn' | 'await_shop' | 'finished';
