@@ -79,7 +79,9 @@ def run():
                     const main=document.querySelector('main');
                     if(main?.dataset.gamePhase==='await_shop'&&[...document.querySelectorAll('button')].some(b=>b.textContent.includes('离开商店')))return {shop:true,i};
                     if(main?.dataset.gameStatus==='finished')return {shop:false,finished:true,i};
-                    if(!click('掷骰前进')&&!click('跳过当前停留回合')&&!click('购买地产')&&!click('放弃购买')&&!click('结束当前回合')){}
+                    if(click('使用奖励卡')||click('使用步数卡')||click('使用免租卡')||
+                       click('放置路障')||click('使用遥控骰子')){}
+                    else if(!click('掷骰前进')&&!click('跳过当前停留回合')&&!click('购买地产')&&!click('放弃购买')&&!click('结束当前回合')){}
                     await new Promise(r=>setTimeout(r,12));
                   }
                   return {shop:false,timeout:true};
