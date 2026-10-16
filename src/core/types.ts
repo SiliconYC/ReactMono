@@ -1,5 +1,5 @@
 /** P3-01: stable pure-data contracts. No UI, storage or rules imports. */
-export const SCHEMA_VERSION = 3 as const;
+export const SCHEMA_VERSION = 4 as const;
 export const UPGRADE_RULES_VERSION = 1 as const;
 export type CardKind = 'reward' | 'stride';
 export type PlayerId = string;
@@ -15,7 +15,18 @@ export interface TileConfig {
   readonly price?: number;
   readonly rent?: number;
 }
+export interface MapCell { readonly column:number; readonly row:number; }
+/** Route lists tile IDs in cyclic walking order, starting at tile 0. */
+export interface GameMap {
+  readonly id:string;
+  readonly version:number;
+  readonly columns:number;
+  readonly rows:number;
+  readonly cells:readonly MapCell[];
+  readonly route:readonly number[];
+}
 export interface GameConfig {
+  readonly map?:GameMap;
   readonly players: readonly PlayerConfig[];
   readonly tiles: readonly TileConfig[];
   readonly initialCash: number;
@@ -59,6 +70,7 @@ export interface GameState {
   readonly currentPlayerIndex: number;
   readonly randomState: number;
   readonly maxRounds: number;
+  readonly map: GameMap;
   readonly players: readonly Player[];
   readonly tiles: readonly Tile[];
   readonly winnerId: PlayerId | null;

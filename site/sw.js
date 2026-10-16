@@ -1,7 +1,7 @@
 /* 精确版本的同源静态资源缓存；IndexedDB 和用户文件不归服务工作线程管理。 */
 const VERSION='reactmono-__CACHE_VERSION__';
-const PRECACHE=['./','./index.html','./style.css','./ui/app.js','./core/game.js',
- './core/agent.js','./storage/indexeddb.js','./core/save.js',
+const PRECACHE=['./','./index.html','./style.css',
+ /* __RUNTIME_ASSETS__ */
  './vendor/react.production.min.js','./vendor/react-dom.production.min.js',
  './manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png'];
 const urls=PRECACHE.map(path=>new URL(path,self.registration.scope).href);

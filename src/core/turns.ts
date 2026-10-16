@@ -1,6 +1,7 @@
 /** Turn movement, landing settlement and round-end decisions. */
 import type { GameState, Player, ActionResult, GameEvent, CardKind, Phase } from './types.js';
 import { nextDie } from './random.js';
+import { advancePosition } from './maps.js';
 import { netWorth } from './property.js';
 import { DEFAULT_CARD_RULES } from './config.js';
 import { accept, reject } from './transitions.js';
@@ -8,7 +9,7 @@ export function rollTurn(state: GameState, actor: Player): ActionResult {
       if (state.phase !== 'await_roll') return reject(state,'INVALID_PHASE');
       const { value, nextState } = nextDie(state.randomState);
       const bonus=state.pendingMoveBonus??0;
-      const position = (actor.position + value + bonus) % state.tiles.length;
+      const position = advancePosition(state.map,actor.position,value+bonus);
       const landed = state.tiles[position];
       const events: GameEvent[] = [
         { type: 'die_rolled', actorId: actor.id, details: { value, bonus } },

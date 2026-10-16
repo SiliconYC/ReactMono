@@ -14,8 +14,10 @@ const code = ts.transpileModule(source, {
 const p2 = await import('data:text/javascript;base64,' + Buffer.from(code).toString('base64'));
 const normalize = value => {
   const result=JSON.parse(JSON.stringify(value));
-  if(result.schemaVersion===3)result.schemaVersion=2;
-  if(result.state?.schemaVersion===3)result.state.schemaVersion=2;
+  if(result.schemaVersion===4)result.schemaVersion=2;
+  if(result.state?.schemaVersion===4)result.state.schemaVersion=2;
+  delete result.map;
+  if(result.state)delete result.state.map;
   return result;
 };
 

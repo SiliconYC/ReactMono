@@ -4,7 +4,7 @@ import { createGame, applyAction, nextDie, DEFAULT_CONFIG } from '../dist/core/g
 
 test('初始化两名玩家、24 格地图及版本化状态', () => {
   const state = createGame(1234);
-  assert.equal(state.schemaVersion, 3);
+  assert.equal(state.schemaVersion, 4);
   assert.equal(state.status, 'setup');
   assert.equal(state.phase, 'setup');
   assert.equal(state.currentPlayerIndex, 0);

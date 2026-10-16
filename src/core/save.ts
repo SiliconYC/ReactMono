@@ -1,5 +1,6 @@
 /** Local versioned save contract; migrates historic two-player v1/v2 records. */
 import { SCHEMA_VERSION, UPGRADE_RULES_VERSION, makePropertyTile, type GameState } from './game.js';
+import { inferMap, validateMap } from './maps.js';
 
 export const SAVE_FORMAT_VERSION = 1 as const;
 export const MAX_SAVE_CHARS = 4_000_000;
@@ -37,7 +38,8 @@ const EVENT_TYPES = new Set([
 export function validateGameState(value: unknown, expectedVersion: number = SCHEMA_VERSION): asserts value is GameState {
   if (!record(value)) throw new SaveError('INVALID_STATE','存档数据无效：游戏状态必须为对象');
   keys(value,['schemaVersion','status','phase','revision','round','currentPlayerIndex','randomState',
-    'maxRounds','players','tiles','winnerId','events','upgradeRulesVersion'],['cardRules','pendingMoveBonus']);
+    'maxRounds','players','tiles','winnerId','events','upgradeRulesVersion',
+    ...(expectedVersion>=4?['map']:[])],['cardRules','pendingMoveBonus']);
   if(value.cardRules!==undefined){
     if(!record(value.cardRules))throw new SaveError('INVALID_STATE','卡片参数无效');
     keys(value.cardRules,['rewardCash','moveBonus','maxHand']);
@@ -78,6 +80,11 @@ export function validateGameState(value: unknown, expectedVersion: number = SCHE
     ids.push(p.id);
   }
   if (!Array.isArray(value.tiles) || value.tiles.length<2 || value.tiles.length>512) throw new SaveError('INVALID_STATE','存档数据无效：地图长度非法');
+  if(expectedVersion>=4){
+    try{validateMap(value.map,value.tiles.length);}catch{
+      throw new SaveError('INVALID_STATE','存档地图标识、版本或路径非法');
+    }
+  }
   let startCount=0;
   for (let i=0;i<value.tiles.length;i++) {
     const t: unknown=value.tiles[i];
@@ -167,7 +174,7 @@ export function deserializeGame(raw: string): SaveEnvelope {
   catch { throw new SaveError('INVALID_JSON','存档不是有效的 JSON 文件'); }
   if (!record(value)) throw new SaveError('INVALID_FORMAT','存档格式错误');
   if (value.format!=='reactmono-save') throw new SaveError('INVALID_FORMAT','不是大富翁存档文件');
-  if (value.formatVersion!==SAVE_FORMAT_VERSION || ![1,2,SCHEMA_VERSION].includes(value.rulesVersion as number))
+  if (value.formatVersion!==SAVE_FORMAT_VERSION || ![1,2,3,SCHEMA_VERSION].includes(value.rulesVersion as number))
     throw new SaveError('INCOMPATIBLE_VERSION','存档版本不兼容');
   keys(value,['format','formatVersion','rulesVersion','createdAt','updatedAt','game','checksum']);
   if (!iso(value.createdAt) || !iso(value.updatedAt) || value.createdAt>value.updatedAt)
@@ -189,13 +196,13 @@ export function deserializeGame(raw: string): SaveEnvelope {
       keys(tile,['id','kind','title','price','rent','ownerId']);
       return {...makePropertyTile(tile as unknown as {id:number;kind:'property';title:string;price:number;rent:number}),ownerId:tile.ownerId};
     });
-    const upgraded={...old, schemaVersion:SCHEMA_VERSION,upgradeRulesVersion:UPGRADE_RULES_VERSION,tiles};
+    const upgraded={...old, schemaVersion:SCHEMA_VERSION,upgradeRulesVersion:UPGRADE_RULES_VERSION,tiles,map:inferMap(tiles.length)};
     validateGameState(upgraded);
     return JSON.parse(serializeGame(upgraded,{createdAt:value.createdAt,now:value.updatedAt})) as SaveEnvelope;
   }
-  if(value.rulesVersion===2){
-    validateGameState(value.game,2);
-    const upgraded={...value.game, schemaVersion:SCHEMA_VERSION};
+  if(value.rulesVersion===2 || value.rulesVersion===3){
+    validateGameState(value.game,value.rulesVersion as number);
+    const upgraded={...value.game, schemaVersion:SCHEMA_VERSION,map:inferMap(value.game.tiles.length)};
     validateGameState(upgraded);
     return JSON.parse(serializeGame(upgraded,{createdAt:value.createdAt,now:value.updatedAt})) as SaveEnvelope;
   }

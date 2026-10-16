@@ -12,7 +12,7 @@ function sample() {
 test('v1 固定种子游戏无损往返，随机数进度及后续行动完全相同',()=>{
   const game=sample(),raw=serializeGame(game,{now}),stored=deserializeGame(raw);
   assert.deepEqual(stored.game,game);
-  assert.equal(stored.rulesVersion,3);
+  assert.equal(stored.rulesVersion,4);
   assert.equal(stored.formatVersion,1);
   assert.equal(stored.game.randomState,game.randomState);
   const action={type:'end_turn',actorId:'p1'};
@@ -32,7 +32,7 @@ test('拒绝 JSON 损坏、缺失、未来版本、过大文件',()=>{
     const data=JSON.parse(raw);patch(data);
     assert.throws(()=>deserializeGame(JSON.stringify(data)),SaveError);
   }
-  for(const [field,value] of [['formatVersion',99],['formatVersion',0],['rulesVersion',4]]) {
+  for(const [field,value] of [['formatVersion',99],['formatVersion',0],['rulesVersion',5]]) {
     const data=JSON.parse(raw);data[field]=value;
     assert.throws(()=>deserializeGame(JSON.stringify(data)),e=>e.code==='INCOMPATIBLE_VERSION');
   }

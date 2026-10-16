@@ -1,4 +1,4 @@
-import { cp, mkdir, stat, writeFile, readFile } from 'node:fs/promises';
+import { cp, mkdir, stat, writeFile, readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { createHash } from 'node:crypto';
 import { createIcons } from './icons.mjs';
@@ -19,13 +19,17 @@ for (const [packageName, filename] of [
 }
 await createIcons();
 await cp('site/manifest.webmanifest','dist/manifest.webmanifest');
-const assets=['dist/index.html','dist/style.css','dist/ui/app.js','dist/core/game.js',
-  'dist/core/agent.js','dist/core/save.js','dist/storage/indexeddb.js',
+// Include EVERY emitted same-origin runtime module in both SW cache and cache version.
+const runtimeFiles=(await Promise.all(['core','ui','storage'].map(async dir=>
+  (await readdir('dist/'+dir)).filter(name=>name.endsWith('.js')).map(name=>dir+'/'+name)))).flat().sort();
+const assets=['dist/index.html','dist/style.css',...runtimeFiles.map(path=>'dist/'+path),
   'dist/vendor/react.production.min.js','dist/vendor/react-dom.production.min.js',
   'dist/manifest.webmanifest','dist/icons/icon-192.png','dist/icons/icon-512.png','site/sw.js'];
 const fingerprint=createHash('sha256');
 for(const name of assets)fingerprint.update(await readFile(name));
-const sw=(await readFile('site/sw.js','utf8')).replace('__CACHE_VERSION__',fingerprint.digest('hex').slice(0,16));
+const sw=(await readFile('site/sw.js','utf8'))
+  .replace('__CACHE_VERSION__',fingerprint.digest('hex').slice(0,16))
+  .replace('/* __RUNTIME_ASSETS__ */',runtimeFiles.map(path=>`'./${path}',`).join('\n '));
 await writeFile('dist/sw.js',sw);
 await writeFile('dist/.nojekyll', '');
 console.log('静态构建成功：dist/（React 18.3.1 同源文件；无运行时 CDN）');
