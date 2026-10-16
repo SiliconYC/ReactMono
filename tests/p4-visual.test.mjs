@@ -17,7 +17,9 @@ test('P4 #63 visual slice is real React and local and licensed',async()=>{
     assert.match(asset.license,/^CC0-1\.0$/);
     const svg=await readFile('dist/'+asset.path,'utf8');
     assert.match(svg,/<svg/);
-    assert.doesNotMatch(svg,/(<script|foreignObject|(?:href|src)\\s*=\\s*[\"']https?:\\/\\/)/i);
+    assert.doesNotMatch(svg,/<script|foreignObject/i);
+    assert.equal(svg.includes('href="http'),false,'SVG references network');
+    assert.equal(svg.includes('src="http'),false,'SVG references network');
   }
   assert.ok((await stat('dist/visual-tokens.css')).size>1000);
   assert.ok((await stat('dist/visual-lab.css')).size>1000);
