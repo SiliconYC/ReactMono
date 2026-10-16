@@ -3,7 +3,7 @@ import { chooseComputerAction } from '../core/agent.js';
 import { listSlots, readSlot, writeSlot, deleteSlot, type SlotSummary } from '../storage/indexeddb.js';
 import { deserializeGame, MAX_SAVE_CHARS, type SaveEnvelope } from '../core/save.js';
 
-interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly bankAmountInput: string; readonly stockAmountInput: string; readonly strategyDieInput:string; readonly roadblockTileInput:string; readonly playerSetup: readonly PlayerConfig[]; readonly roundsInput: string; readonly selectedMapId:string; readonly awaitingHandoff: boolean; readonly fastMode: boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; readonly importPreview: SaveEnvelope | null; readonly importName: string; readonly offline: boolean; readonly pwaUpdate: boolean; readonly pwaMessage: string; }
+interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly bankAmountInput: string; readonly stockAmountInput: string; readonly strategyDieInput:string; readonly roadblockTileInput:string; readonly playerSetup: readonly PlayerConfig[]; readonly roundsInput: string; readonly selectedMapId:string; readonly awaitingHandoff: boolean; readonly fastMode: boolean; readonly specialEnabled:boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; readonly importPreview: SaveEnvelope | null; readonly importName: string; readonly offline: boolean; readonly pwaUpdate: boolean; readonly pwaMessage: string; }
 
 /** Read screen positions from map data, never infer them from the tile ID. */
 function cellPosition(map:GameMap,index:number):{gridColumn:number;gridRow:number}{
@@ -16,7 +16,7 @@ const kindLabel: Record<Tile['kind'], string> = { start: '起点', property: '�
 class App extends React.Component<object, UiState> {
   constructor(props: object) {
     super(props);
-    this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput:'100', stockAmountInput:'1', strategyDieInput:'1', roadblockTileInput:'1', playerSetup: [{id:'p1',name:'玩家',kind:'human'},{id:'p2',name:'电脑',kind:'computer'}], roundsInput:'60', selectedMapId:'classic-24', awaitingHandoff:false, fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator==='undefined'?false:!navigator.onLine, pwaUpdate:false, pwaMessage:'', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+    this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput:'100', stockAmountInput:'1', strategyDieInput:'1', roadblockTileInput:'1', playerSetup: [{id:'p1',name:'玩家',kind:'human'},{id:'p2',name:'电脑',kind:'computer'}], roundsInput:'60', selectedMapId:'classic-24', awaitingHandoff:false, fastMode: false, specialEnabled:false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator==='undefined'?false:!navigator.onLine, pwaUpdate:false, pwaMessage:'', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
   }
 
   private computerTimer: number | null = null;
@@ -216,7 +216,7 @@ class App extends React.Component<object, UiState> {
       this.setState({message:'所有玩家都必须填写不同的姓名（最多 24 字）。'});return;
     }
     let fresh:GameState;
-    try{fresh=createGame(seed,{...(this.state.selectedMapId==='harbor-20'?HARBOR_CONFIG:DEFAULT_CONFIG),players:roster,maxRounds:rounds,automaticLiquidation:true,bankEnabled:true,loanEnabled:true,marketEnabled:true,strategyEnabled:true,specialEnabled:true});}
+    try{fresh=createGame(seed,{...(this.state.selectedMapId==='harbor-20'?HARBOR_CONFIG:DEFAULT_CONFIG),players:roster,maxRounds:rounds,automaticLiquidation:true,bankEnabled:true,loanEnabled:true,marketEnabled:true,strategyEnabled:true,specialEnabled:this.state.specialEnabled});}
     catch(e){this.setState({message:'开局配置无效：'+(e instanceof Error?e.message:String(e))});return;}
     this.saveEpoch++;
     this.stopTimer();
@@ -454,6 +454,7 @@ class App extends React.Component<object, UiState> {
                 </div>
                 <label className="field-label" htmlFor="max-rounds">最多轮数</label>
                 <input id="max-rounds" aria-label="最多轮数" type="text" inputMode="numeric" maxLength={3} value={this.state.roundsInput} onChange={(event:{target:{value:string}})=>this.setState({roundsInput:event.target.value})}/>
+                <label className="fast-setting"><input type="checkbox" aria-label="启用医院、监狱与商店" checked={this.state.specialEnabled} onChange={(event:{target:{checked:boolean}})=>this.setState({specialEnabled:event.target.checked})}/>启用医院、监狱与商店（经典设施，可关闭保留旧版地图）</label>
                 <label className="fast-setting"><input type="checkbox" aria-label="快速模式" checked={this.state.fastMode} onChange={(event: {target:{checked:boolean}}) => this.setState({ fastMode: event.target.checked })} />快速模式（缩短电脑操作间隔）</label>
                 <button type="button" className="primary-btn" onClick={this.startGame}>开始游戏 <span>→</span></button>
               </div>}
