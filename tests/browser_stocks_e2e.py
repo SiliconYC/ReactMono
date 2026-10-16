@@ -61,7 +61,7 @@ def run():
               const click=t=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes(t)&&!x.disabled);if(!b)return false;b.click();return true};
               for(let i=0;i<320;i++){
                 const text=document.querySelector('.board-center-label')?.textContent||'';
-                if(document.querySelector('.stock-actions')&&/第\\s*[2-9]/.test(text))return true;
+                if(document.querySelector('.stock-actions')&&/第\s*[2-9]/.test(text))return true;
                 if(!click('结束当前回合')&&!click('掷骰前进')&&!click('购买地产'))click('放弃购买');
                 await new Promise(r=>setTimeout(r,25));
               }
