@@ -41,6 +41,15 @@ jobs:
           python tests/browser_sw_upgrade_e2e.py
           python tests/browser_public_e2e.py
           python tests/browser_agent_styles_e2e.py
+          python tests/browser_assets_e2e.py
+      - name: 留存 #43 桌面与手机 Chromium 截图
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue43-assets-chromium
+          path: artifacts/issue43/*.png
+          if-no-files-found: ignore
+          retention-days: 7
       - name: 留存 #42 浏览器截图证据
         if: always()
         uses: actions/upload-artifact@v4
