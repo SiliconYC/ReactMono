@@ -13,7 +13,11 @@ export function choosePhaseAction(state: GameState, reserveCash: number): GameAc
       if (!tile || tile.kind !== 'property' || tile.ownerId !== null) throw new Error('待购地状态与棋盘数据不一致');
       return { type: player.cash >= (tile.price ?? 0) + reserveCash ? 'buy_property' : 'decline_property', actorId: player.id };
     }
-    case 'await_end_turn': return { type: 'end_turn', actorId: player.id };
+    case 'await_end_turn': {
+      const target=state.tiles.find(t=>t.kind==='property'&&t.ownerId===player.id&&
+        (t.level??0)<2&&player.cash >= (t.upgradeCosts?.[t.level??0]??Infinity)+reserveCash);
+      return target ? {type:'upgrade_property',actorId:player.id,tileId:target.id} : {type:'end_turn',actorId:player.id};
+    }
     default: return null;
   }
 }
