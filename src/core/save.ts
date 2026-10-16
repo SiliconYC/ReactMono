@@ -124,7 +124,7 @@ export function validateGameState(value: unknown, expectedVersion: number = SCHE
       if(!record(p.cards))throw new SaveError('INVALID_STATE','卡片库存无效');
       keys(p.cards,['reward','stride'],value.strategyEnabled===true?['remote','roadblock','rent_free']:[]);
       if(!finite(p.cards.reward,0,1000)||!finite(p.cards.stride,0,1000)||
-        !['remote','roadblock','rent_free'].every(k=>p.cards![k]===undefined||(value.strategyEnabled===true&&finite(p.cards![k],0,1000)))||
+        !['remote','roadblock','rent_free'].every(k=>(p.cards as Dict)[k]===undefined||(value.strategyEnabled===true&&finite((p.cards as Dict)[k],0,1000)))||
         (p.cards.reward as number)+(p.cards.stride as number)+
         Number(p.cards.remote??0)+Number(p.cards.roadblock??0)+Number(p.cards.rent_free??0)>
           (record(value.cardRules)?value.cardRules.maxHand as number:3))
