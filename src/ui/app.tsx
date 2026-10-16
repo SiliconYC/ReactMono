@@ -1,9 +1,9 @@
-import { applyAction, createGame, type GameAction, type CardKind, type GameEvent, type GameState, type Tile, type GameMap, type PlayerConfig, DEFAULT_CONFIG, netWorth } from '../core/game.js';
+import { applyAction, createGame, type GameAction, type CardKind, type GameEvent, type GameState, type Tile, type GameMap, type PlayerConfig, DEFAULT_CONFIG, HARBOR_CONFIG, netWorth } from '../core/game.js';
 import { chooseComputerAction } from '../core/agent.js';
 import { listSlots, readSlot, writeSlot, deleteSlot, type SlotSummary } from '../storage/indexeddb.js';
 import { deserializeGame, MAX_SAVE_CHARS, type SaveEnvelope } from '../core/save.js';
 
-interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly playerSetup: readonly PlayerConfig[]; readonly roundsInput: string; readonly awaitingHandoff: boolean; readonly fastMode: boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; readonly importPreview: SaveEnvelope | null; readonly importName: string; readonly offline: boolean; readonly pwaUpdate: boolean; readonly pwaMessage: string; }
+interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly playerSetup: readonly PlayerConfig[]; readonly roundsInput: string; readonly selectedMapId:string; readonly awaitingHandoff: boolean; readonly fastMode: boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; readonly importPreview: SaveEnvelope | null; readonly importName: string; readonly offline: boolean; readonly pwaUpdate: boolean; readonly pwaMessage: string; }
 
 /** Read screen positions from map data, never infer them from the tile ID. */
 function cellPosition(map:GameMap,index:number):{gridColumn:number;gridRow:number}{
@@ -16,7 +16,7 @@ const kindLabel: Record<Tile['kind'], string> = { start: '起点', property: '�
 class App extends React.Component<object, UiState> {
   constructor(props: object) {
     super(props);
-    this.state = { game: createGame(20261015), seedInput: '20261015', playerSetup: [{id:'p1',name:'玩家',kind:'human'},{id:'p2',name:'电脑',kind:'computer'}], roundsInput:'60', awaitingHandoff:false, fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator==='undefined'?false:!navigator.onLine, pwaUpdate:false, pwaMessage:'', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+    this.state = { game: createGame(20261015), seedInput: '20261015', playerSetup: [{id:'p1',name:'玩家',kind:'human'},{id:'p2',name:'电脑',kind:'computer'}], roundsInput:'60', selectedMapId:'classic-24', awaitingHandoff:false, fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator==='undefined'?false:!navigator.onLine, pwaUpdate:false, pwaMessage:'', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
   }
 
   private computerTimer: number | null = null;
@@ -160,7 +160,7 @@ class App extends React.Component<object, UiState> {
       await this.saveQueue;
       const saved=await readSlot(slot.id);
       this.setState({game:saved.game,activeSeed:null,storageBusy:false,awaitingHandoff:false,
-        roundsInput:String(saved.game.maxRounds),
+        roundsInput:String(saved.game.maxRounds),selectedMapId:saved.game.map.id,
         playerSetup:saved.game.players.map(p=>({id:p.id,name:p.name,kind:p.kind})),
         saveStatus:'已读取「'+slot.name+'」',message:'已恢复第 '+saved.game.round+' 轮，可从当前阶段继续。'});
     }catch(e){this.setState({storageBusy:false,saveStatus:'读档失败：'+(e instanceof Error?e.message:String(e))+'。原对局未被修改。'});}
@@ -174,7 +174,8 @@ class App extends React.Component<object, UiState> {
   reset = (): void => {
     this.saveEpoch++;
     this.stopTimer();
-    this.setState({ game: createGame(20261015), activeSeed: null, awaitingHandoff:false, message: '已返回新游戏页面。可调整种子后重新开始。' });
+    const base=this.state.selectedMapId==='harbor-20'?HARBOR_CONFIG:DEFAULT_CONFIG;
+    this.setState({ game: createGame(20261015,base), activeSeed: null, awaitingHandoff:false, message: '已返回新游戏页面。可调整种子及地图后重新开始。' });
   };
   /** Keep stable IDs when the local seating plan changes. */
   private setPlayerCount = (count: number): void => {
@@ -189,6 +190,12 @@ class App extends React.Component<object, UiState> {
       ...p,[field]:value
     });
     this.setState({playerSetup:roster});
+  };
+  private selectMap = (id:string):void=>{
+    if(id!=='classic-24'&&id!=='harbor-20')return;
+    const base=id==='harbor-20'?HARBOR_CONFIG:DEFAULT_CONFIG;
+    this.setState({selectedMapId:id,game:createGame(20261015,{...base,players:this.state.playerSetup}),
+      message:id==='harbor-20'?'已选择海港环线：20 格，独立价格及海港主题地产。':'已选择经典环线：24 格，原有规则完整保留。'});
   };
   private acknowledgeHandoff = ():void=>{
     this.setState({awaitingHandoff:false,message:'已轮到'+this.state.game.players[this.state.game.currentPlayerIndex].name+'操作。'});
@@ -209,7 +216,7 @@ class App extends React.Component<object, UiState> {
       this.setState({message:'所有玩家都必须填写不同的姓名（最多 24 字）。'});return;
     }
     let fresh:GameState;
-    try{fresh=createGame(seed,{...DEFAULT_CONFIG,players:roster,maxRounds:rounds});}
+    try{fresh=createGame(seed,{...(this.state.selectedMapId==='harbor-20'?HARBOR_CONFIG:DEFAULT_CONFIG),players:roster,maxRounds:rounds});}
     catch(e){this.setState({message:'开局配置无效：'+(e instanceof Error?e.message:String(e))});return;}
     this.saveEpoch++;
     this.stopTimer();
@@ -321,7 +328,7 @@ class App extends React.Component<object, UiState> {
       <div key={tile.id} className={`tile tile-${tile.kind} ${tile.ownerId ? `tile-owned-${tile.ownerId}` : ''} ${residents.length ? 'tile-occupied' : ''}`} style={cellPosition(game.map,tile.id)} data-tile-id={tile.id} aria-label={`${tile.id} 号地块，${tile.title}`}>
         <span className="tile-index">{String(tile.id).padStart(2, '0')}</span>
         <span className="tile-icon" aria-hidden="true">{tile.kind === 'start' ? '★' : tile.kind === 'property' ? '⌂' : tile.eventBonus!==undefined ? '✦' : tile.cardStation ? '▣' : '☕'}</span>
-        <span className="tile-name">{tile.eventBonus!==undefined?'机会':tile.cardStation?'卡片':kindLabel[tile.kind]}{tile.kind === 'property' ? ` ${tile.id}` : ''}</span>
+        <span className="tile-name">{tile.kind==='property'?tile.title:tile.eventBonus!==undefined?'机会':tile.cardStation?'卡片':kindLabel[tile.kind]}</span>
         {tile.kind === 'property' && <span className="tile-value">{tile.ownerId ? `${game.players.find(p=>p.id===tile.ownerId)?.name??'未知'} · ${tile.level??0}级 · 租 ${tile.levelRents?.[tile.level??0]??tile.rent}` : `售价 ${tile.price}`}</span>}
         <div className="pieces">{residents.map(p => <span key={p.id} className={`piece ${p.kind}`} title={p.name}>{p.kind === 'human' ? '人' : '机'}</span>)}</div>
       </div>
@@ -341,14 +348,14 @@ class App extends React.Component<object, UiState> {
     const hasMoneyForLand = targetTile.kind === 'property' && targetTile.ownerId === null && current.cash >= (targetTile.price ?? 0);
     const lastEvents = game.events.filter(e => !['player_moved'].includes(e.type)).slice(-6).reverse();
     return (
-      <main className="app-shell" data-game-status={game.status} data-game-phase={game.phase} data-game-revision={game.revision}>
+      <main className="app-shell" data-game-status={game.status} data-game-phase={game.phase} data-game-revision={game.revision} data-map-id={game.map.id}>
         <header className="topbar">
           <div className="brand"><span className="brand-mark">富</span><span>大富翁 <small>ReactMono</small></span></div>
           <span className="version-tag">P3 · 多人对局</span>
           <span className="network-indicator" role="status">{this.state.offline?'已断网 · 可用本地缓存':'已联网'}{this.state.pwaMessage?' · '+this.state.pwaMessage:''}</span>
           {this.state.pwaUpdate&&<button className="secondary-btn" type="button" onClick={()=>void this.applyPwaUpdate()}>检测到新版，保存并更新</button>}
         </header>
-        <section className="headline"><div><span className="section-eyebrow">24 格 · 2～4 人 · 本机轮流</span><h1>每一步，都是一笔生意。</h1><p>邀请朋友在同一设备轮流行动，也可以与一名或多名电脑玩家对抗。所有对局都在本地完成。</p></div><button type="button" className="reset-btn" onClick={this.reset}>↻ 重新开局</button></section>
+        <section className="headline"><div><span className="section-eyebrow">{game.tiles.length} 格 · 两张地图 · 2～4 人 · 本机轮流</span><h1>每一步，都是一笔生意。</h1><p>邀请朋友在同一设备轮流行动，也可以与一名或多名电脑玩家对抗。所有对局都在本地完成。</p></div><button type="button" className="reset-btn" onClick={this.reset}>↻ 重新开局</button></section>
         <div className="layout">
           <section className="board-card" aria-label={`${game.tiles.length} 格游戏棋盘`}>
             <div className="board" style={{
@@ -360,7 +367,7 @@ class App extends React.Component<object, UiState> {
               {game.map.columns>2&&game.map.rows>2&&game.map.cells.every(p=>p.row===1||p.row===game.map.rows||p.column===1||p.column===game.map.columns)&&
               <div className="board-center" style={{gridColumn:`2/${game.map.columns}`,gridRow:`2/${game.map.rows}`}}>
                 <div className="board-center-label">当前第 <b>{game.round}</b> / {game.maxRounds} 轮</div>
-                <div className="center-title">环游大富翁<span>体验棋盘</span></div>
+                <div className="center-title">{game.map.id==='harbor-20'?'海港环线':'环游大富翁'}<span>体验棋盘</span></div>
                 <div className="dice-display" aria-label="上一次骰子点数">{previousRoll ? '⚀⚁⚂⚃⚄⚅'[Number(previousRoll.details?.value) - 1] : '⚄'}</div>
                 <div className="center-subtitle">{previousRoll ? `上次掷出 ${previousRoll.details?.value} 点` : '等待第一颗骰子'}</div>
               </div>}
@@ -373,7 +380,11 @@ class App extends React.Component<object, UiState> {
               <div className="turn-person"><span className={`portrait ${current.kind}`}>{current.kind === 'human' ? '人' : '机'}</span><div><strong>{current.name}</strong><small>{phaseDescription}</small></div></div>
               <div className="turn-position">位置：<b>{current.position} 号格</b><span>·</span>资金：<b>{current.cash.toLocaleString('zh-CN')}</b></div>
               {game.status === 'setup' && <div className="start-form">
-                <label className="field-label" htmlFor="game-seed">对局种子 <small>相同种子可重现骰子结果</small></label>
+                <label className="field-label" htmlFor="game-map">游戏地图 <small>经典环线 24 格；原创海港 20 格（价格与地名不同）</small></label>
+                 <select id="game-map" aria-label="游戏地图" value={this.state.selectedMapId} onChange={(event:{target:{value:string}})=>this.selectMap(event.target.value)}>
+                   <option value="classic-24">经典环线 · 24 格</option><option value="harbor-20">海港环线 · 20 格</option>
+                 </select>
+                 <label className="field-label" htmlFor="game-seed">对局种子 <small>相同种子可重现骰子结果</small></label>
                 <input id="game-seed" aria-label="对局种子" inputMode="numeric" type="text" maxLength={10} value={this.state.seedInput} onChange={(event: {target:{value:string}}) => this.setState({ seedInput: event.target.value })} />
                 <label className="field-label" htmlFor="player-count">玩家人数</label>
                 <select id="player-count" aria-label="玩家人数" value={this.state.playerSetup.length} onChange={(event:{target:{value:string}})=>this.setPlayerCount(Number(event.target.value))}>
