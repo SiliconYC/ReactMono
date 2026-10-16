@@ -47,7 +47,7 @@ test('P3-08: lien is owner-only, unique, credit-capped, debt contributes negativ
 test('P3-08: debtor isolation, one deterministic interest per complete round, save/restore',()=>{
   let s=makeOwned(18);
   s=doIt(s,'mortgage_property',{tileId:1});
-  s=doIt(s,'borrow_loan',{amount:50});
+  s=doIt(s,'borrow_loan',{amount:25});
   const snap=deserializeGame(serializeGame(s,{now})).game;
   assert.deepEqual(s,snap);
   s=doIt(s,'end_turn');
@@ -59,7 +59,7 @@ test('P3-08: debtor isolation, one deterministic interest per complete round, sa
   assert.equal(s.loan.lastInterestRound,2);
   assert.equal(s.events.filter(e=>e.type==='loan_interest').length,1);
   assert.deepEqual(s.players.slice(1).map(p=>p.loanBalance),[0,0]);
-  assert.equal(s.players[0].loanBalance,50);
+  assert.equal(s.players[0].loanBalance,25);
   assert.equal(s.players[0].cash,snap.players[0].cash-1);
   assert.deepEqual(deserializeGame(serializeGame(s,{now})).game,s);
 });
