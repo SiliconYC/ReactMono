@@ -46,16 +46,21 @@ function registered(id:string,length:number):GameMap|null {
 }
 /** Reject forged paths, unknown IDs/versions, duplicate/out-of-grid cells and stale geometry. */
 export function validateMap(map:unknown,tileCount:number):void {
-  const fail=():never=>{throw new Error('地图标识、版本或路径配置无效');};
-  if(!record(map)||Object.keys(map).sort().join(',')!=='cells,columns,id,route,rows,version'||
-    typeof map.id!=='string'||!Array.isArray(map.cells)||!Array.isArray(map.route)||
+  const error=()=>new Error('地图标识、版本或路径配置无效');
+  // Separate guards allow strict TypeScript to narrow unknown inputs safely.
+  if(!record(map))throw error();
+  if(Object.keys(map).sort().join(',')!=='cells,columns,id,route,rows,version')throw error();
+  if(typeof map.id!=='string'||!Array.isArray(map.cells)||!Array.isArray(map.route)||
     !Number.isInteger(map.version)||!Number.isInteger(map.columns)||!Number.isInteger(map.rows)||
-    map.cells.length!==tileCount||map.route.length!==tileCount)fail();
-  const expected=registered(map.id as string,tileCount);
-  if(!expected||map.version!==expected.version||map.columns!==expected.columns||map.rows!==expected.rows||
+    map.cells.length!==tileCount||map.route.length!==tileCount)throw error();
+  const expected=registered(map.id,tileCount);
+  if(expected===null)throw error();
+  if(map.version!==expected.version||map.columns!==expected.columns||map.rows!==expected.rows||
     tileCount!==expected.cells.length||map.route[0]!==0||
-    new Set(map.route).size!==tileCount||!map.route.every((id,i)=>Number.isInteger(id)&&id===expected.route[i]))fail();
-  const cells=map.cells as unknown[];
+    new Set(map.route).size!==tileCount||
+    !map.route.every((id:unknown,i:number)=>Number.isInteger(id)&&id===expected.route[i]))throw error();
+  const cells:unknown[]=map.cells;
   if(cells.some((c,i)=>!record(c)||Object.keys(c).sort().join(',')!=='column,row'||
-    !Number.isInteger(c.column)||!Number.isInteger(c.row)||c.column!==expected.cells[i].column||c.row!==expected.cells[i].row))fail();
+    !Number.isInteger(c.column)||!Number.isInteger(c.row)||
+    c.column!==expected.cells[i].column||c.row!==expected.cells[i].row))throw error();
 }
