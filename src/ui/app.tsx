@@ -4,7 +4,7 @@ import { COMPUTER_STYLES, COMPUTER_STYLE_NAMES } from '../core/strategic-agent.j
 import { listSlots, readSlot, writeSlot, deleteSlot, type SlotSummary } from '../storage/indexeddb.js';
 import { deserializeGame, MAX_SAVE_CHARS, type SaveEnvelope } from '../core/save.js';
 
-interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly bankAmountInput: string; readonly stockAmountInput: string; readonly strategyDieInput:string; readonly roadblockTileInput:string; readonly playerSetup: readonly PlayerConfig[]; readonly roundsInput: string; readonly selectedMapId:string; readonly awaitingHandoff: boolean; readonly fastMode: boolean; readonly specialEnabled:boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; readonly importPreview: SaveEnvelope | null; readonly importName: string; readonly offline: boolean; readonly pwaUpdate: boolean; readonly pwaMessage: string; }
+interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly bankAmountInput: string; readonly stockAmountInput: string; readonly strategyDieInput:string; readonly roadblockTileInput:string; readonly playerSetup: readonly PlayerConfig[]; readonly roundsInput: string; readonly selectedMapId:string; readonly selectedTileId:number|null; readonly awaitingHandoff: boolean; readonly fastMode: boolean; readonly specialEnabled:boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; readonly importPreview: SaveEnvelope | null; readonly importName: string; readonly offline: boolean; readonly pwaUpdate: boolean; readonly pwaMessage: string; }
 
 /** Read screen positions from map data, never infer them from the tile ID. */
 function cellPosition(map:GameMap,index:number):{gridColumn:number;gridRow:number}{
@@ -17,7 +17,7 @@ const kindLabel: Record<Tile['kind'], string> = { start: '起点', property: '�
 class App extends React.Component<object, UiState> {
   constructor(props: object) {
     super(props);
-    this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput:'100', stockAmountInput:'1', strategyDieInput:'1', roadblockTileInput:'1', playerSetup: [{id:'p1',name:'玩家',kind:'human'},{id:'p2',name:'电脑',kind:'computer',computerStyle:'balanced'}], roundsInput:'60', selectedMapId:'classic-24', awaitingHandoff:false, fastMode: false, specialEnabled:false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator==='undefined'?false:!navigator.onLine, pwaUpdate:false, pwaMessage:'', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+    this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput:'100', stockAmountInput:'1', strategyDieInput:'1', roadblockTileInput:'1', playerSetup: [{id:'p1',name:'玩家',kind:'human'},{id:'p2',name:'电脑',kind:'computer',computerStyle:'balanced'}], roundsInput:'60', selectedMapId:'classic-24', selectedTileId:0, awaitingHandoff:false, fastMode: false, specialEnabled:false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator==='undefined'?false:!navigator.onLine, pwaUpdate:false, pwaMessage:'', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
   }
 
   private computerTimer: number | null = null;
@@ -161,7 +161,7 @@ class App extends React.Component<object, UiState> {
       await this.saveQueue;
       const saved=await readSlot(slot.id);
       this.setState({game:saved.game,activeSeed:null,storageBusy:false,awaitingHandoff:false,
-        roundsInput:String(saved.game.maxRounds),selectedMapId:saved.game.map.id,
+        roundsInput:String(saved.game.maxRounds),selectedMapId:saved.game.map.id,selectedTileId:saved.game.players[saved.game.currentPlayerIndex].position,
         playerSetup:saved.game.players.map(p=>({id:p.id,name:p.name,kind:p.kind,...(p.computerStyle?{computerStyle:p.computerStyle}:{})})),
         saveStatus:'已读取「'+slot.name+'」',message:'已恢复第 '+saved.game.round+' 轮，可从当前阶段继续。'});
     }catch(e){this.setState({storageBusy:false,saveStatus:'读档失败：'+(e instanceof Error?e.message:String(e))+'。原对局未被修改。'});}
@@ -176,7 +176,7 @@ class App extends React.Component<object, UiState> {
     this.saveEpoch++;
     this.stopTimer();
     const base=this.state.selectedMapId==='harbor-20'?HARBOR_CONFIG:DEFAULT_CONFIG;
-    this.setState({ game: createGame(20261015,base), activeSeed: null, awaitingHandoff:false, message: '已返回新游戏页面。可调整种子及地图后重新开始。' });
+    this.setState({ game: createGame(20261015,base), activeSeed: null, selectedTileId:0, awaitingHandoff:false, message: '已返回新游戏页面。可调整种子及地图后重新开始。' });
   };
   /** Keep stable IDs when the local seating plan changes. */
   private setPlayerCount = (count: number): void => {
@@ -198,7 +198,7 @@ class App extends React.Component<object, UiState> {
   private selectMap = (id:string):void=>{
     if(id!=='classic-24'&&id!=='harbor-20')return;
     const base=id==='harbor-20'?HARBOR_CONFIG:DEFAULT_CONFIG;
-    this.setState({selectedMapId:id,game:createGame(20261015,{...base,players:this.state.playerSetup}),
+    this.setState({selectedMapId:id,selectedTileId:0,game:createGame(20261015,{...base,players:this.state.playerSetup}),
       message:id==='harbor-20'?'已选择海港环线：20 格，独立价格及海港主题地产。':'已选择经典环线：24 格，原有规则完整保留。'});
   };
   private acknowledgeHandoff = ():void=>{
@@ -227,7 +227,7 @@ class App extends React.Component<object, UiState> {
     this.stopTimer();
     const result = applyAction(fresh, { type: 'start_game', actorId: fresh.players[0].id });
     if (!result.ok) { this.setState({ message: '无法开始对局，请重新开局。' }); return; }
-    this.setState({ game: result.state, activeSeed: seed, awaitingHandoff:false, message: '游戏已开始！轮到'+fresh.players[0].name+'掷骰。' });
+    this.setState({ game: result.state, activeSeed: seed,selectedTileId:0, awaitingHandoff:false, message: '游戏已开始！轮到'+fresh.players[0].name+'掷骰。' });
   };
   componentWillUnmount(): void {
     window.removeEventListener('online',this.updateOnline);
@@ -384,17 +384,38 @@ class App extends React.Component<object, UiState> {
     }
   };
 
+  /** Pure presentation: a board button selects a map node; the engine owns all movement and economy. */
   renderTile = (tile: Tile): unknown => {
     const { game } = this.state;
     const residents = game.players.filter(p => p.position === tile.id && !p.bankrupt);
+    const owner = game.players.find(p => p.id === tile.ownerId);
+    const type = tile.facility??(tile.kind==='start'?'start':tile.kind==='property'?'property':
+      tile.cardStation?'card':tile.eventBonus!==undefined?'chance':'rest');
+    const blocked=game.roadblocks?.some(b=>b.tileId===tile.id)??false;
+    const selected=this.state.selectedTileId===tile.id;
+    const active=game.status==='playing'&&residents.some(p=>p.id===game.players[game.currentPlayerIndex].id);
+    const level=tile.level??0;
+    const roadblockSelectable=tile.id!==0&&tile.id!==game.players[game.currentPlayerIndex].position&&
+      residents.length===0&&!blocked;
+    const label=`${tile.id} 号地块，${tile.title}${owner?'，'+owner.name+'所有，'+level+'级':''}${tile.mortgaged?'，已抵押':''}${blocked?'，有路障':''}${residents.length?'，停留玩家：'+residents.map(p=>p.name).join('、'):''}`;
     return (
-      <div key={tile.id} className={`tile tile-${tile.kind} ${tile.ownerId ? `tile-owned-${tile.ownerId}` : ''} ${residents.length ? 'tile-occupied' : ''}`} style={cellPosition(game.map,tile.id)} data-tile-id={tile.id} aria-label={`${tile.id} 号地块，${tile.title}`}>
-        <span className="tile-index">{String(tile.id).padStart(2, '0')}{game.roadblocks?.some(b=>b.tileId===tile.id)?' 🚧':''}</span>
-        <span className="tile-icon" aria-hidden="true">{tile.facility==='hospital'?'✚':tile.facility==='prison'?'▤':tile.facility==='shop'?'▣':tile.kind === 'start' ? '★' : tile.kind === 'property' ? '⌂' : tile.eventBonus!==undefined ? '✦' : tile.cardStation ? '▣' : '☕'}</span>
+      <button type="button" key={tile.id}
+        className={`tile tile-${tile.kind} tile-art-${type} ${tile.ownerId?`tile-owned-${tile.ownerId}`:''} ${residents.length?'tile-occupied':''} ${active?'tile-current':''} ${tile.mortgaged?'tile-mortgaged':''} ${blocked?'tile-blocked':''}`}
+        style={cellPosition(game.map,tile.id)} data-tile-id={tile.id} data-owner-id={tile.ownerId??''}
+        data-level={level} data-mortgaged={String(!!tile.mortgaged)} data-residents={residents.length}
+        aria-label={label} aria-pressed={selected} title={label}
+        onClick={()=>this.setState({selectedTileId:tile.id,...(roadblockSelectable?{roadblockTileInput:String(tile.id)}:{})})}>
+        <span className="tile-index">{String(tile.id).padStart(2,'0')}</span>
+        <span className="tile-artwork" aria-hidden="true"><i className="art-roof"/><i className="art-body"/><i className="art-detail"/></span>
         <span className="tile-name">{tile.facility==='hospital'?'医院':tile.facility==='prison'?'监狱':tile.facility==='shop'?'商店':tile.kind==='property'?tile.title:tile.eventBonus!==undefined?'机会':tile.cardStation?'卡片':kindLabel[tile.kind]}</span>
-        {tile.kind === 'property' && <span className="tile-value">{tile.ownerId ? `${game.players.find(p=>p.id===tile.ownerId)?.name??'未知'} · ${tile.level??0}级 · 租 ${tile.levelRents?.[tile.level??0]??tile.rent}` : `售价 ${tile.price}`}</span>}
-        <div className="pieces">{residents.map(p => <span key={p.id} className={`piece ${p.kind}`} title={p.name}>{p.kind === 'human' ? '人' : '机'}</span>)}</div>
-      </div>
+        {tile.kind==='property'&&<span className="tile-value">{owner?`${level}级 · ${tile.mortgaged?'抵押':owner.name}`:`¥${tile.price}`}</span>}
+        {blocked&&<span className="tile-roadblock" aria-label="路障">!</span>}
+        {tile.mortgaged&&<span className="tile-mortgage" aria-hidden="true">押</span>}
+        {tile.kind==='property'&&owner&&<span className="tile-level" aria-label={`建筑等级 ${level}`}>{'●'.repeat(level+1)}</span>}
+        <span className="pieces" aria-label={residents.map(p=>p.name).join('、')}>
+          {residents.map(p=><span key={p.id} className={`piece piece-${game.players.indexOf(p)+1} ${p.kind}`} title={p.name} aria-label={p.name}>{game.players.indexOf(p)+1}</span>)}
+        </span>
+      </button>
     );
   };
 
@@ -449,21 +470,39 @@ class App extends React.Component<object, UiState> {
         </section>}
         <div className="layout">
           <section className="board-card" aria-label={`${game.tiles.length} 格游戏棋盘`}>
-            <div className="board" style={{
-              gridTemplateColumns:`repeat(${game.map.columns},minmax(0,1fr))`,
-              gridTemplateRows:`repeat(${game.map.rows},minmax(0,1fr))`,
-              ...(game.map.id==='classic-24'?{}:{aspectRatio:`${game.map.columns}/${game.map.rows}`})
-            }}>
-              {game.tiles.map(this.renderTile)}
-              {game.map.columns>2&&game.map.rows>2&&game.map.cells.every(p=>p.row===1||p.row===game.map.rows||p.column===1||p.column===game.map.columns)&&
-              <div className="board-center" style={{gridColumn:`2/${game.map.columns}`,gridRow:`2/${game.map.rows}`}}>
-                <div className="board-center-label">当前第 <b>{game.round}</b> / {game.maxRounds} 轮</div>
-                <div className="center-title">{game.map.id==='harbor-20'?'海港环线':'环游大富翁'}<span>体验棋盘</span></div>
-                <div className="dice-display" aria-label="上一次骰子点数">{previousRoll ? '⚀⚁⚂⚃⚄⚅'[Number(previousRoll.details?.value) - 1] : '⚄'}</div>
-                <div className="center-subtitle">{previousRoll ? `上次掷出 ${previousRoll.details?.value} 点` : '等待第一颗骰子'}</div>
-              </div>}
+            <div className="board-viewport" tabIndex={0} aria-label="可交互游戏地图；小屏可横向滚动">
+              <div className={`board board-${game.map.id==='harbor-20'?'harbor':'classic'}`} data-board-theme={game.map.id}
+                style={{
+                  gridTemplateColumns:`repeat(${game.map.columns},minmax(0,1fr))`,
+                  gridTemplateRows:`repeat(${game.map.rows},minmax(0,1fr))`,
+                  aspectRatio:`${game.map.columns}/${game.map.rows}`
+                }}>
+                {game.tiles.map(this.renderTile)}
+                {game.map.columns>2&&game.map.rows>2&&game.map.cells.every(p=>p.row===1||p.row===game.map.rows||p.column===1||p.column===game.map.columns)&&
+                <div className="board-center" style={{gridColumn:`2/${game.map.columns}`,gridRow:`2/${game.map.rows}`}}>
+                  <div className="scene-horizon" aria-hidden="true">
+                    <span className="scene-hill"/><span className="scene-house house-one"/><span className="scene-house house-two"/>
+                    <span className="scene-tree tree-one"/><span className="scene-tree tree-two"/>
+                    <span className="scene-boat"/>
+                  </div>
+                  <div className="scene-info">
+                    <div className="center-title">{game.map.id==='harbor-20'?'海风港':'纸艺小镇'}</div>
+                    <div className="board-center-label">第 {game.round} / {game.maxRounds} 轮</div>
+                    <div className="dice-display" aria-label="上一次骰子点数">{previousRoll ? '⚀⚁⚂⚃⚄⚅'[Number(previousRoll.details?.value)-1] : '⚄'}</div>
+                    <div className="center-subtitle">{previousRoll?`掷出 ${previousRoll.details?.value} 点`:'准备出发'}</div>
+                  </div>
+                </div>}
+              </div>
             </div>
-            <div className="board-legend"><span><i className="legend-property"/>无主地产</span><span><i className="legend-owned-human"/>玩家地产</span><span><i className="legend-owned-computer"/>电脑地产</span><span><i className="legend-neutral"/>普通格</span><span><i className="legend-start"/>起点</span></div>
+            {this.state.selectedTileId!==null&&game.tiles[this.state.selectedTileId]&&(()=>{
+              const tile=game.tiles[this.state.selectedTileId!], owner=game.players.find(p=>p.id===tile.ownerId);
+              return <div className="board-inspector" role="status" aria-live="polite">
+                <strong>{tile.id} · {tile.title}</strong>
+                <span>{tile.kind==='property'?`售价 ${tile.price} · ${owner?`归属 ${owner.name} · ${tile.level??0} 级 · ${tile.mortgaged?'已抵押':'当前租金 '+(tile.levelRents?.[tile.level??0]??tile.rent)}`:'尚未出售'}`:
+                  tile.facility?{hospital:'医院',prison:'监狱',shop:'商店'}[tile.facility]:tile.cardStation?'卡片站':tile.eventBonus!==undefined?'机会事件':'公共地块'}
+                  {game.roadblocks?.some(b=>b.tileId===tile.id)?' · 有路障':''}</span>
+              </div>;
+            })()}
           </section>
           <aside className="sidebar">
             <div className="turn-card">
