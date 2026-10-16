@@ -31,13 +31,21 @@ function iso(x: unknown): x is string {
 }
 const EVENT_TYPES = new Set([
   'game_started','die_rolled','player_moved','turn_ended','tile_landed','property_declined',
-  'property_bought','property_upgraded','rent_paid','event_bonus','event_fee','player_bankrupt','game_finished'
+  'property_bought','property_upgraded','rent_paid','event_bonus','event_fee','card_received','card_used','player_bankrupt','game_finished'
 ]);
 /** 校验当前规则 v1 的每一项持久化字段，避免不完整对象影响回合结算。 */
 export function validateGameState(value: unknown): asserts value is GameState {
   if (!record(value)) throw new SaveError('INVALID_STATE','存档数据无效：游戏状态必须为对象');
   keys(value,['schemaVersion','status','phase','revision','round','currentPlayerIndex','randomState',
-    'maxRounds','players','tiles','winnerId','events','upgradeRulesVersion']);
+    'maxRounds','players','tiles','winnerId','events','upgradeRulesVersion'],['cardRules','pendingMoveBonus']);
+  if(value.cardRules!==undefined){
+    if(!record(value.cardRules))throw new SaveError('INVALID_STATE','卡片参数无效');
+    keys(value.cardRules,['rewardCash','moveBonus','maxHand']);
+    if(![value.cardRules.rewardCash,value.cardRules.moveBonus,value.cardRules.maxHand].every(v=>finite(v,1,100000)))
+      throw new SaveError('INVALID_STATE','卡片规则参数无效');
+  }
+  if(value.pendingMoveBonus!==undefined&&!(value.pendingMoveBonus===0||value.pendingMoveBonus===(record(value.cardRules)?value.cardRules.moveBonus:2)))
+    throw new SaveError('INVALID_STATE','移动修正无效');
   if(value.upgradeRulesVersion!==UPGRADE_RULES_VERSION) throw new SaveError('INCOMPATIBLE_VERSION','地产升级规则版本不兼容');
   if (value.schemaVersion !== SCHEMA_VERSION) throw new SaveError('INCOMPATIBLE_VERSION','游戏规则版本不兼容');
   if (!['setup','playing','finished'].includes(String(value.status)) ||
@@ -52,7 +60,14 @@ export function validateGameState(value: unknown): asserts value is GameState {
   for (let i=0;i<2;i++) {
     const p: unknown = value.players[i];
     if (!record(p)) throw new SaveError('INVALID_STATE','存档数据无效：玩家字段非法');
-    keys(p,['id','name','kind','position','cash','bankrupt']);
+    keys(p,['id','name','kind','position','cash','bankrupt'],['cards']);
+    if(p.cards!==undefined){
+      if(!record(p.cards))throw new SaveError('INVALID_STATE','卡片库存无效');
+      keys(p.cards,['reward','stride']);
+      if(!finite(p.cards.reward,0,1000)||!finite(p.cards.stride,0,1000)||
+        (p.cards.reward as number)+(p.cards.stride as number)>(record(value.cardRules)?value.cardRules.maxHand as number:3))
+        throw new SaveError('INVALID_STATE','卡片库存超过上限');
+    }
     if (!string(p.id,64) || !string(p.name,80) || ids.includes(p.id) ||
         p.kind!==(i===0?'human':'computer') || typeof p.bankrupt!=='boolean' ||
         !finite(p.cash,0,1_000_000_000_000)) throw new SaveError('INVALID_STATE','存档数据无效：玩家身份、现金或状态非法');
@@ -73,7 +88,9 @@ export function validateGameState(value: unknown): asserts value is GameState {
       if (!finite(t.price,0,1_000_000_000_000) || !finite(t.rent,0,1_000_000_000_000) ||
           (t.ownerId!==null && !ids.includes(String(t.ownerId)))) throw new SaveError('INVALID_STATE','存档数据无效：地产价格、租金或产权非法');
     } else {
-      keys(t,['id','kind','title','ownerId'],['eventBonus','eventFee']);
+      keys(t,['id','kind','title','ownerId'],['eventBonus','eventFee','cardStation']);
+      if(t.cardStation!==undefined&&(t.kind!=='neutral'||t.cardStation!==true))
+        throw new SaveError('INVALID_STATE','卡片格状态非法');
       if(t.eventBonus!==undefined||t.eventFee!==undefined){
         if(t.kind!=='neutral'||!finite(t.eventBonus,0,1_000_000_000_000)||!finite(t.eventFee,0,1_000_000_000_000))
           throw new SaveError('INVALID_STATE','存档数据无效：随机事件配置错误');
