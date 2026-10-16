@@ -1,5 +1,6 @@
 import { applyAction, createGame, type GameAction, type CardKind, type GameEvent, type GameState, type Tile, type GameMap, type PlayerConfig, DEFAULT_CONFIG, HARBOR_CONFIG, netWorth, resaleValue, loanLimit, STOCKS, quoteMarket, type StockId } from '../core/game.js';
 import { chooseComputerAction } from '../core/agent.js';
+import { COMPUTER_STYLES, COMPUTER_STYLE_NAMES } from '../core/strategic-agent.js';
 import { listSlots, readSlot, writeSlot, deleteSlot, type SlotSummary } from '../storage/indexeddb.js';
 import { deserializeGame, MAX_SAVE_CHARS, type SaveEnvelope } from '../core/save.js';
 
@@ -16,7 +17,7 @@ const kindLabel: Record<Tile['kind'], string> = { start: '起点', property: '�
 class App extends React.Component<object, UiState> {
   constructor(props: object) {
     super(props);
-    this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput:'100', stockAmountInput:'1', strategyDieInput:'1', roadblockTileInput:'1', playerSetup: [{id:'p1',name:'玩家',kind:'human'},{id:'p2',name:'电脑',kind:'computer'}], roundsInput:'60', selectedMapId:'classic-24', awaitingHandoff:false, fastMode: false, specialEnabled:false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator==='undefined'?false:!navigator.onLine, pwaUpdate:false, pwaMessage:'', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+    this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput:'100', stockAmountInput:'1', strategyDieInput:'1', roadblockTileInput:'1', playerSetup: [{id:'p1',name:'玩家',kind:'human'},{id:'p2',name:'电脑',kind:'computer',computerStyle:'balanced'}], roundsInput:'60', selectedMapId:'classic-24', awaitingHandoff:false, fastMode: false, specialEnabled:false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator==='undefined'?false:!navigator.onLine, pwaUpdate:false, pwaMessage:'', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
   }
 
   private computerTimer: number | null = null;
@@ -161,7 +162,7 @@ class App extends React.Component<object, UiState> {
       const saved=await readSlot(slot.id);
       this.setState({game:saved.game,activeSeed:null,storageBusy:false,awaitingHandoff:false,
         roundsInput:String(saved.game.maxRounds),selectedMapId:saved.game.map.id,
-        playerSetup:saved.game.players.map(p=>({id:p.id,name:p.name,kind:p.kind})),
+        playerSetup:saved.game.players.map(p=>({id:p.id,name:p.name,kind:p.kind,...(p.computerStyle?{computerStyle:p.computerStyle}:{})})),
         saveStatus:'已读取「'+slot.name+'」',message:'已恢复第 '+saved.game.round+' 轮，可从当前阶段继续。'});
     }catch(e){this.setState({storageBusy:false,saveStatus:'读档失败：'+(e instanceof Error?e.message:String(e))+'。原对局未被修改。'});}
   };
@@ -186,8 +187,11 @@ class App extends React.Component<object, UiState> {
     this.setState({playerSetup:roster});
   };
   private updatePlayer = (index:number,field:'name'|'kind',value:string):void=>{
-    const roster=this.state.playerSetup.map((p,i)=>i!==index?p:{
-      ...p,[field]:value
+    const roster=this.state.playerSetup.map((p,i)=>{
+      if(i!==index)return p;
+      const {computerStyle:_previous,...rest}=p;
+      return field==='kind' ? {...rest,kind:value as 'human'|'computer',...(value==='computer'?{computerStyle:p.computerStyle??'balanced'}:{})}
+        : {...p,name:value};
     });
     this.setState({playerSetup:roster});
   };
@@ -211,7 +215,8 @@ class App extends React.Component<object, UiState> {
     if(!/^[0-9]{1,3}$/.test(rawRounds)||!Number.isSafeInteger(rounds)||rounds<1||rounds>200){
       this.setState({message:'最大轮数必须是 1 至 200 的整数。'});return;
     }
-    const roster=this.state.playerSetup.map(p=>({...p,name:p.name.trim()}));
+    const roster=this.state.playerSetup.map(p=>({...p,name:p.name.trim(),
+      ...(p.kind==='computer'?{computerStyle:p.computerStyle??'balanced'}:{})}));
     if(roster.some(p=>!p.name||p.name.length>24)||new Set(roster.map(p=>p.name)).size!==roster.length){
       this.setState({message:'所有玩家都必须填写不同的姓名（最多 24 字）。'});return;
     }
@@ -450,6 +455,9 @@ class App extends React.Component<object, UiState> {
                     <label>类型<select aria-label={`第 ${i+1} 位玩家类型`} value={p.kind??(i===0?'human':'computer')} onChange={(event:{target:{value:string}})=>this.updatePlayer(i,'kind',event.target.value)}>
                       <option value="human">真人</option><option value="computer">电脑</option>
                     </select></label>
+                    {p.kind==='computer'&&<label>电脑策略<select aria-label={`第 ${i+1} 位电脑策略`} value={p.computerStyle??'balanced'} onChange={(event:{target:{value:string}})=>this.setState({playerSetup:this.state.playerSetup.map((item,j)=>j===i?{...item,computerStyle:event.target.value as typeof COMPUTER_STYLES[number]}:item)})}>
+                      {COMPUTER_STYLES.map(style=><option key={style} value={style}>{COMPUTER_STYLE_NAMES[style]}</option>)}
+                    </select></label>}
                   </div>)}
                 </div>
                 <label className="field-label" htmlFor="max-rounds">最多轮数</label>
@@ -463,7 +471,7 @@ class App extends React.Component<object, UiState> {
                 <p>请把设备交给这名玩家，准备好以后确认。上一位玩家不能继续操作。</p>
                 <button type="button" className="primary-btn" onClick={this.acknowledgeHandoff}>我已就位，开始操作</button>
               </div>}
-              {current.kind === 'computer' && game.status === 'playing' && <p className="computer-thinking" role="status">电脑正在自动操作，保留至少 200 游戏币现金…</p>}
+              {current.kind === 'computer' && game.status === 'playing' && <p className="computer-thinking" role="status">电脑正在自动操作（{current.computerStyle?COMPUTER_STYLE_NAMES[current.computerStyle]:'经典'}策略）…</p>}
               {current.kind === 'human' && !this.state.awaitingHandoff && game.phase === 'await_roll' && current.detention===undefined && <div className="purchase-actions">
                 <p className="purchase-info">手牌：奖励 {current.cards?.reward??0} · 步数 {current.cards?.stride??0}{game.strategyEnabled?' · 遥控 '+(current.cards?.remote??0)+' · 路障 '+(current.cards?.roadblock??0)+' · 免租 '+(current.cards?.rent_free??0):''}{(game.pendingMoveBonus??0)>0?` · 已加步数 ${game.pendingMoveBonus}`:''}{(game.pendingDie??0)>0?` · 已指定骰点 ${game.pendingDie}`:''}{game.pendingRentWaiver?' · 本次免租':''}</p>
                 {(current.cards?.reward??0)>0&&<button type="button" className="secondary-btn" onClick={()=>this.dispatch('use_card',undefined,'reward')}>使用奖励卡（+{game.cardRules?.rewardCash??80} 游戏币）</button>}
