@@ -22,7 +22,7 @@ test('P3-01: P2 compatibility reference: 100 seeds, all intermediate states and 
     let complete=false;
     for (let index=0; index<2000; index++) {
       if (now.status==='finished') { complete=true; break; }
-      const action=choosePhaseAction(now, seed % 2 ? 200 : 50);
+      const action=now.phase==='setup' ? {type:'start_game',actorId:now.players[0].id} : choosePhaseAction(now, seed % 2 ? 200 : 50);
       assert.ok(action,'seed='+seed+' step='+index);
       const current=applyAction(now,action);
       const previous=p2.applyAction(before,action);
