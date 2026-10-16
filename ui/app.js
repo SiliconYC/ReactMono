@@ -1,4 +1,4 @@
-import { applyAction, createGame, netWorth } from '../core/game.js';
+import { applyAction, createGame, DEFAULT_CONFIG, netWorth } from '../core/game.js';
 import { chooseComputerAction } from '../core/agent.js';
 import { listSlots, readSlot, writeSlot, deleteSlot } from '../storage/indexeddb.js';
 import { deserializeGame, MAX_SAVE_CHARS } from '../core/save.js';
@@ -16,7 +16,7 @@ const kindLabel = { start: '起点', property: '地产', neutral: '休息' };
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { game: createGame(20261015), seedInput: '20261015', fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator === 'undefined' ? false : !navigator.onLine, pwaUpdate: false, pwaMessage: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+        this.state = { game: createGame(20261015), seedInput: '20261015', playerSetup: [{ id: 'p1', name: '玩家', kind: 'human' }, { id: 'p2', name: '电脑', kind: 'computer' }], roundsInput: '60', awaitingHandoff: false, fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator === 'undefined' ? false : !navigator.onLine, pwaUpdate: false, pwaMessage: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
     }
     computerTimer = null;
     saveEpoch = 0;
@@ -210,7 +210,9 @@ class App extends React.Component {
         try {
             await this.saveQueue;
             const saved = await readSlot(slot.id);
-            this.setState({ game: saved.game, activeSeed: null, storageBusy: false,
+            this.setState({ game: saved.game, activeSeed: null, storageBusy: false, awaitingHandoff: false,
+                roundsInput: String(saved.game.maxRounds),
+                playerSetup: saved.game.players.map(p => ({ id: p.id, name: p.name, kind: p.kind })),
                 saveStatus: '已读取「' + slot.name + '」', message: '已恢复第 ' + saved.game.round + ' 轮，可从当前阶段继续。' });
         }
         catch (e) {
@@ -232,7 +234,25 @@ class App extends React.Component {
     reset = () => {
         this.saveEpoch++;
         this.stopTimer();
-        this.setState({ game: createGame(20261015), activeSeed: null, message: '已返回新游戏页面。可调整种子后重新开始。' });
+        this.setState({ game: createGame(20261015), activeSeed: null, awaitingHandoff: false, message: '已返回新游戏页面。可调整种子后重新开始。' });
+    };
+    /** Keep stable IDs when the local seating plan changes. */
+    setPlayerCount = (count) => {
+        if (!Number.isInteger(count) || count < 2 || count > 4)
+            return;
+        const roster = Array.from({ length: count }, (_, i) => this.state.playerSetup[i] ?? {
+            id: 'p' + (i + 1), name: '玩家' + (i + 1), kind: 'human'
+        });
+        this.setState({ playerSetup: roster });
+    };
+    updatePlayer = (index, field, value) => {
+        const roster = this.state.playerSetup.map((p, i) => i !== index ? p : {
+            ...p, [field]: value
+        });
+        this.setState({ playerSetup: roster });
+    };
+    acknowledgeHandoff = () => {
+        this.setState({ awaitingHandoff: false, message: '已轮到' + this.state.game.players[this.state.game.currentPlayerIndex].name + '操作。' });
     };
     startGame = () => {
         const seed = Number(this.state.seedInput.trim());
@@ -240,15 +260,33 @@ class App extends React.Component {
             this.setState({ message: '对局种子请输入 0 至 4294967295 之间的整数。' });
             return;
         }
+        const rawRounds = this.state.roundsInput.trim();
+        const rounds = Number(rawRounds);
+        if (!/^[0-9]{1,3}$/.test(rawRounds) || !Number.isSafeInteger(rounds) || rounds < 1 || rounds > 200) {
+            this.setState({ message: '最大轮数必须是 1 至 200 的整数。' });
+            return;
+        }
+        const roster = this.state.playerSetup.map(p => ({ ...p, name: p.name.trim() }));
+        if (roster.some(p => !p.name || p.name.length > 24) || new Set(roster.map(p => p.name)).size !== roster.length) {
+            this.setState({ message: '所有玩家都必须填写不同的姓名（最多 24 字）。' });
+            return;
+        }
+        let fresh;
+        try {
+            fresh = createGame(seed, { ...DEFAULT_CONFIG, players: roster, maxRounds: rounds });
+        }
+        catch (e) {
+            this.setState({ message: '开局配置无效：' + (e instanceof Error ? e.message : String(e)) });
+            return;
+        }
         this.saveEpoch++;
         this.stopTimer();
-        const fresh = createGame(seed);
         const result = applyAction(fresh, { type: 'start_game', actorId: fresh.players[0].id });
         if (!result.ok) {
             this.setState({ message: '无法开始对局，请重新开局。' });
             return;
         }
-        this.setState({ game: result.state, activeSeed: seed, message: '游戏已开始！轮到玩家掷骰。' });
+        this.setState({ game: result.state, activeSeed: seed, awaitingHandoff: false, message: '游戏已开始！轮到' + fresh.players[0].name + '掷骰。' });
     };
     componentWillUnmount() {
         window.removeEventListener('online', this.updateOnline);
@@ -282,7 +320,7 @@ class App extends React.Component {
         }, this.state.fastMode ? 8 : 220);
     }
     dispatch = (type, tileId, cardType) => {
-        if (this.state.storageBusy)
+        if (this.state.storageBusy || this.state.awaitingHandoff)
             return;
         const { game } = this.state;
         const actor = game.players[game.currentPlayerIndex];
@@ -296,7 +334,11 @@ class App extends React.Component {
             this.setState({ message: reason });
             return;
         }
-        this.setState({ game: result.state, message: this.describe(result.events, result.state, actor.name) });
+        const next = result.state.players[result.state.currentPlayerIndex];
+        const handoff = type === 'end_turn' && result.state.status === 'playing'
+            && next.kind === 'human' && next.id !== actor.id;
+        this.setState({ game: result.state, awaitingHandoff: handoff,
+            message: handoff ? '请将设备交给 ' + next.name + '；确认就位后方可继续。' : this.describe(result.events, result.state, actor.name) });
     };
     describe = (events, state, actorName) => {
         const finished = events.find(e => e.type === 'game_finished');
@@ -306,7 +348,7 @@ class App extends React.Component {
             return `${reason}${winner ? `赢家是${winner.name}！` : '双方净资产相同，平局！'}`;
         }
         if (events.some(e => e.type === 'game_started'))
-            return '对局已开始！轮到玩家掷骰。';
+            return '对局已开始！';
         const upgraded = events.find(e => e.type === 'property_upgraded');
         if (upgraded)
             return `${actorName}升级了 ${upgraded.details?.tileId} 号地产至 ${upgraded.details?.level} 级，花费 ${upgraded.details?.amount} 游戏币。`;
@@ -355,14 +397,14 @@ class App extends React.Component {
     };
     renderTile = (tile) => {
         const { game } = this.state;
-        const residents = game.players.filter(p => p.position === tile.id);
+        const residents = game.players.filter(p => p.position === tile.id && !p.bankrupt);
         return (React.createElement("div", { key: tile.id, className: `tile tile-${tile.kind} ${tile.ownerId ? `tile-owned-${tile.ownerId}` : ''} ${residents.length ? 'tile-occupied' : ''}`, style: cellPosition(tile.id), "data-tile-id": tile.id, "aria-label": `${tile.id} 号地块，${tile.title}` },
             React.createElement("span", { className: "tile-index" }, String(tile.id).padStart(2, '0')),
             React.createElement("span", { className: "tile-icon", "aria-hidden": "true" }, tile.kind === 'start' ? '★' : tile.kind === 'property' ? '⌂' : tile.eventBonus !== undefined ? '✦' : tile.cardStation ? '▣' : '☕'),
             React.createElement("span", { className: "tile-name" },
                 tile.eventBonus !== undefined ? '机会' : tile.cardStation ? '卡片' : kindLabel[tile.kind],
                 tile.kind === 'property' ? ` ${tile.id}` : ''),
-            tile.kind === 'property' && React.createElement("span", { className: "tile-value" }, tile.ownerId ? `${tile.ownerId === 'p1' ? '玩家' : '电脑'} · ${tile.level ?? 0}级 · 租 ${tile.levelRents?.[tile.level ?? 0] ?? tile.rent}` : `售价 ${tile.price}`),
+            tile.kind === 'property' && React.createElement("span", { className: "tile-value" }, tile.ownerId ? `${game.players.find(p => p.id === tile.ownerId)?.name ?? '未知'} · ${tile.level ?? 0}级 · 租 ${tile.levelRents?.[tile.level ?? 0] ?? tile.rent}` : `售价 ${tile.price}`),
             React.createElement("div", { className: "pieces" }, residents.map(p => React.createElement("span", { key: p.id, className: `piece ${p.kind}`, title: p.name }, p.kind === 'human' ? '人' : '机')))));
     };
     render() {
@@ -384,16 +426,16 @@ class App extends React.Component {
                     React.createElement("span", null,
                         "\u5927\u5BCC\u7FC1 ",
                         React.createElement("small", null, "ReactMono"))),
-                React.createElement("span", { className: "version-tag" }, "P2 \u00B7 \u53EF\u79BB\u7EBF"),
+                React.createElement("span", { className: "version-tag" }, "P3 \u00B7 \u591A\u4EBA\u5BF9\u5C40"),
                 React.createElement("span", { className: "network-indicator", role: "status" },
                     this.state.offline ? '已断网 · 可用本地缓存' : '已联网',
                     this.state.pwaMessage ? ' · ' + this.state.pwaMessage : ''),
                 this.state.pwaUpdate && React.createElement("button", { className: "secondary-btn", type: "button", onClick: () => void this.applyPwaUpdate() }, "\u68C0\u6D4B\u5230\u65B0\u7248\uFF0C\u4FDD\u5B58\u5E76\u66F4\u65B0")),
             React.createElement("section", { className: "headline" },
                 React.createElement("div", null,
-                    React.createElement("span", { className: "section-eyebrow" }, "24 \u683C \u00B7 \u4E70\u5730\u6536\u79DF \u00B7 60 \u8F6E\u5B9A\u80DC\u8D1F"),
+                    React.createElement("span", { className: "section-eyebrow" }, "24 \u683C \u00B7 2\uFF5E4 \u4EBA \u00B7 \u672C\u673A\u8F6E\u6D41"),
                     React.createElement("h1", null, "\u6BCF\u4E00\u6B65\uFF0C\u90FD\u662F\u4E00\u7B14\u751F\u610F\u3002"),
-                    React.createElement("p", null, "\u4E00\u4E2A\u4EBA\u5C31\u80FD\u5B8C\u6210\u6574\u5C40\uFF1A\u63B7\u9AB0\u3001\u4E70\u5730\u3001\u6536\u79DF\uFF0C\u4E0E\u81EA\u52A8\u884C\u52A8\u7684\u7535\u8111\u5BF9\u6297\uFF1B\u6709\u4EBA\u7834\u4EA7\u5373\u51B3\u51FA\u80DC\u8D1F\uFF0C\u5426\u5219\u7B2C 60 \u8F6E\u6309\u51C0\u8D44\u4EA7\u51B3\u80DC\u3002")),
+                    React.createElement("p", null, "\u9080\u8BF7\u670B\u53CB\u5728\u540C\u4E00\u8BBE\u5907\u8F6E\u6D41\u884C\u52A8\uFF0C\u4E5F\u53EF\u4EE5\u4E0E\u4E00\u540D\u6216\u591A\u540D\u7535\u8111\u73A9\u5BB6\u5BF9\u6297\u3002\u6240\u6709\u5BF9\u5C40\u90FD\u5728\u672C\u5730\u5B8C\u6210\u3002")),
                 React.createElement("button", { type: "button", className: "reset-btn", onClick: this.reset }, "\u21BB \u91CD\u65B0\u5F00\u5C40")),
             React.createElement("div", { className: "layout" },
                 React.createElement("section", { className: "board-card", "aria-label": "24 \u683C\u6E38\u620F\u68CB\u76D8" },
@@ -448,14 +490,37 @@ class App extends React.Component {
                                 "\u5BF9\u5C40\u79CD\u5B50 ",
                                 React.createElement("small", null, "\u76F8\u540C\u79CD\u5B50\u53EF\u91CD\u73B0\u9AB0\u5B50\u7ED3\u679C")),
                             React.createElement("input", { id: "game-seed", "aria-label": "\u5BF9\u5C40\u79CD\u5B50", inputMode: "numeric", type: "text", maxLength: 10, value: this.state.seedInput, onChange: (event) => this.setState({ seedInput: event.target.value }) }),
+                            React.createElement("label", { className: "field-label", htmlFor: "player-count" }, "\u73A9\u5BB6\u4EBA\u6570"),
+                            React.createElement("select", { id: "player-count", "aria-label": "\u73A9\u5BB6\u4EBA\u6570", value: this.state.playerSetup.length, onChange: (event) => this.setPlayerCount(Number(event.target.value)) }, [2, 3, 4].map(n => React.createElement("option", { key: n, value: n },
+                                n,
+                                " \u4EBA"))),
+                            React.createElement("div", { className: "setup-roster" }, this.state.playerSetup.map((p, i) => React.createElement("div", { className: "setup-player", key: p.id },
+                                React.createElement("label", null,
+                                    "\u7B2C ",
+                                    i + 1,
+                                    " \u4F4D\u73A9\u5BB6\u59D3\u540D",
+                                    React.createElement("input", { "aria-label": `第 ${i + 1} 位玩家姓名`, type: "text", maxLength: 24, value: p.name, onChange: (event) => this.updatePlayer(i, 'name', event.target.value) })),
+                                React.createElement("label", null,
+                                    "\u7C7B\u578B",
+                                    React.createElement("select", { "aria-label": `第 ${i + 1} 位玩家类型`, value: p.kind ?? (i === 0 ? 'human' : 'computer'), onChange: (event) => this.updatePlayer(i, 'kind', event.target.value) },
+                                        React.createElement("option", { value: "human" }, "\u771F\u4EBA"),
+                                        React.createElement("option", { value: "computer" }, "\u7535\u8111")))))),
+                            React.createElement("label", { className: "field-label", htmlFor: "max-rounds" }, "\u6700\u591A\u8F6E\u6570"),
+                            React.createElement("input", { id: "max-rounds", "aria-label": "\u6700\u591A\u8F6E\u6570", type: "text", inputMode: "numeric", maxLength: 3, value: this.state.roundsInput, onChange: (event) => this.setState({ roundsInput: event.target.value }) }),
                             React.createElement("label", { className: "fast-setting" },
                                 React.createElement("input", { type: "checkbox", "aria-label": "\u5FEB\u901F\u6A21\u5F0F", checked: this.state.fastMode, onChange: (event) => this.setState({ fastMode: event.target.checked }) }),
                                 "\u5FEB\u901F\u6A21\u5F0F\uFF08\u7F29\u77ED\u7535\u8111\u64CD\u4F5C\u95F4\u9694\uFF09"),
                             React.createElement("button", { type: "button", className: "primary-btn", onClick: this.startGame },
                                 "\u5F00\u59CB\u6E38\u620F ",
                                 React.createElement("span", null, "\u2192"))),
+                        this.state.awaitingHandoff && game.status === 'playing' && React.createElement("div", { className: "handoff-panel", role: "status" },
+                            React.createElement("strong", null,
+                                "\u8F6E\u5230 ",
+                                current.name),
+                            React.createElement("p", null, "\u8BF7\u628A\u8BBE\u5907\u4EA4\u7ED9\u8FD9\u540D\u73A9\u5BB6\uFF0C\u51C6\u5907\u597D\u4EE5\u540E\u786E\u8BA4\u3002\u4E0A\u4E00\u4F4D\u73A9\u5BB6\u4E0D\u80FD\u7EE7\u7EED\u64CD\u4F5C\u3002"),
+                            React.createElement("button", { type: "button", className: "primary-btn", onClick: this.acknowledgeHandoff }, "\u6211\u5DF2\u5C31\u4F4D\uFF0C\u5F00\u59CB\u64CD\u4F5C")),
                         current.kind === 'computer' && game.status === 'playing' && React.createElement("p", { className: "computer-thinking", role: "status" }, "\u7535\u8111\u6B63\u5728\u81EA\u52A8\u64CD\u4F5C\uFF0C\u4FDD\u7559\u81F3\u5C11 200 \u6E38\u620F\u5E01\u73B0\u91D1\u2026"),
-                        current.kind === 'human' && game.phase === 'await_roll' && React.createElement("div", { className: "purchase-actions" },
+                        current.kind === 'human' && !this.state.awaitingHandoff && game.phase === 'await_roll' && React.createElement("div", { className: "purchase-actions" },
                             React.createElement("p", { className: "purchase-info" },
                                 "\u624B\u724C\uFF1A\u5956\u52B1\u5361 ",
                                 current.cards?.reward ?? 0,
@@ -474,7 +539,7 @@ class App extends React.Component {
                             React.createElement("button", { type: "button", className: "primary-btn", onClick: () => this.dispatch('roll') },
                                 "\u63B7\u9AB0\u524D\u8FDB ",
                                 React.createElement("span", null, "\uD83C\uDFB2"))),
-                        current.kind === 'human' && game.phase === 'await_decision' && React.createElement("div", { className: "purchase-actions" },
+                        current.kind === 'human' && !this.state.awaitingHandoff && game.phase === 'await_decision' && React.createElement("div", { className: "purchase-actions" },
                             React.createElement("p", { className: "purchase-info" },
                                 targetTile.title,
                                 "\u3000\u552E\u4EF7 ",
@@ -486,7 +551,7 @@ class App extends React.Component {
                                 React.createElement("span", null, "\u2302")),
                             !hasMoneyForLand && React.createElement("p", { className: "insufficient-msg" }, "\u8D44\u91D1\u4E0D\u8DB3\uFF0C\u4E0D\u80FD\u8D2D\u4E70\u6B64\u5730\u3002"),
                             React.createElement("button", { type: "button", className: "secondary-btn", onClick: () => this.dispatch('decline_property') }, "\u653E\u5F03\u8D2D\u4E70\uFF0C\u7EE7\u7EED\u56DE\u5408 \u2192")),
-                        current.kind === 'human' && game.phase === 'await_end_turn' && React.createElement("div", { className: "purchase-actions" },
+                        current.kind === 'human' && !this.state.awaitingHandoff && game.phase === 'await_end_turn' && React.createElement("div", { className: "purchase-actions" },
                             game.tiles.filter(t => t.kind === 'property' && t.ownerId === current.id && (t.level ?? 0) < 2).map(tile => React.createElement("button", { type: "button", key: tile.id, className: "secondary-btn", disabled: current.cash < (tile.upgradeCosts?.[tile.level ?? 0] ?? Infinity), onClick: () => this.dispatch('upgrade_property', tile.id) },
                                 "\u5347\u7EA7 ",
                                 tile.title,
@@ -498,13 +563,11 @@ class App extends React.Component {
                                 "\u7ED3\u675F\u5F53\u524D\u56DE\u5408 ",
                                 React.createElement("span", null, "\u2192"))),
                         game.phase === 'finished' && React.createElement("div", { className: "result-box", role: "status" },
-                            React.createElement("strong", null, game.winnerId ? `${game.players.find(p => p.id === game.winnerId)?.name}获胜！` : '双方平局！'),
+                            React.createElement("strong", null, game.winnerId ? `${game.players.find(p => p.id === game.winnerId)?.name}获胜！` : '净资产并列，平局！'),
                             React.createElement("p", null, [...game.events].reverse().find(e => e.type === 'game_finished')?.details?.reason === 'bankruptcy' ? '结束原因：一方无法付清租金' : '结束原因：达到回合上限'),
                             React.createElement("p", null,
-                                "\u6700\u7EC8\u51C0\u8D44\u4EA7\uFF1A\u73A9\u5BB6 ",
-                                netWorth(game, 'p1'),
-                                " \u00B7 \u7535\u8111 ",
-                                netWorth(game, 'p2')),
+                                "\u6700\u7EC8\u51C0\u8D44\u4EA7\uFF1A",
+                                game.players.map(p => `${p.name} ${netWorth(game, p.id)}`).join(' · ')),
                             React.createElement("p", null,
                                 "\u672C\u5C40\u79CD\u5B50\uFF1A",
                                 this.state.activeSeed),
