@@ -49,7 +49,7 @@ export function createGame(seed: number, config: GameConfig = DEFAULT_CONFIG): G
     ...(config.automaticLiquidation===true?{automaticLiquidation:true as const}:{}),
     players: config.players.map((p, index): Player => ({
       id: p.id, name: p.name, kind: p.kind ?? (index === 0 ? 'human' : 'computer'),
-      position: 0, cash: config.initialCash, ...(config.bankEnabled===true?{bankBalance:0}:{}), ...(config.loanEnabled===true?{loanBalance:0}:{}), ...(config.marketEnabled===true?{holdings:{}}:{}), bankrupt: false, cards:{reward:0,stride:0}
+      position: 0, cash: config.initialCash, ...(config.bankEnabled===true?{bankBalance:0}:{}), ...(config.loanEnabled===true?{loanBalance:0}:{}), bankrupt: false, cards:{reward:0,stride:0}
     })),
     tiles: config.tiles.map(t => {
       if(t.kind==='property')return makePropertyTile(t,config.upgrades??DEFAULT_UPGRADES);
