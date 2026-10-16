@@ -34,7 +34,7 @@ export function transferLoan(state:GameState,actor:Player,action:Extract<GameAct
       tiles:state.tiles.map(t=>t.id===tile.id?(({mortgaged:_unused,...rest})=>rest)(t):t)
     });
   }
-  const amount=action.amount,old=actor.loanBalance??0;
+  const amount='amount' in action?action.amount:NaN,old=actor.loanBalance??0;
   if(!Number.isSafeInteger(amount)||amount<1||amount>MAX_BANK_BALANCE)
     return reject(state,'INVALID_PHASE');
   if(action.type==='borrow_loan'){
@@ -86,7 +86,7 @@ export function settleLoanRound(state:GameState,players:readonly Player[],tiles:
       bankBalance:(p.bankBalance??0)-fromBank,loanBalance:old+remaining};
     if(fromBank>0)events.push({type:'bank_withdrawn',actorId:p.id,details:{amount:fromBank,reason:'loan_interest'}});
     if(interest>0)events.push({type:'loan_interest',actorId:p.id,details:{round,amount:interest,paid:fromCash+fromBank,capitalized:remaining}});
-    if(result.loanBalance!>loanLimit({...state,tiles:currentTiles},p.id)){
+    if((result.loanBalance??0)>loanLimit({...state,tiles:currentTiles},p.id)){
       const seized=foreclose(state,result,currentTiles);
       result=seized.player;currentTiles=seized.tiles;events.push(...seized.events);
     }
