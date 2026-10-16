@@ -4,6 +4,7 @@ import { nextDie } from './random.js';
 import { advancePosition } from './maps.js';
 import { netWorth, liquidateForRent } from './property.js';
 import { advanceMarket } from './market.js';
+import { liquidateStocksForRent } from './stocks.js';
 import { foreclose, settleLoanRound } from './loan.js';
 import { coverRentFromBank, settleBankRound } from './bank.js';
 import { DEFAULT_CARD_RULES } from './config.js';
@@ -27,9 +28,13 @@ export function rollTurn(state: GameState, actor: Player): ActionResult {
         const due = landed.mortgaged===true ? 0 : (landed.level??0)===0 ? (landed.rent??0) : (landed.levelRents?.[landed.level??0]??0);
         const funds=coverRentFromBank(state,actor,due);
         if(funds.amount>0)events.push({type:'bank_withdrawn',actorId:actor.id,details:{amount:funds.amount,reason:'rent'}});
+        const stockRescue=state.automaticLiquidation===true
+          ? liquidateStocksForRent(state,{...actor,cash:funds.cash},due)
+          : {cash:funds.cash,holdings:actor.holdings,events:[]};
+        events.push(...stockRescue.events);
         let rescue=state.automaticLiquidation===true
-          ? liquidateForRent(state,{...actor,cash:funds.cash},due,landlord.id)
-          : {cash:funds.cash,tiles:state.tiles,events:[]};
+          ? liquidateForRent(state,{...actor,cash:stockRescue.cash},due,landlord.id)
+          : {cash:stockRescue.cash,tiles:state.tiles,events:[]};
         events.push(...rescue.events);
         let loanBalance=actor.loanBalance??0;
         // Rent deficit: pledge is seized by the bank, only collateral proceeds in excess
@@ -43,7 +48,7 @@ export function rollTurn(state: GameState, actor: Player): ActionResult {
         const paid = Math.min(rescue.cash, due);
         const insolvent = paid < due;
         const players = movingPlayers.map(p => p.id === actor.id
-          ? { ...p, cash: rescue.cash - paid, ...(funds.amount>0?{bankBalance:funds.bankBalance}:{}), bankrupt: insolvent, ...(state.loan?{loanBalance}:{} ) }
+          ? { ...p, cash: rescue.cash - paid, ...(funds.amount>0?{bankBalance:funds.bankBalance}:{}), bankrupt: insolvent, ...(state.loan?{loanBalance}:{} ), ...(stockRescue.holdings!==undefined?{holdings:stockRescue.holdings}:{}) }
           : p.id === landlord.id ? { ...p, cash: p.cash + paid } : p);
         events.push({ type: 'rent_paid', actorId: actor.id, details: {
           tileId: landed.id, fromId: actor.id, toId: landlord.id, due, amount: paid
