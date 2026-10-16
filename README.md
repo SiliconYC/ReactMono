@@ -2,7 +2,7 @@
 
 一个以经典《大富翁4》为主要参考的浏览器回合制经营游戏，同时也是**AI 自主定向进化软件开发**的长期实验。
 
-> **当前阶段：P1 简化版可完整对局。** #2–#6 均已合并到 `dev`：棋盘、掷骰、购地收租、破产与胜负、电脑自动回合，以及真实浏览器按钮驱动的完整对局测试。GitHub Pages 已发布；当前不提供存档或断网功能。
+> **当前阶段：P2 已完成并验收，P3 正在实施。** #2–#20 已分别合并至 `dev`；现有版本支持完整人机对局、PWA 离线、IndexedDB 多存档、JSON 导入导出、地产升级、随机事件与基础卡片。#30–#45 属 P3 待开发队列；创建 Issue 不代表完成。  
 
 ## 两个长期目标
 
@@ -32,14 +32,13 @@
 
 具体优先级由实际缺陷、玩家价值和自主规划决定；不得把上述清单当作无需讨论的固定开发顺序。
 
-## 建议的技术边界（尚未落地）
+## 当前技术架构
 
-- React + TypeScript：界面；PixiJS：地图与角色渲染（可在初始技术验证后调整）。
-- 独立于 React 的确定性游戏逻辑层：规则、状态、事件及可重复的模拟。
-- 自动化测试：单元/规则、端到端、批量模拟对局与界面回归。
-- 确定使用 GitHub Pages 静态部署及 PWA 离线运行；IndexedDB 本地存档，支持文件备份，不建设用户系统或跨设备自动同步。
-
-技术选型不是最终决定，变更需说明理由和验收证据。
+- React 18 + TypeScript 本地静态构建；纯规则引擎不依赖 React 或后端。
+- Node 内置测试框架进行规则、100 种子模拟与存档迁移回归；Playwright/Chromium 进行真实浏览器验收。
+- GitHub Pages 静态发布；PWA 缓存离线运行，IndexedDB 本地多存档与 JSON 文件备份。
+- P3 #30 将规则类型、配置、随机数、地产、回合、卡片分为独立模块，但公共入口仍为 `src/core/game.ts`；模块化完成状态以合并后的验收记录为准。
+- 尚未引入 PixiJS、服务器、登录或云同步。
 
 ## 阶段路线图
 
@@ -55,22 +54,12 @@ P0 目标与治理 → P1 第一局能玩到底 → P2 可靠的准本地游戏�
 
 不要把“已经创建 Issue”冒充“已经开发或验收完成”。P1 详细边界参见 [P002 研究与晋升结果](docs/proposals/P002-first-playable.md)。
 
-## 工程测试地址
+## 当前版本试玩与验收
 
-- [GitHub Pages 人机对局体验版](https://siliconyc.github.io/ReactMono/)：真人投骰、购地、结束回合后，电脑会自动完成自己的回合。
-- [#5 合并 PR #10](https://github.com/SiliconYC/ReactMono/pull/10)；[Pages 成功部署 #38759941787](https://github.com/SiliconYC/ReactMono/actions/runs/38759941787)。
-- [#5 验证与环境限制](docs/ISSUE5_IMPLEMENTATION.md)：28 项自动测试通过、100 组种子完整对局、浏览器内联资源交互测试通过。公网 React CDN 的浏览器测试仍未直接开展。
-
-## 试玩与验收
-
-- [GitHub Pages：P1 完整对局版](https://siliconyc.github.io/ReactMono/)。
-- [P1 端到端验收说明](docs/ISSUE6_IMPLEMENTATION.md)：28/28 条规则测试，种子 0、17 在 Chromium 浏览器完成真实按钮全局操作（包括买地、租金、电脑行动、破产与重新开始）。
-- [GitHub Pages 发布记录](https://github.com/SiliconYC/ReactMono/actions/runs/38767372780)：`gh-pages` 最新静态版已成功部署；受沙盒网络限制，公网 React 18 CDN 实际载入尚未在本环境做浏览器实测。
-- **P2 待做**：把 React 本地打包、PWA 离线和 IndexedDB 多存档及备份；目前依赖 CDN，不能离线玩。
-
-## P2 已批准待执行队列
-
-2026-10-16 已从 P003/P005 筛选建立 [9 个 P2 Issue（#12–#20）](docs/P2_QUEUE.md)：本地打包、存档契约、IndexedDB 多档、文件备份、离线 PWA、地产升级、随机事件、卡片与综合验收。**仅完成排队，尚未写 P2 代码。** 推荐先独立推进 #12 和 #13，之后按依赖逐项验收。
+- [GitHub Pages 在线游玩](https://siliconyc.github.io/ReactMono/)：P2 人机对局、存档、多种卡片/机会事件以及离线启动。
+- [P2 总验收 Issue #20](https://github.com/SiliconYC/ReactMono/issues/20) / [PR #29](https://github.com/SiliconYC/ReactMono/pull/29)：规则/百种子、离线、自动存档、JSON 往返及 Chromium 公网交互证据。
+- [P3 16 项任务 #30–#45](https://github.com/SiliconYC/ReactMono/issues/30)：规则模块化 → 2–4 人/多地图 → 经济及股市 → 特殊格/AI → 综合验收。
+- [历史 P2 执行队列](docs/P2_QUEUE.md) 与 [实际开发实验日志](docs/EVOLUTION_LOG.md)。
 
 ## 协作入口
 

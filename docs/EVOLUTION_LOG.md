@@ -99,3 +99,12 @@
 | P2-20 | ROADMAP / #20 | [PR #29](https://github.com/SiliconYC/ReactMono/pull/29) | 独立百种子及 Chromium 真公网/文件/离线整局；SW 版本更新 | [首轮合格 CI](https://github.com/SiliconYC/ReactMono/actions/runs/38840013244) | 留存异步读档与 SW 更新导航竞态的失败/修复证据；可 revert PR | 此会话中途人类介入 0 次，运行 GitHub Actions | 集成验收，最终关闭以最新 PR CI / 部署为准 |
 
 每轮出现失败也要登记：失败原因、复现方法、下一步实验以及是否停止；不得只记录成功，不得用提交数量冒充玩家体验的提升。
+
+
+## 2026-10-16 · P3-01 启动与可恢复检查点（未验收）
+
+- **任务**：[Issue #30](https://github.com/SiliconYC/ReactMono/issues/30)，[Draft PR #46](https://github.com/SiliconYC/ReactMono/pull/46)；开发分支 `p3/issue-30-core-modularization`，基于 P2 完成时 `dev@b481b339`，目标 `dev`。
+- **测试先行**：`d45456c` 保存只读 P2 引擎参考，100 种种子在每个合法动作后比较完整状态、事件、随机数和经济结果，并检查拒绝语义；不随模块重构修改该参考。
+- **实现检查点**：`70ac06d` 拆出类型、规则默认值、随机数和地产估值；`6df2641` 抽取回合、地产、卡片命令和共享状态转移，原始公共入口仍有效。
+- **当前状态**：开发中。合并与关闭必须等待 PR CI 全部通过，以及旧存档、浏览器、PWA 的独立验收；若失败在同一分支继续修复。具体最新提交及测试结论以 PR 为准，不得把本条记录视为验收成功。
+- **断点恢复**：读取 PR #46 清单及最新 CI，核对 `dev` 的合并状态；未合并则接续原分支、禁止另建重复分支。
