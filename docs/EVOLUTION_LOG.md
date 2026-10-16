@@ -92,6 +92,10 @@
 
 | 轮次 | 来源提案/Issue | PR/提交 | 目标与测试证据 | 独立验收 | 回归/回滚 | 成本与人工介入 | 结论 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| （尚无） | — | — | — | — | — | — | — |
+| P2-16 | P003 / #16 | [PR #25](https://github.com/SiliconYC/ReactMono/pull/25) | 接续旧分支，PWA 离线缓存与固定版本导航 | [PR CI](https://github.com/SiliconYC/ReactMono/actions/runs/38837996170) | 旧导航网络优先有脚本混用风险，修复后合并；可单 PR revert | 此会话中途人类介入 0 次，运行 GitHub Actions | 已合并 dev、关闭 #16 |
+| P2-17 | P005 / #17 | [PR #26](https://github.com/SiliconYC/ReactMono/pull/26) | 地产升级、租金、资产与 v1 存档迁移 | [PR CI](https://github.com/SiliconYC/ReactMono/actions/runs/38838388067) | 旧断言初次失败后更新，保持版本迁移测试；可 revert PR | 此会话中途人类介入 0 次，运行 GitHub Actions | 已合并 dev、关闭 #17 |
+| P2-18 | P005 / #18 | [PR #27](https://github.com/SiliconYC/ReactMono/pull/27) | 固定种子机会格与负现金保护 | [PR CI](https://github.com/SiliconYC/ReactMono/actions/runs/38838959181) | 旧平局用例与新事件隔离，修复异步状态提示；可 revert PR | 此会话中途人类介入 0 次，运行 GitHub Actions | 已合并 dev、关闭 #18 |
+| P2-19 | P005 / #19 | [PR #28](https://github.com/SiliconYC/ReactMono/pull/28) | 卡片站、奖励/移动卡、AI 策略与跨版本存档 | [PR CI](https://github.com/SiliconYC/ReactMono/actions/runs/38839405771) | 旧固定骰子随机数基准隔离；可 revert PR | 此会话中途人类介入 0 次，运行 GitHub Actions | 已合并 dev、关闭 #19 |
+| P2-20 | ROADMAP / #20 | [PR #29](https://github.com/SiliconYC/ReactMono/pull/29) | 独立百种子及 Chromium 真公网/文件/离线整局；SW 版本更新 | [首轮合格 CI](https://github.com/SiliconYC/ReactMono/actions/runs/38840013244) | 留存异步读档与 SW 更新导航竞态的失败/修复证据；可 revert PR | 此会话中途人类介入 0 次，运行 GitHub Actions | 集成验收，最终关闭以最新 PR CI / 部署为准 |
 
 每轮出现失败也要登记：失败原因、复现方法、下一步实验以及是否停止；不得只记录成功，不得用提交数量冒充玩家体验的提升。
