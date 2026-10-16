@@ -1,5 +1,5 @@
 /** P3-01: stable pure-data contracts. No UI, storage or rules imports. */
-export const SCHEMA_VERSION = 2 as const;
+export const SCHEMA_VERSION = 3 as const;
 export const UPGRADE_RULES_VERSION = 1 as const;
 export type CardKind = 'reward' | 'stride';
 export type PlayerId = string;
@@ -7,7 +7,7 @@ export type TileKind = 'start' | 'property' | 'neutral';
 export type Phase = 'setup' | 'await_roll' | 'await_decision' | 'await_end_turn' | 'finished';
 export type PlayerKind = 'human' | 'computer';
 
-export interface PlayerConfig { readonly id: PlayerId; readonly name: string; }
+export interface PlayerConfig { readonly id: PlayerId; readonly name: string; readonly kind?: PlayerKind; }
 export interface TileConfig {
   readonly id: number;
   readonly kind: TileKind;
@@ -16,7 +16,7 @@ export interface TileConfig {
   readonly rent?: number;
 }
 export interface GameConfig {
-  readonly players: readonly [PlayerConfig, PlayerConfig];
+  readonly players: readonly PlayerConfig[];
   readonly tiles: readonly TileConfig[];
   readonly initialCash: number;
   readonly maxRounds: number;
