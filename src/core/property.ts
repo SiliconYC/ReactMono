@@ -36,10 +36,10 @@ export function liquidateForRent(state:GameState,actor:Player,due:number,credito
   const events:GameEvent[]=[];
   for(const t of state.tiles){
     if(cash>=due)break;
-    if(t.kind!=='property'||t.ownerId!==actor.id||t.mortgaged===true)continue;
+    if(t.kind!=='property'||t.ownerId!==actor.id||(t.mortgaged===true&&(actor.loanBalance??0)>0))continue;
     const amount=resaleValue(t,state.resaleRules);
     cash+=amount;
-    tiles=tiles.map(x=>x.id===t.id?{...x,ownerId:null,level:0}:x);
+    tiles=tiles.map(x=>x.id===t.id?(({mortgaged:_unused,...rest})=>({...rest,ownerId:null,level:0}))(x):x);
     events.push({type:'property_liquidated',actorId:actor.id,details:{
       tileId:t.id,amount,creditorId,reason:'rent'
     }});
