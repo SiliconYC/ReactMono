@@ -3,6 +3,7 @@ import type { GameState, Player, ActionResult, GameEvent, CardKind, Phase } from
 import { nextDie } from './random.js';
 import { advancePosition } from './maps.js';
 import { netWorth } from './property.js';
+import { advanceMarket } from './market.js';
 import { DEFAULT_CARD_RULES } from './config.js';
 import { accept, reject } from './transitions.js';
 export function rollTurn(state: GameState, actor: Player): ActionResult {
@@ -51,7 +52,8 @@ export function rollTurn(state: GameState, actor: Player): ActionResult {
           winnerId: finished ? winnerId : state.winnerId,
           phase: finished ? 'finished' : insolvent ? 'await_roll' : 'await_end_turn',
           currentPlayerIndex: next,
-          round: !finished && wrapped ? state.round+1 : state.round
+          round: !finished && wrapped ? state.round+1 : state.round,
+          ...(state.market && !finished && wrapped?{market:advanceMarket(state.market,state.round+1)}:{})
         });
       }
       if(landed.kind==='neutral'&&landed.eventBonus!==undefined&&landed.eventFee!==undefined){
@@ -118,6 +120,7 @@ export function endTurn(state: GameState, actor: Player): ActionResult {
     phase:finished?'finished':'await_roll',
     currentPlayerIndex:next,
     round:!finished&&wrapped?state.round+1:state.round,
+    ...(state.market && !finished && wrapped?{market:advanceMarket(state.market,state.round+1)}:{}),
     winnerId
   });
 }
