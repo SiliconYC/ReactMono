@@ -140,3 +140,11 @@
 - 先以 `caa9fe6` 添加原先必然失败的两图测试；随后 `e2daa9d` 注册独立 6×6/20 格版图，`cae54b7` 配置原创海港地名与经济、机会格和卡片站，`5722275` 暴露公共接口，`fc1b4d8` 添加简体中文选图及恢复控件；`f47077e` 添加 Chromium 两图和保存恢复整局测试，`a255eb4` 纳入 CI。
 - [PR CI #38854078718](https://github.com/SiliconYC/ReactMono/actions/runs/38854078718) 成功，覆盖两地图 2/3/4 人各 100 个固定种子、无界面终局、旧档兼容及真实 Chromium 手机/桌面多地图整局、存读档。测试中的全部收益/行为由规则引擎执行，不绕过引擎。
 - **本条截至创建时仍需以 PR 合并结果、合并后 dev CI、Pages 发布及 Issue 状态核对，不能提前宣称最终验收完成。**
+
+## 2026-10-16 · P3-06 资产变现与破产清算（#35）
+
+- [Issue #35](https://github.com/SiliconYC/ReactMono/issues/35) / [PR #51](https://github.com/SiliconYC/ReactMono/pull/51)，分支 `p3/issue-35-property-liquidation` 从当时最新 `dev@f904735` 创建；#34 合并后构造双亲合并提交 `1b43a52`，保留两条历史，解决同一 UI/公共入口的冲突，没有删除 #34 的地图。
+- 测试先行：`c27c86b`；独立售地/债务救济状态机 `0255643`～`268987d`，手机 UI `3138f79`，小地图校验及 P2 同步验证阶段提交见 PR 历史。
+- 明确规则：默认售地价=75% 原价+50% 已付升级费，提供可校验的 `resaleRules` 游戏配置与存档；新 UI 对局启用自动变现救济，旧两人引擎与 v1～v4 旧存档保留原破产结果。拒绝非法出售、越权或重复扣费。
+- 真实失败记录：首次 [CI #38854919951](https://github.com/SiliconYC/ReactMono/actions/runs/38854919951) 新测试用无效小地图配置；[CI #38855153690](https://github.com/SiliconYC/ReactMono/actions/runs/38855153690) 仍缺卡片默认参数；两者修复后 65/65 Node 通过。[CI #38855296634](https://github.com/SiliconYC/ReactMono/actions/runs/38855296634) browser_offline 操作次数不足；[CI #38855540919](https://github.com/SiliconYC/ReactMono/actions/runs/38855540919) 离线整局已 PASS，但 P2 联合流程亦需扩大操作次数。保留原「真终局、联网备份→断网读档、事件与卡片」断言不变。
+- 浏览器与后续验收：本分支已实际运行卖地→收款→存档恢复、两张地图与 2～4 人对局、PWA 离线完整对局；当前整条工作流仍须绿灯、PR Merge Commit、合并后 dev CI 与 Pages 成功才算完成。正式阶段规则文档见 [P3_PROPERTY_LIQUIDATION.md](P3_PROPERTY_LIQUIDATION.md)。
