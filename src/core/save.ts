@@ -33,19 +33,25 @@ function iso(x: unknown): x is string {
 }
 const EVENT_TYPES = new Set([
   'game_started','die_rolled','player_moved','turn_ended','tile_landed','property_declined',
-  'property_bought','property_upgraded','property_sold','property_liquidated','bank_deposited','bank_withdrawn','bank_interest','rent_paid','event_bonus','event_fee','card_received','card_used','player_bankrupt','game_finished'
+  'property_bought','property_upgraded','property_sold','property_liquidated','bank_deposited','bank_withdrawn','bank_interest','property_mortgaged','property_released','loan_borrowed','loan_repaid','loan_interest','loan_default','rent_paid','event_bonus','event_fee','card_received','card_used','player_bankrupt','game_finished'
 ]);
 /** Validate current and migrated legacy states against the same strict bounds. */
 export function validateGameState(value: unknown, expectedVersion: number = SCHEMA_VERSION): asserts value is GameState {
   if (!record(value)) throw new SaveError('INVALID_STATE','存档数据无效：游戏状态必须为对象');
   keys(value,['schemaVersion','status','phase','revision','round','currentPlayerIndex','randomState',
     'maxRounds','players','tiles','winnerId','events','upgradeRulesVersion',
-    ...(expectedVersion>=4?['map']:[])],['cardRules','pendingMoveBonus',...(expectedVersion>=4?['automaticLiquidation','resaleRules','market','bank']:[])]);
+    ...(expectedVersion>=4?['map']:[])],['cardRules','pendingMoveBonus',...(expectedVersion>=4?['automaticLiquidation','resaleRules','market','bank','loan']:[])]);
   if(value.bank!==undefined){
     if(!record(value.bank))throw new SaveError('INVALID_STATE','银行状态非法');
     keys(value.bank,['version','interestBps','lastInterestRound']);
     if(value.bank.version!==1||!finite(value.bank.interestBps,0,1000)||value.bank.lastInterestRound!==value.round)
       throw new SaveError('INVALID_STATE','银行重复结息标记或利率非法');
+  }
+  if(value.loan!==undefined){
+    if(!record(value.loan))throw new SaveError('INVALID_STATE','贷款状态非法');
+    keys(value.loan,['version','interestBps','lastInterestRound']);
+    if(value.loan.version!==1||!finite(value.loan.interestBps,0,1000)||value.loan.lastInterestRound!==value.round||
+       value.bank===undefined)throw new SaveError('INVALID_STATE','贷款状态或结息轮次非法');
   }
   if(value.market!==undefined){
     try { validateMarket(value.market); if(value.market.round!==value.round) throw new Error('round'); }
@@ -83,10 +89,14 @@ export function validateGameState(value: unknown, expectedVersion: number = SCHE
   for (let i=0;i<value.players.length;i++) {
     const p: unknown = value.players[i];
     if (!record(p)) throw new SaveError('INVALID_STATE','存档数据无效：玩家字段非法');
-    keys(p,['id','name','kind','position','cash','bankrupt'],['cards',...(expectedVersion>=4?['bankBalance']:[])]);
+    keys(p,['id','name','kind','position','cash','bankrupt'],['cards',...(expectedVersion>=4?['bankBalance','loanBalance']:[])]);
     if(value.bank!==undefined ? !finite(p.bankBalance,0,1_000_000_000_000) :
       p.bankBalance!==undefined && p.bankBalance!==0)
       throw new SaveError('INVALID_STATE','玩家银行存款非法');
+    if(value.loan!==undefined ? !finite(p.loanBalance,0,1_000_000_000_000) :
+       p.loanBalance!==undefined && p.loanBalance!==0)
+      throw new SaveError('INVALID_STATE','玩家贷款余额非法');
+    if(p.bankrupt===true && typeof p.loanBalance==='number' && p.loanBalance>0)throw new SaveError('INVALID_STATE','破产玩家存在未处理债务');
     if(p.bankrupt===true && typeof p.bankBalance==='number' && p.bankBalance>0)throw new SaveError('INVALID_STATE','破产玩家存在未清算存款');
     if(p.cards!==undefined){
       if(!record(p.cards))throw new SaveError('INVALID_STATE','卡片库存无效');
@@ -112,7 +122,9 @@ export function validateGameState(value: unknown, expectedVersion: number = SCHE
     const t: unknown=value.tiles[i];
     if (!record(t)) throw new SaveError('INVALID_STATE','存档数据无效：地图格字段非法');
     if (t.kind==='property') {
-      keys(t,['id','kind','title','price','rent','ownerId','level','upgradeCosts','levelRents']);
+      keys(t,['id','kind','title','price','rent','ownerId','level','upgradeCosts','levelRents'],expectedVersion>=4?['mortgaged']:[]);
+      if(t.mortgaged!==undefined&&(t.mortgaged!==true||value.loan===undefined||t.ownerId===null))
+        throw new SaveError('INVALID_STATE','地产抵押状态无效');
       if(!finite(t.level,0,2)||!Array.isArray(t.upgradeCosts)||t.upgradeCosts.length!==2||
         !t.upgradeCosts.every(v=>finite(v,0,1_000_000_000_000))||
         !Array.isArray(t.levelRents)||t.levelRents.length!==3||
@@ -132,6 +144,19 @@ export function validateGameState(value: unknown, expectedVersion: number = SCHE
     }
     if (t.kind==='start') startCount++;
     if (t.id!==i || !string(t.title,100)) throw new SaveError('INVALID_STATE','存档数据无效：地图位置或名称非法');
+  }
+  if(value.loan!==undefined){
+    for(const p of value.players){
+      const limit=value.tiles.reduce((sum:number,t:Dict)=>{
+        if(t.kind!=='property'||t.ownerId!==p.id||t.mortgaged!==true)return sum;
+        const upgrades=t.upgradeCosts as number[];
+        const paid=upgrades.slice(0,t.level as number).reduce((a:number,b:number)=>a+b,0);
+        const landPercent=record(value.resaleRules)?Number(value.resaleRules.landPercent):0.75;
+        const upgradePercent=record(value.resaleRules)?Number(value.resaleRules.upgradePercent):0.5;
+        return sum+Math.floor((Math.floor(Number(t.price)*landPercent)+Math.floor(paid*upgradePercent))/2);
+      },0);
+      if(Number(p.loanBalance)>limit)throw new SaveError('INVALID_STATE','贷款余额超过抵押额度');
+    }
   }
   if (startCount!==1 || value.tiles[0].kind!=='start') throw new SaveError('INVALID_STATE','存档数据无效：起点配置非法');
   for (const p of value.players) {
