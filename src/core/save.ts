@@ -87,7 +87,7 @@ export function validateGameState(value: unknown, expectedVersion: number = SCHE
     if(value.bank!==undefined ? !finite(p.bankBalance,0,1_000_000_000_000) :
       p.bankBalance!==undefined && p.bankBalance!==0)
       throw new SaveError('INVALID_STATE','玩家银行存款非法');
-    if(p.bankrupt===true && (p.bankBalance??0)>0)throw new SaveError('INVALID_STATE','破产玩家存在未清算存款');
+    if(p.bankrupt===true && typeof p.bankBalance==='number' && p.bankBalance>0)throw new SaveError('INVALID_STATE','破产玩家存在未清算存款');
     if(p.cards!==undefined){
       if(!record(p.cards))throw new SaveError('INVALID_STATE','卡片库存无效');
       keys(p.cards,['reward','stride']);
@@ -224,7 +224,7 @@ export function deserializeGame(raw: string): SaveEnvelope {
   }
   if(value.rulesVersion===2 || value.rulesVersion===3){
     validateGameState(value.game,value.rulesVersion as number);
-    const upgraded={...value.game, schemaVersion:SCHEMA_VERSION,map:inferMap(value.game.tiles.length),players:value.game.players.map((p:Dict)=>({...p,bankBalance:0}))};
+    const upgraded={...value.game, schemaVersion:SCHEMA_VERSION,map:inferMap(value.game.tiles.length),players:value.game.players.map(p=>({...p,bankBalance:0}))};
     validateGameState(upgraded);
     return JSON.parse(serializeGame(upgraded,{createdAt:value.createdAt,now:value.updatedAt})) as SaveEnvelope;
   }
