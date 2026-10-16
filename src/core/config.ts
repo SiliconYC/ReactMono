@@ -37,6 +37,7 @@ export const HARBOR_CONFIG: GameConfig = {
 };
 
 export function validateConfig(config: GameConfig): void {
+  if(config.strategyEnabled!==undefined&&typeof config.strategyEnabled!=='boolean')throw new Error('策略卡开关无效');
   if(config.loanEnabled!==undefined&&typeof config.loanEnabled!=='boolean')throw new Error('贷款开关无效');
   if(config.loanEnabled===true&&config.bankEnabled!==true)throw new Error('贷款需要银行模块');
   if(config.loanInterestBps!==undefined&&(!Number.isSafeInteger(config.loanInterestBps)||config.loanInterestBps<0||config.loanInterestBps>1000))throw new Error('贷款利率无效');

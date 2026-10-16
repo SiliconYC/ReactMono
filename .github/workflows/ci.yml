@@ -1,7 +1,7 @@
 name: ReactMono 验证
 on:
   push:
-    branches: [dev, 'issue-*']
+    branches: [dev]
   pull_request:
     branches: [dev]
 concurrency:
@@ -32,6 +32,7 @@ jobs:
           python tests/browser_bank_e2e.py
           python tests/browser_loan_e2e.py
           python tests/browser_stocks_e2e.py
+          python tests/browser_strategy_e2e.py
           python tests/browser_saves_e2e.py
           python tests/browser_import_e2e.py
           python tests/browser_offline_e2e.py
