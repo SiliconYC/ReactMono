@@ -271,12 +271,22 @@ class App extends React.Component<object, UiState> {
       :type==='use_card'?{type,actorId:actor.id,cardType:cardType??'reward',
           ...(cardType==='remote'?{dieValue:Number(this.state.strategyDieInput)}:{}),
           ...(cardType==='roadblock'?{tileId:Number(game.tiles.some(t=>t.id===Number(this.state.roadblockTileInput)&&t.id!==0&&t.id!==actor.position&&!game.players.some(p=>!p.bankrupt&&p.position===t.id)&&!game.roadblocks?.some(b=>b.tileId===t.id))?this.state.roadblockTileInput:game.tiles.find(t=>t.id!==0&&t.id!==actor.position&&!game.players.some(p=>!p.bankrupt&&p.position===t.id)&&!game.roadblocks?.some(b=>b.tileId===t.id))?.id??-1)}:{})}:{type,actorId:actor.id};
+    const highRisk=type==='mortgage_property'||type==='borrow_loan'||
+      ((type==='buy_stock'||type==='sell_stock')&&Number.isFinite(stockAmount)&&stockAmount>=50);
+    if(highRisk){
+      const detail=type==='mortgage_property'?'确认抵押地产？抵押后该地产暂不收租，贷款违约可能被银行收回。'
+        :type==='borrow_loan'?'确认借入 '+bankAmount+' 游戏币？贷款计息且可能触发抵押物清算。'
+        :'确认'+(type==='buy_stock'?'买入':'卖出')+' '+stockAmount+' 股？股票成交后价格会波动，且需支付手续费。';
+      if(!window.confirm(detail)){this.setState({message:'已取消操作，本局资产没有变化。'});return;}
+    }
     const result = applyAction(game,action);
     if (!result.ok) {
       const bankAction=type==='deposit_bank'||type==='withdraw_bank'||type==='borrow_loan'||type==='repay_loan';
       const stockAction=type==='buy_stock'||type==='sell_stock';
-      const reason=stockAction ? (result.reason==='INSUFFICIENT_FUNDS'?'交易失败：现金不足或持仓数量不够。':'股票交易失败：请输入合法整数股，并在本回合结算阶段操作。') : bankAction ? (result.reason==='INSUFFICIENT_FUNDS'?'现金或存款不足。':'请输入合法的正整数，并在本回合操作银行。') :
-        result.reason === 'INSUFFICIENT_FUNDS' ? '资金不足，无法购买这块地产。请放弃购买。' : '当前阶段不能执行这个操作。';
+      const reason=result.reason==='INVALID_ACTOR'?'当前操作玩家已变更，请查看上方高亮玩家。'
+        :stockAction ? (result.reason==='INSUFFICIENT_FUNDS'?'股票交易未执行：现金不足或持仓数量不够。':'股票交易未执行：请输入有效股数，交易仅限当前玩家的结算阶段。')
+        :bankAction ? (result.reason==='INSUFFICIENT_FUNDS'?'银行或借贷操作未执行：现金、存款或可借额度不足。':'银行或借贷操作未执行：金额必须是有效正整数，且只能在本人结算阶段操作。')
+        :result.reason==='INSUFFICIENT_FUNDS'?'操作未执行：现金不足。':'操作未执行：当前阶段或目标不合法，请检查所选地产、卡片目标和行动玩家。';
       this.setState({ message: reason });
       return;
     }
@@ -415,6 +425,28 @@ class App extends React.Component<object, UiState> {
           {this.state.pwaUpdate&&<button className="secondary-btn" type="button" onClick={()=>void this.applyPwaUpdate()}>检测到新版，保存并更新</button>}
         </header>
         <section className="headline"><div><span className="section-eyebrow">{game.tiles.length} 格 · 两张地图 · 2～4 人 · 本机轮流</span><h1>每一步，都是一笔生意。</h1><p>邀请朋友在同一设备轮流行动，也可以与一名或多名电脑玩家对抗。所有对局都在本地完成。</p></div><button type="button" className="reset-btn" onClick={this.reset}>↻ 重新开局</button></section>
+        {game.status!=='setup'&&<section className="asset-overview" aria-label="多人资产总览">
+          <div className="asset-heading"><strong>多人资产总览</strong><span>第 {game.round} / {game.maxRounds} 轮 · 当前：{current.name}</span></div>
+          <div className="asset-grid">
+            {game.players.map(p=>{
+              const properties=game.tiles.filter(t=>t.kind==='property'&&t.ownerId===p.id);
+              const shares=STOCKS.reduce((total,stock)=>total+(p.holdings?.[stock.id]?.quantity??0),0);
+              const shareValue=game.market?STOCKS.reduce((total,stock)=>total+(p.holdings?.[stock.id]?.quantity??0)*quoteMarket(game.market!,stock.id),0):0;
+              return <div className={`asset-player ${game.status==='playing'&&p.id===current.id?'is-active':''} ${p.bankrupt?'is-bankrupt':''}`} key={p.id} data-player-id={p.id} data-active-player={String(game.status==='playing'&&p.id===current.id)}>
+                <div className="asset-identity"><span className={`player-dot ${p.kind}`}>{p.kind==='human'?'人':'机'}</span><strong>{p.name}</strong><span className="asset-turn-tag">{p.bankrupt?'已破产':p.id===current.id&&game.status==='playing'?'当前操作':p.kind==='computer'?'电脑':'真人'}</span></div>
+                <dl className="asset-metrics">
+                  <div><dt>现金</dt><dd>{p.cash.toLocaleString('zh-CN')}</dd></div>
+                  <div><dt>银行存款</dt><dd>{(p.bankBalance??0).toLocaleString('zh-CN')}</dd></div>
+                  <div><dt>地产</dt><dd>{properties.length} 块{properties.some(t=>t.mortgaged)?` · 抵押 ${properties.filter(t=>t.mortgaged).length}`:''}</dd></div>
+                  <div><dt>股票</dt><dd>{shares} 股 · {shareValue.toLocaleString('zh-CN')} 币</dd></div>
+                  <div><dt>贷款</dt><dd>{(p.loanBalance??0).toLocaleString('zh-CN')}</dd></div>
+                  <div className="asset-net"><dt>净资产</dt><dd>{netWorth(game,p.id).toLocaleString('zh-CN')}</dd></div>
+                </dl>
+                {p.detention&&<small className="asset-status">{p.detention.kind==='hospital'?'医院':'监狱'} · 还需停留 {p.detention.remaining} 回合</small>}
+              </div>;
+            })}
+          </div>
+        </section>}
         <div className="layout">
           <section className="board-card" aria-label={`${game.tiles.length} 格游戏棋盘`}>
             <div className="board" style={{
@@ -514,18 +546,25 @@ class App extends React.Component<object, UiState> {
                 <button type="button" className="secondary-btn" onClick={() => this.dispatch('decline_property')}>放弃购买，继续回合 →</button>
               </div>}
               {current.kind === 'human' && !this.state.awaitingHandoff && game.phase === 'await_end_turn' && <div className="purchase-actions">
+                <div className="action-navigation" role="navigation" aria-label="交易操作快捷入口">
+                  {([{id:'property-management',label:'地产管理'},...(game.bank?[{id:'bank-actions',label:'银行存取'}]:[]),...(game.loan?[{id:'loan-actions',label:'贷款与抵押入口'}]:[]),...(game.market?[{id:'stock-actions',label:'股票交易'}]:[])]).map(link=>
+                    <button key={link.id} type="button" onClick={()=>document.getElementById(link.id)?.scrollIntoView({behavior:'smooth',block:'start'})}>{link.label} ↓</button>)}
+                </div>
+                <strong id="property-management" className="management-heading">地产管理 · {current.name}</strong>
                 {game.tiles.filter(t=>t.kind==='property'&&t.ownerId===current.id&&t.mortgaged!==true&&(t.level??0)<2).map(tile=><button type="button" key={tile.id} className="secondary-btn" disabled={current.cash<(tile.upgradeCosts?.[tile.level??0]??Infinity)} onClick={()=>this.dispatch('upgrade_property',tile.id)}>升级 {tile.title} → {(tile.level??0)+1} 级 · 费用 {tile.upgradeCosts?.[tile.level??0]}</button>)}
                 {game.tiles.filter(t=>t.kind==='property'&&t.ownerId===current.id&&t.mortgaged!==true).map(tile=><button type="button" key={'sell-'+tile.id} className="secondary-btn" onClick={()=>{
                   if(window.confirm('确认出售「'+tile.title+'」？价格 '+resaleValue(tile,game.resaleRules)+' 游戏币，建筑升级不返还原价。'))this.dispatch('sell_property',tile.id);
                 }}>出售 {tile.title} · 回收 {resaleValue(tile,game.resaleRules)} 游戏币</button>)}
-                {game.bank&&<div className="bank-actions" role="group" aria-label="银行操作">
+                {game.bank&&<div id="bank-actions" className="bank-actions" role="group" aria-label="银行操作">
+                  <strong className="management-heading">银行存取 · {current.name}</strong>
                   <p className="purchase-info">银行：每完成一轮按 {game.bank.interestBps/100}% 结息，现金与存款分开计算，欠租时优先自动取款。</p>
                   <label htmlFor="bank-amount">银行交易金额（游戏币）</label>
                   <input id="bank-amount" aria-label="银行交易金额" inputMode="numeric" type="text" value={this.state.bankAmountInput} onChange={(e:{target:{value:string}})=>this.setState({bankAmountInput:e.target.value})}/>
-                  <button type="button" className="secondary-btn" onClick={()=>this.dispatch('deposit_bank')}>存入银行</button>
-                  <button type="button" className="secondary-btn" onClick={()=>this.dispatch('withdraw_bank')}>从银行取款</button>
+                  <button type="button" className="secondary-btn" disabled={!/^[1-9][0-9]*$/.test(this.state.bankAmountInput)||Number(this.state.bankAmountInput)>current.cash} onClick={()=>this.dispatch('deposit_bank')}>存入银行</button>
+                  <button type="button" className="secondary-btn" disabled={!/^[1-9][0-9]*$/.test(this.state.bankAmountInput)||Number(this.state.bankAmountInput)>(current.bankBalance??0)} onClick={()=>this.dispatch('withdraw_bank')}>从银行取款</button>
                 </div>}
-                {game.loan&&<div className="bank-actions loan-actions" role="group" aria-label="地产抵押与贷款">
+                {game.loan&&<div id="loan-actions" className="bank-actions loan-actions" role="group" aria-label="地产抵押与贷款">
+                  <strong className="management-heading">抵押借贷 · {current.name}</strong>
                    <p className="purchase-info">贷款 {(current.loanBalance??0).toLocaleString('zh-CN')} · 抵押额度 {loanLimit(game,current.id)} · 每轮利率 {game.loan.interestBps/100}%。抵押地产暂停租金、升级和出售；超额时银行收回抵押物。</p>
                    {game.tiles.filter(t=>t.kind==='property'&&t.ownerId===current.id).map(tile=>
                      <button type="button" key={'lien-'+tile.id} className="secondary-btn"
@@ -534,11 +573,11 @@ class App extends React.Component<object, UiState> {
                        {tile.mortgaged===true?'解除抵押':'抵押'} {tile.title}
                      </button>)}
                    <p className="purchase-info">上方银行交易金额同样用于借贷。当前可借 {Math.max(0,loanLimit(game,current.id)-(current.loanBalance??0))} 游戏币。</p>
-                   <button type="button" className="secondary-btn" onClick={()=>this.dispatch('borrow_loan')}>借入贷款</button>
-                   <button type="button" className="secondary-btn" onClick={()=>this.dispatch('repay_loan')}>偿还贷款</button>
+                   <button type="button" className="secondary-btn" disabled={!/^[1-9][0-9]*$/.test(this.state.bankAmountInput)||Number(this.state.bankAmountInput)>loanLimit(game,current.id)-(current.loanBalance??0)} onClick={()=>this.dispatch('borrow_loan')}>借入贷款</button>
+                   <button type="button" className="secondary-btn" disabled={!/^[1-9][0-9]*$/.test(this.state.bankAmountInput)||Number(this.state.bankAmountInput)>Math.min(current.cash,current.loanBalance??0)} onClick={()=>this.dispatch('repay_loan')}>偿还贷款</button>
                  </div>}
-                 {game.market&&<div className="bank-actions stock-actions" role="group" aria-label="股票交易">
-                    <strong>虚拟股票交易所</strong>
+                 {game.market&&<div id="stock-actions" className="bank-actions stock-actions" role="group" aria-label="股票交易">
+                    <strong>虚拟股票交易所 · {current.name}</strong>
                     <p className="purchase-info">本轮报价 · 每笔交易手续费 0.5%，最低 1 游戏币。仅使用手持现金，按当前市场价成交；行情每轮变化。</p>
                     <label htmlFor="stock-amount">股票交易数量（股）</label>
                     <input id="stock-amount" type="text" aria-label="股票交易数量" inputMode="numeric"
@@ -553,8 +592,8 @@ class App extends React.Component<object, UiState> {
                       return <div className="stock-entry" key={stock.id}>
                         <div><strong>{stock.name}</strong>（{stock.id}） · 报价 {quote} 游戏币</div>
                         <div className="purchase-info">持有 {held} 股 · 成本 {lot?.costBasis??0} · 市值 {marketValue} · 浮动盈亏 {pnl>=0?'+':''}{pnl}</div>
-                        <button type="button" className="secondary-btn" onClick={()=>this.dispatch('buy_stock',undefined,undefined,stock.id)}>买入 {stock.name}</button>
-                        <button type="button" className="secondary-btn" onClick={()=>this.dispatch('sell_stock',undefined,undefined,stock.id)}>卖出 {stock.name}</button>
+                        <button type="button" className="secondary-btn" disabled={!/^[1-9][0-9]*$/.test(this.state.stockAmountInput)||quote*Number(this.state.stockAmountInput)+Math.max(1,Math.ceil(quote*Number(this.state.stockAmountInput)*0.005))>current.cash} onClick={()=>this.dispatch('buy_stock',undefined,undefined,stock.id)}>买入 {stock.name}</button>
+                        <button type="button" className="secondary-btn" disabled={!/^[1-9][0-9]*$/.test(this.state.stockAmountInput)||Number(this.state.stockAmountInput)>held} onClick={()=>this.dispatch('sell_stock',undefined,undefined,stock.id)}>卖出 {stock.name}</button>
                       </div>;
                     })}
                     <p className="purchase-info">持仓市值：{STOCKS.reduce((sum,stock)=>sum+(current.holdings?.[stock.id]?.quantity??0)*quoteMarket(game.market!,stock.id),0).toLocaleString('zh-CN')} 游戏币。</p>

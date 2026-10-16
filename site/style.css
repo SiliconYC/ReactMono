@@ -67,3 +67,28 @@
 .stock-entry .purchase-info{font-size:12px;line-height:1.4;color:#486052}
 .stock-entry button{width:100%;min-width:0;padding:10px 6px;font-size:12px}
 @media(max-width:450px){.stock-actions{padding:8px}.stock-entry{padding:8px}}
+
+/* P3-14: always-visible seat-specific financial overview, touch first. */
+.asset-overview{margin:0 0 20px;background:#fff;border:1px solid #d7e4d7;border-radius:18px;padding:17px 20px;box-shadow:0 10px 22px #203a2010}
+.asset-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.asset-heading strong{font-size:16px;color:#2a5943}.asset-heading span{font-size:12px;color:#6a7e6e}
+.asset-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+.asset-player{border:1px solid #dce6d9;background:#f8faf6;border-radius:11px;padding:12px;min-width:0}
+.asset-player.is-active{border:2px solid #287aa2;padding:11px;background:#eaf4f7;box-shadow:0 0 0 3px #287aa212}
+.asset-player.is-bankrupt{opacity:.66}.asset-identity{display:flex;align-items:center;gap:7px;min-width:0}
+.asset-identity strong{font-size:14px;min-width:0;overflow-wrap:anywhere}
+.asset-identity .player-dot{flex:none;width:26px;height:26px;font-size:11px}
+.asset-turn-tag{margin-left:auto;font-size:10px;background:#e3e9df;border-radius:99px;padding:3px 7px;white-space:nowrap}
+.asset-player.is-active .asset-turn-tag{background:#246d95;color:white;font-weight:800}
+.asset-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 9px;margin:12px 0 0}
+.asset-metrics>div{min-width:0}.asset-metrics dt{font-size:10px;color:#6a7c70}.asset-metrics dd{font-size:13px;font-weight:750;margin:2px 0 0;color:#234c3a;overflow-wrap:anywhere}
+.asset-metrics .asset-net{grid-column:1/-1;border-top:1px solid #d3e1d7;padding-top:7px}
+.asset-net dd{font-size:20px;color:#195a44}.asset-status{display:block;color:#8b5940;margin-top:8px}
+.action-navigation{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px;background:#f0f6f0;border-radius:10px}
+.action-navigation button{background:white;border:1px solid #b6ccbc;border-radius:8px;min-height:44px;color:#2d654a;font:inherit;font-size:13px;font-weight:750;cursor:pointer}
+.action-navigation button:focus-visible{outline:3px solid #eeaa64}
+.management-heading{display:block;margin:7px 0 3px;font-size:15px;color:#2a5641}
+.bank-actions,.loan-actions,.stock-actions{scroll-margin-top:15px}
+@media(max-width:1100px){.asset-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.asset-overview{padding:12px;margin-bottom:12px}.asset-grid{gap:7px}.asset-player{padding:9px}.asset-player.is-active{padding:8px}.asset-metrics{gap:7px 4px}.asset-metrics dd{font-size:12px}.asset-net dd{font-size:18px}.asset-heading span{font-size:11px}}
+@media(max-width:345px){.asset-grid{grid-template-columns:1fr}.asset-metrics{grid-template-columns:repeat(3,minmax(0,1fr))}.asset-metrics .asset-net{grid-column:1/-1}}
