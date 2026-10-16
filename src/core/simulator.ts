@@ -33,7 +33,9 @@ export function runSimulation(seed: number, options: SimulationOptions = {}): Si
         !state.tiles.every(t => t.ownerId === null || state.players.some(p => p.id === t.ownerId))) throw new Error('seed=' + seed + ' 现金、位置或产权非法');
     actions++;
     trace.push(actions + ':' + actor.id + ':' + action.type + ':' + state.phase);
-    if (action.type === 'roll') playerTurns++;
+    // Both rolling and serving a hospital/prison detention consume one player's turn.
+    // This metric feeds the P3 strategy benchmark; do not undercount skipped turns.
+    if (action.type === 'roll' || action.type === 'skip_turn') playerTurns++;
   }
   if (playerTurns > config.maxRounds * state.players.length) throw new Error('seed=' + seed + ' 回合上限被突破');
   const finished = [...state.events].reverse().find(e => e.type === 'game_finished');
