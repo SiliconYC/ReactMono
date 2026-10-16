@@ -32,7 +32,7 @@ function iso(x: unknown): x is string {
 }
 const EVENT_TYPES = new Set([
   'game_started','die_rolled','player_moved','turn_ended','tile_landed','property_declined',
-  'property_bought','property_upgraded','rent_paid','event_bonus','event_fee','card_received','card_used','player_bankrupt','game_finished'
+  'property_bought','property_upgraded','property_sold','property_liquidated','rent_paid','event_bonus','event_fee','card_received','card_used','player_bankrupt','game_finished'
 ]);
 /** Validate current and migrated legacy states against the same strict bounds. */
 export function validateGameState(value: unknown, expectedVersion: number = SCHEMA_VERSION): asserts value is GameState {
