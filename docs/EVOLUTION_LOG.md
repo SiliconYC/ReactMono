@@ -72,6 +72,20 @@
 - **未晋升**：股票、银行、多地图、完整音画、高级电脑 AI 继续保留 P3–P4 候选。云存档、登录、后端、国际化明确不在产品范围。
 - **验证结果**：**本轮没有编写、运行或部署 P2 代码，也没有任何 P2 测试通过的宣称。** 这里只证明完成了候选评审、Issue 创建及文档回写。
 
+### 2026-10-16｜G004：断线续接 #16 与 P2 五项原子实施/集成验收
+
+- **接续而非重做**：开始时 `dev` 为 `3eb2495bc7d8b4f9796883e61828918a9839740c`，原 `issue-16-pwa-offline` 已比 `dev` 领先 4 次提交，存在开放 [PR #25](https://github.com/SiliconYC/ReactMono/pull/25)。沿用旧分支和 PR，新增固定同版本导航缓存的提交 `01a88243`，PR CI 通过后合并并关闭 #16。
+- **逐项原子实施**：[#17 / PR #26](https://github.com/SiliconYC/ReactMono/pull/26) 地产升级、分级租金、v2 估值及旧 v1 存档校验迁移；[#18 / PR #27](https://github.com/SiliconYC/ReactMono/pull/27) 机会格奖励/费用与确定性抽样、费用封顶；[#19 / PR #28](https://github.com/SiliconYC/ReactMono/pull/28) 奖励卡、步数卡、卡片站和电脑自动使用策略。每项从最新 `dev` 创建独立短期分支，CI 合格后先合并 `dev` 再关闭相应 Issue，未改 `main`。
+- **集成验证**：[#20 / PR #29](https://github.com/SiliconYC/ReactMono/pull/29) 单独验收。第一轮通过的 [PR CI #38840013244](https://github.com/SiliconYC/ReactMono/actions/runs/38840013244) 确认 `npm test` **46/46**，包含原 #2–#6 回归与固定种子 0–99、卡牌/产权/现金及事件一致性。真实 Chromium 输出：
+  - /ReactMono/ 同源完整游戏：`finished=True, rolls=19, turns=18, buys=10`。
+  - IndexedDB 多个独立存档、自动保存、读取、删除；JSON 真下载、删除、导入续局、损坏拒绝、同名副本均为 `PASS`。
+  - 断网 Service Worker 完整游戏：`finished=True, rolls=18`。
+  - 一条整合流程「导出→删除→导入→断网读档→整局终局」：`finished=True, rolls=18, upgrades=10, cards=1, sawEvent=True`；没有直接篡改游戏状态。
+  - **公网真实访问**：`https://siliconyc.github.io/ReactMono/` 返回 HTTP 200、24 个棋盘格，真实 Chromium 从首页正常点击完整一局：`finished=True, rolls=19`；未依赖运行时 CDN。
+- **迭代中的失败**：#17 最初 CI 旧版本断言仍写 1，按 v2 更新；#18/#19 增加随机抽样后，旧固定平局/骰子基准需要隔离新增随机规则，同时保留独立的新随机验证。#18 曾遇异步自动保存提示覆盖文件错误提示，代码修复；#20 初期导入浏览器测试受读取 IndexedDB 尚未完成的竞态影响，加入真实页面诊断、修改等待条件。所有失败均有对应 Actions 红色运行记录，未把失败冒充通过。
+- **部署**：#19 集成后的 [CI #38839537720](https://github.com/SiliconYC/ReactMono/actions/runs/38839537720) 以及 [gh-pages #38839537936](https://github.com/SiliconYC/ReactMono/actions/runs/38839537936) 已成功；#20 后续最终合并会再次触发同一发布工作流。回滚可在 `dev` 按 #29→#28→#27→#26→#25 的 PR 边界 revert，`gh-pages` 以 `dev` 构建产物重新部署；旧存档迁移必须一并验证。
+- **限制与人工干预**：操作都使用授权的 GitHub API/Actions，无中途等待用户逐项确认。已验证 Chromium 与 Github Pages 在线访问；仍不能声称跨所有手机/浏览器或独立外部真人审查。清除站点存储会丢失 IndexedDB 内容，文件导出是预防手段。此处的单次分支研发/CI 并不等于达到 P5 连续 30 轮无人值守自治目标。
+
 ## 自主改进实验账本
 
 **已有 P1 代码开发、规则模拟及浏览器自动化验收证据；但尚无无人值守连续自主进化，也未在公网直接操作 GitHub Pages CDN 版本。** 后续每轮至少记录：
