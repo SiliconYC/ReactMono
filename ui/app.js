@@ -2,15 +2,10 @@ import { applyAction, createGame, DEFAULT_CONFIG, netWorth } from '../core/game.
 import { chooseComputerAction } from '../core/agent.js';
 import { listSlots, readSlot, writeSlot, deleteSlot } from '../storage/indexeddb.js';
 import { deserializeGame, MAX_SAVE_CHARS } from '../core/save.js';
-/** 环形棋盘固定 8 列 × 6 行：8 + 4 + 8 + 4 = 24 格。 */
-function cellPosition(index) {
-    if (index < 8)
-        return { gridColumn: index + 1, gridRow: 1 };
-    if (index < 12)
-        return { gridColumn: 8, gridRow: index - 6 };
-    if (index < 20)
-        return { gridColumn: 20 - index, gridRow: 6 };
-    return { gridColumn: 1, gridRow: 25 - index };
+/** Read screen positions from map data, never infer them from the tile ID. */
+function cellPosition(map, index) {
+    const point = map.cells[index];
+    return { gridColumn: point.column, gridRow: point.row };
 }
 const kindLabel = { start: '起点', property: '地产', neutral: '休息' };
 class App extends React.Component {
@@ -398,7 +393,7 @@ class App extends React.Component {
     renderTile = (tile) => {
         const { game } = this.state;
         const residents = game.players.filter(p => p.position === tile.id && !p.bankrupt);
-        return (React.createElement("div", { key: tile.id, className: `tile tile-${tile.kind} ${tile.ownerId ? `tile-owned-${tile.ownerId}` : ''} ${residents.length ? 'tile-occupied' : ''}`, style: cellPosition(tile.id), "data-tile-id": tile.id, "aria-label": `${tile.id} 号地块，${tile.title}` },
+        return (React.createElement("div", { key: tile.id, className: `tile tile-${tile.kind} ${tile.ownerId ? `tile-owned-${tile.ownerId}` : ''} ${residents.length ? 'tile-occupied' : ''}`, style: cellPosition(game.map, tile.id), "data-tile-id": tile.id, "aria-label": `${tile.id} 号地块，${tile.title}` },
             React.createElement("span", { className: "tile-index" }, String(tile.id).padStart(2, '0')),
             React.createElement("span", { className: "tile-icon", "aria-hidden": "true" }, tile.kind === 'start' ? '★' : tile.kind === 'property' ? '⌂' : tile.eventBonus !== undefined ? '✦' : tile.cardStation ? '▣' : '☕'),
             React.createElement("span", { className: "tile-name" },
@@ -438,21 +433,26 @@ class App extends React.Component {
                     React.createElement("p", null, "\u9080\u8BF7\u670B\u53CB\u5728\u540C\u4E00\u8BBE\u5907\u8F6E\u6D41\u884C\u52A8\uFF0C\u4E5F\u53EF\u4EE5\u4E0E\u4E00\u540D\u6216\u591A\u540D\u7535\u8111\u73A9\u5BB6\u5BF9\u6297\u3002\u6240\u6709\u5BF9\u5C40\u90FD\u5728\u672C\u5730\u5B8C\u6210\u3002")),
                 React.createElement("button", { type: "button", className: "reset-btn", onClick: this.reset }, "\u21BB \u91CD\u65B0\u5F00\u5C40")),
             React.createElement("div", { className: "layout" },
-                React.createElement("section", { className: "board-card", "aria-label": "24 \u683C\u6E38\u620F\u68CB\u76D8" },
-                    React.createElement("div", { className: "board" },
+                React.createElement("section", { className: "board-card", "aria-label": `${game.tiles.length} 格游戏棋盘` },
+                    React.createElement("div", { className: "board", style: {
+                            gridTemplateColumns: `repeat(${game.map.columns},minmax(0,1fr))`,
+                            gridTemplateRows: `repeat(${game.map.rows},minmax(0,1fr))`,
+                            ...(game.map.id === 'classic-24' ? {} : { aspectRatio: `${game.map.columns}/${game.map.rows}` })
+                        } },
                         game.tiles.map(this.renderTile),
-                        React.createElement("div", { className: "board-center" },
-                            React.createElement("div", { className: "board-center-label" },
-                                "\u5F53\u524D\u7B2C ",
-                                React.createElement("b", null, game.round),
-                                " / ",
-                                game.maxRounds,
-                                " \u8F6E"),
-                            React.createElement("div", { className: "center-title" },
-                                "\u73AF\u6E38\u5927\u5BCC\u7FC1",
-                                React.createElement("span", null, "\u4F53\u9A8C\u68CB\u76D8")),
-                            React.createElement("div", { className: "dice-display", "aria-label": "\u4E0A\u4E00\u6B21\u9AB0\u5B50\u70B9\u6570" }, previousRoll ? '⚀⚁⚂⚃⚄⚅'[Number(previousRoll.details?.value) - 1] : '⚄'),
-                            React.createElement("div", { className: "center-subtitle" }, previousRoll ? `上次掷出 ${previousRoll.details?.value} 点` : '等待第一颗骰子'))),
+                        game.map.columns > 2 && game.map.rows > 2 && game.map.cells.every(p => p.row === 1 || p.row === game.map.rows || p.column === 1 || p.column === game.map.columns) &&
+                            React.createElement("div", { className: "board-center", style: { gridColumn: `2/${game.map.columns}`, gridRow: `2/${game.map.rows}` } },
+                                React.createElement("div", { className: "board-center-label" },
+                                    "\u5F53\u524D\u7B2C ",
+                                    React.createElement("b", null, game.round),
+                                    " / ",
+                                    game.maxRounds,
+                                    " \u8F6E"),
+                                React.createElement("div", { className: "center-title" },
+                                    "\u73AF\u6E38\u5927\u5BCC\u7FC1",
+                                    React.createElement("span", null, "\u4F53\u9A8C\u68CB\u76D8")),
+                                React.createElement("div", { className: "dice-display", "aria-label": "\u4E0A\u4E00\u6B21\u9AB0\u5B50\u70B9\u6570" }, previousRoll ? '⚀⚁⚂⚃⚄⚅'[Number(previousRoll.details?.value) - 1] : '⚄'),
+                                React.createElement("div", { className: "center-subtitle" }, previousRoll ? `上次掷出 ${previousRoll.details?.value} 点` : '等待第一颗骰子'))),
                     React.createElement("div", { className: "board-legend" },
                         React.createElement("span", null,
                             React.createElement("i", { className: "legend-property" }),

@@ -1,3 +1,4 @@
+import { inferMap, validateMap } from './maps.js';
 export const DEFAULT_CARD_RULES = { tileIds: [6, 12, 18], rewardCash: 80, moveBonus: 2, maxHand: 3 };
 export const DEFAULT_EVENT_RULES = { tileIds: [3, 9, 15, 21], bonus: 120, fee: 60 };
 export const DEFAULT_UPGRADES = { costRates: [0.5, 0.8], rentRates: [1, 2, 4] };
@@ -24,6 +25,7 @@ export function validateConfig(config) {
         config.tiles.filter(t => t.kind === 'start').length !== 1 ||
         config.tiles.some((t, i) => t.id !== i || !t.title.trim()))
         throw new Error('地图配置无效');
+    validateMap(config.map ?? inferMap(config.tiles.length), config.tiles.length);
     if (!Number.isFinite(config.initialCash) || config.initialCash < 0 ||
         !Number.isInteger(config.maxRounds) || config.maxRounds < 1)
         throw new Error('游戏经济配置无效');
