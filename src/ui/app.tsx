@@ -363,6 +363,7 @@ class App extends React.Component<object, UiState> {
             </div>
             <div className="saves-card">
               <div className="card-label">本地存档</div>
+              <p className="save-message">清除浏览器站点数据或卸载应用可能永久删除本地存档；请定期使用「导出」保存 JSON 备份。</p>
               <p className="save-message" role="status">{this.state.saveStatus}</p>
               <button type="button" className="secondary-btn" disabled={game.status==='setup'||this.state.storageBusy} onClick={()=>void this.newManualSlot()}>创建手动存档</button>
               <ul className="save-list">{this.state.saveSlots.map(slot=><li key={slot.id}>
