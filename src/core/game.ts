@@ -32,6 +32,7 @@ export function createGame(seed: number, config: GameConfig = DEFAULT_CONFIG): G
     randomState: normalizeSeed(seed),
     maxRounds: config.maxRounds,
     map:cloneMap(config.map??inferMap(config.tiles.length)),
+    ...(config.automaticLiquidation===true?{automaticLiquidation:true as const}:{}),
     players: config.players.map((p, index): Player => ({
       id: p.id, name: p.name, kind: p.kind ?? (index === 0 ? 'human' : 'computer'),
       position: 0, cash: config.initialCash, bankrupt: false, cards:{reward:0,stride:0}
