@@ -54,7 +54,9 @@ export function validateConfig(config: GameConfig): void {
   if (config.players.length < 2 || config.players.length > 4 ||
       new Set(config.players.map(p => p.id)).size !== config.players.length ||
       config.players.some(p => !p.id?.trim() || !p.name?.trim() ||
-        (p.kind !== undefined && p.kind !== 'human' && p.kind !== 'computer')))
+        (p.kind !== undefined && p.kind !== 'human' && p.kind !== 'computer') ||
+        (p.computerStyle!==undefined && ((p.kind??'computer')!=='computer' ||
+          !['conservative','balanced','aggressive'].includes(p.computerStyle)))))
     throw new Error('玩家配置必须包含两至四名合法且不同的玩家');
   if (config.tiles.length < 2 || config.tiles[0]?.kind !== 'start' ||
       config.tiles.filter(t => t.kind === 'start').length !== 1 ||
