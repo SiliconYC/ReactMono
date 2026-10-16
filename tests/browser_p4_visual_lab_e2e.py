@@ -37,8 +37,11 @@ def main():
           assert page.evaluate('[...document.images].every(e=>e.complete&&e.naturalWidth>0)')
           before=page.locator('.v-board').evaluate('(e)=>getComputedStyle(e).backgroundColor')
           page.get_by_role('button',name='糖果霓虹').click()
+          page.wait_for_function("document.querySelector('main')?.classList.contains('v-theme-candy')",timeout=5000)
           after=page.locator('.v-board').evaluate('(e)=>getComputedStyle(e).backgroundColor')
-          assert before!=after,{'before':before,'after':after}
+          assert before!=after,{'before':before,'after':after,
+            'labClass':page.locator('main').get_attribute('class'),
+            'token':page.locator('main').evaluate("(e)=>getComputedStyle(e).getPropertyValue('--rm-water')")}
           page.get_by_role('button',name='纸艺小镇').click()
           page.locator('.v-tile').nth(1).click()
           assert page.locator('.v-inspector').inner_text().strip()
