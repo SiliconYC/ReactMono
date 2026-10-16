@@ -24,7 +24,7 @@ export function rollTurn(state: GameState, actor: Player): ActionResult {
       if (landed.kind === 'property' && landed.ownerId && landed.ownerId !== actor.id) {
         const landlord = state.players.find(p => p.id === landed.ownerId);
         if (!landlord) return reject(state,'INVALID_PHASE');
-        const due = (landed.level??0)===0 ? (landed.rent??0) : (landed.levelRents?.[landed.level??0]??0);
+        const due = landed.mortgaged===true ? 0 : (landed.level??0)===0 ? (landed.rent??0) : (landed.levelRents?.[landed.level??0]??0);
         const funds=coverRentFromBank(state,actor,due);
         if(funds.amount>0)events.push({type:'bank_withdrawn',actorId:actor.id,details:{amount:funds.amount,reason:'rent'}});
         let rescue=state.automaticLiquidation===true
