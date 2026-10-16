@@ -8,6 +8,12 @@ import { createIcons } from './icons.mjs';
 await mkdir('dist/vendor', { recursive: true });
 await cp('site/index.html', 'dist/index.html');
 await cp('site/style.css', 'dist/style.css');
+for(const name of ['visual-lab.html','visual-lab.css','visual-tokens.css','art-manifest.json']){
+  await cp('site/'+name,'dist/'+name);
+}
+await mkdir('dist/art',{recursive:true});
+await cp('site/art','dist/art',{recursive:true});
+// Keep manifest, attribution and every original sprite in both fingerprint and offline precache.
 for (const [packageName, filename] of [
   ['react', 'react.production.min.js'],
   ['react-dom', 'react-dom.production.min.js']
@@ -22,7 +28,7 @@ await cp('site/manifest.webmanifest','dist/manifest.webmanifest');
 // Include EVERY emitted same-origin runtime module in both SW cache and cache version.
 const runtimeFiles=(await Promise.all(['core','ui','storage'].map(async dir=>
   (await readdir('dist/'+dir)).filter(name=>name.endsWith('.js')).map(name=>dir+'/'+name)))).flat().sort();
-const assets=['dist/index.html','dist/style.css',...runtimeFiles.map(path=>'dist/'+path),
+const assets=['dist/index.html','dist/style.css','dist/visual-tokens.css','dist/visual-lab.css','dist/visual-lab.html','dist/art-manifest.json','dist/art/house.svg','dist/art/coin.svg',...runtimeFiles.map(path=>'dist/'+path),
   'dist/vendor/react.production.min.js','dist/vendor/react-dom.production.min.js',
   'dist/manifest.webmanifest','dist/icons/icon-192.png','dist/icons/icon-512.png','site/sw.js'];
 const fingerprint=createHash('sha256');
