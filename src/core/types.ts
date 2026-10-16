@@ -6,8 +6,17 @@ export type CardKind = 'reward' | 'stride' | 'remote' | 'roadblock' | 'rent_free
 export type CardHand = Readonly<{reward:number;stride:number} & Partial<Record<'remote'|'roadblock'|'rent_free',number>>>;
 export interface Roadblock {readonly tileId:number;readonly ownerId:PlayerId;readonly expiresRound:number;}
 export type PlayerId = string;
+export type FacilityKind='hospital'|'prison'|'shop';
+export interface Detention {readonly kind:'hospital'|'prison';readonly remaining:number;}
+export interface FacilityConfig {
+  readonly hospitalTiles:readonly number[];readonly prisonTiles:readonly number[];readonly shopTiles:readonly number[];
+  readonly hospitalTurns:number;readonly prisonTurns:number;
+  readonly prices:Readonly<Record<CardKind,number>>;readonly stock:Readonly<Record<CardKind,number>>;
+}
+export interface FacilityRules {readonly version:1;readonly hospitalTurns:number;readonly prisonTurns:number;readonly prices:Readonly<Record<CardKind,number>>;}
+export interface ShopStock {readonly tileId:number;readonly cards:Readonly<Record<CardKind,number>>;}
 export type TileKind = 'start' | 'property' | 'neutral';
-export type Phase = 'setup' | 'await_roll' | 'await_decision' | 'await_end_turn' | 'finished';
+export type Phase = 'setup' | 'await_roll' | 'await_decision' | 'await_end_turn' | 'await_shop' | 'finished';
 export type PlayerKind = 'human' | 'computer';
 
 export interface PlayerConfig { readonly id: PlayerId; readonly name: string; readonly kind?: PlayerKind; }
@@ -34,6 +43,9 @@ export interface BankState { readonly version:1; readonly interestBps:number; re
 export interface GameConfig {
   /** Enable P3 strategy cards without changing legacy/P2 game semantics. */
   readonly strategyEnabled?: boolean;
+  /** P3 facilities opt-in; depends on enabled strategy cards. */
+  readonly specialEnabled?: boolean;
+  readonly facilityConfig?:FacilityConfig;
   readonly bankEnabled?: boolean;
   readonly loanEnabled?: boolean;
   readonly loanInterestBps?: number;
@@ -67,6 +79,7 @@ export interface Player {
   readonly holdings?: StockHoldings;
   readonly bankrupt: boolean;
   readonly cards?:CardHand;
+  readonly detention?:Detention;
 }
 export interface Tile extends TileConfig {
   readonly ownerId: PlayerId | null;
@@ -77,9 +90,10 @@ export interface Tile extends TileConfig {
   readonly eventBonus?:number;
   readonly eventFee?:number;
   readonly cardStation?:boolean;
+  readonly facility?:FacilityKind;
 }
 export interface GameEvent {
-  readonly type: 'roadblock_triggered' | 'rent_waived' | 'card_expired' | 'game_started' | 'die_rolled' | 'player_moved' | 'turn_ended' | 'tile_landed' | 'property_declined' | 'property_bought' | 'property_upgraded' | 'property_sold' | 'property_liquidated' | 'bank_deposited' | 'bank_withdrawn' | 'bank_interest' | 'property_mortgaged' | 'property_released' | 'loan_borrowed' | 'loan_repaid' | 'loan_interest' | 'loan_default' | 'stock_bought' | 'stock_sold' | 'stock_liquidated' | 'event_bonus' | 'event_fee' | 'card_received' | 'card_used' | 'rent_paid' | 'player_bankrupt' | 'game_finished';
+  readonly type: 'facility_entered' | 'detention_skipped' | 'detention_released' | 'shop_purchased' | 'shop_left' | 'roadblock_triggered' | 'rent_waived' | 'card_expired' | 'game_started' | 'die_rolled' | 'player_moved' | 'turn_ended' | 'tile_landed' | 'property_declined' | 'property_bought' | 'property_upgraded' | 'property_sold' | 'property_liquidated' | 'bank_deposited' | 'bank_withdrawn' | 'bank_interest' | 'property_mortgaged' | 'property_released' | 'loan_borrowed' | 'loan_repaid' | 'loan_interest' | 'loan_default' | 'stock_bought' | 'stock_sold' | 'stock_liquidated' | 'event_bonus' | 'event_fee' | 'card_received' | 'card_used' | 'rent_paid' | 'player_bankrupt' | 'game_finished';
   readonly actorId?: PlayerId;
   readonly details?: Readonly<Record<string, string | number>>;
 }
@@ -89,6 +103,9 @@ export interface GameState {
   readonly cardRules?: {readonly rewardCash:number;readonly moveBonus:number;readonly maxHand:number};
   readonly pendingMoveBonus?:number;
   readonly strategyEnabled?:true;
+  readonly specialEnabled?:true;
+  readonly facilityRules?:FacilityRules;
+  readonly shops?:readonly ShopStock[];
   /** Zero means no remote die selected; valid pending values are 1–6. */
   readonly pendingDie?:number;
   readonly pendingRentWaiver?:boolean;
@@ -115,6 +132,8 @@ export interface GameState {
 export type GameAction =
   | { readonly type: 'start_game'; readonly actorId: PlayerId }
   | { readonly type: 'roll'; readonly actorId: PlayerId }
+  | { readonly type: 'skip_turn' | 'leave_shop'; readonly actorId:PlayerId }
+  | { readonly type: 'buy_shop_card'; readonly actorId:PlayerId; readonly cardType:CardKind }
   | { readonly type: 'buy_property'; readonly actorId: PlayerId }
   | { readonly type: 'decline_property'; readonly actorId: PlayerId }
   | { readonly type: 'end_turn'; readonly actorId: PlayerId }
