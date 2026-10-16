@@ -1,8 +1,8 @@
 /* P4 #64 — original paper-town board. Deliberately visual only: no game rules or state. */
-.app-shell{max-width:1560px;padding:16px 24px 32px}
-.layout{grid-template-columns:minmax(0,2.2fr) minmax(300px,.82fr);gap:15px}
-.board-card{padding:10px;background:var(--rm-surface);border:1px solid var(--rm-line);border-radius:18px}
-.board-viewport{max-width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-inline:contain;border-radius:13px;scrollbar-width:thin;scrollbar-color:#9fb8aa transparent}
+.app-shell{max-width:1560px;width:100%;min-width:0;padding:16px 24px 32px}
+.layout{width:100%;min-width:0;grid-template-columns:minmax(0,2.2fr) minmax(300px,.82fr);gap:15px}
+.board-card{min-width:0;padding:10px;background:var(--rm-surface);border:1px solid var(--rm-line);border-radius:18px}
+.board-viewport{width:100%;min-width:0;max-width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-inline:contain;border-radius:13px;scrollbar-width:thin;scrollbar-color:#9fb8aa transparent}
 .board-viewport:focus-visible{outline:3px solid var(--rm-accent);outline-offset:-3px}
 .board{width:100%;min-width:0;aspect-ratio:8/6;gap:3px;padding:4px;border-radius:13px;overflow:hidden;background:#7b987b;isolation:isolate}
 .board-harbor{background:#80aeba}
@@ -105,7 +105,7 @@
 .app-shell>.footer{order:4}
 .app-shell[data-game-status=playing] .headline,.app-shell[data-game-status=finished] .headline{display:none}
 .app-shell[data-game-status=playing] .layout,.app-shell[data-game-status=finished] .layout{margin-top:12px}
-@media(max-width:1060px){.layout{grid-template-columns:1fr}.board-card{width:100%}}
+@media(max-width:1060px){.layout{grid-template-columns:minmax(0,1fr)}.board-card{width:100%}}
 @media(max-width:650px){
  .app-shell{padding:9px 8px 24px}
  .headline{margin:12px 0 14px}.headline h1{font-size:27px}.headline p{display:none}
@@ -113,7 +113,7 @@
  .board{gap:2px;padding:2px;border-radius:9px}
  .board .tile{padding:1px;border-radius:4px}
  .board .tile-index{top:2px;left:2px;font-size:9px}
- .board .tile-artwork{width:22px;height:24px;flex-basis:24px;transform:scale(.76);transform-origin:center center;margin-top:5px}
+ .board .tile-artwork{width:22px;height:19px;flex-basis:19px;transform:scale(.72);transform-origin:center center;margin-top:4px}
  .board .tile-name{font-size:10px;line-height:1.1;margin-top:0}
  .board .tile-value{font-size:9px;line-height:1}
  .board .pieces{grid-template-columns:repeat(2,12px);gap:1px;right:1px;bottom:1px}
