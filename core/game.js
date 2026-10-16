@@ -4,6 +4,7 @@ export { DEFAULT_CARD_RULES, DEFAULT_EVENT_RULES, DEFAULT_UPGRADES, DEFAULT_CONF
 export { normalizeSeed, nextDie } from './random.js';
 export { DEFAULT_MAP, INTERNAL_TEST_MAP, HARBOR_MAP, inferMap, advancePosition, validateMap } from './maps.js';
 export { makePropertyTile, netWorth, resaleValue } from './property.js';
+export { createLoan, loanLimit, DEFAULT_LOAN_INTEREST_BPS } from './loan.js';
 export { createBank, transferBank, settleBankRound, DEFAULT_INTEREST_BPS } from './bank.js';
 export { STOCKS, createMarket, advanceMarket, quoteMarket, validateMarket } from './market.js';
 import { SCHEMA_VERSION, UPGRADE_RULES_VERSION } from './types.js';
@@ -11,6 +12,7 @@ import { DEFAULT_CARD_RULES, DEFAULT_EVENT_RULES, DEFAULT_UPGRADES, DEFAULT_CONF
 import { normalizeSeed } from './random.js';
 import { inferMap, cloneMap } from './maps.js';
 import { createMarket } from './market.js';
+import { createLoan, transferLoan } from './loan.js';
 import { createBank, transferBank } from './bank.js';
 import { makePropertyTile, declineProperty, upgradeProperty, buyProperty, sellProperty } from './property.js';
 import { accept, reject } from './transitions.js';
@@ -37,10 +39,11 @@ export function createGame(seed, config = DEFAULT_CONFIG) {
         map: cloneMap(config.map ?? inferMap(config.tiles.length)),
         ...(config.marketEnabled === true ? { market: createMarket(seed) } : {}),
         ...(config.bankEnabled === true ? { bank: createBank(config.bankInterestBps) } : {}),
+        ...(config.loanEnabled === true ? { loan: createLoan(config.loanInterestBps) } : {}),
         ...(config.automaticLiquidation === true ? { automaticLiquidation: true } : {}),
         players: config.players.map((p, index) => ({
             id: p.id, name: p.name, kind: p.kind ?? (index === 0 ? 'human' : 'computer'),
-            position: 0, cash: config.initialCash, ...(config.bankEnabled === true ? { bankBalance: 0 } : {}), bankrupt: false, cards: { reward: 0, stride: 0 }
+            position: 0, cash: config.initialCash, ...(config.bankEnabled === true ? { bankBalance: 0 } : {}), ...(config.loanEnabled === true ? { loanBalance: 0 } : {}), bankrupt: false, cards: { reward: 0, stride: 0 }
         })),
         tiles: config.tiles.map(t => {
             if (t.kind === 'property')
@@ -78,6 +81,10 @@ export function applyAction(state, action) {
         case 'use_card': return useCard(state, actor, action);
         case 'upgrade_property': return upgradeProperty(state, actor, action);
         case 'sell_property': return sellProperty(state, actor, action);
+        case 'mortgage_property':
+        case 'release_mortgage':
+        case 'borrow_loan':
+        case 'repay_loan': return transferLoan(state, actor, action);
         case 'deposit_bank':
         case 'withdraw_bank': return transferBank(state, actor, action);
         case 'buy_property': return buyProperty(state, actor);

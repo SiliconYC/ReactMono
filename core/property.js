@@ -13,7 +13,7 @@ export function netWorth(state, playerId) {
     const player = state.players.find(p => p.id === playerId);
     if (!player)
         throw new Error('玩家不存在');
-    return player.cash + (player.bankBalance ?? 0) + state.tiles.reduce((sum, tile) => sum + (tile.ownerId === playerId && tile.kind === 'property'
+    return player.cash + (player.bankBalance ?? 0) - (player.loanBalance ?? 0) + state.tiles.reduce((sum, tile) => sum + (tile.ownerId === playerId && tile.kind === 'property'
         ? (tile.price ?? 0) + (tile.upgradeCosts ?? []).slice(0, tile.level ?? 0).reduce((a, b) => a + b, 0) : 0), 0);
 }
 /** Transparent resale: 75% of land cost plus 50% of paid upgrade costs. */
@@ -31,11 +31,11 @@ export function liquidateForRent(state, actor, due, creditorId) {
     for (const t of state.tiles) {
         if (cash >= due)
             break;
-        if (t.kind !== 'property' || t.ownerId !== actor.id)
+        if (t.kind !== 'property' || t.ownerId !== actor.id || (t.mortgaged === true && (actor.loanBalance ?? 0) > 0))
             continue;
         const amount = resaleValue(t, state.resaleRules);
         cash += amount;
-        tiles = tiles.map(x => x.id === t.id ? { ...x, ownerId: null, level: 0 } : x);
+        tiles = tiles.map(x => x.id === t.id ? (({ mortgaged: _unused, ...rest }) => ({ ...rest, ownerId: null, level: 0 }))(x) : x);
         events.push({ type: 'property_liquidated', actorId: actor.id, details: {
                 tileId: t.id, amount, creditorId, reason: 'rent'
             } });
@@ -46,7 +46,7 @@ export function sellProperty(state, actor, action) {
     if (state.phase !== 'await_end_turn' || !Number.isInteger(action.tileId))
         return reject(state, 'INVALID_PHASE');
     const tile = state.tiles[action.tileId];
-    if (!tile || tile.kind !== 'property' || tile.ownerId !== actor.id)
+    if (!tile || tile.kind !== 'property' || tile.ownerId !== actor.id || tile.mortgaged === true)
         return reject(state, 'INVALID_PHASE');
     const amount = resaleValue(tile, state.resaleRules);
     if (!Number.isSafeInteger(amount) || !Number.isSafeInteger(actor.cash + amount))
@@ -71,7 +71,7 @@ export function upgradeProperty(state, actor, action) {
     if (state.phase !== 'await_end_turn' || !Number.isInteger(action.tileId))
         return reject(state, 'INVALID_PHASE');
     const tile = state.tiles[action.tileId];
-    if (!tile || tile.kind !== 'property' || tile.ownerId !== actor.id || (tile.level ?? 0) >= 2)
+    if (!tile || tile.kind !== 'property' || tile.ownerId !== actor.id || tile.mortgaged === true || (tile.level ?? 0) >= 2)
         return reject(state, 'INVALID_PHASE');
     const level = tile.level ?? 0;
     const cost = tile.upgradeCosts?.[level];

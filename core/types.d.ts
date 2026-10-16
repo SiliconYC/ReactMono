@@ -36,6 +36,11 @@ export interface ResaleRules {
     readonly landPercent: number;
     readonly upgradePercent: number;
 }
+export interface LoanState {
+    readonly version: 1;
+    readonly interestBps: number;
+    readonly lastInterestRound: number;
+}
 export interface BankState {
     readonly version: 1;
     readonly interestBps: number;
@@ -43,6 +48,8 @@ export interface BankState {
 }
 export interface GameConfig {
     readonly bankEnabled?: boolean;
+    readonly loanEnabled?: boolean;
+    readonly loanInterestBps?: number;
     readonly bankInterestBps?: number;
     /** Optional deterministic virtual exchange, separate from the dice RNG. */
     readonly marketEnabled?: boolean;
@@ -79,12 +86,14 @@ export interface Player {
     readonly cash: number;
     /** Optional for legacy states; enabled games always initialize to zero. */
     readonly bankBalance?: number;
+    readonly loanBalance?: number;
     readonly bankrupt: boolean;
     readonly cards?: Readonly<Record<CardKind, number>>;
 }
 export interface Tile extends TileConfig {
     readonly ownerId: PlayerId | null;
     readonly level?: number;
+    readonly mortgaged?: true;
     readonly upgradeCosts?: readonly [number, number];
     readonly levelRents?: readonly [number, number, number];
     readonly eventBonus?: number;
@@ -92,7 +101,7 @@ export interface Tile extends TileConfig {
     readonly cardStation?: boolean;
 }
 export interface GameEvent {
-    readonly type: 'game_started' | 'die_rolled' | 'player_moved' | 'turn_ended' | 'tile_landed' | 'property_declined' | 'property_bought' | 'property_upgraded' | 'property_sold' | 'property_liquidated' | 'bank_deposited' | 'bank_withdrawn' | 'bank_interest' | 'event_bonus' | 'event_fee' | 'card_received' | 'card_used' | 'rent_paid' | 'player_bankrupt' | 'game_finished';
+    readonly type: 'game_started' | 'die_rolled' | 'player_moved' | 'turn_ended' | 'tile_landed' | 'property_declined' | 'property_bought' | 'property_upgraded' | 'property_sold' | 'property_liquidated' | 'bank_deposited' | 'bank_withdrawn' | 'bank_interest' | 'property_mortgaged' | 'property_released' | 'loan_borrowed' | 'loan_repaid' | 'loan_interest' | 'loan_default' | 'event_bonus' | 'event_fee' | 'card_received' | 'card_used' | 'rent_paid' | 'player_bankrupt' | 'game_finished';
     readonly actorId?: PlayerId;
     readonly details?: Readonly<Record<string, string | number>>;
 }
@@ -115,6 +124,7 @@ export interface GameState {
     readonly map: GameMap;
     readonly market?: StockMarket;
     readonly bank?: BankState;
+    readonly loan?: LoanState;
     /** Undefined preserves pre-P3-06 rent behaviour, including old saved games. */
     readonly automaticLiquidation?: true;
     readonly resaleRules?: ResaleRules;
@@ -146,6 +156,14 @@ export type GameAction = {
     readonly type: 'sell_property';
     readonly actorId: PlayerId;
     readonly tileId: number;
+} | {
+    readonly type: 'mortgage_property' | 'release_mortgage';
+    readonly actorId: PlayerId;
+    readonly tileId: number;
+} | {
+    readonly type: 'borrow_loan' | 'repay_loan';
+    readonly actorId: PlayerId;
+    readonly amount: number;
 } | {
     readonly type: 'deposit_bank' | 'withdraw_bank';
     readonly actorId: PlayerId;

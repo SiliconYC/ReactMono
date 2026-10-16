@@ -33,6 +33,12 @@ export const HARBOR_CONFIG = {
     cardRules: { ...DEFAULT_CARD_RULES, tileIds: [6, 12, 18] }
 };
 export function validateConfig(config) {
+    if (config.loanEnabled !== undefined && typeof config.loanEnabled !== 'boolean')
+        throw new Error('贷款开关无效');
+    if (config.loanEnabled === true && config.bankEnabled !== true)
+        throw new Error('贷款需要银行模块');
+    if (config.loanInterestBps !== undefined && (!Number.isSafeInteger(config.loanInterestBps) || config.loanInterestBps < 0 || config.loanInterestBps > 1000))
+        throw new Error('贷款利率无效');
     if (config.bankEnabled !== undefined && typeof config.bankEnabled !== 'boolean')
         throw new Error('银行开关无效');
     if (config.bankInterestBps !== undefined && (!Number.isSafeInteger(config.bankInterestBps) || config.bankInterestBps < 0 || config.bankInterestBps > 1000))

@@ -5,6 +5,7 @@ export { DEFAULT_CARD_RULES, DEFAULT_EVENT_RULES, DEFAULT_UPGRADES, DEFAULT_CONF
 export { normalizeSeed, nextDie } from './random.js';
 export { DEFAULT_MAP, INTERNAL_TEST_MAP, HARBOR_MAP, inferMap, advancePosition, validateMap } from './maps.js';
 export { makePropertyTile, netWorth, resaleValue } from './property.js';
+export { createLoan, loanLimit, DEFAULT_LOAN_INTEREST_BPS } from './loan.js';
 export { createBank, transferBank, settleBankRound, DEFAULT_INTEREST_BPS } from './bank.js';
 export { STOCKS, createMarket, advanceMarket, quoteMarket, validateMarket } from './market.js';
 export type { StockMarket, StockId } from './market.js';

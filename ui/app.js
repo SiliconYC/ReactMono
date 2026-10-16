@@ -1,4 +1,4 @@
-import { applyAction, createGame, DEFAULT_CONFIG, HARBOR_CONFIG, netWorth, resaleValue } from '../core/game.js';
+import { applyAction, createGame, DEFAULT_CONFIG, HARBOR_CONFIG, netWorth, resaleValue, loanLimit } from '../core/game.js';
 import { chooseComputerAction } from '../core/agent.js';
 import { listSlots, readSlot, writeSlot, deleteSlot } from '../storage/indexeddb.js';
 import { deserializeGame, MAX_SAVE_CHARS } from '../core/save.js';
@@ -276,7 +276,7 @@ class App extends React.Component {
         }
         let fresh;
         try {
-            fresh = createGame(seed, { ...(this.state.selectedMapId === 'harbor-20' ? HARBOR_CONFIG : DEFAULT_CONFIG), players: roster, maxRounds: rounds, automaticLiquidation: true, bankEnabled: true });
+            fresh = createGame(seed, { ...(this.state.selectedMapId === 'harbor-20' ? HARBOR_CONFIG : DEFAULT_CONFIG), players: roster, maxRounds: rounds, automaticLiquidation: true, bankEnabled: true, loanEnabled: true });
         }
         catch (e) {
             this.setState({ message: '开局配置无效：' + (e instanceof Error ? e.message : String(e)) });
@@ -330,12 +330,12 @@ class App extends React.Component {
         if (actor.kind === 'computer')
             return;
         const bankAmount = /^[1-9][0-9]{0,12}$/.test(this.state.bankAmountInput.trim()) ? Number(this.state.bankAmountInput.trim()) : NaN;
-        const action = (type === 'upgrade_property' || type === 'sell_property') ? { type, actorId: actor.id, tileId: tileId ?? -1 }
-            : type === 'deposit_bank' || type === 'withdraw_bank' ? { type, actorId: actor.id, amount: bankAmount }
+        const action = (type === 'upgrade_property' || type === 'sell_property' || type === 'mortgage_property' || type === 'release_mortgage') ? { type, actorId: actor.id, tileId: tileId ?? -1 }
+            : type === 'deposit_bank' || type === 'withdraw_bank' || type === 'borrow_loan' || type === 'repay_loan' ? { type, actorId: actor.id, amount: bankAmount }
                 : type === 'use_card' ? { type, actorId: actor.id, cardType: cardType ?? 'reward' } : { type, actorId: actor.id };
         const result = applyAction(game, action);
         if (!result.ok) {
-            const bankAction = type === 'deposit_bank' || type === 'withdraw_bank';
+            const bankAction = type === 'deposit_bank' || type === 'withdraw_bank' || type === 'borrow_loan' || type === 'repay_loan';
             const reason = bankAction ? (result.reason === 'INSUFFICIENT_FUNDS' ? '现金或存款不足。' : '请输入合法的正整数，并在本回合操作银行。') :
                 result.reason === 'INSUFFICIENT_FUNDS' ? '资金不足，无法购买这块地产。请放弃购买。' : '当前阶段不能执行这个操作。';
             this.setState({ message: reason });
@@ -359,6 +359,9 @@ class App extends React.Component {
         const bankEvent = events.find(e => e.type === 'bank_deposited' || e.type === 'bank_withdrawn');
         if (bankEvent)
             return bankEvent.type === 'bank_deposited' ? `${actorName}存入银行 ${bankEvent.details?.amount} 游戏币。` : `${actorName}取出存款 ${bankEvent.details?.amount} 游戏币。`;
+        const loanEvent = events.find(e => ['property_mortgaged', 'property_released', 'loan_borrowed', 'loan_repaid', 'loan_default', 'loan_interest'].includes(e.type));
+        if (loanEvent)
+            return this.describeEvent(loanEvent);
         const interest = events.filter(e => e.type === 'bank_interest');
         if (interest.length)
             return `本轮银行结息 ${interest.length} 笔，总计 ${interest.reduce((sum, e) => sum + Number(e.details?.amount ?? 0), 0)} 游戏币。`;
@@ -405,6 +408,12 @@ class App extends React.Component {
             case 'property_bought': return `${person}买下 ${event.details?.tileId} 号地产（${event.details?.amount}）`;
             case 'property_sold': return `${person}出售 ${event.details?.tileId} 号地产，回收 ${event.details?.amount} 游戏币`;
             case 'property_liquidated': return `${person}欠费救济，变卖 ${event.details?.tileId} 号地产收回 ${event.details?.amount} 游戏币`;
+            case 'property_mortgaged': return `${person}抵押 ${event.details?.tileId} 号地产，额度 ${event.details?.credit}`;
+            case 'property_released': return `${person}解除 ${event.details?.tileId} 号地产抵押`;
+            case 'loan_borrowed': return `${person}借入 ${event.details?.amount} 游戏币`;
+            case 'loan_repaid': return `${person}偿还贷款 ${event.details?.amount} 游戏币`;
+            case 'loan_interest': return `${person}贷款利息 ${event.details?.amount}（已付 ${event.details?.paid}）`;
+            case 'loan_default': return `${person}违约，抵押地产收回 ${event.details?.collateral} 块`;
             case 'bank_deposited': return `${person}存入银行 ${event.details?.amount} 游戏币`;
             case 'bank_withdrawn': return `${person}${event.details?.reason === 'rent' ? '自动取款支付租金' : '从银行取出'} ${event.details?.amount} 游戏币`;
             case 'bank_interest': return `${person}获得本轮银行利息 ${event.details?.amount} 游戏币`;
@@ -513,7 +522,12 @@ class App extends React.Component {
                             React.createElement("b", null, current.cash.toLocaleString('zh-CN')),
                             game.bank && React.createElement("span", null,
                                 " \u00B7 \u94F6\u884C\u5B58\u6B3E\uFF1A",
-                                React.createElement("b", null, (current.bankBalance ?? 0).toLocaleString('zh-CN')))),
+                                React.createElement("b", null, (current.bankBalance ?? 0).toLocaleString('zh-CN'))),
+                            game.loan && React.createElement("span", null,
+                                " \u00B7 \u8D37\u6B3E\uFF1A",
+                                React.createElement("b", null, (current.loanBalance ?? 0).toLocaleString('zh-CN')),
+                                " \u00B7 \u51C0\u8D44\u4EA7\uFF1A",
+                                React.createElement("b", null, netWorth(game, current.id).toLocaleString('zh-CN')))),
                         game.status === 'setup' && React.createElement("div", { className: "start-form" },
                             React.createElement("label", { className: "field-label", htmlFor: "game-map" },
                                 "\u6E38\u620F\u5730\u56FE ",
@@ -587,14 +601,14 @@ class App extends React.Component {
                             !hasMoneyForLand && React.createElement("p", { className: "insufficient-msg" }, "\u8D44\u91D1\u4E0D\u8DB3\uFF0C\u4E0D\u80FD\u8D2D\u4E70\u6B64\u5730\u3002"),
                             React.createElement("button", { type: "button", className: "secondary-btn", onClick: () => this.dispatch('decline_property') }, "\u653E\u5F03\u8D2D\u4E70\uFF0C\u7EE7\u7EED\u56DE\u5408 \u2192")),
                         current.kind === 'human' && !this.state.awaitingHandoff && game.phase === 'await_end_turn' && React.createElement("div", { className: "purchase-actions" },
-                            game.tiles.filter(t => t.kind === 'property' && t.ownerId === current.id && (t.level ?? 0) < 2).map(tile => React.createElement("button", { type: "button", key: tile.id, className: "secondary-btn", disabled: current.cash < (tile.upgradeCosts?.[tile.level ?? 0] ?? Infinity), onClick: () => this.dispatch('upgrade_property', tile.id) },
+                            game.tiles.filter(t => t.kind === 'property' && t.ownerId === current.id && t.mortgaged !== true && (t.level ?? 0) < 2).map(tile => React.createElement("button", { type: "button", key: tile.id, className: "secondary-btn", disabled: current.cash < (tile.upgradeCosts?.[tile.level ?? 0] ?? Infinity), onClick: () => this.dispatch('upgrade_property', tile.id) },
                                 "\u5347\u7EA7 ",
                                 tile.title,
                                 " \u2192 ",
                                 (tile.level ?? 0) + 1,
                                 " \u7EA7 \u00B7 \u8D39\u7528 ",
                                 tile.upgradeCosts?.[tile.level ?? 0])),
-                            game.tiles.filter(t => t.kind === 'property' && t.ownerId === current.id).map(tile => React.createElement("button", { type: "button", key: 'sell-' + tile.id, className: "secondary-btn", onClick: () => {
+                            game.tiles.filter(t => t.kind === 'property' && t.ownerId === current.id && t.mortgaged !== true).map(tile => React.createElement("button", { type: "button", key: 'sell-' + tile.id, className: "secondary-btn", onClick: () => {
                                     if (window.confirm('确认出售「' + tile.title + '」？价格 ' + resaleValue(tile, game.resaleRules) + ' 游戏币，建筑升级不返还原价。'))
                                         this.dispatch('sell_property', tile.id);
                                 } },
@@ -612,6 +626,25 @@ class App extends React.Component {
                                 React.createElement("input", { id: "bank-amount", "aria-label": "\u94F6\u884C\u4EA4\u6613\u91D1\u989D", inputMode: "numeric", type: "text", value: this.state.bankAmountInput, onChange: (e) => this.setState({ bankAmountInput: e.target.value }) }),
                                 React.createElement("button", { type: "button", className: "secondary-btn", onClick: () => this.dispatch('deposit_bank') }, "\u5B58\u5165\u94F6\u884C"),
                                 React.createElement("button", { type: "button", className: "secondary-btn", onClick: () => this.dispatch('withdraw_bank') }, "\u4ECE\u94F6\u884C\u53D6\u6B3E")),
+                            game.loan && React.createElement("div", { className: "bank-actions loan-actions", role: "group", "aria-label": "\u5730\u4EA7\u62B5\u62BC\u4E0E\u8D37\u6B3E" },
+                                React.createElement("p", { className: "purchase-info" },
+                                    "\u8D37\u6B3E ",
+                                    (current.loanBalance ?? 0).toLocaleString('zh-CN'),
+                                    " \u00B7 \u62B5\u62BC\u989D\u5EA6 ",
+                                    loanLimit(game, current.id),
+                                    " \u00B7 \u6BCF\u8F6E\u5229\u7387 ",
+                                    game.loan.interestBps / 100,
+                                    "%\u3002\u62B5\u62BC\u5730\u4EA7\u6682\u505C\u79DF\u91D1\u3001\u5347\u7EA7\u548C\u51FA\u552E\uFF1B\u8D85\u989D\u65F6\u94F6\u884C\u6536\u56DE\u62B5\u62BC\u7269\u3002"),
+                                game.tiles.filter(t => t.kind === 'property' && t.ownerId === current.id).map(tile => React.createElement("button", { type: "button", key: 'lien-' + tile.id, className: "secondary-btn", disabled: tile.mortgaged === true && (current.loanBalance ?? 0) > loanLimit(game, current.id, tile.id), onClick: () => this.dispatch(tile.mortgaged === true ? 'release_mortgage' : 'mortgage_property', tile.id) },
+                                    tile.mortgaged === true ? '解除抵押' : '抵押',
+                                    " ",
+                                    tile.title)),
+                                React.createElement("p", { className: "purchase-info" },
+                                    "\u4E0A\u65B9\u94F6\u884C\u4EA4\u6613\u91D1\u989D\u540C\u6837\u7528\u4E8E\u501F\u8D37\u3002\u5F53\u524D\u53EF\u501F ",
+                                    Math.max(0, loanLimit(game, current.id) - (current.loanBalance ?? 0)),
+                                    " \u6E38\u620F\u5E01\u3002"),
+                                React.createElement("button", { type: "button", className: "secondary-btn", onClick: () => this.dispatch('borrow_loan') }, "\u501F\u5165\u8D37\u6B3E"),
+                                React.createElement("button", { type: "button", className: "secondary-btn", onClick: () => this.dispatch('repay_loan') }, "\u507F\u8FD8\u8D37\u6B3E")),
                             React.createElement("button", { type: "button", className: "primary-btn", onClick: () => this.dispatch('end_turn') },
                                 "\u7ED3\u675F\u5F53\u524D\u56DE\u5408 ",
                                 React.createElement("span", null, "\u2192"))),
@@ -680,7 +713,8 @@ class App extends React.Component {
                                     " \u53F7\u683C \u00B7 \u73B0\u91D1 ",
                                     p.cash.toLocaleString('zh-CN'),
                                     game.bank ? ` · 存款 ${(p.bankBalance ?? 0).toLocaleString('zh-CN')}` : '',
-                                    " \u00B7 \u8D44\u4EA7 ",
+                                    game.loan ? ` · 贷款 ${(p.loanBalance ?? 0).toLocaleString('zh-CN')}` : '',
+                                    " \u00B7 \u51C0\u8D44\u4EA7 ",
                                     netWorth(game, p.id).toLocaleString('zh-CN'),
                                     p.bankrupt ? ' · 已破产' : '')),
                             React.createElement("span", { className: "player-kind" }, p.kind === 'human' ? '真人' : '电脑')))),
@@ -690,7 +724,7 @@ class App extends React.Component {
                     React.createElement("div", { className: "info-card" },
                         React.createElement("strong", null, "\u73A9\u6CD5\u8BF4\u660E"),
                         React.createElement("p", null, "\u2460 \u70B9\u51FB\u300C\u5F00\u59CB\u6E38\u620F\u300D\uFF0C\u8F6E\u5230\u73A9\u5BB6\u65F6\u63B7\u9AB0\u524D\u8FDB\u3002\u2461 \u5230\u65E0\u4E3B\u5730\u4EA7\u53EF\u4E70\u5165\u6216\u653E\u5F03\uFF1B\u7ECF\u8FC7\u5BF9\u624B\u5730\u4EA7\u4F1A\u81EA\u52A8\u4ED8\u79DF\u3002\u2462 \u5904\u7406\u5B8C\u5730\u5757\u540E\u7ED3\u675F\u56DE\u5408\uFF0C\u7535\u8111\u4F1A\u81EA\u52A8\u884C\u52A8\u3002"),
-                        React.createElement("p", null, "\u4ED8\u4E0D\u8D77\u79DF\u91D1\u7ACB\u5373\u7834\u4EA7\uFF1B\u5426\u5219\u6700\u591A\u73A9 60 \u8F6E\uFF0C\u6700\u7EC8\u6309\u73B0\u91D1\u52A0\u571F\u5730\u539F\u4EF7\u8BA1\u7B97\u51C0\u8D44\u4EA7\u3002\u7535\u8111\u8D2D\u5730\u540E\u81F3\u5C11\u4FDD\u7559 200 \u6E38\u620F\u5E01\u3002"),
+                        React.createElement("p", null, "\u4ED8\u4E0D\u8D77\u79DF\u91D1\u53EF\u80FD\u51FA\u552E\u5730\u4EA7\u6216\u7834\u4EA7\uFF1B\u6700\u7EC8\u6309\u73B0\u91D1\u3001\u5B58\u6B3E\u3001\u5730\u4EA7\u6210\u672C\u51CF\u8D37\u6B3E\u8BA1\u7B97\u51C0\u8D44\u4EA7\u3002\u7535\u8111\u8D2D\u5730\u540E\u81F3\u5C11\u4FDD\u7559 200 \u6E38\u620F\u5E01\u3002"),
                         React.createElement("p", null, "P2 \u5DF2\u652F\u6301\u5730\u4EA7\u5347\u7EA7\u3001\u673A\u4F1A\u683C\u3001\u5956\u52B1\u5361\u548C\u6B65\u6570\u5361\uFF1B\u5361\u7247\u5728\u5361\u7247\u7AD9\u83B7\u5F97\uFF0C\u53EA\u80FD\u5728\u63B7\u9AB0\u524D\u4F7F\u7528\u3002\u5B58\u6863\u4E0E\u79BB\u7EBF\u6E38\u73A9\u5747\u5728\u672C\u673A\u5B8C\u6210\u3002")))),
             React.createElement("footer", { className: "footer" }, "\u7EAF\u524D\u7AEF \u00B7 \u7B80\u4F53\u4E2D\u6587 \u00B7 \u4E0D\u9700\u8981\u8D26\u53F7\u3000\uFF5C\u3000IndexedDB \u672C\u673A\u5B58\u6863 \u00B7 \u4E0D\u4E0A\u4F20\u4E91\u7AEF")));
     }
