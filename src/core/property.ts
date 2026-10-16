@@ -28,7 +28,7 @@ export function resaleValue(tile:Tile):number {
   return Math.floor((tile.price??0)*0.75)+Math.floor(paid*0.5);
 }
 /** Force sale only when rent cannot otherwise be paid, by ascending tile ID. */
-export function liquidateForRent(state:GameState,actor:Player,due:number):{
+export function liquidateForRent(state:GameState,actor:Player,due:number,creditorId:PlayerId):{
   cash:number;tiles:readonly Tile[];events:readonly GameEvent[]
 }{
   let cash=actor.cash;
@@ -41,7 +41,7 @@ export function liquidateForRent(state:GameState,actor:Player,due:number):{
     cash+=amount;
     tiles=tiles.map(x=>x.id===t.id?{...x,ownerId:null,level:0}:x);
     events.push({type:'property_liquidated',actorId:actor.id,details:{
-      tileId:t.id,amount,creditorId:'bank',reason:'rent'
+      tileId:t.id,amount,creditorId,reason:'rent'
     }});
   }
   return {cash,tiles,events};
