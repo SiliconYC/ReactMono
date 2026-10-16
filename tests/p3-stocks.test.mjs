@@ -86,10 +86,15 @@ test('P3-10: 100 seed round reproducibility and save resumption with holdings',(
       a=run(a,'buy_stock',{stockId:symbol,quantity:1});
       b=run(b,'buy_stock',{stockId:symbol,quantity:1});
     }
-    a={...a,market:advanceMarket(a.market,2),round:2};
-    b={...b,market:advanceMarket(b.market,2),round:2};
+    for(let seat=0;seat<4;seat++){
+      a=run({...a,phase:'await_end_turn'},'end_turn');
+      b=run({...b,phase:'await_end_turn'},'end_turn');
+    }
+    assert.equal(a.round,2);
     assert.deepEqual(a,b);
     assert.deepEqual(deserializeGame(serializeGame(a,{now})).game,a);
+    a={...a,phase:'await_end_turn'};
+    b={...b,phase:'await_end_turn'};
     for(const symbol of STOCKS.map(x=>x.id)){
       a=run(a,'sell_stock',{stockId:symbol,quantity:1});
       b=run(b,'sell_stock',{stockId:symbol,quantity:1});
