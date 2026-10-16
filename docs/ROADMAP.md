@@ -78,3 +78,11 @@ P0→P1 通过 [Issue #1](https://github.com/SiliconYC/ReactMono/issues/1) 发�
 沙盒 `npm test` 28/28 通过（含 100 个固定种子的无界面完整对局）；另有种子 17、0 的两次 Chromium 浏览器实际按钮全局完成记录（见 [#6 实施报告](ISSUE6_IMPLEMENTATION.md)）。[GitHub Pages 发布流程](https://github.com/SiliconYC/ReactMono/actions/runs/38767372780) 为成功。外部 CDN 的真实公网加载仍未在该沙盒做浏览器验证，故不可夸称公网兼容已被全覆盖。
 
 **P1 是最小可玩版，不是完整《大富翁4》**。下一阶段 P2 重点是静态资源离线、PWA、多存档、基础卡片与地产升级，仍须通过提案池筛选小任务，不得无理由扩大范围。
+
+## 2026-10-17：P3 交付与最后验收关口
+
+- [P3 #30–#44](https://github.com/SiliconYC/ReactMono/issues) 逐项完成并关闭；#44 AI 自主候选改进通过 [PR #60](https://github.com/SiliconYC/ReactMono/pull/60)、合并后 CI 与 Pages。与「无人值守 30 轮自进化」仍有距离，不夸称 P5。
+- 最后关口 [#45 / PR #61](https://github.com/SiliconYC/ReactMono/pull/61) 已在**首轮独立 CI** 中通过额外的 1,000 固定种子完整游戏（241,239 合法动作、0 拒绝；原始记录和四幅公网 Chromium 图像已归档）及真实公网桌面、手机离线、存档回归，详见 [P3_FINAL_ACCEPTANCE.md](P3_FINAL_ACCEPTANCE.md)。
+- **阶段标记门槛**：只有 #45 最新完整 CI、PR 合并、合并后 `dev` CI、Pages 发布与真实公网验收均成功且 #45 关闭，才视为 **P3 正式完成、可进入 P4**。本条不会因为 PR 开放就直接升级状态。
+- P4 主要进一步研究界面信息密度、真人局长趣味、电脑行动节奏、视觉动效和角色表达；不再在 P3 验收中增加服务器、账号及云同步。
+
