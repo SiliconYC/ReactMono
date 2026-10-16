@@ -26,6 +26,8 @@ export interface GameMap {
   readonly route:readonly number[];
 }
 export interface GameConfig {
+  /** Opt in to deterministic resale-based rent rescue; old saves keep P2 behaviour. */
+  readonly automaticLiquidation?:boolean;
   readonly map?:GameMap;
   readonly players: readonly PlayerConfig[];
   readonly tiles: readonly TileConfig[];
@@ -71,6 +73,8 @@ export interface GameState {
   readonly randomState: number;
   readonly maxRounds: number;
   readonly map: GameMap;
+  /** Undefined preserves pre-P3-06 rent behaviour, including old saved games. */
+  readonly automaticLiquidation?:true;
   readonly players: readonly Player[];
   readonly tiles: readonly Tile[];
   readonly winnerId: PlayerId | null;
