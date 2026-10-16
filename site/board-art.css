@@ -1,0 +1,133 @@
+/* P4 #64 — original paper-town board. Deliberately visual only: no game rules or state. */
+.app-shell{max-width:1560px;padding:16px 24px 32px}
+.layout{grid-template-columns:minmax(0,2.2fr) minmax(300px,.82fr);gap:15px}
+.board-card{padding:10px;background:var(--rm-surface);border:1px solid var(--rm-line);border-radius:18px}
+.board-viewport{max-width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-inline:contain;border-radius:13px;scrollbar-width:thin;scrollbar-color:#9fb8aa transparent}
+.board-viewport:focus-visible{outline:3px solid var(--rm-accent);outline-offset:-3px}
+.board{width:100%;min-width:0;aspect-ratio:8/6;gap:3px;padding:4px;border-radius:13px;overflow:hidden;background:#7b987b;isolation:isolate}
+.board-harbor{background:#80aeba}
+.board .tile{appearance:none;cursor:pointer;width:100%;height:100%;margin:0;min-width:0;min-height:0;padding:2px 2px 2px;border:1px solid #9dbb90;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;gap:0;background:#d7ebc7;color:#294837;border-radius:6px;position:relative;overflow:hidden;box-shadow:inset 0 -4px #89b28740;transition:filter .12s ease,box-shadow .12s ease}
+.board .tile:hover{filter:brightness(1.05)}
+.board .tile:focus-visible{outline:3px solid #ecab5b;outline-offset:-3px;z-index:3}
+.board .tile[aria-pressed=true]{box-shadow:inset 0 0 0 2px #da8e36,inset 0 -4px #89b28740;z-index:2}
+.board .tile-current{box-shadow:inset 0 0 0 2px #e09c56,inset 0 -4px #89b28740}
+.board .tile-index{top:3px;left:4px;font-size:10px;font-weight:850;line-height:1;color:#54745c;opacity:.9;font-variant-numeric:tabular-nums}
+.board .tile-name{font-size:clamp(10px,.85vw,13px);font-weight:800;line-height:1.1;max-width:96%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;color:inherit}
+.board .tile-value{font-size:clamp(9px,.75vw,11px);font-weight:700;line-height:1.2;max-width:92%;margin-top:2px;color:#49684e}
+.board-harbor .tile{background:#def0e8;border-color:#9dc6b3;color:#29565b;box-shadow:inset 0 -4px #74b4a83c}
+.board .tile-art-start{background:#f2db9b;color:#564b31;border-color:#ceb26d}
+.board .tile-neutral{background:#e9e6d7;border-color:#cfc7b0;color:#706a50}
+.board-harbor .tile-neutral{background:#c3e5e6;border-color:#90c0c8;color:#315f6e}
+.board .tile[data-owner-id=p1]{background:#cbe8ec;border-color:#7aabb9;box-shadow:inset 0 -5px #317fa1}
+.board .tile[data-owner-id=p2]{background:#f5d7c7;border-color:#c99887;box-shadow:inset 0 -5px #bb634b}
+.board .tile[data-owner-id=p3]{background:#ebdafa;border-color:#ac90bd;box-shadow:inset 0 -5px #835ca2}
+.board .tile[data-owner-id=p4]{background:#f9e5b4;border-color:#c9a86a;box-shadow:inset 0 -5px #b58b32}
+.board .tile-mortgaged{filter:saturate(.55)}
+.board .tile-mortgaged:after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(135deg,transparent 0 9px,#53635710 9px 11px)}
+.board .tile-mortgage{position:absolute;right:3px;top:3px;font-size:9px;color:#7a4035;background:#fff4dd;border-radius:3px;padding:0 2px;z-index:1}
+.board .tile-level{position:absolute;left:4px;bottom:2px;font-size:7px;letter-spacing:-1px;color:#a8752e}
+.board .tile-roadblock{position:absolute;right:2px;top:2px;width:14px;height:14px;display:grid;place-items:center;border:2px solid #fff;border-radius:3px;background:#bd6042;color:#fff;font-size:10px;font-weight:900;z-index:2}
+/* Roof + body + detail form one crisp miniature building, no raster dependencies. */
+.board .tile-artwork{display:block;width:30px;height:30px;position:relative;flex:0 1 30px;margin-top:6px}
+.board .art-roof,.board .art-body,.board .art-detail{position:absolute;display:block}
+.board .tile-art-property .art-roof{top:3px;left:3px;width:24px;height:12px;background:#bd7553;clip-path:polygon(50% 0,100% 92%,100% 100%,0 100%,0 92%);filter:drop-shadow(0 1px #604e42)}
+.board .tile-art-property .art-body{top:13px;left:6px;width:18px;height:14px;background:#fff7df;border:1px solid #d5b994;border-radius:1px 1px 2px 2px}
+.board .tile-art-property .art-detail{top:19px;left:13px;width:5px;height:8px;border-radius:2px 2px 0 0;background:#a8c9ba;box-shadow:-6px -3px 0 -1px #b6d3dc}
+.board .tile-art-property[data-level="1"] .art-body{height:17px;top:10px}
+.board .tile-art-property[data-level="1"] .art-roof{top:0}
+.board .tile-art-property[data-level="2"] .art-body{height:21px;top:6px;background:#ffe9c9}
+.board .tile-art-property[data-level="2"] .art-roof{top:-4px;background:#a96d56}
+.board .tile-art-property[data-level="2"] .art-detail{top:16px;box-shadow:-6px -4px 0 -1px #b6d3dc,6px -4px 0 -1px #b6d3dc}
+.board .tile-art-start .art-roof{left:11px;top:1px;width:3px;height:25px;background:#6b6552}
+.board .tile-art-start .art-body{left:14px;top:2px;width:17px;height:13px;background:#e58051;clip-path:polygon(0 0,100% 0,75% 50%,100% 100%,0 100%)}
+.board .tile-art-start .art-detail{left:7px;top:24px;width:16px;height:4px;background:#c09b55;border-radius:50%}
+.board .tile-art-rest .art-roof{left:3px;top:10px;width:24px;height:8px;border-radius:70% 70% 30% 30%;background:#8bb993}
+.board .tile-art-rest .art-body{left:14px;top:13px;width:3px;height:14px;background:#69886b}
+.board .tile-art-rest .art-detail{left:5px;top:25px;width:23px;height:2px;background:#b6a98b}
+.board .tile-art-card .art-roof{top:5px;left:8px;width:16px;height:21px;background:#e7b35d;border-radius:3px;transform:rotate(-12deg);border:2px solid #fff7dd}
+.board .tile-art-card .art-body{top:8px;left:10px;width:16px;height:21px;background:#90b8c5;border:2px solid #fff7dd;border-radius:3px;transform:rotate(10deg)}
+.board .tile-art-card .art-detail{top:14px;left:16px;width:5px;height:5px;border-radius:50%;background:#fff7dd}
+.board .tile-art-chance .art-roof{top:5px;left:8px;width:16px;height:16px;background:#e7b75e;transform:rotate(45deg);border-radius:3px}
+.board .tile-art-chance .art-detail{top:12px;left:15px;width:3px;height:10px;background:#fff5d9;border-radius:3px}
+.board .tile-art-hospital .art-body{left:4px;top:10px;width:24px;height:18px;border-radius:2px;background:#fffefa;border:1px solid #bbd3bd}
+.board .tile-art-hospital .art-roof{left:4px;top:7px;width:24px;height:5px;background:#9cc4ae}
+.board .tile-art-hospital .art-detail{left:14px;top:13px;width:5px;height:12px;background:#d66963;box-shadow:0 0 0 0 #d66963}
+.board .tile-art-hospital .art-detail:after{content:"";position:absolute;top:4px;left:-3px;width:11px;height:4px;background:#d66963}
+.board .tile-art-prison .art-body{left:4px;top:8px;width:24px;height:20px;background:repeating-linear-gradient(90deg,#6d8490 0 3px,#cee1df 3px 8px);border:2px solid #638088;border-radius:3px}
+.board .tile-art-prison .art-roof{left:3px;top:5px;width:26px;height:5px;background:#5f7e89;border-radius:3px}
+.board .tile-art-shop .art-body{left:5px;top:13px;width:23px;height:15px;background:#fff9df;border:1px solid #c9b184}
+.board .tile-art-shop .art-roof{left:3px;top:7px;width:27px;height:9px;background:repeating-linear-gradient(90deg,#dc7d65 0 6px,#fff7e0 6px 12px);border-radius:3px 3px 5px 5px;border:1px solid #ca9780}
+.board .tile-art-shop .art-detail{left:17px;top:18px;width:7px;height:10px;background:#7db7ab}
+/* Stable two-by-two seat markers; 4 residents stay distinguishable on a 360px board. */
+.board .pieces{position:absolute;right:2px;bottom:2px;top:auto;display:grid;grid-template-columns:repeat(2,14px);gap:1px;z-index:4;pointer-events:none}
+.board .piece{width:14px;height:14px;border:1px solid white;border-radius:4px;font-size:9px;line-height:1;box-shadow:0 1px 2px #19302444;background:var(--rm-player-a);color:#fff;display:grid;place-items:center}
+.board .piece-1{background:#267ea5;border-radius:3px}
+.board .piece-2{background:#c65d4d;border-radius:50%}
+.board .piece-3{background:#8860b1;border-radius:2px 8px 2px 8px}
+.board .piece-4{background:#ad812c;border-radius:50% 3px 50% 3px}
+.board .tile-occupied:not([aria-pressed=true]){box-shadow:inset 0 0 0 2px #dfad5c}
+.board-center{position:relative;isolation:isolate;overflow:hidden;min-height:0;display:flex;flex-direction:column;justify-content:space-between;align-items:center;gap:0;padding:0;border:0;border-radius:11px;background:linear-gradient(180deg,#cde6bf 0%,#e7f1cf 54%,#ebeee2 100%);color:var(--rm-ink)}
+.board-center:before{content:"";position:absolute;top:0;left:0;right:0;height:48%;background:radial-gradient(ellipse at 18% 100%,#a4cd9e 0 24%,transparent 25%),radial-gradient(ellipse at 72% 96%,#b2d8a8 0 29%,transparent 30%);opacity:.8}
+.board-harbor .board-center{background:linear-gradient(150deg,#d3eee9 0%,#9bd8da 58%,#85c6cf 100%)}
+.board-harbor .board-center:before{background:radial-gradient(ellipse at 10% 20%,#e7eccd 0 31%,transparent 32%),linear-gradient(140deg,#a4d9bd 0 34%,transparent 35%);height:100%}
+.scene-horizon{position:relative;z-index:1;height:50%;width:min(75%,330px);margin-top:3%;flex:none;pointer-events:none}
+.scene-hill{position:absolute;left:0;bottom:0;width:100%;height:35%;border-radius:60% 65% 0 0;background:#83b58a}
+.scene-house{position:absolute;bottom:8%;width:22%;height:36%;background:#fff2d2;border-radius:2px;box-shadow:inset -6px 0 #e9cca4}
+.scene-house:before{content:"";position:absolute;left:-12%;top:-45%;width:124%;height:55%;background:#c47e60;clip-path:polygon(50% 0,100% 100%,0 100%)}
+.scene-house:after{content:"";position:absolute;left:38%;bottom:0;width:24%;height:55%;background:#9ac2b5;border-radius:3px 3px 0 0}
+.house-one{left:18%;transform:scale(.9);transform-origin:bottom}
+.house-two{left:58%;transform:scale(1.25);transform-origin:bottom}
+.scene-tree{position:absolute;bottom:7%;height:55%;width:13%;background:#518967;border-radius:70% 70% 43% 43%}
+.scene-tree:after{content:"";position:absolute;bottom:-15%;left:45%;width:12%;height:23%;background:#7e6747}
+.tree-one{left:3%;transform:scale(.85);transform-origin:bottom}
+.tree-two{right:4%}
+.scene-boat{display:none}
+.board-harbor .scene-hill{background:#e5d59a;left:0;width:38%;height:25%;border-radius:50% 50% 0 0}
+.board-harbor .scene-tree,.board-harbor .house-one{display:none}
+.board-harbor .house-two{left:12%;width:19%;height:50%;background:#fff9e5;box-shadow:none;transform:none}
+.board-harbor .house-two:before{top:-28%;background:#da8a64;clip-path:polygon(50% 0,100% 100%,0 100%)}
+.board-harbor .house-two:after{height:35%;background:#79a6bb}
+.board-harbor .scene-boat{display:block;position:absolute;right:10%;bottom:6%;width:42%;height:16%;background:#f8f5e8;clip-path:polygon(0 0,100% 0,80% 100%,20% 100%)}
+.board-harbor .scene-boat:after{content:"";position:absolute;left:47%;top:-80%;width:2px;height:14px;background:#496e79}
+.scene-info{z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:end;gap:0;min-height:0;padding:2px 6px 4%;background:linear-gradient(transparent,#eff2e4 75%);width:100%}
+.board-harbor .scene-info{background:linear-gradient(transparent,#c9e8dfbb 80%)}
+.board-center .center-title{font-size:clamp(20px,2.5vw,34px);font-weight:900;letter-spacing:.12em;color:#356349;line-height:1.3}
+.board-harbor .center-title{color:#2f7483}
+.board-center .board-center-label{font-size:clamp(10px,.95vw,14px);color:#53755e;font-weight:800}
+.board-center .dice-display{font-size:clamp(30px,4.2vw,60px);line-height:1.05;color:#bd8656}
+.board-center .center-subtitle{font-size:clamp(10px,.9vw,12px);color:#54725c}
+.board-inspector{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 5px 1px;font-size:12px;color:var(--rm-muted);line-height:1.45}
+.board-inspector strong{font-size:14px;color:var(--rm-ink)}
+/* Put game play before dense finance, without removing any management controls. */
+.app-shell{display:flex;flex-direction:column}
+.app-shell>.topbar{order:0}.app-shell>.headline{order:1}
+.app-shell>.layout{order:2}.app-shell>.asset-overview{order:3;margin-top:14px}
+.app-shell>.footer{order:4}
+.app-shell[data-game-status=playing] .headline,.app-shell[data-game-status=finished] .headline{display:none}
+.app-shell[data-game-status=playing] .layout,.app-shell[data-game-status=finished] .layout{margin-top:12px}
+@media(max-width:1060px){.layout{grid-template-columns:1fr}.board-card{width:100%}}
+@media(max-width:650px){
+ .app-shell{padding:9px 8px 24px}
+ .headline{margin:12px 0 14px}.headline h1{font-size:27px}.headline p{display:none}
+ .board-card{padding:5px;border-radius:12px}
+ .board{gap:2px;padding:2px;border-radius:9px}
+ .board .tile{padding:1px;border-radius:4px}
+ .board .tile-index{top:2px;left:2px;font-size:9px}
+ .board .tile-artwork{width:22px;height:24px;flex-basis:24px;transform:scale(.76);transform-origin:center center;margin-top:5px}
+ .board .tile-name{font-size:10px;line-height:1.1;margin-top:0}
+ .board .tile-value{font-size:9px;line-height:1}
+ .board .pieces{grid-template-columns:repeat(2,12px);gap:1px;right:1px;bottom:1px}
+ .board .piece{width:12px;height:12px;font-size:8px}
+ .board .tile-level{font-size:6px;bottom:1px;left:2px}
+ .board .tile-mortgage{font-size:8px;right:1px;top:1px}
+ .board-center{border-radius:5px}
+ .board-center .center-title{font-size:clamp(19px,5.5vw,28px)}
+ .board-center .dice-display{font-size:clamp(32px,10vw,47px)}
+ .board-inspector{padding:9px 5px 4px;gap:5px}
+ .board-inspector strong{font-size:13px}
+ .board-inspector span{font-size:12px}
+ .topbar{padding-bottom:8px}
+ .asset-overview{margin-top:10px}
+}
+@media(max-width:365px){.board{min-width:360px}.board-viewport{scroll-snap-type:x proximity}.board .tile{scroll-snap-align:start}}
+@media(prefers-reduced-motion:reduce){.board .tile{transition:none}}
