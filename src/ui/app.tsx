@@ -415,6 +415,28 @@ class App extends React.Component<object, UiState> {
           {this.state.pwaUpdate&&<button className="secondary-btn" type="button" onClick={()=>void this.applyPwaUpdate()}>检测到新版，保存并更新</button>}
         </header>
         <section className="headline"><div><span className="section-eyebrow">{game.tiles.length} 格 · 两张地图 · 2～4 人 · 本机轮流</span><h1>每一步，都是一笔生意。</h1><p>邀请朋友在同一设备轮流行动，也可以与一名或多名电脑玩家对抗。所有对局都在本地完成。</p></div><button type="button" className="reset-btn" onClick={this.reset}>↻ 重新开局</button></section>
+        {game.status!=='setup'&&<section className="asset-overview" aria-label="多人资产总览">
+          <div className="asset-heading"><strong>多人资产总览</strong><span>第 {game.round} / {game.maxRounds} 轮 · 当前：{current.name}</span></div>
+          <div className="asset-grid">
+            {game.players.map(p=>{
+              const properties=game.tiles.filter(t=>t.kind==='property'&&t.ownerId===p.id);
+              const shares=STOCKS.reduce((total,stock)=>total+(p.holdings?.[stock.id]?.quantity??0),0);
+              const shareValue=game.market?STOCKS.reduce((total,stock)=>total+(p.holdings?.[stock.id]?.quantity??0)*quoteMarket(game.market!,stock.id),0):0;
+              return <div className={`asset-player ${game.status==='playing'&&p.id===current.id?'is-active':''} ${p.bankrupt?'is-bankrupt':''}`} key={p.id} data-player-id={p.id} data-active-player={String(game.status==='playing'&&p.id===current.id)}>
+                <div className="asset-identity"><span className={`player-dot ${p.kind}`}>{p.kind==='human'?'人':'机'}</span><strong>{p.name}</strong><span className="asset-turn-tag">{p.bankrupt?'已破产':p.id===current.id&&game.status==='playing'?'当前操作':p.kind==='computer'?'电脑':'真人'}</span></div>
+                <dl className="asset-metrics">
+                  <div><dt>现金</dt><dd>{p.cash.toLocaleString('zh-CN')}</dd></div>
+                  <div><dt>银行存款</dt><dd>{(p.bankBalance??0).toLocaleString('zh-CN')}</dd></div>
+                  <div><dt>地产</dt><dd>{properties.length} 块{properties.some(t=>t.mortgaged)?` · 抵押 ${properties.filter(t=>t.mortgaged).length}`:''}</dd></div>
+                  <div><dt>股票</dt><dd>{shares} 股 · {shareValue.toLocaleString('zh-CN')} 币</dd></div>
+                  <div><dt>贷款</dt><dd>{(p.loanBalance??0).toLocaleString('zh-CN')}</dd></div>
+                  <div className="asset-net"><dt>净资产</dt><dd>{netWorth(game,p.id).toLocaleString('zh-CN')}</dd></div>
+                </dl>
+                {p.detention&&<small className="asset-status">{p.detention.kind==='hospital'?'医院':'监狱'} · 还需停留 {p.detention.remaining} 回合</small>}
+              </div>;
+            })}
+          </div>
+        </section>}
         <div className="layout">
           <section className="board-card" aria-label={`${game.tiles.length} 格游戏棋盘`}>
             <div className="board" style={{
