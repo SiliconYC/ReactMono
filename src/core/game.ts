@@ -1,16 +1,16 @@
 /** Stable public API; the implementation remains deterministic and React-independent. */
 export { SCHEMA_VERSION, UPGRADE_RULES_VERSION } from './types.js';
 export type { CardKind, PlayerId, TileKind, Phase, PlayerKind, PlayerConfig, TileConfig, GameMap, MapCell, GameConfig, Player, Tile, GameEvent, GameState, GameAction, RejectReason, ActionResult } from './types.js';
-export { DEFAULT_CARD_RULES, DEFAULT_EVENT_RULES, DEFAULT_UPGRADES, DEFAULT_CONFIG, HARBOR_CONFIG } from './config.js';
+export { DEFAULT_CARD_RULES, DEFAULT_EVENT_RULES, DEFAULT_UPGRADES, DEFAULT_CONFIG, HARBOR_CONFIG, DEFAULT_RESALE_RULES } from './config.js';
 export { normalizeSeed, nextDie } from './random.js';
 export { DEFAULT_MAP, INTERNAL_TEST_MAP, HARBOR_MAP, inferMap, advancePosition, validateMap } from './maps.js';
-export { makePropertyTile, netWorth } from './property.js';
+export { makePropertyTile, netWorth, resaleValue } from './property.js';
 import { SCHEMA_VERSION, UPGRADE_RULES_VERSION } from './types.js';
 import type { CardKind, PlayerId, Phase, PlayerConfig, TileConfig, GameConfig, Player, Tile, GameEvent, GameState, GameAction, RejectReason, ActionResult } from './types.js';
 import { DEFAULT_CARD_RULES, DEFAULT_EVENT_RULES, DEFAULT_UPGRADES, DEFAULT_CONFIG, validateConfig } from './config.js';
 import { normalizeSeed, nextDie } from './random.js';
 import { inferMap, cloneMap } from './maps.js';
-import { makePropertyTile, declineProperty, upgradeProperty, buyProperty } from './property.js';
+import { makePropertyTile, declineProperty, upgradeProperty, buyProperty, sellProperty } from './property.js';
 import { accept, reject } from './transitions.js';
 import { rollTurn, endTurn } from './turns.js';
 import { useCard } from './cards.js';
@@ -24,6 +24,7 @@ export function createGame(seed: number, config: GameConfig = DEFAULT_CONFIG): G
       moveBonus:(config.cardRules??DEFAULT_CARD_RULES).moveBonus,
       maxHand:(config.cardRules??DEFAULT_CARD_RULES).maxHand},
     pendingMoveBonus:0,
+    ...(config.resaleRules?{resaleRules:{...config.resaleRules}}:{}),
     status: 'setup',
     phase: 'setup',
     revision: 0,
@@ -32,6 +33,7 @@ export function createGame(seed: number, config: GameConfig = DEFAULT_CONFIG): G
     randomState: normalizeSeed(seed),
     maxRounds: config.maxRounds,
     map:cloneMap(config.map??inferMap(config.tiles.length)),
+    ...(config.automaticLiquidation===true?{automaticLiquidation:true as const}:{}),
     players: config.players.map((p, index): Player => ({
       id: p.id, name: p.name, kind: p.kind ?? (index === 0 ? 'human' : 'computer'),
       position: 0, cash: config.initialCash, bankrupt: false, cards:{reward:0,stride:0}
@@ -68,6 +70,7 @@ export function applyAction(state: GameState, action: GameAction): ActionResult 
     case 'end_turn': return endTurn(state,actor);
     case 'use_card': return useCard(state,actor,action);
     case 'upgrade_property': return upgradeProperty(state,actor,action);
+    case 'sell_property': return sellProperty(state,actor,action);
     case 'buy_property': return buyProperty(state,actor);
   }
 }

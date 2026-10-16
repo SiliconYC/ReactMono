@@ -25,7 +25,12 @@ export interface GameMap {
   readonly cells:readonly MapCell[];
   readonly route:readonly number[];
 }
+export interface ResaleRules { readonly landPercent:number; readonly upgradePercent:number; }
 export interface GameConfig {
+  /** Opt in to deterministic resale-based rent rescue; old saves keep P2 behaviour. */
+  readonly automaticLiquidation?:boolean;
+  /** Optional deterministic resale percentages; old saves use stable defaults. */
+  readonly resaleRules?:ResaleRules;
   readonly map?:GameMap;
   readonly players: readonly PlayerConfig[];
   readonly tiles: readonly TileConfig[];
@@ -54,7 +59,7 @@ export interface Tile extends TileConfig {
   readonly cardStation?:boolean;
 }
 export interface GameEvent {
-  readonly type: 'game_started' | 'die_rolled' | 'player_moved' | 'turn_ended' | 'tile_landed' | 'property_declined' | 'property_bought' | 'property_upgraded' | 'event_bonus' | 'event_fee' | 'card_received' | 'card_used' | 'rent_paid' | 'player_bankrupt' | 'game_finished';
+  readonly type: 'game_started' | 'die_rolled' | 'player_moved' | 'turn_ended' | 'tile_landed' | 'property_declined' | 'property_bought' | 'property_upgraded' | 'property_sold' | 'property_liquidated' | 'event_bonus' | 'event_fee' | 'card_received' | 'card_used' | 'rent_paid' | 'player_bankrupt' | 'game_finished';
   readonly actorId?: PlayerId;
   readonly details?: Readonly<Record<string, string | number>>;
 }
@@ -71,6 +76,9 @@ export interface GameState {
   readonly randomState: number;
   readonly maxRounds: number;
   readonly map: GameMap;
+  /** Undefined preserves pre-P3-06 rent behaviour, including old saved games. */
+  readonly automaticLiquidation?:true;
+  readonly resaleRules?:ResaleRules;
   readonly players: readonly Player[];
   readonly tiles: readonly Tile[];
   readonly winnerId: PlayerId | null;
@@ -83,6 +91,7 @@ export type GameAction =
   | { readonly type: 'decline_property'; readonly actorId: PlayerId }
   | { readonly type: 'end_turn'; readonly actorId: PlayerId }
   | { readonly type: 'upgrade_property'; readonly actorId: PlayerId; readonly tileId: number }
+  | { readonly type: 'sell_property'; readonly actorId: PlayerId; readonly tileId: number }
   | { readonly type: 'use_card'; readonly actorId:PlayerId; readonly cardType:CardKind; readonly targetId?:PlayerId };
 export type RejectReason = 'INVALID_PHASE' | 'INVALID_ACTOR' | 'INSUFFICIENT_FUNDS';
 export type ActionResult =

@@ -37,9 +37,10 @@ def main():
             page.wait_for_function("document.querySelector('main')?.dataset.gameStatus==='playing'")
             result=page.evaluate("""async()=>{
                 const click=s=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes(s)&&!x.disabled);if(!b)return false;b.click();return true};
-                const pause=()=>new Promise(r=>setTimeout(r,20));
+                const pause=()=>new Promise(r=>setTimeout(r,12));
                 let rolls=0;
-                for(let i=0;i<1300;i++){
+                // Automatic property liquidation extends legitimate games; never stop before the full 60-round limit.
+                for(let i=0;i<7000;i++){
                     if(document.querySelector('main[data-game-status]')?.dataset.gameStatus==='finished')return {finished:true,rolls};
                     if(click('掷骰前进'))rolls++;
                     else if(click('购买地产')){}

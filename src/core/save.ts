@@ -32,14 +32,21 @@ function iso(x: unknown): x is string {
 }
 const EVENT_TYPES = new Set([
   'game_started','die_rolled','player_moved','turn_ended','tile_landed','property_declined',
-  'property_bought','property_upgraded','rent_paid','event_bonus','event_fee','card_received','card_used','player_bankrupt','game_finished'
+  'property_bought','property_upgraded','property_sold','property_liquidated','rent_paid','event_bonus','event_fee','card_received','card_used','player_bankrupt','game_finished'
 ]);
 /** Validate current and migrated legacy states against the same strict bounds. */
 export function validateGameState(value: unknown, expectedVersion: number = SCHEMA_VERSION): asserts value is GameState {
   if (!record(value)) throw new SaveError('INVALID_STATE','存档数据无效：游戏状态必须为对象');
   keys(value,['schemaVersion','status','phase','revision','round','currentPlayerIndex','randomState',
     'maxRounds','players','tiles','winnerId','events','upgradeRulesVersion',
-    ...(expectedVersion>=4?['map']:[])],['cardRules','pendingMoveBonus']);
+    ...(expectedVersion>=4?['map']:[])],['cardRules','pendingMoveBonus',...(expectedVersion>=4?['automaticLiquidation','resaleRules']:[])]);
+  if(value.resaleRules!==undefined){
+    if(!record(value.resaleRules))throw new SaveError('INVALID_STATE','地产出售比例非法');
+    keys(value.resaleRules,['landPercent','upgradePercent']);
+    if(![value.resaleRules.landPercent,value.resaleRules.upgradePercent].every(v=>typeof v==='number'&&Number.isFinite(v)&&v>=0&&v<=1))throw new SaveError('INVALID_STATE','地产出售比例非法');
+  }
+  if(value.automaticLiquidation!==undefined&&value.automaticLiquidation!==true)
+    throw new SaveError('INVALID_STATE','地产救济规则标识非法');
   if(value.cardRules!==undefined){
     if(!record(value.cardRules))throw new SaveError('INVALID_STATE','卡片参数无效');
     keys(value.cardRules,['rewardCash','moveBonus','maxHand']);
