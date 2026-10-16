@@ -113,7 +113,8 @@ test('P3-07: migrated v1/v2 records initialize zero balance without retroactive 
     }
     const payload={format:'reactmono-save',formatVersion:1,rulesVersion:version,createdAt:now,updatedAt:now,game:older};
     const migrated=deserializeGame(JSON.stringify({...payload,checksum:checksum(JSON.stringify(payload))})).game;
-    assert.deepEqual(migrated.players.map(p=>p.bankBalance),[0,0]);
+    assert.deepEqual(migrated.players.map(p=>p.bankBalance??0),[0,0]);
+    assert.ok(migrated.players.every(p=>!Object.hasOwn(p,'bankBalance')),'Legacy replay shape must remain unchanged');
     assert.equal(netWorth(migrated,'p1'),netWorth(initial,'p1'));
     assert.ok(!migrated.bank);
     assert.deepEqual(deserializeGame(serializeGame(migrated,{now})).game,migrated);
