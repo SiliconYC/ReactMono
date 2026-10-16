@@ -35,6 +35,16 @@ test('P3-06: selling upgraded property uses transparent floor(75% land+50% upgra
   assert.equal(r.events[0].type,'property_sold');
   assert.deepEqual(deserializeGame(serializeGame(r.state)).game,r.state);
 });
+test('P3-06: configured resale rates are validated and persisted without changing old defaults',()=>{
+  const land=base().tiles[2];
+  assert.equal(resaleValue(land,{landPercent:0.5,upgradePercent:0.2}),100);
+  assert.equal(resaleValue({...land,level:1},{landPercent:0.5,upgradePercent:0.2}),120);
+  const rules={landPercent:0.5,upgradePercent:0.2};
+  const s=createGame(1,{...config(),resaleRules:rules});
+  assert.deepEqual(s.resaleRules,rules);
+  assert.deepEqual(deserializeGame(serializeGame(s)).game,s);
+  assert.throws(()=>createGame(1,{...config(),resaleRules:{landPercent:2,upgradePercent:0.5}}),/折价/);
+});
 test('P3-06: sale rejects phases, other owners, invalid IDs without state changes',()=>{
   const s=setup();
   for(const [action,prepared] of [

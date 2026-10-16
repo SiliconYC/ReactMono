@@ -13,3 +13,5 @@
 - `tests/browser_liquidation_e2e.py` 使用真 Chromium 手机分辨率，完成合法买地、确认出售、现金差额验证、手动存档、刷新读档与资产核对；在 PR CI 首轮浏览器运行中已显示 PASS。
 - 离线 / P2 综合浏览器验收在自动救济延长整局后曾因原来固定操作次数不足而失败（`38855296634`、`38855540919`）；仅扩容真实操作预算，不放宽完成终局、文件导出、离线可用或数据正确性断言。
 - 当前以 [PR #51](https://github.com/SiliconYC/ReactMono/pull/51) 最新绿色 CI、合并后 dev CI 和 Pages 发布为最终完成条件；在这些条件成立前不得标注已完成。分支 `p3/issue-35-property-liquidation` 完整保留测试先行与逐项修复提交；可按 Merge Commit 单独撤销，不改 `main`。
+
+- 出售比例可通过 `GameConfig.resaleRules: {landPercent,upgradePercent}` 独立配置并存档，双方比例均须为 0～1 之间的有限数；默认比例与既有代码保持一致。其他玩家不会被无意覆盖。

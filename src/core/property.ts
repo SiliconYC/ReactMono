@@ -1,6 +1,6 @@
 /** P3-01: pure property creation and net worth valuation. */
-import type { TileConfig, Tile, GameConfig, GameState, PlayerId, Player, GameAction, ActionResult, GameEvent } from './types.js';
-import { DEFAULT_UPGRADES } from './config.js';
+import type { TileConfig, Tile, GameConfig, GameState, PlayerId, Player, GameAction, ActionResult, GameEvent, ResaleRules } from './types.js';
+import { DEFAULT_UPGRADES, DEFAULT_RESALE_RULES } from './config.js';
 import { accept, reject } from './transitions.js';
 export function makePropertyTile(t: TileConfig, upgrades: GameConfig['upgrades']=DEFAULT_UPGRADES): Tile {
   if(t.kind!=='property')throw new Error('只能升级地产');
@@ -22,10 +22,10 @@ export function netWorth(state: GameState, playerId: PlayerId): number {
 
 
 /** Transparent resale: 75% of land cost plus 50% of paid upgrade costs. */
-export function resaleValue(tile:Tile):number {
+export function resaleValue(tile:Tile,rules:ResaleRules=DEFAULT_RESALE_RULES):number {
   if(tile.kind!=='property')throw new Error('非地产不能出售');
   const paid=(tile.upgradeCosts??[]).slice(0,tile.level??0).reduce((sum,cost)=>sum+cost,0);
-  return Math.floor((tile.price??0)*0.75)+Math.floor(paid*0.5);
+  return Math.floor((tile.price??0)*rules.landPercent)+Math.floor(paid*rules.upgradePercent);
 }
 /** Force sale only when rent cannot otherwise be paid, by ascending tile ID. */
 export function liquidateForRent(state:GameState,actor:Player,due:number,creditorId:PlayerId):{
@@ -37,7 +37,7 @@ export function liquidateForRent(state:GameState,actor:Player,due:number,credito
   for(const t of state.tiles){
     if(cash>=due)break;
     if(t.kind!=='property'||t.ownerId!==actor.id)continue;
-    const amount=resaleValue(t);
+    const amount=resaleValue(t,state.resaleRules);
     cash+=amount;
     tiles=tiles.map(x=>x.id===t.id?{...x,ownerId:null,level:0}:x);
     events.push({type:'property_liquidated',actorId:actor.id,details:{
@@ -50,7 +50,7 @@ export function sellProperty(state:GameState,actor:Player,action:Extract<GameAct
   if(state.phase!=='await_end_turn'||!Number.isInteger(action.tileId))return reject(state,'INVALID_PHASE');
   const tile=state.tiles[action.tileId];
   if(!tile||tile.kind!=='property'||tile.ownerId!==actor.id)return reject(state,'INVALID_PHASE');
-  const amount=resaleValue(tile);
+  const amount=resaleValue(tile,state.resaleRules);
   if(!Number.isSafeInteger(amount)||!Number.isSafeInteger(actor.cash+amount))return reject(state,'INVALID_PHASE');
   return accept(state,[{type:'property_sold',actorId:actor.id,details:{tileId:tile.id,amount}}],{
     tiles:state.tiles.map(t=>t.id===tile.id?{...t,ownerId:null,level:0}:t),

@@ -39,7 +39,12 @@ export function validateGameState(value: unknown, expectedVersion: number = SCHE
   if (!record(value)) throw new SaveError('INVALID_STATE','存档数据无效：游戏状态必须为对象');
   keys(value,['schemaVersion','status','phase','revision','round','currentPlayerIndex','randomState',
     'maxRounds','players','tiles','winnerId','events','upgradeRulesVersion',
-    ...(expectedVersion>=4?['map']:[])],['cardRules','pendingMoveBonus',...(expectedVersion>=4?['automaticLiquidation']:[])]);
+    ...(expectedVersion>=4?['map']:[])],['cardRules','pendingMoveBonus',...(expectedVersion>=4?['automaticLiquidation','resaleRules']:[])]);
+  if(value.resaleRules!==undefined){
+    if(!record(value.resaleRules))throw new SaveError('INVALID_STATE','地产出售比例非法');
+    keys(value.resaleRules,['landPercent','upgradePercent']);
+    if(![value.resaleRules.landPercent,value.resaleRules.upgradePercent].every(v=>typeof v==='number'&&Number.isFinite(v)&&v>=0&&v<=1))throw new SaveError('INVALID_STATE','地产出售比例非法');
+  }
   if(value.automaticLiquidation!==undefined&&value.automaticLiquidation!==true)
     throw new SaveError('INVALID_STATE','地产救济规则标识非法');
   if(value.cardRules!==undefined){

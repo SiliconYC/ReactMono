@@ -25,9 +25,12 @@ export interface GameMap {
   readonly cells:readonly MapCell[];
   readonly route:readonly number[];
 }
+export interface ResaleRules { readonly landPercent:number; readonly upgradePercent:number; }
 export interface GameConfig {
   /** Opt in to deterministic resale-based rent rescue; old saves keep P2 behaviour. */
   readonly automaticLiquidation?:boolean;
+  /** Optional deterministic resale percentages; old saves use stable defaults. */
+  readonly resaleRules?:ResaleRules;
   readonly map?:GameMap;
   readonly players: readonly PlayerConfig[];
   readonly tiles: readonly TileConfig[];
@@ -75,6 +78,7 @@ export interface GameState {
   readonly map: GameMap;
   /** Undefined preserves pre-P3-06 rent behaviour, including old saved games. */
   readonly automaticLiquidation?:true;
+  readonly resaleRules?:ResaleRules;
   readonly players: readonly Player[];
   readonly tiles: readonly Tile[];
   readonly winnerId: PlayerId | null;
