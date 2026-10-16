@@ -16,12 +16,56 @@ const kindLabel = { start: '起点', property: '地产', neutral: '休息' };
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { game: createGame(20261015), seedInput: '20261015', fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+        this.state = { game: createGame(20261015), seedInput: '20261015', fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator === 'undefined' ? false : !navigator.onLine, pwaUpdate: false, pwaMessage: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
     }
     computerTimer = null;
     saveEpoch = 0;
     saveQueue = Promise.resolve();
-    componentDidMount() { void this.refreshSlots(); }
+    pwaRegistration = null;
+    shouldReload = false;
+    updateOnline = () => { this.setState({ offline: !navigator.onLine }); };
+    controllerChanged = () => { if (this.shouldReload)
+        window.location.reload(); };
+    checkUpdate = (reg) => {
+        if (reg.waiting && navigator.serviceWorker.controller)
+            this.setState({ pwaUpdate: true });
+    };
+    initPwa = async () => {
+        if (!('serviceWorker' in navigator)) {
+            this.setState({ pwaMessage: '本浏览器不支持应用安装，仍可在线游玩。' });
+            return;
+        }
+        try {
+            navigator.serviceWorker.addEventListener('controllerchange', this.controllerChanged);
+            const reg = await navigator.serviceWorker.register('./sw.js', { scope: './' });
+            this.pwaRegistration = reg;
+            reg.addEventListener('updatefound', () => {
+                const worker = reg.installing;
+                worker?.addEventListener('statechange', () => {
+                    if (worker.state === 'installed')
+                        this.checkUpdate(reg);
+                });
+            });
+            this.checkUpdate(reg);
+        }
+        catch (e) {
+            this.setState({ pwaMessage: '离线缓存安装失败，在线游戏仍可使用：' + (e instanceof Error ? e.message : String(e)) });
+        }
+    };
+    applyPwaUpdate = async () => {
+        const worker = this.pwaRegistration?.waiting;
+        if (!worker)
+            return;
+        await this.saveQueue;
+        this.shouldReload = true;
+        worker.postMessage('SKIP_WAITING');
+    };
+    componentDidMount() {
+        void this.refreshSlots();
+        window.addEventListener('online', this.updateOnline);
+        window.addEventListener('offline', this.updateOnline);
+        void this.initPwa();
+    }
     stopTimer() {
         if (this.computerTimer !== null) {
             window.clearTimeout(this.computerTimer);
@@ -205,6 +249,9 @@ class App extends React.Component {
         this.setState({ game: result.state, activeSeed: seed, message: '游戏已开始！轮到玩家掷骰。' });
     };
     componentWillUnmount() {
+        window.removeEventListener('online', this.updateOnline);
+        window.removeEventListener('offline', this.updateOnline);
+        navigator.serviceWorker?.removeEventListener('controllerchange', this.controllerChanged);
         this.stopTimer();
     }
     /** 每次状态变化只安排电脑的一步；重开后旧回调不会碰新对局。 */
@@ -319,7 +366,11 @@ class App extends React.Component {
                     React.createElement("span", null,
                         "\u5927\u5BCC\u7FC1 ",
                         React.createElement("small", null, "ReactMono"))),
-                React.createElement("span", { className: "version-tag" }, "P2 \u00B7 \u672C\u5730\u591A\u5B58\u6863")),
+                React.createElement("span", { className: "version-tag" }, "P2 \u00B7 \u53EF\u79BB\u7EBF"),
+                React.createElement("span", { className: "network-indicator", role: "status" },
+                    this.state.offline ? '已断网 · 可用本地缓存' : '已联网',
+                    this.state.pwaMessage ? ' · ' + this.state.pwaMessage : ''),
+                this.state.pwaUpdate && React.createElement("button", { className: "secondary-btn", type: "button", onClick: () => void this.applyPwaUpdate() }, "\u68C0\u6D4B\u5230\u65B0\u7248\uFF0C\u4FDD\u5B58\u5E76\u66F4\u65B0")),
             React.createElement("section", { className: "headline" },
                 React.createElement("div", null,
                     React.createElement("span", { className: "section-eyebrow" }, "24 \u683C \u00B7 \u4E70\u5730\u6536\u79DF \u00B7 60 \u8F6E\u5B9A\u80DC\u8D1F"),
