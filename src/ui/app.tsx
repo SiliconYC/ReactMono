@@ -1,9 +1,9 @@
-import { applyAction, createGame, type GameAction, type CardKind, type GameEvent, type GameState, type Tile, netWorth } from '../core/game.js';
+import { applyAction, createGame, type GameAction, type CardKind, type GameEvent, type GameState, type Tile, type PlayerConfig, DEFAULT_CONFIG, netWorth } from '../core/game.js';
 import { chooseComputerAction } from '../core/agent.js';
 import { listSlots, readSlot, writeSlot, deleteSlot, type SlotSummary } from '../storage/indexeddb.js';
 import { deserializeGame, MAX_SAVE_CHARS, type SaveEnvelope } from '../core/save.js';
 
-interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly fastMode: boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; readonly importPreview: SaveEnvelope | null; readonly importName: string; readonly offline: boolean; readonly pwaUpdate: boolean; readonly pwaMessage: string; }
+interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly playerSetup: readonly PlayerConfig[]; readonly roundsInput: string; readonly awaitingHandoff: boolean; readonly fastMode: boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; readonly importPreview: SaveEnvelope | null; readonly importName: string; readonly offline: boolean; readonly pwaUpdate: boolean; readonly pwaMessage: string; }
 
 /** 环形棋盘固定 8 列 × 6 行：8 + 4 + 8 + 4 = 24 格。 */
 function cellPosition(index: number): { gridColumn: number; gridRow: number } {
@@ -18,7 +18,7 @@ const kindLabel: Record<Tile['kind'], string> = { start: '起点', property: '�
 class App extends React.Component<object, UiState> {
   constructor(props: object) {
     super(props);
-    this.state = { game: createGame(20261015), seedInput: '20261015', fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator==='undefined'?false:!navigator.onLine, pwaUpdate:false, pwaMessage:'', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+    this.state = { game: createGame(20261015), seedInput: '20261015', playerSetup: [{id:'p1',name:'玩家',kind:'human'},{id:'p2',name:'电脑',kind:'computer'}], roundsInput:'60', awaitingHandoff:false, fastMode: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator==='undefined'?false:!navigator.onLine, pwaUpdate:false, pwaMessage:'', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
   }
 
   private computerTimer: number | null = null;
@@ -161,7 +161,9 @@ class App extends React.Component<object, UiState> {
     try {
       await this.saveQueue;
       const saved=await readSlot(slot.id);
-      this.setState({game:saved.game,activeSeed:null,storageBusy:false,
+      this.setState({game:saved.game,activeSeed:null,storageBusy:false,awaitingHandoff:false,
+        roundsInput:String(saved.game.maxRounds),
+        playerSetup:saved.game.players.map(p=>({id:p.id,name:p.name,kind:p.kind})),
         saveStatus:'已读取「'+slot.name+'」',message:'已恢复第 '+saved.game.round+' 轮，可从当前阶段继续。'});
     }catch(e){this.setState({storageBusy:false,saveStatus:'读档失败：'+(e instanceof Error?e.message:String(e))+'。原对局未被修改。'});}
   };
@@ -174,7 +176,24 @@ class App extends React.Component<object, UiState> {
   reset = (): void => {
     this.saveEpoch++;
     this.stopTimer();
-    this.setState({ game: createGame(20261015), activeSeed: null, message: '已返回新游戏页面。可调整种子后重新开始。' });
+    this.setState({ game: createGame(20261015), activeSeed: null, awaitingHandoff:false, message: '已返回新游戏页面。可调整种子后重新开始。' });
+  };
+  /** Keep stable IDs when the local seating plan changes. */
+  private setPlayerCount = (count: number): void => {
+    if(!Number.isInteger(count)||count<2||count>4)return;
+    const roster=Array.from({length:count},(_,i)=>this.state.playerSetup[i]??{
+      id:'p'+(i+1),name:'玩家'+(i+1),kind:'human' as const
+    });
+    this.setState({playerSetup:roster});
+  };
+  private updatePlayer = (index:number,field:'name'|'kind',value:string):void=>{
+    const roster=this.state.playerSetup.map((p,i)=>i!==index?p:{
+      ...p,[field]:value
+    });
+    this.setState({playerSetup:roster});
+  };
+  private acknowledgeHandoff = ():void=>{
+    this.setState({awaitingHandoff:false,message:'已轮到'+this.state.game.players[this.state.game.currentPlayerIndex].name+'操作。'});
   };
   startGame = (): void => {
     const seed = Number(this.state.seedInput.trim());
@@ -182,12 +201,23 @@ class App extends React.Component<object, UiState> {
       this.setState({ message: '对局种子请输入 0 至 4294967295 之间的整数。' });
       return;
     }
+    const rawRounds=this.state.roundsInput.trim();
+    const rounds=Number(rawRounds);
+    if(!/^[0-9]{1,3}$/.test(rawRounds)||!Number.isSafeInteger(rounds)||rounds<1||rounds>200){
+      this.setState({message:'最大轮数必须是 1 至 200 的整数。'});return;
+    }
+    const roster=this.state.playerSetup.map(p=>({...p,name:p.name.trim()}));
+    if(roster.some(p=>!p.name||p.name.length>24)||new Set(roster.map(p=>p.name)).size!==roster.length){
+      this.setState({message:'所有玩家都必须填写不同的姓名（最多 24 字）。'});return;
+    }
+    let fresh:GameState;
+    try{fresh=createGame(seed,{...DEFAULT_CONFIG,players:roster,maxRounds:rounds});}
+    catch(e){this.setState({message:'开局配置无效：'+(e instanceof Error?e.message:String(e))});return;}
     this.saveEpoch++;
     this.stopTimer();
-    const fresh = createGame(seed);
     const result = applyAction(fresh, { type: 'start_game', actorId: fresh.players[0].id });
     if (!result.ok) { this.setState({ message: '无法开始对局，请重新开局。' }); return; }
-    this.setState({ game: result.state, activeSeed: seed, message: '游戏已开始！轮到玩家掷骰。' });
+    this.setState({ game: result.state, activeSeed: seed, awaitingHandoff:false, message: '游戏已开始！轮到'+fresh.players[0].name+'掷骰。' });
   };
   componentWillUnmount(): void {
     window.removeEventListener('online',this.updateOnline);
@@ -218,7 +248,7 @@ class App extends React.Component<object, UiState> {
   }
 
   dispatch = (type: GameAction['type'],tileId?:number,cardType?:CardKind): void => {
-    if(this.state.storageBusy)return;
+    if(this.state.storageBusy||this.state.awaitingHandoff)return;
     const { game } = this.state;
     const actor = game.players[game.currentPlayerIndex];
     if (actor.kind === 'computer') return;
@@ -230,7 +260,11 @@ class App extends React.Component<object, UiState> {
       this.setState({ message: reason });
       return;
     }
-    this.setState({ game: result.state, message: this.describe(result.events, result.state, actor.name) });
+    const next=result.state.players[result.state.currentPlayerIndex];
+    const handoff=type==='end_turn' && result.state.status==='playing'
+      && next.kind==='human' && next.id!==actor.id;
+    this.setState({ game: result.state, awaitingHandoff:handoff,
+      message:handoff?'请将设备交给 '+next.name+'；确认就位后方可继续。':this.describe(result.events, result.state, actor.name) });
   };
 
   describe = (events: readonly GameEvent[], state: GameState, actorName: string): string => {
@@ -240,7 +274,7 @@ class App extends React.Component<object, UiState> {
       const reason = finished.details?.reason === 'bankruptcy' ? '租金不足，发生破产。' : '达到 60 轮上限。';
       return `${reason}${winner ? `赢家是${winner.name}！` : '双方净资产相同，平局！'}`;
     }
-    if (events.some(e => e.type === 'game_started')) return '对局已开始！轮到玩家掷骰。';
+    if (events.some(e => e.type === 'game_started')) return '对局已开始！';
     const upgraded=events.find(e=>e.type==='property_upgraded');
     if(upgraded)return `${actorName}升级了 ${upgraded.details?.tileId} 号地产至 ${upgraded.details?.level} 级，花费 ${upgraded.details?.amount} 游戏币。`;
     const used=events.find(e=>e.type==='card_used');
@@ -284,13 +318,13 @@ class App extends React.Component<object, UiState> {
 
   renderTile = (tile: Tile): unknown => {
     const { game } = this.state;
-    const residents = game.players.filter(p => p.position === tile.id);
+    const residents = game.players.filter(p => p.position === tile.id && !p.bankrupt);
     return (
       <div key={tile.id} className={`tile tile-${tile.kind} ${tile.ownerId ? `tile-owned-${tile.ownerId}` : ''} ${residents.length ? 'tile-occupied' : ''}`} style={cellPosition(tile.id)} data-tile-id={tile.id} aria-label={`${tile.id} 号地块，${tile.title}`}>
         <span className="tile-index">{String(tile.id).padStart(2, '0')}</span>
         <span className="tile-icon" aria-hidden="true">{tile.kind === 'start' ? '★' : tile.kind === 'property' ? '⌂' : tile.eventBonus!==undefined ? '✦' : tile.cardStation ? '▣' : '☕'}</span>
         <span className="tile-name">{tile.eventBonus!==undefined?'机会':tile.cardStation?'卡片':kindLabel[tile.kind]}{tile.kind === 'property' ? ` ${tile.id}` : ''}</span>
-        {tile.kind === 'property' && <span className="tile-value">{tile.ownerId ? `${tile.ownerId === 'p1' ? '玩家' : '电脑'} · ${tile.level??0}级 · 租 ${tile.levelRents?.[tile.level??0]??tile.rent}` : `售价 ${tile.price}`}</span>}
+        {tile.kind === 'property' && <span className="tile-value">{tile.ownerId ? `${game.players.find(p=>p.id===tile.ownerId)?.name??'未知'} · ${tile.level??0}级 · 租 ${tile.levelRents?.[tile.level??0]??tile.rent}` : `售价 ${tile.price}`}</span>}
         <div className="pieces">{residents.map(p => <span key={p.id} className={`piece ${p.kind}`} title={p.name}>{p.kind === 'human' ? '人' : '机'}</span>)}</div>
       </div>
     );
@@ -312,11 +346,11 @@ class App extends React.Component<object, UiState> {
       <main className="app-shell" data-game-status={game.status} data-game-phase={game.phase} data-game-revision={game.revision}>
         <header className="topbar">
           <div className="brand"><span className="brand-mark">富</span><span>大富翁 <small>ReactMono</small></span></div>
-          <span className="version-tag">P2 · 可离线</span>
+          <span className="version-tag">P3 · 多人对局</span>
           <span className="network-indicator" role="status">{this.state.offline?'已断网 · 可用本地缓存':'已联网'}{this.state.pwaMessage?' · '+this.state.pwaMessage:''}</span>
           {this.state.pwaUpdate&&<button className="secondary-btn" type="button" onClick={()=>void this.applyPwaUpdate()}>检测到新版，保存并更新</button>}
         </header>
-        <section className="headline"><div><span className="section-eyebrow">24 格 · 买地收租 · 60 轮定胜负</span><h1>每一步，都是一笔生意。</h1><p>一个人就能完成整局：掷骰、买地、收租，与自动行动的电脑对抗；有人破产即决出胜负，否则第 60 轮按净资产决胜。</p></div><button type="button" className="reset-btn" onClick={this.reset}>↻ 重新开局</button></section>
+        <section className="headline"><div><span className="section-eyebrow">24 格 · 2～4 人 · 本机轮流</span><h1>每一步，都是一笔生意。</h1><p>邀请朋友在同一设备轮流行动，也可以与一名或多名电脑玩家对抗。所有对局都在本地完成。</p></div><button type="button" className="reset-btn" onClick={this.reset}>↻ 重新开局</button></section>
         <div className="layout">
           <section className="board-card" aria-label="24 格游戏棋盘">
             <div className="board">
@@ -338,27 +372,46 @@ class App extends React.Component<object, UiState> {
               {game.status === 'setup' && <div className="start-form">
                 <label className="field-label" htmlFor="game-seed">对局种子 <small>相同种子可重现骰子结果</small></label>
                 <input id="game-seed" aria-label="对局种子" inputMode="numeric" type="text" maxLength={10} value={this.state.seedInput} onChange={(event: {target:{value:string}}) => this.setState({ seedInput: event.target.value })} />
+                <label className="field-label" htmlFor="player-count">玩家人数</label>
+                <select id="player-count" aria-label="玩家人数" value={this.state.playerSetup.length} onChange={(event:{target:{value:string}})=>this.setPlayerCount(Number(event.target.value))}>
+                  {[2,3,4].map(n=><option key={n} value={n}>{n} 人</option>)}
+                </select>
+                <div className="setup-roster">
+                  {this.state.playerSetup.map((p,i)=><div className="setup-player" key={p.id}>
+                    <label>第 {i+1} 位玩家姓名<input aria-label={`第 ${i+1} 位玩家姓名`} type="text" maxLength={24} value={p.name} onChange={(event:{target:{value:string}})=>this.updatePlayer(i,'name',event.target.value)}/></label>
+                    <label>类型<select aria-label={`第 ${i+1} 位玩家类型`} value={p.kind??(i===0?'human':'computer')} onChange={(event:{target:{value:string}})=>this.updatePlayer(i,'kind',event.target.value)}>
+                      <option value="human">真人</option><option value="computer">电脑</option>
+                    </select></label>
+                  </div>)}
+                </div>
+                <label className="field-label" htmlFor="max-rounds">最多轮数</label>
+                <input id="max-rounds" aria-label="最多轮数" type="text" inputMode="numeric" maxLength={3} value={this.state.roundsInput} onChange={(event:{target:{value:string}})=>this.setState({roundsInput:event.target.value})}/>
                 <label className="fast-setting"><input type="checkbox" aria-label="快速模式" checked={this.state.fastMode} onChange={(event: {target:{checked:boolean}}) => this.setState({ fastMode: event.target.checked })} />快速模式（缩短电脑操作间隔）</label>
                 <button type="button" className="primary-btn" onClick={this.startGame}>开始游戏 <span>→</span></button>
               </div>}
+              {this.state.awaitingHandoff && game.status==='playing' && <div className="handoff-panel" role="status">
+                <strong>轮到 {current.name}</strong>
+                <p>请把设备交给这名玩家，准备好以后确认。上一位玩家不能继续操作。</p>
+                <button type="button" className="primary-btn" onClick={this.acknowledgeHandoff}>我已就位，开始操作</button>
+              </div>}
               {current.kind === 'computer' && game.status === 'playing' && <p className="computer-thinking" role="status">电脑正在自动操作，保留至少 200 游戏币现金…</p>}
-              {current.kind === 'human' && game.phase === 'await_roll' && <div className="purchase-actions">
+              {current.kind === 'human' && !this.state.awaitingHandoff && game.phase === 'await_roll' && <div className="purchase-actions">
                 <p className="purchase-info">手牌：奖励卡 {current.cards?.reward??0} 张 · 步数卡 {current.cards?.stride??0} 张{(game.pendingMoveBonus??0)>0?` · 已加步数 ${game.pendingMoveBonus}`:''}</p>
                 {(current.cards?.reward??0)>0&&<button type="button" className="secondary-btn" onClick={()=>this.dispatch('use_card',undefined,'reward')}>使用奖励卡（+{game.cardRules?.rewardCash??80} 游戏币）</button>}
                 {(current.cards?.stride??0)>0&&(game.pendingMoveBonus??0)===0&&<button type="button" className="secondary-btn" onClick={()=>this.dispatch('use_card',undefined,'stride')}>使用步数卡（+{game.cardRules?.moveBonus??2} 格）</button>}
                 <button type="button" className="primary-btn" onClick={() => this.dispatch('roll')}>掷骰前进 <span>🎲</span></button>
               </div>}
-              {current.kind === 'human' && game.phase === 'await_decision' && <div className="purchase-actions">
+              {current.kind === 'human' && !this.state.awaitingHandoff && game.phase === 'await_decision' && <div className="purchase-actions">
                 <p className="purchase-info">{targetTile.title}　售价 <b>{targetTile.price}</b>　过路费 <b>{targetTile.rent}</b></p>
                 <button type="button" className="primary-btn" onClick={() => this.dispatch('buy_property')} disabled={!hasMoneyForLand}>购买地产 <span>⌂</span></button>
                 {!hasMoneyForLand && <p className="insufficient-msg">资金不足，不能购买此地。</p>}
                 <button type="button" className="secondary-btn" onClick={() => this.dispatch('decline_property')}>放弃购买，继续回合 →</button>
               </div>}
-              {current.kind === 'human' && game.phase === 'await_end_turn' && <div className="purchase-actions">
+              {current.kind === 'human' && !this.state.awaitingHandoff && game.phase === 'await_end_turn' && <div className="purchase-actions">
                 {game.tiles.filter(t=>t.kind==='property'&&t.ownerId===current.id&&(t.level??0)<2).map(tile=><button type="button" key={tile.id} className="secondary-btn" disabled={current.cash<(tile.upgradeCosts?.[tile.level??0]??Infinity)} onClick={()=>this.dispatch('upgrade_property',tile.id)}>升级 {tile.title} → {(tile.level??0)+1} 级 · 费用 {tile.upgradeCosts?.[tile.level??0]}</button>)}
                 <button type="button" className="primary-btn" onClick={() => this.dispatch('end_turn')}>结束当前回合 <span>→</span></button>
               </div>}
-              {game.phase === 'finished' && <div className="result-box" role="status"><strong>{game.winnerId ? `${game.players.find(p => p.id === game.winnerId)?.name}获胜！` : '双方平局！'}</strong><p>{[...game.events].reverse().find(e => e.type === 'game_finished')?.details?.reason === 'bankruptcy' ? '结束原因：一方无法付清租金' : '结束原因：达到回合上限'}</p><p>最终净资产：玩家 {netWorth(game,'p1')} · 电脑 {netWorth(game,'p2')}</p><p>本局种子：{this.state.activeSeed}</p><button type="button" className="primary-btn" onClick={this.reset}>再来一局 <span>↻</span></button></div>}
+              {game.phase === 'finished' && <div className="result-box" role="status"><strong>{game.winnerId ? `${game.players.find(p => p.id === game.winnerId)?.name}获胜！` : '净资产并列，平局！'}</strong><p>{[...game.events].reverse().find(e => e.type === 'game_finished')?.details?.reason === 'bankruptcy' ? '结束原因：一方无法付清租金' : '结束原因：达到回合上限'}</p><p>最终净资产：{game.players.map(p=>`${p.name} ${netWorth(game,p.id)}`).join(' · ')}</p><p>本局种子：{this.state.activeSeed}</p><button type="button" className="primary-btn" onClick={this.reset}>再来一局 <span>↻</span></button></div>}
               <p className="turn-tip" role="status">{message}</p>
             </div>
             <div className="saves-card">
