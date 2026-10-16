@@ -119,7 +119,8 @@ export function validateGameState(value: unknown, expectedVersion: number = SCHE
   if(live.length<1 || (value.status!=='finished' && (live.length<2 || value.players[value.currentPlayerIndex as number].bankrupt)) ||
       (expectedVersion===2 && value.status!=='finished' && live.length!==value.players.length))
     throw new SaveError('INVALID_STATE','存档数据无效：存活玩家或行动顺序非法');
-  if(value.tiles.some((t: Dict)=>t.ownerId!==null && value.players.some((p: Dict)=>p.id===t.ownerId&&p.bankrupt)))
+  const checkedPlayers=value.players as Dict[];
+  if(value.tiles.some((t: Dict)=>t.ownerId!==null && checkedPlayers.some((p: Dict)=>p.id===t.ownerId&&p.bankrupt)))
     throw new SaveError('INVALID_STATE','破产玩家不能持有地产');
   if (!Array.isArray(value.events)) throw new SaveError('INVALID_STATE','存档数据无效：事件列表缺失');
   if (value.status==='setup' && (value.revision!==0 || value.round!==1 ||
