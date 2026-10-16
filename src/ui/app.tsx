@@ -203,7 +203,7 @@ class App extends React.Component<object, UiState> {
     }
     const rawRounds=this.state.roundsInput.trim();
     const rounds=Number(rawRounds);
-    if(!/^\\d{1,3}$/.test(rawRounds)||!Number.isSafeInteger(rounds)||rounds<1||rounds>200){
+    if(!/^[0-9]{1,3}$/.test(rawRounds)||!Number.isSafeInteger(rounds)||rounds<1||rounds>200){
       this.setState({message:'最大轮数必须是 1 至 200 的整数。'});return;
     }
     const roster=this.state.playerSetup.map(p=>({...p,name:p.name.trim()}));
