@@ -344,12 +344,25 @@ class App extends React.Component {
                         : type === 'use_card' ? { type, actorId: actor.id, cardType: cardType ?? 'reward',
                             ...(cardType === 'remote' ? { dieValue: Number(this.state.strategyDieInput) } : {}),
                             ...(cardType === 'roadblock' ? { tileId: Number(game.tiles.some(t => t.id === Number(this.state.roadblockTileInput) && t.id !== 0 && t.id !== actor.position && !game.players.some(p => !p.bankrupt && p.position === t.id) && !game.roadblocks?.some(b => b.tileId === t.id)) ? this.state.roadblockTileInput : game.tiles.find(t => t.id !== 0 && t.id !== actor.position && !game.players.some(p => !p.bankrupt && p.position === t.id) && !game.roadblocks?.some(b => b.tileId === t.id))?.id ?? -1) } : {}) } : { type, actorId: actor.id };
+        const highRisk = type === 'mortgage_property' || type === 'borrow_loan' ||
+            ((type === 'buy_stock' || type === 'sell_stock') && Number.isFinite(stockAmount) && stockAmount >= 50);
+        if (highRisk) {
+            const detail = type === 'mortgage_property' ? '确认抵押地产？抵押后该地产暂不收租，贷款违约可能被银行收回。'
+                : type === 'borrow_loan' ? '确认借入 ' + bankAmount + ' 游戏币？贷款计息且可能触发抵押物清算。'
+                    : '确认' + (type === 'buy_stock' ? '买入' : '卖出') + ' ' + stockAmount + ' 股？股票成交后价格会波动，且需支付手续费。';
+            if (!window.confirm(detail)) {
+                this.setState({ message: '已取消操作，本局资产没有变化。' });
+                return;
+            }
+        }
         const result = applyAction(game, action);
         if (!result.ok) {
             const bankAction = type === 'deposit_bank' || type === 'withdraw_bank' || type === 'borrow_loan' || type === 'repay_loan';
             const stockAction = type === 'buy_stock' || type === 'sell_stock';
-            const reason = stockAction ? (result.reason === 'INSUFFICIENT_FUNDS' ? '交易失败：现金不足或持仓数量不够。' : '股票交易失败：请输入合法整数股，并在本回合结算阶段操作。') : bankAction ? (result.reason === 'INSUFFICIENT_FUNDS' ? '现金或存款不足。' : '请输入合法的正整数，并在本回合操作银行。') :
-                result.reason === 'INSUFFICIENT_FUNDS' ? '资金不足，无法购买这块地产。请放弃购买。' : '当前阶段不能执行这个操作。';
+            const reason = result.reason === 'INVALID_ACTOR' ? '当前操作玩家已变更，请查看上方高亮玩家。'
+                : stockAction ? (result.reason === 'INSUFFICIENT_FUNDS' ? '股票交易未执行：现金不足或持仓数量不够。' : '股票交易未执行：请输入有效股数，交易仅限当前玩家的结算阶段。')
+                    : bankAction ? (result.reason === 'INSUFFICIENT_FUNDS' ? '银行或借贷操作未执行：现金、存款或可借额度不足。' : '银行或借贷操作未执行：金额必须是有效正整数，且只能在本人结算阶段操作。')
+                        : result.reason === 'INSUFFICIENT_FUNDS' ? '操作未执行：现金不足。' : '操作未执行：当前阶段或目标不合法，请检查所选地产、卡片目标和行动玩家。';
             this.setState({ message: reason });
             return;
         }
@@ -506,6 +519,57 @@ class App extends React.Component {
                     React.createElement("h1", null, "\u6BCF\u4E00\u6B65\uFF0C\u90FD\u662F\u4E00\u7B14\u751F\u610F\u3002"),
                     React.createElement("p", null, "\u9080\u8BF7\u670B\u53CB\u5728\u540C\u4E00\u8BBE\u5907\u8F6E\u6D41\u884C\u52A8\uFF0C\u4E5F\u53EF\u4EE5\u4E0E\u4E00\u540D\u6216\u591A\u540D\u7535\u8111\u73A9\u5BB6\u5BF9\u6297\u3002\u6240\u6709\u5BF9\u5C40\u90FD\u5728\u672C\u5730\u5B8C\u6210\u3002")),
                 React.createElement("button", { type: "button", className: "reset-btn", onClick: this.reset }, "\u21BB \u91CD\u65B0\u5F00\u5C40")),
+            game.status !== 'setup' && React.createElement("section", { className: "asset-overview", "aria-label": "\u591A\u4EBA\u8D44\u4EA7\u603B\u89C8" },
+                React.createElement("div", { className: "asset-heading" },
+                    React.createElement("strong", null, "\u591A\u4EBA\u8D44\u4EA7\u603B\u89C8"),
+                    React.createElement("span", null,
+                        "\u7B2C ",
+                        game.round,
+                        " / ",
+                        game.maxRounds,
+                        " \u8F6E \u00B7 \u5F53\u524D\uFF1A",
+                        current.name)),
+                React.createElement("div", { className: "asset-grid" }, game.players.map(p => {
+                    const properties = game.tiles.filter(t => t.kind === 'property' && t.ownerId === p.id);
+                    const shares = STOCKS.reduce((total, stock) => total + (p.holdings?.[stock.id]?.quantity ?? 0), 0);
+                    const shareValue = game.market ? STOCKS.reduce((total, stock) => total + (p.holdings?.[stock.id]?.quantity ?? 0) * quoteMarket(game.market, stock.id), 0) : 0;
+                    return React.createElement("div", { className: `asset-player ${game.status === 'playing' && p.id === current.id ? 'is-active' : ''} ${p.bankrupt ? 'is-bankrupt' : ''}`, key: p.id, "data-player-id": p.id, "data-active-player": String(game.status === 'playing' && p.id === current.id) },
+                        React.createElement("div", { className: "asset-identity" },
+                            React.createElement("span", { className: `player-dot ${p.kind}` }, p.kind === 'human' ? '人' : '机'),
+                            React.createElement("strong", null, p.name),
+                            React.createElement("span", { className: "asset-turn-tag" }, p.bankrupt ? '已破产' : p.id === current.id && game.status === 'playing' ? '当前操作' : p.kind === 'computer' ? '电脑' : '真人')),
+                        React.createElement("dl", { className: "asset-metrics" },
+                            React.createElement("div", null,
+                                React.createElement("dt", null, "\u73B0\u91D1"),
+                                React.createElement("dd", null, p.cash.toLocaleString('zh-CN'))),
+                            React.createElement("div", null,
+                                React.createElement("dt", null, "\u94F6\u884C\u5B58\u6B3E"),
+                                React.createElement("dd", null, (p.bankBalance ?? 0).toLocaleString('zh-CN'))),
+                            React.createElement("div", null,
+                                React.createElement("dt", null, "\u5730\u4EA7"),
+                                React.createElement("dd", null,
+                                    properties.length,
+                                    " \u5757",
+                                    properties.some(t => t.mortgaged) ? ` · 抵押 ${properties.filter(t => t.mortgaged).length}` : '')),
+                            React.createElement("div", null,
+                                React.createElement("dt", null, "\u80A1\u7968"),
+                                React.createElement("dd", null,
+                                    shares,
+                                    " \u80A1 \u00B7 ",
+                                    shareValue.toLocaleString('zh-CN'),
+                                    " \u5E01")),
+                            React.createElement("div", null,
+                                React.createElement("dt", null, "\u8D37\u6B3E"),
+                                React.createElement("dd", null, (p.loanBalance ?? 0).toLocaleString('zh-CN'))),
+                            React.createElement("div", { className: "asset-net" },
+                                React.createElement("dt", null, "\u51C0\u8D44\u4EA7"),
+                                React.createElement("dd", null, netWorth(game, p.id).toLocaleString('zh-CN')))),
+                        p.detention && React.createElement("small", { className: "asset-status" },
+                            p.detention.kind === 'hospital' ? '医院' : '监狱',
+                            " \u00B7 \u8FD8\u9700\u505C\u7559 ",
+                            p.detention.remaining,
+                            " \u56DE\u5408"));
+                }))),
             React.createElement("div", { className: "layout" },
                 React.createElement("section", { className: "board-card", "aria-label": `${game.tiles.length} 格游戏棋盘` },
                     React.createElement("div", { className: "board", style: {
@@ -688,6 +752,12 @@ class App extends React.Component {
                             !hasMoneyForLand && React.createElement("p", { className: "insufficient-msg" }, "\u8D44\u91D1\u4E0D\u8DB3\uFF0C\u4E0D\u80FD\u8D2D\u4E70\u6B64\u5730\u3002"),
                             React.createElement("button", { type: "button", className: "secondary-btn", onClick: () => this.dispatch('decline_property') }, "\u653E\u5F03\u8D2D\u4E70\uFF0C\u7EE7\u7EED\u56DE\u5408 \u2192")),
                         current.kind === 'human' && !this.state.awaitingHandoff && game.phase === 'await_end_turn' && React.createElement("div", { className: "purchase-actions" },
+                            React.createElement("div", { className: "action-navigation", role: "navigation", "aria-label": "\u4EA4\u6613\u64CD\u4F5C\u5FEB\u6377\u5165\u53E3" }, ([{ id: 'property-management', label: '地产管理' }, ...(game.bank ? [{ id: 'bank-actions', label: '银行存取' }] : []), ...(game.loan ? [{ id: 'loan-actions', label: '贷款与抵押入口' }] : []), ...(game.market ? [{ id: 'stock-actions', label: '股票交易' }] : [])]).map(link => React.createElement("button", { key: link.id, type: "button", onClick: () => document.getElementById(link.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }) },
+                                link.label,
+                                " \u2193"))),
+                            React.createElement("strong", { id: "property-management", className: "management-heading" },
+                                "\u5730\u4EA7\u7BA1\u7406 \u00B7 ",
+                                current.name),
                             game.tiles.filter(t => t.kind === 'property' && t.ownerId === current.id && t.mortgaged !== true && (t.level ?? 0) < 2).map(tile => React.createElement("button", { type: "button", key: tile.id, className: "secondary-btn", disabled: current.cash < (tile.upgradeCosts?.[tile.level ?? 0] ?? Infinity), onClick: () => this.dispatch('upgrade_property', tile.id) },
                                 "\u5347\u7EA7 ",
                                 tile.title,
@@ -704,16 +774,22 @@ class App extends React.Component {
                                 " \u00B7 \u56DE\u6536 ",
                                 resaleValue(tile, game.resaleRules),
                                 " \u6E38\u620F\u5E01")),
-                            game.bank && React.createElement("div", { className: "bank-actions", role: "group", "aria-label": "\u94F6\u884C\u64CD\u4F5C" },
+                            game.bank && React.createElement("div", { id: "bank-actions", className: "bank-actions", role: "group", "aria-label": "\u94F6\u884C\u64CD\u4F5C" },
+                                React.createElement("strong", { className: "management-heading" },
+                                    "\u94F6\u884C\u5B58\u53D6 \u00B7 ",
+                                    current.name),
                                 React.createElement("p", { className: "purchase-info" },
                                     "\u94F6\u884C\uFF1A\u6BCF\u5B8C\u6210\u4E00\u8F6E\u6309 ",
                                     game.bank.interestBps / 100,
                                     "% \u7ED3\u606F\uFF0C\u73B0\u91D1\u4E0E\u5B58\u6B3E\u5206\u5F00\u8BA1\u7B97\uFF0C\u6B20\u79DF\u65F6\u4F18\u5148\u81EA\u52A8\u53D6\u6B3E\u3002"),
                                 React.createElement("label", { htmlFor: "bank-amount" }, "\u94F6\u884C\u4EA4\u6613\u91D1\u989D\uFF08\u6E38\u620F\u5E01\uFF09"),
                                 React.createElement("input", { id: "bank-amount", "aria-label": "\u94F6\u884C\u4EA4\u6613\u91D1\u989D", inputMode: "numeric", type: "text", value: this.state.bankAmountInput, onChange: (e) => this.setState({ bankAmountInput: e.target.value }) }),
-                                React.createElement("button", { type: "button", className: "secondary-btn", onClick: () => this.dispatch('deposit_bank') }, "\u5B58\u5165\u94F6\u884C"),
-                                React.createElement("button", { type: "button", className: "secondary-btn", onClick: () => this.dispatch('withdraw_bank') }, "\u4ECE\u94F6\u884C\u53D6\u6B3E")),
-                            game.loan && React.createElement("div", { className: "bank-actions loan-actions", role: "group", "aria-label": "\u5730\u4EA7\u62B5\u62BC\u4E0E\u8D37\u6B3E" },
+                                React.createElement("button", { type: "button", className: "secondary-btn", disabled: !/^[1-9][0-9]*$/.test(this.state.bankAmountInput) || Number(this.state.bankAmountInput) > current.cash, onClick: () => this.dispatch('deposit_bank') }, "\u5B58\u5165\u94F6\u884C"),
+                                React.createElement("button", { type: "button", className: "secondary-btn", disabled: !/^[1-9][0-9]*$/.test(this.state.bankAmountInput) || Number(this.state.bankAmountInput) > (current.bankBalance ?? 0), onClick: () => this.dispatch('withdraw_bank') }, "\u4ECE\u94F6\u884C\u53D6\u6B3E")),
+                            game.loan && React.createElement("div", { id: "loan-actions", className: "bank-actions loan-actions", role: "group", "aria-label": "\u5730\u4EA7\u62B5\u62BC\u4E0E\u8D37\u6B3E" },
+                                React.createElement("strong", { className: "management-heading" },
+                                    "\u62B5\u62BC\u501F\u8D37 \u00B7 ",
+                                    current.name),
                                 React.createElement("p", { className: "purchase-info" },
                                     "\u8D37\u6B3E ",
                                     (current.loanBalance ?? 0).toLocaleString('zh-CN'),
@@ -730,10 +806,12 @@ class App extends React.Component {
                                     "\u4E0A\u65B9\u94F6\u884C\u4EA4\u6613\u91D1\u989D\u540C\u6837\u7528\u4E8E\u501F\u8D37\u3002\u5F53\u524D\u53EF\u501F ",
                                     Math.max(0, loanLimit(game, current.id) - (current.loanBalance ?? 0)),
                                     " \u6E38\u620F\u5E01\u3002"),
-                                React.createElement("button", { type: "button", className: "secondary-btn", onClick: () => this.dispatch('borrow_loan') }, "\u501F\u5165\u8D37\u6B3E"),
-                                React.createElement("button", { type: "button", className: "secondary-btn", onClick: () => this.dispatch('repay_loan') }, "\u507F\u8FD8\u8D37\u6B3E")),
-                            game.market && React.createElement("div", { className: "bank-actions stock-actions", role: "group", "aria-label": "\u80A1\u7968\u4EA4\u6613" },
-                                React.createElement("strong", null, "\u865A\u62DF\u80A1\u7968\u4EA4\u6613\u6240"),
+                                React.createElement("button", { type: "button", className: "secondary-btn", disabled: !/^[1-9][0-9]*$/.test(this.state.bankAmountInput) || Number(this.state.bankAmountInput) > loanLimit(game, current.id) - (current.loanBalance ?? 0), onClick: () => this.dispatch('borrow_loan') }, "\u501F\u5165\u8D37\u6B3E"),
+                                React.createElement("button", { type: "button", className: "secondary-btn", disabled: !/^[1-9][0-9]*$/.test(this.state.bankAmountInput) || Number(this.state.bankAmountInput) > Math.min(current.cash, current.loanBalance ?? 0), onClick: () => this.dispatch('repay_loan') }, "\u507F\u8FD8\u8D37\u6B3E")),
+                            game.market && React.createElement("div", { id: "stock-actions", className: "bank-actions stock-actions", role: "group", "aria-label": "\u80A1\u7968\u4EA4\u6613" },
+                                React.createElement("strong", null,
+                                    "\u865A\u62DF\u80A1\u7968\u4EA4\u6613\u6240 \u00B7 ",
+                                    current.name),
                                 React.createElement("p", { className: "purchase-info" }, "\u672C\u8F6E\u62A5\u4EF7 \u00B7 \u6BCF\u7B14\u4EA4\u6613\u624B\u7EED\u8D39 0.5%\uFF0C\u6700\u4F4E 1 \u6E38\u620F\u5E01\u3002\u4EC5\u4F7F\u7528\u624B\u6301\u73B0\u91D1\uFF0C\u6309\u5F53\u524D\u5E02\u573A\u4EF7\u6210\u4EA4\uFF1B\u884C\u60C5\u6BCF\u8F6E\u53D8\u5316\u3002"),
                                 React.createElement("label", { htmlFor: "stock-amount" }, "\u80A1\u7968\u4EA4\u6613\u6570\u91CF\uFF08\u80A1\uFF09"),
                                 React.createElement("input", { id: "stock-amount", type: "text", "aria-label": "\u80A1\u7968\u4EA4\u6613\u6570\u91CF", inputMode: "numeric", value: this.state.stockAmountInput, onChange: (event) => this.setState({ stockAmountInput: event.target.value }) }),
@@ -761,10 +839,10 @@ class App extends React.Component {
                                             " \u00B7 \u6D6E\u52A8\u76C8\u4E8F ",
                                             pnl >= 0 ? '+' : '',
                                             pnl),
-                                        React.createElement("button", { type: "button", className: "secondary-btn", onClick: () => this.dispatch('buy_stock', undefined, undefined, stock.id) },
+                                        React.createElement("button", { type: "button", className: "secondary-btn", disabled: !/^[1-9][0-9]*$/.test(this.state.stockAmountInput) || quote * Number(this.state.stockAmountInput) + Math.max(1, Math.ceil(quote * Number(this.state.stockAmountInput) * 0.005)) > current.cash, onClick: () => this.dispatch('buy_stock', undefined, undefined, stock.id) },
                                             "\u4E70\u5165 ",
                                             stock.name),
-                                        React.createElement("button", { type: "button", className: "secondary-btn", onClick: () => this.dispatch('sell_stock', undefined, undefined, stock.id) },
+                                        React.createElement("button", { type: "button", className: "secondary-btn", disabled: !/^[1-9][0-9]*$/.test(this.state.stockAmountInput) || Number(this.state.stockAmountInput) > held, onClick: () => this.dispatch('sell_stock', undefined, undefined, stock.id) },
                                             "\u5356\u51FA ",
                                             stock.name));
                                 }),
