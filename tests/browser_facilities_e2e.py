@@ -15,7 +15,14 @@ def run():
             page=context.new_page()
             errors=[]
             page.on('pageerror',lambda e:errors.append(str(e)))
-            page.on('dialog',lambda d:d.accept('特殊设施离线' if d.type=='prompt' else None))
+            saved=[0]
+            def handle_dialog(d):
+                if d.type=='prompt':
+                    saved[0]+=1
+                    d.accept('设施验收'+str(saved[0]))
+                else:
+                    d.accept()
+            page.on('dialog',handle_dialog)
             url=f'http://127.0.0.1:{server.server_port}/ReactMono/'
             page.goto(url)
             page.wait_for_function('navigator.serviceWorker.controller!==null')
@@ -33,10 +40,10 @@ def run():
             page.get_by_role('button',name=re.compile('掷骰前进')).click()
             page.wait_for_function("document.querySelector('.players-card')?.textContent.includes('住院剩余 2 回合')")
             page.get_by_role('button',name='创建手动存档').click()
-            slot=page.locator('.save-list li').filter(has_text='特殊设施离线')
+            slot=page.locator('.save-list li').filter(has_text='设施验收1')
             slot.wait_for()
             page.reload(wait_until='load')
-            slot=page.locator('.save-list li').filter(has_text='特殊设施离线')
+            slot=page.locator('.save-list li').filter(has_text='设施验收1')
             slot.get_by_role('button',name='读取').click()
             page.wait_for_function("document.querySelector('.players-card')?.textContent.includes('住院剩余 2 回合')")
             page.get_by_role('button',name='结束当前回合').click()
@@ -98,9 +105,10 @@ def run():
                         break
                 assert bought,('No affordable shop goods',board)
                 page.get_by_role('button',name='创建手动存档').click()
-                page.locator('.save-list li').filter(has_text='特殊设施离线').wait_for()
+                name='设施验收'+str(saved[0])
+                page.locator('.save-list li').filter(has_text=name).wait_for()
                 page.reload(wait_until='load')
-                page.locator('.save-list li').filter(has_text='特殊设施离线').get_by_role('button',name='读取').click()
+                page.locator('.save-list li').filter(has_text=name).get_by_role('button',name='读取').click()
                 page.wait_for_function("document.querySelector('main')?.dataset.gamePhase==='await_shop'")
                 page.get_by_role('button',name='离开商店').click()
                 assert page.locator('main').get_attribute('data-game-phase')=='await_end_turn'
