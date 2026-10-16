@@ -10,7 +10,8 @@ const tiles=[
   {id:2,kind:'property',title:'储备地',price:200,rent:15},
   {id:3,kind:'property',title:'小地',price:50,rent:10}
 ];
-const config=(count=2)=>({...DEFAULT_CONFIG,tiles,initialCash:100,maxRounds:8,
+const config=(count=2)=>({...DEFAULT_CONFIG,tiles,initialCash:100,maxRounds:8,automaticLiquidation:true,
+  eventRules:{...DEFAULT_CONFIG.eventRules,tileIds:[]},cardRules:{...DEFAULT_CONFIG.cardRules,tileIds:[]},
   players:Array.from({length:count},(_,i)=>({id:'p'+(i+1),name:'玩家'+(i+1),kind:'human'}))});
 const base=(count=2)=>createGame(2,config(count));
 const setup=(count=2)=>{const s=base(count);return {...s,status:'playing',phase:'await_roll',
