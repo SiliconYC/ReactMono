@@ -39,6 +39,16 @@ jobs:
           fi
       - name: 准备 Playwright（供 P4 与旧回归共用）
         run: python -m pip install playwright
+      - name: P4 #72 正式版桌面手机真实性能 / 视觉 / 旧公开基线对照
+        run: python tests/browser_p4_release_e2e.py
+      - name: 保留 #72 真实浏览器性能、前后截图、资源许可/体积预算
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue72-release-perf-visual-offline
+          path: artifacts/issue72/
+          if-no-files-found: warn
+          retention-days: 30
       - name: P4 #63 原创美术 React 切片真实浏览器回归
         run: python tests/browser_p4_visual_lab_e2e.py
       - name: 保留 P4 #63 桌面与手机交互截图
