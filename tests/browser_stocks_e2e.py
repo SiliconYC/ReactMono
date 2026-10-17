@@ -90,6 +90,7 @@ def run():
               return row?.textContent.includes('持有 2 股') &&
                 document.querySelector('.save-message')?.textContent.includes('已读取');
             }""")
+            page.get_by_role('button',name='股票',exact=True).click()
             assert '持有 2 股' in page.locator('.stock-entry').filter(has_text='青禾农业').inner_text()
             assert page.locator('.turn-position').inner_text()==saved_cash
             assert not errors,errors
