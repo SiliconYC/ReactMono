@@ -46,7 +46,7 @@ def main():
      elapsed=round((time.monotonic()-start)*1000)
      summary=page.locator('.asset-quick-roster').inner_text()
      revision=page.locator('main').get_attribute('data-game-revision')
-     page.screenshot(path=str(OUT/f'{board}-{n}-'+('fast' if fast else 'normal')+'.png'),animations='disabled',full_page=True)
+     page.screenshot(path=str(OUT/(f'{board}-{n}-'+('fast' if fast else 'normal')+'.png')),animations='disabled',full_page=True)
      snapshots.append({'mode':'fast' if fast else 'normal','elapsedMs':elapsed,
        'revision':revision,'assets':summary})
      context.close()
