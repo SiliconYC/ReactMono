@@ -3,8 +3,9 @@ import { chooseComputerAction } from '../core/agent.js';
 import { COMPUTER_STYLES, COMPUTER_STYLE_NAMES } from '../core/strategic-agent.js';
 import { listSlots, readSlot, writeSlot, deleteSlot, type SlotSummary } from '../storage/indexeddb.js';
 import { deserializeGame, MAX_SAVE_CHARS, type SaveEnvelope } from '../core/save.js';
+import { characterMarker, CHARACTER_NAMES } from './characters.js';
 
-interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly bankAmountInput: string; readonly stockAmountInput: string; readonly strategyDieInput:string; readonly roadblockTileInput:string; readonly playerSetup: readonly PlayerConfig[]; readonly roundsInput: string; readonly selectedMapId:string; readonly selectedTileId:number|null; readonly awaitingHandoff: boolean; readonly fastMode: boolean; readonly specialEnabled:boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; readonly importPreview: SaveEnvelope | null; readonly importName: string; readonly offline: boolean; readonly pwaUpdate: boolean; readonly pwaMessage: string; }
+interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly bankAmountInput: string; readonly stockAmountInput: string; readonly strategyDieInput:string; readonly roadblockTileInput:string; readonly playerSetup: readonly PlayerConfig[]; readonly roundsInput: string; readonly selectedMapId:string; readonly selectedTileId:number|null; readonly lastMotion:{playerId:string;tileId:number;revision:number}|null; readonly awaitingHandoff: boolean; readonly fastMode: boolean; readonly specialEnabled:boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; readonly importPreview: SaveEnvelope | null; readonly importName: string; readonly offline: boolean; readonly pwaUpdate: boolean; readonly pwaMessage: string; }
 
 /** Read screen positions from map data, never infer them from the tile ID. */
 function cellPosition(map:GameMap,index:number):{gridColumn:number;gridRow:number}{
@@ -17,7 +18,7 @@ const kindLabel: Record<Tile['kind'], string> = { start: '起点', property: '�
 class App extends React.Component<object, UiState> {
   constructor(props: object) {
     super(props);
-    this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput:'100', stockAmountInput:'1', strategyDieInput:'1', roadblockTileInput:'1', playerSetup: [{id:'p1',name:'玩家',kind:'human'},{id:'p2',name:'电脑',kind:'computer',computerStyle:'balanced'}], roundsInput:'60', selectedMapId:'classic-24', selectedTileId:0, awaitingHandoff:false, fastMode: false, specialEnabled:false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator==='undefined'?false:!navigator.onLine, pwaUpdate:false, pwaMessage:'', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+    this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput:'100', stockAmountInput:'1', strategyDieInput:'1', roadblockTileInput:'1', playerSetup: [{id:'p1',name:'玩家',kind:'human'},{id:'p2',name:'电脑',kind:'computer',computerStyle:'balanced'}], roundsInput:'60', selectedMapId:'classic-24', selectedTileId:0, lastMotion:null, awaitingHandoff:false, fastMode: false, specialEnabled:false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator==='undefined'?false:!navigator.onLine, pwaUpdate:false, pwaMessage:'', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
   }
 
   private computerTimer: number | null = null;
@@ -161,7 +162,7 @@ class App extends React.Component<object, UiState> {
       await this.saveQueue;
       const saved=await readSlot(slot.id);
       this.setState({game:saved.game,activeSeed:null,storageBusy:false,awaitingHandoff:false,
-        roundsInput:String(saved.game.maxRounds),selectedMapId:saved.game.map.id,selectedTileId:saved.game.players[saved.game.currentPlayerIndex].position,
+        roundsInput:String(saved.game.maxRounds),selectedMapId:saved.game.map.id,selectedTileId:saved.game.players[saved.game.currentPlayerIndex].position,lastMotion:null,
         playerSetup:saved.game.players.map(p=>({id:p.id,name:p.name,kind:p.kind,...(p.computerStyle?{computerStyle:p.computerStyle}:{})})),
         saveStatus:'已读取「'+slot.name+'」',message:'已恢复第 '+saved.game.round+' 轮，可从当前阶段继续。'});
     }catch(e){this.setState({storageBusy:false,saveStatus:'读档失败：'+(e instanceof Error?e.message:String(e))+'。原对局未被修改。'});}
@@ -176,7 +177,7 @@ class App extends React.Component<object, UiState> {
     this.saveEpoch++;
     this.stopTimer();
     const base=this.state.selectedMapId==='harbor-20'?HARBOR_CONFIG:DEFAULT_CONFIG;
-    this.setState({ game: createGame(20261015,base), activeSeed: null, selectedTileId:0, awaitingHandoff:false, message: '已返回新游戏页面。可调整种子及地图后重新开始。' });
+    this.setState({ game: createGame(20261015,base), activeSeed: null, selectedTileId:0,lastMotion:null, awaitingHandoff:false, message: '已返回新游戏页面。可调整种子及地图后重新开始。' });
   };
   /** Keep stable IDs when the local seating plan changes. */
   private setPlayerCount = (count: number): void => {
@@ -198,7 +199,7 @@ class App extends React.Component<object, UiState> {
   private selectMap = (id:string):void=>{
     if(id!=='classic-24'&&id!=='harbor-20')return;
     const base=id==='harbor-20'?HARBOR_CONFIG:DEFAULT_CONFIG;
-    this.setState({selectedMapId:id,selectedTileId:0,game:createGame(20261015,{...base,players:this.state.playerSetup}),
+    this.setState({selectedMapId:id,selectedTileId:0,lastMotion:null,game:createGame(20261015,{...base,players:this.state.playerSetup}),
       message:id==='harbor-20'?'已选择海港环线：20 格，独立价格及海港主题地产。':'已选择经典环线：24 格，原有规则完整保留。'});
   };
   private acknowledgeHandoff = ():void=>{
@@ -227,7 +228,7 @@ class App extends React.Component<object, UiState> {
     this.stopTimer();
     const result = applyAction(fresh, { type: 'start_game', actorId: fresh.players[0].id });
     if (!result.ok) { this.setState({ message: '无法开始对局，请重新开局。' }); return; }
-    this.setState({ game: result.state, activeSeed: seed,selectedTileId:0, awaitingHandoff:false, message: '游戏已开始！轮到'+fresh.players[0].name+'掷骰。' });
+    this.setState({ game: result.state, activeSeed: seed,selectedTileId:0,lastMotion:null, awaitingHandoff:false, message: '游戏已开始！轮到'+fresh.players[0].name+'掷骰。' });
   };
   componentWillUnmount(): void {
     window.removeEventListener('online',this.updateOnline);
@@ -253,7 +254,11 @@ class App extends React.Component<object, UiState> {
         return;
       }
       const actor = snapshot.players[snapshot.currentPlayerIndex];
-      this.setState({ game: result.state, message: this.describe(result.events, result.state, actor.name) });
+      const moved=result.events.find(e=>e.type==='player_moved');
+      const landed=result.state.players.find(p=>p.id===actor.id);
+      this.setState({ game: result.state,
+        lastMotion:moved&&landed?{playerId:actor.id,tileId:landed.position,revision:result.state.revision}:null,
+        message: this.describe(result.events, result.state, actor.name) });
     }, this.state.fastMode ? 8 : 220);
   }
 
@@ -293,7 +298,10 @@ class App extends React.Component<object, UiState> {
     const next=result.state.players[result.state.currentPlayerIndex];
     const handoff=type==='end_turn' && result.state.status==='playing'
       && next.kind==='human' && next.id!==actor.id;
+    const moved=result.events.find(e=>e.type==='player_moved');
+    const landed=result.state.players.find(p=>p.id===actor.id);
     this.setState({ game: result.state, awaitingHandoff:handoff,
+      lastMotion:moved&&landed?{playerId:actor.id,tileId:landed.position,revision:result.state.revision}:null,
       message:handoff?'请将设备交给 '+next.name+'；确认就位后方可继续。':this.describe(result.events, result.state, actor.name) });
   };
 
