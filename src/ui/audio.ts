@@ -31,7 +31,10 @@ export class SoundController{
   this.enabled=value;
   try{localStorage.setItem('reactmono-audio-enabled',value?'1':'0');}catch{}
   if(!value){try{await this.ctx?.suspend();}catch{}return;}
-  if(typeof window==='undefined'||!('AudioContext' in window))return;
+  await this.activate();
+ }
+ async activate():Promise<void>{
+  if(!this.enabled||typeof window==='undefined'||!('AudioContext' in window))return;
   try{
    if(!this.ctx)this.ctx=new AudioContext({latencyHint:'interactive'});
    if(this.ctx.state==='suspended')await this.ctx.resume();
