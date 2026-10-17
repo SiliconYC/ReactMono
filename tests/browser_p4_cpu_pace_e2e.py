@@ -32,12 +32,16 @@ def main():
      page=context.new_page();page.on('pageerror',lambda e:errors.append(str(e)))
      page.goto(f'http://127.0.0.1:{server.server_port}/ReactMono/')
      configure(page,board,n)
-     if fast:page.get_by_label('快速模式').check()
      start=time.monotonic()
      page.get_by_role('button',name=re.compile('开始游戏')).click()
      if fast:
+       # Pause before switching to 8ms: at that speed the entire game may
+       # finish before Playwright's physical-click stability check can settle.
+       # Dispatch the same actual React button click synchronously first.
+       page.get_by_role('button',name='暂停电脑').evaluate('(el)=>el.click()')
+       assert page.get_by_role('button',name='继续电脑').count()==1
+       page.get_by_role('button',name='快进电脑').click()
        assert page.get_by_role('button',name='恢复正常速度').count()==1
-       page.get_by_role('button',name='暂停电脑').click()
        frozen=page.locator('main').get_attribute('data-game-revision')
        page.wait_for_timeout(480)
        assert page.locator('main').get_attribute('data-game-revision')==frozen
