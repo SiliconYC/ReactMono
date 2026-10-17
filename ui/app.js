@@ -7,6 +7,7 @@ import { characterMarker, CHARACTER_NAMES } from './characters.js';
 import { eventCue } from './feedback.js';
 import { SoundController } from './audio.js';
 import { GUIDE_STEPS, contextHint } from './guide.js';
+import { cpuDelay, cpuTurnKey, addCpuTiming, initialCpuTiming, MAX_CPU_ACTIONS_PER_TURN } from './computer-pace.js';
 /** Read screen positions from map data, never infer them from the tile ID. */
 function cellPosition(map, index) {
     const point = map.cells[index];
@@ -16,9 +17,22 @@ const kindLabel = { start: '起点', property: '地产', neutral: '休息' };
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput: '100', stockAmountInput: '1', strategyDieInput: '1', roadblockTileInput: '1', playerSetup: [{ id: 'p1', name: '玩家', kind: 'human' }, { id: 'p2', name: '电脑', kind: 'computer', computerStyle: 'balanced' }], roundsInput: '60', selectedMapId: 'classic-24', selectedTileId: 0, lastMotion: null, visualCue: null, guideStep: typeof localStorage === 'undefined' || localStorage.getItem('reactmono-guide-seen') !== '1' ? 0 : null, motionOff: typeof localStorage === 'undefined' ? false : localStorage.getItem('reactmono-motion-off') === '1', financePanel: null, awaitingHandoff: false, fastMode: false, specialEnabled: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator === 'undefined' ? false : !navigator.onLine, pwaUpdate: false, pwaMessage: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+        this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput: '100', stockAmountInput: '1', strategyDieInput: '1', roadblockTileInput: '1', playerSetup: [{ id: 'p1', name: '玩家', kind: 'human' }, { id: 'p2', name: '电脑', kind: 'computer', computerStyle: 'balanced' }], roundsInput: '60', selectedMapId: 'classic-24', selectedTileId: 0, lastMotion: null, visualCue: null, guideStep: typeof localStorage === 'undefined' || localStorage.getItem('reactmono-guide-seen') !== '1' ? 0 : null, motionOff: typeof localStorage === 'undefined' ? false : localStorage.getItem('reactmono-motion-off') === '1', financePanel: null, awaitingHandoff: false, fastMode: false, cpuPaused: false, cpuTiming: initialCpuTiming, specialEnabled: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator === 'undefined' ? false : !navigator.onLine, pwaUpdate: false, pwaMessage: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
     }
     computerTimer = null;
+    cpuTurnMark = '';
+    cpuTurnActions = 0;
+    lastCpuEvents = [];
+    toggleCpuPause = () => {
+        const cpuPaused = !this.state.cpuPaused;
+        this.stopTimer();
+        this.setState({ cpuPaused, message: cpuPaused ? '电脑已暂停，点击继续即可恢复。' : '电脑继续行动。' });
+    };
+    toggleCpuFast = () => {
+        this.stopTimer();
+        this.cancelCue();
+        this.setState({ fastMode: !this.state.fastMode, visualCue: null });
+    };
     sound = new SoundController();
     finishGuide = () => {
         try {
@@ -43,10 +57,15 @@ class App extends React.Component {
             window.clearTimeout(this.cueTimer);
         this.cueTimer = null;
     };
-    onVisibility = () => { if (document.hidden) {
-        this.cancelCue();
-        this.setState({ visualCue: null });
-    } };
+    onVisibility = () => {
+        if (document.hidden) {
+            this.stopTimer();
+            this.cancelCue();
+            this.setState({ visualCue: null });
+        }
+        else
+            this.setState({}); // resume only if the currently loaded state still belongs to a computer
+    };
     cueFor(before, after, events) {
         this.cancelCue();
         if (this.noMotion || document.hidden)
@@ -281,6 +300,9 @@ class App extends React.Component {
             return;
         this.saveEpoch++;
         this.stopTimer();
+        this.cpuTurnMark = '';
+        this.cpuTurnActions = 0;
+        this.lastCpuEvents = [];
         this.setState({ storageBusy: true, saveStatus: '正在读取「' + slot.name + '」…' });
         try {
             await this.saveQueue;
@@ -311,6 +333,9 @@ class App extends React.Component {
         this.saveEpoch++;
         this.stopTimer();
         this.cancelCue();
+        this.cpuTurnMark = '';
+        this.cpuTurnActions = 0;
+        this.lastCpuEvents = [];
         const base = this.state.selectedMapId === 'harbor-20' ? HARBOR_CONFIG : DEFAULT_CONFIG;
         this.setState({ game: createGame(20261015, base), activeSeed: null, selectedTileId: 0, lastMotion: null, visualCue: null, financePanel: null, awaitingHandoff: false, message: '已返回新游戏页面。可调整种子及地图后重新开始。' });
     };
@@ -338,6 +363,9 @@ class App extends React.Component {
             return;
         const base = id === 'harbor-20' ? HARBOR_CONFIG : DEFAULT_CONFIG;
         this.cancelCue();
+        this.cpuTurnMark = '';
+        this.cpuTurnActions = 0;
+        this.lastCpuEvents = [];
         this.setState({ selectedMapId: id, selectedTileId: 0, lastMotion: null, visualCue: null, financePanel: null, game: createGame(20261015, { ...base, players: this.state.playerSetup }),
             message: id === 'harbor-20' ? '已选择海港环线：20 格，独立价格及海港主题地产。' : '已选择经典环线：24 格，原有规则完整保留。' });
     };
@@ -374,6 +402,9 @@ class App extends React.Component {
         this.saveEpoch++;
         this.stopTimer();
         this.cancelCue();
+        this.cpuTurnMark = '';
+        this.cpuTurnActions = 0;
+        this.lastCpuEvents = [];
         const result = applyAction(fresh, { type: 'start_game', actorId: fresh.players[0].id });
         if (!result.ok) {
             this.setState({ message: '无法开始对局，请重新开局。' });
@@ -394,32 +425,57 @@ class App extends React.Component {
     componentDidUpdate(_prevProps, prevState) {
         if (this.state.game !== prevState.game && this.state.game.status !== 'setup')
             this.scheduleAutosave(this.state.game);
-        if (this.state.storageBusy)
+        if (this.state.storageBusy || this.state.cpuPaused || this.state.awaitingHandoff || document.hidden)
             return;
         const snapshot = this.state.game;
         if (snapshot.status !== 'playing' || snapshot.players[snapshot.currentPlayerIndex].kind !== 'computer' || this.computerTimer !== null)
             return;
+        const scheduledDelay = cpuDelay(this.state.fastMode ? 'fast' : 'normal', { type: 'roll', actorId: snapshot.players[snapshot.currentPlayerIndex].id }, this.lastCpuEvents);
         this.computerTimer = window.setTimeout(() => {
             this.computerTimer = null;
-            if (this.state.game !== snapshot || this.state.storageBusy)
+            if (this.state.game !== snapshot || this.state.storageBusy || this.state.cpuPaused || document.hidden)
                 return;
-            const action = chooseComputerAction(snapshot, { reserveCash: 200 });
-            if (!action)
-                return;
-            const result = applyAction(snapshot, action);
-            if (!result.ok) {
-                this.setState({ message: '电脑操作失败（' + result.reason + '），请重新开局或报告缺陷。' });
+            const turnKey = cpuTurnKey(snapshot);
+            if (turnKey !== this.cpuTurnMark) {
+                this.cpuTurnMark = turnKey;
+                this.cpuTurnActions = 0;
+            }
+            if (this.cpuTurnActions >= MAX_CPU_ACTIONS_PER_TURN) {
+                this.setState({ cpuPaused: true, message: '电脑本回合动作已达到安全上限，请检查策略与游戏状态后再继续。' });
                 return;
             }
+            const start = performance.now();
+            let action = null;
+            let result = null;
+            try {
+                action = chooseComputerAction(snapshot, { reserveCash: 200 });
+                if (action)
+                    result = applyAction(snapshot, action);
+            }
+            catch (e) {
+                this.setState({ cpuPaused: true, message: '电脑行动异常，已自动暂停：' + String(e) });
+                return;
+            }
+            const calculationMs = performance.now() - start;
+            if (!action || !result) {
+                this.setState({ cpuPaused: true, message: '电脑没有可执行的合法行动，已暂停避免循环。' });
+                return;
+            }
+            if (!result.ok) {
+                this.setState({ cpuPaused: true, message: '电脑操作失败（' + result.reason + '），请重新开局或报告缺陷。' });
+                return;
+            }
+            this.cpuTurnActions++;
+            this.lastCpuEvents = result.events;
             this.sound.play(result.events);
             const actor = snapshot.players[snapshot.currentPlayerIndex];
             const cue = this.cueFor(snapshot, result.state, result.events);
             const moved = result.events.find(e => e.type === 'player_moved');
             const landed = result.state.players.find(p => p.id === actor.id);
-            this.setState({ game: result.state, visualCue: cue,
+            this.setState({ game: result.state, visualCue: cue, cpuTiming: addCpuTiming(this.state.cpuTiming, calculationMs, scheduledDelay),
                 lastMotion: moved && landed ? { playerId: actor.id, tileId: landed.position, revision: result.state.revision } : null,
                 message: this.describe(result.events, result.state, actor.name) });
-        }, this.state.fastMode ? 8 : 220);
+        }, scheduledDelay);
     }
     dispatch = (type, tileId, cardType, stockId) => {
         void this.sound.activate();
@@ -858,10 +914,23 @@ class App extends React.Component {
                                     CHARACTER_NAMES[game.currentPlayerIndex])),
                             React.createElement("p", null, "\u8BF7\u628A\u8BBE\u5907\u4EA4\u7ED9\u8FD9\u540D\u73A9\u5BB6\uFF0C\u51C6\u5907\u597D\u4EE5\u540E\u786E\u8BA4\u3002\u4E0A\u4E00\u4F4D\u73A9\u5BB6\u4E0D\u80FD\u7EE7\u7EED\u64CD\u4F5C\u3002"),
                             React.createElement("button", { type: "button", className: "primary-btn", onClick: this.acknowledgeHandoff }, "\u6211\u5DF2\u5C31\u4F4D\uFF0C\u5F00\u59CB\u64CD\u4F5C")),
-                        current.kind === 'computer' && game.status === 'playing' && React.createElement("p", { className: "computer-thinking", role: "status" },
-                            "\u7535\u8111\u6B63\u5728\u81EA\u52A8\u64CD\u4F5C\uFF08",
-                            current.computerStyle ? COMPUTER_STYLE_NAMES[current.computerStyle] : '经典',
-                            "\u7B56\u7565\uFF09\u2026"),
+                        current.kind === 'computer' && game.status === 'playing' && React.createElement("div", { className: "computer-pace", role: "group", "aria-label": "\u7535\u8111\u884C\u52A8\u8282\u594F" },
+                            React.createElement("span", { className: "computer-thinking", role: "status" },
+                                this.state.cpuPaused ? '电脑已暂停' : this.state.fastMode ? '电脑快速行动中' : '电脑正常行动中',
+                                " \u00B7 ",
+                                current.name,
+                                "\uFF08",
+                                current.computerStyle ? COMPUTER_STYLE_NAMES[current.computerStyle] : '经典',
+                                "\uFF09"),
+                            React.createElement("div", { className: "computer-pace-actions" },
+                                React.createElement("button", { type: "button", onClick: this.toggleCpuPause }, this.state.cpuPaused ? '继续电脑' : '暂停电脑'),
+                                React.createElement("button", { type: "button", "aria-pressed": this.state.fastMode, onClick: this.toggleCpuFast }, this.state.fastMode ? '恢复正常速度' : '快进电脑')),
+                            React.createElement("small", { "data-cpu-decisions": this.state.cpuTiming.decisions },
+                                "\u5F15\u64CE ",
+                                this.state.cpuTiming.decisions,
+                                " \u6B65 \u00B7 \u51B3\u7B56\u8017\u65F6 ",
+                                Math.round(this.state.cpuTiming.calculationMs),
+                                " \u6BEB\u79D2\uFF08\u4E0D\u542B\u6F14\u793A\u7B49\u5F85\uFF09")),
                         current.kind === 'human' && !this.state.awaitingHandoff && game.phase === 'await_roll' && current.detention === undefined && React.createElement("div", { className: "purchase-actions" },
                             React.createElement("p", { className: "purchase-info" },
                                 "\u624B\u724C\uFF1A\u5956\u52B1 ",
