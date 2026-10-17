@@ -1,9 +1,9 @@
 /* P4 #68 / no external media. Compact, discoverable, never overlays the board. */
 .app-shell .turn-card .audio-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
 .app-shell .audio-toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
-.app-shell .audio-toggle{border:1px solid #bcd6c3;border-radius:9px;background:#eef5ed;color:#2a5c45;min-height:40px;min-width:78px;font-size:12px;font-weight:800}
+.app-shell .audio-toggle{border:1px solid #bcd6c3;border-radius:9px;background:#eef5ed;color:#2a5c45;min-height:44px;min-width:78px;font-size:12px;font-weight:800}
 .app-shell .audio-toggle[aria-pressed=true]{background:#d9ede0;border-color:#7bad91}
 .app-shell .audio-volume{display:flex;align-items:center;gap:6px;color:#41634e;font-weight:700;font-size:12px}
 .app-shell .audio-volume input{width:94px;min-height:30px;accent-color:#2f684d;cursor:pointer;touch-action:pan-x}
-@media(max-width:650px){.app-shell .turn-card .audio-heading{margin-bottom:7px}.app-shell .audio-toggle{min-width:72px;min-height:40px}.app-shell .audio-volume input{width:76px}}
+@media(max-width:650px){.app-shell .turn-card .audio-heading{margin-bottom:7px}.app-shell .audio-toggle{min-width:72px;min-height:44px}.app-shell .audio-volume input{width:76px}}
 @media(prefers-reduced-motion:reduce){.app-shell .audio-toggle{transition:none}}
