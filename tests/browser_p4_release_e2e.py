@@ -124,6 +124,11 @@ def scenario(browser,url,label,width,height,board,seats,offline=False):
  setup=identity(page);start_metrics=metrics(page)
  assert setup['docW']<=width+2,(label,setup)
  configure(page,board,seats)
+ audioStress=label=='candidate-desktop-classic-2'
+ if audioStress:
+  # Opt-in after a genuine user gesture; verify oscillators finish/disconnect
+  # even during many successive AI actions.
+  page.get_by_role('button',name='开启音效').click()
  # Include the full CPU game in wall time, not just the polling after 75 rAF frames.
  start=time.monotonic()
  page.get_by_role('button',name=re.compile('开始游戏')).click()
@@ -138,6 +143,8 @@ def scenario(browser,url,label,width,height,board,seats,offline=False):
  frames=sample_frames(page)
  page.wait_for_function("document.querySelector('main')?.dataset.gameStatus==='finished'",timeout=95000)
  wall=round((time.monotonic()-start)*1000)
+ if audioStress:
+  page.wait_for_function("window.__releaseOscStart>0&&window.__releaseOscStart===window.__releaseOscEnd",timeout=10000)
  end=identity(page);after=metrics(page)
  finalshot=screenshot(page,f'{label}-finished')
  revision=int(page.locator('main').get_attribute('data-game-revision'))
