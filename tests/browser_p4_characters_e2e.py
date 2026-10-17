@@ -76,6 +76,12 @@ def main():
         assert setup.evaluate_all("(xs)=>xs.map(x=>x.dataset.characterId)")==NAMES[:seats]
         page.screenshot(path=str(OUT/f'{name}-setup.png'),full_page=True,animations='disabled')
         page.get_by_role('button',name=re.compile('开始游戏')).click()
+        # React commits synchronously, but freshly mounted same-origin SVGs finish
+        # loading asynchronously. Wait for genuine successful loads, not just 'complete'.
+        page.wait_for_function("""() => {
+          const imgs=[...document.querySelectorAll('.character-image')];
+          return imgs.length>0&&imgs.every(img=>img.complete&&img.naturalWidth>0);
+        }""",timeout=15000)
         report=inspect(page,seats)
         assert page.locator('.turn-person .character-portrait').get_attribute('data-character-id')=='fox'
         assert page.locator('.asset-player').count()==seats
@@ -150,6 +156,10 @@ def main():
           page.wait_for_function('navigator.serviceWorker.controller!==null',timeout=30000)
           context.set_offline(True)
           page.reload(wait_until='load')
+          page.wait_for_function("""() => {
+            const imgs=[...document.querySelectorAll('.character-image')];
+            return imgs.length>=2&&imgs.every(img=>img.complete&&img.naturalWidth>0);
+          }""",timeout=15000)
           assert page.locator('.character-image').count()>=2
           assert page.locator('.character-image').evaluate_all(
             "(xs)=>xs.every(e=>e.complete&&e.naturalWidth>0)")
