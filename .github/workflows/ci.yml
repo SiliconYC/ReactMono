@@ -89,6 +89,16 @@ jobs:
           path: artifacts/issue68/
           if-no-files-found: warn
           retention-days: 30
+      - name: P4 #69 真实浏览器首次体验和离线引导
+        run: python tests/browser_p4_guide_e2e.py
+      - name: 保留 #69 新手行为与触控截图证据
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue69-novice-guide-chromium
+          path: artifacts/issue69/
+          if-no-files-found: warn
+          retention-days: 30
       - name: 真实 Chromium 端到端回归（本地 HTTP 子路径）
         run: |
           python tests/browser_live_e2e.py
