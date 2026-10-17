@@ -458,7 +458,8 @@ class App extends React.Component<object, UiState> {
           <button type="button" className="reset-btn" onClick={this.reset}>↻ 重新开局</button>
         </header>
         <section className="headline"><div><span className="section-eyebrow">{game.tiles.length} 格 · 两张地图 · 2～4 人 · 本机轮流</span><h1>每一步，都是一笔生意。</h1><p>邀请朋友在同一设备轮流行动，也可以与一名或多名电脑玩家对抗。所有对局都在本地完成。</p></div></section>
-        {game.status!=='setup'&&<section className="asset-overview" aria-label="多人资产总览">
+        {game.status!=='setup'&&<details className="asset-overview" aria-label="多人资产总览">
+          <summary className="asset-summary"><strong>全员资产</strong><span className="asset-quick-roster">{game.players.map((p,i)=><span key={p.id} className={p.id===current.id?'active':''}>{i+1} · {p.name} <b>{netWorth(game,p.id).toLocaleString('zh-CN')}</b></span>)}</span><span className="asset-expand-hint">查看明细</span></summary>
           <div className="asset-heading"><strong>多人资产总览</strong><span>第 {game.round} / {game.maxRounds} 轮 · 当前：{current.name}</span></div>
           <div className="asset-grid">
             {game.players.map(p=>{
@@ -479,7 +480,7 @@ class App extends React.Component<object, UiState> {
               </div>;
             })}
           </div>
-        </section>}
+        </details>}
         <div className="layout">
           <section className="board-card" aria-label={`${game.tiles.length} 格游戏棋盘`}>
             <div className="board-viewport" tabIndex={0} aria-label="棋盘浏览区；窄屏可横向滚动">
@@ -674,8 +675,7 @@ class App extends React.Component<object, UiState> {
                })()}<strong>{game.winnerId ? `${game.players.find(p => p.id === game.winnerId)?.name}获胜！` : '净资产并列，平局！'}</strong><p>{[...game.events].reverse().find(e => e.type === 'game_finished')?.details?.reason === 'bankruptcy' ? '结束原因：一方无法付清租金' : '结束原因：达到回合上限'}</p><p>最终净资产：{game.players.map(p=>`${p.name} ${netWorth(game,p.id)}`).join(' · ')}</p><p>本局种子：{this.state.activeSeed}</p><button type="button" className="primary-btn" onClick={this.reset}>再来一局 <span>↻</span></button></div>}
               <p className="turn-tip" role="status">{message}</p>
             </div>
-            <div className="saves-card">
-              <div className="card-label">本地存档</div>
+            <details className="saves-card" open><summary className="card-label">本地存档 · 点此收起</summary>
               <p className="save-warning">清除浏览器站点数据或卸载应用可能永久删除本地存档；请定期使用「导出」保存 JSON 备份。</p>
               <p className="save-message" role="status">{this.state.saveStatus}</p>
               <button type="button" className="secondary-btn" disabled={game.status==='setup'||this.state.storageBusy} onClick={()=>void this.newManualSlot()}>创建手动存档</button>
@@ -703,10 +703,10 @@ class App extends React.Component<object, UiState> {
                 </div>:<button type="button" className="secondary-btn" onClick={()=>void this.applyImport('new')}>确认导入存档</button>}
                 <button type="button" className="secondary-btn" onClick={()=>this.setState({importPreview:null,importName:'',saveStatus:'已取消导入'})}>取消导入</button>
               </div>}
-            </div>
-            <div className="players-card"><div className="card-label">玩家状态</div>{game.players.map(p => <div key={p.id} className={`player-line ${current.id === p.id && game.status === 'playing' ? 'is-current' : ''}`}>{characterMarker(game.players.indexOf(p),p.kind,'badge',p.id===current.id&&game.status==='playing')}<div><strong>{p.name}</strong><small>{p.position} 号格 · 现金 {p.cash.toLocaleString('zh-CN')}{game.bank?` · 存款 ${(p.bankBalance??0).toLocaleString('zh-CN')}`:''}{game.market?` · 股票 ${Object.values(p.holdings??{}).reduce((sum,lot)=>sum+(lot?.quantity??0),0)} 股`:''}{game.loan?` · 贷款 ${(p.loanBalance??0).toLocaleString('zh-CN')}`:''} · 净资产 {netWorth(game,p.id).toLocaleString('zh-CN')}{p.detention?` · ${p.detention.kind==='hospital'?'住院':'入狱'}剩余 ${p.detention.remaining} 回合`:''}{p.bankrupt ? ' · 已破产' : ''}</small></div><span className="player-kind">{p.kind === 'human' ? '真人' : '电脑'}</span></div>)}</div>
-            <div className="activity-card"><div className="card-label">最近事件</div><ol>{lastEvents.map((e,i) => <li key={`${game.events.length}-${i}`}>{this.describeEvent(e)}</li>)}</ol></div>
-            <div className="info-card"><strong>玩法说明</strong><p>① 点击「开始游戏」，轮到玩家时掷骰前进。② 到无主地产可买入或放弃；经过对手地产会自动付租。③ 处理完地块后结束回合，电脑会自动行动。</p><p>付不起租金可能出售地产或破产；最终按现金、存款、地产成本、股票市值减贷款计算净资产。电脑购地后至少保留 200 游戏币。</p><p>卡片站可获得奖励、步数、遥控骰子、路障及免租卡；只在掷骰前使用。路障让对手提前停下，最多持续两轮；免租卡仅保护下一次落地。存档与离线游玩均在本机完成。</p></div>
+            </details>
+            <details className="players-card" open><summary className="card-label">玩家状态 · 点此收起</summary>{game.players.map(p => <div key={p.id} className={`player-line ${current.id === p.id && game.status === 'playing' ? 'is-current' : ''}`}>{characterMarker(game.players.indexOf(p),p.kind,'badge',p.id===current.id&&game.status==='playing')}<div><strong>{p.name}</strong><small>{p.position} 号格 · 现金 {p.cash.toLocaleString('zh-CN')}{game.bank?` · 存款 ${(p.bankBalance??0).toLocaleString('zh-CN')}`:''}{game.market?` · 股票 ${Object.values(p.holdings??{}).reduce((sum,lot)=>sum+(lot?.quantity??0),0)} 股`:''}{game.loan?` · 贷款 ${(p.loanBalance??0).toLocaleString('zh-CN')}`:''} · 净资产 {netWorth(game,p.id).toLocaleString('zh-CN')}{p.detention?` · ${p.detention.kind==='hospital'?'住院':'入狱'}剩余 ${p.detention.remaining} 回合`:''}{p.bankrupt ? ' · 已破产' : ''}</small></div><span className="player-kind">{p.kind === 'human' ? '真人' : '电脑'}</span></div>)}</details>
+            <details className="activity-card" open><summary className="card-label">最近事件 · 点此收起</summary><ol>{lastEvents.map((e,i) => <li key={`${game.events.length}-${i}`}>{this.describeEvent(e)}</li>)}</ol></details>
+            <details className="info-card"><summary>玩法说明</summary><p>① 点击「开始游戏」，轮到玩家时掷骰前进。② 到无主地产可买入或放弃；经过对手地产会自动付租。③ 处理完地块后结束回合，电脑会自动行动。</p><p>付不起租金可能出售地产或破产；最终按现金、存款、地产成本、股票市值减贷款计算净资产。电脑购地后至少保留 200 游戏币。</p><p>卡片站可获得奖励、步数、遥控骰子、路障及免租卡；只在掷骰前使用。路障让对手提前停下，最多持续两轮；免租卡仅保护下一次落地。存档与离线游玩均在本机完成。</p></details>
           </aside>
         </div>
         <footer className="footer">纯前端 · 简体中文 · 不需要账号　｜　IndexedDB 本机存档 · 不上传云端　｜　<a className="visual-lab-link" href="./visual-lab.html">原创美术样例</a></footer>
