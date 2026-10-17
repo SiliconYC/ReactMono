@@ -67,7 +67,7 @@ def run():
             page.get_by_role('button',name='卖出 青禾农业').click()
             assert wallet(page)[3]==0
             open_tool(page,'抵押借贷')
-            mortgage=page.get_by_role('button',name=re.compile('^抵押'))
+            mortgage=page.locator('#loan-actions').get_by_role('button',name=re.compile('^抵押'))
             if mortgage.count():
                 mortgage.first.click()
                 assert '抵押' in page.locator('.asset-player[data-player-id="p1"]').inner_text()
