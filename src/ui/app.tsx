@@ -607,9 +607,11 @@ class App extends React.Component<object, UiState> {
                       <button key={link.id} type="button" aria-expanded={this.state.financePanel===link.id}
                         aria-controls={`finance-${link.id}`}
                         className={this.state.financePanel===link.id?'is-selected':''}
-                        onClick={()=>this.setState({financePanel:this.state.financePanel===link.id?null:link.id})}>{link.label}</button>)}
+                        onClick={()=>this.setState({financePanel:this.state.financePanel===link.id?null:link.id as NonNullable<UiState['financePanel']>})}>{link.label}</button>)}
                   </nav>
                   {(this.state.financePanel==='bank'||this.state.financePanel==='loan')&&<div className="finance-amount">
+                    <label htmlFor="bank-amount">银行交易金额（游戏币）</label>
+                    <input id="bank-amount" aria-label="银行交易金额" inputMode="numeric" type="text" value={this.state.bankAmountInput} onChange={(e:{target:{value:string}})=>this.setState({bankAmountInput:e.target.value})}/>
                   </div>}
                   <div id="finance-property" className="finance-pane" hidden={this.state.financePanel!=='property'}>
                 <strong id="property-management" className="management-heading">地产管理 · {current.name}</strong>
@@ -622,8 +624,7 @@ class App extends React.Component<object, UiState> {
                 {game.bank&&<div id="bank-actions" className="bank-actions" role="group" aria-label="银行操作">
                   <strong className="management-heading">银行存取 · {current.name}</strong>
                   <p className="purchase-info">银行：每完成一轮按 {game.bank.interestBps/100}% 结息，现金与存款分开计算，欠租时优先自动取款。</p>
-                  <label htmlFor="bank-amount">银行交易金额（游戏币）</label>
-                  <input id="bank-amount" aria-label="银行交易金额" inputMode="numeric" type="text" value={this.state.bankAmountInput} onChange={(e:{target:{value:string}})=>this.setState({bankAmountInput:e.target.value})}/>
+                  
                   <button type="button" className="secondary-btn" disabled={!/^[1-9][0-9]*$/.test(this.state.bankAmountInput)||Number(this.state.bankAmountInput)>current.cash} onClick={()=>this.dispatch('deposit_bank')}>存入银行</button>
                   <button type="button" className="secondary-btn" disabled={!/^[1-9][0-9]*$/.test(this.state.bankAmountInput)||Number(this.state.bankAmountInput)>(current.bankBalance??0)} onClick={()=>this.dispatch('withdraw_bank')}>从银行取款</button>
                 </div>}
