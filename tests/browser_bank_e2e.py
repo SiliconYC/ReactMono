@@ -34,6 +34,7 @@ def run():
               return false;
             }""")
             assert found,'Cannot reach bank phase'
+            page.get_by_role('button',name='银行',exact=True).click()
             def balances():
                 s=page.locator('.turn-position').inner_text()
                 a=re.search(r'资金：\s*([0-9,]+)',s)

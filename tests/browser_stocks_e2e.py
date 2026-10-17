@@ -36,6 +36,7 @@ def run():
               return false;
             }""")
             assert reached,'No trading phase'
+            page.get_by_role('button',name='股票',exact=True).click()
             row=page.locator('.stock-entry').filter(has_text='青禾农业')
             initial_text=row.inner_text()
             assert '持有 0 股' in initial_text,initial_text
@@ -54,6 +55,9 @@ def run():
             slot=page.locator('.save-list li').filter(has_text='股票验收')
             slot.get_by_role('button',name='读取').click()
             page.wait_for_function("document.querySelector('.stock-actions')!==null")
+            page.get_by_role('button',name='股票',exact=True).click()
+            if page.get_by_role('button',name='股票',exact=True).get_attribute('aria-expanded')!='true':
+                page.get_by_role('button',name='股票',exact=True).click()
             assert '持有 2 股' in page.locator('.stock-entry').filter(has_text='青禾农业').inner_text()
             assert page.locator('.turn-position').inner_text()==saved_cash
             # Let the opponents take their turns, triggering the seeded quote update.
@@ -68,6 +72,8 @@ def run():
               return false;
             }""")
             assert advance,'Market failed to advance to the next round'
+            if page.get_by_role('button',name='股票',exact=True).get_attribute('aria-expanded')!='true':
+                page.get_by_role('button',name='股票',exact=True).click()
             page.get_by_label('股票交易数量').fill('2')
             page.get_by_role('button',name='卖出 青禾农业').click()
             assert '持有 0 股' in page.locator('.stock-entry').filter(has_text='青禾农业').inner_text()
@@ -84,6 +90,7 @@ def run():
               return row?.textContent.includes('持有 2 股') &&
                 document.querySelector('.save-message')?.textContent.includes('已读取');
             }""")
+            page.get_by_role('button',name='股票',exact=True).click()
             assert '持有 2 股' in page.locator('.stock-entry').filter(has_text='青禾农业').inner_text()
             assert page.locator('.turn-position').inner_text()==saved_cash
             assert not errors,errors

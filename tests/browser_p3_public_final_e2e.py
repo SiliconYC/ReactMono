@@ -8,7 +8,17 @@ import json,re
 URL='https://siliconyc.github.io/ReactMono/'
 OUT=Path('artifacts/issue45')
 
+def open_tool(page,label):
+    """Use a real labeled drawer if running the action-first UI; keep public legacy compatible."""
+    tabs=page.locator('.finance-tabs button')
+    target=tabs.filter(has_text=label)
+    if target.count() and target.first.get_attribute('aria-expanded')!='true':
+        target.first.click()
+
 def wallet(page,player='p1'):
+    overview=page.locator('details.asset-overview')
+    if overview.count() and not overview.evaluate('(e)=>e.open'):
+        overview.locator('summary').click()
     card=page.locator(f'.asset-player[data-player-id="{player}"]')
     fields=card.locator('.asset-metrics dd').all_inner_texts()
     return [int(re.sub(r'[^0-9-]','',f.split(' 币')[0].split(' 股')[0].split(' 块')[0].split(' ·')[0]) or '0') for f in fields]
@@ -57,13 +67,16 @@ def main():
             page.get_by_role('button',name=re.compile('购买地产')).click()
         assert page.locator('main').get_attribute('data-game-phase')=='await_end_turn'
         cash=wallet(page)[0]
+        open_tool(page,'银行')
         page.get_by_label('银行交易金额').fill('100')
         page.get_by_role('button',name='存入银行').click()
         assert wallet(page)[0]==cash-100 and wallet(page)[1]==100
+        open_tool(page,'股票')
         page.get_by_label('股票交易数量').fill('1')
         page.get_by_role('button',name='买入 青禾农业').click()
         assert wallet(page)[3]==1,'stock holding was not exposed in player assets'
-        mortgage=page.get_by_role('button',name=re.compile('^抵押'))
+        open_tool(page,'抵押借贷')
+        mortgage=page.locator('#loan-actions').get_by_role('button',name=re.compile('^抵押'))
         if mortgage.count():
             mortgage.first.click()
             page.get_by_label('银行交易金额').fill('20')

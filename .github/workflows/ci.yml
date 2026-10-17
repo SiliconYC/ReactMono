@@ -59,6 +59,16 @@ jobs:
           path: artifacts/issue65/
           if-no-files-found: warn
           retention-days: 30
+      - name: P4 #66 实际桌面／手机操作优先布局与交易完整验收
+        run: python tests/browser_p4_action_layout_e2e.py
+      - name: 保留 #66 浏览器截图、操作层级及交易轨迹
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue66-action-layout-chromium
+          path: artifacts/issue66/
+          if-no-files-found: warn
+          retention-days: 30
       - name: 真实 Chromium 端到端回归（本地 HTTP 子路径）
         run: |
           python tests/browser_live_e2e.py
