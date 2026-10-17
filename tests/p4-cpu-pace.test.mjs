@@ -4,7 +4,7 @@ import {runSimulation} from '../dist/core/simulator.js';
 import {DEFAULT_CONFIG,HARBOR_CONFIG} from '../dist/core/game.js';
 test('#70 delay presets reduce wait but NEVER modify legal decisions',()=>{
  const r={type:'roll',actorId:'p1'};
- assert.equal(cpuDelay('normal',r),200);
+ assert.equal(cpuDelay('normal',r),160);
  assert.equal(cpuDelay('fast',r),8);
  assert.ok(cpuDelay('normal',r,[{type:'rent_paid'}])>cpuDelay('normal',r));
  assert.ok(MAX_CPU_ACTIONS_PER_TURN>=20);
