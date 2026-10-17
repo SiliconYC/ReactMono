@@ -6,6 +6,7 @@ import { deserializeGame, MAX_SAVE_CHARS } from '../core/save.js';
 import { characterMarker, CHARACTER_NAMES } from './characters.js';
 import { eventCue } from './feedback.js';
 import { SoundController } from './audio.js';
+import { GUIDE_STEPS, contextHint } from './guide.js';
 /** Read screen positions from map data, never infer them from the tile ID. */
 function cellPosition(map, index) {
     const point = map.cells[index];
@@ -15,10 +16,24 @@ const kindLabel = { start: '起点', property: '地产', neutral: '休息' };
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput: '100', stockAmountInput: '1', strategyDieInput: '1', roadblockTileInput: '1', playerSetup: [{ id: 'p1', name: '玩家', kind: 'human' }, { id: 'p2', name: '电脑', kind: 'computer', computerStyle: 'balanced' }], roundsInput: '60', selectedMapId: 'classic-24', selectedTileId: 0, lastMotion: null, visualCue: null, motionOff: typeof localStorage === 'undefined' ? false : localStorage.getItem('reactmono-motion-off') === '1', financePanel: null, awaitingHandoff: false, fastMode: false, specialEnabled: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator === 'undefined' ? false : !navigator.onLine, pwaUpdate: false, pwaMessage: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+        this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput: '100', stockAmountInput: '1', strategyDieInput: '1', roadblockTileInput: '1', playerSetup: [{ id: 'p1', name: '玩家', kind: 'human' }, { id: 'p2', name: '电脑', kind: 'computer', computerStyle: 'balanced' }], roundsInput: '60', selectedMapId: 'classic-24', selectedTileId: 0, lastMotion: null, visualCue: null, guideStep: typeof localStorage === 'undefined' || localStorage.getItem('reactmono-guide-seen') !== '1' ? 0 : null, motionOff: typeof localStorage === 'undefined' ? false : localStorage.getItem('reactmono-motion-off') === '1', financePanel: null, awaitingHandoff: false, fastMode: false, specialEnabled: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator === 'undefined' ? false : !navigator.onLine, pwaUpdate: false, pwaMessage: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
     }
     computerTimer = null;
     sound = new SoundController();
+    finishGuide = () => {
+        try {
+            localStorage.setItem('reactmono-guide-seen', '1');
+        }
+        catch { }
+        this.setState({ guideStep: null });
+    };
+    nextGuide = () => {
+        const next = (this.state.guideStep ?? 0) + 1;
+        if (next >= GUIDE_STEPS.length)
+            this.finishGuide();
+        else
+            this.setState({ guideStep: next });
+    };
     cueTimer = null;
     cueGeneration = 0;
     get noMotion() { return this.state.motionOff || this.state.fastMode || window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
@@ -776,6 +791,22 @@ class App extends React.Component {
                                 React.createElement("b", null, (current.loanBalance ?? 0).toLocaleString('zh-CN')),
                                 " \u00B7 \u51C0\u8D44\u4EA7\uFF1A",
                                 React.createElement("b", null, netWorth(game, current.id).toLocaleString('zh-CN')))),
+                        this.state.guideStep !== null && React.createElement("section", { className: "guide-inline", role: "region", "aria-label": "\u65B0\u624B\u5F15\u5BFC", "data-guide-step": this.state.guideStep + 1 },
+                            React.createElement("div", { className: "guide-progress" },
+                                "\u4E0A\u624B\u6307\u5357 \u00B7 ",
+                                this.state.guideStep + 1,
+                                "/",
+                                GUIDE_STEPS.length),
+                            React.createElement("strong", null, GUIDE_STEPS[this.state.guideStep].title),
+                            React.createElement("p", null, GUIDE_STEPS[this.state.guideStep].body),
+                            React.createElement("div", { className: "guide-actions" },
+                                React.createElement("button", { type: "button", onClick: this.finishGuide }, "\u8DF3\u8FC7\u5F15\u5BFC"),
+                                React.createElement("button", { type: "button", onClick: this.nextGuide }, this.state.guideStep === GUIDE_STEPS.length - 1 ? '完成引导' : '下一步'))),
+                        React.createElement("div", { className: "help-tools" },
+                            React.createElement("button", { type: "button", className: "guide-reopen", onClick: () => this.setState({ guideStep: 0 }) }, "\u65B0\u624B\u5E2E\u52A9"),
+                            React.createElement("details", { className: "context-help" },
+                                React.createElement("summary", null, "\u672C\u6B65\u53EF\u4EE5\u505A\u4EC0\u4E48\uFF1F"),
+                                React.createElement("p", null, contextHint(game)))),
                         game.status === 'setup' && React.createElement("div", { className: "start-form" },
                             React.createElement("label", { className: "field-label", htmlFor: "game-map" },
                                 "\u6E38\u620F\u5730\u56FE ",
@@ -1089,7 +1120,23 @@ class App extends React.Component {
                         React.createElement("summary", null, "\u73A9\u6CD5\u8BF4\u660E"),
                         React.createElement("p", null, "\u2460 \u70B9\u51FB\u300C\u5F00\u59CB\u6E38\u620F\u300D\uFF0C\u8F6E\u5230\u73A9\u5BB6\u65F6\u63B7\u9AB0\u524D\u8FDB\u3002\u2461 \u5230\u65E0\u4E3B\u5730\u4EA7\u53EF\u4E70\u5165\u6216\u653E\u5F03\uFF1B\u7ECF\u8FC7\u5BF9\u624B\u5730\u4EA7\u4F1A\u81EA\u52A8\u4ED8\u79DF\u3002\u2462 \u5904\u7406\u5B8C\u5730\u5757\u540E\u7ED3\u675F\u56DE\u5408\uFF0C\u7535\u8111\u4F1A\u81EA\u52A8\u884C\u52A8\u3002"),
                         React.createElement("p", null, "\u4ED8\u4E0D\u8D77\u79DF\u91D1\u53EF\u80FD\u51FA\u552E\u5730\u4EA7\u6216\u7834\u4EA7\uFF1B\u6700\u7EC8\u6309\u73B0\u91D1\u3001\u5B58\u6B3E\u3001\u5730\u4EA7\u6210\u672C\u3001\u80A1\u7968\u5E02\u503C\u51CF\u8D37\u6B3E\u8BA1\u7B97\u51C0\u8D44\u4EA7\u3002\u7535\u8111\u8D2D\u5730\u540E\u81F3\u5C11\u4FDD\u7559 200 \u6E38\u620F\u5E01\u3002"),
-                        React.createElement("p", null, "\u5361\u7247\u7AD9\u53EF\u83B7\u5F97\u5956\u52B1\u3001\u6B65\u6570\u3001\u9065\u63A7\u9AB0\u5B50\u3001\u8DEF\u969C\u53CA\u514D\u79DF\u5361\uFF1B\u53EA\u5728\u63B7\u9AB0\u524D\u4F7F\u7528\u3002\u8DEF\u969C\u8BA9\u5BF9\u624B\u63D0\u524D\u505C\u4E0B\uFF0C\u6700\u591A\u6301\u7EED\u4E24\u8F6E\uFF1B\u514D\u79DF\u5361\u4EC5\u4FDD\u62A4\u4E0B\u4E00\u6B21\u843D\u5730\u3002\u5B58\u6863\u4E0E\u79BB\u7EBF\u6E38\u73A9\u5747\u5728\u672C\u673A\u5B8C\u6210\u3002")))),
+                        React.createElement("p", null, "\u5361\u7247\u7AD9\u53EF\u83B7\u5F97\u5956\u52B1\u3001\u6B65\u6570\u3001\u9065\u63A7\u9AB0\u5B50\u3001\u8DEF\u969C\u53CA\u514D\u79DF\u5361\uFF1B\u53EA\u5728\u63B7\u9AB0\u524D\u4F7F\u7528\u3002\u8DEF\u969C\u8BA9\u5BF9\u624B\u63D0\u524D\u505C\u4E0B\uFF0C\u6700\u591A\u6301\u7EED\u4E24\u8F6E\uFF1B\u514D\u79DF\u5361\u4EC5\u4FDD\u62A4\u4E0B\u4E00\u6B21\u843D\u5730\u3002\u5B58\u6863\u4E0E\u79BB\u7EBF\u6E38\u73A9\u5747\u5728\u672C\u673A\u5B8C\u6210\u3002"),
+                        React.createElement("p", null,
+                            React.createElement("b", null, "\u5730\u4EA7\u5347\u7EA7\uFF1A"),
+                            "\u7ED3\u7B97\u9636\u6BB5\u5C55\u5F00\u300C\u5730\u4EA7\u300D\uFF0C\u53EA\u6709\u81EA\u5DF1\u6301\u6709\u3001\u672A\u62B5\u62BC\u3001\u672A\u6EE1\u7EA7\u4E14\u73B0\u91D1\u8DB3\u591F\u7684\u5730\u5757\u53EF\u4EE5\u5347\u7EA7\uFF1B\u4E0D\u8DB3\u65F6\u6309\u94AE\u7981\u7528\u3002"),
+                        React.createElement("p", null,
+                            React.createElement("b", null, "\u94F6\u884C\uFF1A"),
+                            "\u53EA\u80FD\u5728\u672C\u4EBA\u7ED3\u7B97\u9636\u6BB5\u5B58\u53D6\uFF0C\u5B58\u6B3E\u4E0E\u73B0\u91D1\u5206\u5F00\uFF1B",
+                            React.createElement("b", null, "\u8D37\u6B3E\uFF1A"),
+                            "\u62B5\u62BC\u540E\u6682\u505C\u6536\u79DF\uFF0C\u501F\u6B3E\u8BA1\u606F\uFF0C\u8FDD\u7EA6\u53EF\u80FD\u6E05\u7B97\u3002"),
+                        React.createElement("p", null,
+                            React.createElement("b", null, "\u80A1\u7968\uFF1A"),
+                            "\u6309\u672C\u8F6E\u884C\u60C5\u62A5\u4EF7\u4EA4\u6613\uFF0C\u4E70\u5356\u6536\u624B\u7EED\u8D39\uFF1B",
+                            React.createElement("b", null, "\u7279\u6B8A\u8BBE\u65BD\uFF1A"),
+                            "\u8FDB\u5165\u533B\u9662/\u76D1\u72F1\u4F1A\u6682\u65F6\u505C\u7559\uFF0C\u5546\u5E97\u6709\u552E\u4EF7\u548C\u624B\u724C\u4E0A\u9650\u3002"),
+                        React.createElement("p", null,
+                            React.createElement("b", null, "\u5B89\u5168\uFF1A"),
+                            "\u62B5\u62BC\u3001\u501F\u6B3E\u548C\u5927\u989D\u4EA4\u6613\u4F1A\u4E8C\u6B21\u786E\u8BA4\uFF0C\u8BFB\u6863\u4F1A\u66FF\u6362\u5F53\u524D\u5C4F\u5E55\u4E2D\u7684\u5BF9\u5C40\uFF1B\u5EFA\u8BAE\u5BFC\u51FA\u672C\u5730\u5B58\u6863\u5907\u4EFD\u3002")))),
             React.createElement("footer", { className: "footer" },
                 "\u7EAF\u524D\u7AEF \u00B7 \u7B80\u4F53\u4E2D\u6587 \u00B7 \u4E0D\u9700\u8981\u8D26\u53F7\u3000\uFF5C\u3000IndexedDB \u672C\u673A\u5B58\u6863 \u00B7 \u4E0D\u4E0A\u4F20\u4E91\u7AEF\u3000\uFF5C\u3000",
                 React.createElement("a", { className: "visual-lab-link", href: "./visual-lab.html" }, "\u539F\u521B\u7F8E\u672F\u6837\u4F8B"))));
