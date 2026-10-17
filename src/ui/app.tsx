@@ -6,8 +6,9 @@ import { deserializeGame, MAX_SAVE_CHARS, type SaveEnvelope } from '../core/save
 import { characterMarker, CHARACTER_NAMES } from './characters.js';
 import { eventCue, type VisualCue } from './feedback.js';
 import { SoundController } from './audio.js';
+import { GUIDE_STEPS, contextHint } from './guide.js';
 
-interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly bankAmountInput: string; readonly stockAmountInput: string; readonly strategyDieInput:string; readonly roadblockTileInput:string; readonly playerSetup: readonly PlayerConfig[]; readonly roundsInput: string; readonly selectedMapId:string; readonly selectedTileId:number|null; readonly lastMotion:{playerId:string;tileId:number;revision:number}|null; readonly visualCue:VisualCue|null; readonly motionOff:boolean; readonly financePanel:'property'|'bank'|'loan'|'stock'|null; readonly awaitingHandoff: boolean; readonly fastMode: boolean; readonly specialEnabled:boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; readonly importPreview: SaveEnvelope | null; readonly importName: string; readonly offline: boolean; readonly pwaUpdate: boolean; readonly pwaMessage: string; }
+interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly bankAmountInput: string; readonly stockAmountInput: string; readonly strategyDieInput:string; readonly roadblockTileInput:string; readonly playerSetup: readonly PlayerConfig[]; readonly roundsInput: string; readonly selectedMapId:string; readonly selectedTileId:number|null; readonly lastMotion:{playerId:string;tileId:number;revision:number}|null; readonly visualCue:VisualCue|null; readonly motionOff:boolean; readonly guideStep:number|null; readonly financePanel:'property'|'bank'|'loan'|'stock'|null; readonly awaitingHandoff: boolean; readonly fastMode: boolean; readonly specialEnabled:boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; readonly importPreview: SaveEnvelope | null; readonly importName: string; readonly offline: boolean; readonly pwaUpdate: boolean; readonly pwaMessage: string; }
 
 /** Read screen positions from map data, never infer them from the tile ID. */
 function cellPosition(map:GameMap,index:number):{gridColumn:number;gridRow:number}{
@@ -20,11 +21,20 @@ const kindLabel: Record<Tile['kind'], string> = { start: '起点', property: '�
 class App extends React.Component<object, UiState> {
   constructor(props: object) {
     super(props);
-    this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput:'100', stockAmountInput:'1', strategyDieInput:'1', roadblockTileInput:'1', playerSetup: [{id:'p1',name:'玩家',kind:'human'},{id:'p2',name:'电脑',kind:'computer',computerStyle:'balanced'}], roundsInput:'60', selectedMapId:'classic-24', selectedTileId:0, lastMotion:null, visualCue:null, motionOff:typeof localStorage==='undefined'?false:localStorage.getItem('reactmono-motion-off')==='1', financePanel:null, awaitingHandoff:false, fastMode: false, specialEnabled:false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator==='undefined'?false:!navigator.onLine, pwaUpdate:false, pwaMessage:'', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+    this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput:'100', stockAmountInput:'1', strategyDieInput:'1', roadblockTileInput:'1', playerSetup: [{id:'p1',name:'玩家',kind:'human'},{id:'p2',name:'电脑',kind:'computer',computerStyle:'balanced'}], roundsInput:'60', selectedMapId:'classic-24', selectedTileId:0, lastMotion:null, visualCue:null, guideStep:typeof localStorage==='undefined'||localStorage.getItem('reactmono-guide-seen')!=='1'?0:null, motionOff:typeof localStorage==='undefined'?false:localStorage.getItem('reactmono-motion-off')==='1', financePanel:null, awaitingHandoff:false, fastMode: false, specialEnabled:false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator==='undefined'?false:!navigator.onLine, pwaUpdate:false, pwaMessage:'', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
   }
 
   private computerTimer: number | null = null;
   private sound=new SoundController();
+  private finishGuide=():void=>{
+    try{localStorage.setItem('reactmono-guide-seen','1');}catch{}
+    this.setState({guideStep:null});
+  };
+  private nextGuide=():void=>{
+    const next=(this.state.guideStep??0)+1;
+    if(next>=GUIDE_STEPS.length)this.finishGuide();
+    else this.setState({guideStep:next});
+  };
   private cueTimer:number|null=null;
   private cueGeneration=0;
   private get noMotion():boolean {return this.state.motionOff||this.state.fastMode||window.matchMedia('(prefers-reduced-motion: reduce)').matches;}
@@ -530,6 +540,7 @@ class App extends React.Component<object, UiState> {
           <span className="version-tag">P3 · 多人对局</span>
           <span className="network-indicator" role="status">{this.state.offline?'已断网 · 可用本地缓存':'已联网'}{this.state.pwaMessage?' · '+this.state.pwaMessage:''}</span>
           {this.state.pwaUpdate&&<button className="secondary-btn" type="button" onClick={()=>void this.applyPwaUpdate()}>检测到新版，保存并更新</button>}
+          <button type="button" className="guide-reopen" onClick={()=>this.setState({guideStep:0})}>新手帮助</button>
           <button type="button" className="motion-toggle" aria-pressed={this.state.motionOff} onClick={this.toggleMotion}>{this.state.motionOff?'开启动效':'关闭动效'}</button>
           <button type="button" className="reset-btn" onClick={this.reset}>↻ 重新开局</button>
         </header>
@@ -610,6 +621,16 @@ class App extends React.Component<object, UiState> {
               </div>
               <div className="turn-person">{characterMarker(game.currentPlayerIndex,current.kind,'portrait',game.status==='playing')}<div><strong>{current.name}</strong><small>{CHARACTER_NAMES[game.currentPlayerIndex]} · {current.kind==='computer'?(current.computerStyle?COMPUTER_STYLE_NAMES[current.computerStyle]:'经典')+'电脑':'真人'} · {phaseDescription}</small></div></div>
               <div className="turn-position">位置：<b>{current.position} 号格</b><span>·</span>资金：<b>{current.cash.toLocaleString('zh-CN')}</b>{game.bank&&<span> · 银行存款：<b>{(current.bankBalance??0).toLocaleString('zh-CN')}</b></span>}{game.loan&&<span> · 贷款：<b>{(current.loanBalance??0).toLocaleString('zh-CN')}</b> · 净资产：<b>{netWorth(game,current.id).toLocaleString('zh-CN')}</b></span>}</div>
+              {this.state.guideStep!==null&&<section className="guide-inline" role="region" aria-label="新手引导" data-guide-step={this.state.guideStep+1}>
+                <div className="guide-progress">上手指南 · {this.state.guideStep+1}/{GUIDE_STEPS.length}</div>
+                <strong>{GUIDE_STEPS[this.state.guideStep].title}</strong>
+                <p>{GUIDE_STEPS[this.state.guideStep].body}</p>
+                <div className="guide-actions">
+                  <button type="button" onClick={this.finishGuide}>跳过引导</button>
+                  <button type="button" onClick={this.nextGuide}>{this.state.guideStep===GUIDE_STEPS.length-1?'完成引导':'下一步'}</button>
+                </div>
+              </section>}
+              <details className="context-help"><summary>本步可以做什么？</summary><p>{contextHint(game)}</p></details>
               {game.status === 'setup' && <div className="start-form">
                 <label className="field-label" htmlFor="game-map">游戏地图 <small>经典环线 24 格；原创海港 20 格（价格与地名不同）</small></label>
                  <select id="game-map" aria-label="游戏地图" value={this.state.selectedMapId} onChange={(event:{target:{value:string}})=>this.selectMap(event.target.value)}>
@@ -796,7 +817,10 @@ class App extends React.Component<object, UiState> {
             </details>
             <details className="players-card" open><summary className="card-label">玩家状态 · 点此收起</summary>{game.players.map(p => <div key={p.id} className={`player-line ${current.id === p.id && game.status === 'playing' ? 'is-current' : ''}`}>{characterMarker(game.players.indexOf(p),p.kind,'badge',p.id===current.id&&game.status==='playing')}<div><strong>{p.name}</strong><small>{p.position} 号格 · 现金 {p.cash.toLocaleString('zh-CN')}{game.bank?` · 存款 ${(p.bankBalance??0).toLocaleString('zh-CN')}`:''}{game.market?` · 股票 ${Object.values(p.holdings??{}).reduce((sum,lot)=>sum+(lot?.quantity??0),0)} 股`:''}{game.loan?` · 贷款 ${(p.loanBalance??0).toLocaleString('zh-CN')}`:''} · 净资产 {netWorth(game,p.id).toLocaleString('zh-CN')}{p.detention?` · ${p.detention.kind==='hospital'?'住院':'入狱'}剩余 ${p.detention.remaining} 回合`:''}{p.bankrupt ? ' · 已破产' : ''}</small></div><span className="player-kind">{p.kind === 'human' ? '真人' : '电脑'}</span></div>)}</details>
             <details className="activity-card" open><summary className="card-label">最近事件 · 点此收起</summary><ol>{lastEvents.map((e,i) => <li key={`${game.events.length}-${i}`}>{this.describeEvent(e)}</li>)}</ol></details>
-            <details className="info-card"><summary>玩法说明</summary><p>① 点击「开始游戏」，轮到玩家时掷骰前进。② 到无主地产可买入或放弃；经过对手地产会自动付租。③ 处理完地块后结束回合，电脑会自动行动。</p><p>付不起租金可能出售地产或破产；最终按现金、存款、地产成本、股票市值减贷款计算净资产。电脑购地后至少保留 200 游戏币。</p><p>卡片站可获得奖励、步数、遥控骰子、路障及免租卡；只在掷骰前使用。路障让对手提前停下，最多持续两轮；免租卡仅保护下一次落地。存档与离线游玩均在本机完成。</p></details>
+            <details className="info-card"><summary>玩法说明</summary><p>① 点击「开始游戏」，轮到玩家时掷骰前进。② 到无主地产可买入或放弃；经过对手地产会自动付租。③ 处理完地块后结束回合，电脑会自动行动。</p><p>付不起租金可能出售地产或破产；最终按现金、存款、地产成本、股票市值减贷款计算净资产。电脑购地后至少保留 200 游戏币。</p><p>卡片站可获得奖励、步数、遥控骰子、路障及免租卡；只在掷骰前使用。路障让对手提前停下，最多持续两轮；免租卡仅保护下一次落地。存档与离线游玩均在本机完成。</p>
+            <p><b>银行：</b>只能在本人结算阶段存取，存款与现金分开；<b>贷款：</b>抵押后暂停收租，借款计息，违约可能清算。</p>
+            <p><b>股票：</b>按本轮行情报价交易，买卖收手续费；<b>特殊设施：</b>进入医院/监狱会暂时停留，商店有售价和手牌上限。</p>
+            <p><b>安全：</b>抵押、借款和大额交易会二次确认，读档会替换当前屏幕中的对局；建议导出本地存档备份。</p></details>
           </aside>
         </div>
         <footer className="footer">纯前端 · 简体中文 · 不需要账号　｜　IndexedDB 本机存档 · 不上传云端　｜　<a className="visual-lab-link" href="./visual-lab.html">原创美术样例</a></footer>
