@@ -3,7 +3,7 @@ import type {GameAction,GameEvent,GameState} from '../core/game.js';
 export type Pace='normal'|'fast';
 /** Pure pacing, never participate in action choice or random-state changes. */
 export function cpuDelay(pace:Pace,action:GameAction,events:readonly GameEvent[]=[]):number{
- if(pace==='fast')return 12;
+ if(pace==='fast')return 8;
  const impactful=events.some(e=>['rent_paid','property_bought','property_upgraded','loan_borrowed',
    'player_bankrupt','facility_entered','game_finished','stock_bought','stock_sold'].includes(e.type));
  if(impactful)return 245;
