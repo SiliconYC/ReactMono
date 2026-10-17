@@ -68,10 +68,12 @@ def main():
         page=ctx.new_page()
         page.on('pageerror',lambda e:errors.append(str(e)))
         dialogs=[]
+        allow_confirm=[True]
         def handle_dialog(d):
           dialogs.append({'type':d.type,'text':d.message})
           if d.type=='prompt':d.accept('新版操作验收')
-          else:d.accept()
+          elif allow_confirm[0]:d.accept()
+          else:d.dismiss()
         page.on('dialog',handle_dialog)
         page.goto(f'http://127.0.0.1:{server.server_port}/ReactMono/',wait_until='load')
         assert page.locator('link[href="./action-layout.css"]').count()==1
@@ -131,14 +133,38 @@ def main():
         assert page.locator('.finance-tabs button[aria-expanded="true"]').count()==1
         page.screenshot(path=str(OUT/f'{name}-finance.png'),full_page=True,animations='disabled')
         if name=='phone-classic':
-          # A rejected high-value transaction must not mutate revision or cash.
-          open_tool(page,'银行')
-          page.get_by_label('银行交易金额').fill('500')
+          # A rejected mortgage must NOT mutate revision or wealth; accepted one must.
+          mortgage=page.get_by_role('button',name=re.compile('^抵押'))
+          assert mortgage.count()>0
           rev=page.locator('main').get_attribute('data-game-revision')
           cash=page.locator('.turn-position').inner_text()
-          page.once('dialog',lambda d:d.dismiss())
-          # This one-time dialog handler is registered after the default handler;
-          # use explicit per-page override only in dedicated safety test below.
+          allow_confirm[0]=False
+          mortgage.first.click()
+          assert page.locator('main').get_attribute('data-game-revision')==rev
+          assert page.locator('.turn-position').inner_text()==cash
+          assert '已取消操作' in page.locator('.turn-tip').inner_text()
+          allow_confirm[0]=True
+          mortgage.first.click()
+          assert page.locator('main').get_attribute('data-game-revision')!=rev
+          assert '解除抵押' in page.locator('#loan-actions').inner_text()
+          page.get_by_label('银行交易金额').fill('20')
+          page.get_by_role('button',name='借入贷款').click()
+          assert '贷款 20' in page.locator('#loan-actions').inner_text()
+          page.get_by_role('button',name='偿还贷款').click()
+          assert '贷款 0' in page.locator('#loan-actions').inner_text()
+          page.get_by_role('button',name='创建手动存档').click()
+          page.locator('.save-list li').filter(has_text='新版操作验收').wait_for()
+          saved=page.locator('main').get_attribute('data-game-revision')
+          page.reload()
+          page.locator('.save-list li').filter(has_text='新版操作验收').get_by_role('button',name='读取').click()
+          page.wait_for_function("(rev)=>document.querySelector('main')?.dataset.gameRevision===rev",arg=saved)
+          assert page.locator('.asset-quick-roster>span').count()==seats
+          page.wait_for_function('navigator.serviceWorker.controller!==null',timeout=30000)
+          ctx.set_offline(True)
+          page.reload(wait_until='load')
+          assert page.locator('link[href="./action-layout.css"]').count()==1
+          assert page.locator('.finance-tabs').evaluate("(e)=>getComputedStyle(e).display")=='grid' if page.locator('.finance-tabs').count() else True
+          page.screenshot(path=str(OUT/'phone-classic-offline.png'),full_page=True,animations='disabled')
         report.append({'case':name,'beforeFinance':m,'finance':after,'dialogCount':len(dialogs),
           'map':map_id,'players':seats,'humanFeedback':False})
         ctx.close()
