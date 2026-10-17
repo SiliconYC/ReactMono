@@ -116,6 +116,7 @@ def scenario(browser,url,label,width,height,board,seats,offline=False):
    service_workers='allow',is_mobile=width<=390,has_touch=width<=390,reduced_motion='reduce')
  page=ctx.new_page();errors=[]
  page.on('pageerror',lambda err:errors.append(str(err)))
+ page.on('dialog',lambda dialog:dialog.accept())
  page.add_init_script(SCRIPTS)
  response=page.goto(url,wait_until='load',timeout=30000)
  assert response and response.status==200,(label,response.status if response else None)
