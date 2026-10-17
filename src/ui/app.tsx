@@ -4,8 +4,9 @@ import { COMPUTER_STYLES, COMPUTER_STYLE_NAMES } from '../core/strategic-agent.j
 import { listSlots, readSlot, writeSlot, deleteSlot, type SlotSummary } from '../storage/indexeddb.js';
 import { deserializeGame, MAX_SAVE_CHARS, type SaveEnvelope } from '../core/save.js';
 import { characterMarker, CHARACTER_NAMES } from './characters.js';
+import { eventCue, type VisualCue } from './feedback.js';
 
-interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly bankAmountInput: string; readonly stockAmountInput: string; readonly strategyDieInput:string; readonly roadblockTileInput:string; readonly playerSetup: readonly PlayerConfig[]; readonly roundsInput: string; readonly selectedMapId:string; readonly selectedTileId:number|null; readonly lastMotion:{playerId:string;tileId:number;revision:number}|null; readonly financePanel:'property'|'bank'|'loan'|'stock'|null; readonly awaitingHandoff: boolean; readonly fastMode: boolean; readonly specialEnabled:boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; readonly importPreview: SaveEnvelope | null; readonly importName: string; readonly offline: boolean; readonly pwaUpdate: boolean; readonly pwaMessage: string; }
+interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly bankAmountInput: string; readonly stockAmountInput: string; readonly strategyDieInput:string; readonly roadblockTileInput:string; readonly playerSetup: readonly PlayerConfig[]; readonly roundsInput: string; readonly selectedMapId:string; readonly selectedTileId:number|null; readonly lastMotion:{playerId:string;tileId:number;revision:number}|null; readonly visualCue:VisualCue|null; readonly motionOff:boolean; readonly financePanel:'property'|'bank'|'loan'|'stock'|null; readonly awaitingHandoff: boolean; readonly fastMode: boolean; readonly specialEnabled:boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; readonly importPreview: SaveEnvelope | null; readonly importName: string; readonly offline: boolean; readonly pwaUpdate: boolean; readonly pwaMessage: string; }
 
 /** Read screen positions from map data, never infer them from the tile ID. */
 function cellPosition(map:GameMap,index:number):{gridColumn:number;gridRow:number}{
@@ -18,10 +19,45 @@ const kindLabel: Record<Tile['kind'], string> = { start: '起点', property: '�
 class App extends React.Component<object, UiState> {
   constructor(props: object) {
     super(props);
-    this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput:'100', stockAmountInput:'1', strategyDieInput:'1', roadblockTileInput:'1', playerSetup: [{id:'p1',name:'玩家',kind:'human'},{id:'p2',name:'电脑',kind:'computer',computerStyle:'balanced'}], roundsInput:'60', selectedMapId:'classic-24', selectedTileId:0, lastMotion:null, financePanel:null, awaitingHandoff:false, fastMode: false, specialEnabled:false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator==='undefined'?false:!navigator.onLine, pwaUpdate:false, pwaMessage:'', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+    this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput:'100', stockAmountInput:'1', strategyDieInput:'1', roadblockTileInput:'1', playerSetup: [{id:'p1',name:'玩家',kind:'human'},{id:'p2',name:'电脑',kind:'computer',computerStyle:'balanced'}], roundsInput:'60', selectedMapId:'classic-24', selectedTileId:0, lastMotion:null, visualCue:null, motionOff:typeof localStorage==='undefined'?false:localStorage.getItem('reactmono-motion-off')==='1', financePanel:null, awaitingHandoff:false, fastMode: false, specialEnabled:false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator==='undefined'?false:!navigator.onLine, pwaUpdate:false, pwaMessage:'', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
   }
 
   private computerTimer: number | null = null;
+  private cueTimer:number|null=null;
+  private cueGeneration=0;
+  private get noMotion():boolean {return this.state.motionOff||this.state.fastMode||window.matchMedia('(prefers-reduced-motion: reduce)').matches;}
+  private cancelCue=():void=>{
+    this.cueGeneration++;
+    if(this.cueTimer!==null)window.clearTimeout(this.cueTimer);
+    this.cueTimer=null;
+  };
+  private onVisibility=():void=>{if(document.hidden){this.cancelCue();this.setState({visualCue:null});}};
+  private cueFor(before:GameState,after:GameState,events:readonly GameEvent[]):VisualCue|null {
+    this.cancelCue();
+    if(this.noMotion||document.hidden)return null;
+    const cue=eventCue(before,after,events);
+    if(!cue)return null;
+    const token=this.cueGeneration;
+    const advance=(step:number):void=>{
+      if(token!==this.cueGeneration)return;
+      if(step>=cue.path.length){
+        this.cueTimer=window.setTimeout(()=>{if(token===this.cueGeneration)this.setState({visualCue:null});},650);return;
+      }
+      this.cueTimer=window.setTimeout(()=>{
+        if(token!==this.cueGeneration||this.state.game.revision!==cue.revision)return;
+        this.setState({visualCue:{...cue,step}});
+        advance(step+1);
+      },85);
+    };
+    advance(1);
+    return cue;
+  }
+  private toggleMotion=():void=>{
+    const motionOff=!this.state.motionOff;
+    try{localStorage.setItem('reactmono-motion-off',motionOff?'1':'0');}catch{}
+    if(motionOff)this.cancelCue();
+    this.setState({motionOff,visualCue:motionOff?null:this.state.visualCue});
+  };
   /** Ignore a rapid second tap against the same immutable turn state. */
   private lastCommittedAction:{game:GameState;signature:string;at:number}|null=null;
   private manualSaveBusy=false;
@@ -61,6 +97,7 @@ class App extends React.Component<object, UiState> {
   componentDidMount():void {
     void this.refreshSlots();
     window.addEventListener('online',this.updateOnline);
+    document.addEventListener('visibilitychange',this.onVisibility);
     window.addEventListener('offline',this.updateOnline);
     void this.initPwa();
   }
@@ -167,7 +204,8 @@ class App extends React.Component<object, UiState> {
     try {
       await this.saveQueue;
       const saved=await readSlot(slot.id);
-      this.setState({game:saved.game,activeSeed:null,storageBusy:false,awaitingHandoff:false,financePanel:null,
+      this.cancelCue();
+      this.setState({game:saved.game,activeSeed:null,storageBusy:false,awaitingHandoff:false,financePanel:null,visualCue:null,
         roundsInput:String(saved.game.maxRounds),selectedMapId:saved.game.map.id,selectedTileId:saved.game.players[saved.game.currentPlayerIndex].position,lastMotion:null,
         playerSetup:saved.game.players.map(p=>({id:p.id,name:p.name,kind:p.kind,...(p.computerStyle?{computerStyle:p.computerStyle}:{})})),
         saveStatus:'已读取「'+slot.name+'」',message:'已恢复第 '+saved.game.round+' 轮，可从当前阶段继续。'});
@@ -182,6 +220,7 @@ class App extends React.Component<object, UiState> {
   reset = (): void => {
     this.saveEpoch++;
     this.stopTimer();
+    this.cancelCue();
     const base=this.state.selectedMapId==='harbor-20'?HARBOR_CONFIG:DEFAULT_CONFIG;
     this.setState({ game: createGame(20261015,base), activeSeed: null, selectedTileId:0,lastMotion:null, financePanel:null, awaitingHandoff:false, message: '已返回新游戏页面。可调整种子及地图后重新开始。' });
   };
@@ -205,7 +244,8 @@ class App extends React.Component<object, UiState> {
   private selectMap = (id:string):void=>{
     if(id!=='classic-24'&&id!=='harbor-20')return;
     const base=id==='harbor-20'?HARBOR_CONFIG:DEFAULT_CONFIG;
-    this.setState({selectedMapId:id,selectedTileId:0,lastMotion:null,financePanel:null,game:createGame(20261015,{...base,players:this.state.playerSetup}),
+    this.cancelCue();
+    this.setState({selectedMapId:id,selectedTileId:0,lastMotion:null,visualCue:null,financePanel:null,game:createGame(20261015,{...base,players:this.state.playerSetup}),
       message:id==='harbor-20'?'已选择海港环线：20 格，独立价格及海港主题地产。':'已选择经典环线：24 格，原有规则完整保留。'});
   };
   private acknowledgeHandoff = ():void=>{
@@ -232,12 +272,15 @@ class App extends React.Component<object, UiState> {
     catch(e){this.setState({message:'开局配置无效：'+(e instanceof Error?e.message:String(e))});return;}
     this.saveEpoch++;
     this.stopTimer();
+    this.cancelCue();
     const result = applyAction(fresh, { type: 'start_game', actorId: fresh.players[0].id });
     if (!result.ok) { this.setState({ message: '无法开始对局，请重新开局。' }); return; }
     this.setState({ game: result.state, activeSeed: seed,selectedTileId:0,lastMotion:null,financePanel:null, awaitingHandoff:false, message: '游戏已开始！轮到'+fresh.players[0].name+'掷骰。' });
   };
   componentWillUnmount(): void {
     window.removeEventListener('online',this.updateOnline);
+    document.removeEventListener('visibilitychange',this.onVisibility);
+    this.cancelCue();
     window.removeEventListener('offline',this.updateOnline);
     navigator.serviceWorker?.removeEventListener('controllerchange',this.controllerChanged);
     this.stopTimer();
