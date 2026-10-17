@@ -79,6 +79,16 @@ jobs:
           path: artifacts/issue67/
           if-no-files-found: warn
           retention-days: 30
+      - name: P4 #68 实际桌面/手机声音及离线验收
+        run: python tests/browser_p4_audio_e2e.py
+      - name: 保留 #68 音频操作真实截图与轨迹
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue68-original-audio-chromium
+          path: artifacts/issue68/
+          if-no-files-found: warn
+          retention-days: 30
       - name: 真实 Chromium 端到端回归（本地 HTTP 子路径）
         run: |
           python tests/browser_live_e2e.py
