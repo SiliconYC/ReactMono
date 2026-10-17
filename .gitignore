@@ -1,4 +1,5 @@
 node_modules/
 dist/
+dist-3d-demo/
 *.tsbuildinfo
 .DS_Store

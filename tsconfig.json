@@ -10,8 +10,10 @@
     "outDir": "dist",
     "declaration": true,
     "skipLibCheck": true,
+    "types": [],
     "lib": ["ES2022", "DOM"],
     "noEmitOnError": true
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "exclude": ["src/demo3d/**/*.tsx"]
 }
