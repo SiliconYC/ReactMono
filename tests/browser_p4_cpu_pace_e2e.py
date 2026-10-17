@@ -58,7 +58,7 @@ def main():
    page=ctx.new_page();page.goto(f'http://127.0.0.1:{server.server_port}/ReactMono/')
    configure(page,'harbor-20',2,cpu=1)
    page.get_by_role('button',name=re.compile('开始游戏')).click()
-   page.wait_for_function("document.querySelector('.turn-person strong')?.textContent.includes('电脑2') || document.querySelector('main')?.dataset.gameStatus==='finished'",timeout=20000)
+   page.wait_for_function("document.querySelector('.turn-person .character-portrait')?.dataset.characterSeat==='2' && document.querySelector('main')?.dataset.gamePhase==='await_roll'",timeout=20000)
    assert page.get_by_role('button',name=re.compile('掷骰前进')).count()==1
    r=page.locator('main').get_attribute('data-game-revision')
    page.wait_for_timeout(350)
