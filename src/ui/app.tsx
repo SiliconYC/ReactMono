@@ -198,6 +198,7 @@ class App extends React.Component<object, UiState> {
     }catch(e){this.setState({saveStatus:'覆盖失败：'+(e instanceof Error?e.message:String(e))});}
   };
   private restoreSlot = async (slot:SlotSummary):Promise<void> => {
+    void this.sound.activate();
     if(this.state.storageBusy)return;
     if(!window.confirm('读取「'+slot.name+'」将替换屏幕上的当前游戏，是否继续？'))return;
     this.saveEpoch++;
@@ -254,6 +255,7 @@ class App extends React.Component<object, UiState> {
     this.setState({awaitingHandoff:false,message:'已轮到'+this.state.game.players[this.state.game.currentPlayerIndex].name+'操作。'});
   };
   startGame = (): void => {
+    void this.sound.activate();
     const seed = Number(this.state.seedInput.trim());
     if (!/^\d{1,10}$/.test(this.state.seedInput.trim()) || !Number.isSafeInteger(seed) || seed > 4294967295) {
       this.setState({ message: '对局种子请输入 0 至 4294967295 之间的整数。' });
@@ -317,6 +319,7 @@ class App extends React.Component<object, UiState> {
   }
 
   dispatch = (type: GameAction['type'],tileId?:number,cardType?:CardKind,stockId?:StockId): void => {
+    void this.sound.activate();
     if(this.state.storageBusy||this.state.awaitingHandoff)return;
     const { game } = this.state;
     const actor = game.players[game.currentPlayerIndex];
