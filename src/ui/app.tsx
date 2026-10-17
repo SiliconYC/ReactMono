@@ -222,7 +222,7 @@ class App extends React.Component<object, UiState> {
     this.stopTimer();
     this.cancelCue();
     const base=this.state.selectedMapId==='harbor-20'?HARBOR_CONFIG:DEFAULT_CONFIG;
-    this.setState({ game: createGame(20261015,base), activeSeed: null, selectedTileId:0,lastMotion:null, financePanel:null, awaitingHandoff:false, message: '已返回新游戏页面。可调整种子及地图后重新开始。' });
+    this.setState({ game: createGame(20261015,base), activeSeed: null, selectedTileId:0,lastMotion:null,visualCue:null, financePanel:null, awaitingHandoff:false, message: '已返回新游戏页面。可调整种子及地图后重新开始。' });
   };
   /** Keep stable IDs when the local seating plan changes. */
   private setPlayerCount = (count: number): void => {
@@ -275,7 +275,7 @@ class App extends React.Component<object, UiState> {
     this.cancelCue();
     const result = applyAction(fresh, { type: 'start_game', actorId: fresh.players[0].id });
     if (!result.ok) { this.setState({ message: '无法开始对局，请重新开局。' }); return; }
-    this.setState({ game: result.state, activeSeed: seed,selectedTileId:0,lastMotion:null,financePanel:null, awaitingHandoff:false, message: '游戏已开始！轮到'+fresh.players[0].name+'掷骰。' });
+    this.setState({ game: result.state, activeSeed: seed,selectedTileId:0,lastMotion:null,visualCue:null,financePanel:null, awaitingHandoff:false, message: '游戏已开始！轮到'+fresh.players[0].name+'掷骰。' });
   };
   componentWillUnmount(): void {
     window.removeEventListener('online',this.updateOnline);
@@ -303,9 +303,10 @@ class App extends React.Component<object, UiState> {
         return;
       }
       const actor = snapshot.players[snapshot.currentPlayerIndex];
+      const cue=this.cueFor(snapshot,result.state,result.events);
       const moved=result.events.find(e=>e.type==='player_moved');
       const landed=result.state.players.find(p=>p.id===actor.id);
-      this.setState({ game: result.state,
+      this.setState({ game: result.state,visualCue:cue,
         lastMotion:moved&&landed?{playerId:actor.id,tileId:landed.position,revision:result.state.revision}:null,
         message: this.describe(result.events, result.state, actor.name) });
     }, this.state.fastMode ? 8 : 220);
@@ -358,12 +359,13 @@ class App extends React.Component<object, UiState> {
       return;
     }
     this.lastCommittedAction={game,signature,at:Date.now()};
+    const cue=this.cueFor(game,result.state,result.events);
     const next=result.state.players[result.state.currentPlayerIndex];
     const handoff=type==='end_turn' && result.state.status==='playing'
       && next.kind==='human' && next.id!==actor.id;
     const moved=result.events.find(e=>e.type==='player_moved');
     const landed=result.state.players.find(p=>p.id===actor.id);
-    this.setState({ game: result.state, awaitingHandoff:handoff,financePanel:type==='end_turn'?null:this.state.financePanel,
+    this.setState({ game: result.state, awaitingHandoff:handoff,visualCue:cue,financePanel:type==='end_turn'?null:this.state.financePanel,
       lastMotion:moved&&landed?{playerId:actor.id,tileId:landed.position,revision:result.state.revision}:null,
       message:handoff?'请将设备交给 '+next.name+'；确认就位后方可继续。':this.describe(result.events, result.state, actor.name) });
   };
@@ -463,6 +465,7 @@ class App extends React.Component<object, UiState> {
     const type = tile.facility??(tile.kind==='start'?'start':tile.kind==='property'?'property':
       tile.cardStation?'card':tile.eventBonus!==undefined?'chance':'rest');
     const blocked=game.roadblocks?.some(b=>b.tileId===tile.id)??false;
+    const ghost=this.state.visualCue?.path[this.state.visualCue.step]===tile.id&&this.state.visualCue.actorId?game.players.find(p=>p.id===this.state.visualCue!.actorId):null;
     const selected=this.state.selectedTileId===tile.id;
     const active=game.status==='playing'&&residents.some(p=>p.id===game.players[game.currentPlayerIndex].id);
     const level=tile.level??0;
@@ -476,6 +479,7 @@ class App extends React.Component<object, UiState> {
         data-level={level} data-mortgaged={String(!!tile.mortgaged)} data-residents={residents.length}
         aria-label={label} aria-pressed={selected} title={label}
         onClick={()=>this.setState({selectedTileId:tile.id,...(roadblockSelectable?{roadblockTileInput:String(tile.id)}:{})})}>
+        {ghost&&<span className="motion-step" data-motion-player={ghost.id} aria-hidden="true">{game.players.indexOf(ghost)+1}</span>}
         <span className="tile-index">{String(tile.id).padStart(2,'0')}{blocked?' 🚧':''}</span>
         <span className="tile-artwork" aria-hidden="true"><i className="art-roof"/><i className="art-body"/><i className="art-detail"/></span>
         <span className="tile-name">{tile.facility==='hospital'?'医院':tile.facility==='prison'?'监狱':tile.facility==='shop'?'商店':tile.kind==='property'?tile.title:tile.eventBonus!==undefined?'机会':tile.cardStation?'卡片':kindLabel[tile.kind]}</span>
@@ -518,6 +522,7 @@ class App extends React.Component<object, UiState> {
           <span className="version-tag">P3 · 多人对局</span>
           <span className="network-indicator" role="status">{this.state.offline?'已断网 · 可用本地缓存':'已联网'}{this.state.pwaMessage?' · '+this.state.pwaMessage:''}</span>
           {this.state.pwaUpdate&&<button className="secondary-btn" type="button" onClick={()=>void this.applyPwaUpdate()}>检测到新版，保存并更新</button>}
+          <button type="button" className="motion-toggle" aria-pressed={this.state.motionOff} onClick={this.toggleMotion}>{this.state.motionOff?'开启动效':'关闭动效'}</button>
           <button type="button" className="reset-btn" onClick={this.reset}>↻ 重新开局</button>
         </header>
         <section className="headline"><div><span className="section-eyebrow">{game.tiles.length} 格 · 两张地图 · 2～4 人 · 本机轮流</span><h1>每一步，都是一笔生意。</h1><p>邀请朋友在同一设备轮流行动，也可以与一名或多名电脑玩家对抗。所有对局都在本地完成。</p></div></section>
@@ -566,6 +571,7 @@ class App extends React.Component<object, UiState> {
                     <div className="board-center-label">第 {game.round} / {game.maxRounds} 轮</div>
                     <div className="dice-display" aria-label="上一次骰子点数">{previousRoll ? '⚀⚁⚂⚃⚄⚅'[Number(previousRoll.details?.value)-1] : '⚄'}</div>
                     <div className="center-subtitle">{previousRoll?`掷出 ${previousRoll.details?.value} 点`:'准备出发'}</div>
+                    {this.state.visualCue&&<div className={`event-feedback tone-${this.state.visualCue.tone}`} data-event-revision={this.state.visualCue.revision} role="status" aria-live="polite"><b>{this.state.visualCue.text}</b></div>}
                   </div>
                 </div>}
               </div>
@@ -737,6 +743,7 @@ class App extends React.Component<object, UiState> {
                  const seat=game.players.findIndex(p=>p.id===game.winnerId);
                  return seat>=0?characterMarker(seat,game.players[seat].kind,'winner',true):null;
                })()}<strong>{game.winnerId ? `${game.players.find(p => p.id === game.winnerId)?.name}获胜！` : '净资产并列，平局！'}</strong><p>{[...game.events].reverse().find(e => e.type === 'game_finished')?.details?.reason === 'bankruptcy' ? '结束原因：一方无法付清租金' : '结束原因：达到回合上限'}</p><p>最终净资产：{game.players.map(p=>`${p.name} ${netWorth(game,p.id)}`).join(' · ')}</p><p>本局种子：{this.state.activeSeed}</p><button type="button" className="primary-btn" onClick={this.reset}>再来一局 <span>↻</span></button></div>}
+              {this.state.visualCue&&<button className="motion-skip" type="button" onClick={()=>{this.cancelCue();this.setState({visualCue:null});}}>跳过动效</button>}
               <p className="turn-tip" role="status">{message}</p>
             </div>
             <details className="saves-card" open><summary className="card-label">本地存档 · 点此收起</summary>
