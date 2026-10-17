@@ -1,0 +1,81 @@
+/* P4 #66: current action + board are the primary reading order. */
+.app-shell{--action-touch:44px}
+.app-shell button,.app-shell summary{touch-action:manipulation}
+.app-shell :focus-visible{outline:3px solid #aa7138;outline-offset:3px}
+.app-shell .layout{align-items:start}
+.app-shell .turn-card{min-width:0;padding:17px 18px}
+.app-shell .turn-card>.card-label{margin:0 0 12px}
+.app-shell .turn-person strong{font-size:21px;line-height:1.16}
+.app-shell .turn-person small{margin-top:3px}
+.app-shell .turn-position{display:block;line-height:1.65;margin:12px 0;background:#f1f6ed;padding:9px 10px}
+.app-shell .turn-tip{margin-top:12px;padding:9px 10px}
+.app-shell .finish-turn{margin-top:0}
+/* Only the named drawer is in the focus tree. Never disable a legal action via CSS. */
+.app-shell .finance-pane[hidden]{display:none!important}
+.app-shell .finance-workspace{margin:13px 0 0;border-top:1px solid #e1eadd;padding-top:11px}
+.app-shell .finance-intro{font-size:12px;color:#697f70;line-height:1.5;margin-bottom:9px}
+.app-shell .finance-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+.app-shell .finance-tabs button{min-width:0;min-height:var(--action-touch);border-radius:9px;padding:7px 1px;color:#426653;border:1px solid #ccdbcc;background:#f8faf5;font:inherit;font-size:12px;font-weight:760;white-space:normal}
+.app-shell .finance-tabs button[aria-expanded=true]{background:#275c44;color:#fff;border-color:#275c44}
+.app-shell .finance-tabs button:hover{border-color:#608d73}
+.app-shell .finance-amount{display:flex;align-items:stretch;flex-wrap:wrap;gap:8px;margin:12px 0 0;background:#f0f6ef;border-radius:10px;padding:11px}
+.app-shell .finance-amount label{font-size:13px;line-height:36px;color:#385946;font-weight:750}
+.app-shell .finance-amount input{flex:1 1 120px;min-width:0;height:var(--action-touch);background:white;border-radius:8px;border:1px solid #bbcfbf;padding:8px 10px;font-size:16px}
+.app-shell .finance-pane{margin:11px 0 0;padding:10px 0 0;border-top:1px solid #e2eade}
+.app-shell .finance-pane>.management-heading{margin:0 0 9px}
+.app-shell .finance-pane .bank-actions{margin:0;padding:10px;border:1px solid #d9e7db;background:#f9fbf6;border-radius:11px}
+.app-shell .finance-pane .secondary-btn{min-height:var(--action-touch)}
+/* Overview is a compact always-visible identity bar; richer wealth figures are opt-in. */
+.app-shell .asset-overview{min-width:0;margin-top:12px;padding:10px 15px}
+.app-shell .asset-overview .asset-summary{cursor:pointer;list-style:none;display:flex;align-items:center;flex-wrap:wrap;gap:10px;min-height:var(--action-touch);color:#3c5e4a}
+.app-shell .asset-overview .asset-summary::-webkit-details-marker{display:none}
+.app-shell .asset-summary>strong{font-size:13px;white-space:nowrap}
+.app-shell .asset-quick-roster{display:flex;flex:1 1 450px;align-items:center;flex-wrap:wrap;gap:6px}
+.app-shell .asset-quick-roster>span{border:1px solid #e0e8dc;padding:7px 10px;border-radius:9px;background:#f6f9f3;font-size:12px}
+.app-shell .asset-quick-roster>span.active{border-color:#8bb39a;background:#e7f3e4;color:#204f3a;font-weight:800}
+.app-shell .asset-quick-roster b{font-variant-numeric:tabular-nums;margin-left:4px}
+.app-shell .asset-expand-hint{font-size:12px;white-space:nowrap;color:#6b8772}
+.app-shell details[open]>.asset-summary{margin-bottom:14px;border-bottom:1px solid #e5ebde;padding-bottom:9px}
+.app-shell .asset-overview .asset-heading{margin-bottom:10px}
+.app-shell details>summary.card-label,.app-shell .info-card summary{list-style:none;display:flex;align-items:center;gap:10px;cursor:pointer;margin:0;min-height:var(--action-touch);font-size:13px;font-weight:800;color:#456550}
+.app-shell details>summary::-webkit-details-marker{display:none}
+.app-shell details>summary::after{content:"＋";color:#71977a;font-size:17px;margin-left:auto}
+.app-shell details[open]>summary::after{content:"－"}
+.app-shell .saves-card,.app-shell .players-card,.app-shell .activity-card,.app-shell .info-card{min-width:0;padding:13px 15px}
+.app-shell .saves-card>summary,.app-shell .players-card>summary,.app-shell .activity-card>summary{border-bottom:0}
+.app-shell .saves-card[open]>summary,.app-shell .players-card[open]>summary,.app-shell .activity-card[open]>summary{padding-bottom:5px;margin-bottom:7px;border-bottom:1px solid #e4ecdf}
+.app-shell .info-card>summary{font-size:14px}
+.app-shell .player-line{padding:8px 4px}
+.app-shell .activity-card li{padding:4px 0}
+/* Touch widths: first reachable controls, then a full-width map; no right-side horizontal clipping. */
+@media(max-width:1060px){
+ .app-shell .layout{display:flex;flex-direction:column;gap:10px}
+ .app-shell .sidebar{display:contents}
+ .app-shell .turn-card{order:0;width:100%}
+ .app-shell .board-card{order:1;width:100%}
+ .app-shell .saves-card{order:2;width:100%;margin-top:3px}
+ .app-shell .players-card{order:3;width:100%}
+ .app-shell .activity-card{order:4;width:100%}
+ .app-shell .info-card{order:5;width:100%}
+}
+@media(max-width:650px){
+ .app-shell .layout{margin-top:7px!important}
+ .app-shell .turn-card{padding:12px 13px}
+ .app-shell .turn-position{margin:9px 0 10px}
+ .app-shell .turn-person strong{font-size:19px}
+ .app-shell .turn-card .card-label{margin-bottom:8px}
+ .app-shell .finance-intro{display:none}
+ .app-shell .finance-workspace{margin-top:9px;padding-top:9px}
+ .app-shell .finance-tabs{gap:4px}
+ .app-shell .finance-tabs button{font-size:12px}
+ .app-shell .asset-overview{padding:7px 10px}
+ .app-shell .asset-quick-roster{flex-basis:230px}
+ .app-shell .asset-quick-roster>span{font-size:11px;padding:5px 7px}
+ .app-shell .turn-card .primary-btn{min-height:48px}
+ .app-shell .topbar{gap:6px}
+}
+@media(max-width:365px){
+ .app-shell .finance-tabs button{font-size:11px}
+ .app-shell .asset-quick-roster>span{font-size:10px;padding:5px 6px}
+}
+@media(prefers-reduced-motion:reduce){.app-shell *{scroll-behavior:auto!important}}
