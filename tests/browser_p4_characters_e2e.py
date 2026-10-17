@@ -99,6 +99,35 @@ def main():
         if page.locator('main').get_attribute('data-game-phase')=='await_shop':
           page.get_by_role('button',name=re.compile('离开商店')).click()
         page.screenshot(path=str(OUT/f'{name}-landing.png'),full_page=True,animations='disabled')
+        if name=='desktop-classic':
+          # Complete a short genuine four-human game and verify winner portrait matches seat.
+          finished=page.evaluate("""async()=>{
+            const click=text=>{
+              const el=[...document.querySelectorAll('button')].find(b=>!b.disabled&&b.textContent.includes(text));
+              if(!el)return false;el.click();return true;};
+            for(let i=0;i<500;i++){
+              if(document.querySelector('main')?.dataset.gameStatus==='finished')return true;
+              if(click('我已就位，开始操作')){}
+              else if(click('跳过当前停留回合')){}
+              else if(click('离开商店')){}
+              else if(click('掷骰前进')){}
+              else if(click('购买地产')){}
+              else if(click('放弃购买')){}
+              else click('结束当前回合');
+              await new Promise(r=>setTimeout(r,20));
+            }
+            return false;
+          }""")
+          assert finished
+          winner=page.locator('.result-box .character-winner')
+          outcome=page.locator('.result-box strong').first.inner_text()
+          if '平局' not in outcome:
+            assert winner.count()==1
+            seat=int(winner.get_attribute('data-character-seat'))
+            assert outcome.startswith(f'测试者{seat}'),(seat,outcome)
+            assert winner.get_attribute('data-character-id')==NAMES[seat-1]
+          else:assert winner.count()==0
+          page.screenshot(path=str(OUT/'desktop-classic-finished.png'),full_page=True,animations='disabled')
         if name=='phone-classic-human':
           # Manual save of all 4 IDs; survives reload, roles and visual identity remain stable.
           page.on('dialog',lambda d:d.accept('角色四人续局' if d.type=='prompt' else None))
