@@ -540,7 +540,6 @@ class App extends React.Component<object, UiState> {
           <span className="version-tag">P3 · 多人对局</span>
           <span className="network-indicator" role="status">{this.state.offline?'已断网 · 可用本地缓存':'已联网'}{this.state.pwaMessage?' · '+this.state.pwaMessage:''}</span>
           {this.state.pwaUpdate&&<button className="secondary-btn" type="button" onClick={()=>void this.applyPwaUpdate()}>检测到新版，保存并更新</button>}
-          <button type="button" className="guide-reopen" onClick={()=>this.setState({guideStep:0})}>新手帮助</button>
           <button type="button" className="motion-toggle" aria-pressed={this.state.motionOff} onClick={this.toggleMotion}>{this.state.motionOff?'开启动效':'关闭动效'}</button>
           <button type="button" className="reset-btn" onClick={this.reset}>↻ 重新开局</button>
         </header>
@@ -630,7 +629,10 @@ class App extends React.Component<object, UiState> {
                   <button type="button" onClick={this.nextGuide}>{this.state.guideStep===GUIDE_STEPS.length-1?'完成引导':'下一步'}</button>
                 </div>
               </section>}
-              <details className="context-help"><summary>本步可以做什么？</summary><p>{contextHint(game)}</p></details>
+              <div className="help-tools">
+                <button type="button" className="guide-reopen" onClick={()=>this.setState({guideStep:0})}>新手帮助</button>
+                <details className="context-help"><summary>本步可以做什么？</summary><p>{contextHint(game)}</p></details>
+              </div>
               {game.status === 'setup' && <div className="start-form">
                 <label className="field-label" htmlFor="game-map">游戏地图 <small>经典环线 24 格；原创海港 20 格（价格与地名不同）</small></label>
                  <select id="game-map" aria-label="游戏地图" value={this.state.selectedMapId} onChange={(event:{target:{value:string}})=>this.selectMap(event.target.value)}>
