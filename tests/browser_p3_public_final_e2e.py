@@ -76,7 +76,7 @@ def main():
         page.get_by_role('button',name='买入 青禾农业').click()
         assert wallet(page)[3]==1,'stock holding was not exposed in player assets'
         open_tool(page,'抵押借贷')
-        mortgage=page.get_by_role('button',name=re.compile('^抵押'))
+        mortgage=page.locator('#loan-actions').get_by_role('button',name=re.compile('^抵押'))
         if mortgage.count():
             mortgage.first.click()
             page.get_by_label('银行交易金额').fill('20')
