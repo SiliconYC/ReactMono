@@ -3,6 +3,7 @@ const VERSION='reactmono-__CACHE_VERSION__';
 const PRECACHE=['./','./index.html','./style.css','./board-art.css','./characters.css',
  './visual-lab.html','./visual-lab.css','./visual-tokens.css','./art-manifest.json',
  './art/house.svg','./art/coin.svg',
+ './art/character-fox.svg','./art/character-bear.svg','./art/character-rabbit.svg','./art/character-bird.svg',
  /* __RUNTIME_ASSETS__ */
  './vendor/react.production.min.js','./vendor/react-dom.production.min.js',
  './manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png'];
