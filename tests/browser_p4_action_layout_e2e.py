@@ -134,7 +134,7 @@ def main():
         page.screenshot(path=str(OUT/f'{name}-finance.png'),full_page=True,animations='disabled')
         if name=='phone-classic':
           # A rejected mortgage must NOT mutate revision or wealth; accepted one must.
-          mortgage=page.get_by_role('button',name=re.compile('^抵押'))
+          mortgage=page.locator('#loan-actions').get_by_role('button',name=re.compile('^抵押'))
           assert mortgage.count()>0
           rev=page.locator('main').get_attribute('data-game-revision')
           cash=page.locator('.turn-position').inner_text()
