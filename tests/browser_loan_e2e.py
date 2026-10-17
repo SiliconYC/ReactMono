@@ -32,6 +32,7 @@ def run():
               return false;
             }""")
             assert found,'No mortgage-eligible property appeared'
+            page.get_by_role('button',name='抵押借贷',exact=True).click()
             cash_before=page.locator('.turn-position').inner_text()
             page.get_by_role('button',name=re.compile('^抵押')).first.click()
             page.get_by_label('银行交易金额').fill('20')
@@ -46,6 +47,7 @@ def run():
             page.reload()
             page.locator('.save-list li').filter(has_text='贷款验收').get_by_role('button',name='读取').click()
             page.wait_for_function("document.querySelector('main')?.dataset.gamePhase==='await_end_turn'")
+            page.get_by_role('button',name='抵押借贷',exact=True).click()
             assert '贷款 0' in page.locator('.loan-actions').inner_text()
             assert '20' not in page.locator('.turn-position').inner_text().split('贷款：')[-1].split('·')[0]
             assert not errors,errors
