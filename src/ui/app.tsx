@@ -22,6 +22,9 @@ class App extends React.Component<object, UiState> {
   }
 
   private computerTimer: number | null = null;
+  /** Ignore a rapid second tap against the same immutable turn state. */
+  private lastCommittedAction:{game:GameState;signature:string}|null=null;
+  private manualSaveBusy=false;
 
   private saveEpoch = 0;
   private saveQueue: Promise<void> = Promise.resolve();
@@ -276,11 +279,24 @@ class App extends React.Component<object, UiState> {
       :type==='use_card'?{type,actorId:actor.id,cardType:cardType??'reward',
           ...(cardType==='remote'?{dieValue:Number(this.state.strategyDieInput)}:{}),
           ...(cardType==='roadblock'?{tileId:Number(game.tiles.some(t=>t.id===Number(this.state.roadblockTileInput)&&t.id!==0&&t.id!==actor.position&&!game.players.some(p=>!p.bankrupt&&p.position===t.id)&&!game.roadblocks?.some(b=>b.tileId===t.id))?this.state.roadblockTileInput:game.tiles.find(t=>t.id!==0&&t.id!==actor.position&&!game.players.some(p=>!p.bankrupt&&p.position===t.id)&&!game.roadblocks?.some(b=>b.tileId===t.id))?.id??-1)}:{})}:{type,actorId:actor.id};
+    const signature=JSON.stringify(action);
+    if(this.lastCommittedAction?.game===game&&this.lastCommittedAction.signature===signature){
+      this.setState({message:'操作已提交，请勿重复点击。'});return;
+    }
+    const quoted=stockId&&game.market?quoteMarket(game.market,stockId):0;
     const highRisk=type==='mortgage_property'||type==='borrow_loan'||
-      ((type==='buy_stock'||type==='sell_stock')&&Number.isFinite(stockAmount)&&stockAmount>=50);
+      ((type==='repay_loan'||type==='withdraw_bank'||type==='deposit_bank')&&bankAmount>=500)||
+      (type==='buy_property'&&(game.tiles[actor.position].price??0)>=400)||
+      (type==='upgrade_property'&&tileId!==undefined&&(game.tiles[tileId]?.upgradeCosts?.[game.tiles[tileId].level??0]??0)>=400)||
+      ((type==='buy_stock'||type==='sell_stock')&&Number.isFinite(stockAmount)&&
+        (stockAmount>=50||quoted*stockAmount>=300));
     if(highRisk){
       const detail=type==='mortgage_property'?'确认抵押地产？抵押后该地产暂不收租，贷款违约可能被银行收回。'
         :type==='borrow_loan'?'确认借入 '+bankAmount+' 游戏币？贷款计息且可能触发抵押物清算。'
+        :type==='buy_property'?'确认购买「'+game.tiles[actor.position].title+'」？将支付 '+game.tiles[actor.position].price+' 游戏币。'
+        :type==='upgrade_property'?'确认升级地产？将从当前玩家现金中扣除建筑费。'
+        :type==='repay_loan'?'确认偿还 '+bankAmount+' 游戏币贷款？'
+        :type==='withdraw_bank'||type==='deposit_bank'?'确认'+(type==='deposit_bank'?'存入':'取出')+' '+bankAmount+' 游戏币？'
         :'确认'+(type==='buy_stock'?'买入':'卖出')+' '+stockAmount+' 股？股票成交后价格会波动，且需支付手续费。';
       if(!window.confirm(detail)){this.setState({message:'已取消操作，本局资产没有变化。'});return;}
     }
@@ -295,6 +311,7 @@ class App extends React.Component<object, UiState> {
       this.setState({ message: reason });
       return;
     }
+    this.lastCommittedAction={game,signature};
     const next=result.state.players[result.state.currentPlayerIndex];
     const handoff=type==='end_turn' && result.state.status==='playing'
       && next.kind==='human' && next.id!==actor.id;
