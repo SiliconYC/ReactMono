@@ -1,0 +1,64 @@
+/* P4 #65 · 原创纸艺角色：每人独立轮廓＋数字＋颜色，和真人/电脑属性解耦。 */
+.character-marker{--character-shade:#277ea5;position:relative;display:inline-flex;align-items:center;justify-content:center;flex:none;isolation:isolate;overflow:visible;background:#fefcf3;border:2px solid var(--character-shade);color:#203b3b;box-shadow:0 2px 6px #193b3030}
+.character-1{--character-shade:#267ea5}
+.character-2{--character-shade:#c65d4d}
+.character-3{--character-shade:#8860b1}
+.character-4{--character-shade:#ad812c}
+.character-image{display:block;object-fit:contain;width:86%;height:86%;max-width:100%;max-height:100%;pointer-events:none;user-select:none}
+.character-marker .character-seat{position:absolute;bottom:-5px;right:-5px;width:15px;height:15px;border-radius:50%;background:var(--character-shade);box-shadow:0 0 0 2px #fffefa;color:white;font-weight:900;font-size:10px;line-height:15px;text-align:center;font-variant-numeric:tabular-nums}
+.character-marker .character-mode{position:absolute;left:-3px;top:-5px;display:grid;place-items:center;width:15px;height:15px;border:1px solid #fffefa;border-radius:5px;background:#426557;color:white;font-size:10px;font-weight:850;line-height:1}
+.character-marker.computer .character-mode{background:#8c6e4d}
+.character-active{box-shadow:0 0 0 3px #ecc083,0 4px 10px #193b3044}
+.character-portrait{height:56px;width:56px;border-radius:17px!important}
+.character-portrait .character-seat{width:19px;height:19px;line-height:19px;font-size:12px}
+.character-badge{width:30px;height:30px;border-radius:11px!important}
+.character-badge .character-seat{width:13px;height:13px;line-height:13px;font-size:9px;bottom:-4px;right:-4px}
+.character-badge .character-mode{width:12px;height:12px;line-height:12px;font-size:8px;top:-4px}
+.character-setup{position:absolute;left:12px;top:17px;width:41px;height:41px;border-radius:13px}
+.character-setup .character-seat{width:16px;height:16px;line-height:16px}
+.setup-player{position:relative;padding-left:64px}
+.character-winner{width:74px;height:74px;border-radius:22px;margin:4px 0 14px;box-shadow:0 0 0 5px #f4e5b9,0 8px 20px #2b55402a}
+.character-winner .character-seat{width:20px;height:20px;font-size:13px;line-height:20px}
+.character-winner .character-mode{width:18px;height:18px;line-height:18px}
+.handoff-identity{display:flex;align-items:center;gap:13px;margin-bottom:4px}
+.handoff-identity strong{font-size:18px;line-height:1.25}
+.turn-person .character-portrait{background:#fffbf0}
+.turn-person small{line-height:1.6}
+.asset-identity .character-badge{width:30px;height:30px;background:#fffdf5;border:2px solid var(--character-shade)}
+.player-line .character-badge{width:33px;height:33px}
+.player-line .character-badge .character-image{width:88%;height:88%}
+.asset-player.is-bankrupt .character-image{filter:grayscale(.65)}
+/* #64 grid layout is authoritative; nested pawn-holder preserves 2×2, even on 320px. */
+.board .pawn-holder{display:flex;align-items:center;justify-content:center;width:100%;height:100%;pointer-events:none}
+.board .pieces{grid-template-columns:repeat(2,16px);gap:1px;right:2px;bottom:2px}
+.board .piece.character-pawn{width:16px;height:16px;border:1px solid white;border-radius:4px;display:flex;background:#fffbf1;box-shadow:0 1px 3px #142f3040;overflow:visible;padding:0}
+.board .piece.character-1{border-radius:3px}
+.board .piece.character-2{border-radius:50%}
+.board .piece.character-3{border-radius:3px 8px 3px 8px}
+.board .piece.character-4{border-radius:50% 4px 50% 4px}
+.board .piece .character-image{width:100%;height:100%}
+.board .piece .character-seat{width:8px;height:8px;font-size:6px;line-height:8px;bottom:-2px;right:-2px;box-shadow:0 0 0 1px #fff}
+.board .piece.character-active{box-shadow:0 0 0 2px #ffd17d,0 1px 4px #142f3080;z-index:2}
+@keyframes character-arrival{
+  0%{transform:translateY(-7px) rotate(-9deg)}
+  38%{transform:translateY(1px) rotate(6deg)}
+  72%{transform:translateY(-3px) rotate(-3deg)}
+  100%{transform:translateY(0) rotate(0)}
+}
+.board .piece.character-moving{animation:character-arrival .38s ease-out both;transform-origin:50% 80%}
+@media(max-width:650px){
+ .character-portrait{height:50px;width:50px}
+ .character-setup{width:38px;height:38px;left:9px;top:15px}
+ .setup-player{padding-left:56px}
+ .board .pieces{grid-template-columns:repeat(2,14px);right:1px;bottom:1px;gap:1px}
+ .board .piece.character-pawn{width:14px;height:14px}
+ .board .piece .character-seat{width:8px;height:8px;line-height:8px;font-size:6px}
+ .asset-identity .character-badge{width:26px;height:26px}
+}
+@media(max-width:365px){
+ .board .pieces{grid-template-columns:repeat(2,14px)}
+ .board .piece.character-pawn{width:14px;height:14px}
+}
+@media(prefers-reduced-motion:reduce){
+ .board .piece.character-moving{animation:none!important;transform:none!important}
+}
