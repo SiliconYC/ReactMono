@@ -6,10 +6,10 @@ export function cpuDelay(pace:Pace,action:GameAction,events:readonly GameEvent[]
  if(pace==='fast')return 8;
  const impactful=events.some(e=>['rent_paid','property_bought','property_upgraded','loan_borrowed',
    'player_bankrupt','facility_entered','game_finished','stock_bought','stock_sold'].includes(e.type));
- if(impactful)return 245;
- if(action.type==='roll'||action.type==='skip_turn')return 200;
- if(action.type==='buy_property'||action.type==='use_card'||action.type==='buy_stock')return 170;
- return 115;
+ if(impactful)return 225;
+ if(action.type==='roll'||action.type==='skip_turn')return 160;
+ if(action.type==='buy_property'||action.type==='use_card'||action.type==='buy_stock')return 125;
+ return 65;
 }
 export const MAX_CPU_ACTIONS_PER_TURN=48;
 export type CpuTiming={readonly decisions:number;readonly calculationMs:number;readonly waitScheduledMs:number;
