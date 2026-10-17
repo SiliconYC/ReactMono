@@ -3,6 +3,7 @@ import { chooseComputerAction } from '../core/agent.js';
 import { COMPUTER_STYLES, COMPUTER_STYLE_NAMES } from '../core/strategic-agent.js';
 import { listSlots, readSlot, writeSlot, deleteSlot } from '../storage/indexeddb.js';
 import { deserializeGame, MAX_SAVE_CHARS } from '../core/save.js';
+import { characterMarker, CHARACTER_NAMES } from './characters.js';
 /** Read screen positions from map data, never infer them from the tile ID. */
 function cellPosition(map, index) {
     const point = map.cells[index];
@@ -12,7 +13,7 @@ const kindLabel = { start: '起点', property: '地产', neutral: '休息' };
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput: '100', stockAmountInput: '1', strategyDieInput: '1', roadblockTileInput: '1', playerSetup: [{ id: 'p1', name: '玩家', kind: 'human' }, { id: 'p2', name: '电脑', kind: 'computer', computerStyle: 'balanced' }], roundsInput: '60', selectedMapId: 'classic-24', selectedTileId: 0, awaitingHandoff: false, fastMode: false, specialEnabled: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator === 'undefined' ? false : !navigator.onLine, pwaUpdate: false, pwaMessage: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
+        this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput: '100', stockAmountInput: '1', strategyDieInput: '1', roadblockTileInput: '1', playerSetup: [{ id: 'p1', name: '玩家', kind: 'human' }, { id: 'p2', name: '电脑', kind: 'computer', computerStyle: 'balanced' }], roundsInput: '60', selectedMapId: 'classic-24', selectedTileId: 0, lastMotion: null, awaitingHandoff: false, fastMode: false, specialEnabled: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator === 'undefined' ? false : !navigator.onLine, pwaUpdate: false, pwaMessage: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
     }
     computerTimer = null;
     saveEpoch = 0;
@@ -207,7 +208,7 @@ class App extends React.Component {
             await this.saveQueue;
             const saved = await readSlot(slot.id);
             this.setState({ game: saved.game, activeSeed: null, storageBusy: false, awaitingHandoff: false,
-                roundsInput: String(saved.game.maxRounds), selectedMapId: saved.game.map.id, selectedTileId: saved.game.players[saved.game.currentPlayerIndex].position,
+                roundsInput: String(saved.game.maxRounds), selectedMapId: saved.game.map.id, selectedTileId: saved.game.players[saved.game.currentPlayerIndex].position, lastMotion: null,
                 playerSetup: saved.game.players.map(p => ({ id: p.id, name: p.name, kind: p.kind, ...(p.computerStyle ? { computerStyle: p.computerStyle } : {}) })),
                 saveStatus: '已读取「' + slot.name + '」', message: '已恢复第 ' + saved.game.round + ' 轮，可从当前阶段继续。' });
         }
@@ -231,7 +232,7 @@ class App extends React.Component {
         this.saveEpoch++;
         this.stopTimer();
         const base = this.state.selectedMapId === 'harbor-20' ? HARBOR_CONFIG : DEFAULT_CONFIG;
-        this.setState({ game: createGame(20261015, base), activeSeed: null, selectedTileId: 0, awaitingHandoff: false, message: '已返回新游戏页面。可调整种子及地图后重新开始。' });
+        this.setState({ game: createGame(20261015, base), activeSeed: null, selectedTileId: 0, lastMotion: null, awaitingHandoff: false, message: '已返回新游戏页面。可调整种子及地图后重新开始。' });
     };
     /** Keep stable IDs when the local seating plan changes. */
     setPlayerCount = (count) => {
@@ -256,7 +257,7 @@ class App extends React.Component {
         if (id !== 'classic-24' && id !== 'harbor-20')
             return;
         const base = id === 'harbor-20' ? HARBOR_CONFIG : DEFAULT_CONFIG;
-        this.setState({ selectedMapId: id, selectedTileId: 0, game: createGame(20261015, { ...base, players: this.state.playerSetup }),
+        this.setState({ selectedMapId: id, selectedTileId: 0, lastMotion: null, game: createGame(20261015, { ...base, players: this.state.playerSetup }),
             message: id === 'harbor-20' ? '已选择海港环线：20 格，独立价格及海港主题地产。' : '已选择经典环线：24 格，原有规则完整保留。' });
     };
     acknowledgeHandoff = () => {
@@ -295,7 +296,7 @@ class App extends React.Component {
             this.setState({ message: '无法开始对局，请重新开局。' });
             return;
         }
-        this.setState({ game: result.state, activeSeed: seed, selectedTileId: 0, awaitingHandoff: false, message: '游戏已开始！轮到' + fresh.players[0].name + '掷骰。' });
+        this.setState({ game: result.state, activeSeed: seed, selectedTileId: 0, lastMotion: null, awaitingHandoff: false, message: '游戏已开始！轮到' + fresh.players[0].name + '掷骰。' });
     };
     componentWillUnmount() {
         window.removeEventListener('online', this.updateOnline);
@@ -325,7 +326,11 @@ class App extends React.Component {
                 return;
             }
             const actor = snapshot.players[snapshot.currentPlayerIndex];
-            this.setState({ game: result.state, message: this.describe(result.events, result.state, actor.name) });
+            const moved = result.events.find(e => e.type === 'player_moved');
+            const landed = result.state.players.find(p => p.id === actor.id);
+            this.setState({ game: result.state,
+                lastMotion: moved && landed ? { playerId: actor.id, tileId: landed.position, revision: result.state.revision } : null,
+                message: this.describe(result.events, result.state, actor.name) });
         }, this.state.fastMode ? 8 : 220);
     }
     dispatch = (type, tileId, cardType, stockId) => {
@@ -369,7 +374,10 @@ class App extends React.Component {
         const next = result.state.players[result.state.currentPlayerIndex];
         const handoff = type === 'end_turn' && result.state.status === 'playing'
             && next.kind === 'human' && next.id !== actor.id;
+        const moved = result.events.find(e => e.type === 'player_moved');
+        const landed = result.state.players.find(p => p.id === actor.id);
         this.setState({ game: result.state, awaitingHandoff: handoff,
+            lastMotion: moved && landed ? { playerId: actor.id, tileId: landed.position, revision: result.state.revision } : null,
             message: handoff ? '请将设备交给 ' + next.name + '；确认就位后方可继续。' : this.describe(result.events, result.state, actor.name) });
     };
     describe = (events, state, actorName) => {
@@ -495,7 +503,7 @@ class App extends React.Component {
             tile.kind === 'property' && React.createElement("span", { className: "tile-value" }, owner ? `${level}级 · ${tile.mortgaged ? '抵押' : owner.name}` : `¥${tile.price}`),
             tile.mortgaged && React.createElement("span", { className: "tile-mortgage", "aria-hidden": "true" }, "\u62BC"),
             tile.kind === 'property' && owner && React.createElement("span", { className: "tile-level", "aria-label": `建筑等级 ${level}` }, '●'.repeat(level + 1)),
-            React.createElement("span", { className: "pieces", "aria-label": residents.map(p => p.name).join('、') }, residents.map(p => React.createElement("span", { key: p.id, className: `piece piece-${game.players.indexOf(p) + 1} ${p.kind}`, title: p.name, "aria-label": p.name }, game.players.indexOf(p) + 1)))));
+            React.createElement("span", { className: "pieces", "aria-label": residents.map(p => p.name).join('、') }, residents.map(p => React.createElement("span", { key: p.id, className: "pawn-holder", "data-player-id": p.id, title: p.name }, characterMarker(game.players.indexOf(p), p.kind, 'pawn', game.status === 'playing' && p.id === game.players[game.currentPlayerIndex].id, this.state.lastMotion?.revision === game.revision && this.state.lastMotion.playerId === p.id && this.state.lastMotion.tileId === tile.id))))));
     };
     render() {
         const { game, message } = this.state;
@@ -551,7 +559,7 @@ class App extends React.Component {
                     const shareValue = game.market ? STOCKS.reduce((total, stock) => total + (p.holdings?.[stock.id]?.quantity ?? 0) * quoteMarket(game.market, stock.id), 0) : 0;
                     return React.createElement("div", { className: `asset-player ${game.status === 'playing' && p.id === current.id ? 'is-active' : ''} ${p.bankrupt ? 'is-bankrupt' : ''}`, key: p.id, "data-player-id": p.id, "data-active-player": String(game.status === 'playing' && p.id === current.id) },
                         React.createElement("div", { className: "asset-identity" },
-                            React.createElement("span", { className: `player-dot ${p.kind}` }, p.kind === 'human' ? '人' : '机'),
+                            characterMarker(game.players.indexOf(p), p.kind, 'badge', p.id === current.id && game.status === 'playing'),
                             React.createElement("strong", null, p.name),
                             React.createElement("span", { className: "asset-turn-tag" }, p.bankrupt ? '已破产' : p.id === current.id && game.status === 'playing' ? '当前操作' : p.kind === 'computer' ? '电脑' : '真人')),
                         React.createElement("dl", { className: "asset-metrics" },
@@ -630,10 +638,15 @@ class App extends React.Component {
                     React.createElement("div", { className: "turn-card" },
                         React.createElement("div", { className: "card-label" }, "\u5F53\u524D\u884C\u52A8"),
                         React.createElement("div", { className: "turn-person" },
-                            React.createElement("span", { className: `portrait ${current.kind}` }, current.kind === 'human' ? '人' : '机'),
+                            characterMarker(game.currentPlayerIndex, current.kind, 'portrait', game.status === 'playing'),
                             React.createElement("div", null,
                                 React.createElement("strong", null, current.name),
-                                React.createElement("small", null, phaseDescription))),
+                                React.createElement("small", null,
+                                    CHARACTER_NAMES[game.currentPlayerIndex],
+                                    " \u00B7 ",
+                                    current.kind === 'computer' ? (current.computerStyle ? COMPUTER_STYLE_NAMES[current.computerStyle] : '经典') + '电脑' : '真人',
+                                    " \u00B7 ",
+                                    phaseDescription))),
                         React.createElement("div", { className: "turn-position" },
                             "\u4F4D\u7F6E\uFF1A",
                             React.createElement("b", null,
@@ -665,7 +678,8 @@ class App extends React.Component {
                             React.createElement("select", { id: "player-count", "aria-label": "\u73A9\u5BB6\u4EBA\u6570", value: this.state.playerSetup.length, onChange: (event) => this.setPlayerCount(Number(event.target.value)) }, [2, 3, 4].map(n => React.createElement("option", { key: n, value: n },
                                 n,
                                 " \u4EBA"))),
-                            React.createElement("div", { className: "setup-roster" }, this.state.playerSetup.map((p, i) => React.createElement("div", { className: "setup-player", key: p.id },
+                            React.createElement("div", { className: "setup-roster" }, this.state.playerSetup.map((p, i) => React.createElement("div", { className: "setup-player", key: p.id, "data-player-id": p.id },
+                                characterMarker(i, p.kind ?? (i === 0 ? 'human' : 'computer'), 'setup'),
                                 React.createElement("label", null,
                                     "\u7B2C ",
                                     i + 1,
@@ -691,9 +705,13 @@ class App extends React.Component {
                                 "\u5F00\u59CB\u6E38\u620F ",
                                 React.createElement("span", null, "\u2192"))),
                         this.state.awaitingHandoff && game.status === 'playing' && React.createElement("div", { className: "handoff-panel", role: "status" },
-                            React.createElement("strong", null,
-                                "\u8F6E\u5230 ",
-                                current.name),
+                            React.createElement("div", { className: "handoff-identity" },
+                                characterMarker(game.currentPlayerIndex, current.kind, 'portrait', true),
+                                React.createElement("strong", null,
+                                    "\u8F6E\u5230 ",
+                                    current.name,
+                                    " \u00B7 ",
+                                    CHARACTER_NAMES[game.currentPlayerIndex])),
                             React.createElement("p", null, "\u8BF7\u628A\u8BBE\u5907\u4EA4\u7ED9\u8FD9\u540D\u73A9\u5BB6\uFF0C\u51C6\u5907\u597D\u4EE5\u540E\u786E\u8BA4\u3002\u4E0A\u4E00\u4F4D\u73A9\u5BB6\u4E0D\u80FD\u7EE7\u7EED\u64CD\u4F5C\u3002"),
                             React.createElement("button", { type: "button", className: "primary-btn", onClick: this.acknowledgeHandoff }, "\u6211\u5DF2\u5C31\u4F4D\uFF0C\u5F00\u59CB\u64CD\u4F5C")),
                         current.kind === 'computer' && game.status === 'playing' && React.createElement("p", { className: "computer-thinking", role: "status" },
@@ -873,6 +891,10 @@ class App extends React.Component {
                                 "\u7ED3\u675F\u5F53\u524D\u56DE\u5408 ",
                                 React.createElement("span", null, "\u2192"))),
                         game.phase === 'finished' && React.createElement("div", { className: "result-box", role: "status" },
+                            game.winnerId && (() => {
+                                const seat = game.players.findIndex(p => p.id === game.winnerId);
+                                return seat >= 0 ? characterMarker(seat, game.players[seat].kind, 'winner', true) : null;
+                            })(),
                             React.createElement("strong", null, game.winnerId ? `${game.players.find(p => p.id === game.winnerId)?.name}获胜！` : '净资产并列，平局！'),
                             React.createElement("p", null, [...game.events].reverse().find(e => e.type === 'game_finished')?.details?.reason === 'bankruptcy' ? '结束原因：一方无法付清租金' : '结束原因：达到回合上限'),
                             React.createElement("p", null,
@@ -929,7 +951,7 @@ class App extends React.Component {
                     React.createElement("div", { className: "players-card" },
                         React.createElement("div", { className: "card-label" }, "\u73A9\u5BB6\u72B6\u6001"),
                         game.players.map(p => React.createElement("div", { key: p.id, className: `player-line ${current.id === p.id && game.status === 'playing' ? 'is-current' : ''}` },
-                            React.createElement("span", { className: `player-dot ${p.kind}` }, p.kind === 'human' ? '人' : '机'),
+                            characterMarker(game.players.indexOf(p), p.kind, 'badge', p.id === current.id && game.status === 'playing'),
                             React.createElement("div", null,
                                 React.createElement("strong", null, p.name),
                                 React.createElement("small", null,

@@ -17,6 +17,38 @@
       "source": "原创手绘 SVG",
       "author": "ReactMono P4",
       "license": "CC0-1.0"
+    },
+    {
+      "path": "art/character-fox.svg",
+      "type": "image/svg+xml",
+      "purpose": "玩家1原创角色与棋子，2D纸艺风格",
+      "source": "原创纯矢量SVG（自主手绘）",
+      "author": "ReactMono P4 #65",
+      "license": "CC0-1.0"
+    },
+    {
+      "path": "art/character-bear.svg",
+      "type": "image/svg+xml",
+      "purpose": "玩家2原创角色与棋子，2D纸艺风格",
+      "source": "原创纯矢量SVG（自主手绘）",
+      "author": "ReactMono P4 #65",
+      "license": "CC0-1.0"
+    },
+    {
+      "path": "art/character-rabbit.svg",
+      "type": "image/svg+xml",
+      "purpose": "玩家3原创角色与棋子，2D纸艺风格",
+      "source": "原创纯矢量SVG（自主手绘）",
+      "author": "ReactMono P4 #65",
+      "license": "CC0-1.0"
+    },
+    {
+      "path": "art/character-bird.svg",
+      "type": "image/svg+xml",
+      "purpose": "玩家4原创角色与棋子，2D纸艺风格",
+      "source": "原创纯矢量SVG（自主手绘）",
+      "author": "ReactMono P4 #65",
+      "license": "CC0-1.0"
     }
   ],
   "font": {
