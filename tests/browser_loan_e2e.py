@@ -34,7 +34,7 @@ def run():
             assert found,'No mortgage-eligible property appeared'
             page.get_by_role('button',name='抵押借贷',exact=True).click()
             cash_before=page.locator('.turn-position').inner_text()
-            page.get_by_role('button',name=re.compile('^抵押')).first.click()
+            page.locator('#loan-actions').get_by_role('button',name=re.compile('^抵押')).first.click()
             page.get_by_label('银行交易金额').fill('20')
             page.get_by_role('button',name='借入贷款').click()
             assert '贷款：' in page.locator('.turn-position').inner_text()
