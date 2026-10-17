@@ -10,10 +10,10 @@ export const TILE_ANCHORS: readonly WorldPoint[] = [
 const LOT_OFFSET = 1.35;
 
 export const LOT_ANCHORS: readonly WorldPoint[] = TILE_ANCHORS.map(point => {
-  const length = Math.hypot(point.x, point.z);
+  // Straight street frontages keep adjacent homes aligned for terraced buildings.
   return {
-    x: point.x + (point.x / length) * LOT_OFFSET,
-    z: point.z + (point.z / length) * LOT_OFFSET
+    x: point.x + (Math.abs(point.x) === 4 ? Math.sign(point.x) * LOT_OFFSET : 0),
+    z: point.z + (Math.abs(point.z) === 4 ? Math.sign(point.z) * LOT_OFFSET : 0)
   };
 });
 

@@ -37,7 +37,7 @@ button:focus-visible {
   isolation: isolate;
   width: 100vw;
   height: 100dvh;
-  min-height: 540px;
+  min-height: 0;
   overflow: hidden;
   background: #bfe6d9;
 }
@@ -215,6 +215,7 @@ button:focus-visible {
 }
 
 .player-card {
+  position: relative;
   display: grid;
   grid-template-columns: 42px 1fr auto;
   align-items: center;
@@ -416,7 +417,7 @@ button:focus-visible {
 }
 
 @media (max-width: 760px) {
-  .demo-shell { min-height: 620px; }
+  .demo-shell { min-height: 0; }
 
   .top-rail {
     top: max(10px, env(safe-area-inset-top));
@@ -546,4 +547,80 @@ button:focus-visible {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+.property-panel {
+  position: absolute;
+  z-index: 10;
+  top: 156px;
+  right: 24px;
+  width: 240px;
+  padding: 16px;
+  border: 1px solid #fff9e9;
+  border-radius: 21px;
+  background: rgba(255, 249, 233, 0.95);
+  box-shadow: 0 14px 38px #1a413b24;
+}
+.property-panel label { display: block; margin-bottom: 8px; color: #52756b; font-size: 12px; font-weight: 700; }
+.property-panel select { width: 100%; min-height: 44px; padding: 6px; border: 1px solid #b4c8b9; border-radius: 10px; color: #173b36; background: #fffdf5; font: inherit; font-size: 13px; }
+.property-stage { display: flex; justify-content: space-between; align-items: center; margin-top: 13px; }
+.property-stage span { color: #52756b; font-size: 11px; }
+.property-panel p { min-height: 30px; color: #52756b; font-size: 11px; line-height: 1.5; }
+.property-panel button { width: 100%; font-size: 13px; }
+.property-panel small { display: block; margin-top: 10px; color: #b54436; }
+.max-level { display: block; color: #327b62; font-size: 13px; }
+.rent-receipt {
+  position: absolute;
+  z-index: 10;
+  left: 50%;
+  top: 30%;
+  transform: translateX(-50%);
+  display: grid;
+  gap: 8px;
+  width: 250px;
+  padding: 20px 24px;
+  border: 2px solid #ffdc7c;
+  border-radius: 24px;
+  background: #fff9e9f5;
+  box-shadow: 0 20px 70px #173b3640;
+  text-align: center;
+  pointer-events: none;
+  animation: receipt-arrive 200ms ease-out;
+}
+.rent-receipt > span { color: #5f7b73; font-size: 12px; }
+.rent-receipt strong { display: flex; justify-content: space-between; font-size: 19px; }
+.rent-receipt b, .debit { color: #ce5343; }
+.rent-receipt em, .credit { color: #238367; font-style: normal; }
+.rent-receipt i { color: #d99c20; font-size: 18px; font-style: normal; animation: rent-coins 500ms ease-in-out infinite alternate; }
+.cash-delta { position: absolute; right: 12px; top: 36px; font-size: 17px !important; font-weight: 900; text-shadow: 0 1px 3px white; animation: cash-rise 1800ms ease-out both; }
+.primary-action:disabled { cursor: not-allowed; }
+@keyframes receipt-arrive { from { opacity: 0; margin-top: 10px; } }
+@keyframes rent-coins { to { transform: translateX(12px); } }
+@keyframes cash-rise { from { opacity: 0; transform: translateY(10px); } 20%, 80% { opacity: 1; } to { opacity: 0; transform: translateY(-24px); } }
+@media (max-width: 760px) {
+  .property-panel { top: auto; bottom: 206px; right: 10px; width: 208px; padding: 12px; border-radius: 17px; }
+  .property-panel p { margin: 8px 0; min-height: 0; }
+  .property-stage { margin-top: 8px; }
+  .property-panel button { min-height: 44px; }
+  .property-panel label { margin-bottom: 5px; }
+  .location-card { bottom: 112px; }
+  .rent-receipt { top: 31%; width: 230px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rent-receipt, .rent-receipt i, .cash-delta { animation: none; }
+}
+
+/* Keep controls inside actual short/landscape viewports; the inspector can scroll. */
+@media (max-height: 650px) and (max-width: 760px) {
+  .property-panel { bottom: 112px; max-height: calc(100dvh - 290px); overflow-y: auto; }
+  .demo-shell:has(.property-panel) .location-card { display: none; }
+}
+@media (max-height: 500px) and (min-width: 761px) {
+  .top-rail { top: 8px; left: 10px; right: 10px; }
+  .player-stack { top: 82px; left: 10px; width: 190px; }
+  .player-card { min-height: 58px; }
+  .property-panel { top: 82px; right: 10px; width: 220px; max-height: calc(100dvh - 186px); overflow-y: auto; }
+  .demo-shell:has(.property-panel) .location-card { display: none; }
+  .event-toast { top: 86px; }
+  .action-dock { bottom: 8px; min-height: 72px; }
 }

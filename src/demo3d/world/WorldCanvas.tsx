@@ -2,7 +2,8 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Suspense, useMemo, useState } from 'react';
 import * as THREE from 'three';
 import type { GameState } from '../../core/game.js';
-import { Dice } from './Dice.js';
+import { RentTransfer } from './RentTransfer.js';
+import type { RentCue } from '../presentation.js';
 import { Mascot, type MotionCue } from './Mascot.js';
 import { MiniatureTown } from './MiniatureTown.js';
 import { positionForTile } from './layout.js';
@@ -14,28 +15,34 @@ type WorldCanvasProps = Readonly<{
   dieNonce: number;
   reducedMotion: boolean;
   followCurrent: boolean;
+  rent: RentCue | null;
   onMotionComplete: () => void;
   onActorStep: (tileId: number) => void;
 }>;
 
-function CameraRig({ game, follow }: { game: GameState; follow: boolean }): null {
-  const { camera } = useThree();
+function CameraRig({ target, follow, reducedMotion }: { target: THREE.Vector3; follow: boolean; reducedMotion: boolean }): null {
+  const { camera, size } = useThree();
   const desired = useMemo(() => new THREE.Vector3(), []);
   const look = useMemo(() => new THREE.Vector3(), []);
-  useFrame(() => {
-    const actor = game.players[game.currentPlayerIndex];
-    const point = actor === undefined ? { x: 0, z: 0 } : positionForTile(actor.position);
-    const focusX = follow ? point.x * 0.16 : 0;
-    const focusZ = follow ? point.z * 0.16 : 0;
-    look.lerp(desired.set(focusX, 0.25, focusZ), 0.035);
-    camera.position.lerp(desired.set(10.2 + look.x, 12.5, 10.2 + look.z), 0.035);
+  useFrame((_, delta) => {
+    const blend = reducedMotion ? 1 : 1 - Math.exp(-5 * delta);
+    // Follow actual presentation coordinates; never the already-settled rule position.
+    look.lerp(desired.set(follow ? target.x : 0, 0.3, follow ? target.z : 0), blend);
+    camera.position.copy(desired.set(10.2 + look.x, 12.5, 10.2 + look.z));
     camera.lookAt(look);
+    if (camera instanceof THREE.OrthographicCamera) {
+      const fitZoom = Math.min(size.width / 22, size.height / 18);
+      camera.zoom = follow ? Math.min(size.width / 11, size.height / 10, 64) : fitZoom;
+    }
     camera.updateProjectionMatrix();
   });
   return null;
 }
 
 function Scene(props: WorldCanvasProps): React.JSX.Element {
+  const actor = props.game.players[props.game.currentPlayerIndex];
+  const point = positionForTile(actor.position);
+  const trackedPosition = useMemo(() => new THREE.Vector3(point.x, 0.27, point.z), []);
   return (
     <>
       <color attach="background" args={['#bfe6d9']} />
@@ -55,7 +62,7 @@ function Scene(props: WorldCanvasProps): React.JSX.Element {
         shadow-camera-bottom={-12}
         shadow-bias={-0.0003}
       />
-      <CameraRig game={props.game} follow={props.followCurrent} />
+      <CameraRig target={trackedPosition} follow={props.followCurrent} reducedMotion={props.reducedMotion} />
       <MiniatureTown game={props.game} />
       {props.game.players.map((player, seat) => (
         <Mascot
@@ -68,9 +75,12 @@ function Scene(props: WorldCanvasProps): React.JSX.Element {
           reducedMotion={props.reducedMotion}
           onMotionComplete={props.onMotionComplete}
           onStep={props.onActorStep}
+          dieValue={props.dieValue}
+          dieNonce={props.dieNonce}
+          trackedPosition={trackedPosition}
         />
       ))}
-      <Dice value={props.dieValue} nonce={props.dieNonce} />
+      {props.rent && <RentTransfer game={props.game} cue={props.rent} reducedMotion={props.reducedMotion} />}
     </>
   );
 }

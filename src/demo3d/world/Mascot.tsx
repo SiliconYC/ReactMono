@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { Dice } from './Dice.js';
 import { positionForTile } from './layout.js';
 
 export type MotionCue = Readonly<{
@@ -19,6 +20,9 @@ type MascotProps = Readonly<{
   reducedMotion: boolean;
   onMotionComplete: () => void;
   onStep: (tileId: number) => void;
+  dieValue: number | null;
+  dieNonce: number;
+  trackedPosition: THREE.Vector3;
 }>;
 
 const PLAYER_COLORS = ['#ff715b', '#4f7cff'] as const;
@@ -31,7 +35,10 @@ export function Mascot({
   motion,
   reducedMotion,
   onMotionComplete,
-  onStep
+  onStep,
+  dieValue,
+  dieNonce,
+  trackedPosition
 }: MascotProps): React.JSX.Element {
   const root = useRef<THREE.Group>(null);
   const visual = useRef<THREE.Group>(null);
@@ -69,11 +76,12 @@ export function Mascot({
       group.position.x = THREE.MathUtils.lerp(group.position.x, point.x + offset, 0.2);
       group.position.z = THREE.MathUtils.lerp(group.position.z, point.z - offset, 0.2);
       group.position.y = 0.27;
+      if (active) trackedPosition.copy(group.position);
       return;
     }
 
     const elapsed = performance.now() / 1000 - startedAt.current;
-    const diceDelay = 0.72;
+    const diceDelay = 1.02;
     const stepDuration = 0.24;
     const travelTime = Math.max(0, elapsed - diceDelay);
     const segment = Math.min(motion.path.length - 1, Math.floor(travelTime / stepDuration));
@@ -89,6 +97,8 @@ export function Mascot({
       THREE.MathUtils.lerp(from.z, to.z, eased)
     );
     group.rotation.y = THREE.MathUtils.lerp(group.rotation.y, Math.atan2(to.x - from.x, to.z - from.z), 0.2);
+
+    if (active) trackedPosition.copy(group.position);
 
     if (segment !== reportedStep.current && local > 0.55) {
       reportedStep.current = segment;
@@ -108,6 +118,7 @@ export function Mascot({
   const isFox = seat === 0;
   return (
     <group ref={root}>
+      {active && <Dice value={dieValue} nonce={dieNonce} reducedMotion={reducedMotion} />}
       <mesh position={[0, -0.2, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
         <circleGeometry args={[0.43, 20]} />
         <meshBasicMaterial color="#173b36" transparent opacity={0.2} depthWrite={false} />

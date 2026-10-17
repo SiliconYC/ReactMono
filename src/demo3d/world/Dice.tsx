@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
-type DiceProps = Readonly<{ value: number | null; nonce: number }>;
+type DiceProps = Readonly<{ value: number | null; nonce: number; reducedMotion: boolean }>;
 
 const PIPS: Readonly<Record<number, readonly [number, number][]>> = {
   1: [[0, 0]],
@@ -37,7 +37,7 @@ function targetRotation(value: number): THREE.Euler {
   }
 }
 
-export function Dice({ value, nonce }: DiceProps): React.JSX.Element | null {
+export function Dice({ value, nonce, reducedMotion }: DiceProps): React.JSX.Element | null {
   const root = useRef<THREE.Group>(null);
   const startedAt = useRef(0);
   const settling = useRef(false);
@@ -53,9 +53,14 @@ export function Dice({ value, nonce }: DiceProps): React.JSX.Element | null {
   useFrame(() => {
     if (root.current === null || value === null) return;
     const elapsed = performance.now() / 1000 - startedAt.current;
+    if (reducedMotion) {
+      root.current.quaternion.copy(target);
+      root.current.position.y = 2.25;
+      return;
+    }
     if (elapsed < 0.62) {
       root.current.rotation.set(elapsed * 10.5, elapsed * 13.2, elapsed * 8.4);
-      root.current.position.y = 2.45 + Math.sin(Math.min(1, elapsed / 0.62) * Math.PI) * 1.15;
+      root.current.position.y = 2.25 + Math.sin(Math.min(1, elapsed / 0.62) * Math.PI) * 1.15;
     } else {
       if (!settling.current) {
         from.copy(root.current.quaternion);
@@ -63,13 +68,13 @@ export function Dice({ value, nonce }: DiceProps): React.JSX.Element | null {
       }
       const settle = THREE.MathUtils.smoothstep(elapsed, 0.62, 0.98);
       root.current.quaternion.slerpQuaternions(from, target, settle);
-      root.current.position.y = 2.45 + Math.abs(Math.sin((elapsed - 0.62) * 12)) * Math.max(0, 0.25 - (elapsed - 0.62) * 0.32);
+      root.current.position.y = 2.25 + Math.abs(Math.sin((elapsed - 0.62) * 12)) * Math.max(0, 0.25 - (elapsed - 0.62) * 0.32);
     }
   });
 
   if (value === null) return null;
   return (
-    <group ref={root} position={[0, 2.45, 0]} scale={0.86}>
+    <group ref={root} position={[0, 2.25, 0]} scale={0.56}>
       <mesh castShadow>
         <boxGeometry args={[1, 1, 1, 3, 3, 3]} />
         <meshStandardMaterial color="#fffaf0" roughness={0.32} metalness={0.02} />

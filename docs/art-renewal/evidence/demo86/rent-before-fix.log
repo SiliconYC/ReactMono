@@ -1,0 +1,29 @@
+
+> reactmono@0.2.0 demo:build
+> tsc -p tsconfig.demo.json && vite build --config vite.demo.config.ts
+
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 56 modules transformed.
+rendering chunks...
+computing gzip size...
+dist-3d-demo/index.html                     0.58 kB │ gzip:   0.41 kB
+dist-3d-demo/assets/index-COd5MW87.css     10.11 kB │ gzip:   3.02 kB
+dist-3d-demo/assets/index-DFcUK1GL.js   1,067.36 kB │ gzip: 292.51 kB
+
+✓ built in 204ms
+F
+======================================================================
+FAIL: test_mobile_rent_animation_after_arrival (__main__.Demo3DBrowserTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/laocao/Documents/coding/ReactMono/tests/browser_demo3d_e2e.py", line 160, in test_mobile_rent_animation_after_arrival
+    self.exercise_rent(390, 844, True)
+  File "/Users/laocao/Documents/coding/ReactMono/tests/browser_demo3d_e2e.py", line 143, in exercise_rent
+    self.assertLessEqual(delta["x"] + delta["width"] / 2, box["x"] + box["width"])
+AssertionError: 347.3046875 not less than or equal to 191.5
+
+----------------------------------------------------------------------
+Ran 1 test in 20.889s
+
+FAILED (failures=1)

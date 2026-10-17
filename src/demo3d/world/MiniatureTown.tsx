@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import type { GameState, Tile } from '../../core/game.js';
+import { rowHouses } from '../properties.js';
 import { LOT_ANCHORS, TILE_ANCHORS } from './layout.js';
 
 type TownProps = Readonly<{ game: GameState }>;
@@ -42,12 +43,12 @@ function Lamp({ position }: { position: [number, number, number] }): React.JSX.E
 
 function House({ tile }: { tile: Tile }): React.JSX.Element {
   const owner = tile.ownerId === null ? null : OWNER_COLORS[tile.ownerId] ?? '#f8c95d';
-  if (owner === null) {
+  if (owner === null || (tile.level ?? 0) === 0) {
     return (
       <group>
         <mesh position={[0, 0.08, 0]} receiveShadow>
           <boxGeometry args={[1.05, 0.16, 1.05]} />
-          <meshStandardMaterial color="#c5d79a" roughness={0.92} />
+          <meshStandardMaterial color={owner ?? "#c5d79a"} roughness={0.92} />
         </mesh>
         {[-0.38, 0.38].map(x => [-0.38, 0.38].map(z => (
           <mesh key={`${x}-${z}`} position={[x, 0.24, z]} castShadow>
@@ -59,7 +60,7 @@ function House({ tile }: { tile: Tile }): React.JSX.Element {
     );
   }
   const level = tile.level ?? 0;
-  const height = 0.72 + level * 0.28;
+  const height = 0.85 + (level - 1) * 0.6;
   return (
     <group>
       <mesh position={[0, 0.09, 0]} receiveShadow>
@@ -207,13 +208,34 @@ export function MiniatureTown({ game }: TownProps): React.JSX.Element {
 
       {game.tiles.map(tile => {
         const lot = LOT_ANCHORS[tile.id];
-        const inwardAngle = Math.atan2(-lot.x, -lot.z);
+        const road = TILE_ANCHORS[tile.id];
+        const inwardAngle = Math.abs(road.z) === 4 ? (road.z < 0 ? 0 : Math.PI) : (road.x > 0 ? -Math.PI / 2 : Math.PI / 2);
         return (
           <group key={tile.id} position={[lot.x, -0.03, lot.z]} rotation={[0, inwardAngle, 0]}>
             {tile.kind === 'property' ? <House tile={tile} /> : <NeutralLandmark tileId={tile.id} />}
           </group>
         );
       })}
+
+      {/* Shared walls and roof strips visibly join only eligible street neighbours. */}
+      {rowHouses(game).flatMap(row => row.tileIds.slice(1).map((id, index) => {
+        const a = LOT_ANCHORS[row.tileIds[index]];
+        const b = LOT_ANCHORS[id];
+        const horizontal = a.z === b.z;
+        const height = Math.min(game.tiles[id].level ?? 1, game.tiles[row.tileIds[index]].level ?? 1) === 2 ? 1.45 : 0.85;
+        return (
+          <group key={`terrace-${id}`} position={[(a.x + b.x) / 2, 0, (a.z + b.z) / 2]}>
+            <mesh position={[0, height / 2 + 0.13, 0]} castShadow receiveShadow>
+              <boxGeometry args={horizontal ? [1.22, height, 0.72] : [0.72, height, 1.22]} />
+              <meshStandardMaterial color={row.ownerId === 'p1' ? '#ffb278' : '#91b5ff'} roughness={0.78} />
+            </mesh>
+            <mesh position={[0, height + 0.2, 0]} castShadow>
+              <boxGeometry args={horizontal ? [1.35, 0.18, 0.86] : [0.86, 0.18, 1.35]} />
+              <meshStandardMaterial color={row.ownerId === 'p1' ? '#c85045' : '#385da9'} />
+            </mesh>
+          </group>
+        );
+      }))}
 
       <ClockTower />
       <Lamp position={[-2.9, 0.08, -2.9]} />
