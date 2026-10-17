@@ -40,7 +40,7 @@ SCRIPTS="""{
 def identity(page):
  return page.evaluate("""()=>{
    const a=s=>{const r=document.querySelector(s)?.getBoundingClientRect();return r?
-     {x:Math.round(r.x),y:Math.round(r.y),w:Math.round(r.width),h:Math.round(r.height)}:null;};
+     {x:Math.round(r.x+scrollX),y:Math.round(r.y+scrollY),w:Math.round(r.width),h:Math.round(r.height)}:null;};
    const tiles=[...document.querySelectorAll('.tile')];
    const imgs=[...document.querySelectorAll('.character-image')];
    const buttons=[...document.querySelectorAll('.turn-card button')].filter(e=>{
