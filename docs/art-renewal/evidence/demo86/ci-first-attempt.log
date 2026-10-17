@@ -1,0 +1,124 @@
+##[group]Run python tests/browser_demo3d_e2e.py
+2026-10-17T17:27:57.1453265Z [36;1mpython tests/browser_demo3d_e2e.py[0m
+2026-10-17T17:27:57.1504917Z shell: /usr/bin/bash -e {0}
+2026-10-17T17:27:57.1505068Z ##[endgroup]
+2026-10-17T17:27:57.3303847Z
+2026-10-17T17:27:57.3304397Z > reactmono@0.2.0 demo:build
+2026-10-17T17:27:57.3304945Z > tsc -p tsconfig.demo.json && vite build --config vite.demo.config.ts
+2026-10-17T17:27:57.3305232Z
+2026-10-17T17:27:58.9426580Z [36mvite v8.3.4 [32mbuilding client environment for production...[36m[39m
+2026-10-17T17:27:58.9507871Z transforming...
+2026-10-17T17:27:59.0415411Z ✓ 56 modules transformed.
+2026-10-17T17:27:59.0778459Z rendering chunks...
+2026-10-17T17:27:59.2043038Z computing gzip size...
+2026-10-17T17:27:59.2150786Z dist-3d-demo/index.html                     0.58 kB │ gzip:   0.41 kB
+2026-10-17T17:27:59.2151218Z dist-3d-demo/assets/index-CWKAMybz.css     10.67 kB │ gzip:   3.14 kB
+2026-10-17T17:27:59.2151624Z dist-3d-demo/assets/index-BZf_yApt.js   1,067.54 kB │ gzip: 292.54 kB
+2026-10-17T17:27:59.2151777Z
+2026-10-17T17:27:59.2155495Z [32m✓ built in 272ms[39m
+2026-10-17T17:36:27.2893139Z .FFEEE.
+2026-10-17T17:36:27.2893545Z ======================================================================
+2026-10-17T17:36:27.2894236Z ERROR: test_dynamic_reduced_motion_finishes_current_and_future_rolls (__main__.Demo3DBrowserTest.test_dynamic_reduced_motion_finishes_current_and_future_rolls)
+2026-10-17T17:36:27.2894878Z ----------------------------------------------------------------------
+2026-10-17T17:36:27.2895210Z Traceback (most recent call last):
+2026-10-17T17:36:27.2895966Z   File "/home/runner/work/ReactMono/ReactMono/tests/browser_demo3d_e2e.py", line 213, in test_dynamic_reduced_motion_finishes_current_and_future_rolls
+2026-10-17T17:36:27.2897619Z     page.wait_for_function("document.querySelector('main').dataset.busy === 'false'", timeout=700)
+2026-10-17T17:36:27.2898867Z   File "/home/runner/.local/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 21235, in wait_for_function
+2026-10-17T17:36:27.2899388Z     self._sync(
+2026-10-17T17:36:27.2899705Z   File "/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 111, in _sync
+2026-10-17T17:36:27.2900307Z     return task.result()
+2026-10-17T17:36:27.2900522Z            ^^^^^^^^^^^^^
+2026-10-17T17:36:27.2900871Z   File "/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_page.py", line 1158, in wait_for_function
+2026-10-17T17:36:27.2901306Z     return await self._main_frame.wait_for_function(**locals_to_params(locals()))
+2026-10-17T17:36:27.2901654Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-17T17:36:27.2902048Z   File "/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 945, in wait_for_function
+2026-10-17T17:36:27.2902474Z     await self._channel.send("waitForFunction", self._timeout, params)
+2026-10-17T17:36:27.2902905Z   File "/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 78, in send
+2026-10-17T17:36:27.2903259Z     return await self._connection.wrap_api_call(
+2026-10-17T17:36:27.2903486Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-17T17:36:27.2903888Z   File "/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 636, in wrap_api_call
+2026-10-17T17:36:27.2904358Z     raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+2026-10-17T17:36:27.2904778Z playwright._impl._errors.TimeoutError: Page.wait_for_function: Timeout 700ms exceeded.
+2026-10-17T17:36:27.2905006Z
+2026-10-17T17:36:27.2905126Z ======================================================================
+2026-10-17T17:36:27.2905442Z ERROR: test_mobile_full_turn (__main__.Demo3DBrowserTest.test_mobile_full_turn)
+2026-10-17T17:36:27.2905772Z ----------------------------------------------------------------------
+2026-10-17T17:36:27.2905980Z Traceback (most recent call last):
+2026-10-17T17:36:27.2906477Z   File "/home/runner/work/ReactMono/ReactMono/tests/browser_demo3d_e2e.py", line 244, in test_mobile_full_turn
+2026-10-17T17:36:27.2906786Z     self.exercise_turn(390, 844, True)
+2026-10-17T17:36:27.2907080Z   File "/home/runner/work/ReactMono/ReactMono/tests/browser_demo3d_e2e.py", line 79, in exercise_turn
+2026-10-17T17:36:27.2907357Z     page.wait_for_function(
+2026-10-17T17:36:27.2907675Z   File "/home/runner/.local/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 21235, in wait_for_function
+2026-10-17T17:36:27.2907979Z     self._sync(
+2026-10-17T17:36:27.2908241Z   File "/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 111, in _sync
+2026-10-17T17:36:27.2908508Z     return task.result()
+2026-10-17T17:36:27.2908639Z            ^^^^^^^^^^^^^
+2026-10-17T17:36:27.2908918Z   File "/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_page.py", line 1158, in wait_for_function
+2026-10-17T17:36:27.2909274Z     return await self._main_frame.wait_for_function(**locals_to_params(locals()))
+2026-10-17T17:36:27.2909527Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-17T17:36:27.2909850Z   File "/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 945, in wait_for_function
+2026-10-17T17:36:27.2910344Z     await self._channel.send("waitForFunction", self._timeout, params)
+2026-10-17T17:36:27.2910674Z   File "/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 78, in send
+2026-10-17T17:36:27.2910967Z     return await self._connection.wrap_api_call(
+2026-10-17T17:36:27.2911149Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-17T17:36:27.2911455Z   File "/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 636, in wrap_api_call
+2026-10-17T17:36:27.2911915Z     raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+2026-10-17T17:36:27.2912258Z playwright._impl._errors.TimeoutError: Page.wait_for_function: Timeout 5000ms exceeded.
+2026-10-17T17:36:27.2912450Z
+2026-10-17T17:36:27.2912548Z ======================================================================
+2026-10-17T17:36:27.2912899Z ERROR: test_mobile_rent_animation_after_arrival (__main__.Demo3DBrowserTest.test_mobile_rent_animation_after_arrival)
+2026-10-17T17:36:27.2913243Z ----------------------------------------------------------------------
+2026-10-17T17:36:27.2913447Z Traceback (most recent call last):
+2026-10-17T17:36:27.2913768Z   File "/home/runner/work/ReactMono/ReactMono/tests/browser_demo3d_e2e.py", line 160, in test_mobile_rent_animation_after_arrival
+2026-10-17T17:36:27.2914078Z     self.exercise_rent(390, 844, True)
+2026-10-17T17:36:27.2914393Z   File "/home/runner/work/ReactMono/ReactMono/tests/browser_demo3d_e2e.py", line 133, in exercise_rent
+2026-10-17T17:36:27.2914931Z     self.assertIn("桃桃", receipt.inner_text())
+2026-10-17T17:36:27.2915109Z                           ^^^^^^^^^^^^^^^^^^^^
+2026-10-17T17:36:27.2915423Z   File "/home/runner/.local/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 12419, in inner_text
+2026-10-17T17:36:27.2915772Z     self._sync(self._impl_obj.inner_text(timeout=to_milliseconds(timeout)))
+2026-10-17T17:36:27.2916126Z   File "/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 111, in _sync
+2026-10-17T17:36:27.2916400Z     return task.result()
+2026-10-17T17:36:27.2916532Z            ^^^^^^^^^^^^^
+2026-10-17T17:36:27.2916846Z   File "/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_locator.py", line 514, in inner_text
+2026-10-17T17:36:27.2917150Z     return await self._frame.inner_text(
+2026-10-17T17:36:27.2917319Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-17T17:36:27.2917623Z   File "/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 748, in inner_text
+2026-10-17T17:36:27.2917922Z     return await self._channel.send(
+2026-10-17T17:36:27.2918192Z            ^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-17T17:36:27.2918477Z   File "/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 78, in send
+2026-10-17T17:36:27.2918792Z     return await self._connection.wrap_api_call(
+2026-10-17T17:36:27.2918979Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-17T17:36:27.2919303Z   File "/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 636, in wrap_api_call
+2026-10-17T17:36:27.2919668Z     raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+2026-10-17T17:36:27.2920219Z playwright._impl._errors.TimeoutError: Locator.inner_text: Timeout 30000ms exceeded.
+2026-10-17T17:36:27.2920444Z Call log:
+2026-10-17T17:36:27.2920621Z   - waiting for get_by_label("租金结算")
+2026-10-17T17:36:27.2920721Z
+2026-10-17T17:36:27.2920728Z
+2026-10-17T17:36:27.2920835Z ======================================================================
+2026-10-17T17:36:27.2921115Z FAIL: test_desktop_full_turn (__main__.Demo3DBrowserTest.test_desktop_full_turn)
+2026-10-17T17:36:27.2921417Z ----------------------------------------------------------------------
+2026-10-17T17:36:27.2921650Z Traceback (most recent call last):
+2026-10-17T17:36:27.2921960Z   File "/home/runner/work/ReactMono/ReactMono/tests/browser_demo3d_e2e.py", line 241, in test_desktop_full_turn
+2026-10-17T17:36:27.2922253Z     self.exercise_turn(1280, 800, False)
+2026-10-17T17:36:27.2922545Z   File "/home/runner/work/ReactMono/ReactMono/tests/browser_demo3d_e2e.py", line 85, in exercise_turn
+2026-10-17T17:36:27.2922904Z     self.assertIn(intermediate_name, page.locator(".location-card").inner_text())
+2026-10-17T17:36:27.2923319Z AssertionError: '银杏小路' not found in '正在前进\n甜橙街\n最近掷出 3 点'
+2026-10-17T17:36:27.2923455Z
+2026-10-17T17:36:27.2923561Z ======================================================================
+2026-10-17T17:36:27.2924037Z FAIL: test_desktop_rent_animation_after_arrival (__main__.Demo3DBrowserTest.test_desktop_rent_animation_after_arrival)
+2026-10-17T17:36:27.2924417Z ----------------------------------------------------------------------
+2026-10-17T17:36:27.2924621Z Traceback (most recent call last):
+2026-10-17T17:36:27.2924964Z   File "/home/runner/work/ReactMono/ReactMono/tests/browser_demo3d_e2e.py", line 157, in test_desktop_rent_animation_after_arrival
+2026-10-17T17:36:27.2925280Z     self.exercise_rent(1280, 800, False)
+2026-10-17T17:36:27.2925557Z   File "/home/runner/work/ReactMono/ReactMono/tests/browser_demo3d_e2e.py", line 137, in exercise_rent
+2026-10-17T17:36:27.2925867Z     self.assertEqual(page.locator(".cash-delta").count(), 2)
+2026-10-17T17:36:27.2926060Z AssertionError: 0 != 2
+2026-10-17T17:36:27.2926141Z
+2026-10-17T17:36:27.2926259Z ----------------------------------------------------------------------
+2026-10-17T17:36:27.2926468Z Ran 7 tests in 510.017s
+2026-10-17T17:36:27.2926561Z
+2026-10-17T17:36:27.2926641Z FAILED (failures=2, errors=3)
+2026-10-17T17:36:27.2997792Z sys:1: ResourceWarning: unclosed <socket.socket fd=3, family=2, type=1, proto=0, laddr=('127.0.0.1', 39509)>
+2026-10-17T17:36:27.3102694Z ##[error]Process completed with exit code 1.
+2026-10-17T17:36:27.3149998Z
