@@ -25,7 +25,7 @@ test('#72 build footprint, CDN-free original art, and exact service-worker cache
   assert.ok(byPath.get(a.path)<=budget.svgFile,a.path);
   const svg=readFileSync(join(ROOT,a.path),'utf8');
   assert.match(svg,/<svg\b/);
-  assert.doesNotMatch(svg,/(?:<script\b|https?:\/\/|data:image\/|<foreignObject\b)/i);
+  assert.doesNotMatch(svg.replace('http://www.w3.org/2000/svg',''),/(?:<script\b|https?:\/\/|data:image\/|<foreignObject\b)/i);
  }
  const index=readFileSync(join(ROOT,'index.html'),'utf8');
  const sw=readFileSync(join(ROOT,'sw.js'),'utf8');
