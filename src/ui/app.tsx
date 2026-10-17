@@ -5,6 +5,7 @@ import { listSlots, readSlot, writeSlot, deleteSlot, type SlotSummary } from '..
 import { deserializeGame, MAX_SAVE_CHARS, type SaveEnvelope } from '../core/save.js';
 import { characterMarker, CHARACTER_NAMES } from './characters.js';
 import { eventCue, type VisualCue } from './feedback.js';
+import { SoundController } from './audio.js';
 
 interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly bankAmountInput: string; readonly stockAmountInput: string; readonly strategyDieInput:string; readonly roadblockTileInput:string; readonly playerSetup: readonly PlayerConfig[]; readonly roundsInput: string; readonly selectedMapId:string; readonly selectedTileId:number|null; readonly lastMotion:{playerId:string;tileId:number;revision:number}|null; readonly visualCue:VisualCue|null; readonly motionOff:boolean; readonly financePanel:'property'|'bank'|'loan'|'stock'|null; readonly awaitingHandoff: boolean; readonly fastMode: boolean; readonly specialEnabled:boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; readonly importPreview: SaveEnvelope | null; readonly importName: string; readonly offline: boolean; readonly pwaUpdate: boolean; readonly pwaMessage: string; }
 
@@ -23,6 +24,7 @@ class App extends React.Component<object, UiState> {
   }
 
   private computerTimer: number | null = null;
+  private sound=new SoundController();
   private cueTimer:number|null=null;
   private cueGeneration=0;
   private get noMotion():boolean {return this.state.motionOff||this.state.fastMode||window.matchMedia('(prefers-reduced-motion: reduce)').matches;}
@@ -196,6 +198,7 @@ class App extends React.Component<object, UiState> {
     }catch(e){this.setState({saveStatus:'覆盖失败：'+(e instanceof Error?e.message:String(e))});}
   };
   private restoreSlot = async (slot:SlotSummary):Promise<void> => {
+    void this.sound.activate();
     if(this.state.storageBusy)return;
     if(!window.confirm('读取「'+slot.name+'」将替换屏幕上的当前游戏，是否继续？'))return;
     this.saveEpoch++;
@@ -252,6 +255,7 @@ class App extends React.Component<object, UiState> {
     this.setState({awaitingHandoff:false,message:'已轮到'+this.state.game.players[this.state.game.currentPlayerIndex].name+'操作。'});
   };
   startGame = (): void => {
+    void this.sound.activate();
     const seed = Number(this.state.seedInput.trim());
     if (!/^\d{1,10}$/.test(this.state.seedInput.trim()) || !Number.isSafeInteger(seed) || seed > 4294967295) {
       this.setState({ message: '对局种子请输入 0 至 4294967295 之间的整数。' });
@@ -278,6 +282,7 @@ class App extends React.Component<object, UiState> {
     this.setState({ game: result.state, activeSeed: seed,selectedTileId:0,lastMotion:null,visualCue:null,financePanel:null, awaitingHandoff:false, message: '游戏已开始！轮到'+fresh.players[0].name+'掷骰。' });
   };
   componentWillUnmount(): void {
+    this.sound.dispose();
     window.removeEventListener('online',this.updateOnline);
     document.removeEventListener('visibilitychange',this.onVisibility);
     this.cancelCue();
@@ -302,6 +307,7 @@ class App extends React.Component<object, UiState> {
         this.setState({ message: '电脑操作失败（' + result.reason + '），请重新开局或报告缺陷。' });
         return;
       }
+      this.sound.play(result.events);
       const actor = snapshot.players[snapshot.currentPlayerIndex];
       const cue=this.cueFor(snapshot,result.state,result.events);
       const moved=result.events.find(e=>e.type==='player_moved');
@@ -313,6 +319,7 @@ class App extends React.Component<object, UiState> {
   }
 
   dispatch = (type: GameAction['type'],tileId?:number,cardType?:CardKind,stockId?:StockId): void => {
+    void this.sound.activate();
     if(this.state.storageBusy||this.state.awaitingHandoff)return;
     const { game } = this.state;
     const actor = game.players[game.currentPlayerIndex];
@@ -359,6 +366,7 @@ class App extends React.Component<object, UiState> {
       return;
     }
     this.lastCommittedAction={game,signature,at:Date.now()};
+    this.sound.play(result.events);
     const cue=this.cueFor(game,result.state,result.events);
     const next=result.state.players[result.state.currentPlayerIndex];
     const handoff=type==='end_turn' && result.state.status==='playing'
@@ -588,7 +596,18 @@ class App extends React.Component<object, UiState> {
           </section>
           <aside className="sidebar">
             <div className="turn-card">
-              <div className="card-label">当前行动</div>
+              <div className="card-label audio-heading"><span>当前行动</span>
+                <div className="audio-toolbar">
+                  <button type="button" className="audio-toggle" aria-label={this.sound.isEnabled?'关闭音效':'开启音效'} aria-pressed={this.sound.isEnabled}
+                    onClick={()=>{void this.sound.setEnabled(!this.sound.isEnabled);this.setState({});}}>
+                    音效 · {this.sound.isEnabled?'开':'关'}
+                  </button>
+                  {this.sound.isEnabled&&<label className="audio-volume">音量
+                    <input type="range" min="0" max="100" step="5" aria-label="音效音量" value={Math.round(this.sound.level*100)}
+                      onChange={(e:{target:{value:string}})=>{this.sound.setVolume(Number(e.target.value)/100);this.setState({});}}/>
+                  </label>}
+                </div>
+              </div>
               <div className="turn-person">{characterMarker(game.currentPlayerIndex,current.kind,'portrait',game.status==='playing')}<div><strong>{current.name}</strong><small>{CHARACTER_NAMES[game.currentPlayerIndex]} · {current.kind==='computer'?(current.computerStyle?COMPUTER_STYLE_NAMES[current.computerStyle]:'经典')+'电脑':'真人'} · {phaseDescription}</small></div></div>
               <div className="turn-position">位置：<b>{current.position} 号格</b><span>·</span>资金：<b>{current.cash.toLocaleString('zh-CN')}</b>{game.bank&&<span> · 银行存款：<b>{(current.bankBalance??0).toLocaleString('zh-CN')}</b></span>}{game.loan&&<span> · 贷款：<b>{(current.loanBalance??0).toLocaleString('zh-CN')}</b> · 净资产：<b>{netWorth(game,current.id).toLocaleString('zh-CN')}</b></span>}</div>
               {game.status === 'setup' && <div className="start-form">
