@@ -328,6 +328,8 @@ class App extends React.Component<object, UiState> {
     if(this.state.storageBusy||this.state.cpuPaused||this.state.awaitingHandoff||document.hidden)return;
     const snapshot = this.state.game;
     if (snapshot.status !== 'playing' || snapshot.players[snapshot.currentPlayerIndex].kind !== 'computer' || this.computerTimer !== null) return;
+    const scheduledDelay=cpuDelay(this.state.fastMode?'fast':'normal',
+      {type:'roll',actorId:snapshot.players[snapshot.currentPlayerIndex].id},this.lastCpuEvents);
     this.computerTimer = window.setTimeout(() => {
       this.computerTimer = null;
       if (this.state.game !== snapshot || this.state.storageBusy || this.state.cpuPaused || document.hidden)return;
@@ -360,11 +362,10 @@ class App extends React.Component<object, UiState> {
       const cue=this.cueFor(snapshot,result.state,result.events);
       const moved=result.events.find(e=>e.type==='player_moved');
       const landed=result.state.players.find(p=>p.id===actor.id);
-      this.setState({ game: result.state,visualCue:cue,cpuTiming:addCpuTiming(this.state.cpuTiming,calculationMs,cpuDelay(this.state.fastMode?'fast':'normal',action,result.events)),
+      this.setState({ game: result.state,visualCue:cue,cpuTiming:addCpuTiming(this.state.cpuTiming,calculationMs,scheduledDelay),
         lastMotion:moved&&landed?{playerId:actor.id,tileId:landed.position,revision:result.state.revision}:null,
         message: this.describe(result.events, result.state, actor.name) });
-    }, cpuDelay(this.state.fastMode?'fast':'normal',
-      {type:'roll',actorId:snapshot.players[snapshot.currentPlayerIndex].id},this.lastCpuEvents));
+    }, scheduledDelay);
   }
 
   dispatch = (type: GameAction['type'],tileId?:number,cardType?:CardKind,stockId?:StockId): void => {
