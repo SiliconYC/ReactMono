@@ -20,6 +20,16 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts
       - run: npm test
+      - name: P4 #71 固定种子 1000 局基线 + 1000 局交叉对照
+        run: node scripts/p4-balance-experiment.mjs
+      - name: 保留 #71 全部 2000 局动作轨迹及量化采纳/拒绝结论
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue71-balance-1000-pairs
+          path: artifacts/issue71/
+          if-no-files-found: warn
+          retention-days: 30
       - name: 准备中文字体（真实棋盘截图不能出现方框字）
         run: |
           if ! fc-list :lang=zh family | grep -q .; then
