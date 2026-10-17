@@ -420,7 +420,11 @@ class App extends React.Component<object, UiState> {
         {tile.mortgaged&&<span className="tile-mortgage" aria-hidden="true">押</span>}
         {tile.kind==='property'&&owner&&<span className="tile-level" aria-label={`建筑等级 ${level}`}>{'●'.repeat(level+1)}</span>}
         <span className="pieces" aria-label={residents.map(p=>p.name).join('、')}>
-          {residents.map(p=><span key={p.id} className={`piece piece-${game.players.indexOf(p)+1} ${p.kind}`} title={p.name} aria-label={p.name}>{game.players.indexOf(p)+1}</span>)}
+          {residents.map(p=><span key={p.id} className="pawn-holder" data-player-id={p.id} title={p.name}>
+            {characterMarker(game.players.indexOf(p),p.kind,'pawn',
+              game.status==='playing'&&p.id===game.players[game.currentPlayerIndex].id,
+              this.state.lastMotion?.revision===game.revision&&this.state.lastMotion.playerId===p.id&&this.state.lastMotion.tileId===tile.id)}
+          </span>)}
         </span>
       </button>
     );
@@ -462,7 +466,7 @@ class App extends React.Component<object, UiState> {
               const shares=STOCKS.reduce((total,stock)=>total+(p.holdings?.[stock.id]?.quantity??0),0);
               const shareValue=game.market?STOCKS.reduce((total,stock)=>total+(p.holdings?.[stock.id]?.quantity??0)*quoteMarket(game.market!,stock.id),0):0;
               return <div className={`asset-player ${game.status==='playing'&&p.id===current.id?'is-active':''} ${p.bankrupt?'is-bankrupt':''}`} key={p.id} data-player-id={p.id} data-active-player={String(game.status==='playing'&&p.id===current.id)}>
-                <div className="asset-identity"><span className={`player-dot ${p.kind}`}>{p.kind==='human'?'人':'机'}</span><strong>{p.name}</strong><span className="asset-turn-tag">{p.bankrupt?'已破产':p.id===current.id&&game.status==='playing'?'当前操作':p.kind==='computer'?'电脑':'真人'}</span></div>
+                <div className="asset-identity">{characterMarker(game.players.indexOf(p),p.kind,'badge',p.id===current.id&&game.status==='playing')}<strong>{p.name}</strong><span className="asset-turn-tag">{p.bankrupt?'已破产':p.id===current.id&&game.status==='playing'?'当前操作':p.kind==='computer'?'电脑':'真人'}</span></div>
                 <dl className="asset-metrics">
                   <div><dt>现金</dt><dd>{p.cash.toLocaleString('zh-CN')}</dd></div>
                   <div><dt>银行存款</dt><dd>{(p.bankBalance??0).toLocaleString('zh-CN')}</dd></div>
@@ -515,7 +519,7 @@ class App extends React.Component<object, UiState> {
           <aside className="sidebar">
             <div className="turn-card">
               <div className="card-label">当前行动</div>
-              <div className="turn-person"><span className={`portrait ${current.kind}`}>{current.kind === 'human' ? '人' : '机'}</span><div><strong>{current.name}</strong><small>{phaseDescription}</small></div></div>
+              <div className="turn-person">{characterMarker(game.currentPlayerIndex,current.kind,'portrait',game.status==='playing')}<div><strong>{current.name}</strong><small>{CHARACTER_NAMES[game.currentPlayerIndex]} · {current.kind==='computer'?(current.computerStyle?COMPUTER_STYLE_NAMES[current.computerStyle]:'经典')+'电脑':'真人'} · {phaseDescription}</small></div></div>
               <div className="turn-position">位置：<b>{current.position} 号格</b><span>·</span>资金：<b>{current.cash.toLocaleString('zh-CN')}</b>{game.bank&&<span> · 银行存款：<b>{(current.bankBalance??0).toLocaleString('zh-CN')}</b></span>}{game.loan&&<span> · 贷款：<b>{(current.loanBalance??0).toLocaleString('zh-CN')}</b> · 净资产：<b>{netWorth(game,current.id).toLocaleString('zh-CN')}</b></span>}</div>
               {game.status === 'setup' && <div className="start-form">
                 <label className="field-label" htmlFor="game-map">游戏地图 <small>经典环线 24 格；原创海港 20 格（价格与地名不同）</small></label>
@@ -529,7 +533,8 @@ class App extends React.Component<object, UiState> {
                   {[2,3,4].map(n=><option key={n} value={n}>{n} 人</option>)}
                 </select>
                 <div className="setup-roster">
-                  {this.state.playerSetup.map((p,i)=><div className="setup-player" key={p.id}>
+                  {this.state.playerSetup.map((p,i)=><div className="setup-player" key={p.id} data-player-id={p.id}>
+                    {characterMarker(i,p.kind??(i===0?'human':'computer'),'setup')}
                     <label>第 {i+1} 位玩家姓名<input aria-label={`第 ${i+1} 位玩家姓名`} type="text" maxLength={24} value={p.name} onChange={(event:{target:{value:string}})=>this.updatePlayer(i,'name',event.target.value)}/></label>
                     <label>类型<select aria-label={`第 ${i+1} 位玩家类型`} value={p.kind??(i===0?'human':'computer')} onChange={(event:{target:{value:string}})=>this.updatePlayer(i,'kind',event.target.value)}>
                       <option value="human">真人</option><option value="computer">电脑</option>
@@ -546,7 +551,7 @@ class App extends React.Component<object, UiState> {
                 <button type="button" className="primary-btn" onClick={this.startGame}>开始游戏 <span>→</span></button>
               </div>}
               {this.state.awaitingHandoff && game.status==='playing' && <div className="handoff-panel" role="status">
-                <strong>轮到 {current.name}</strong>
+                <div className="handoff-identity">{characterMarker(game.currentPlayerIndex,current.kind,'portrait',true)}<strong>轮到 {current.name} · {CHARACTER_NAMES[game.currentPlayerIndex]}</strong></div>
                 <p>请把设备交给这名玩家，准备好以后确认。上一位玩家不能继续操作。</p>
                 <button type="button" className="primary-btn" onClick={this.acknowledgeHandoff}>我已就位，开始操作</button>
               </div>}
@@ -647,7 +652,10 @@ class App extends React.Component<object, UiState> {
                   </div>}
                   <button type="button" className="primary-btn" onClick={() => this.dispatch('end_turn')}>结束当前回合 <span>→</span></button>
               </div>}
-              {game.phase === 'finished' && <div className="result-box" role="status"><strong>{game.winnerId ? `${game.players.find(p => p.id === game.winnerId)?.name}获胜！` : '净资产并列，平局！'}</strong><p>{[...game.events].reverse().find(e => e.type === 'game_finished')?.details?.reason === 'bankruptcy' ? '结束原因：一方无法付清租金' : '结束原因：达到回合上限'}</p><p>最终净资产：{game.players.map(p=>`${p.name} ${netWorth(game,p.id)}`).join(' · ')}</p><p>本局种子：{this.state.activeSeed}</p><button type="button" className="primary-btn" onClick={this.reset}>再来一局 <span>↻</span></button></div>}
+              {game.phase === 'finished' && <div className="result-box" role="status">{game.winnerId&&(()=>{
+                 const seat=game.players.findIndex(p=>p.id===game.winnerId);
+                 return seat>=0?characterMarker(seat,game.players[seat].kind,'winner',true):null;
+               })()}<strong>{game.winnerId ? `${game.players.find(p => p.id === game.winnerId)?.name}获胜！` : '净资产并列，平局！'}</strong><p>{[...game.events].reverse().find(e => e.type === 'game_finished')?.details?.reason === 'bankruptcy' ? '结束原因：一方无法付清租金' : '结束原因：达到回合上限'}</p><p>最终净资产：{game.players.map(p=>`${p.name} ${netWorth(game,p.id)}`).join(' · ')}</p><p>本局种子：{this.state.activeSeed}</p><button type="button" className="primary-btn" onClick={this.reset}>再来一局 <span>↻</span></button></div>}
               <p className="turn-tip" role="status">{message}</p>
             </div>
             <div className="saves-card">
@@ -680,7 +688,7 @@ class App extends React.Component<object, UiState> {
                 <button type="button" className="secondary-btn" onClick={()=>this.setState({importPreview:null,importName:'',saveStatus:'已取消导入'})}>取消导入</button>
               </div>}
             </div>
-            <div className="players-card"><div className="card-label">玩家状态</div>{game.players.map(p => <div key={p.id} className={`player-line ${current.id === p.id && game.status === 'playing' ? 'is-current' : ''}`}><span className={`player-dot ${p.kind}`}>{p.kind === 'human' ? '人' : '机'}</span><div><strong>{p.name}</strong><small>{p.position} 号格 · 现金 {p.cash.toLocaleString('zh-CN')}{game.bank?` · 存款 ${(p.bankBalance??0).toLocaleString('zh-CN')}`:''}{game.market?` · 股票 ${Object.values(p.holdings??{}).reduce((sum,lot)=>sum+(lot?.quantity??0),0)} 股`:''}{game.loan?` · 贷款 ${(p.loanBalance??0).toLocaleString('zh-CN')}`:''} · 净资产 {netWorth(game,p.id).toLocaleString('zh-CN')}{p.detention?` · ${p.detention.kind==='hospital'?'住院':'入狱'}剩余 ${p.detention.remaining} 回合`:''}{p.bankrupt ? ' · 已破产' : ''}</small></div><span className="player-kind">{p.kind === 'human' ? '真人' : '电脑'}</span></div>)}</div>
+            <div className="players-card"><div className="card-label">玩家状态</div>{game.players.map(p => <div key={p.id} className={`player-line ${current.id === p.id && game.status === 'playing' ? 'is-current' : ''}`}>{characterMarker(game.players.indexOf(p),p.kind,'badge',p.id===current.id&&game.status==='playing')}<div><strong>{p.name}</strong><small>{p.position} 号格 · 现金 {p.cash.toLocaleString('zh-CN')}{game.bank?` · 存款 ${(p.bankBalance??0).toLocaleString('zh-CN')}`:''}{game.market?` · 股票 ${Object.values(p.holdings??{}).reduce((sum,lot)=>sum+(lot?.quantity??0),0)} 股`:''}{game.loan?` · 贷款 ${(p.loanBalance??0).toLocaleString('zh-CN')}`:''} · 净资产 {netWorth(game,p.id).toLocaleString('zh-CN')}{p.detention?` · ${p.detention.kind==='hospital'?'住院':'入狱'}剩余 ${p.detention.remaining} 回合`:''}{p.bankrupt ? ' · 已破产' : ''}</small></div><span className="player-kind">{p.kind === 'human' ? '真人' : '电脑'}</span></div>)}</div>
             <div className="activity-card"><div className="card-label">最近事件</div><ol>{lastEvents.map((e,i) => <li key={`${game.events.length}-${i}`}>{this.describeEvent(e)}</li>)}</ol></div>
             <div className="info-card"><strong>玩法说明</strong><p>① 点击「开始游戏」，轮到玩家时掷骰前进。② 到无主地产可买入或放弃；经过对手地产会自动付租。③ 处理完地块后结束回合，电脑会自动行动。</p><p>付不起租金可能出售地产或破产；最终按现金、存款、地产成本、股票市值减贷款计算净资产。电脑购地后至少保留 200 游戏币。</p><p>卡片站可获得奖励、步数、遥控骰子、路障及免租卡；只在掷骰前使用。路障让对手提前停下，最多持续两轮；免租卡仅保护下一次落地。存档与离线游玩均在本机完成。</p></div>
           </aside>
