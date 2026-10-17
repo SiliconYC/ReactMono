@@ -1,0 +1,28 @@
+
+> reactmono@0.2.0 demo:build
+> tsc -p tsconfig.demo.json && vite build --config vite.demo.config.ts
+
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 56 modules transformed.
+rendering chunks...
+computing gzip size...
+dist-3d-demo/index.html                     0.58 kB │ gzip:   0.41 kB
+dist-3d-demo/assets/index-CWKAMybz.css     10.67 kB │ gzip:   3.14 kB
+dist-3d-demo/assets/index-BZf_yApt.js   1,067.54 kB │ gzip: 292.54 kB
+
+✓ built in 218ms
+test_complete_game_and_row_houses_reduced_motion (__main__.Demo3DBrowserTest) ... ok
+test_desktop_full_turn (__main__.Demo3DBrowserTest) ... ok
+test_desktop_rent_animation_after_arrival (__main__.Demo3DBrowserTest) ... ok
+test_dynamic_reduced_motion_finishes_current_and_future_rolls (__main__.Demo3DBrowserTest) ... Current roll reduce latency: {'duration': 14.099999994039536, 'busyAtStart': 'true'}
+Next reduced roll latency: {'duration': 11.699999995529652, 'busyAtStart': 'false'}
+ok
+test_mobile_full_turn (__main__.Demo3DBrowserTest) ... ok
+test_mobile_rent_animation_after_arrival (__main__.Demo3DBrowserTest) ... ok
+test_short_viewport_controls_stay_reachable (__main__.Demo3DBrowserTest) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 59.537s
+
+OK

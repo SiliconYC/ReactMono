@@ -1,0 +1,111 @@
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Suspense, useMemo, useState } from 'react';
+import * as THREE from 'three';
+import type { GameState } from '../../core/game.js';
+import { RentTransfer } from './RentTransfer.js';
+import type { RentCue } from '../presentation.js';
+import { Mascot, type MotionCue } from './Mascot.js';
+import { MiniatureTown } from './MiniatureTown.js';
+import { positionForTile } from './layout.js';
+
+type WorldCanvasProps = Readonly<{
+  game: GameState;
+  motion: MotionCue | null;
+  dieValue: number | null;
+  dieNonce: number;
+  reducedMotion: boolean;
+  followCurrent: boolean;
+  rent: RentCue | null;
+  onMotionComplete: () => void;
+  onActorStep: (tileId: number) => void;
+}>;
+
+function CameraRig({ target, follow, reducedMotion }: { target: THREE.Vector3; follow: boolean; reducedMotion: boolean }): null {
+  const { camera, size } = useThree();
+  const desired = useMemo(() => new THREE.Vector3(), []);
+  const look = useMemo(() => new THREE.Vector3(), []);
+  useFrame((_, delta) => {
+    const blend = reducedMotion ? 1 : 1 - Math.exp(-5 * delta);
+    // Follow actual presentation coordinates; never the already-settled rule position.
+    look.lerp(desired.set(follow ? target.x : 0, 0.3, follow ? target.z : 0), blend);
+    camera.position.copy(desired.set(10.2 + look.x, 12.5, 10.2 + look.z));
+    camera.lookAt(look);
+    if (camera instanceof THREE.OrthographicCamera) {
+      const fitZoom = Math.min(size.width / 22, size.height / 18);
+      camera.zoom = follow ? Math.min(size.width / 11, size.height / 10, 64) : fitZoom;
+    }
+    camera.updateProjectionMatrix();
+  });
+  return null;
+}
+
+function Scene(props: WorldCanvasProps): React.JSX.Element {
+  const actor = props.game.players[props.game.currentPlayerIndex];
+  const point = positionForTile(actor.position);
+  const trackedPosition = useMemo(() => new THREE.Vector3(point.x, 0.27, point.z), []);
+  return (
+    <>
+      <color attach="background" args={['#bfe6d9']} />
+      <fog attach="fog" args={['#bfe6d9', 18, 31]} />
+      <ambientLight intensity={1.35} color="#dff7ef" />
+      <hemisphereLight args={['#eafcf5', '#52756b', 1.25]} />
+      <directionalLight
+        position={[-8, 15, 7]}
+        intensity={2.45}
+        color="#fff0c5"
+        castShadow
+        shadow-mapSize-width={1536}
+        shadow-mapSize-height={1536}
+        shadow-camera-left={-12}
+        shadow-camera-right={12}
+        shadow-camera-top={12}
+        shadow-camera-bottom={-12}
+        shadow-bias={-0.0003}
+      />
+      <CameraRig target={trackedPosition} follow={props.followCurrent} reducedMotion={props.reducedMotion} />
+      <MiniatureTown game={props.game} />
+      {props.game.players.map((player, seat) => (
+        <Mascot
+          key={player.id}
+          id={player.id}
+          seat={seat}
+          tileId={player.position}
+          active={seat === props.game.currentPlayerIndex}
+          motion={props.motion}
+          reducedMotion={props.reducedMotion}
+          onMotionComplete={props.onMotionComplete}
+          onStep={props.onActorStep}
+          dieValue={props.dieValue}
+          dieNonce={props.dieNonce}
+          trackedPosition={trackedPosition}
+        />
+      ))}
+      {props.rent && <RentTransfer game={props.game} cue={props.rent} reducedMotion={props.reducedMotion} />}
+    </>
+  );
+}
+
+export function WorldCanvas(props: WorldCanvasProps): React.JSX.Element {
+  const [ready, setReady] = useState(false);
+  return (
+    <div className="canvas-shell" data-ready={String(ready)}>
+      {!ready && <div className="scene-loading" role="status"><span />正在搭建晴湾小镇…</div>}
+      <Canvas
+        aria-label="晴湾小镇 3D 棋盘"
+        data-testid="world-canvas"
+        orthographic
+        shadows
+        dpr={[1, 1.6]}
+        camera={{ position: [10.2, 12.5, 10.2], zoom: 48, near: 0.1, far: 80 }}
+        gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
+        onCreated={() => setReady(true)}
+        fallback={<div className="scene-error" aria-hidden="true">此浏览器暂时无法建立 3D 场景，请启用 WebGL 后重试。</div>}
+      >
+        <Suspense fallback={null}>
+          <Scene {...props} />
+        </Suspense>
+      </Canvas>
+    </div>
+  );
+}
+
