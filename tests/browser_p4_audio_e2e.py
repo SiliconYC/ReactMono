@@ -18,7 +18,7 @@ def run():
    for name,w,h in [('desktop',1440,900),('phone',390,844)]:
     context=browser.new_context(viewport={'width':w,'height':h},service_workers='allow',has_touch=w<500)
     page=context.new_page()
-    page.add_init_script("""() => {
+    page.add_init_script("""{
       window.__starts=0;
       const original=OscillatorNode.prototype.start;
       OscillatorNode.prototype.start=function(...args){window.__starts++;return original.apply(this,args)};
@@ -30,8 +30,11 @@ def run():
     page.get_by_label('对局种子').fill('17')
     page.get_by_role('button',name='开启音效').click()
     assert page.get_by_role('button',name='关闭音效').get_attribute('aria-pressed')=='true'
-    page.get_by_label('音效音量').fill('65')
+    slider=page.get_by_label('音效音量')
+    slider.focus();slider.press('End')
+    for _ in range(7):slider.press('ArrowLeft')
     assert page.evaluate("localStorage.getItem('reactmono-audio-volume')")=='0.65'
+    page.wait_for_timeout(140)
     page.get_by_role('button',name=re.compile('开始游戏')).click()
     page.get_by_role('button',name=re.compile('掷骰前进')).click()
     page.wait_for_function('window.__starts>=1',timeout=10000)
