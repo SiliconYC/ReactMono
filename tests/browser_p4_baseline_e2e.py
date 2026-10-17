@@ -108,7 +108,9 @@ def main():
               page.get_by_role('button',name=re.compile('购买地产|放弃购买')).first.click()
             reports.append(capture(page,name,'decision'))
             if page.locator('main').get_attribute('data-game-phase')=='await_end_turn':
+              page.get_by_role('button',name='银行',exact=True).click()
               assert page.get_by_label('银行交易金额').count()==1
+              page.get_by_role('button',name='股票',exact=True).click()
               assert page.get_by_label('股票交易数量').count()==1
             result=run_short_game(page)
             assert result['finished'],(name,result)
