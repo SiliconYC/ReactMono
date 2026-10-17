@@ -79,6 +79,9 @@ class Demo3DBrowserTest(unittest.TestCase):
             "['1', '2'].includes(document.querySelector('main')?.dataset.visualTile)",
             timeout=5000,
         )
+        visual_tile = page.locator("main").get_attribute("data-visual-tile")
+        intermediate_name = {"1": "银杏小路", "2": "甜橙街"}[visual_tile]
+        self.assertIn(intermediate_name, page.locator(".location-card").inner_text())
         page.wait_for_function("document.querySelector('main')?.dataset.busy === 'false'", timeout=5000)
         self.assertEqual(page.locator("main").get_attribute("data-visual-tile"), "3")
         self.assertIn("最近掷出 3 点", page.locator(".location-card").inner_text())

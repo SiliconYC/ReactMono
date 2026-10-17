@@ -38,6 +38,7 @@ export function DemoApp(): React.JSX.Element {
   );
   const current = game.players[game.currentPlayerIndex];
   const currentTile = game.tiles[current.position];
+  const displayTile = game.tiles[busy ? visualTile : current.position] ?? currentTile;
 
   const finishMotion = useCallback(() => {
     setBusy(false);
@@ -107,7 +108,7 @@ export function DemoApp(): React.JSX.Element {
         />
         <div className="location-card" aria-live="polite">
           <span>{busy ? '正在前进' : '当前位置'}</span>
-          <strong>{currentTile.title}</strong>
+          <strong>{displayTile.title}</strong>
           <small>{lastDie === null ? '等待第一次投骰' : `最近掷出 ${lastDie} 点`}</small>
         </div>
         <div className="event-toast" role="status"><span aria-hidden="true">✦</span>{message}</div>
