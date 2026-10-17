@@ -30,7 +30,7 @@ await cp('site/manifest.webmanifest','dist/manifest.webmanifest');
 // Include EVERY emitted same-origin runtime module in both SW cache and cache version.
 const runtimeFiles=(await Promise.all(['core','ui','storage'].map(async dir=>
   (await readdir('dist/'+dir)).filter(name=>name.endsWith('.js')).map(name=>dir+'/'+name)))).flat().sort();
-const assets=['dist/index.html','dist/style.css','dist/board-art.css','dist/characters.css','dist/visual-tokens.css','dist/visual-lab.css','dist/visual-lab.html','dist/art-manifest.json','dist/art/house.svg','dist/art/coin.svg',...runtimeFiles.map(path=>'dist/'+path),
+const assets=['dist/index.html','dist/style.css','dist/board-art.css','dist/characters.css','dist/visual-tokens.css','dist/visual-lab.css','dist/visual-lab.html','dist/art-manifest.json','dist/art/house.svg','dist/art/coin.svg',...['fox','bear','rabbit','bird'].map(x=>'dist/art/character-'+x+'.svg'),...runtimeFiles.map(path=>'dist/'+path),
   'dist/vendor/react.production.min.js','dist/vendor/react-dom.production.min.js',
   'dist/manifest.webmanifest','dist/icons/icon-192.png','dist/icons/icon-512.png','site/sw.js'];
 const fingerprint=createHash('sha256');
