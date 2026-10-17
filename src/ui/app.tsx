@@ -23,7 +23,7 @@ class App extends React.Component<object, UiState> {
 
   private computerTimer: number | null = null;
   /** Ignore a rapid second tap against the same immutable turn state. */
-  private lastCommittedAction:{game:GameState;signature:string}|null=null;
+  private lastCommittedAction:{game:GameState;signature:string;at:number}|null=null;
   private manualSaveBusy=false;
 
   private saveEpoch = 0;
@@ -136,15 +136,18 @@ class App extends React.Component<object, UiState> {
   };
 
   private newManualSlot = async ():Promise<void> => {
-    if(this.state.game.status==='setup' || this.state.storageBusy)return;
+    if(this.state.game.status==='setup' || this.state.storageBusy||this.manualSaveBusy)return;
     const name=window.prompt('输入新存档名称','存档 '+new Date().toLocaleString('zh-CN'))?.trim();
     if(!name)return;
     if(name.length>60){this.setState({saveStatus:'名称最多 60 个字符'});return;}
+    this.manualSaveBusy=true;
+    this.setState({saveStatus:'正在写入手动存档…'});
     try {
       await writeSlot('manual-'+crypto.randomUUID(),name,'manual',this.state.game);
       this.setState({saveStatus:'手动存档「'+name+'」保存成功'});
       await this.refreshSlots();
     }catch(e){this.setState({saveStatus:'手动保存失败：'+(e instanceof Error?e.message:String(e))});}
+    finally{this.manualSaveBusy=false;}
   };
   private overwriteSlot = async (slot:SlotSummary):Promise<void> => {
     if(this.state.game.status==='setup'||slot.kind!=='manual'||this.state.storageBusy)return;
@@ -280,7 +283,7 @@ class App extends React.Component<object, UiState> {
           ...(cardType==='remote'?{dieValue:Number(this.state.strategyDieInput)}:{}),
           ...(cardType==='roadblock'?{tileId:Number(game.tiles.some(t=>t.id===Number(this.state.roadblockTileInput)&&t.id!==0&&t.id!==actor.position&&!game.players.some(p=>!p.bankrupt&&p.position===t.id)&&!game.roadblocks?.some(b=>b.tileId===t.id))?this.state.roadblockTileInput:game.tiles.find(t=>t.id!==0&&t.id!==actor.position&&!game.players.some(p=>!p.bankrupt&&p.position===t.id)&&!game.roadblocks?.some(b=>b.tileId===t.id))?.id??-1)}:{})}:{type,actorId:actor.id};
     const signature=JSON.stringify(action);
-    if(this.lastCommittedAction?.game===game&&this.lastCommittedAction.signature===signature){
+    if(this.lastCommittedAction?.signature===signature&&(this.lastCommittedAction.game===game||Date.now()-this.lastCommittedAction.at<350)){
       this.setState({message:'操作已提交，请勿重复点击。'});return;
     }
     const quoted=stockId&&game.market?quoteMarket(game.market,stockId):0;
@@ -311,7 +314,7 @@ class App extends React.Component<object, UiState> {
       this.setState({ message: reason });
       return;
     }
-    this.lastCommittedAction={game,signature};
+    this.lastCommittedAction={game,signature,at:Date.now()};
     const next=result.state.players[result.state.currentPlayerIndex];
     const handoff=type==='end_turn' && result.state.status==='playing'
       && next.kind==='human' && next.id!==actor.id;
@@ -696,7 +699,7 @@ class App extends React.Component<object, UiState> {
             <details className="saves-card" open><summary className="card-label">本地存档 · 点此收起</summary>
               <p className="save-warning">清除浏览器站点数据或卸载应用可能永久删除本地存档；请定期使用「导出」保存 JSON 备份。</p>
               <p className="save-message" role="status">{this.state.saveStatus}</p>
-              <button type="button" className="secondary-btn" disabled={game.status==='setup'||this.state.storageBusy} onClick={()=>void this.newManualSlot()}>创建手动存档</button>
+              <button type="button" className="secondary-btn" disabled={game.status==='setup'||this.state.storageBusy||this.manualSaveBusy} onClick={()=>void this.newManualSlot()}>创建手动存档</button>
               <ul className="save-list">{this.state.saveSlots.map(slot=><li key={slot.id}>
                 <div><strong>{slot.name}</strong><small>{slot.kind==='auto'?'自动':'手动'} · {new Date(slot.updatedAt).toLocaleString('zh-CN')}</small></div>
                 <div className="save-actions">
