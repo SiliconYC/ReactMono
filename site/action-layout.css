@@ -79,3 +79,13 @@
  .app-shell .asset-quick-roster>span{font-size:10px;padding:5px 6px}
 }
 @media(prefers-reduced-motion:reduce){.app-shell *{scroll-behavior:auto!important}}
+
+
+/* P4 #70: computer controls remain next to the current actor, never over the board. */
+.app-shell .computer-pace{padding:10px 11px;border-radius:11px;border:1px solid #d6e7da;background:#f2f8ef;margin:10px 0;display:grid;gap:7px}
+.app-shell .computer-pace .computer-thinking{display:block;margin:0;font-weight:750;font-size:13px;color:#365c47}
+.app-shell .computer-pace-actions{display:flex;gap:8px;align-items:stretch}
+.app-shell .computer-pace-actions button{flex:1;min-height:44px;min-width:0;border-radius:9px;padding:8px;background:#fff;border:1px solid #bdd0bf;color:#315d48;font-size:13px;font-weight:780}
+.app-shell .computer-pace-actions button[aria-pressed=true]{background:#275c44;color:#fff}
+.app-shell .computer-pace small{font-size:11px;line-height:1.5;color:#627c69;font-variant-numeric:tabular-nums}
+@media(max-width:365px){.app-shell .computer-pace-actions button{font-size:12px}}

@@ -99,6 +99,16 @@ jobs:
           path: artifacts/issue69/
           if-no-files-found: warn
           retention-days: 30
+      - name: P4 #70 实际浏览器电脑快进/暂停及固定种子对照
+        run: python tests/browser_p4_cpu_pace_e2e.py
+      - name: 保留 #70 正常/快速完整对局计时与屏幕证据
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue70-cpu-pacing-chromium
+          path: artifacts/issue70/
+          if-no-files-found: warn
+          retention-days: 30
       - name: 真实 Chromium 端到端回归（本地 HTTP 子路径）
         run: |
           python tests/browser_live_e2e.py
