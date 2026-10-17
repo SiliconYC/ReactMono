@@ -1,0 +1,358 @@
+{
+  "measuredFrom": "actual dist built by npm test",
+  "budgets": {
+    "total": 2000000,
+    "js": 800000,
+    "css": 180000,
+    "art": 120000,
+    "svgFile": 35000
+  },
+  "totals": {
+    "total": 485783,
+    "js": 389874,
+    "css": 54671,
+    "art": 3555
+  },
+  "files": [
+    {
+      "path": "action-layout.css",
+      "bytes": 6795
+    },
+    {
+      "path": "art/character-bear.svg",
+      "bytes": 773
+    },
+    {
+      "path": "art/character-bird.svg",
+      "bytes": 690
+    },
+    {
+      "path": "art/character-fox.svg",
+      "bytes": 661
+    },
+    {
+      "path": "art/character-rabbit.svg",
+      "bytes": 730
+    },
+    {
+      "path": "art/coin.svg",
+      "bytes": 336
+    },
+    {
+      "path": "art/house.svg",
+      "bytes": 365
+    },
+    {
+      "path": "art-manifest.json",
+      "bytes": 1744
+    },
+    {
+      "path": "audio.css",
+      "bytes": 1027
+    },
+    {
+      "path": "board-art.css",
+      "bytes": 13910
+    },
+    {
+      "path": "characters.css",
+      "bytes": 4822
+    },
+    {
+      "path": "core/agent.d.ts",
+      "bytes": 451
+    },
+    {
+      "path": "core/agent.js",
+      "bytes": 4362
+    },
+    {
+      "path": "core/bank.d.ts",
+      "bytes": 955
+    },
+    {
+      "path": "core/bank.js",
+      "bytes": 2925
+    },
+    {
+      "path": "core/benchmark.d.ts",
+      "bytes": 838
+    },
+    {
+      "path": "core/benchmark.js",
+      "bytes": 3474
+    },
+    {
+      "path": "core/cards.d.ts",
+      "bytes": 512
+    },
+    {
+      "path": "core/cards.js",
+      "bytes": 3347
+    },
+    {
+      "path": "core/config.d.ts",
+      "bytes": 900
+    },
+    {
+      "path": "core/config.js",
+      "bytes": 7124
+    },
+    {
+      "path": "core/facilities.d.ts",
+      "bytes": 565
+    },
+    {
+      "path": "core/facilities.js",
+      "bytes": 3034
+    },
+    {
+      "path": "core/game.d.ts",
+      "bytes": 1678
+    },
+    {
+      "path": "core/game.js",
+      "bytes": 7029
+    },
+    {
+      "path": "core/loan.d.ts",
+      "bytes": 1330
+    },
+    {
+      "path": "core/loan.js",
+      "bytes": 6070
+    },
+    {
+      "path": "core/maps.d.ts",
+      "bytes": 1011
+    },
+    {
+      "path": "core/maps.js",
+      "bytes": 4080
+    },
+    {
+      "path": "core/market.d.ts",
+      "bytes": 1219
+    },
+    {
+      "path": "core/market.js",
+      "bytes": 2442
+    },
+    {
+      "path": "core/property.d.ts",
+      "bytes": 1441
+    },
+    {
+      "path": "core/property.js",
+      "bytes": 5704
+    },
+    {
+      "path": "core/random.d.ts",
+      "bytes": 387
+    },
+    {
+      "path": "core/random.js",
+      "bytes": 612
+    },
+    {
+      "path": "core/save.d.ts",
+      "bytes": 1220
+    },
+    {
+      "path": "core/save.js",
+      "bytes": 27932
+    },
+    {
+      "path": "core/simulator.d.ts",
+      "bytes": 716
+    },
+    {
+      "path": "core/simulator.js",
+      "bytes": 3240
+    },
+    {
+      "path": "core/stocks.d.ts",
+      "bytes": 788
+    },
+    {
+      "path": "core/stocks.js",
+      "bytes": 4029
+    },
+    {
+      "path": "core/strategic-agent.d.ts",
+      "bytes": 406
+    },
+    {
+      "path": "core/strategic-agent.js",
+      "bytes": 10114
+    },
+    {
+      "path": "core/transitions.d.ts",
+      "bytes": 373
+    },
+    {
+      "path": "core/transitions.js",
+      "bytes": 308
+    },
+    {
+      "path": "core/turns.d.ts",
+      "bytes": 452
+    },
+    {
+      "path": "core/turns.js",
+      "bytes": 13752
+    },
+    {
+      "path": "core/types.d.ts",
+      "bytes": 9605
+    },
+    {
+      "path": "core/types.js",
+      "bytes": 73
+    },
+    {
+      "path": "guide.css",
+      "bytes": 2449
+    },
+    {
+      "path": "icons/icon-192.png",
+      "bytes": 736
+    },
+    {
+      "path": "icons/icon-512.png",
+      "bytes": 3940
+    },
+    {
+      "path": "index.html",
+      "bytes": 1132
+    },
+    {
+      "path": "manifest.webmanifest",
+      "bytes": 597
+    },
+    {
+      "path": "motion.css",
+      "bytes": 2043
+    },
+    {
+      "path": "storage/indexeddb.d.ts",
+      "bytes": 767
+    },
+    {
+      "path": "storage/indexeddb.js",
+      "bytes": 3587
+    },
+    {
+      "path": "style.css",
+      "bytes": 15283
+    },
+    {
+      "path": "sw.js",
+      "bytes": 3079
+    },
+    {
+      "path": "ui/app.d.ts",
+      "bytes": 11
+    },
+    {
+      "path": "ui/app.js",
+      "bytes": 107098
+    },
+    {
+      "path": "ui/audio.d.ts",
+      "bytes": 702
+    },
+    {
+      "path": "ui/audio.js",
+      "bytes": 4264
+    },
+    {
+      "path": "ui/characters.d.ts",
+      "bytes": 658
+    },
+    {
+      "path": "ui/characters.js",
+      "bytes": 1637
+    },
+    {
+      "path": "ui/computer-pace.d.ts",
+      "bytes": 783
+    },
+    {
+      "path": "ui/computer-pace.js",
+      "bytes": 1290
+    },
+    {
+      "path": "ui/feedback.d.ts",
+      "bytes": 557
+    },
+    {
+      "path": "ui/feedback.js",
+      "bytes": 2856
+    },
+    {
+      "path": "ui/guide.d.ts",
+      "bytes": 604
+    },
+    {
+      "path": "ui/guide.js",
+      "bytes": 1420
+    },
+    {
+      "path": "ui/visual-lab.d.ts",
+      "bytes": 11
+    },
+    {
+      "path": "ui/visual-lab.js",
+      "bytes": 12406
+    },
+    {
+      "path": "vendor/react-dom.production.min.js",
+      "bytes": 131835
+    },
+    {
+      "path": "vendor/react.production.min.js",
+      "bytes": 10751
+    },
+    {
+      "path": "visual-lab.css",
+      "bytes": 6171
+    },
+    {
+      "path": "visual-lab.html",
+      "bytes": 594
+    },
+    {
+      "path": "visual-tokens.css",
+      "bytes": 2171
+    }
+  ],
+  "licenseManifest": [
+    {
+      "path": "art/house.svg",
+      "license": "CC0-1.0"
+    },
+    {
+      "path": "art/coin.svg",
+      "license": "CC0-1.0"
+    },
+    {
+      "path": "art/character-fox.svg",
+      "license": "CC0-1.0"
+    },
+    {
+      "path": "art/character-bear.svg",
+      "license": "CC0-1.0"
+    },
+    {
+      "path": "art/character-rabbit.svg",
+      "license": "CC0-1.0"
+    },
+    {
+      "path": "art/character-bird.svg",
+      "license": "CC0-1.0"
+    }
+  ],
+  "noExternalRuntime": true,
+  "precachedModules": 27
+}
