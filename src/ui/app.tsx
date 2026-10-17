@@ -147,7 +147,7 @@ class App extends React.Component<object, UiState> {
       this.setState({saveStatus:'手动存档「'+name+'」保存成功'});
       await this.refreshSlots();
     }catch(e){this.setState({saveStatus:'手动保存失败：'+(e instanceof Error?e.message:String(e))});}
-    finally{this.manualSaveBusy=false;}
+    finally{this.manualSaveBusy=false;this.setState({});}
   };
   private overwriteSlot = async (slot:SlotSummary):Promise<void> => {
     if(this.state.game.status==='setup'||slot.kind!=='manual'||this.state.storageBusy)return;
