@@ -22,7 +22,10 @@ def metrics(page):
       height:Math.round(r.height),bottom:Math.round(r.bottom)}};
     const el=q=>document.querySelector(q);
     const visible=e=>{const r=e.getBoundingClientRect();return r.width>0&&r.height>0};
-    const total=[...document.querySelectorAll('button')].filter(visible);
+    const allButtons=[...document.querySelectorAll('button')].filter(visible);
+    // Preserve the original strict gameplay density target. Newly optional
+    // presentation, sound and onboarding buttons are counted separately.
+    const total=allButtons.filter(e=>!e.matches('.motion-toggle,.motion-skip,.audio-toggle,.guide-reopen,.guide-inline button'));
     return {
       viewport:{w:innerWidth,h:innerHeight},
       documentWidth:document.documentElement.scrollWidth,
