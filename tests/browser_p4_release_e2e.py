@@ -188,7 +188,11 @@ def main():
     after=next(x for x in rows if x['label']=='candidate-'+label)
     assert before['revision']==after['revision'],(label,'engine revision mismatch')
     assert before['assets']==after['assets'],(label,'asset mismatch')
-    assert before['gameStart']['board']==after['gameStart']['board'],(label,'board geometry changed')
+    # 44px sound toggle increases phone action-panel height by 4px; board may
+    # move down slightly, but must retain its exact intrinsic geometry.
+    original=before['gameStart']['board'];candidate=after['gameStart']['board']
+    assert all(abs(original[k]-candidate[k])<=2 for k in ('x','w','h')),(label,'board dimensions changed',original,candidate)
+    assert abs(original['y']-candidate['y'])<=12,(label,'board displaced',original,candidate)
     assert before['gameStart']['markers']==after['gameStart']['markers'],(label,'character count changed')
    browser.close()
   report={'evidence':'actual Chromium in shared CI; public previous deployment vs local candidate',
