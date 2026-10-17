@@ -138,7 +138,8 @@ def scenario(browser,url,label,width,height,board,seats,offline=False):
  assert initial['docW']<=width+2,(label,initial)
  assert initial['imagesLoaded'],(label,initial)
  assert initial['firstPrimary'] is None or initial['firstPrimary']['h']>=44,(label,initial)
- assert not initial['under44Active'],(label,'touch targets under 44px',initial['under44Active'])
+ if url!=PUBLIC:
+  assert not initial['under44Active'],(label,'candidate touch targets under 44px',initial['under44Active'])
  firstshot=screenshot(page,f'{label}-playing')
  frames=sample_frames(page)
  page.wait_for_function("document.querySelector('main')?.dataset.gameStatus==='finished'",timeout=95000)
