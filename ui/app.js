@@ -168,21 +168,42 @@ class App extends React.Component {
             this.setState({ saveStatus: '本地存储不可用：' + (e instanceof Error ? e.message : String(e)) + '。请检查无痕模式或磁盘空间。' });
         }
     };
+    /**
+     * An active fast AI game can change state much faster than IndexedDB commits.
+     * Persist the latest immutable snapshot, not every obsolete intermediate step.
+     * The latest write completes before a PWA update or save restore via saveQueue.
+     */
+    pendingAutosave = null;
+    autosaveDraining = false;
     scheduleAutosave(game) {
-        const epoch = this.saveEpoch;
+        this.pendingAutosave = { game, epoch: this.saveEpoch };
+        if (this.autosaveDraining)
+            return;
+        this.autosaveDraining = true;
         this.saveQueue = this.saveQueue.then(async () => {
-            if (epoch !== this.saveEpoch)
-                return;
-            await writeSlot('auto', '自动存档', 'auto', game);
-            if (epoch !== this.saveEpoch)
-                return;
-            // 后台自动保存不可盖掉文件损坏、导入冲突等用户必须看见的提示。
-            if (this.state.saveStatus === '本地存档已就绪' || this.state.saveStatus.startsWith('自动保存成功'))
-                this.setState({ saveStatus: '自动保存成功 · 第 ' + game.round + ' 轮' });
-            await this.refreshSlots();
-        }).catch(e => {
-            if (epoch === this.saveEpoch)
-                this.setState({ saveStatus: '自动保存失败：' + (e instanceof Error ? e.message : String(e)) + '。请手动导出备份。' });
+            try {
+                while (this.pendingAutosave) {
+                    const item = this.pendingAutosave;
+                    this.pendingAutosave = null;
+                    if (item.epoch !== this.saveEpoch)
+                        continue;
+                    try {
+                        await writeSlot('auto', '自动存档', 'auto', item.game);
+                        if (item.epoch !== this.saveEpoch)
+                            continue;
+                        if (this.state.saveStatus === '本地存档已就绪' || this.state.saveStatus.startsWith('自动保存成功'))
+                            this.setState({ saveStatus: '自动保存成功 · 第 ' + item.game.round + ' 轮' });
+                        await this.refreshSlots();
+                    }
+                    catch (e) {
+                        if (item.epoch === this.saveEpoch)
+                            this.setState({ saveStatus: '自动保存失败：' + (e instanceof Error ? e.message : String(e)) + '。请手动导出备份。' });
+                    }
+                }
+            }
+            finally {
+                this.autosaveDraining = false;
+            }
         });
     }
     exportSlot = async (slot) => {
