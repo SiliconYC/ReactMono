@@ -36,7 +36,8 @@ def main():
             }""")
             assert found['ready'],found
             before=page.locator('.turn-position').inner_text()
-            buttons=page.get_by_role('button',name=re.compile('出售 '))
+            page.get_by_role('button',name='地产',exact=True).click()
+            buttons=page.locator('#finance-property').get_by_role('button',name=re.compile('出售 '))
             assert buttons.count()>0
             sale=buttons.first
             label=sale.inner_text()
