@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-17",
+  "sourceBranch": "dev",
+  "sourceCommit": "a56058950966b1e4f3d56dec75caa250f1fcd0a3",
+  "command": "npm ci --ignore-scripts && npm test",
+  "tests": 119,
+  "passed": 119,
+  "failed": 0,
+  "skipped": 0,
+  "simulationSummary": {
+    "games": 1000,
+    "actions": 241239,
+    "rejections": 0,
+    "detentions": 17221,
+    "bankruptcies": 162,
+    "roundLimits": 972,
+    "wins": 996,
+    "totalRounds": 32572,
+    "totalTurns": 96088,
+    "byMap": {
+      "classic-24": 500,
+      "harbor-20": 500
+    },
+    "byPlayers": {
+      "2": 334,
+      "3": 334,
+      "4": 332
+    },
+    "byStyle": {
+      "conservative": {
+        "seats": 1002,
+        "wins": 251,
+        "bankruptcies": 59
+      },
+      "balanced": {
+        "seats": 1000,
+        "wins": 342,
+        "bankruptcies": 46
+      },
+      "aggressive": {
+        "seats": 996,
+        "wins": 403,
+        "bankruptcies": 57
+      }
+    }
+  },
+  "simulationArtifact": {
+    "regeneratePath": "artifacts/issue45/p3-1000-raw.json",
+    "bytes": 10854727,
+    "sha256": "da9c0c67f620bc5d678738a3c23c7fe66794d26b0dd0f266c14d15cf9964c363"
+  },
+  "limits": [
+    "Existing Node suite only; no full browser-suite rerun",
+    "No 3D implementation or device performance measured"
+  ]
+}
