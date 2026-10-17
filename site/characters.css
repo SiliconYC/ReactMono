@@ -30,14 +30,14 @@
 .asset-player.is-bankrupt .character-image{filter:grayscale(.65)}
 /* #64 grid layout is authoritative; nested pawn-holder preserves 2×2, even on 320px. */
 .board .pawn-holder{display:flex;align-items:center;justify-content:center;width:100%;height:100%;pointer-events:none}
-.board .pieces{grid-template-columns:repeat(2,16px);gap:1px;right:2px;bottom:2px}
-.board .piece.character-pawn{width:16px;height:16px;border:1px solid white;border-radius:4px;display:flex;background:#fffbf1;box-shadow:0 1px 3px #142f3040;overflow:visible;padding:0}
+.board .pieces{grid-template-columns:repeat(2,25px);gap:3px;right:6px;bottom:6px}
+.board .piece.character-pawn{width:25px;height:25px;border:2px solid white;border-radius:4px;display:flex;background:#fffbf1;box-shadow:0 1px 3px #142f3040;overflow:visible;padding:0}
 .board .piece.character-1{border-radius:3px}
 .board .piece.character-2{border-radius:50%}
 .board .piece.character-3{border-radius:3px 8px 3px 8px}
 .board .piece.character-4{border-radius:50% 4px 50% 4px}
 .board .piece .character-image{width:100%;height:100%}
-.board .piece .character-seat{width:8px;height:8px;font-size:6px;line-height:8px;bottom:-2px;right:-2px;box-shadow:0 0 0 1px #fff}
+.board .piece .character-seat{width:11px;height:11px;font-size:7px;line-height:11px;bottom:-2px;right:-2px;box-shadow:0 0 0 1px #fff}
 .board .piece.character-active{box-shadow:0 0 0 2px #ffd17d,0 1px 4px #142f3080;z-index:2}
 @keyframes character-arrival{
   0%{transform:translateY(-7px) rotate(-9deg)}
