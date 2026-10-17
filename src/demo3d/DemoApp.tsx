@@ -5,6 +5,16 @@ import { WorldCanvas } from './world/WorldCanvas.js';
 import type { MotionCue } from './world/Mascot.js';
 
 function describeEvents(events: readonly GameEvent[], game: GameState): string {
+  const bought = events.find(event => event.type === 'property_bought');
+  if (bought !== undefined) {
+    const tileId = bought.details?.tileId;
+    const tile = typeof tileId === 'number' ? game.tiles[tileId] : undefined;
+    return `已买下${tile?.title ?? '这块地产'}，新房子落成了！`;
+  }
+  const declined = events.find(event => event.type === 'property_declined');
+  if (declined !== undefined) return '保留现金，继续今天的旅程。';
+  const ended = events.find(event => event.type === 'turn_ended');
+  if (ended !== undefined) return `轮到${game.players[game.currentPlayerIndex]?.name ?? '下一位玩家'}了。`;
   const rent = events.find(event => event.type === 'rent_paid');
   if (rent !== undefined) return `支付租金 ${rent.details?.amount ?? 0} 金币`;
   const landed = events.find(event => event.type === 'tile_landed');
@@ -71,10 +81,15 @@ export function DemoApp(): React.JSX.Element {
       <header className="top-rail">
         <div className="brand-block">
           <span className="brand-mark" aria-hidden="true">M</span>
-          <div><p>REACTMONO · 3D VERTICAL SLICE</p><h1>晴湾小镇</h1></div>
+          <div><p>大富翁 · 3D 体验切片</p><h1>晴湾小镇</h1></div>
         </div>
         <div className="round-chip"><span>当前回合</span><strong>{game.round} / {game.maxRounds}</strong></div>
-        <button type="button" className="view-toggle" onClick={() => setFollowCurrent(value => !value)}>
+        <button
+          type="button"
+          className="view-toggle"
+          aria-pressed={!followCurrent}
+          onClick={() => setFollowCurrent(value => !value)}
+        >
           {followCurrent ? '全景视角' : '跟随角色'}
         </button>
       </header>
@@ -100,7 +115,7 @@ export function DemoApp(): React.JSX.Element {
 
       <aside className="player-stack" aria-label="玩家资产">
         {game.players.map((player, index) => (
-          <article className="player-card" data-active={index === game.currentPlayerIndex} key={player.id}>
+          <article className="player-card" data-active={index === game.currentPlayerIndex} data-player-id={player.id} key={player.id}>
             <span className={`avatar avatar-${index + 1}`} aria-hidden="true">{index === 0 ? '桃' : '团'}</span>
             <div><strong>{player.name}</strong><span>{index === game.currentPlayerIndex ? '行动中' : '等待中'}</span></div>
             <b>¥ {player.cash.toLocaleString('zh-CN')}</b>

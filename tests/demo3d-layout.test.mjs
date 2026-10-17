@@ -1,7 +1,16 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
 
 import { LOT_ANCHORS, TILE_ANCHORS, positionForTile } from '../dist/demo3d/world/layout.js';
+
+test('开发入口先进入 Vite 根目录内模块，避免父目录脚本被回退为 HTML', async () => {
+  const html = await readFile(new URL('../demo3d/index.html', import.meta.url), 'utf8');
+  const entry = await readFile(new URL('../demo3d/main.ts', import.meta.url), 'utf8');
+
+  assert.match(html, /src="\.\/main\.ts"/);
+  assert.match(entry, /src\/demo3d\/main\.tsx/);
+});
 
 test('16 个行走锚点唯一且完整', () => {
   assert.equal(TILE_ANCHORS.length, 16);

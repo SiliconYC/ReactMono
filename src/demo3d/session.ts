@@ -21,7 +21,7 @@ const TILE_NAMES = [
 
 const DEMO_TILES: readonly TileConfig[] = TILE_NAMES.map((title, id): TileConfig => {
   if (id === 0) return { id, kind: 'start', title };
-  if (id % 4 === 0 || id === 3 || id === 15) return { id, kind: 'neutral', title };
+  if (id % 4 === 0 || id === 15) return { id, kind: 'neutral', title };
   return {
     id,
     kind: 'property',

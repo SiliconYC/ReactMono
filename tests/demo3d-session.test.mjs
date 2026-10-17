@@ -23,6 +23,8 @@ test('3D 演示投骰只调用规则结果并返回逐格路径', () => {
   assert.equal(result.dieValue, 3);
   assert.deepEqual(result.route, [1, 2, 3]);
   assert.equal(result.after.players[0].position, 3);
+  assert.equal(result.after.tiles[3].kind, 'property');
+  assert.equal(result.after.phase, 'await_decision');
   assert.equal(result.events.find(event => event.type === 'die_rolled')?.details?.value, 3);
 });
 

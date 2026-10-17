@@ -1,5 +1,5 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Suspense, useMemo } from 'react';
+import { Suspense, useMemo, useState } from 'react';
 import * as THREE from 'three';
 import type { GameState } from '../../core/game.js';
 import { Dice } from './Dice.js';
@@ -76,21 +76,26 @@ function Scene(props: WorldCanvasProps): React.JSX.Element {
 }
 
 export function WorldCanvas(props: WorldCanvasProps): React.JSX.Element {
+  const [ready, setReady] = useState(false);
   return (
-    <Canvas
-      aria-label="晴湾小镇 3D 棋盘"
-      data-testid="world-canvas"
-      orthographic
-      shadows
-      dpr={[1, 1.6]}
-      camera={{ position: [10.2, 12.5, 10.2], zoom: 48, near: 0.1, far: 80 }}
-      gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
-      fallback={<div role="alert">此浏览器暂时无法建立 3D 场景，请启用 WebGL 后重试。</div>}
-    >
-      <Suspense fallback={null}>
-        <Scene {...props} />
-      </Suspense>
-    </Canvas>
+    <div className="canvas-shell" data-ready={String(ready)}>
+      {!ready && <div className="scene-loading" role="status"><span />正在搭建晴湾小镇…</div>}
+      <Canvas
+        aria-label="晴湾小镇 3D 棋盘"
+        data-testid="world-canvas"
+        orthographic
+        shadows
+        dpr={[1, 1.6]}
+        camera={{ position: [10.2, 12.5, 10.2], zoom: 48, near: 0.1, far: 80 }}
+        gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
+        onCreated={() => setReady(true)}
+        fallback={<div className="scene-error" aria-hidden="true">此浏览器暂时无法建立 3D 场景，请启用 WebGL 后重试。</div>}
+      >
+        <Suspense fallback={null}>
+          <Scene {...props} />
+        </Suspense>
+      </Canvas>
+    </div>
   );
 }
 
