@@ -22,7 +22,10 @@ def metrics(page):
       height:Math.round(r.height),bottom:Math.round(r.bottom)}};
     const el=q=>document.querySelector(q);
     const visible=e=>{const r=e.getBoundingClientRect();return r.width>0&&r.height>0};
-    const total=[...document.querySelectorAll('button')].filter(visible);
+    const allButtons=[...document.querySelectorAll('button')].filter(visible);
+    // Keep #66 gameplay density metric stable: new optional motion/audio toggles
+    // are not gameplay/economy actions and must not loosen the <32 gate.
+    const total=allButtons.filter(e=>!e.matches('.motion-toggle,.motion-skip,.audio-toggle,.guide-reopen'));
     return {
       viewport:{w:innerWidth,h:innerHeight},
       documentWidth:document.documentElement.scrollWidth,
