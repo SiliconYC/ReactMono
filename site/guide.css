@@ -17,3 +17,13 @@
 .app-shell .info-card p{line-height:1.75}
 @media(max-width:650px){.app-shell .guide-inline{padding:9px 11px}.app-shell .help-tools{gap:5px}.app-shell .guide-reopen,.app-shell .context-help>summary{padding:7px 10px}}
 @media(prefers-reduced-motion:reduce){.app-shell .guide-inline{animation:none!important}}
+
+/* Tiny-screen identity must never break into vertical fragments. */
+@media(max-width:365px){
+ .app-shell .topbar{flex-wrap:wrap;column-gap:6px;row-gap:5px}
+ .app-shell .topbar .brand{white-space:nowrap;font-size:16px;flex:none}
+ .app-shell .topbar .brand>span:last-child{white-space:nowrap}
+ .app-shell .topbar .network-indicator{white-space:nowrap;font-size:10px;min-width:0}
+ .app-shell .topbar .reset-btn{margin-left:0}
+ .app-shell .topbar .motion-toggle{min-width:64px}
+}
