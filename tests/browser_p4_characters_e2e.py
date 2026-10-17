@@ -156,6 +156,10 @@ def main():
           page.wait_for_function('navigator.serviceWorker.controller!==null',timeout=30000)
           context.set_offline(True)
           page.reload(wait_until='load')
+          page.wait_for_function("""() => {
+            const imgs=[...document.querySelectorAll('.character-image')];
+            return imgs.length>=2&&imgs.every(img=>img.complete&&img.naturalWidth>0);
+          }""",timeout=15000)
           assert page.locator('.character-image').count()>=2
           assert page.locator('.character-image').evaluate_all(
             "(xs)=>xs.every(e=>e.complete&&e.naturalWidth>0)")
