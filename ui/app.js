@@ -5,6 +5,7 @@ import { listSlots, readSlot, writeSlot, deleteSlot } from '../storage/indexeddb
 import { deserializeGame, MAX_SAVE_CHARS } from '../core/save.js';
 import { characterMarker, CHARACTER_NAMES } from './characters.js';
 import { eventCue } from './feedback.js';
+import { SoundController } from './audio.js';
 /** Read screen positions from map data, never infer them from the tile ID. */
 function cellPosition(map, index) {
     const point = map.cells[index];
@@ -17,6 +18,7 @@ class App extends React.Component {
         this.state = { game: createGame(20261015), seedInput: '20261015', bankAmountInput: '100', stockAmountInput: '1', strategyDieInput: '1', roadblockTileInput: '1', playerSetup: [{ id: 'p1', name: '玩家', kind: 'human' }, { id: 'p2', name: '电脑', kind: 'computer', computerStyle: 'balanced' }], roundsInput: '60', selectedMapId: 'classic-24', selectedTileId: 0, lastMotion: null, visualCue: null, motionOff: typeof localStorage === 'undefined' ? false : localStorage.getItem('reactmono-motion-off') === '1', financePanel: null, awaitingHandoff: false, fastMode: false, specialEnabled: false, activeSeed: null, saveSlots: [], saveStatus: '正在读取本地存档…', storageBusy: false, importPreview: null, importName: '', offline: typeof navigator === 'undefined' ? false : !navigator.onLine, pwaUpdate: false, pwaMessage: '', message: '设置对局种子并点击「开始游戏」，然后掷骰沿着 24 格棋盘前进。' };
     }
     computerTimer = null;
+    sound = new SoundController();
     cueTimer = null;
     cueGeneration = 0;
     get noMotion() { return this.state.motionOff || this.state.fastMode || window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
@@ -257,6 +259,7 @@ class App extends React.Component {
         }
     };
     restoreSlot = async (slot) => {
+        void this.sound.activate();
         if (this.state.storageBusy)
             return;
         if (!window.confirm('读取「' + slot.name + '」将替换屏幕上的当前游戏，是否继续？'))
@@ -327,6 +330,7 @@ class App extends React.Component {
         this.setState({ awaitingHandoff: false, message: '已轮到' + this.state.game.players[this.state.game.currentPlayerIndex].name + '操作。' });
     };
     startGame = () => {
+        void this.sound.activate();
         const seed = Number(this.state.seedInput.trim());
         if (!/^\d{1,10}$/.test(this.state.seedInput.trim()) || !Number.isSafeInteger(seed) || seed > 4294967295) {
             this.setState({ message: '对局种子请输入 0 至 4294967295 之间的整数。' });
@@ -363,6 +367,7 @@ class App extends React.Component {
         this.setState({ game: result.state, activeSeed: seed, selectedTileId: 0, lastMotion: null, visualCue: null, financePanel: null, awaitingHandoff: false, message: '游戏已开始！轮到' + fresh.players[0].name + '掷骰。' });
     };
     componentWillUnmount() {
+        this.sound.dispose();
         window.removeEventListener('online', this.updateOnline);
         document.removeEventListener('visibilitychange', this.onVisibility);
         this.cancelCue();
@@ -391,6 +396,7 @@ class App extends React.Component {
                 this.setState({ message: '电脑操作失败（' + result.reason + '），请重新开局或报告缺陷。' });
                 return;
             }
+            this.sound.play(result.events);
             const actor = snapshot.players[snapshot.currentPlayerIndex];
             const cue = this.cueFor(snapshot, result.state, result.events);
             const moved = result.events.find(e => e.type === 'player_moved');
@@ -401,6 +407,7 @@ class App extends React.Component {
         }, this.state.fastMode ? 8 : 220);
     }
     dispatch = (type, tileId, cardType, stockId) => {
+        void this.sound.activate();
         if (this.state.storageBusy || this.state.awaitingHandoff)
             return;
         const { game } = this.state;
@@ -453,6 +460,7 @@ class App extends React.Component {
             return;
         }
         this.lastCommittedAction = { game, signature, at: Date.now() };
+        this.sound.play(result.events);
         const cue = this.cueFor(game, result.state, result.events);
         const next = result.state.players[result.state.currentPlayerIndex];
         const handoff = type === 'end_turn' && result.state.status === 'playing'
@@ -733,7 +741,15 @@ class App extends React.Component {
                     })()),
                 React.createElement("aside", { className: "sidebar" },
                     React.createElement("div", { className: "turn-card" },
-                        React.createElement("div", { className: "card-label" }, "\u5F53\u524D\u884C\u52A8"),
+                        React.createElement("div", { className: "card-label audio-heading" },
+                            React.createElement("span", null, "\u5F53\u524D\u884C\u52A8"),
+                            React.createElement("div", { className: "audio-toolbar" },
+                                React.createElement("button", { type: "button", className: "audio-toggle", "aria-label": this.sound.isEnabled ? '关闭音效' : '开启音效', "aria-pressed": this.sound.isEnabled, onClick: () => { void this.sound.setEnabled(!this.sound.isEnabled); this.setState({}); } },
+                                    "\u97F3\u6548 \u00B7 ",
+                                    this.sound.isEnabled ? '开' : '关'),
+                                this.sound.isEnabled && React.createElement("label", { className: "audio-volume" },
+                                    "\u97F3\u91CF",
+                                    React.createElement("input", { type: "range", min: "0", max: "100", step: "5", "aria-label": "\u97F3\u6548\u97F3\u91CF", value: Math.round(this.sound.level * 100), onChange: (e) => { this.sound.setVolume(Number(e.target.value) / 100); this.setState({}); } })))),
                         React.createElement("div", { className: "turn-person" },
                             characterMarker(game.currentPlayerIndex, current.kind, 'portrait', game.status === 'playing'),
                             React.createElement("div", null,
