@@ -12,6 +12,7 @@ await cp('site/board-art.css', 'dist/board-art.css');
 await cp('site/characters.css', 'dist/characters.css');
 await cp('site/action-layout.css', 'dist/action-layout.css');
 await cp('site/motion.css', 'dist/motion.css');
+await cp('site/audio.css', 'dist/audio.css');
 for(const name of ['visual-lab.html','visual-lab.css','visual-tokens.css','art-manifest.json']){
   await cp('site/'+name,'dist/'+name);
 }
