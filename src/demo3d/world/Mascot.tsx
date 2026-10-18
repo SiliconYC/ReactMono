@@ -60,6 +60,14 @@ export function Mascot({
   const actorOutcome = outcome?.actorId === id ? outcome : null;
 
   useLayoutEffect(() => {
+    if (!reducedMotion || isMoving || !root.current) return;
+    const point = positionForTile(tileId);
+    root.current.position.set(point.x + offset, 0.27, point.z - offset);
+    // CameraRig must see the settled target before the single demand frame.
+    if (active) trackedPosition.copy(root.current.position);
+  }, [reducedMotion, isMoving, tileId, offset, active, trackedPosition]);
+
+  useLayoutEffect(() => {
     outcomeElapsed.current = 0;
     if (visual.current) {
       visual.current.position.set(0, 0, 0);
@@ -114,8 +122,8 @@ export function Mascot({
 
     if (!isMoving || reducedMotion || motion === null) {
       const point = positionForTile(tileId);
-      group.position.x = THREE.MathUtils.lerp(group.position.x, point.x + offset, 0.2);
-      group.position.z = THREE.MathUtils.lerp(group.position.z, point.z - offset, 0.2);
+      group.position.x = reducedMotion ? point.x + offset : THREE.MathUtils.lerp(group.position.x, point.x + offset, 0.2);
+      group.position.z = reducedMotion ? point.z - offset : THREE.MathUtils.lerp(group.position.z, point.z - offset, 0.2);
       group.position.y = 0.27;
       if (active) trackedPosition.copy(group.position);
       return;

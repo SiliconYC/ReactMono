@@ -11,6 +11,17 @@
     "receipt": null
   },
   {
+    "busy": "false",
+    "outcome": "",
+    "outcomeText": "",
+    "outcomeVisible": false,
+    "tile": "12",
+    "location": "当前位置\n琥珀大道\n等待投骰",
+    "cash": "桃\n桃桃\n行动中\n现金\n¥ 26\n存款 ¥ 0\n贷款 ¥ 0",
+    "rollButtons": 1,
+    "receipt": null
+  },
+  {
     "busy": "true",
     "outcome": "",
     "outcomeText": "",

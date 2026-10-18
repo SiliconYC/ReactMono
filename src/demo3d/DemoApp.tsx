@@ -163,6 +163,7 @@ export function DemoApp(): React.JSX.Element {
       <section className="world-stage" aria-label="3D 游戏地图">
         <WorldCanvas game={shownGame} motion={motion} dieValue={lastDie} dieNonce={dieNonce}
           reducedMotion={reducedMotion} followCurrent={followCurrent} rent={rent} outcome={outcome}
+          paused={financeTab !== null}
           pendingBankruptIds={outcomes.filter(cue => cue.stage === 'bankrupt' && cue.actorId).map(cue => cue.actorId!)}
           onMotionComplete={finishMotion} onActorStep={setVisualTile} />
         <div className="location-card" aria-live="polite"><span>{motion ? '正在前进' : '当前位置'}</span><strong>{displayTile.title}</strong><small>{lastDie === null ? '等待投骰' : `最近掷出 ${lastDie} 点`}</small></div>

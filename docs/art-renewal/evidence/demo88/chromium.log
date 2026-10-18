@@ -9,21 +9,24 @@ rendering chunks...
 computing gzip size...
 dist-3d-demo/index.html                     0.58 kB │ gzip:   0.41 kB
 dist-3d-demo/assets/index-CfKY8Fu6.css     24.32 kB │ gzip:   5.97 kB
-dist-3d-demo/assets/index-CuUKTcUp.js   1,096.38 kB │ gzip: 301.60 kB
+dist-3d-demo/assets/index-CKBEe3wy.js   1,096.82 kB │ gzip: 301.76 kB
 
-✓ built in 232ms
-test_complete_game_and_row_houses_reduced_motion (__main__.Demo3DBrowserTest) ... ok
-test_desktop_full_turn (__main__.Demo3DBrowserTest) ... ok
-test_desktop_rent_animation_after_arrival (__main__.Demo3DBrowserTest) ... ok
-test_dynamic_reduced_motion_finishes_current_and_future_rolls (__main__.Demo3DBrowserTest) ... Current roll reduce latency: {'duration': 10.300000004470348, 'busyAtStart': 'true'}
-Next reduced roll latency: {'duration': 14.300000004470348, 'busyAtStart': 'false'}
+✓ built in 218ms
+test_complete_game_and_row_houses_reduced_motion (__main__.Demo3DBrowserTest) ... Reduced-motion idle: {'drawCalls': 3648, 'renderer': 'ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)', 'delta': 0}
 ok
-test_mobile_full_turn (__main__.Demo3DBrowserTest) ... ok
+test_desktop_full_turn (__main__.Demo3DBrowserTest) ... Finance background 1280: {'drawCalls': 46105, 'renderer': 'ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)', 'delta': 0}
+ok
+test_desktop_rent_animation_after_arrival (__main__.Demo3DBrowserTest) ... ok
+test_dynamic_reduced_motion_finishes_current_and_future_rolls (__main__.Demo3DBrowserTest) ... Current roll reduce latency: {'duration': 13.799999997019768, 'busyAtStart': 'true'}
+Next reduced roll latency: {'duration': 11.699999995529652, 'busyAtStart': 'false'}
+ok
+test_mobile_full_turn (__main__.Demo3DBrowserTest) ... Finance background 390: {'drawCalls': 44269, 'renderer': 'ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)', 'delta': 0}
+ok
 test_mobile_rent_animation_after_arrival (__main__.Demo3DBrowserTest) ... ok
 test_real_bankruptcy_then_victory_sequence (__main__.Demo3DBrowserTest) ... ok
 test_short_viewport_controls_stay_reachable (__main__.Demo3DBrowserTest) ... ok
 
 ----------------------------------------------------------------------
-Ran 8 tests in 84.417s
+Ran 8 tests in 85.944s
 
 OK

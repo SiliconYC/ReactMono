@@ -48,7 +48,30 @@ class Demo3DBrowserTest(unittest.TestCase):
         context = self.browser.new_context(**options)
         # A failed assertion must not leave another live WebGL scene rendering.
         self.addCleanup(context.close)
+        context.add_init_script("""(() => {
+            window.__demoRenderMetrics = {drawCalls: 0, renderer: null};
+            for (const name of ['drawElements', 'drawArrays']) {
+                const original = WebGL2RenderingContext.prototype[name];
+                WebGL2RenderingContext.prototype[name] = function(...args) {
+                    const metrics = window.__demoRenderMetrics;
+                    metrics.drawCalls++;
+                    if (!metrics.renderer) {
+                        const extension = this.getExtension('WEBGL_debug_renderer_info');
+                        metrics.renderer = this.getParameter(extension ? extension.UNMASKED_RENDERER_WEBGL : this.RENDERER);
+                    }
+                    return original.apply(this, args);
+                };
+            }
+        })()""")
         return context
+
+    def idle_draw_calls(self, page):
+        return page.evaluate("""async () => {
+            await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+            const before = window.__demoRenderMetrics.drawCalls;
+            await new Promise(resolve => setTimeout(resolve, 150));
+            return {...window.__demoRenderMetrics, delta: window.__demoRenderMetrics.drawCalls - before};
+        }""")
 
     def observe_action(self, page, start_event=None, expected_tile=None):
         # Record transient UI states in the browser, before input. Reading the
@@ -188,6 +211,9 @@ class Demo3DBrowserTest(unittest.TestCase):
         self.assertGreaterEqual(bank.bounding_box()["height"], 44)
         bank.click()
         dialog = page.get_by_role("dialog", name="银行与股市")
+        paused = self.idle_draw_calls(page)
+        self.assertEqual(paused['delta'], 0, paused)
+        print(f"Finance background {width}: {paused}", flush=True)
         account = lambda title: dialog.locator(".finance-balances > div").filter(has=page.get_by_text(title, exact=True)).locator("dd").inner_text()
         self.assertEqual(account("随身现金"), "1,064元")
         self.assertEqual(account("银行存款"), "600元")
@@ -286,7 +312,11 @@ class Demo3DBrowserTest(unittest.TestCase):
         saw_row, saw_upgrade = False, False
         for turn in range(24):
             page.get_by_role("button", name="投骰前进").click()
-            page.wait_for_function("document.querySelector('main').dataset.busy === 'false'", timeout=5000)
+            try:
+                page.wait_for_function("document.querySelector('main').dataset.busy === 'false'", timeout=5000)
+            except Exception:
+                print('Turn did not settle:', turn, errors, page.locator('main').get_attribute('data-phase'), page.locator('.canvas-shell').get_attribute('data-frameloop'), flush=True)
+                raise
             buy = page.get_by_role("button", name="买下此地")
             if buy.count():
                 if buy.is_enabled():
@@ -305,10 +335,18 @@ class Demo3DBrowserTest(unittest.TestCase):
             panel = page.get_by_label("地产管理")
             if panel.count() and "联排 2 户" in panel.inner_text():
                 saw_row = True
+                canvas = page.get_by_label("晴湾小镇 3D 棋盘")
+                followed = canvas.screenshot()
+                before_draws = page.evaluate("window.__demoRenderMetrics.drawCalls")
                 page.get_by_role("button", name="全景视角").click()
+                page.wait_for_function("before => window.__demoRenderMetrics.drawCalls > before", arg=before_draws, timeout=3000)
+                self.assertNotEqual(followed, canvas.screenshot(), '减少动画下视角切换必须改变实际构图')
                 page.screenshot(path=str(ROOT / "artifacts" / "demo-row-houses.png"))
                 page.get_by_role("button", name="跟随角色").click()
             if turn == 2:
+                idle = self.idle_draw_calls(page)
+                self.assertEqual(idle['delta'], 0, idle)
+                print(f"Reduced-motion idle: {idle}", flush=True)
                 page.locator(".finance-tools").get_by_role("button", name="股市", exact=True).click()
                 dialog = page.get_by_role("dialog", name="银行与股市")
                 dialog.get_by_role("button", name=re.compile("^青禾农业")).click()

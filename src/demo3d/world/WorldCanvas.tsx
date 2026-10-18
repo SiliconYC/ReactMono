@@ -1,5 +1,5 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Suspense, useMemo, useState } from 'react';
+import { Suspense, useLayoutEffect, useMemo, useState } from 'react';
 import * as THREE from 'three';
 import type { GameState } from '../../core/game.js';
 import { RentTransfer } from './RentTransfer.js';
@@ -20,6 +20,7 @@ type WorldCanvasProps = Readonly<{
   rent: RentCue | null;
   outcome?: OutcomeCue | null;
   pendingBankruptIds?: readonly string[];
+  paused?: boolean;
   onMotionComplete: () => void;
   onActorStep: (tileId: number) => void;
 }>;
@@ -44,6 +45,13 @@ function CameraRig({ target, follow, reducedMotion }: { target: THREE.Vector3; f
 }
 
 function Scene(props: WorldCanvasProps): React.JSX.Element {
+  const invalidate = useThree(state => state.invalidate);
+  useLayoutEffect(() => {
+    // Imperative actor/camera targets and useFrame callbacks are not host props;
+    // request a demand frame after their layout effects have synchronized them.
+    invalidate();
+  }, [invalidate, props.game, props.motion, props.rent, props.outcome,
+    props.followCurrent, props.reducedMotion, props.paused]);
   const actor = props.game.players[props.game.currentPlayerIndex];
   const focusId = props.outcome?.stage === 'draw' ? null
     : props.outcome?.actorId ?? props.motion?.actorId ?? props.rent?.fromId ?? actor.id;
@@ -105,13 +113,18 @@ function Scene(props: WorldCanvasProps): React.JSX.Element {
 
 export function WorldCanvas(props: WorldCanvasProps): React.JSX.Element {
   const [ready, setReady] = useState(false);
+  // A financial modal has no visible scene interaction. Reduced-motion idle
+  // scenes only need a fresh frame when React changes the game or camera.
+  const frameLoop = props.paused ? 'never'
+    : props.reducedMotion && !props.motion && !props.rent && !props.outcome ? 'demand' : 'always';
   return (
-    <div className="canvas-shell" data-ready={String(ready)}>
+    <div className="canvas-shell" data-ready={String(ready)} data-frameloop={frameLoop}>
       {!ready && <div className="scene-loading" role="status"><span />正在搭建晴湾小镇…</div>}
       <Canvas
         aria-label="晴湾小镇 3D 棋盘"
         data-testid="world-canvas"
         orthographic
+        frameloop={frameLoop}
         shadows
         dpr={[1, 1.6]}
         camera={{ position: [10.2, 12.5, 10.2], zoom: 48, near: 0.1, far: 80 }}
