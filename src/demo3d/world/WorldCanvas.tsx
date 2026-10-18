@@ -71,11 +71,15 @@ function Scene(props: WorldCanvasProps): React.JSX.Element {
         castShadow
         shadow-mapSize-width={1536}
         shadow-mapSize-height={1536}
-        shadow-camera-left={-12}
-        shadow-camera-right={12}
-        shadow-camera-top={12}
-        shadow-camera-bottom={-12}
-        shadow-bias={-0.0003}
+        shadow-camera-left={-10}
+        shadow-camera-right={10}
+        shadow-camera-top={10}
+        shadow-camera-bottom={-10}
+        shadow-camera-near={0.5}
+        shadow-camera-far={36}
+        shadow-bias={-0.0001}
+        shadow-normalBias={0.025}
+        shadow-radius={3}
       />
       <CameraRig target={trackedPosition} follow={props.followCurrent && props.outcome?.stage !== 'draw'} reducedMotion={props.reducedMotion} />
       <MiniatureTown game={props.game} />
