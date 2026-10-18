@@ -1,0 +1,56 @@
+2026-10-18T04:02:51.8525450Z Reduced-motion idle: {'drawCalls': 4556, 'renderer': 'ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)', 'delta': 0}
+2026-10-18T04:03:19.2824361Z test_complete_game_and_row_houses_reduced_motion (__main__.Demo3DBrowserTest.test_complete_game_and_row_houses_reduced_motion) ... ok
+2026-10-18T04:03:33.9839584Z Finance background 1280: {'drawCalls': 30282, 'renderer': 'ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)', 'delta': 0}
+2026-10-18T04:03:35.6617738Z test_desktop_full_turn (__main__.Demo3DBrowserTest.test_desktop_full_turn) ... ok
+2026-10-18T04:04:19.5667549Z test_desktop_rent_animation_after_arrival (__main__.Demo3DBrowserTest.test_desktop_rent_animation_after_arrival) ... ok
+2026-10-18T04:04:23.0077581Z Current roll reduce latency: {'duration': 246.89999999999418, 'busyAtStart': 'true'}
+2026-10-18T04:04:23.9463597Z Next reduced roll latency: {'duration': 259.70000000001164, 'busyAtStart': 'false'}
+2026-10-18T04:04:23.9547373Z test_dynamic_reduced_motion_finishes_current_and_future_rolls (__main__.Demo3DBrowserTest.test_dynamic_reduced_motion_finishes_current_and_future_rolls) ... ok
+2026-10-18T04:04:30.5982487Z Finance background 390: {'drawCalls': 34860, 'renderer': 'ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)', 'delta': 0}
+2026-10-18T04:04:31.5467200Z test_mobile_full_turn (__main__.Demo3DBrowserTest.test_mobile_full_turn) ... ok
+2026-10-18T04:04:58.4370812Z test_mobile_rent_animation_after_arrival (__main__.Demo3DBrowserTest.test_mobile_rent_animation_after_arrival) ... ok
+2026-10-18T04:06:00.5160807Z test_real_bankruptcy_then_victory_sequence (__main__.Demo3DBrowserTest.test_real_bankruptcy_then_victory_sequence) ... ok
+2026-10-18T04:06:03.2992661Z test_short_viewport_controls_stay_reachable (__main__.Demo3DBrowserTest.test_short_viewport_controls_stay_reachable) ... ok
+2026-10-18T04:06:03.6374180Z
+2026-10-18T04:06:03.6374912Z ----------------------------------------------------------------------
+2026-10-18T04:06:03.6375380Z Ran 8 tests in 198.338s
+2026-10-18T04:06:03.6375512Z
+2026-10-18T04:06:03.6375821Z OK
+2026-10-18T04:06:03.6461137Z sys:1: ResourceWarning: unclosed <socket.socket fd=3, family=2, type=1, proto=0, laddr=('127.0.0.1', 40381)>
+2026-10-18T04:06:03.6576165Z ##[group]Run actions/upload-artifact@v4
+2026-10-18T04:06:03.6576329Z with:
+2026-10-18T04:06:03.6576456Z   name: demo3d-property-rent-chromium
+2026-10-18T04:06:03.6576606Z   path: artifacts/demo-*
+2026-10-18T04:06:03.6576738Z   if-no-files-found: warn
+2026-10-18T04:06:03.6576867Z   retention-days: 30
+2026-10-18T04:06:03.6576990Z   compression-level: 6
+2026-10-18T04:06:03.6577111Z   overwrite: false
+2026-10-18T04:06:03.6577231Z   include-hidden-files: false
+2026-10-18T04:06:03.6577362Z ##[endgroup]
+2026-10-18T04:06:03.7612449Z (node:3560) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-18T04:06:03.7613278Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-18T04:06:03.7661017Z With the provided path, there will be 18 files uploaded
+2026-10-18T04:06:03.7664567Z Artifact name is valid!
+2026-10-18T04:06:03.7665070Z Root directory input is valid!
+2026-10-18T04:06:04.0421540Z Beginning upload of artifact content to blob storage
+2026-10-18T04:06:04.1120684Z (node:3560) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-18T04:06:04.5937888Z Uploaded bytes 2411136
+2026-10-18T04:06:04.6374131Z Finished uploading artifact content to blob storage!
+2026-10-18T04:06:04.6374870Z SHA256 digest of uploaded artifact zip is 6508d894fa70980c92477605d08c84fe560012e1f25b83a3e8c47f4b976ffbe3
+2026-10-18T04:06:04.6375839Z Finalizing artifact upload
+2026-10-18T04:06:04.8683097Z Artifact demo3d-property-rent-chromium.zip successfully finalized. Artifact ID 12124766236
+2026-10-18T04:06:04.8683703Z Artifact demo3d-property-rent-chromium has been successfully uploaded! Final size is 2411136 bytes. Artifact ID is 12124766236
+2026-10-18T04:06:04.8688831Z Artifact download URL: https://github.com/SiliconYC/ReactMono/actions/runs/39095600359/artifacts/12124766236
+2026-10-18T04:06:04.8788393Z ##[group]Run python tests/browser_p4_release_e2e.py
+2026-10-18T04:06:04.8788618Z [36;1mpython tests/browser_p4_release_e2e.py[0m
+2026-10-18T04:06:04.8839681Z shell: /usr/bin/bash -e {0}
+2026-10-18T04:06:04.8839828Z ##[endgroup]
+2026-10-18T04:06:19.5752297Z Traceback (most recent call last):
+2026-10-18T04:06:19.5752739Z   File "/home/runner/work/ReactMono/ReactMono/tests/browser_p4_release_e2e.py", line 219, in <module>
+2026-10-18T04:06:19.5753149Z     if __name__=='__main__':main()
+2026-10-18T04:06:19.5753390Z                             ^^^^^^
+2026-10-18T04:06:19.5753673Z   File "/home/runner/work/ReactMono/ReactMono/tests/browser_p4_release_e2e.py", line 203, in main
+2026-10-18T04:06:19.5754089Z     assert abs(original['y']-candidate['y'])<=12,(label,'board displaced',original,candidate)
+2026-10-18T04:06:19.5754363Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-18T04:06:19.5754782Z AssertionError: ('phone-classic-4', 'board displaced', {'x': 14, 'y': 681, 'w': 362, 'h': 272}, {'x': 14, 'y': 701, 'w': 362, 'h': 272})
+2026-10-18T04:06:19.5955389Z ##[error]Process completed with exit code 1.

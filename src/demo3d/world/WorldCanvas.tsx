@@ -1,8 +1,10 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Suspense, useMemo, useState } from 'react';
+import { Suspense, useLayoutEffect, useMemo, useState } from 'react';
 import * as THREE from 'three';
 import type { GameState } from '../../core/game.js';
 import { RentTransfer } from './RentTransfer.js';
+import { OutcomeCelebration } from './OutcomeCelebration.js';
+import type { OutcomeCue } from '../outcomes.js';
 import type { RentCue } from '../presentation.js';
 import { Mascot, type MotionCue } from './Mascot.js';
 import { MiniatureTown } from './MiniatureTown.js';
@@ -16,6 +18,9 @@ type WorldCanvasProps = Readonly<{
   reducedMotion: boolean;
   followCurrent: boolean;
   rent: RentCue | null;
+  outcome?: OutcomeCue | null;
+  pendingBankruptIds?: readonly string[];
+  paused?: boolean;
   onMotionComplete: () => void;
   onActorStep: (tileId: number) => void;
 }>;
@@ -40,8 +45,18 @@ function CameraRig({ target, follow, reducedMotion }: { target: THREE.Vector3; f
 }
 
 function Scene(props: WorldCanvasProps): React.JSX.Element {
+  const invalidate = useThree(state => state.invalidate);
+  useLayoutEffect(() => {
+    // Imperative actor/camera targets and useFrame callbacks are not host props;
+    // request a demand frame after their layout effects have synchronized them.
+    invalidate();
+  }, [invalidate, props.game, props.motion, props.rent, props.outcome,
+    props.followCurrent, props.reducedMotion, props.paused]);
   const actor = props.game.players[props.game.currentPlayerIndex];
-  const point = positionForTile(actor.position);
+  const focusId = props.outcome?.stage === 'draw' ? null
+    : props.outcome?.actorId ?? props.motion?.actorId ?? props.rent?.fromId ?? actor.id;
+  const focusActor = props.game.players.find(player => player.id === focusId) ?? actor;
+  const point = positionForTile(focusActor.position);
   const trackedPosition = useMemo(() => new THREE.Vector3(point.x, 0.27, point.z), []);
   return (
     <>
@@ -62,7 +77,7 @@ function Scene(props: WorldCanvasProps): React.JSX.Element {
         shadow-camera-bottom={-12}
         shadow-bias={-0.0003}
       />
-      <CameraRig target={trackedPosition} follow={props.followCurrent} reducedMotion={props.reducedMotion} />
+      <CameraRig target={trackedPosition} follow={props.followCurrent && props.outcome?.stage !== 'draw'} reducedMotion={props.reducedMotion} />
       <MiniatureTown game={props.game} />
       {props.game.players.map((player, seat) => (
         <Mascot
@@ -70,7 +85,10 @@ function Scene(props: WorldCanvasProps): React.JSX.Element {
           id={player.id}
           seat={seat}
           tileId={player.position}
-          active={seat === props.game.currentPlayerIndex}
+          active={player.id === focusId}
+          bankrupt={player.bankrupt}
+          awaitingExit={props.pendingBankruptIds?.includes(player.id) ?? false}
+          outcome={props.outcome}
           motion={props.motion}
           reducedMotion={props.reducedMotion}
           onMotionComplete={props.onMotionComplete}
@@ -80,6 +98,14 @@ function Scene(props: WorldCanvasProps): React.JSX.Element {
           trackedPosition={trackedPosition}
         />
       ))}
+      {props.outcome && (
+        <OutcomeCelebration
+          key={`${props.outcome.stage}-${props.outcome.actorId}-${props.outcome.nonce}`}
+          game={props.game}
+          cue={props.outcome}
+          reducedMotion={props.reducedMotion}
+        />
+      )}
       {props.rent && <RentTransfer game={props.game} cue={props.rent} reducedMotion={props.reducedMotion} />}
     </>
   );
@@ -87,13 +113,18 @@ function Scene(props: WorldCanvasProps): React.JSX.Element {
 
 export function WorldCanvas(props: WorldCanvasProps): React.JSX.Element {
   const [ready, setReady] = useState(false);
+  // A financial modal has no visible scene interaction. Reduced-motion idle
+  // scenes only need a fresh frame when React changes the game or camera.
+  const frameLoop = props.paused ? 'never'
+    : props.reducedMotion && !props.motion && !props.rent && !props.outcome ? 'demand' : 'always';
   return (
-    <div className="canvas-shell" data-ready={String(ready)}>
+    <div className="canvas-shell" data-ready={String(ready)} data-frameloop={frameLoop}>
       {!ready && <div className="scene-loading" role="status"><span />正在搭建晴湾小镇…</div>}
       <Canvas
         aria-label="晴湾小镇 3D 棋盘"
         data-testid="world-canvas"
         orthographic
+        frameloop={frameLoop}
         shadows
         dpr={[1, 1.6]}
         camera={{ position: [10.2, 12.5, 10.2], zoom: 48, near: 0.1, far: 80 }}

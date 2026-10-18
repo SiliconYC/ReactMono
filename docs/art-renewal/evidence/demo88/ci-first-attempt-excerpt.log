@@ -1,0 +1,28 @@
+2026-10-18T01:06:01.1110262Z Successfully installed greenlet-3.5.6 playwright-1.64.0 pyee-14.0.0
+2026-10-18T01:06:01.1985785Z ##[group]Run python -u tests/browser_demo3d_e2e.py -v
+2026-10-18T01:06:01.1986230Z [36;1mpython -u tests/browser_demo3d_e2e.py -v[0m
+2026-10-18T01:06:01.2049356Z shell: /usr/bin/bash -e {0}
+2026-10-18T01:06:01.2049637Z ##[endgroup]
+2026-10-18T01:06:01.4711599Z
+2026-10-18T01:06:01.4712038Z > reactmono@0.2.0 demo:build
+2026-10-18T01:06:01.4712599Z > tsc -p tsconfig.demo.json && vite build --config vite.demo.config.ts
+2026-10-18T01:06:01.4712929Z
+2026-10-18T01:06:04.4911646Z [36mvite v8.3.4 [32mbuilding client environment for production...[36m[39m
+2026-10-18T01:06:04.5007157Z transforming...
+2026-10-18T01:06:04.6359626Z ✓ 62 modules transformed.
+2026-10-18T01:06:04.6844196Z rendering chunks...
+2026-10-18T01:06:04.8414734Z computing gzip size...
+2026-10-18T01:06:04.8573811Z dist-3d-demo/index.html                     0.58 kB │ gzip:   0.41 kB
+2026-10-18T01:06:04.8574814Z dist-3d-demo/assets/index-CfKY8Fu6.css     24.32 kB │ gzip:   5.97 kB
+2026-10-18T01:06:04.8576020Z dist-3d-demo/assets/index-CuUKTcUp.js   1,096.38 kB │ gzip: 301.60 kB
+2026-10-18T01:06:04.8576516Z
+2026-10-18T01:06:04.8578711Z [32m✓ built in 365ms[39m
+2026-10-18T01:10:30.2408593Z test_complete_game_and_row_houses_reduced_motion (__main__.Demo3DBrowserTest.test_complete_game_and_row_houses_reduced_motion) ... ok
+2026-10-18T01:12:02.0326346Z test_desktop_full_turn (__main__.Demo3DBrowserTest.test_desktop_full_turn) ... ok
+2026-10-18T01:13:10.6432678Z test_desktop_rent_animation_after_arrival (__main__.Demo3DBrowserTest.test_desktop_rent_animation_after_arrival) ... ok
+2026-10-18T01:13:17.2051614Z Current roll reduce latency: {'duration': 488.5, 'busyAtStart': 'true'}
+2026-10-18T01:13:26.3609355Z Next reduced roll latency: {'duration': 493, 'busyAtStart': 'false'}
+2026-10-18T01:13:26.3732330Z test_dynamic_reduced_motion_finishes_current_and_future_rolls (__main__.Demo3DBrowserTest.test_dynamic_reduced_motion_finishes_current_and_future_rolls) ... ok
+2026-10-18T01:13:56.9168878Z test_mobile_full_turn (__main__.Demo3DBrowserTest.test_mobile_full_turn) ... ok
+2026-10-18T01:14:31.0350049Z test_mobile_rent_animation_after_arrival (__main__.Demo3DBrowserTest.test_mobile_rent_animation_after_arrival) ... ok
+2026-10-18T01:16:13.7318881Z ##[error]The action '3D demo 地产、金融、租金与胜负完整对局 Chromium 回归' has timed out after 10 minutes.

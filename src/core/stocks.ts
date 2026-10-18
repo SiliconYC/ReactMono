@@ -1,4 +1,4 @@
-/** P3-10: deterministic, cash-only trades on the five invented market quotations. */
+/** P3-10: deterministic trades with an optional bank settlement account on the five invented market quotations. */
 import type {GameState,Player,GameAction,ActionResult,GameEvent,StockHoldings} from './types.js';
 import {quoteMarket,STOCKS} from './market.js';
 import {accept,reject} from './transitions.js';
@@ -21,7 +21,8 @@ export function tradeStock(state:GameState,actor:Player,
   const fee=stockFee(gross);
   const positions:StockHoldings=actor.holdings??{};
   const lot=positions[action.stockId];
-  let cash=actor.cash;
+  const account = state.stockAccount === 'bank' ? 'bankBalance' : 'cash';
+  let cash=actor[account] ?? 0;
   let next:StockHoldings;
   let event:GameEvent;
   if(action.type==='buy_stock'){
@@ -45,7 +46,8 @@ export function tradeStock(state:GameState,actor:Player,
     event={type:'stock_sold',actorId:actor.id,details:{stockId:action.stockId,quantity,price,fee,
       amount:proceeds,realized:proceeds-allocated}};
   }
-  return accept(state,[event],{players:state.players.map(p=>p.id===actor.id?{...p,cash,holdings:next}:p)});
+  if(state.stockAccount==='bank')event={...event,details:{...event.details,account:'bank'}};
+  return accept(state,[event],{players:state.players.map(p=>p.id===actor.id?{...p,[account]:cash,holdings:next}:p)});
 }
 /** Pay rent from quoted, fee-adjusted shares before selling land. Full lots only, in fixed symbol order. */
 export function liquidateStocksForRent(state:GameState,actor:Player,due:number):{
