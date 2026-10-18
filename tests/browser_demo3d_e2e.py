@@ -7,6 +7,7 @@ from subprocess import run
 from threading import Thread
 import unittest
 import json
+import re
 
 from playwright.sync_api import sync_playwright
 
@@ -66,9 +67,14 @@ class Demo3DBrowserTest(unittest.TestCase):
             const record = () => {
                 const receipt = document.querySelector('.rent-receipt');
                 const cards = [...document.querySelectorAll('.player-card')];
+                const outcome = document.querySelector('[data-testid="outcome-overlay"]');
+                const outcomeRect = outcome?.getBoundingClientRect();
                 const rect = receipt?.getBoundingClientRect();
                 const snapshot = {
                     busy: main.dataset.busy,
+                    outcome: main.dataset.outcome,
+                    outcomeText: outcome?.textContent ?? '',
+                    outcomeVisible: !!outcome && outcome.checkVisibility({visibilityProperty: true}) && Number(getComputedStyle(outcome).opacity) >= 0.9 && outcomeRect.width > 0 && outcomeRect.height > 0,
                     tile: main.dataset.visualTile,
                     location: document.querySelector('.location-card').innerText,
                     cash: cards[0].innerText,
@@ -90,12 +96,18 @@ class Demo3DBrowserTest(unittest.TestCase):
                     window.__demoLatency = {duration: performance.now() - started.at, busyAtStart: started.busy};
                 }
             };
+            // CSS entry animations do not cause DOM mutations. Sample active
+            // outcome cards too, so visibility proves the card actually faded in.
+            const outcomeSampler = setInterval(() => {
+                if (document.querySelector('[data-testid="outcome-overlay"]')) record();
+            }, 100);
             const observer = new MutationObserver(record);
             observer.observe(main, {attributes: true, childList: true, subtree: true, characterData: true});
             if (startEvent === 'media') media.addEventListener('change', start);
             if (startEvent === 'click') document.addEventListener('click', clicked, true);
             window.__demoDisconnect = () => {
                 observer.disconnect();
+                clearInterval(outcomeSampler);
                 media.removeEventListener('change', start);
                 document.removeEventListener('click', clicked, true);
             };
@@ -153,18 +165,15 @@ class Demo3DBrowserTest(unittest.TestCase):
         panel = page.get_by_label("地产管理")
         self.assertIn("空地", panel.inner_text())
         self.assertIn("街区", panel.inner_text())
-        panel.get_by_role("button", name="建房 · ¥68").click()
-        self.assertIn("住宅", panel.inner_text())
-        self.assertIn("¥ 996", page.locator(".player-card").first.inner_text())
-        panel.get_by_role("button", name="升级房屋 · ¥109").click()
-        self.assertIn("高级住宅", panel.inner_text())
-        self.assertIn("已达最高等级", panel.inner_text())
-        self.assertIn("¥ 887", page.locator(".player-card").first.inner_text())
+        self.assertEqual(panel.get_by_role("button", name="建房").count(), 0)
+        self.assertIn("本次已操作", panel.inner_text())
+        self.assertIn("存款 ¥ 600", page.locator(".player-card").first.inner_text())
         panel_box = panel.bounding_box()
         location_box = page.locator(".location-card").bounding_box()
         self.assertLessEqual(panel_box["y"] + panel_box["height"], location_box["y"])
         self.assertGreaterEqual(panel_box["y"], 140)
         page.screenshot(path=str(ROOT / "artifacts" / f"demo-property-{width}.png"))
+        self.exercise_finance(page, width)
         end_turn = page.get_by_role("button", name="结束回合")
         self.assertGreaterEqual(end_turn.bounding_box()["height"], 44)
         end_turn.click()
@@ -173,6 +182,56 @@ class Demo3DBrowserTest(unittest.TestCase):
         self.assertFalse(errors, errors)
         self.assertFalse(external_requests, external_requests)
         context.close()
+
+    def exercise_finance(self, page, width):
+        bank = page.locator(".finance-tools").get_by_role("button", name="银行", exact=True)
+        self.assertGreaterEqual(bank.bounding_box()["height"], 44)
+        bank.click()
+        dialog = page.get_by_role("dialog", name="银行与股市")
+        account = lambda title: dialog.locator(".finance-balances > div").filter(has=page.get_by_text(title, exact=True)).locator("dd").inner_text()
+        self.assertEqual(account("随身现金"), "1,064元")
+        self.assertEqual(account("银行存款"), "600元")
+        deposit = dialog.get_by_label("存入银行", exact=True)
+        deposit.fill("-1")
+        self.assertFalse(dialog.get_by_role("button", name="存款", exact=True).is_enabled())
+        deposit.fill("100")
+        dialog.get_by_role("button", name="存款", exact=True).click()
+        self.assertEqual(account("随身现金"), "964元")
+        self.assertEqual(account("银行存款"), "700元")
+        dialog.get_by_label("取出现金", exact=True).fill("50")
+        dialog.get_by_role("button", name="取款", exact=True).click()
+        self.assertEqual(account("随身现金"), "1,014元")
+        dialog.get_by_role("button", name="抵押地产", exact=True).click()
+        dialog.get_by_label("申请贷款，转入现金", exact=True).fill("52")
+        self.assertFalse(dialog.get_by_role("button", name="申请贷款", exact=True).is_enabled())
+        dialog.get_by_label("申请贷款，转入现金", exact=True).fill("40")
+        dialog.get_by_role("button", name="申请贷款", exact=True).click()
+        self.assertEqual(account("贷款欠款"), "40元")
+        self.assertFalse(dialog.get_by_role("button", name="解除抵押", exact=True).is_enabled())
+        dialog.get_by_label("使用现金还款", exact=True).fill("10")
+        dialog.get_by_role("button", name="偿还贷款", exact=True).click()
+        self.assertEqual(account("随身现金"), "1,044元")
+        page.screenshot(path=str(ROOT / "artifacts" / f"demo-bank-{width}.png"))
+        dialog.get_by_role("tab", name="股市", exact=True).click()
+        dialog.get_by_role("button", name=re.compile("^青禾农业")).click()
+        dialog.get_by_label("青禾农业交易数量", exact=True).fill("2")
+        dialog.get_by_role("button", name="买入青禾农业", exact=True).click()
+        self.assertEqual(account("银行存款"), "539元")
+        self.assertEqual(account("随身现金"), "1,044元")
+        dialog.get_by_label("青禾农业交易数量", exact=True).fill("1")
+        dialog.get_by_role("button", name="卖出青禾农业", exact=True).click()
+        self.assertEqual(account("银行存款"), "593元")
+        self.assertIn("1 股", dialog.locator(".finance-position").inner_text())
+        self.assertIn("56 元", dialog.locator(".finance-position").inner_text())
+        page.screenshot(path=str(ROOT / "artifacts" / f"demo-market-{width}.png"))
+        dialog.get_by_role("tab", name="银行", exact=True).click()
+        dialog.get_by_label("使用现金还款", exact=True).fill("30")
+        dialog.get_by_role("button", name="偿还贷款", exact=True).click()
+        dialog.get_by_role("button", name="解除抵押", exact=True).click()
+        self.assertEqual(account("贷款欠款"), "0元")
+        dialog.get_by_role("button", name="关闭银行与股市", exact=True).click()
+        self.assertIn("¥ 1,014", page.locator(".player-cash").first.inner_text())
+        self.assertIn("存款 ¥ 593", page.locator(".player-card").first.inner_text())
 
     def exercise_rent(self, width, height, mobile):
         context = self.new_context(viewport={"width": width, "height": height}, is_mobile=mobile, has_touch=mobile)
@@ -223,43 +282,100 @@ class Demo3DBrowserTest(unittest.TestCase):
         page = context.new_page()
         errors = []
         page.on("pageerror", lambda error: errors.append(str(error)))
-        page.goto(f"http://127.0.0.1:{self.server.server_port}/", wait_until="networkidle")
-        built = set()
-        saw_row = False
-        for turn in range(30):
-            if page.get_by_role("button", name="再逛一次晴湾").count():
-                break
+        page.goto(f"http://127.0.0.1:{self.server.server_port}/?seed=36", wait_until="networkidle")
+        saw_row, saw_upgrade = False, False
+        for turn in range(24):
             page.get_by_role("button", name="投骰前进").click()
             page.wait_for_function("document.querySelector('main').dataset.busy === 'false'", timeout=5000)
             buy = page.get_by_role("button", name="买下此地")
             if buy.count():
                 if buy.is_enabled():
                     buy.click()
+                    self.assertEqual(page.get_by_role("button", name=re.compile("^建房")).count(), 0)
                 else:
                     page.get_by_role("button", name="暂不购买").click()
-            # Both west-street lots are bought by 桃桃 with the fixed seed.
+            build = page.get_by_role("button", name=re.compile("^(建房|升级房屋)"))
+            if build.count() and build.is_enabled():
+                was_upgrade = "升级房屋" in build.inner_text()
+                build.click()
+                self.assertEqual(page.get_by_role("button", name=re.compile("^(建房|升级房屋)")).count(), 0)
+                if was_upgrade:
+                    saw_upgrade = True
+                    self.assertIn("高级住宅", page.get_by_label("地产管理").inner_text())
             panel = page.get_by_label("地产管理")
-            if panel.count():
-                for tile_id in (13, 14):
-                    option = panel.locator(f'option[value="{tile_id}"]')
-                    if option.count() and tile_id not in built:
-                        panel.get_by_label("我的地产", exact=False).select_option(str(tile_id))
-                        panel.get_by_role("button", name="建房").click()
-                        built.add(tile_id)
-                if "联排 2 户" in panel.inner_text():
-                    saw_row = True
-                    page.get_by_role("button", name="全景视角").click()
-                    page.screenshot(path=str(ROOT / "artifacts" / "demo-row-houses.png"))
-                    page.get_by_role("button", name="跟随角色").click()
-            end = page.get_by_role("button", name="结束回合")
-            if end.count():
-                end.click()
+            if panel.count() and "联排 2 户" in panel.inner_text():
+                saw_row = True
+                page.get_by_role("button", name="全景视角").click()
+                page.screenshot(path=str(ROOT / "artifacts" / "demo-row-houses.png"))
+                page.get_by_role("button", name="跟随角色").click()
+            if turn == 2:
+                page.locator(".finance-tools").get_by_role("button", name="股市", exact=True).click()
+                dialog = page.get_by_role("dialog", name="银行与股市")
+                dialog.get_by_role("button", name=re.compile("^青禾农业")).click()
+                chart = dialog.get_by_role("img", name=re.compile("青禾农业第1至2轮价格走势"))
+                self.assertTrue(chart.is_visible())
+                page.screenshot(path=str(ROOT / "artifacts" / "demo-market-round2.png"))
+                dialog.get_by_role("button", name="关闭银行与股市", exact=True).click()
+            self.observe_action(page)
+            page.get_by_role("button", name="结束回合").click()
+            page.wait_for_function("document.querySelector('main').dataset.busy === 'false'", timeout=5000)
         self.assertTrue(saw_row)
-        self.assertTrue(page.get_by_role("button", name="再逛一次晴湾").is_visible())
-        self.assertIn("获胜", page.locator(".turn-copy").inner_text())
+        self.assertTrue(saw_upgrade)
+        result = page.get_by_label("对局结果")
+        self.assertTrue(result.is_visible())
+        self.assertIn("获胜", result.inner_text())
+        self.assertTrue(page.evaluate("window.__demoTrace.some(s=>s.outcome==='victory')"))
+        page.screenshot(path=str(ROOT / "artifacts" / "demo-round-victory.png"))
         page.get_by_role("button", name="再逛一次晴湾").click()
         self.assertTrue(page.get_by_role("button", name="投骰前进").is_visible())
-        self.assertIn("¥ 1,200", page.locator(".player-card").first.inner_text())
+        self.assertIn("¥ 1,200", page.locator(".player-cash").first.inner_text())
+        self.assertIn("存款 ¥ 600", page.locator(".player-card").first.inner_text())
+        self.assertFalse(errors, errors)
+        context.close()
+
+    def test_real_bankruptcy_then_victory_sequence(self):
+        context = self.new_context(viewport={"width": 1280, "height": 800}, reduced_motion="reduce")
+        page = context.new_page()
+        errors = []
+        page.on("pageerror", lambda error: errors.append(str(error)))
+        page.goto(f"http://127.0.0.1:{self.server.server_port}/?seed=1&rounds=24", wait_until="networkidle")
+        for turn in range(45):
+            if turn == 44:
+                page.emulate_media(reduced_motion="no-preference")
+                self.observe_action(page)
+            page.get_by_role("button", name="投骰前进").click()
+            if turn == 44:
+                page.wait_for_function("window.__demoTrace.some(s => s.outcome === 'bankrupt' && s.outcomeVisible)", timeout=12000)
+                page.screenshot(path=str(ROOT / "artifacts" / "demo-bankrupt-sequence.png"))
+                page.wait_for_function("window.__demoTrace.some(s => s.outcome === 'victory' && s.outcomeVisible)", timeout=8000)
+                page.screenshot(path=str(ROOT / "artifacts" / "demo-victory-sequence.png"))
+            page.wait_for_function("document.querySelector('main').dataset.busy === 'false'", timeout=15000)
+            if turn == 44:
+                break
+            buy = page.get_by_role("button", name="买下此地")
+            if buy.count():
+                (buy if buy.is_enabled() else page.get_by_role("button", name="暂不购买")).click()
+            active = page.locator('.player-card[data-active="true"]')
+            balance = int(re.sub(r"\D", "", active.locator(".player-deposit").inner_text()))
+            if balance:
+                page.locator(".finance-tools").get_by_role("button", name="银行", exact=True).click()
+                dialog = page.get_by_role("dialog", name="银行与股市")
+                dialog.get_by_label("取出现金", exact=True).fill(str(balance))
+                dialog.get_by_role("button", name="取款", exact=True).click()
+                dialog.get_by_role("button", name="关闭银行与股市", exact=True).click()
+            build = page.get_by_role("button", name=re.compile("^(建房|升级房屋)"))
+            if build.count() and build.is_enabled():
+                build.click()
+            page.get_by_role("button", name="结束回合").click()
+        trace = page.evaluate("window.__demoTrace")
+        (ROOT / "artifacts" / "demo-outcomes.json").write_text(json.dumps(trace, ensure_ascii=False, indent=2))
+        stages = [sample["outcome"] for sample in trace if sample["outcome"] and sample["outcomeVisible"]]
+        self.assertIn("bankrupt", stages)
+        self.assertIn("victory", stages)
+        self.assertLess(stages.index("bankrupt"), stages.index("victory"))
+        result = page.get_by_label("对局结果")
+        self.assertIn("阿团获胜", result.inner_text())
+        self.assertIn("桃桃 · 已破产", result.inner_text())
         self.assertFalse(errors, errors)
         context.close()
 
@@ -294,11 +410,12 @@ class Demo3DBrowserTest(unittest.TestCase):
             roll.click()
             page.wait_for_function("document.querySelector('main').dataset.busy === 'false'")
             page.get_by_role("button", name="买下此地").click()
-            build = page.get_by_role("button", name="建房")
-            box = build.bounding_box()
+            self.assertEqual(page.get_by_role("button", name="建房").count(), 0)
+            box = page.get_by_role("button", name="结束回合").bounding_box()
             self.assertLessEqual(box["y"] + box["height"], height)
             self.assertGreaterEqual(box["y"], 0)
-            build.click()
+            page.locator(".finance-tools").get_by_role("button", name="银行", exact=True).click()
+            page.get_by_role("dialog", name="银行与股市").get_by_role("button", name="关闭银行与股市", exact=True).click()
             page.get_by_role("button", name="结束回合").click()
             page.screenshot(path=str(ROOT / "artifacts" / f"demo-short-{width}.png"))
             context.close()

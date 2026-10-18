@@ -39,10 +39,10 @@ jobs:
           fi
       - name: 准备 Playwright（供 P4 与旧回归共用）
         run: python -m pip install playwright
-      - name: 3D demo 地产、联排、租金与完整对局 Chromium 回归
-        timeout-minutes: 6
+      - name: 3D demo 地产、金融、租金与胜负完整对局 Chromium 回归
+        timeout-minutes: 10
         run: python -u tests/browser_demo3d_e2e.py -v
-      - name: 保留 3D demo 桌面手机与联排租金截图
+      - name: 保留 3D demo 桌面手机金融与演出证据
         if: always()
         uses: actions/upload-artifact@v4
         with:
