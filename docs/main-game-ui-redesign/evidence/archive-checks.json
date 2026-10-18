@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-18",
+  "branch": "dev",
+  "valid_local_html_references": 27,
+  "external_active_resources": 0,
+  "preview_images": 6,
+  "user_original_images": 2,
+  "browser_http_checks": "四状态、银行面板及390×844视口已检查；零页面错误",
+  "file_protocol_check": "工具只允许HTTP/HTTPS，未执行直接file://检查",
+  "game_implementation_changed": false,
+  "full_game_tests_run": false,
+  "source_integrity": {
+    "interactive_fragment_byte_identical": true,
+    "plan_identical_after_three_markdown_hardbreak_normalizations": true
+  }
+}

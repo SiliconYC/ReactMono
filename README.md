@@ -64,6 +64,7 @@ P0 目标与治理 → P1 第一局能玩到底 → P2 可靠的准本地游戏�
 
 ## 协作入口
 
+- [主程序界面重设计：完整方案、交互网页与图像档案](docs/main-game-ui-redesign/README.md)（[直接查看图文入口](docs/main-game-ui-redesign/index.html)，设计建议尚未实施）
 - [美术与前端重建：方向、架构、动画、资产与验收](docs/art-renewal/README.md)
 - [六阶段路线图](docs/ROADMAP.md)
 - [定向进化候选池（讨论与研究入口）](docs/EVOLUTION_POOL.md)

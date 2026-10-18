@@ -1,0 +1,188 @@
+<div id="town-ui-concept">
+  <div class="viz-controls" aria-label="查看设计状态">
+    <button class="btn btn-primary" type="button" data-screen="title" aria-pressed="true">标题画面</button>
+    <button class="btn" type="button" data-screen="setup" aria-pressed="false">新局准备</button>
+    <button class="btn" type="button" data-screen="turn" aria-pressed="false">等待掷骰</button>
+    <button class="btn" type="button" data-screen="arrival" aria-pressed="false">到访购地</button>
+    <span class="text-small">布局示意 · 非游戏实现</span>
+  </div>
+  <div class="town-game" data-state="title" aria-label="大富翁游戏界面设计示意">
+    <div class="town-stage" aria-label="棋盘构图示意">
+      <div class="town-island"><div class="town-roads"></div><div class="town-square"><div class="town-tower">富</div><span>微缩小镇 · 棋盘构图区域</span></div></div>
+      <div class="town-piece" aria-hidden="true">桃</div>
+    </div>
+    <section class="town-title" data-view="title">
+      <p>小镇经营棋盘游戏</p><h1>大富翁</h1><p class="town-subtitle">走进小镇，经营你的好运。</p>
+      <nav aria-label="主菜单"><button type="button" class="town-main" data-to="turn">继续游戏 <span>→</span></button><span class="town-save-note">经典环线 · 第 8 / 60 轮 · 桃桃</span><button type="button" data-to="setup">新游戏</button><button type="button" data-panel="saves">读取存档</button></nav>
+      <div class="town-title-tools"><button type="button" data-panel="settings">设置</button><button type="button" data-panel="help">玩法说明</button></div>
+    </section>
+    <section class="town-setup" data-view="setup" hidden>
+      <header><h2>准备出发</h2><span>本机轮流 · 2–4 位玩家</span></header>
+      <div class="town-map-choice"><button type="button" class="town-picked" aria-pressed="true" data-map="classic">经典环线 <small>24 格 · 购地与建设</small></button><button type="button" aria-pressed="false" data-map="harbor">海港环线 <small>20 格 · 海港街区</small></button></div>
+      <div class="town-seats"><div><span class="town-avatar">桃</span><strong>桃桃</strong><span>真人</span></div><div><span class="town-avatar town-blue">团</span><strong>阿团</strong><span>电脑 · 均衡</span></div></div>
+      <button type="button" class="town-local-settings" data-panel="setup">对局设置 · 60 轮</button>
+      <footer><button type="button" data-to="title">返回</button><button type="button" class="town-main" data-to="turn">开始对局 →</button></footer>
+    </section>
+    <div class="town-hud" hidden>
+      <div class="town-roster" aria-label="玩家状态">
+        <button type="button" class="town-person town-active" data-panel="assets"><span class="town-avatar">桃</span><span><strong>桃桃 <small>行动中</small></strong><span>现金 <b>1,500</b></span></span></button>
+        <button type="button" class="town-person" data-panel="assets"><span class="town-avatar town-blue">团</span><span><strong>阿团 <small>电脑</small></strong><span>现金 <b>1,280</b></span></span></button>
+      </div>
+      <div class="town-round">第 8 / 60 轮</div>
+      <div class="town-top-tools"><button type="button" data-camera>全景</button><button type="button" data-panel="pause">菜单</button></div>
+      <div class="town-bottom">
+        <div class="town-quick-tools"><button type="button" data-panel="cards">手牌 · 2</button><button type="button" data-panel="bank">银行</button><button type="button" data-panel="stocks">股票</button></div>
+        <section class="town-action" aria-label="当前回合操作" aria-live="polite">
+          <div><span class="town-action-label">桃桃的回合</span><strong class="town-next">准备出发</strong><span class="town-decision-extra" hidden>地价 110 · 租金 22<br>购买后现金 1,390</span></div>
+          <div class="town-action-buttons"><button type="button" class="town-pass" hidden>暂不购买</button><button type="button" class="town-main town-cta">掷骰前进</button></div>
+        </section>
+      </div>
+    </div>
+    <div class="town-overlay" hidden><section role="dialog" aria-modal="true" aria-labelledby="town-dialog-title"><header><h2 id="town-dialog-title">菜单</h2><button type="button" data-close aria-label="关闭面板">关闭</button></header><div class="town-panel-content"></div></section></div>
+  </div>
+</div>
+<style>
+#town-ui-concept{width:100%}
+#town-ui-concept .viz-controls{margin-bottom:12px}
+#town-ui-concept .town-game{--town-paper:#fff9ec;--town-ink:#234039;--town-muted:#5d7168;--town-gold:#f5ce69;--town-water:#c1e0d7;--town-land:#b8cfaa;--town-line:#cfdbc8;--town-blue:#788dc9;--town-orange:#d97955;--town-night:#213d35;--town-night-text:#fff9ec;position:relative;min-height:570px;overflow:hidden;border-radius:16px;background:var(--town-water);color:var(--town-ink);font:14px/1.5 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;isolation:isolate}
+#town-ui-concept .town-game *{box-sizing:border-box}
+#town-ui-concept .town-game [hidden]{display:none!important}
+#town-ui-concept .town-game button{font:inherit;color:inherit;border:0;border-radius:12px;padding:11px 16px;min-height:44px;background:var(--town-paper);cursor:var(--cursor-interaction,pointer)}
+#town-ui-concept .town-game button:hover{filter:brightness(.97)}
+#town-ui-concept .town-game button:focus-visible{outline:3px solid var(--town-ink);outline-offset:3px}
+#town-ui-concept .town-game .town-main{background:var(--town-gold);color:var(--town-ink);font-weight:700;box-shadow:0 4px 0 #c8a749;display:flex;justify-content:space-between;gap:20px;align-items:center}
+#town-ui-concept .town-stage{position:absolute;inset:0;z-index:-1;overflow:hidden}
+#town-ui-concept .town-island{position:absolute;width:420px;height:420px;left:55%;top:53%;transform:translate(-50%,-50%) rotate(-30deg) skew(15deg,10deg) scaleY(.75);background:var(--town-land);border-radius:36px;box-shadow:0 24px 0 #a18a61,12px 38px 0 #89b8ab}
+#town-ui-concept .town-roads{position:absolute;inset:33px;border:38px solid #f3f2df;border-radius:12px;outline:2px solid #a2c3a3}
+#town-ui-concept .town-roads::after{content:"";position:absolute;inset:-38px;background:repeating-linear-gradient(90deg,transparent 0 49px,#b5c8b1 50px 52px),repeating-linear-gradient(0deg,transparent 0 49px,#b5c8b1 50px 52px);mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;padding:38px}
+#town-ui-concept .town-square{position:absolute;inset:85px;display:grid;align-content:center;justify-items:center;gap:20px;text-align:center;color:#426442;font-size:12px}
+#town-ui-concept .town-tower{display:grid;place-content:center;width:80px;height:100px;background:#f2deb1;border-top:18px solid #d88564;border-radius:6px;color:#426442;font-size:30px;font-weight:700;box-shadow:10px 12px 0 #6f9a7638}
+#town-ui-concept .town-piece{position:absolute;left:69%;top:35%;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:var(--town-orange);color:var(--town-paper);font-size:20px;font-weight:700;border:4px solid var(--town-gold);box-shadow:0 7px 0 #476e6433}
+#town-ui-concept .town-title{width:310px;padding:84px 0 34px 42px}
+#town-ui-concept .town-title p{margin:0;color:var(--town-muted)}
+#town-ui-concept .town-title h1{font-size:64px;line-height:1.15;letter-spacing:.1em;margin:14px 0;font-weight:800}
+#town-ui-concept .town-title .town-subtitle{margin-bottom:32px;color:var(--town-ink)}
+#town-ui-concept .town-title nav{display:grid;gap:10px}
+#town-ui-concept .town-title nav>button{text-align:left}
+#town-ui-concept .town-save-note{font-size:12px;color:var(--town-muted);margin:0 12px 6px}
+#town-ui-concept .town-title-tools{display:flex;gap:18px;margin-top:24px}
+#town-ui-concept .town-title-tools button{padding:0;background:transparent;font-size:12px}
+#town-ui-concept .town-setup{position:relative;margin:50px auto;width:550px;max-width:calc(100% - 32px);padding:26px;background:var(--town-paper);border-radius:22px;box-shadow:0 16px 45px #2c5b4326}
+#town-ui-concept .town-setup h2{margin:0 0 5px;font-size:24px}
+#town-ui-concept .town-setup header>span{color:var(--town-muted);font-size:12px}
+#town-ui-concept .town-map-choice{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0 18px}
+#town-ui-concept .town-map-choice button{border:2px solid var(--town-line);text-align:left;background:#eaf0de;min-height:100px;font-weight:700}
+#town-ui-concept .town-map-choice button.town-picked{border-color:#b18b31;background:#f6e9bd}
+#town-ui-concept .town-map-choice small{display:block;font-size:12px;font-weight:400;margin-top:10px}
+#town-ui-concept .town-seats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#town-ui-concept .town-seats>div{display:grid;grid-template-columns:40px 1fr;gap:0 10px;align-items:center;padding:12px;border:1px solid var(--town-line);border-radius:12px}
+#town-ui-concept .town-avatar{display:grid;place-content:center;width:40px;height:40px;border-radius:13px;background:var(--town-orange);color:var(--town-paper);grid-row:span 2;font-weight:700}
+#town-ui-concept .town-blue{background:var(--town-blue)}
+#town-ui-concept .town-seats>div>span:last-child{font-size:12px;color:var(--town-muted)}
+#town-ui-concept .town-local-settings{margin:20px 0;background:transparent!important;padding-left:0!important;color:var(--town-muted)!important}
+#town-ui-concept .town-setup footer{display:flex;justify-content:space-between;gap:16px;padding-top:18px;border-top:1px solid var(--town-line)}
+#town-ui-concept .town-roster{position:absolute;left:20px;top:20px;display:grid;gap:10px;width:190px}
+#town-ui-concept .town-person{display:flex;gap:10px;align-items:center;text-align:left;box-shadow:0 4px 18px #2c5b4312}
+#town-ui-concept .town-person.town-active{box-shadow:inset 4px 0 var(--town-gold),0 4px 18px #2c5b4312}
+#town-ui-concept .town-person>span:last-child{display:grid;gap:3px}
+#town-ui-concept .town-person strong{font-size:14px;white-space:nowrap}
+#town-ui-concept .town-person small{font-size:11px;color:var(--town-muted);font-weight:400;margin-left:4px}
+#town-ui-concept .town-person>span>span{font-size:12px}
+#town-ui-concept .town-round{position:absolute;left:50%;top:20px;transform:translateX(-50%);padding:10px 16px;border-radius:12px;background:var(--town-paper);font-variant-numeric:tabular-nums}
+#town-ui-concept .town-top-tools{position:absolute;right:20px;top:20px;display:flex;gap:8px}
+#town-ui-concept .town-bottom{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);width:min(650px,calc(100% - 40px))}
+#town-ui-concept .town-quick-tools{display:flex;justify-content:flex-end;gap:8px;margin-bottom:10px}
+#town-ui-concept .town-quick-tools button{font-size:12px;padding:8px 14px}
+#town-ui-concept .town-action{background:var(--town-night);color:var(--town-night-text);padding:18px 20px;border-radius:18px;display:flex;justify-content:space-between;align-items:center;gap:18px;box-shadow:0 8px 24px #24523e24}
+#town-ui-concept .town-action-label{display:block;font-size:12px;color:#d0dfd4}
+#town-ui-concept .town-next{display:block;font-size:17px;margin:3px 0}
+#town-ui-concept .town-decision-extra{display:block;font-size:13px;color:#d0dfd4;margin-top:5px}
+#town-ui-concept .town-action-buttons{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+#town-ui-concept .town-action .town-pass{color:var(--town-night-text);background:transparent;border:1px solid #6b8275}
+#town-ui-concept .town-overlay{position:absolute;inset:0;z-index:5;background:#183d336b;display:grid;place-items:center;padding:20px}
+#town-ui-concept .town-overlay section{padding:24px;background:var(--town-paper);border-radius:20px;width:410px;max-width:100%;box-shadow:0 15px 50px #23403944}
+#town-ui-concept .town-overlay header{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:20px}
+#town-ui-concept .town-overlay h2{font-size:22px;margin:0}
+#town-ui-concept .town-overlay header button{font-size:12px;padding:6px 10px;min-height:36px}
+#town-ui-concept .town-panel-content{display:grid;gap:10px}
+#town-ui-concept .town-panel-content button{border:1px solid var(--town-line);text-align:left}
+#town-ui-concept .town-panel-content p{margin:0;color:var(--town-muted)}
+@media(max-width:650px){
+ #town-ui-concept .town-game{min-height:650px}
+ #town-ui-concept .town-island{width:330px;height:330px;left:53%;top:53%}
+ #town-ui-concept .town-roads{inset:25px;border-width:30px}
+ #town-ui-concept .town-square{inset:65px}
+ #town-ui-concept .town-piece{left:70%;top:37%}
+ #town-ui-concept .town-title{padding:40px 0 30px 24px;width:270px;position:relative;background:linear-gradient(90deg,var(--town-water) 72%,transparent)}
+ #town-ui-concept .town-title h1{font-size:50px}
+ #town-ui-concept .town-title nav{gap:8px}
+ #town-ui-concept .town-setup{margin:60px auto;padding:20px}
+ #town-ui-concept .town-roster{left:12px;top:12px;gap:7px;width:160px}
+ #town-ui-concept .town-person{padding:9px;gap:7px}
+ #town-ui-concept .town-round{left:auto;right:12px;top:12px;transform:none;font-size:12px;padding:10px}
+ #town-ui-concept .town-top-tools{right:12px;top:66px;gap:6px}
+ #town-ui-concept .town-top-tools button{padding:8px 10px;font-size:12px}
+ #town-ui-concept .town-bottom{width:calc(100% - 24px);bottom:12px}
+ #town-ui-concept .town-action{padding:16px;align-items:stretch;flex-direction:column;gap:12px}
+ #town-ui-concept .town-action-buttons{justify-content:stretch;flex-wrap:nowrap}
+ #town-ui-concept .town-action-buttons button{flex:1;justify-content:center;padding:11px 8px}
+ #town-ui-concept .town-seats{grid-template-columns:1fr}
+ #town-ui-concept .town-map-choice{gap:8px}
+ #town-ui-concept .town-map-choice button{padding:10px;font-size:13px}
+}
+</style>
+<script>
+(function(){
+  const root=document.getElementById('town-ui-concept');
+  const game=root.querySelector('.town-game');
+  const overlay=root.querySelector('.town-overlay');
+  const panelTitle=root.querySelector('#town-dialog-title');
+  const panelContent=root.querySelector('.town-panel-content');
+  const allowed=['title','setup','turn','arrival'];
+  let screen='title',opener=null;
+  function closePanel(){overlay.hidden=true;if(opener)opener.focus();}
+  function persist(){if(window.openai?.setWidgetState)window.openai.setWidgetState({modelContent:{screen},privateContent:null}).catch(()=>{});}
+  function setScreen(next,save=true){
+    screen=allowed.includes(next)?next:'title';game.dataset.state=screen;
+    root.querySelectorAll('[data-view]').forEach(el=>el.hidden=el.dataset.view!==screen);
+    root.querySelector('.town-hud').hidden=screen==='title'||screen==='setup';
+    root.querySelectorAll('[data-screen]').forEach(el=>{const active=el.dataset.screen===screen;el.setAttribute('aria-pressed',String(active));el.classList.toggle('btn-primary',active);});
+    const arrival=screen==='arrival';root.querySelector('.town-next').textContent=arrival?'地产 1 · 尚无地主':'准备出发';
+    root.querySelector('.town-decision-extra').hidden=!arrival;root.querySelector('.town-pass').hidden=!arrival;
+    root.querySelector('.town-cta').textContent=arrival?'购买 · 110':'掷骰前进';overlay.hidden=true;
+    if(save)persist();
+  }
+  const panels={
+    pause:['暂停菜单','继续游戏','存读档','设置','玩法说明','返回标题'],
+    settings:['游戏设置','音效与音量','动态效果','界面文字大小'],
+    setup:['对局设置','最多轮数 · 60','特殊设施 · 关闭','电脑行动速度 · 正常','更多设置 · 复现种子'],
+    saves:['本机存档','自动存档 · 经典环线 · 第 8 轮','手动存档 · 海港环线 · 第 3 轮','导入本机存档'],
+    help:['玩法说明','掷骰到访地块后处理买地或建设，再结束回合。','点击玩家卡查看完整资产。'],
+    assets:['桃桃的资产','现金 1,500 · 存款 600 · 贷款 0','地产与建筑','股票持仓'],
+    bank:['银行','现金 1,500 · 存款 600','当前可查看账户；处理完到访地块后可办理存取款与借贷。'],
+    stocks:['股票','结算账户：银行存款 600','公司列表、报价与本人持仓归入此窗口。处理完到访地块后可交易。'],
+    cards:['手牌','步数卡 · 1','遥控骰子 · 1','卡牌仅在掷骰前可使用。'],
+    declined:['暂不购买后的状态','保留现金，行动条切换为“结束回合”。','不会再次掷骰，也不会更换操作玩家。']
+  };
+  function showPanel(key,trigger){
+    const p=panels[key];if(!p)return;opener=trigger;panelTitle.textContent=p[0];panelContent.replaceChildren();
+    p.slice(1).forEach(text=>{const el=document.createElement('p');el.textContent=text;panelContent.appendChild(el);});
+    if(key==='pause'){
+      panelContent.replaceChildren();
+      p.slice(1).forEach((text,i)=>{const b=document.createElement('button');b.type='button';b.textContent=text;b.addEventListener('click',()=>{if(i===0)closePanel();else if(i===4)setScreen('title');else showPanel(['','saves','settings','help'][i],opener);});panelContent.appendChild(b);});
+    }
+    overlay.hidden=false;root.querySelector('[data-close]').focus();
+  }
+  root.querySelectorAll('[data-screen]').forEach(el=>el.addEventListener('click',()=>setScreen(el.dataset.screen)));
+  root.querySelectorAll('[data-to]').forEach(el=>el.addEventListener('click',()=>setScreen(el.dataset.to)));
+  root.querySelectorAll('[data-panel]').forEach(el=>el.addEventListener('click',()=>showPanel(el.dataset.panel,el)));
+  root.querySelector('[data-close]').addEventListener('click',closePanel);
+  root.querySelector('.town-cta').addEventListener('click',()=>{if(screen==='turn')setScreen('arrival');else {panelTitle.textContent='购买反馈位置';panelContent.innerHTML='<p>已购买地产 1 · 现金 −110</p><p>演出结束后，行动条切换为“结束回合”。购买不会重新播放骰子。</p>';overlay.hidden=false;opener=root.querySelector('.town-cta');root.querySelector('[data-close]').focus();}});
+  root.querySelector('.town-pass').addEventListener('click',function(){showPanel('declined',this);});
+  root.querySelector('[data-camera]').addEventListener('click',function(){this.textContent=this.textContent==='全景'?'跟随':'全景';});
+  root.querySelectorAll('[data-map]').forEach(el=>el.addEventListener('click',()=>{root.querySelectorAll('[data-map]').forEach(m=>{m.classList.toggle('town-picked',m===el);m.setAttribute('aria-pressed',String(m===el));});}));
+  root.addEventListener('keydown',e=>{if(overlay.hidden)return;if(e.key==='Escape'){closePanel();e.stopPropagation();}if(e.key==='Tab'){const items=[...overlay.querySelectorAll('button')];const first=items[0],last=items[items.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}});
+  const saved=window.openai?.widgetState;setScreen(saved?.modelContent?.screen||'title',false);
+  window.addEventListener('openai:set_globals',e=>{const s=e.detail?.globals?.widgetState;if(s?.modelContent?.screen)setScreen(s.modelContent.screen,false);});
+})();
+</script>

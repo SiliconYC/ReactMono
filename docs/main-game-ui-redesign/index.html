@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>大富翁 · 主程序界面重设计档案</title>
+  <style>
+    :root{font:16px/1.75 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:light-dark(#233d35,#edf1ea);background:light-dark(#f5f3ec,#17231e)}
+    *{box-sizing:border-box}body{max-width:1180px;margin:0 auto;padding:40px 24px 64px}h1{font-size:clamp(26px,4vw,40px);line-height:1.3;margin:8px 0 18px}h2{font-size:23px;margin:40px 0 16px}h3{margin:0 0 6px;font-size:18px}p{margin:8px 0 18px}a{color:light-dark(#226653,#9dd8bf);text-underline-offset:3px}a:focus-visible{outline:3px solid currentColor;outline-offset:4px}.eyebrow,.meta{color:light-dark(#576d61,#b9cabe);font-size:14px}.actions{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0}.actions a{padding:10px 16px;background:light-dark(#e4eddf,#2c4034);color:inherit;border-radius:9px;text-decoration:none}.actions .main{background:light-dark(#244b3b,#d8c071);color:light-dark(#fff9ed,#17231e)}.notice{padding:16px 20px;border-left:4px solid light-dark(#b99a3f,#d8c071);background:light-dark(#eee8d8,#2e3327)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}figure{margin:0;min-width:0}figure img{display:block;width:100%;height:auto;border-radius:10px;background:light-dark(#e4eddf,#2c4034)}figcaption{padding:12px 0 20px}.mobile img{max-width:280px;margin:auto}.mobile{display:grid;grid-template-columns:280px 1fr;gap:28px;align-items:center}.mobile figcaption{max-width:570px}iframe{display:block;width:100%;height:740px;border:0;border-radius:14px;background:#fff}.resources{padding-left:24px}footer{margin-top:40px;padding-top:20px;border-top:1px solid light-dark(#ccd4c9,#4c5e50);font-size:14px;color:light-dark(#576d61,#b9cabe)}@media(max-width:700px){body{padding:24px 16px 40px}.grid{grid-template-columns:1fr}.mobile{grid-template-columns:1fr}.mobile img{width:100%}iframe{height:840px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="eyebrow">设计档案 · 2026-10-18 · 审查基线 dev@87dcb61</div>
+    <h1>主程序界面重设计</h1>
+    <p>把棋盘还给游戏，把每一步操作放回它应该出现的时机。文字方案、可交互示例、静态预览与问题来源保存在同一目录，脱离聊天也能阅读。</p>
+    <nav class="actions" aria-label="档案阅读入口">
+      <a class="main" href="examples/interactive.html">打开四状态交互示例 →</a>
+      <a href="main-game-ui-plan.md">完整设计与验收方案</a>
+      <a href="design-notes.md">设计解读与讨论补充</a>
+      <a href="README.md">目录与交接说明</a>
+    </nav>
+    <p class="notice"><strong>这是设计建议，尚未实施。</strong> 棋盘仅为构图示意，不代表游戏实现或最终美术。示例中的金额、角色、地图选择、金融与镜头反馈不连接真实游戏逻辑。</p>
+  </header>
+  <main>
+    <h2>四个页面状态，一眼看清组织方式</h2>
+    <div class="grid">
+      <figure><a href="previews/title-desktop.jpg"><img src="previews/title-desktop.jpg" alt="标题画面：游戏名称、继续游戏、新游戏与读取存档，右侧是小镇构图"></a><figcaption><h3>标题画面</h3>清楚的游戏身份与主菜单。没有开局表单、资产报表、金融与选地工具；有存档时优先继续游戏。</figcaption></figure>
+      <figure><a href="previews/setup-desktop.jpg"><img src="previews/setup-desktop.jpg" alt="新局准备：地图卡、玩家席位、对局设置与底部开始对局"></a><figcaption><h3>新局准备</h3>地图与席位组织成游戏准备流程，复杂设置进入次级页面。正式实现保留2～4人和已有配置能力。</figcaption></figure>
+      <figure><a href="previews/turn-desktop.jpg"><img src="previews/turn-desktop.jpg" alt="等待掷骰：左上玩家状态、顶部轮次、右上菜单、底部掷骰行动条"></a><figcaption><h3>等待掷骰</h3>玩家状态稳定、操作集中。底部主操作只负责当前一步，不再承担一个不断增长的金融工作台。</figcaption></figure>
+      <figure><a href="previews/arrival-desktop.jpg"><img src="previews/arrival-desktop.jpg" alt="到访购地：地价110、租金22、购买后现金1390以及购买和暂不购买两项选择"></a><figcaption><h3>到访购地</h3>行动区变为明确的购买决策。地价、租金与余额变化可见；真实游戏中应在行走结束后才开放。</figcaption></figure>
+    </div>
+    <h2>继续查看交互关系</h2>
+    <p>可切换上方四个状态；查看主菜单、资产、银行、股票、手牌等面板。示例用于讨论布局和层级，不用于测试经济规则或动画正确性。</p>
+    <iframe src="examples/interactive.html" title="四状态交互设计示例" loading="lazy"></iframe>
+    <p class="meta">空间较窄时，可<a href="examples/interactive.html">单独打开示例</a>；图片预览即使脚本禁用也能阅读。</p>
+    <h2>面板和手机宽度</h2>
+    <div class="grid">
+      <figure><a href="previews/bank-desktop.jpg"><img src="previews/bank-desktop.jpg" alt="独立银行面板覆盖棋盘，显示现金存款与办理时机"></a><figcaption><h3>独立金融面板</h3>复杂内容有自己的空间，退出后回到当前决策。到访未处理时可查看，交易提交必须等合法阶段。</figcaption></figure>
+      <figure class="mobile"><a href="previews/arrival-mobile.jpg"><img src="previews/arrival-mobile.jpg" alt="390像素宽度下的购地决策，底部两项按钮保持可读可达"></a><figcaption><h3>手机购地状态</h3>当前操作保持可达，复杂窗口可转为底部弹层或全屏。这是桌面浏览器390×844视口截图，不是真机GPU或触摸验收。</figcaption></figure>
+    </div>
+    <h2>问题来源：改造前的主程序</h2>
+    <p>以下两幅是所有者提供的原始截图，不是后期仿制。完整问题分析见文字方案第2部分。</p>
+    <div class="grid">
+      <figure><a href="evidence/before-title.png"><img src="evidence/before-title.png" alt="用户提供的改造前开始界面：左侧表单与四周对局工具混在一起" loading="lazy"></a><figcaption><h3>原开始界面</h3>开始界面像贴在棋盘上的网页设置表单，游戏阶段与对局工具没有真正分离。</figcaption></figure>
+      <figure><a href="evidence/before-playing.png"><img src="evidence/before-playing.png" alt="用户提供的改造前对局界面：右侧行动面板、左上资产与底部多菜单" loading="lazy"></a><figcaption><h3>原对局界面</h3>人物、账目、帮助与动作拥挤在侧栏，多套独立浮层缺少统一规则。配色修补不足以解决职责混杂。</figcaption></figure>
+    </div>
+    <h2>后续接手入口</h2>
+    <ul class="resources">
+      <li><a href="main-game-ui-plan.md">完整方案</a>：页面架构、元素去留、阶段操作、金融、手牌、镜头、视觉、兼容与G0～G5验收。</li>
+      <li><a href="design-notes.md">设计解读</a>：聊天结论、四状态含义、示例局限和不能丢失的约束。</li>
+      <li><a href="ARCHIVE.md">归档记录</a>：来源、真实检查和维护方式；不以历史检查冒充本轮游戏验收。</li>
+      <li><a href="source/game-interface-concept.html">原交互片段</a>与<a href="checksums.sha256">内容校验和</a>：保留源资料，供后续维护与核对。</li>
+    </ul>
+  </main>
+  <footer>资料保存在仓库 docs/main-game-ui-redesign/。此页面不连接游戏、不改存档、不向外发送数据；无需Codex会话或开发服务器即可阅读。后续复杂建议和变更继续落入此目录。</footer>
+</body>
+</html>
