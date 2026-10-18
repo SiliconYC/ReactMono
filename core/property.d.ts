@@ -14,6 +14,8 @@ export declare function liquidateForRent(state: GameState, actor: Player, due: n
 export declare function sellProperty(state: GameState, actor: Player, action: Extract<GameAction, {
     type: 'sell_property';
 }>): ActionResult;
+/** The roll event scopes a visit; bank or stock actions cannot reopen a construction choice. */
+export declare function propertyVisitAvailable(state: GameState, actor: Player, tileId: number): boolean;
 /** Property decisions, purchases and upgrades remain pure commands. */
 export declare function declineProperty(state: GameState, actor: Player): ActionResult;
 export declare function upgradeProperty(state: GameState, actor: Player, action: Extract<GameAction, {

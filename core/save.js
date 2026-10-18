@@ -34,7 +34,11 @@ export function validateGameState(value, expectedVersion = SCHEMA_VERSION) {
         throw new SaveError('INVALID_STATE', '存档数据无效：游戏状态必须为对象');
     keys(value, ['schemaVersion', 'status', 'phase', 'revision', 'round', 'currentPlayerIndex', 'randomState',
         'maxRounds', 'players', 'tiles', 'winnerId', 'events', 'upgradeRulesVersion',
-        ...(expectedVersion >= 4 ? ['map'] : [])], ['cardRules', 'pendingMoveBonus', ...(expectedVersion >= 4 ? ['automaticLiquidation', 'resaleRules', 'market', 'bank', 'loan', 'strategyEnabled', 'pendingDie', 'pendingRentWaiver', 'roadblocks', 'specialEnabled', 'facilityRules', 'shops'] : [])]);
+        ...(expectedVersion >= 4 ? ['map'] : [])], ['cardRules', 'pendingMoveBonus', ...(expectedVersion >= 4 ? ['propertyVisitOnly', 'stockAccount', 'automaticLiquidation', 'resaleRules', 'market', 'bank', 'loan', 'strategyEnabled', 'pendingDie', 'pendingRentWaiver', 'roadblocks', 'specialEnabled', 'facilityRules', 'shops'] : [])]);
+    if (value.propertyVisitOnly !== undefined && value.propertyVisitOnly !== true)
+        throw new SaveError('INVALID_STATE', '地产到访规则无效');
+    if (value.stockAccount !== undefined && (value.stockAccount !== 'bank' || value.bank === undefined || value.market === undefined))
+        throw new SaveError('INVALID_STATE', '股票结算账户无效');
     if (value.strategyEnabled !== undefined && value.strategyEnabled !== true)
         throw new SaveError('INVALID_STATE', '策略卡规则标识非法');
     if (value.strategyEnabled === true) {

@@ -1,4 +1,4 @@
-/** P3-10: deterministic, cash-only trades on the five invented market quotations. */
+/** P3-10: deterministic trades with an optional bank settlement account on the five invented market quotations. */
 import type { GameState, Player, GameAction, ActionResult, GameEvent, StockHoldings } from './types.js';
 export declare const STOCK_FEE_BPS = 50;
 export declare const MAX_SHARES = 1000000;

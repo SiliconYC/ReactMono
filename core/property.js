@@ -57,6 +57,26 @@ export function sellProperty(state, actor, action) {
         players: state.players.map(p => p.id === actor.id ? { ...p, cash: p.cash + amount } : p)
     });
 }
+/** The roll event scopes a visit; bank or stock actions cannot reopen a construction choice. */
+export function propertyVisitAvailable(state, actor, tileId) {
+    if (state.propertyVisitOnly !== true)
+        return true;
+    if (actor.position !== tileId)
+        return false;
+    let rolled = -1;
+    for (let index = state.events.length - 1; index >= 0; index--) {
+        const event = state.events[index];
+        if (event.type === 'turn_ended')
+            break;
+        if (event.type === 'die_rolled') {
+            if (event.actorId === actor.id)
+                rolled = index;
+            break;
+        }
+    }
+    return rolled >= 0 && !state.events.slice(rolled + 1).some(event => event.actorId === actor.id &&
+        ['property_bought', 'property_upgraded', 'property_declined'].includes(event.type));
+}
 /** Property decisions, purchases and upgrades remain pure commands. */
 export function declineProperty(state, actor) {
     if (state.phase !== 'await_decision')
@@ -74,6 +94,8 @@ export function upgradeProperty(state, actor, action) {
     const tile = state.tiles[action.tileId];
     if (!tile || tile.kind !== 'property' || tile.ownerId !== actor.id || tile.mortgaged === true || (tile.level ?? 0) >= 2)
         return reject(state, 'INVALID_PHASE');
+    if (!propertyVisitAvailable(state, actor, tile.id))
+        return reject(state, 'INVALID_PHASE');
     const level = tile.level ?? 0;
     const cost = tile.upgradeCosts?.[level];
     if (cost === undefined)
@@ -90,6 +112,8 @@ export function buyProperty(state, actor) {
         return reject(state, 'INVALID_PHASE');
     const tile = state.tiles[actor.position];
     if (tile.kind !== 'property' || tile.ownerId !== null)
+        return reject(state, 'INVALID_PHASE');
+    if (!propertyVisitAvailable(state, actor, tile.id))
         return reject(state, 'INVALID_PHASE');
     const price = tile.price ?? 0;
     if (actor.cash < price)

@@ -3,7 +3,7 @@ export { SCHEMA_VERSION, UPGRADE_RULES_VERSION } from './types.js';
 export { DEFAULT_CARD_RULES, DEFAULT_EVENT_RULES, DEFAULT_FACILITIES, DEFAULT_UPGRADES, DEFAULT_CONFIG, HARBOR_CONFIG, DEFAULT_RESALE_RULES } from './config.js';
 export { normalizeSeed, nextDie } from './random.js';
 export { DEFAULT_MAP, INTERNAL_TEST_MAP, HARBOR_MAP, inferMap, advancePosition, validateMap } from './maps.js';
-export { makePropertyTile, netWorth, resaleValue } from './property.js';
+export { makePropertyTile, netWorth, resaleValue, propertyVisitAvailable } from './property.js';
 export { createLoan, loanLimit, DEFAULT_LOAN_INTEREST_BPS } from './loan.js';
 export { createBank, transferBank, settleBankRound, DEFAULT_INTEREST_BPS } from './bank.js';
 export { stockFee, STOCK_FEE_BPS, MAX_SHARES } from './stocks.js';
@@ -27,6 +27,8 @@ export function createGame(seed, config = DEFAULT_CONFIG) {
     const facilities = config.facilityConfig ?? DEFAULT_FACILITIES;
     return {
         schemaVersion: SCHEMA_VERSION,
+        ...(config.propertyVisitOnly === true ? { propertyVisitOnly: true } : {}),
+        ...(config.stockAccount === 'bank' ? { stockAccount: 'bank' } : {}),
         upgradeRulesVersion: UPGRADE_RULES_VERSION,
         cardRules: { rewardCash: (config.cardRules ?? DEFAULT_CARD_RULES).rewardCash,
             moveBonus: (config.cardRules ?? DEFAULT_CARD_RULES).moveBonus,

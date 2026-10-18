@@ -39,6 +39,12 @@ export const HARBOR_CONFIG = {
     cardRules: { ...DEFAULT_CARD_RULES, tileIds: [6, 12, 18] }
 };
 export function validateConfig(config) {
+    if (config.propertyVisitOnly !== undefined && typeof config.propertyVisitOnly !== 'boolean')
+        throw new Error('地产到访规则无效');
+    if (config.stockAccount !== undefined && !['cash', 'bank'].includes(config.stockAccount))
+        throw new Error('股票结算账户无效');
+    if (config.stockAccount === 'bank' && (config.bankEnabled !== true || config.marketEnabled !== true))
+        throw new Error('存款股票交易需要银行和股市');
     if (config.strategyEnabled !== undefined && typeof config.strategyEnabled !== 'boolean')
         throw new Error('策略卡开关无效');
     if (config.specialEnabled !== undefined && typeof config.specialEnabled !== 'boolean')

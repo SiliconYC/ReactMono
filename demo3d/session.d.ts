@@ -18,5 +18,9 @@ export type RejectedDemoCommand = {
     readonly reason: RejectReason;
 };
 export type DemoCommandResult = AcceptedDemoCommand | RejectedDemoCommand;
-export declare function createDemoGame(seed: number): GameState;
+export declare function createDemoGame(seed: number, maxRounds?: number): GameState;
 export declare function dispatchDemoAction(state: GameState, action: GameAction): DemoCommandResult;
+/** Share a reproducible real game without embedding snapshots or synthetic outcomes. */
+export declare function demoSeedFromSearch(search: string): number;
+/** Optional normal game length, kept bounded for shareable demo sessions. */
+export declare function demoRoundsFromSearch(search: string): number;

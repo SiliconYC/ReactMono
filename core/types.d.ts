@@ -87,6 +87,10 @@ export interface BankState {
     readonly lastInterestRound: number;
 }
 export interface GameConfig {
+    /** Optional classic-style construction: one buy/build/upgrade at the landed tile per visit. */
+    readonly propertyVisitOnly?: boolean;
+    /** Old games trade cash; opt-in bank trading keeps investment funds separate. */
+    readonly stockAccount?: 'cash' | 'bank';
     /** Enable P3 strategy cards without changing legacy/P2 game semantics. */
     readonly strategyEnabled?: boolean;
     /** P3 facilities opt-in; depends on enabled strategy cards. */
@@ -160,6 +164,8 @@ export interface GameEvent {
     readonly details?: Readonly<Record<string, string | number>>;
 }
 export interface GameState {
+    readonly propertyVisitOnly?: true;
+    readonly stockAccount?: 'bank';
     readonly schemaVersion: typeof SCHEMA_VERSION;
     readonly upgradeRulesVersion: typeof UPGRADE_RULES_VERSION;
     readonly cardRules?: {

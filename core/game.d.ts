@@ -4,7 +4,7 @@ export type { CardKind, PlayerId, TileKind, Phase, PlayerKind, ComputerStyle, Pl
 export { DEFAULT_CARD_RULES, DEFAULT_EVENT_RULES, DEFAULT_FACILITIES, DEFAULT_UPGRADES, DEFAULT_CONFIG, HARBOR_CONFIG, DEFAULT_RESALE_RULES } from './config.js';
 export { normalizeSeed, nextDie } from './random.js';
 export { DEFAULT_MAP, INTERNAL_TEST_MAP, HARBOR_MAP, inferMap, advancePosition, validateMap } from './maps.js';
-export { makePropertyTile, netWorth, resaleValue } from './property.js';
+export { makePropertyTile, netWorth, resaleValue, propertyVisitAvailable } from './property.js';
 export { createLoan, loanLimit, DEFAULT_LOAN_INTEREST_BPS } from './loan.js';
 export { createBank, transferBank, settleBankRound, DEFAULT_INTEREST_BPS } from './bank.js';
 export { stockFee, STOCK_FEE_BPS, MAX_SHARES } from './stocks.js';
