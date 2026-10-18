@@ -1,0 +1,26 @@
+{
+  "name": "大富翁仓库",
+  "short_name": "大富翁",
+  "description": "简体中文纯本地大富翁策略游戏",
+  "lang": "zh-CN",
+  "id": "/ReactMono/",
+  "start_url": "/ReactMono/",
+  "scope": "/ReactMono/",
+  "display": "standalone",
+  "background_color": "#102622",
+  "theme_color": "#102622",
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
