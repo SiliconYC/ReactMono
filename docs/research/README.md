@@ -36,6 +36,24 @@
 - 文件索引与规则见 [`repositories/README.md`](repositories/README.md)，待真实研究合并时更新。
 - 原版商业素材、未获公开许可的游戏程序、各仓库完整镜像与大型生成文件一律不提交本仓库。
 
+## 已创建研究任务（2026-10-19）
+
+以下为**待执行**的研究任务，创建 Issue 不代表完成研究；对应的子目录应由实际研究者交付。
+
+| Issue | 上游 | 预期目录 |
+| --- | --- | --- |
+| [#95](https://github.com/SiliconYC/ReactMono/issues/95) | [mytbk/rich4](https://github.com/mytbk/rich4) | `repositories/mytbk--rich4/` |
+| [#96](https://github.com/SiliconYC/ReactMono/issues/96) | [tytannial/rich4-re](https://github.com/tytannial/rich4-re) | `repositories/tytannial--rich4-re/` |
+| [#97](https://github.com/SiliconYC/ReactMono/issues/97) | [lhr0909/richman4-remastered](https://github.com/lhr0909/richman4-remastered) | `repositories/lhr0909--richman4-remastered/` |
+| [#98](https://github.com/SiliconYC/ReactMono/issues/98) | [iam567/rich4-renew-app](https://github.com/iam567/rich4-renew-app) | `repositories/iam567--rich4-renew-app/` |
+| [#99](https://github.com/SiliconYC/ReactMono/issues/99) | [nurockplayer/richman4-remake](https://github.com/nurockplayer/richman4-remake) | `repositories/nurockplayer--richman4-remake/` |
+| [#100](https://github.com/SiliconYC/ReactMono/issues/100) | [oama1111/rich4-remake-public](https://github.com/oama1111/rich4-remake-public) | `repositories/oama1111--rich4-remake-public/` |
+| [#101](https://github.com/SiliconYC/ReactMono/issues/101) | [JCRJPZB/Rich4](https://github.com/JCRJPZB/Rich4) | `repositories/JCRJPZB--Rich4/` |
+| [#102](https://github.com/SiliconYC/ReactMono/issues/102) | [Yakamozli/richman-3d](https://github.com/Yakamozli/richman-3d) | `repositories/Yakamozli--richman-3d/` |
+| [#103](https://github.com/SiliconYC/ReactMono/issues/103) | [zawsstt/monopoly-rich-life](https://github.com/zawsstt/monopoly-rich-life) | `repositories/zawsstt--monopoly-rich-life/` |
+
+[综合综述 #104](https://github.com/SiliconYC/ReactMono/issues/104) 依赖这些研究真实合并成果，届时才创建 `comparative-review.md`、`verification-matrix.md` 与 `summary.json`。
+
 ## 落地步骤（在既有仓库上补做八步 SOP）
 
 1. **检查现状**：保留游戏代码、原 README/AGENTS、既有文档、已有 Issue/PR 和测试；先去重。

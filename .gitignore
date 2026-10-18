@@ -6,3 +6,8 @@ artifacts/
 __pycache__/
 *.tsbuildinfo
 .DS_Store
+
+# 外部开源研究的本地工作区与临时产物；正式报告仍需提交 Git
+.research-upstreams/
+.research-cache/
+docs/research/.scratch/
