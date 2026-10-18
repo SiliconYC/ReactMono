@@ -656,7 +656,7 @@ class App extends React.Component<object, UiState> {
                 }:null;
                 return <WorldCanvas game={game} motion={activeMotion}
                   dieValue={previousRoll?Number(previousRoll.details?.value):null} dieNonce={game.revision}
-                  reducedMotion={this.noMotion} followCurrent={true} rent={null} outcome={null}
+                  reducedMotion={this.noMotion} followCurrent={activeMotion!==null} rent={null} outcome={null}
                   paused={this.state.financePanel!==null}
                   onMotionComplete={this.finishSceneMotion} onActorStep={tileId=>this.setState({selectedTileId:tileId})}
                   onSelectTile={this.onSceneTileSelect} />;
@@ -679,7 +679,8 @@ class App extends React.Component<object, UiState> {
             })()}
           </section>
           <aside className="sidebar">
-            <div className="turn-card">
+            <div className={`turn-card ${game.status==='setup'?'turn-card-setup':''}`}>
+              {game.status==='setup'&&<div className="setup-intro"><span>本机派对 · 2–4 位玩家</span><h1>走进小镇，经营你的好运。</h1><p>掷骰、买地、建造，和朋友或电脑一较高下。</p></div>}
               <div className="card-label audio-heading"><span>当前行动</span>
                 <div className="audio-toolbar">
                   <button type="button" className="audio-toggle" aria-label={this.sound.isEnabled?'关闭音效':'开启音效'} aria-pressed={this.sound.isEnabled}
@@ -708,16 +709,17 @@ class App extends React.Component<object, UiState> {
                 <details className="context-help"><summary>本步可以做什么？</summary><p>{contextHint(game)}</p></details>
               </div>
               {game.status === 'setup' && <div className="start-form">
-                <label className="field-label" htmlFor="game-map">游戏地图 <small>经典环线 24 格；原创海港 20 格（价格与地名不同）</small></label>
+                <label className="field-label" htmlFor="game-map">选择小镇</label>
                  <select id="game-map" aria-label="游戏地图" value={this.state.selectedMapId} onChange={(event:{target:{value:string}})=>this.selectMap(event.target.value)}>
                    <option value="classic-24">经典环线 · 24 格</option><option value="harbor-20">海港环线 · 20 格</option>
                  </select>
-                 <label className="field-label" htmlFor="game-seed">对局种子 <small>相同种子可重现骰子结果</small></label>
-                <input id="game-seed" aria-label="对局种子" inputMode="numeric" type="text" maxLength={10} value={this.state.seedInput} onChange={(event: {target:{value:string}}) => this.setState({ seedInput: event.target.value })} />
                 <label className="field-label" htmlFor="player-count">玩家人数</label>
                 <select id="player-count" aria-label="玩家人数" value={this.state.playerSetup.length} onChange={(event:{target:{value:string}})=>this.setPlayerCount(Number(event.target.value))}>
                   {[2,3,4].map(n=><option key={n} value={n}>{n} 人</option>)}
                 </select>
+                <details className="setup-advanced"><summary>高级设置 <span>昵称 · AI · 回合 · 种子</span></summary><div className="setup-advanced-content">
+                <label className="field-label" htmlFor="game-seed">对局种子 <small>相同种子可重现骰子结果</small></label>
+                <input id="game-seed" aria-label="对局种子" inputMode="numeric" type="text" maxLength={10} value={this.state.seedInput} onChange={(event: {target:{value:string}}) => this.setState({ seedInput: event.target.value })} />
                 <div className="setup-roster">
                   {this.state.playerSetup.map((p,i)=><div className="setup-player" key={p.id} data-player-id={p.id}>
                     {characterMarker(i,p.kind??(i===0?'human':'computer'),'setup')}
@@ -734,7 +736,8 @@ class App extends React.Component<object, UiState> {
                 <input id="max-rounds" aria-label="最多轮数" type="text" inputMode="numeric" maxLength={3} value={this.state.roundsInput} onChange={(event:{target:{value:string}})=>this.setState({roundsInput:event.target.value})}/>
                 <label className="fast-setting"><input type="checkbox" aria-label="启用医院、监狱与商店" checked={this.state.specialEnabled} onChange={(event:{target:{checked:boolean}})=>this.setState({specialEnabled:event.target.checked})}/>启用医院、监狱与商店（经典设施，可关闭保留旧版地图）</label>
                 <label className="fast-setting"><input type="checkbox" aria-label="快速模式" checked={this.state.fastMode} onChange={(event: {target:{checked:boolean}}) => this.setState({ fastMode: event.target.checked })} />快速模式（缩短电脑操作间隔）</label>
-                <button type="button" className="primary-btn" onClick={this.startGame}>开始游戏 <span>→</span></button>
+                </div></details>
+                <button type="button" className="primary-btn start-game-btn" onClick={this.startGame}>开始游戏 <span aria-hidden="true">开始 →</span></button>
               </div>}
               {this.state.awaitingHandoff && game.status==='playing' && <div className="handoff-panel" role="status">
                 <div className="handoff-identity">{characterMarker(game.currentPlayerIndex,current.kind,'portrait',true)}<strong>轮到 {current.name} · {CHARACTER_NAMES[game.currentPlayerIndex]}</strong></div>
@@ -869,7 +872,7 @@ class App extends React.Component<object, UiState> {
               {this.state.visualCue&&<button className="motion-skip" type="button" onClick={()=>{this.cancelCue();this.setState({visualCue:null});}}>跳过动效</button>}
               <p className="turn-tip" role="status">{message}</p>
             </div>
-            <details className="saves-card" open><summary className="card-label">本地存档 · 点此收起</summary>
+            <details className="saves-card"><summary className="card-label">存档</summary>
               <p className="save-warning">清除浏览器站点数据或卸载应用可能永久删除本地存档；请定期使用「导出」保存 JSON 备份。</p>
               <p className="save-message" role="status">{this.state.saveStatus}</p>
               <button type="button" className="secondary-btn" disabled={game.status==='setup'||this.state.storageBusy||this.manualSaveBusy} onClick={()=>void this.newManualSlot()}>创建手动存档</button>
@@ -898,8 +901,8 @@ class App extends React.Component<object, UiState> {
                 <button type="button" className="secondary-btn" onClick={()=>this.setState({importPreview:null,importName:'',saveStatus:'已取消导入'})}>取消导入</button>
               </div>}
             </details>
-            <details className="players-card" open><summary className="card-label">玩家状态 · 点此收起</summary>{game.players.map(p => <div key={p.id} className={`player-line ${current.id === p.id && game.status === 'playing' ? 'is-current' : ''}`}>{characterMarker(game.players.indexOf(p),p.kind,'badge',p.id===current.id&&game.status==='playing')}<div><strong>{p.name}</strong><small>{p.position} 号格 · 现金 {p.cash.toLocaleString('zh-CN')}{game.bank?` · 存款 ${(p.bankBalance??0).toLocaleString('zh-CN')}`:''}{game.market?` · 股票 ${Object.values(p.holdings??{}).reduce((sum,lot)=>sum+(lot?.quantity??0),0)} 股`:''}{game.loan?` · 贷款 ${(p.loanBalance??0).toLocaleString('zh-CN')}`:''} · 净资产 {netWorth(game,p.id).toLocaleString('zh-CN')}{p.detention?` · ${p.detention.kind==='hospital'?'住院':'入狱'}剩余 ${p.detention.remaining} 回合`:''}{p.bankrupt ? ' · 已破产' : ''}</small></div><span className="player-kind">{p.kind === 'human' ? '真人' : '电脑'}</span></div>)}</details>
-            <details className="activity-card" open><summary className="card-label">最近事件 · 点此收起</summary><ol>{lastEvents.map((e,i) => <li key={`${game.events.length}-${i}`}>{this.describeEvent(e)}</li>)}</ol></details>
+            <details className="players-card"><summary className="card-label">玩家</summary>{game.players.map(p => <div key={p.id} className={`player-line ${current.id === p.id && game.status === 'playing' ? 'is-current' : ''}`}>{characterMarker(game.players.indexOf(p),p.kind,'badge',p.id===current.id&&game.status==='playing')}<div><strong>{p.name}</strong><small>{p.position} 号格 · 现金 {p.cash.toLocaleString('zh-CN')}{game.bank?` · 存款 ${(p.bankBalance??0).toLocaleString('zh-CN')}`:''}{game.market?` · 股票 ${Object.values(p.holdings??{}).reduce((sum,lot)=>sum+(lot?.quantity??0),0)} 股`:''}{game.loan?` · 贷款 ${(p.loanBalance??0).toLocaleString('zh-CN')}`:''} · 净资产 {netWorth(game,p.id).toLocaleString('zh-CN')}{p.detention?` · ${p.detention.kind==='hospital'?'住院':'入狱'}剩余 ${p.detention.remaining} 回合`:''}{p.bankrupt ? ' · 已破产' : ''}</small></div><span className="player-kind">{p.kind === 'human' ? '真人' : '电脑'}</span></div>)}</details>
+            <details className="activity-card"><summary className="card-label">事件</summary><ol>{lastEvents.map((e,i) => <li key={`${game.events.length}-${i}`}>{this.describeEvent(e)}</li>)}</ol></details>
             <details className="info-card"><summary>玩法说明</summary><p>① 点击「开始游戏」，轮到玩家时掷骰前进。② 到无主地产可买入或放弃；经过对手地产会自动付租。③ 处理完地块后结束回合，电脑会自动行动。</p><p>付不起租金可能出售地产或破产；最终按现金、存款、地产成本、股票市值减贷款计算净资产。电脑购地后至少保留 200 游戏币。</p><p>卡片站可获得奖励、步数、遥控骰子、路障及免租卡；只在掷骰前使用。路障让对手提前停下，最多持续两轮；免租卡仅保护下一次落地。存档与离线游玩均在本机完成。</p>
             <p><b>地产升级：</b>结算阶段展开「地产」，只有自己持有、未抵押、未满级且现金足够的地块可以升级；不足时按钮禁用。</p>
             <p><b>银行：</b>只能在本人结算阶段存取，存款与现金分开；<b>贷款：</b>抵押后暂停收租，借款计息，违约可能清算。</p>
