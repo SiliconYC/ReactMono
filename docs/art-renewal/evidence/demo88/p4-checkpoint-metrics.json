@@ -1,0 +1,881 @@
+{
+  "evidence": "actual Chromium in shared CI; public previous deployment vs local candidate",
+  "timingsWarning": "Shared GitHub runner, not a physical phone; wall time includes the initial paused visual checkpoint and is variable",
+  "seed": 7217,
+  "maxRounds": 8,
+  "humanParticipants": 0,
+  "scenarios": [
+    {
+      "label": "public-before-desktop-classic-2",
+      "url": "https://siliconyc.github.io/ReactMono/",
+      "map": "classic-24",
+      "seats": 2,
+      "viewport": [
+        1440,
+        900
+      ],
+      "setup": {
+        "tiles": 24,
+        "board": {
+          "x": 35,
+          "y": 277,
+          "w": 981,
+          "h": 736
+        },
+        "currentAction": {
+          "x": 1042,
+          "y": 266,
+          "w": 374,
+          "h": 1236
+        },
+        "firstPrimary": {
+          "x": 1061,
+          "y": 1354,
+          "w": 336,
+          "h": 54
+        },
+        "docW": 1440,
+        "viewportW": 1440,
+        "markers": 7,
+        "imagesLoaded": true,
+        "under44Active": [],
+        "gameplayStatus": "setup",
+        "revision": "0",
+        "phase": "setup",
+        "cpuPaused": false
+      },
+      "gameStart": {
+        "tiles": 24,
+        "board": {
+          "x": 35,
+          "y": 103,
+          "w": 981,
+          "h": 736
+        },
+        "currentAction": {
+          "x": 1042,
+          "y": 92,
+          "w": 374,
+          "h": 629
+        },
+        "firstPrimary": null,
+        "docW": 1440,
+        "viewportW": 1440,
+        "markers": 7,
+        "imagesLoaded": true,
+        "under44Active": [],
+        "gameplayStatus": "playing",
+        "revision": "1",
+        "phase": "await_roll",
+        "cpuPaused": true
+      },
+      "gameFinished": {
+        "tiles": 24,
+        "board": {
+          "x": 35,
+          "y": 103,
+          "w": 981,
+          "h": 736
+        },
+        "currentAction": {
+          "x": 1042,
+          "y": 92,
+          "w": 374,
+          "h": 762
+        },
+        "firstPrimary": {
+          "x": 1076,
+          "y": 716,
+          "w": 306,
+          "h": 54
+        },
+        "docW": 1440,
+        "viewportW": 1440,
+        "markers": 8,
+        "imagesLoaded": true,
+        "under44Active": [],
+        "gameplayStatus": "finished",
+        "revision": "49",
+        "phase": "finished",
+        "cpuPaused": false
+      },
+      "load": {
+        "domContentLoadedMs": 1858,
+        "pageLoadMs": 2439,
+        "fcpMs": 1144,
+        "resources": 36,
+        "decodedResourceBytes": 417609,
+        "transferBytes": 135969,
+        "longTasks": 1,
+        "largestLongTaskMs": 75,
+        "longTaskTotalMs": 75,
+        "usedJsHeapBytes": 3342612,
+        "indexedDbPuts": 0,
+        "oscillatorStarts": 0,
+        "oscillatorEnds": 0
+      },
+      "finalResources": {
+        "domContentLoadedMs": 1858,
+        "pageLoadMs": 2439,
+        "fcpMs": 1144,
+        "resources": 37,
+        "decodedResourceBytes": 418345,
+        "transferBytes": 137005,
+        "longTasks": 1,
+        "largestLongTaskMs": 75,
+        "longTaskTotalMs": 75,
+        "usedJsHeapBytes": 8646764,
+        "indexedDbPuts": 49,
+        "oscillatorStarts": 0,
+        "oscillatorEnds": 0
+      },
+      "frames": {
+        "samples": 75,
+        "medianMs": 16.7,
+        "p95Ms": 16.8,
+        "over50Ms": 0
+      },
+      "completeGameWallMs": 1546,
+      "revision": 49,
+      "assets": "1 · 玩家 1,577\n2 · 电脑 1,511",
+      "savedRevision": 49,
+      "offlineRestored": false,
+      "firstShot": {
+        "path": "artifacts/issue72/public-before-desktop-classic-2-playing.png",
+        "sha256": "213950d3c2cb4fd0d98ffdbfab41ff7c44f3fb3bdb41d294d5f20e040a70410f"
+      },
+      "lastShot": {
+        "path": "artifacts/issue72/public-before-desktop-classic-2-finished.png",
+        "sha256": "6a932786a6dc05430be623c6dd2f9cbc22551c16d0d0a700d32ee8e26abf5ec6"
+      },
+      "pageErrors": []
+    },
+    {
+      "label": "candidate-desktop-classic-2",
+      "url": "http://127.0.0.1:63601/ReactMono/",
+      "map": "classic-24",
+      "seats": 2,
+      "viewport": [
+        1440,
+        900
+      ],
+      "setup": {
+        "tiles": 24,
+        "board": {
+          "x": 35,
+          "y": 277,
+          "w": 981,
+          "h": 736
+        },
+        "currentAction": {
+          "x": 1042,
+          "y": 266,
+          "w": 374,
+          "h": 1236
+        },
+        "firstPrimary": {
+          "x": 1061,
+          "y": 1354,
+          "w": 336,
+          "h": 54
+        },
+        "docW": 1440,
+        "viewportW": 1440,
+        "markers": 7,
+        "imagesLoaded": true,
+        "under44Active": [],
+        "gameplayStatus": "setup",
+        "revision": "0",
+        "phase": "setup",
+        "cpuPaused": false
+      },
+      "gameStart": {
+        "tiles": 24,
+        "board": {
+          "x": 35,
+          "y": 103,
+          "w": 981,
+          "h": 736
+        },
+        "currentAction": {
+          "x": 1042,
+          "y": 92,
+          "w": 374,
+          "h": 629
+        },
+        "firstPrimary": null,
+        "docW": 1440,
+        "viewportW": 1440,
+        "markers": 7,
+        "imagesLoaded": true,
+        "under44Active": [],
+        "gameplayStatus": "playing",
+        "revision": "1",
+        "phase": "await_roll",
+        "cpuPaused": true
+      },
+      "gameFinished": {
+        "tiles": 24,
+        "board": {
+          "x": 35,
+          "y": 103,
+          "w": 981,
+          "h": 736
+        },
+        "currentAction": {
+          "x": 1042,
+          "y": 92,
+          "w": 374,
+          "h": 762
+        },
+        "firstPrimary": {
+          "x": 1076,
+          "y": 716,
+          "w": 306,
+          "h": 54
+        },
+        "docW": 1440,
+        "viewportW": 1440,
+        "markers": 8,
+        "imagesLoaded": true,
+        "under44Active": [],
+        "gameplayStatus": "finished",
+        "revision": "49",
+        "phase": "finished",
+        "cpuPaused": false
+      },
+      "load": {
+        "domContentLoadedMs": 77,
+        "pageLoadMs": 123,
+        "fcpMs": 44,
+        "resources": 37,
+        "decodedResourceBytes": 420646,
+        "transferBytes": 430710,
+        "longTasks": 1,
+        "largestLongTaskMs": 51,
+        "longTaskTotalMs": 51,
+        "usedJsHeapBytes": 3350761,
+        "indexedDbPuts": 0,
+        "oscillatorStarts": 0,
+        "oscillatorEnds": 0
+      },
+      "finalResources": {
+        "domContentLoadedMs": 77,
+        "pageLoadMs": 123,
+        "fcpMs": 44,
+        "resources": 40,
+        "decodedResourceBytes": 422816,
+        "transferBytes": 430710,
+        "longTasks": 2,
+        "largestLongTaskMs": 151,
+        "longTaskTotalMs": 202,
+        "usedJsHeapBytes": 10038162,
+        "indexedDbPuts": 49,
+        "oscillatorStarts": 16,
+        "oscillatorEnds": 16
+      },
+      "frames": {
+        "samples": 75,
+        "medianMs": 16.7,
+        "p95Ms": 16.7,
+        "over50Ms": 0
+      },
+      "completeGameWallMs": 1500,
+      "revision": 49,
+      "assets": "1 · 玩家 1,577\n2 · 电脑 1,511",
+      "savedRevision": 49,
+      "offlineRestored": false,
+      "firstShot": {
+        "path": "artifacts/issue72/candidate-desktop-classic-2-playing.png",
+        "sha256": "c009a443a25d6753c88c2f439c7508acdb7ff3096f364174c6052f321dfee442"
+      },
+      "lastShot": {
+        "path": "artifacts/issue72/candidate-desktop-classic-2-finished.png",
+        "sha256": "7933bd8ca7c73d3410168014206c733697a2f72c787d7ae8c85e0f5f30ffbc23"
+      },
+      "pageErrors": []
+    },
+    {
+      "label": "candidate-desktop-harbor-4",
+      "url": "http://127.0.0.1:63601/ReactMono/",
+      "map": "harbor-20",
+      "seats": 4,
+      "viewport": [
+        1280,
+        800
+      ],
+      "setup": {
+        "tiles": 24,
+        "board": {
+          "x": 35,
+          "y": 274,
+          "w": 865,
+          "h": 648
+        },
+        "currentAction": {
+          "x": 926,
+          "y": 263,
+          "w": 330,
+          "h": 1274
+        },
+        "firstPrimary": {
+          "x": 945,
+          "y": 1389,
+          "w": 292,
+          "h": 54
+        },
+        "docW": 1280,
+        "viewportW": 1280,
+        "markers": 7,
+        "imagesLoaded": true,
+        "under44Active": [],
+        "gameplayStatus": "setup",
+        "revision": "0",
+        "phase": "setup",
+        "cpuPaused": false
+      },
+      "gameStart": {
+        "tiles": 20,
+        "board": {
+          "x": 35,
+          "y": 103,
+          "w": 865,
+          "h": 865
+        },
+        "currentAction": {
+          "x": 926,
+          "y": 92,
+          "w": 330,
+          "h": 647
+        },
+        "firstPrimary": null,
+        "docW": 1280,
+        "viewportW": 1280,
+        "markers": 13,
+        "imagesLoaded": true,
+        "under44Active": [],
+        "gameplayStatus": "playing",
+        "revision": "1",
+        "phase": "await_roll",
+        "cpuPaused": true
+      },
+      "gameFinished": {
+        "tiles": 20,
+        "board": {
+          "x": 35,
+          "y": 103,
+          "w": 865,
+          "h": 865
+        },
+        "currentAction": {
+          "x": 926,
+          "y": 92,
+          "w": 330,
+          "h": 800
+        },
+        "firstPrimary": {
+          "x": 960,
+          "y": 754,
+          "w": 262,
+          "h": 54
+        },
+        "docW": 1280,
+        "viewportW": 1280,
+        "markers": 14,
+        "imagesLoaded": true,
+        "under44Active": [],
+        "gameplayStatus": "finished",
+        "revision": "86",
+        "phase": "finished",
+        "cpuPaused": false
+      },
+      "load": {
+        "domContentLoadedMs": 158,
+        "pageLoadMs": 206,
+        "fcpMs": 40,
+        "resources": 37,
+        "decodedResourceBytes": 420646,
+        "transferBytes": 430710,
+        "longTasks": 1,
+        "largestLongTaskMs": 59,
+        "longTaskTotalMs": 59,
+        "usedJsHeapBytes": 3342537,
+        "indexedDbPuts": 0,
+        "oscillatorStarts": 0,
+        "oscillatorEnds": 0
+      },
+      "finalResources": {
+        "domContentLoadedMs": 158,
+        "pageLoadMs": 206,
+        "fcpMs": 40,
+        "resources": 41,
+        "decodedResourceBytes": 423500,
+        "transferBytes": 430710,
+        "longTasks": 1,
+        "largestLongTaskMs": 59,
+        "longTaskTotalMs": 59,
+        "usedJsHeapBytes": 13543085,
+        "indexedDbPuts": 86,
+        "oscillatorStarts": 0,
+        "oscillatorEnds": 0
+      },
+      "frames": {
+        "samples": 75,
+        "medianMs": 16.7,
+        "p95Ms": 16.8,
+        "over50Ms": 0
+      },
+      "completeGameWallMs": 1577,
+      "revision": 86,
+      "assets": "1 · 玩家 1,549\n2 · 电脑 1,733\n3 · 玩家3 1,055\n4 · 玩家4 1,612",
+      "savedRevision": 86,
+      "offlineRestored": false,
+      "firstShot": {
+        "path": "artifacts/issue72/candidate-desktop-harbor-4-playing.png",
+        "sha256": "a4cf4e437fec83050c6775f7861abb9a48638611f7d616e7be61c9c3320a4996"
+      },
+      "lastShot": {
+        "path": "artifacts/issue72/candidate-desktop-harbor-4-finished.png",
+        "sha256": "ebe3a59307091c99055b833ff31b71fd47035fb392f0b9308552d60f7fc6ecd0"
+      },
+      "pageErrors": []
+    },
+    {
+      "label": "public-before-phone-classic-4",
+      "url": "https://siliconyc.github.io/ReactMono/",
+      "map": "classic-24",
+      "seats": 4,
+      "viewport": [
+        390,
+        844
+      ],
+      "setup": {
+        "tiles": 24,
+        "board": {
+          "x": 14,
+          "y": 1539,
+          "w": 362,
+          "h": 272
+        },
+        "currentAction": {
+          "x": 8,
+          "y": 167,
+          "w": 374,
+          "h": 1356
+        },
+        "firstPrimary": {
+          "x": 22,
+          "y": 1380,
+          "w": 346,
+          "h": 54
+        },
+        "docW": 390,
+        "viewportW": 390,
+        "markers": 7,
+        "imagesLoaded": true,
+        "under44Active": [],
+        "gameplayStatus": "setup",
+        "revision": "0",
+        "phase": "setup",
+        "cpuPaused": false
+      },
+      "gameStart": {
+        "tiles": 24,
+        "board": {
+          "x": 14,
+          "y": 684,
+          "w": 362,
+          "h": 272
+        },
+        "currentAction": {
+          "x": 8,
+          "y": 69,
+          "w": 374,
+          "h": 599
+        },
+        "firstPrimary": null,
+        "docW": 390,
+        "viewportW": 390,
+        "markers": 13,
+        "imagesLoaded": true,
+        "under44Active": [],
+        "gameplayStatus": "playing",
+        "revision": "1",
+        "phase": "await_roll",
+        "cpuPaused": true
+      },
+      "gameFinished": {
+        "tiles": 24,
+        "board": {
+          "x": 14,
+          "y": 837,
+          "w": 362,
+          "h": 272
+        },
+        "currentAction": {
+          "x": 8,
+          "y": 69,
+          "w": 374,
+          "h": 752
+        },
+        "firstPrimary": {
+          "x": 37,
+          "y": 688,
+          "w": 316,
+          "h": 54
+        },
+        "docW": 390,
+        "viewportW": 390,
+        "markers": 14,
+        "imagesLoaded": true,
+        "under44Active": [],
+        "gameplayStatus": "finished",
+        "revision": "89",
+        "phase": "finished",
+        "cpuPaused": false
+      },
+      "load": {
+        "domContentLoadedMs": 1397,
+        "pageLoadMs": 1484,
+        "fcpMs": 1192,
+        "resources": 36,
+        "decodedResourceBytes": 417609,
+        "transferBytes": 135969,
+        "longTasks": 1,
+        "largestLongTaskMs": 54,
+        "longTaskTotalMs": 54,
+        "usedJsHeapBytes": 3394384,
+        "indexedDbPuts": 0,
+        "oscillatorStarts": 0,
+        "oscillatorEnds": 0
+      },
+      "finalResources": {
+        "domContentLoadedMs": 1397,
+        "pageLoadMs": 1484,
+        "fcpMs": 1192,
+        "resources": 43,
+        "decodedResourceBytes": 422619,
+        "transferBytes": 138377,
+        "longTasks": 1,
+        "largestLongTaskMs": 54,
+        "longTaskTotalMs": 54,
+        "usedJsHeapBytes": 13033361,
+        "indexedDbPuts": 89,
+        "oscillatorStarts": 0,
+        "oscillatorEnds": 0
+      },
+      "frames": {
+        "samples": 75,
+        "medianMs": 16.7,
+        "p95Ms": 16.7,
+        "over50Ms": 0
+      },
+      "completeGameWallMs": 1538,
+      "revision": 89,
+      "assets": "1 · 玩家 1,465\n2 · 电脑 1,823\n3 · 玩家3 1,597\n4 · 玩家4 1,124",
+      "savedRevision": 89,
+      "offlineRestored": false,
+      "firstShot": {
+        "path": "artifacts/issue72/public-before-phone-classic-4-playing.png",
+        "sha256": "63b2ca56a4cd9089d1a01c4000b74e0d3fd495c4ce509883a9659cc0aaa7de9c"
+      },
+      "lastShot": {
+        "path": "artifacts/issue72/public-before-phone-classic-4-finished.png",
+        "sha256": "dbeba8a58b8a79e09a61e5172543e5652e3b3c7bcbe9699d97632822c24b9766"
+      },
+      "pageErrors": []
+    },
+    {
+      "label": "candidate-phone-classic-4",
+      "url": "http://127.0.0.1:63601/ReactMono/",
+      "map": "classic-24",
+      "seats": 4,
+      "viewport": [
+        390,
+        844
+      ],
+      "setup": {
+        "tiles": 24,
+        "board": {
+          "x": 14,
+          "y": 1539,
+          "w": 362,
+          "h": 272
+        },
+        "currentAction": {
+          "x": 8,
+          "y": 167,
+          "w": 374,
+          "h": 1356
+        },
+        "firstPrimary": {
+          "x": 22,
+          "y": 1380,
+          "w": 346,
+          "h": 54
+        },
+        "docW": 390,
+        "viewportW": 390,
+        "markers": 7,
+        "imagesLoaded": true,
+        "under44Active": [],
+        "gameplayStatus": "setup",
+        "revision": "0",
+        "phase": "setup",
+        "cpuPaused": false
+      },
+      "gameStart": {
+        "tiles": 24,
+        "board": {
+          "x": 14,
+          "y": 684,
+          "w": 362,
+          "h": 272
+        },
+        "currentAction": {
+          "x": 8,
+          "y": 69,
+          "w": 374,
+          "h": 599
+        },
+        "firstPrimary": null,
+        "docW": 390,
+        "viewportW": 390,
+        "markers": 13,
+        "imagesLoaded": true,
+        "under44Active": [],
+        "gameplayStatus": "playing",
+        "revision": "1",
+        "phase": "await_roll",
+        "cpuPaused": true
+      },
+      "gameFinished": {
+        "tiles": 24,
+        "board": {
+          "x": 14,
+          "y": 837,
+          "w": 362,
+          "h": 272
+        },
+        "currentAction": {
+          "x": 8,
+          "y": 69,
+          "w": 374,
+          "h": 752
+        },
+        "firstPrimary": {
+          "x": 37,
+          "y": 688,
+          "w": 316,
+          "h": 54
+        },
+        "docW": 390,
+        "viewportW": 390,
+        "markers": 14,
+        "imagesLoaded": true,
+        "under44Active": [],
+        "gameplayStatus": "finished",
+        "revision": "89",
+        "phase": "finished",
+        "cpuPaused": false
+      },
+      "load": {
+        "domContentLoadedMs": 76,
+        "pageLoadMs": 120,
+        "fcpMs": 48,
+        "resources": 37,
+        "decodedResourceBytes": 420646,
+        "transferBytes": 430710,
+        "longTasks": 1,
+        "largestLongTaskMs": 50,
+        "longTaskTotalMs": 50,
+        "usedJsHeapBytes": 3381458,
+        "indexedDbPuts": 0,
+        "oscillatorStarts": 0,
+        "oscillatorEnds": 0
+      },
+      "finalResources": {
+        "domContentLoadedMs": 76,
+        "pageLoadMs": 120,
+        "fcpMs": 48,
+        "resources": 41,
+        "decodedResourceBytes": 423500,
+        "transferBytes": 430710,
+        "longTasks": 1,
+        "largestLongTaskMs": 50,
+        "longTaskTotalMs": 50,
+        "usedJsHeapBytes": 11481846,
+        "indexedDbPuts": 86,
+        "oscillatorStarts": 0,
+        "oscillatorEnds": 0
+      },
+      "frames": {
+        "samples": 75,
+        "medianMs": 16.7,
+        "p95Ms": 16.8,
+        "over50Ms": 0
+      },
+      "completeGameWallMs": 1486,
+      "revision": 89,
+      "assets": "1 · 玩家 1,465\n2 · 电脑 1,823\n3 · 玩家3 1,597\n4 · 玩家4 1,124",
+      "savedRevision": 89,
+      "offlineRestored": true,
+      "firstShot": {
+        "path": "artifacts/issue72/candidate-phone-classic-4-playing.png",
+        "sha256": "ee2e4d6e936b6af5112afea0e56f669b54d70d3c8356dd7d80166fb0cf14c2a6"
+      },
+      "lastShot": {
+        "path": "artifacts/issue72/candidate-phone-classic-4-finished.png",
+        "sha256": "ad8fdd6f25a0b0be759091467618cce6539f377c7d01122137f10a2dcdfe3bcc"
+      },
+      "pageErrors": []
+    },
+    {
+      "label": "candidate-small-phone-harbor-3",
+      "url": "http://127.0.0.1:63601/ReactMono/",
+      "map": "harbor-20",
+      "seats": 3,
+      "viewport": [
+        320,
+        640
+      ],
+      "setup": {
+        "tiles": 24,
+        "board": {
+          "x": 14,
+          "y": 1577,
+          "w": 360,
+          "h": 270
+        },
+        "currentAction": {
+          "x": 8,
+          "y": 167,
+          "w": 304,
+          "h": 1394
+        },
+        "firstPrimary": {
+          "x": 22,
+          "y": 1418,
+          "w": 276,
+          "h": 54
+        },
+        "docW": 320,
+        "viewportW": 320,
+        "markers": 7,
+        "imagesLoaded": true,
+        "under44Active": [],
+        "gameplayStatus": "setup",
+        "revision": "0",
+        "phase": "setup",
+        "cpuPaused": false
+      },
+      "gameStart": {
+        "tiles": 20,
+        "board": {
+          "x": 14,
+          "y": 702,
+          "w": 360,
+          "h": 360
+        },
+        "currentAction": {
+          "x": 8,
+          "y": 69,
+          "w": 304,
+          "h": 617
+        },
+        "firstPrimary": null,
+        "docW": 320,
+        "viewportW": 320,
+        "markers": 10,
+        "imagesLoaded": true,
+        "under44Active": [],
+        "gameplayStatus": "playing",
+        "revision": "1",
+        "phase": "await_roll",
+        "cpuPaused": true
+      },
+      "gameFinished": {
+        "tiles": 20,
+        "board": {
+          "x": 14,
+          "y": 855,
+          "w": 360,
+          "h": 360
+        },
+        "currentAction": {
+          "x": 8,
+          "y": 69,
+          "w": 304,
+          "h": 770
+        },
+        "firstPrimary": {
+          "x": 37,
+          "y": 706,
+          "w": 246,
+          "h": 54
+        },
+        "docW": 320,
+        "viewportW": 320,
+        "markers": 11,
+        "imagesLoaded": true,
+        "under44Active": [],
+        "gameplayStatus": "finished",
+        "revision": "76",
+        "phase": "finished",
+        "cpuPaused": false
+      },
+      "load": {
+        "domContentLoadedMs": 140,
+        "pageLoadMs": 189,
+        "fcpMs": 48,
+        "resources": 37,
+        "decodedResourceBytes": 420646,
+        "transferBytes": 430710,
+        "longTasks": 1,
+        "largestLongTaskMs": 54,
+        "longTaskTotalMs": 54,
+        "usedJsHeapBytes": 3382037,
+        "indexedDbPuts": 0,
+        "oscillatorStarts": 0,
+        "oscillatorEnds": 0
+      },
+      "finalResources": {
+        "domContentLoadedMs": 140,
+        "pageLoadMs": 189,
+        "fcpMs": 48,
+        "resources": 40,
+        "decodedResourceBytes": 422810,
+        "transferBytes": 430710,
+        "longTasks": 1,
+        "largestLongTaskMs": 54,
+        "longTaskTotalMs": 54,
+        "usedJsHeapBytes": 12208207,
+        "indexedDbPuts": 76,
+        "oscillatorStarts": 0,
+        "oscillatorEnds": 0
+      },
+      "frames": {
+        "samples": 75,
+        "medianMs": 16.7,
+        "p95Ms": 16.7,
+        "over50Ms": 0
+      },
+      "completeGameWallMs": 1471,
+      "revision": 76,
+      "assets": "1 · 玩家 1,470\n2 · 电脑 1,376\n3 · 玩家3 1,700",
+      "savedRevision": 76,
+      "offlineRestored": true,
+      "firstShot": {
+        "path": "artifacts/issue72/candidate-small-phone-harbor-3-playing.png",
+        "sha256": "41d335cf643a6ec49c329d6c43fd34319bf66e8f8eb322a84443863380bbb2ed"
+      },
+      "lastShot": {
+        "path": "artifacts/issue72/candidate-small-phone-harbor-3-finished.png",
+        "sha256": "679522a7977d2aef0e9c9f644f73422fd52eca75a217e3c95147020ec191343a"
+      },
+      "pageErrors": []
+    }
+  ],
+  "comparisonPairs": 2,
+  "assetBudgetFile": "artifacts/issue72/asset-budgets.json"
+}

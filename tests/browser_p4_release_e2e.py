@@ -49,7 +49,10 @@ def identity(page):
       docW:document.documentElement.scrollWidth,viewportW:innerWidth,markers:imgs.length,
       imagesLoaded:imgs.every(x=>x.complete&&x.naturalWidth>0),
       under44Active:buttons.filter(x=>x.getBoundingClientRect().height<44).map(x=>x.textContent.trim().slice(0,30)),
-      gameplayStatus:document.querySelector('main')?.dataset.gameStatus};
+      gameplayStatus:document.querySelector('main')?.dataset.gameStatus,
+      revision:document.querySelector('main')?.dataset.gameRevision,
+      phase:document.querySelector('main')?.dataset.gamePhase,
+      cpuPaused:[...document.querySelectorAll('button')].some(b=>b.textContent.trim()==='继续电脑')};
  }""")
 def metrics(page):
  return page.evaluate("""()=>{
@@ -130,10 +133,29 @@ def scenario(browser,url,label,width,height,board,seats,offline=False):
   # even during many successive AI actions.
   page.get_by_role('button',name='开启音效').click()
  # Include the full CPU game in wall time, not just the polling after 75 rAF frames.
+ # Hold the first real game state through the existing pause control. Without
+ # this checkpoint, image loading races the 8ms CPU timer and compares different
+ # turn-card phases (and hence different wrapped phone-panel heights).
+ page.evaluate("""() => {
+   window.__releaseCheckpoint = null;
+   const observer = new MutationObserver(() => {
+     const main = document.querySelector('main');
+     const pause = [...document.querySelectorAll('button')].find(b=>b.textContent.trim()==='暂停电脑');
+     if (main?.dataset.gameStatus !== 'playing' || !pause) return;
+     observer.disconnect();
+     window.__releaseCheckpoint = main.dataset.gameRevision;
+     pause.click();
+   });
+   observer.observe(document.querySelector('main'), {subtree:true,childList:true,attributes:true,characterData:true});
+ }""")
  start=time.monotonic()
  page.get_by_role('button',name=re.compile('开始游戏')).click()
+ page.get_by_role('button',name='继续电脑',exact=True).wait_for()
  page.wait_for_function("document.querySelectorAll('.character-image').length>0 && [...document.querySelectorAll('.character-image')].every(e=>e.complete&&e.naturalWidth>0)",timeout=12000)
+ page.evaluate("async()=>{await document.fonts.ready;await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))}")
  initial=identity(page)
+ assert page.evaluate('window.__releaseCheckpoint')=='1',(label,'CPU advanced before initial pause',initial)
+ assert initial['revision']=='1' and initial['phase']=='await_roll' and initial['cpuPaused'],(label,'initial checkpoint mismatch',initial)
  assert initial['tiles']==(24 if board=='classic-24' else 20),(label,initial)
  assert initial['docW']<=width+2,(label,initial)
  assert initial['imagesLoaded'],(label,initial)
@@ -141,6 +163,7 @@ def scenario(browser,url,label,width,height,board,seats,offline=False):
  if url!=PUBLIC:
   assert not initial['under44Active'],(label,'candidate touch targets under 44px',initial['under44Active'])
  firstshot=screenshot(page,f'{label}-playing')
+ page.get_by_role('button',name='继续电脑',exact=True).click()
  frames=sample_frames(page)
  page.wait_for_function("document.querySelector('main')?.dataset.gameStatus==='finished'",timeout=95000)
  wall=round((time.monotonic()-start)*1000)
@@ -196,15 +219,16 @@ def main():
     after=next(x for x in rows if x['label']=='candidate-'+label)
     assert before['revision']==after['revision'],(label,'engine revision mismatch')
     assert before['assets']==after['assets'],(label,'asset mismatch')
+    assert all(before['gameStart'][k]==after['gameStart'][k] for k in ('revision','phase','cpuPaused')),(label,'visual checkpoint mismatch')
     # 44px sound toggle increases phone action-panel height by 4px; board may
     # move down slightly, but must retain its exact intrinsic geometry.
     original=before['gameStart']['board'];candidate=after['gameStart']['board']
     assert all(abs(original[k]-candidate[k])<=2 for k in ('x','w','h')),(label,'board dimensions changed',original,candidate)
-    assert abs(original['y']-candidate['y'])<=12,(label,'board displaced',original,candidate)
+    assert abs(original['y']-candidate['y'])<=12,(label,'board displaced',original,candidate,before['gameStart'],after['gameStart'])
     assert before['gameStart']['markers']==after['gameStart']['markers'],(label,'character count changed')
    browser.close()
   report={'evidence':'actual Chromium in shared CI; public previous deployment vs local candidate',
-   'timingsWarning':'Shared GitHub runner, not a physical phone; wall time is variable',
+   'timingsWarning':'Shared GitHub runner, not a physical phone; wall time includes the initial paused visual checkpoint and is variable',
    'seed':7217,'maxRounds':8,'humanParticipants':0,'scenarios':rows,'comparisonPairs':2,
    'assetBudgetFile':'artifacts/issue72/asset-budgets.json'}
   (OUT/'chromium-metrics.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf8')
