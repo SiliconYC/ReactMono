@@ -3,7 +3,7 @@ from http.server import ThreadingHTTPServer
 from threading import Thread
 from pathlib import Path
 from playwright.sync_api import sync_playwright
-from browser_live_e2e import Handler
+from browser_live_e2e import Handler, open_new_game_setup, select_map
 import json,re,os
 
 OUT=Path('artifacts/issue67')
@@ -46,6 +46,7 @@ def main():
     page.on('pageerror',lambda err:errs.append(str(err)))
     page.on('dialog',lambda d:d.accept())
     page.goto(f'http://127.0.0.1:{server.server_port}/ReactMono/')
+    open_new_game_setup(page)
     assert page.locator('link[href="./motion.css"]').count()==1
     if not enabled:page.get_by_role('button',name='关闭动效').click()
     game(page)

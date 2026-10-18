@@ -3,7 +3,7 @@ from http.server import ThreadingHTTPServer
 from threading import Thread
 import re
 from playwright.sync_api import sync_playwright
-from browser_live_e2e import Handler
+from browser_live_e2e import Handler, open_new_game_setup, select_map
 
 def main():
     server=ThreadingHTTPServer(('127.0.0.1',0),Handler)
@@ -17,6 +17,7 @@ def main():
             page.on('pageerror',lambda e:errors.append(str(e)))
             page.on('dialog',lambda dialog:dialog.accept('离线存档' if dialog.type=='prompt' else None))
             page.goto(f'http://127.0.0.1:{server.server_port}/ReactMono/')
+            open_new_game_setup(page)
             page.evaluate("navigator.serviceWorker.ready.then(()=>true)")
             page.wait_for_function("navigator.serviceWorker.controller!==null")
             scope=page.evaluate("navigator.serviceWorker.controller.scriptURL")

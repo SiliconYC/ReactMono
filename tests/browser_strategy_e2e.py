@@ -2,7 +2,7 @@
 from http.server import ThreadingHTTPServer
 from threading import Thread
 from playwright.sync_api import sync_playwright
-from browser_live_e2e import Handler
+from browser_live_e2e import Handler, open_new_game_setup, select_map
 import re
 
 def run():
@@ -18,10 +18,12 @@ def run():
             page.on('dialog',lambda dialog:dialog.accept('策略卡离线' if dialog.type=='prompt' else None))
             url=f'http://127.0.0.1:{server.server_port}/ReactMono/'
             page.goto(url)
+            open_new_game_setup(page)
             page.wait_for_function("navigator.serviceWorker.controller!==null")
             context.set_offline(True)
             for seed,kind,button in [(263,'遥控骰子','使用遥控骰子'),(60,'路障','放置路障'),(257,'免租卡','使用免租卡')]:
                 page.goto(url)
+                open_new_game_setup(page)
                 assert '已断网' in page.locator('.network-indicator').inner_text()
                 page.get_by_label('对局种子').fill(str(seed))
                 page.get_by_label('快速模式').check()

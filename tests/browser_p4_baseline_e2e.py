@@ -5,7 +5,7 @@ from pathlib import Path
 from http.server import ThreadingHTTPServer
 from threading import Thread
 from playwright.sync_api import sync_playwright
-from browser_live_e2e import Handler
+from browser_live_e2e import Handler, open_new_game_setup, select_map
 import json, os, re, time
 
 OUT=Path('artifacts/issue62')
@@ -92,7 +92,8 @@ def main():
           page=context.new_page()
           page.on('pageerror',lambda err:errors.append(str(err)))
           page.goto(f'http://127.0.0.1:{srv.server_port}/ReactMono/',wait_until='load')
-          page.get_by_label('游戏地图').select_option(map_id)
+          open_new_game_setup(page)
+          select_map(page,map_id)
           page.get_by_label('玩家人数').select_option(str(count))
           page.get_by_label('对局种子').fill('17')
           page.get_by_label('最多轮数').fill('2')
@@ -123,6 +124,7 @@ def main():
         page=context.new_page()
         try:
           response=page.goto(PUBLIC,wait_until='load',timeout=30000)
+          open_new_game_setup(page)
           assert response and response.status==200
           reports.append(capture(page,'public-p3-reference','setup'))
         finally:context.close()

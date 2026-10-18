@@ -3,7 +3,7 @@ from http.server import ThreadingHTTPServer
 from threading import Thread
 import re
 from playwright.sync_api import sync_playwright
-from browser_live_e2e import Handler,ROOT
+from browser_live_e2e import Handler, open_new_game_setup, select_map,ROOT
 
 class UpdateHandler(Handler):
     version=0
@@ -35,6 +35,7 @@ def main():
             errors=[]
             page.on('pageerror',lambda e:errors.append(str(e)))
             page.goto(f'http://127.0.0.1:{server.server_port}/ReactMono/')
+            open_new_game_setup(page)
             page.wait_for_function("navigator.serviceWorker.controller!==null")
             page.get_by_label('对局种子').fill('31')
             page.get_by_role('button',name=re.compile('开始游戏')).click()

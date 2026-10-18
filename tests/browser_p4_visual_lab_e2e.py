@@ -3,7 +3,7 @@ from pathlib import Path
 from http.server import ThreadingHTTPServer
 from threading import Thread
 from playwright.sync_api import sync_playwright
-from browser_live_e2e import Handler
+from browser_live_e2e import Handler, open_new_game_setup, select_map
 import json,os
 
 OUT=Path('artifacts/issue63')
@@ -28,9 +28,11 @@ def main():
           site=f'http://127.0.0.1:{server.server_port}/ReactMono/'
           # Root registration is deliberately reused; the lab must run offline, without a separate SW.
           page.goto(site,wait_until='load')
+          open_new_game_setup(page)
           assert page.locator('a.visual-lab-link').count()==1
           page.wait_for_function('navigator.serviceWorker.controller!==null',timeout=30000)
           page.goto(site+'visual-lab.html',wait_until='load')
+          open_new_game_setup(page)
           assert page.get_by_role('heading',name='小镇棋盘').count()==1
           assert page.locator('.v-tile').count()==24
           assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+2')

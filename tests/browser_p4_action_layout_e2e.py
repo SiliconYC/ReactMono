@@ -3,7 +3,7 @@ from pathlib import Path
 from http.server import ThreadingHTTPServer
 from threading import Thread
 from playwright.sync_api import sync_playwright
-from browser_live_e2e import Handler
+from browser_live_e2e import Handler, open_new_game_setup, open_saved_games, select_map
 import json, os, re
 
 OUT=Path('artifacts/issue66')
@@ -29,7 +29,7 @@ def metrics(page):
     return {
       viewport:{w:innerWidth,h:innerHeight},
       documentWidth:document.documentElement.scrollWidth,
-      board:box(el('.board')),currentAction:box(el('.turn-card')),
+      board:box(el('.board-viewport')),currentAction:box(el('.turn-card')),
       primaryAction:box(el('.turn-card .primary-btn')),
       visibleButtons:total.length,
       buttonsAboveFold:total.filter(e=>e.getBoundingClientRect().bottom<=innerHeight).length,
@@ -79,8 +79,9 @@ def main():
           else:d.dismiss()
         page.on('dialog',handle_dialog)
         page.goto(f'http://127.0.0.1:{server.server_port}/ReactMono/',wait_until='load')
-        assert page.locator('link[href="./action-layout.css"]').count()==1
-        page.get_by_label('游戏地图').select_option(map_id)
+        open_new_game_setup(page)
+        assert page.locator('link[rel="stylesheet"][href*="/assets/main-"]').count()==1
+        select_map(page,map_id)
         page.get_by_label('玩家人数').select_option(str(seats))
         page.get_by_label('对局种子').fill('17')
         page.get_by_label('最多轮数').fill('3')
@@ -95,8 +96,8 @@ def main():
         assert not m['openFinanceTabs'] and not m['assetExpanded'],m
         assert page.locator('.asset-quick-roster>span').count()==seats
         if w<=1060:
-          assert m['currentAction']['y']<m['board']['y'],m
-          assert m['primaryAction']['bottom']<m['board']['y'],m
+          assert m['currentAction']['bottom']<=h,m
+          assert m['primaryAction']['bottom']<=m['currentAction']['bottom'],m
         else:assert m['board']['x']<m['currentAction']['x'],m
         page.screenshot(path=str(OUT/f'{name}-default.png'),full_page=True,animations='disabled')
         if w<=390:
@@ -105,7 +106,7 @@ def main():
         assert page.locator('.asset-overview').evaluate('(e)=>e.open')
         assert page.locator('.asset-player').count()==seats
         assert page.locator('.asset-player[data-active-player="true"]').count()==1
-        page.locator('.asset-summary').click()
+        page.keyboard.press('Escape')
         assert not page.locator('.asset-overview').evaluate('(e)=>e.open')
         enter_turn(page)
         after=metrics(page)
@@ -119,9 +120,9 @@ def main():
         assert page.locator('#bank-actions').is_visible()
         assert page.get_by_label('银行交易金额').is_visible()
         page.get_by_label('银行交易金额').fill('100')
-        before=int(page.locator('.turn-position').inner_text().split('资金：')[1].split('·')[0].replace(',','').strip())
+        before=int(page.locator('.turn-position').inner_text().split('现金：')[1].split('·')[0].replace(',','').strip())
         page.get_by_role('button',name='存入银行').click()
-        after_cash=int(page.locator('.turn-position').inner_text().split('资金：')[1].split('·')[0].replace(',','').strip())
+        after_cash=int(page.locator('.turn-position').inner_text().split('现金：')[1].split('·')[0].replace(',','').strip())
         assert after_cash==before-100,(before,after_cash)
         open_tool(page,'股票')
         assert not page.locator('#bank-actions').is_visible()
@@ -155,17 +156,20 @@ def main():
           assert '贷款 20' in page.locator('#loan-actions').inner_text()
           page.get_by_role('button',name='偿还贷款').click()
           assert '贷款 0' in page.locator('#loan-actions').inner_text()
+          page.keyboard.press('Escape')
+          open_saved_games(page)
           page.get_by_role('button',name='创建手动存档').click()
           page.locator('.save-list li').filter(has_text='新版操作验收').wait_for()
           saved=page.locator('main').get_attribute('data-game-revision')
           page.reload()
-          page.locator('.save-list li').filter(has_text='新版操作验收').get_by_role('button',name='读取').click()
+          open_saved_games(page)
+          page.locator('.title-save-list li').filter(has_text='新版操作验收').get_by_role('button',name='读取').click()
           page.wait_for_function("(rev)=>document.querySelector('main')?.dataset.gameRevision===rev",arg=saved)
           assert page.locator('.asset-quick-roster>span').count()==seats
           page.wait_for_function('navigator.serviceWorker.controller!==null',timeout=30000)
           ctx.set_offline(True)
           page.reload(wait_until='load')
-          assert page.locator('link[href="./action-layout.css"]').count()==1
+          assert page.locator('link[rel="stylesheet"][href*="/assets/main-"]').count()==1
           assert page.locator('.finance-tabs').evaluate("(e)=>getComputedStyle(e).display")=='grid' if page.locator('.finance-tabs').count() else True
           page.screenshot(path=str(OUT/'phone-classic-offline.png'),full_page=True,animations='disabled')
         report.append({'case':name,'beforeFinance':m,'finance':after,'dialogCount':len(dialogs),

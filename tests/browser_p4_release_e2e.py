@@ -7,7 +7,7 @@ from pathlib import Path
 from threading import Thread
 from http.server import ThreadingHTTPServer
 from playwright.sync_api import sync_playwright
-from browser_live_e2e import Handler
+from browser_live_e2e import Handler, open_new_game_setup, select_map
 OUT=Path('artifacts/issue72')
 PUBLIC='https://siliconyc.github.io/ReactMono/'
 SCENARIOS=[
@@ -92,7 +92,7 @@ def sample_frames(page):
  }""")
  return result
 def configure(page,board,seats,seed='7217'):
- page.get_by_label('游戏地图').select_option(board)
+ select_map(page,board)
  page.get_by_label('玩家人数').select_option(str(seats))
  page.get_by_label('对局种子').fill(seed)
  page.get_by_label('最多轮数').fill('8')
@@ -122,6 +122,7 @@ def scenario(browser,url,label,width,height,board,seats,offline=False):
  page.on('dialog',lambda dialog:dialog.accept())
  page.add_init_script(SCRIPTS)
  response=page.goto(url,wait_until='load',timeout=30000)
+ open_new_game_setup(page)
  assert response and response.status==200,(label,response.status if response else None)
  page.wait_for_function("document.querySelector('.board')!==null")
  setup=identity(page);start_metrics=metrics(page)

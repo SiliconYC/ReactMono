@@ -3,7 +3,7 @@ from pathlib import Path
 from threading import Thread
 from http.server import ThreadingHTTPServer
 from playwright.sync_api import sync_playwright
-from browser_live_e2e import Handler
+from browser_live_e2e import Handler, open_new_game_setup, select_map
 import re
 
 def run():
@@ -22,10 +22,11 @@ def run():
             page.on('dialog',lambda d:d.accept('电脑策略存档' if d.type=='prompt' else None))
             url=f'http://127.0.0.1:{server.server_port}/ReactMono/'
             page.goto(url)
+            open_new_game_setup(page)
             page.get_by_label('第 1 位玩家类型').select_option('computer')
             page.get_by_label('第 1 位电脑策略').select_option('conservative')
             page.get_by_label('第 2 位电脑策略').select_option('aggressive')
-            page.get_by_label('游戏地图').select_option('harbor-20')
+            select_map(page,'harbor-20')
             page.get_by_label('最多轮数').fill('3')
             page.get_by_label('启用医院、监狱与商店').check()
             page.get_by_label('快速模式').check()
@@ -48,6 +49,7 @@ def run():
             phone=mobile.new_page()
             phone.on('pageerror',lambda e:errors.append(str(e)))
             phone.goto(url)
+            open_new_game_setup(phone)
             phone.get_by_label('第 2 位电脑策略').select_option('balanced')
             phone.screenshot(path=str(screenshots/'mobile-setup.png'),full_page=True)
             phone.get_by_role('button',name=re.compile('开始游戏')).click()

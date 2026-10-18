@@ -3,7 +3,7 @@ from pathlib import Path
 from http.server import ThreadingHTTPServer
 from threading import Thread
 from playwright.sync_api import sync_playwright
-from browser_live_e2e import Handler
+from browser_live_e2e import Handler, open_new_game_setup, select_map
 import json,re
 OUT=Path('artifacts/issue68')
 
@@ -25,6 +25,7 @@ def run():
     }""")
     page.on('pageerror',lambda e:errors.append(str(e)))
     page.goto(f'http://127.0.0.1:{server.server_port}/ReactMono/')
+    open_new_game_setup(page)
     assert page.locator('link[href="./audio.css"]').count()==1
     assert page.get_by_role('button',name='开启音效').get_attribute('aria-pressed')=='false'
     page.get_by_label('对局种子').fill('17')

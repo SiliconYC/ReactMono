@@ -4,7 +4,7 @@ from threading import Thread
 from pathlib import Path
 import re
 from playwright.sync_api import sync_playwright
-from browser_live_e2e import Handler
+from browser_live_e2e import Handler, open_new_game_setup, select_map
 
 def main():
     server=ThreadingHTTPServer(('127.0.0.1',0),Handler)
@@ -19,6 +19,7 @@ def main():
             page.on('pageerror',lambda err:errors.append(str(err)))
             page.on('dialog',lambda d:d.accept('P2验收' if d.type=='prompt' else None))
             page.goto(f'http://127.0.0.1:{server.server_port}/ReactMono/')
+            open_new_game_setup(page)
             page.wait_for_function("navigator.serviceWorker.controller!==null")
             assert page.locator('.tile').count()==24
             assert '清除浏览器站点数据' in page.locator('.save-warning').inner_text()

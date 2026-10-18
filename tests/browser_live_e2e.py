@@ -16,6 +16,42 @@ class Handler(SimpleHTTPRequestHandler):
         return str(ROOT/'dist'/clean.removeprefix('/ReactMono/'))
     def log_message(self, *args): pass
 
+def open_new_game_setup(page):
+    """Use the real title-to-preparation flow before tests configure a match."""
+    title=page.locator('.title-shell[data-setup-screen="title"]')
+    if title.count():
+        new_game=page.get_by_role('button',name='新游戏')
+        if new_game.count(): new_game.click()
+        else: page.get_by_role('button',name='开始游戏').click()
+    advanced=page.locator('.setup-more')
+    if advanced.count() and not advanced.evaluate('(node)=>node.open'):
+        advanced.locator('summary').click()
+
+def open_saved_games(page):
+    """Open local saves from either the title screen or More menu."""
+    if page.locator('.title-shell[data-setup-screen="title"]').count():
+        page.get_by_role('button',name='读取存档').click()
+        return 'title'
+    menu=page.locator('.utility-menu')
+    if not menu.count(): return 'missing'
+    assets=page.locator('.asset-overview')
+    if assets.count() and assets.evaluate('(node)=>node.open'):
+        assets.evaluate('(node)=>node.open=false')
+    if not menu.evaluate('(node)=>node.open'):
+        menu.locator(':scope > summary').click()
+    saves=page.locator('.saves-card')
+    if saves.count() and not saves.evaluate('(node)=>node.open'):
+        saves.locator(':scope > summary').click()
+    return 'game'
+
+def select_map(page,map_id):
+    label='海港环线' if map_id=='harbor-20' else '经典环线'
+    cards=page.locator('.setup-map-choice button')
+    if cards.count():
+        cards.filter(has_text=label).click()
+    elif page.get_by_label('游戏地图').count():
+        page.get_by_label('游戏地图').select_option(map_id)
+
 def main():
     server = ThreadingHTTPServer(('127.0.0.1',0),Handler)
     thread = Thread(target=server.serve_forever,daemon=True)
@@ -34,7 +70,8 @@ def main():
             page.on('pageerror',lambda e:errors.append(str(e)))
             page.on('request',lambda request:external.append(request.url) if not request.url.startswith('http://127.0.0.1:') else None)
             page.goto(f'http://127.0.0.1:{server.server_port}/ReactMono/',wait_until='load')
-            assert page.locator('.tile').count()==24, page.locator('body').inner_text()
+            open_new_game_setup(page)
+            assert page.locator('.setup-map-choice button').count()==2, page.locator('body').inner_text()
             page.get_by_label('对局种子').fill('17')
             page.get_by_label('快速模式').check()
             page.get_by_role('button',name=re.compile('开始游戏')).click()

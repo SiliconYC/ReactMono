@@ -30,15 +30,17 @@ function CameraRig({ target, follow, reducedMotion }: { target: THREE.Vector3; f
   const { camera, size } = useThree();
   const desired = useMemo(() => new THREE.Vector3(), []);
   const look = useMemo(() => new THREE.Vector3(), []);
+  const cameraTarget = useMemo(() => new THREE.Vector3(), []);
   useFrame((_, delta) => {
     const blend = reducedMotion ? 1 : 1 - Math.exp(-5 * delta);
     // Follow actual presentation coordinates; never the already-settled rule position.
     look.lerp(desired.set(follow ? target.x : 0, 0.3, follow ? target.z : 0), blend);
-    camera.position.copy(desired.set(10.2 + look.x, 12.5, 10.2 + look.z));
+    camera.position.lerp(cameraTarget.set(10.2 + look.x, 12.5, 10.2 + look.z), blend);
     camera.lookAt(look);
     if (camera instanceof THREE.OrthographicCamera) {
       const fitZoom = Math.min(size.width / 22, size.height / 18);
-      camera.zoom = follow ? Math.min(size.width / 11, size.height / 10, 64) : fitZoom;
+      const targetZoom = follow ? Math.min(size.width / 11, size.height / 10, 64) : fitZoom;
+      camera.zoom = THREE.MathUtils.lerp(camera.zoom, targetZoom, blend);
     }
     camera.updateProjectionMatrix();
   });

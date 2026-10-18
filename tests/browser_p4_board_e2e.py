@@ -3,7 +3,7 @@ from pathlib import Path
 from http.server import ThreadingHTTPServer
 from threading import Thread
 from playwright.sync_api import sync_playwright
-from browser_live_e2e import Handler
+from browser_live_e2e import Handler, open_new_game_setup, select_map
 import json, os, re
 
 OUT=Path('artifacts/issue64')
@@ -66,8 +66,9 @@ def run():
           page=context.new_page()
           page.on('pageerror',lambda e:errors.append(str(e)))
           page.goto(f'http://127.0.0.1:{server.server_port}/ReactMono/',wait_until='load')
+          open_new_game_setup(page)
           assert page.locator('link[href="./board-art.css"]').count()==1
-          page.get_by_label('游戏地图').select_option(map_id)
+          select_map(page,map_id)
           page.get_by_label('玩家人数').select_option(str(seats))
           page.get_by_label('对局种子').fill('17')
           page.get_by_label('最多轮数').fill('3')
@@ -108,7 +109,7 @@ def run():
             page.wait_for_function('navigator.serviceWorker.controller!==null',timeout=30000)
             context.set_offline(True)
             page.reload(wait_until='load')
-            page.get_by_label('游戏地图').select_option('harbor-20')
+            select_map(page,'harbor-20')
             assert page.locator('.tile').count()==20
             assert page.locator('.tile-artwork').count()==page.locator('.tile').count()
             assert page.locator('link[href="./board-art.css"]').count()==1

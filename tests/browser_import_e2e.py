@@ -4,7 +4,7 @@ from threading import Thread
 import json,re
 from pathlib import Path
 from playwright.sync_api import sync_playwright
-from browser_live_e2e import Handler
+from browser_live_e2e import Handler, open_new_game_setup, select_map
 
 def main():
     server=ThreadingHTTPServer(('127.0.0.1',0),Handler)
@@ -17,6 +17,7 @@ def main():
             page.on('pageerror',lambda err:errors.append(str(err)))
             page.on('dialog',lambda dialog:dialog.accept('备份样本' if dialog.type=='prompt' else None))
             page.goto(f'http://127.0.0.1:{server.server_port}/ReactMono/')
+            open_new_game_setup(page)
             page.get_by_label('对局种子').fill('17')
             page.get_by_role('button',name=re.compile('开始游戏')).click()
             page.get_by_role('button',name=re.compile('掷骰前进')).click()

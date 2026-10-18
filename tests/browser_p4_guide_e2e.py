@@ -3,7 +3,7 @@ from pathlib import Path
 from http.server import ThreadingHTTPServer
 from threading import Thread
 from playwright.sync_api import sync_playwright
-from browser_live_e2e import Handler
+from browser_live_e2e import Handler, open_new_game_setup, select_map
 import json,re
 OUT=Path('artifacts/issue69')
 
@@ -22,6 +22,7 @@ def main():
     page.on('pageerror',lambda e:errors.append(str(e)))
     page.on('dialog',lambda d:d.accept('引导存档' if d.type=='prompt' else None))
     page.goto(f'http://127.0.0.1:{server.server_port}/ReactMono/',wait_until='load')
+    open_new_game_setup(page)
     assert page.locator('link[href="./guide.css"]').count()==1
     guide=page.get_by_role('region',name='新手引导')
     assert guide.is_visible() and guide.get_attribute('data-guide-step')=='1'

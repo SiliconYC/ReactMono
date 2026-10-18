@@ -2,7 +2,7 @@
 from http.server import ThreadingHTTPServer
 from threading import Thread
 from playwright.sync_api import sync_playwright
-from browser_live_e2e import Handler
+from browser_live_e2e import Handler, open_new_game_setup, select_map
 import re
 
 def run():
@@ -17,6 +17,7 @@ def run():
             page.on('pageerror',lambda e:errors.append(str(e)))
             page.on('dialog',lambda d:d.accept('银行验收' if d.type=='prompt' else None))
             page.goto(f'http://127.0.0.1:{server.server_port}/ReactMono/')
+            open_new_game_setup(page)
             page.evaluate("navigator.serviceWorker.ready.then(()=>true)")
             page.wait_for_function("navigator.serviceWorker.controller!==null")
             context.set_offline(True)

@@ -2,7 +2,7 @@
 from http.server import ThreadingHTTPServer
 from threading import Thread
 from playwright.sync_api import sync_playwright
-from browser_live_e2e import Handler
+from browser_live_e2e import Handler, open_new_game_setup, select_map
 
 def main():
     server=ThreadingHTTPServer(('127.0.0.1',0),Handler)
@@ -13,6 +13,7 @@ def main():
             for width in [390,1440]:
                 page=browser.new_page(viewport={'width':width,'height':900})
                 page.goto(f'http://127.0.0.1:{server.server_port}/ReactMono/')
+                open_new_game_setup(page)
                 report=page.evaluate("""async()=>{
                   const maps=await import('./core/maps.js');
                   const check=board=>{

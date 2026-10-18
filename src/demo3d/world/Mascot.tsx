@@ -91,7 +91,7 @@ export function Mascot({
       onStep(finalTile);
       queueMicrotask(onMotionComplete);
     }
-  }, [isMoving, motion?.nonce, motion, map, offsetX, offsetZ, onMotionComplete, onStep, reducedMotion]);
+  }, [isMoving, motion?.nonce, motion?.path, motion?.fromTileId, map, offsetX, offsetZ, onMotionComplete, onStep, reducedMotion]);
 
   useFrame(({ clock }, delta) => {
     const group = root.current;

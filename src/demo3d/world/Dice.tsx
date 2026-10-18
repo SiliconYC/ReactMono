@@ -40,14 +40,24 @@ function targetRotation(value: number): THREE.Euler {
 export function Dice({ value, nonce, reducedMotion }: DiceProps): React.JSX.Element | null {
   const root = useRef<THREE.Group>(null);
   const startedAt = useRef(0);
+  const lastNonce = useRef(nonce);
   const settling = useRef(false);
   const target = useMemo(() => new THREE.Quaternion(), []);
   const from = useMemo(() => new THREE.Quaternion(), []);
 
   useEffect(() => {
-    startedAt.current = performance.now() / 1000;
-    settling.current = false;
     if (value !== null) target.setFromEuler(targetRotation(value));
+    const now = performance.now() / 1000;
+    if (lastNonce.current === nonce) {
+      // A newly active player's Dice mounts with the last result. Show that
+      // result settled; only a fresh roll nonce may start a new animation.
+      startedAt.current = now - 1.2;
+      if (root.current) root.current.quaternion.copy(target);
+      return;
+    }
+    lastNonce.current = nonce;
+    startedAt.current = now;
+    settling.current = false;
   }, [from, nonce, target, value]);
 
   useFrame(() => {

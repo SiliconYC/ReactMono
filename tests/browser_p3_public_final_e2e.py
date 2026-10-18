@@ -3,6 +3,7 @@ Never substitute local HTTP results for this public-URL check.
 """
 from pathlib import Path
 from playwright.sync_api import sync_playwright
+from browser_live_e2e import open_new_game_setup, select_map
 import json,re
 
 URL='https://siliconyc.github.io/ReactMono/'
@@ -55,6 +56,7 @@ def main():
         page.on('dialog',lambda d:d.accept('P3公网资产存档' if d.type=='prompt' else None))
         response=page.goto(URL,wait_until='load',timeout=30000)
         assert response and response.status==200,response
+        open_new_game_setup(page)
         assert page.locator('.tile').count()==24
         page.get_by_label('对局种子').fill('17')
         page.get_by_label('最多轮数').fill('3')
@@ -116,7 +118,7 @@ def main():
         phone.wait_for_function("navigator.serviceWorker.controller!==null",timeout=30000)
         mobile.set_offline(True)
         phone.reload(wait_until='load')
-        phone.get_by_label('游戏地图').select_option('harbor-20')
+        select_map(phone,'harbor-20')
         phone.get_by_label('玩家人数').select_option('4')
         phone.get_by_label('最多轮数').fill('2')
         phone.get_by_label('快速模式').check()

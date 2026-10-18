@@ -12,7 +12,7 @@ test('#66 action-first UI remains self-contained with PWA offline CSS',async()=>
   assert.match(css,/finance-tabs button\[aria-expanded=true\]/);
   assert.match(css,/asset-quick-roster/);
   const actionCss=await readFile('dist/action-layout.css','utf8');
-  assert.match(actionCss,/max-width:1060px/);
+  assert.match(actionCss,/@media\s*\(\s*(?:max-width:\s*1060px|width\s*<=\s*1060px)\s*\)/);
   assert.match(app,/financePanel/);
   assert.match(app,/lastCommittedAction/);
   assert.match(app,/确认抵押地产/);

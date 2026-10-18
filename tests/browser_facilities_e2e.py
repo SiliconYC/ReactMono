@@ -2,7 +2,7 @@
 from http.server import ThreadingHTTPServer
 from threading import Thread
 from playwright.sync_api import sync_playwright
-from browser_live_e2e import Handler
+from browser_live_e2e import Handler, open_new_game_setup, select_map
 import re
 
 def run():
@@ -25,6 +25,7 @@ def run():
             page.on('dialog',handle_dialog)
             url=f'http://127.0.0.1:{server.server_port}/ReactMono/'
             page.goto(url)
+            open_new_game_setup(page)
             page.wait_for_function('navigator.serviceWorker.controller!==null')
             context.set_offline(True)
             # Seed 98 produces first die=3 and lands human on hospital on the classic map.
@@ -74,7 +75,7 @@ def run():
             # no mutable engine state injection, no fake React rendering.
             for board in ['classic-24','harbor-20']:
                 page.reload(wait_until='load')
-                page.get_by_label('游戏地图').select_option(board)
+                select_map(page,board)
                 page.get_by_label('对局种子').fill('5')
                 page.get_by_label('最多轮数').fill('75')
                 page.get_by_label('启用医院、监狱与商店').check()

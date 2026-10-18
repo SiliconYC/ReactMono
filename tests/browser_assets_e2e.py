@@ -3,7 +3,7 @@ from http.server import ThreadingHTTPServer
 from threading import Thread
 from pathlib import Path
 from playwright.sync_api import sync_playwright
-from browser_live_e2e import Handler
+from browser_live_e2e import Handler, open_new_game_setup, select_map
 import re
 
 DIR=Path('artifacts/issue43')
@@ -36,6 +36,7 @@ def run():
             page.on('dialog',lambda d:d.accept('资产验收' if d.type=='prompt' else None))
             url=f'http://127.0.0.1:{server.server_port}/ReactMono/'
             page.goto(url)
+            open_new_game_setup(page)
             page.get_by_label('对局种子').fill('17')
             page.get_by_label('启用医院、监狱与商店').check()
             page.get_by_role('button',name=re.compile('开始游戏')).click()
@@ -92,6 +93,7 @@ def run():
             mobile=phone_context.new_page()
             mobile.on('pageerror',lambda err:errors.append(str(err)))
             mobile.goto(url)
+            open_new_game_setup(mobile)
             mobile.wait_for_function("navigator.serviceWorker.controller!==null",timeout=20000)
             phone_context.set_offline(True)
             mobile.reload(wait_until='load')

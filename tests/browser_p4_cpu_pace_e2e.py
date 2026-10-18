@@ -3,12 +3,12 @@ from pathlib import Path
 from http.server import ThreadingHTTPServer
 from threading import Thread
 from playwright.sync_api import sync_playwright
-from browser_live_e2e import Handler
+from browser_live_e2e import Handler, open_new_game_setup, select_map
 import json,re,time
 OUT=Path('artifacts/issue70')
 
 def configure(page,board,n,cpu=0):
-  page.get_by_label('游戏地图').select_option(board)
+  select_map(page,board)
   page.get_by_label('玩家人数').select_option(str(n))
   page.get_by_label('对局种子').fill('70070')
   page.get_by_label('最多轮数').fill('3')
@@ -31,6 +31,7 @@ def main():
      context=browser.new_context(viewport={'width':width,'height':height},service_workers='allow',is_mobile=width<500,has_touch=width<500)
      page=context.new_page();page.on('pageerror',lambda e:errors.append(str(e)))
      page.goto(f'http://127.0.0.1:{server.server_port}/ReactMono/')
+     open_new_game_setup(page)
      configure(page,board,n)
      start=time.monotonic()
      page.get_by_role('button',name=re.compile('开始游戏')).click()
@@ -60,6 +61,7 @@ def main():
    # Mixed human/CPU handoff stays a true human decision, not computer autoplay.
    ctx=browser.new_context(viewport={'width':390,'height':844},service_workers='allow')
    page=ctx.new_page();page.goto(f'http://127.0.0.1:{server.server_port}/ReactMono/')
+   open_new_game_setup(page)
    configure(page,'harbor-20',2,cpu=1)
    page.get_by_role('button',name=re.compile('开始游戏')).click()
    page.wait_for_function("document.querySelector('.turn-person .character-portrait')?.dataset.characterSeat==='2' && document.querySelector('main')?.dataset.gamePhase==='await_roll'",timeout=20000)
