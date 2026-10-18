@@ -62,6 +62,17 @@ P0 目标与治理 → P1 第一局能玩到底 → P2 可靠的准本地游戏�
 - [P3 16 项任务 #30–#45](https://github.com/SiliconYC/ReactMono/issues/30)：规则模块化 → 2–4 人/多地图 → 经济及股市 → 特殊格/AI → 综合验收。
 - [历史 P2 执行队列](docs/P2_QUEUE.md) 与 [实际开发实验日志](docs/EVOLUTION_LOG.md)。
 
+## 外部《大富翁 4》开源项目研究（增量补做）
+
+项目已有大量现代 3D 游戏代码、规则测试及完整的开发治理，**不进行“空白研究仓库初始化式”的目录迁移、README/AGENTS 重写或项目结构调整**。在保留现有产品开发路径的同时，新增独立的 [`docs/research/` 外部项目研究入口](docs/research/README.md)：
+
+- [研究证据、报告与许可标准](docs/research/RESEARCH_STANDARD.md)：记录上游精确 Commit、源码锚点，区分独立实测、源码核查、上游声称和未验证推断；不复制版权素材。
+- [逐仓库研究索引](docs/research/repositories/README.md)：每个上游一个目录，交付九章报告、源代码定位与结构化证据 JSON。只有研究实际完成才建立该目录，不做空占位。
+- [研究 Issue #95–#103](https://github.com/SiliconYC/ReactMono/issues/95)：九个目标分别研究原版逆向、原生/网页/Godot 重建、早期 Cocos 和现代 Three.js 视觉。Issue 各自独立开发、验收、合并 `dev`。
+- [跨仓库综合综述 Issue #104](https://github.com/SiliconYC/ReactMono/issues/104)：待子研究完成后，复核源码血缘、证据冲突、许可证、原版规则与 ReactMono 差距，形成综合报告和验证矩阵。
+
+**研究只为改善现有游戏提供可追溯依据**，不引入服务器、账号、云同步，不默认改变 React/Three.js 现代原创美术方向。研究任务创建不等于研究报告已经完成，研究完成也不等于产品功能已交付。
+
 ## 协作入口
 
 - [主程序界面重设计：完整方案、交互网页与图像档案](docs/main-game-ui-redesign/README.md)（[直接查看图文入口](docs/main-game-ui-redesign/index.html)，含重做后的真实游戏画面与验收）
