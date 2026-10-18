@@ -79,7 +79,7 @@ export function OutcomeCelebration({ game, cue, reducedMotion }: {
       ) : (
         <>
           <group ref={trophy} position={[0, 2.1, 0]}>
-            <mesh position={[0, 0.3, 0]} castShadow>
+            <mesh position={[0, 0.3, 0]}>
               <cylinderGeometry args={[0.38, 0.14, 0.5, 8]} />
               <meshStandardMaterial color="#ffdb67" metalness={0.55} roughness={0.3} />
             </mesh>

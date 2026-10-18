@@ -170,7 +170,7 @@ export function Mascot({
   return (
     <group ref={root}>
       {active && !outcome && <Dice value={dieValue} nonce={dieNonce} reducedMotion={reducedMotion} />}
-      <mesh position={[0, -0.2, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+      <mesh position={[0, -0.2, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <circleGeometry args={[0.43, 20]} />
         <meshBasicMaterial color="#173b36" transparent opacity={0.2} depthWrite={false} />
       </mesh>
@@ -182,43 +182,43 @@ export function Mascot({
       )}
       <group ref={visual} scale={active ? 1.06 : 1}>
         <group ref={leftPaw} position={[-0.31, 0.61, 0.02]} rotation={[0, 0, 0.2]}>
-          <mesh position={[-0.1, -0.13, 0]} castShadow>
+          <mesh position={[-0.1, -0.13, 0]}>
             <sphereGeometry args={[0.15, 7, 5]} />
             <meshStandardMaterial color={color} roughness={0.78} />
           </mesh>
         </group>
         <group ref={rightPaw} position={[0.31, 0.61, 0.02]} rotation={[0, 0, -0.2]}>
-          <mesh position={[0.1, -0.13, 0]} castShadow>
+          <mesh position={[0.1, -0.13, 0]}>
             <sphereGeometry args={[0.15, 7, 5]} />
             <meshStandardMaterial color={color} roughness={0.78} />
           </mesh>
         </group>
-        <mesh position={[0, 0.48, 0]} castShadow>
+        <mesh position={[0, 0.48, 0]}>
           <sphereGeometry args={[0.38, 9, 7]} />
           <meshStandardMaterial color={color} roughness={0.78} />
         </mesh>
-        <mesh position={[0, 0.94, 0.02]} castShadow>
+        <mesh position={[0, 0.94, 0.02]}>
           <sphereGeometry args={[0.43, 9, 7]} />
           <meshStandardMaterial color={isFox ? '#ff8b62' : '#6f8df6'} roughness={0.72} />
         </mesh>
         {isFox ? (
           <>
-            <mesh position={[-0.26, 1.27, 0]} rotation={[0, 0, -0.16]} castShadow>
+            <mesh position={[-0.26, 1.27, 0]} rotation={[0, 0, -0.16]}>
               <coneGeometry args={[0.22, 0.48, 4]} />
               <meshStandardMaterial color="#ff8b62" roughness={0.75} />
             </mesh>
-            <mesh position={[0.26, 1.27, 0]} rotation={[0, 0, 0.16]} castShadow>
+            <mesh position={[0.26, 1.27, 0]} rotation={[0, 0, 0.16]}>
               <coneGeometry args={[0.22, 0.48, 4]} />
               <meshStandardMaterial color="#ff8b62" roughness={0.75} />
             </mesh>
           </>
         ) : (
           <>
-            <mesh position={[-0.28, 1.2, 0]} castShadow>
+            <mesh position={[-0.28, 1.2, 0]}>
               <sphereGeometry args={[0.18, 8, 6]} />
               <meshStandardMaterial color="#5472dc" roughness={0.8} />
             </mesh>
-            <mesh position={[0.28, 1.2, 0]} castShadow>
+            <mesh position={[0.28, 1.2, 0]}>
               <sphereGeometry args={[0.18, 8, 6]} />
               <meshStandardMaterial color="#5472dc" roughness={0.8} />
             </mesh>
