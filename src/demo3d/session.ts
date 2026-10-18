@@ -15,7 +15,7 @@ import { routeSteps } from './route.js';
 const TILE_NAMES = [
   '晨曦车站', '银杏小路', '甜橙街', '河畔公园',
   '红砖巷', '钟楼广场', '风铃街', '云朵花园',
-  '晴湾码头', '蜜糖路', '书店街', '星光露台',
+  '晴湾银行', '蜜糖路', '书店街', '星光露台',
   '松果公园', '琥珀大道', '月桂巷', '归家广场'
 ] as const;
 
@@ -38,7 +38,12 @@ export const DEMO_CONFIG: GameConfig = {
     { id: 'p2', name: '阿团', kind: 'human' }
   ],
   tiles: DEMO_TILES,
-  initialCash: 1200,
+  initialCash: 1800,
+  bankEnabled: true,
+  loanEnabled: true,
+  marketEnabled: true,
+  propertyVisitOnly: true,
+  stockAccount: 'bank',
   maxRounds: 12,
   eventRules: { tileIds: [], bonus: 0, fee: 0 },
   cardRules: { tileIds: [], rewardCash: 80, moveBonus: 2, maxHand: 3 }
@@ -65,9 +70,10 @@ export type RejectedDemoCommand = {
 
 export type DemoCommandResult = AcceptedDemoCommand | RejectedDemoCommand;
 
-export function createDemoGame(seed: number): GameState {
-  const setup = createGame(seed, DEMO_CONFIG);
-  const started = applyAction(setup, { type: 'start_game', actorId: setup.players[0].id });
+export function createDemoGame(seed: number, maxRounds: number = DEMO_CONFIG.maxRounds): GameState {
+  const setup = createGame(seed, { ...DEMO_CONFIG, maxRounds });
+  const funded = { ...setup, players: setup.players.map(player => ({ ...player, cash: 1200, bankBalance: 600 })) };
+  const started = applyAction(funded, { type: 'start_game', actorId: setup.players[0].id });
   if (!started.ok) throw new Error('3D 演示对局启动失败');
   return started.state;
 }
@@ -111,3 +117,19 @@ export function dispatchDemoAction(state: GameState, action: GameAction): DemoCo
   };
 }
 
+
+/** Share a reproducible real game without embedding snapshots or synthetic outcomes. */
+export function demoSeedFromSearch(search: string): number {
+  const raw = new URLSearchParams(search).get('seed');
+  if (raw === null || !/^\d{1,10}$/.test(raw)) return 20261017;
+  const seed = Number(raw);
+  return Number.isSafeInteger(seed) && seed <= 0xffffffff ? seed : 20261017;
+}
+
+/** Optional normal game length, kept bounded for shareable demo sessions. */
+export function demoRoundsFromSearch(search: string): number {
+  const raw = new URLSearchParams(search).get('rounds');
+  if (raw === null || !/^\d{1,2}$/.test(raw)) return 12;
+  const rounds = Number(raw);
+  return rounds >= 1 && rounds <= 60 ? rounds : 12;
+}

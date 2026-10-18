@@ -1,7 +1,8 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { Dice } from './Dice.js';
+import type { OutcomeCue } from '../outcomes.js';
 import { positionForTile } from './layout.js';
 
 export type MotionCue = Readonly<{
@@ -23,6 +24,9 @@ type MascotProps = Readonly<{
   dieValue: number | null;
   dieNonce: number;
   trackedPosition: THREE.Vector3;
+  bankrupt?: boolean;
+  awaitingExit?: boolean;
+  outcome?: OutcomeCue | null;
 }>;
 
 const PLAYER_COLORS = ['#ff715b', '#4f7cff'] as const;
@@ -38,15 +42,31 @@ export function Mascot({
   onStep,
   dieValue,
   dieNonce,
-  trackedPosition
-}: MascotProps): React.JSX.Element {
+  trackedPosition,
+  bankrupt = false,
+  awaitingExit = false,
+  outcome = null
+}: MascotProps): React.JSX.Element | null {
   const root = useRef<THREE.Group>(null);
   const visual = useRef<THREE.Group>(null);
   const startedAt = useRef(0);
+  const outcomeElapsed = useRef(0);
+  const leftPaw = useRef<THREE.Group>(null);
+  const rightPaw = useRef<THREE.Group>(null);
   const completed = useRef(false);
   const reportedStep = useRef(-1);
   const isMoving = motion?.actorId === id && motion.path.length > 0;
   const offset = seat === 0 ? -0.22 : 0.22;
+  const actorOutcome = outcome?.actorId === id ? outcome : null;
+
+  useLayoutEffect(() => {
+    outcomeElapsed.current = 0;
+    if (visual.current) {
+      visual.current.position.set(0, 0, 0);
+      visual.current.rotation.set(0, 0, 0);
+      visual.current.scale.setScalar(active ? 1.06 : 1);
+    }
+  }, [outcome?.nonce, outcome?.stage, outcome?.actorId, bankrupt, awaitingExit, active, reducedMotion]);
 
   useEffect(() => {
     if (!isMoving) return;
@@ -62,14 +82,35 @@ export function Mascot({
     }
   }, [isMoving, motion?.nonce, motion, offset, onMotionComplete, onStep, reducedMotion]);
 
-  useFrame(({ clock }) => {
+  useFrame(({ clock }, delta) => {
     const group = root.current;
     const body = visual.current;
     if (group === null || body === null) return;
 
     const idle = clock.elapsedTime * 2.2 + seat;
-    body.position.y = Math.sin(idle) * 0.025;
-    body.rotation.z = Math.sin(idle * 0.55) * 0.025;
+    body.position.set(0, reducedMotion ? 0 : Math.sin(idle) * 0.025, 0);
+    body.rotation.set(0, 0, reducedMotion ? 0 : Math.sin(idle * 0.55) * 0.025);
+    body.scale.setScalar(active ? 1.06 : 1);
+    if (leftPaw.current) leftPaw.current.rotation.z = 0.2;
+    if (rightPaw.current) rightPaw.current.rotation.z = -0.2;
+
+    if (actorOutcome) {
+      outcomeElapsed.current = Math.min(outcomeElapsed.current + delta, 2);
+      const elapsed = outcomeElapsed.current;
+      if (actorOutcome.stage === 'bankrupt') {
+        const fall = reducedMotion ? 0.2 : THREE.MathUtils.smoothstep(elapsed, 0.1, 0.85);
+        const shrink = reducedMotion ? 0 : THREE.MathUtils.smoothstep(elapsed, 0.95, 1.6);
+        body.rotation.z = -fall * 1.15;
+        body.position.y = -fall * 0.17;
+        body.scale.setScalar((active ? 1.06 : 1) * (1 - shrink * 0.96));
+      } else if (actorOutcome.stage === 'victory') {
+        const progress = THREE.MathUtils.clamp(elapsed / 1.8, 0, 1);
+        body.position.y = reducedMotion ? 0 : Math.abs(Math.sin(progress * Math.PI * 3)) * 0.35 * (1 - progress);
+        body.rotation.z = reducedMotion ? 0 : Math.sin(progress * Math.PI * 4) * 0.08 * (1 - progress);
+        if (leftPaw.current) leftPaw.current.rotation.z = -2.3;
+        if (rightPaw.current) rightPaw.current.rotation.z = 2.3;
+      }
+    }
 
     if (!isMoving || reducedMotion || motion === null) {
       const point = positionForTile(tileId);
@@ -114,11 +155,13 @@ export function Mascot({
     }
   });
 
+  if (bankrupt && !awaitingExit) return null;
+
   const color = PLAYER_COLORS[seat] ?? PLAYER_COLORS[0];
   const isFox = seat === 0;
   return (
     <group ref={root}>
-      {active && <Dice value={dieValue} nonce={dieNonce} reducedMotion={reducedMotion} />}
+      {active && !outcome && <Dice value={dieValue} nonce={dieNonce} reducedMotion={reducedMotion} />}
       <mesh position={[0, -0.2, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
         <circleGeometry args={[0.43, 20]} />
         <meshBasicMaterial color="#173b36" transparent opacity={0.2} depthWrite={false} />
@@ -130,6 +173,18 @@ export function Mascot({
         </mesh>
       )}
       <group ref={visual} scale={active ? 1.06 : 1}>
+        <group ref={leftPaw} position={[-0.31, 0.61, 0.02]} rotation={[0, 0, 0.2]}>
+          <mesh position={[-0.1, -0.13, 0]} castShadow>
+            <sphereGeometry args={[0.15, 7, 5]} />
+            <meshStandardMaterial color={color} roughness={0.78} />
+          </mesh>
+        </group>
+        <group ref={rightPaw} position={[0.31, 0.61, 0.02]} rotation={[0, 0, -0.2]}>
+          <mesh position={[0.1, -0.13, 0]} castShadow>
+            <sphereGeometry args={[0.15, 7, 5]} />
+            <meshStandardMaterial color={color} roughness={0.78} />
+          </mesh>
+        </group>
         <mesh position={[0, 0.48, 0]} castShadow>
           <sphereGeometry args={[0.38, 9, 7]} />
           <meshStandardMaterial color={color} roughness={0.78} />
