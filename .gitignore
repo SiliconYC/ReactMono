@@ -2,6 +2,7 @@ node_modules/
 dist/
 .test-dist/
 dist-3d-demo/
+artifacts/
 __pycache__/
 *.tsbuildinfo
 .DS_Store
