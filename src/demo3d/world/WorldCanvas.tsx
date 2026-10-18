@@ -78,17 +78,17 @@ function Scene(props: WorldCanvasProps): React.JSX.Element {
         intensity={2.45}
         color="#fff0c5"
         castShadow
-        shadow-mapSize-width={1536}
-        shadow-mapSize-height={1536}
+        shadow-mapSize-width={2048}
+        shadow-mapSize-height={2048}
         shadow-camera-left={-10}
         shadow-camera-right={10}
         shadow-camera-top={10}
         shadow-camera-bottom={-10}
-        shadow-camera-near={0.5}
-        shadow-camera-far={36}
-        shadow-intensity={0.3}
+        shadow-camera-near={10}
+        shadow-camera-far={28}
+        shadow-intensity={0.58}
         shadow-bias={-0.0001}
-        shadow-normalBias={0.025}
+        shadow-normalBias={0.012}
         shadow-radius={3}
       />
       <CameraRig target={trackedPosition} follow={props.followCurrent && props.outcome?.stage !== 'draw'} reducedMotion={props.reducedMotion} />
@@ -139,7 +139,7 @@ export function WorldCanvas(props: WorldCanvasProps): React.JSX.Element {
         data-testid="world-canvas"
         orthographic
         frameloop={frameLoop}
-        shadows
+        shadows="variance"
         dpr={[1, 1.6]}
         camera={{ position: [10.2, 12.5, 10.2], zoom: 48, near: 0.1, far: 80 }}
         gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
