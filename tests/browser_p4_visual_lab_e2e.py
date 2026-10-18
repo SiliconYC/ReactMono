@@ -29,7 +29,6 @@ def main():
           # Root registration is deliberately reused; the lab must run offline, without a separate SW.
           page.goto(site,wait_until='load')
           open_new_game_setup(page)
-          assert page.locator('a.visual-lab-link').count()==1
           page.wait_for_function('navigator.serviceWorker.controller!==null',timeout=30000)
           page.goto(site+'visual-lab.html',wait_until='load')
           open_new_game_setup(page)

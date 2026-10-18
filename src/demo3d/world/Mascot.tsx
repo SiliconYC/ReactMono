@@ -202,7 +202,7 @@ export function Mascot({
         </mesh>
         <mesh position={[0, 0.94, 0.02]}>
           <sphereGeometry args={[0.43, 9, 7]} />
-          <meshStandardMaterial color={isFox ? '#ff8b62' : '#6f8df6'} roughness={0.72} />
+          <meshStandardMaterial color={color} roughness={0.72} />
         </mesh>
         {isFox ? (
           <>
@@ -219,11 +219,11 @@ export function Mascot({
           <>
             <mesh position={[-0.28, 1.2, 0]}>
               <sphereGeometry args={[0.18, 8, 6]} />
-              <meshStandardMaterial color="#5472dc" roughness={0.8} />
+              <meshStandardMaterial color={color} roughness={0.8} />
             </mesh>
             <mesh position={[0.28, 1.2, 0]}>
               <sphereGeometry args={[0.18, 8, 6]} />
-              <meshStandardMaterial color="#5472dc" roughness={0.8} />
+              <meshStandardMaterial color={color} roughness={0.8} />
             </mesh>
           </>
         )}

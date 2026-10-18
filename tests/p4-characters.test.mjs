@@ -25,8 +25,10 @@ test('#65 ships four distinct licensed original characters and no network assets
   const css=await readFile('dist/assets/'+cssName,'utf8');
   assert.match(html,/assets\/main-[^\"]+\.css/);
   assert.match(css,/prefers-reduced-motion:reduce/);
-  assert.match(css,/character-moving/);
-  assert.match(app,/characterMarker/);
+  assert.match(css,/seat-avatar/);
+  assert.match(app,/SeatAvatar/);
+ const ui=await readFile('.test-dist/ui/game-ui.js','utf8');
+ assert.match(ui,/MASCOT_SEAT_COLORS/);assert.match(ui,/第 .*位玩家/);
   assert.match(app,/lastMotion/);
   assert.match(characters,/CHARACTER_NAMES/);
   assert.match(characters,/character-.*\.svg/);

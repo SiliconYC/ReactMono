@@ -7,12 +7,13 @@ test('主程序使用真实 3D 世界组件并预缓存其静态资源',async()=
  const cssName=(await readdir('dist/assets')).find(x=>x.startsWith('main-')&&x.endsWith('.css'));
  const css=await readFile('dist/assets/'+cssName,'utf8');
  assert.match(html,/assets\/main-[^\"]+\.css/);
- assert.match(app,/WorldCanvas/);
+ assert.match(app,/MeasuredWorld/);
+ const ui=await readFile('.test-dist/ui/game-ui.js','utf8');assert.match(ui,/WorldCanvas/);assert.match(ui,/ResizeObserver/);
  assert.match(app,/selectedTileId/);
  assert.match(world,/scene-fallback-grid/);
- assert.match(css,/board-viewport-3d/);
+ assert.match(css,/board-card/);
  assert.match(css,/canvas-shell/);
- assert.match(css,/scene-hud/);
+ assert.match(css,/game-top/);
  assert.match(css,/prefers-reduced-motion/);
  assert.match(sw,/\.\/board-3d\.css/);
  assert.doesNotMatch(sw,/__CACHE_VERSION__/);

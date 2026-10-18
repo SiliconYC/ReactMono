@@ -21,5 +21,7 @@ test('#68 all audio is procedural, same-origin, offline',async()=>{
  assert.match(html,/assets\/main-[^\"]+\.css/);assert.match(sw,/\.\/audio.css/);
  assert.match(js,/createOscillator/);assert.match(js,/createGain/);
  assert.doesNotMatch(js,/\.mp3|\.ogg|https:\/\//);
- assert.match(css,/audio-toggle/);
+ assert.match(css,/setting-line/);
+ const app=await readFile('src/ui/app.tsx','utf8');
+ assert.match(app,/开启音效/);assert.match(app,/音效音量/);assert.match(app,/setEnabled/);
 });

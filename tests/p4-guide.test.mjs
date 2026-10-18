@@ -15,7 +15,7 @@ test('#69 offline static tutorial matches same-origin React bundle',async()=>{
  const cssName=(await readdir('dist/assets')).find(x=>x.startsWith('main-')&&x.endsWith('.css'));
  const css=await readFile('dist/assets/'+cssName,'utf8');
  assert.match(html,/assets\/main-[^\"]+\.css/);assert.match(sw,/\.\/guide.css/);
- assert.match(css,/guide-inline/);assert.match(css,/min-height:44px/);
- assert.match(js,/guideStep/);assert.match(js,/contextHint/);
+ assert.match(css,/help-content/);assert.match(css,/min-height:44px/);
+ assert.match(js,/renderHelp/);assert.match(js,/玩法说明/);assert.match(await readFile('src/ui/app.tsx','utf8'),/掷骰出发/);
  assert.doesNotMatch(css,/https?:\/\//);
 });

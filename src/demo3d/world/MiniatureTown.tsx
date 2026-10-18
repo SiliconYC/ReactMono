@@ -16,7 +16,7 @@ import {
 
 type TownProps = Readonly<{ game: GameState; onSelectTile?: (tileId:number)=>void }>;
 
-const PLAYER_COLORS = ['#ff715b', '#4f7cff', '#8058ad', '#e38a2e'] as const;
+import { MASCOT_SEAT_COLORS as PLAYER_COLORS } from './seats.js';
 function colorForOwner(game: GameState, ownerId: string): string {
   const index = game.players.findIndex(player => player.id === ownerId);
   return PLAYER_COLORS[index] ?? '#f8c95d';

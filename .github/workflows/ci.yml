@@ -50,150 +50,27 @@ jobs:
           path: artifacts/demo-*
           if-no-files-found: warn
           retention-days: 30
-      - name: P4 #72 正式版桌面手机真实性能 / 视觉 / 旧公开基线对照
-        run: python tests/browser_p4_release_e2e.py
-      - name: 保留 #72 真实浏览器性能、前后截图、资源许可/体积预算
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: issue72-release-perf-visual-offline
-          path: artifacts/issue72/
-          if-no-files-found: warn
-          retention-days: 30
-      - name: P4 #63 原创美术 React 切片真实浏览器回归
+      # Main-game UI migrated from the 2D DOM to the real 3D scene.
+      # See docs/main-game-ui-redesign/test-migration.md for the preserved contracts.
+      - name: 原创美术样例独立浏览器回归
         run: python tests/browser_p4_visual_lab_e2e.py
-      - name: 保留 P4 #63 桌面与手机交互截图
+      - name: 主程序七视口标题、准备、购地、金融及键盘检查
+        run: python -u tests/browser_ui_rebuild_e2e.py
+      - name: 主程序两图四人完整对局、规则功能、动画与离线存档
+        timeout-minutes: 10
+        run: python -u tests/browser_main_game_acceptance.py
+      - name: 主程序WebAudio/GPU、损坏文件拒绝与双SW更新检查
+        timeout-minutes: 5
+        run: python -u tests/browser_main_runtime_e2e.py
+      - name: 保留主程序真实画面、功能、运行时与资源预算证据
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: issue63-original-art-chromium
-          path: artifacts/issue63/
-          if-no-files-found: warn
-          retention-days: 30
-      - name: P4 #64 纸艺双地图真实 Chromium、四人同格与离线回归
-        run: python tests/browser_p4_board_e2e.py
-      - name: 保留 P4 #64 浏览器棋盘截图和地图坐标
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: issue64-paper-town-board-chromium
-          path: artifacts/issue64/
-          if-no-files-found: warn
-          retention-days: 30
-      - name: P4 #65 原创角色与多人身份完整 Chromium 验收
-        run: python tests/browser_p4_characters_e2e.py
-      - name: 保留 P4 #65 真实桌面/手机角色、交接和离线截图
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: issue65-original-characters-chromium
-          path: artifacts/issue65/
-          if-no-files-found: warn
-          retention-days: 30
-      - name: P4 #66 实际桌面／手机操作优先布局与交易完整验收
-        run: python tests/browser_p4_action_layout_e2e.py
-      - name: 保留 #66 浏览器截图、操作层级及交易轨迹
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: issue66-action-layout-chromium
-          path: artifacts/issue66/
-          if-no-files-found: warn
-          retention-days: 30
-      - name: P4 #67 真实 Chromium 动效/跳过/减弱验证
-        run: python tests/browser_p4_motion_e2e.py
-      - name: 保留 #67 真实事件轨迹和截图
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: issue67-motion-chromium
-          path: artifacts/issue67/
-          if-no-files-found: warn
-          retention-days: 30
-      - name: P4 #68 实际桌面/手机声音及离线验收
-        run: python tests/browser_p4_audio_e2e.py
-      - name: 保留 #68 音频操作真实截图与轨迹
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: issue68-original-audio-chromium
-          path: artifacts/issue68/
-          if-no-files-found: warn
-          retention-days: 30
-      - name: P4 #69 真实浏览器首次体验和离线引导
-        run: python tests/browser_p4_guide_e2e.py
-      - name: 保留 #69 新手行为与触控截图证据
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: issue69-novice-guide-chromium
-          path: artifacts/issue69/
-          if-no-files-found: warn
-          retention-days: 30
-      - name: P4 #70 实际浏览器电脑快进/暂停及固定种子对照
-        run: python tests/browser_p4_cpu_pace_e2e.py
-      - name: 保留 #70 正常/快速完整对局计时与屏幕证据
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: issue70-cpu-pacing-chromium
-          path: artifacts/issue70/
-          if-no-files-found: warn
-          retention-days: 30
-      - name: 真实 Chromium 端到端回归（本地 HTTP 子路径）
-        run: |
-          python tests/browser_live_e2e.py
-          python tests/browser_multiplayer_e2e.py
-          python tests/browser_map_layout_e2e.py
-          python tests/browser_local_multiplayer_e2e.py
-          python tests/browser_second_map_e2e.py
-          python tests/browser_liquidation_e2e.py
-          python tests/browser_bank_e2e.py
-          python tests/browser_loan_e2e.py
-          python tests/browser_stocks_e2e.py
-          python tests/browser_strategy_e2e.py
-          python tests/browser_facilities_e2e.py
-          python tests/browser_saves_e2e.py
-          python tests/browser_import_e2e.py
-          python tests/browser_offline_e2e.py
-          python tests/browser_p2_acceptance.py
-          python tests/browser_sw_upgrade_e2e.py
-          python tests/browser_public_e2e.py
-          python tests/browser_agent_styles_e2e.py
-          python tests/browser_assets_e2e.py
-          python tests/browser_p3_public_final_e2e.py
-      - name: 留存 #43 桌面与手机 Chromium 截图
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: issue43-assets-chromium
-          path: artifacts/issue43/*.png
-          if-no-files-found: ignore
-          retention-days: 7
-      - name: 留存 #42 浏览器截图证据
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: issue42-chromium-screenshots
-          path: artifacts/issue42/*.png
-          if-no-files-found: ignore
-          retention-days: 7
-      - name: 留存 #45 1000 局原始记录与公网 Chromium 截图
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: issue45-final-acceptance
-          path: artifacts/issue45/
-          if-no-files-found: warn
-          retention-days: 30
-      - name: P4 #62 六视口真实 Chromium 体验基线
-        run: python tests/browser_p4_baseline_e2e.py
-      - name: 保留 P4 #62 浏览器审计原始截图和指标
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: issue62-experience-baseline
-          path: artifacts/issue62/
+          name: main-game-3d-ui-acceptance
+          path: |
+            artifacts/ui-rebuild/
+            artifacts/main3d/
+            artifacts/issue63/
           if-no-files-found: warn
           retention-days: 30
       - name: 确认产物不含第三方运行时引用

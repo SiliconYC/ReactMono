@@ -21,10 +21,27 @@
       <a href="design-notes.md">设计解读与讨论补充</a>
       <a href="README.md">目录与交接说明</a>
     </nav>
-    <p class="notice"><strong>这是设计建议，尚未实施。</strong> 棋盘仅为构图示意，不代表游戏实现或最终美术。示例中的金额、角色、地图选择、金融与镜头反馈不连接真实游戏逻辑。</p>
+    <p class="notice"><strong>档案包含两类画面。</strong> 2026-10-19章节是重做后的真实主程序；2026-10-18原示例只表达布局建议，其按钮、金额与金融操作不连接游戏逻辑。</p>
   </header>
   <main>
-    <h2>四个页面状态，一眼看清组织方式</h2>
+    <h2>2026-10-19：真实主程序重做</h2>
+    <p>根据所有者对首轮实现的退回意见，重建标题、新局准备、紧凑HUD和统一窗口，保留真实规则、AI、存档和离线系统。下面为生产构建的真实 Chromium 截图，区别于下方历史示例。</p>
+    <nav class="actions"><a class="main" href="rebuild-2026-10-19.md">重做设计与验收记录 →</a><a href="test-migration.md">浏览器验收迁移对照</a></nav>
+    <div class="grid">
+      <figure><a href="previews/rebuild/title-1440.png"><img src="previews/rebuild/title-1440.png" alt="真实新版标题页与原创矢量小镇插画"></a><figcaption><h3>独立标题画面</h3>主菜单具有完整样式，默认开始／继续游戏，存档与设置各有入口。</figcaption></figure>
+      <figure><a href="previews/rebuild/setup-1440.png"><img src="previews/rebuild/setup-1440.png" alt="真实新版准备页：地图与直接可见的席位设置"></a><figcaption><h3>准备一场真实对局</h3>姓名、真人／电脑、策略直接可见，支持2～4席；开始操作固定可达。</figcaption></figure>
+      <figure><a href="previews/rebuild/turn-1440.png"><img src="previews/rebuild/turn-1440.png" alt="真实新版游戏：玩家卡与底部精简行动条，完整3D棋盘"></a><figcaption><h3>棋盘与当前行动</h3>移除旧侧栏样式链，默认全景按HUD实测占位构图。</figcaption></figure>
+      <figure><a href="previews/rebuild/arrival-1440.png"><img src="previews/rebuild/arrival-1440.png" alt="真实购地：地价、租金、购买后现金与两个无需滚动的选择"></a><figcaption><h3>完整的到访决策</h3>购地的后果直接可读；到访自有地时同处显示建造／升级。</figcaption></figure>
+      <figure><a href="previews/rebuild/bank-1440.png"><img src="previews/rebuild/bank-1440.png" alt="真实银行窗口已完成100游戏币存款，现金和存款分账"></a><figcaption><h3>真正独立的金融窗口</h3>统一原生模态隔离背景输入，支持键盘关闭与焦点恢复。</figcaption></figure>
+      <figure class="mobile"><a href="previews/rebuild/arrival-390.png"><img src="previews/rebuild/arrival-390.png" alt="真实390像素手机宽度购地界面"></a><figcaption><h3>窄屏也保留两项选择</h3>桌面Chromium手机视口，不能代替真机GPU和触摸验收。</figcaption></figure>
+    </div>
+    <h2>首轮实现的真实退化证据</h2>
+    <p>以下来自本轮修改前的dev@3ca88d0实测，保留失败记录，避免把旧测试通过冒充良好体验。</p>
+    <div class="grid">
+      <figure><a href="evidence/rebuild/title-before.png"><img loading="lazy" src="evidence/rebuild/title-before.png" alt="首轮实现标题按钮未设样式、小镇被山丘遮挡"></a><figcaption>标题主按钮退回浏览器默认样式。</figcaption></figure>
+      <figure><a href="evidence/rebuild/arrival-before.png"><img loading="lazy" src="evidence/rebuild/arrival-before.png" alt="首轮购地界面挤压、文字对比度低、放弃操作被滚动隐藏"></a><figcaption>旧侧栏移到底部后仍超高，关键决定不可同时看到。</figcaption></figure>
+    </div>
+    <h2>原四状态设计参考 · 2026-10-18</h2>
     <div class="grid">
       <figure><a href="previews/title-desktop.jpg"><img src="previews/title-desktop.jpg" alt="标题画面：游戏名称、继续游戏、新游戏与读取存档，右侧是小镇构图"></a><figcaption><h3>标题画面</h3>清楚的游戏身份与主菜单。没有开局表单、资产报表、金融与选地工具；有存档时优先继续游戏。</figcaption></figure>
       <figure><a href="previews/setup-desktop.jpg"><img src="previews/setup-desktop.jpg" alt="新局准备：地图卡、玩家席位、对局设置与底部开始对局"></a><figcaption><h3>新局准备</h3>地图与席位组织成游戏准备流程，复杂设置进入次级页面。正式实现保留2～4人和已有配置能力。</figcaption></figure>

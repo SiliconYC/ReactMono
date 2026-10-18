@@ -1,9 +1,9 @@
 /** P4 #71: PRE-REGISTERED 1000-pair trial. Experimental configuration only. */
 import {mkdirSync,writeFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
-import {runSimulation} from '../dist/core/simulator.js';
-import {DEFAULT_CONFIG,HARBOR_CONFIG,netWorth} from '../dist/core/game.js';
-import {cpuDelay} from '../dist/ui/computer-pace.js';
+import {runSimulation} from '../.test-dist/core/simulator.js';
+import {DEFAULT_CONFIG,HARBOR_CONFIG,netWorth} from '../.test-dist/core/game.js';
+import {cpuDelay} from '../.test-dist/ui/computer-pace.js';
 const TOTAL=1000,STYLES=['conservative','balanced','aggressive'];
 const OUTPUT='artifacts/issue71/p4-balance-paired-1000x2.json';
 const baseStats=()=>({games:0,roundLimit:0,bankruptcyFinish:0,totalRounds:0,totalTurns:0,actions:0,illegal:0,

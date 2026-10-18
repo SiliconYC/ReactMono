@@ -20,10 +20,10 @@ test('主程序页面使用单一同源 React/R3F bundle 并预缓存实际入�
 test('主程序规则入口保留 demo 已验证的到访建造与存款股市分账规则', async () => {
   const source = await readFile('src/ui/app.tsx', 'utf8');
   const start = source.slice(source.indexOf('startGame ='), source.indexOf('componentWillUnmount'));
-  assert.match(start, /propertyVisitOnly:true/);
-  assert.match(start, /stockAccount:'bank'/);
-  assert.match(start, /bankEnabled:true/);
-  assert.match(start, /marketEnabled:true/);
+  assert.match(start, /propertyVisitOnly:\s*true/);
+  assert.match(start, /stockAccount:\s*["']bank["']/);
+  assert.match(start, /bankEnabled:\s*true/);
+  assert.match(start, /marketEnabled:\s*true/);
 });
 
 test('Vite 开发预览不会注册占位 Service Worker 覆盖热更新资源', async () => {
