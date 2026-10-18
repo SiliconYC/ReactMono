@@ -1,12 +1,12 @@
 /* 精确版本的同源静态资源缓存；IndexedDB 和用户文件不归服务工作线程管理。 */
-const VERSION='reactmono-d59cf413c7e6cbe7';
+const VERSION='reactmono-8f939361cb32d3e9';
 const PRECACHE=['./','./index.html','./style.css','./board-art.css','./characters.css','./action-layout.css','./motion.css','./audio.css','./guide.css','./board-3d.css',
  './visual-lab.html','./visual-lab.css','./visual-tokens.css','./art-manifest.json',
  './art/house.svg','./art/coin.svg',
  './art/character-fox.svg','./art/character-bear.svg','./art/character-rabbit.svg','./art/character-bird.svg',
  './assets/jsx-runtime-DGkkg7OM.js',
- './assets/main-BB013rb5.css',
- './assets/main-Ccw6fpLM.js',
+ './assets/main-0aQh8_MP.css',
+ './assets/main-Cr4_oWg8.js',
  './assets/manifest-C-zx9ihZ.webmanifest',
  './assets/visualLab-C6wOfcDB.js',
  './assets/visualLab-rR3xiTWP.css',
