@@ -3,7 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { Dice } from './Dice.js';
 import type { OutcomeCue } from '../outcomes.js';
-import { positionForTile } from './layout.js';
+import { ACTOR_ANCHOR_Y, ROAD_TILE_TOP, positionForTile } from './layout.js';
 
 export type MotionCue = Readonly<{
   actorId: string;
@@ -62,7 +62,7 @@ export function Mascot({
   useLayoutEffect(() => {
     if (!reducedMotion || isMoving || !root.current) return;
     const point = positionForTile(tileId);
-    root.current.position.set(point.x + offset, 0.27, point.z - offset);
+    root.current.position.set(point.x + offset, ACTOR_ANCHOR_Y, point.z - offset);
     // CameraRig must see the settled target before the single demand frame.
     if (active) trackedPosition.copy(root.current.position);
   }, [reducedMotion, isMoving, tileId, offset, active, trackedPosition]);
@@ -84,7 +84,7 @@ export function Mascot({
     if (reducedMotion) {
       const finalTile = motion.path[motion.path.length - 1];
       const final = positionForTile(finalTile);
-      root.current?.position.set(final.x + offset, 0.27, final.z - offset);
+      root.current?.position.set(final.x + offset, ACTOR_ANCHOR_Y, final.z - offset);
       onStep(finalTile);
       queueMicrotask(onMotionComplete);
     }
@@ -124,7 +124,7 @@ export function Mascot({
       const point = positionForTile(tileId);
       group.position.x = reducedMotion ? point.x + offset : THREE.MathUtils.lerp(group.position.x, point.x + offset, 0.2);
       group.position.z = reducedMotion ? point.z - offset : THREE.MathUtils.lerp(group.position.z, point.z - offset, 0.2);
-      group.position.y = 0.27;
+      group.position.y = ACTOR_ANCHOR_Y;
       if (active) trackedPosition.copy(group.position);
       return;
     }
@@ -142,7 +142,7 @@ export function Mascot({
     const eased = local * local * (3 - 2 * local);
     group.position.set(
       THREE.MathUtils.lerp(from.x, to.x, eased),
-      0.27 + Math.sin(local * Math.PI) * 0.24,
+      ACTOR_ANCHOR_Y + Math.sin(local * Math.PI) * 0.24,
       THREE.MathUtils.lerp(from.z, to.z, eased)
     );
     group.rotation.y = THREE.MathUtils.lerp(group.rotation.y, Math.atan2(to.x - from.x, to.z - from.z), 0.2);
@@ -157,7 +157,7 @@ export function Mascot({
     if (travelTime >= motion.path.length * stepDuration + 0.18 && !completed.current) {
       completed.current = true;
       const final = positionForTile(motion.path[motion.path.length - 1]);
-      group.position.set(final.x + offset, 0.27, final.z - offset);
+      group.position.set(final.x + offset, ACTOR_ANCHOR_Y, final.z - offset);
       onStep(motion.path[motion.path.length - 1]);
       onMotionComplete();
     }
@@ -170,12 +170,12 @@ export function Mascot({
   return (
     <group ref={root}>
       {active && !outcome && <Dice value={dieValue} nonce={dieNonce} reducedMotion={reducedMotion} />}
-      <mesh position={[0, -0.2, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+      <mesh position={[0, ROAD_TILE_TOP - ACTOR_ANCHOR_Y + 0.004, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <circleGeometry args={[0.43, 20]} />
         <meshBasicMaterial color="#173b36" transparent opacity={0.2} depthWrite={false} />
       </mesh>
       {active && (
-        <mesh position={[0, -0.12, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <mesh position={[0, ROAD_TILE_TOP - ACTOR_ANCHOR_Y + 0.004, 0]} rotation={[-Math.PI / 2, 0, 0]}>
           <ringGeometry args={[0.46, 0.58, 24]} />
           <meshBasicMaterial color="#ffe27b" transparent opacity={0.95} side={THREE.DoubleSide} />
         </mesh>

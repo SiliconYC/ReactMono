@@ -2,7 +2,16 @@ import * as THREE from 'three';
 import { useEffect, useMemo } from 'react';
 import type { GameState, Tile } from '../../core/game.js';
 import { rowHouses } from '../properties.js';
-import { LOT_ANCHORS, TILE_ANCHORS } from './layout.js';
+import {
+  GROUND_TOP,
+  ISLAND_BOTTOM,
+  LOT_ANCHORS,
+  ROAD_CONNECTOR_CENTER_Y,
+  ROAD_CONNECTOR_THICKNESS,
+  ROAD_TILE_CENTER_Y,
+  ROAD_TILE_THICKNESS,
+  TILE_ANCHORS
+} from './layout.js';
 
 type TownProps = Readonly<{ game: GameState }>;
 
@@ -138,7 +147,7 @@ function NeutralLandmark({ tileId }: { tileId: number }): React.JSX.Element {
         <meshStandardMaterial color="#b9d889" roughness={0.92} />
       </mesh>
       <Tree position={[-0.2, 0.08, 0.05]} scale={0.7} />
-      <mesh position={[0.32, 0.22, 0.12]}>
+      <mesh position={[0.32, 0.19, 0.12]}>
         <boxGeometry args={[0.5, 0.1, 0.16]} />
         <meshStandardMaterial color="#d49a63" roughness={0.9} />
       </mesh>
@@ -148,7 +157,7 @@ function NeutralLandmark({ tileId }: { tileId: number }): React.JSX.Element {
 
 function ClockTower(): React.JSX.Element {
   return (
-    <group position={[0, 0.02, 0]}>
+    <group position={[0, GROUND_TOP, 0]}>
       <mesh position={[0, 0.14, 0]}>
         <cylinderGeometry args={[2.25, 2.4, 0.28, 12]} />
         <meshStandardMaterial color="#92c89e" roughness={0.9} />
@@ -190,18 +199,18 @@ export function MiniatureTown({ game }: TownProps): React.JSX.Element {
         <cylinderGeometry args={[8.15, 8.25, 0.26, 12]} />
         <meshStandardMaterial color="#8ecf99" roughness={0.94} />
       </mesh>
-      <mesh position={[0, -1.2, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+      <mesh position={[0, ISLAND_BOTTOM, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <circleGeometry args={[22, 48]} />
         <meshStandardMaterial color="#76c7cc" roughness={0.38} metalness={0.02} />
       </mesh>
 
       {TILE_ANCHORS.map((point, index) => (
-        <group key={`road-${index}`} position={[point.x, -0.02, point.z]}>
+        <group key={`road-${index}`} position={[point.x, ROAD_TILE_CENTER_Y, point.z]}>
           <mesh>
-            <boxGeometry args={[1.78, 0.19, 1.78]} />
+            <boxGeometry args={[1.78, ROAD_TILE_THICKNESS, 1.78]} />
             <meshStandardMaterial color={index === 0 ? '#f4cc5c' : '#dbe2d6'} roughness={0.88} />
           </mesh>
-          <mesh position={[0, 0.101, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+          <mesh position={[0, ROAD_TILE_THICKNESS / 2 + 0.004, 0]} rotation={[-Math.PI / 2, 0, 0]}>
             <ringGeometry args={[0.13, 0.17, 16]} />
             <meshBasicMaterial color={index === 0 ? '#fff9d9' : '#9eb4a6'} side={THREE.DoubleSide} />
           </mesh>
@@ -212,8 +221,8 @@ export function MiniatureTown({ game }: TownProps): React.JSX.Element {
         const next = TILE_ANCHORS[(index + 1) % TILE_ANCHORS.length];
         const horizontal = point.z === next.z;
         return (
-          <mesh key={`edge-${index}`} position={[(point.x + next.x) / 2, -0.03, (point.z + next.z) / 2]}>
-            <boxGeometry args={horizontal ? [2, 0.17, 0.72] : [0.72, 0.17, 2]} />
+          <mesh key={`edge-${index}`} position={[(point.x + next.x) / 2, ROAD_CONNECTOR_CENTER_Y, (point.z + next.z) / 2]}>
+            <boxGeometry args={horizontal ? [2, ROAD_CONNECTOR_THICKNESS, 0.72] : [0.72, ROAD_CONNECTOR_THICKNESS, 2]} />
             <meshStandardMaterial color="#dbe2d6" roughness={0.88} />
           </mesh>
         );
@@ -224,7 +233,7 @@ export function MiniatureTown({ game }: TownProps): React.JSX.Element {
         const road = TILE_ANCHORS[tile.id];
         const inwardAngle = Math.abs(road.z) === 4 ? (road.z < 0 ? 0 : Math.PI) : (road.x > 0 ? -Math.PI / 2 : Math.PI / 2);
         return (
-          <group key={tile.id} position={[lot.x, -0.03, lot.z]} rotation={[0, inwardAngle, 0]}>
+          <group key={tile.id} position={[lot.x, GROUND_TOP, lot.z]} rotation={[0, inwardAngle, 0]}>
             {tile.kind === 'property' ? <House tile={tile} /> : <NeutralLandmark tileId={tile.id} />}
           </group>
         );
@@ -237,12 +246,16 @@ export function MiniatureTown({ game }: TownProps): React.JSX.Element {
         const horizontal = a.z === b.z;
         const height = Math.min(game.tiles[id].level ?? 1, game.tiles[row.tileIds[index]].level ?? 1) === 2 ? 1.45 : 0.85;
         return (
-          <group key={`terrace-${id}`} position={[(a.x + b.x) / 2, 0, (a.z + b.z) / 2]}>
-            <mesh position={[0, height / 2 + 0.13, 0]}>
+          <group key={`terrace-${id}`} position={[(a.x + b.x) / 2, GROUND_TOP, (a.z + b.z) / 2]}>
+            <mesh position={[0, 0.09, 0]}>
+              <boxGeometry args={horizontal ? [1.35, 0.18, 0.86] : [0.86, 0.18, 1.35]} />
+              <meshStandardMaterial color={row.ownerId === 'p1' ? '#ff715b' : '#4f7cff'} roughness={0.86} />
+            </mesh>
+            <mesh position={[0, height / 2 + 0.18, 0]}>
               <boxGeometry args={horizontal ? [1.22, height, 0.72] : [0.72, height, 1.22]} />
               <meshStandardMaterial color={row.ownerId === 'p1' ? '#ffb278' : '#91b5ff'} roughness={0.78} />
             </mesh>
-            <mesh position={[0, height + 0.2, 0]}>
+            <mesh position={[0, height + 0.25, 0]}>
               <boxGeometry args={horizontal ? [1.35, 0.18, 0.86] : [0.86, 0.18, 1.35]} />
               <meshStandardMaterial color={row.ownerId === 'p1' ? '#c85045' : '#385da9'} />
             </mesh>
@@ -251,10 +264,10 @@ export function MiniatureTown({ game }: TownProps): React.JSX.Element {
       }))}
 
       <ClockTower />
-      <Lamp position={[-2.9, 0.08, -2.9]} />
-      <Lamp position={[2.9, 0.08, -2.9]} />
-      <Lamp position={[-2.9, 0.08, 2.9]} />
-      <Lamp position={[2.9, 0.08, 2.9]} />
+      <Lamp position={[-2.9, GROUND_TOP, -2.9]} />
+      <Lamp position={[2.9, GROUND_TOP, -2.9]} />
+      <Lamp position={[-2.9, GROUND_TOP, 2.9]} />
+      <Lamp position={[2.9, GROUND_TOP, 2.9]} />
     </group>
   );
 }

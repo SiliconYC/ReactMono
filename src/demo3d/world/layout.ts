@@ -1,5 +1,15 @@
 export type WorldPoint = Readonly<{ x: number; z: number }>;
 
+/** Shared scene heights keep board pieces grounded on the miniature terrain. */
+export const GROUND_TOP = -0.29;
+export const ROAD_TILE_THICKNESS = 0.06;
+export const ROAD_TILE_TOP = GROUND_TOP + ROAD_TILE_THICKNESS;
+export const ROAD_TILE_CENTER_Y = GROUND_TOP + ROAD_TILE_THICKNESS / 2;
+export const ROAD_CONNECTOR_THICKNESS = 0.04;
+export const ROAD_CONNECTOR_CENTER_Y = GROUND_TOP + ROAD_CONNECTOR_THICKNESS / 2;
+export const ACTOR_ANCHOR_Y = ROAD_TILE_TOP - 0.1;
+export const ISLAND_BOTTOM = -1.18;
+
 export const TILE_ANCHORS: readonly WorldPoint[] = [
   { x: -4, z: -4 }, { x: -2, z: -4 }, { x: 0, z: -4 }, { x: 2, z: -4 }, { x: 4, z: -4 },
   { x: 4, z: -2 }, { x: 4, z: 0 }, { x: 4, z: 2 }, { x: 4, z: 4 },

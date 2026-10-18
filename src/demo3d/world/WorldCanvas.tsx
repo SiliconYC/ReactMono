@@ -8,7 +8,7 @@ import type { OutcomeCue } from '../outcomes.js';
 import type { RentCue } from '../presentation.js';
 import { Mascot, type MotionCue } from './Mascot.js';
 import { MiniatureTown } from './MiniatureTown.js';
-import { positionForTile } from './layout.js';
+import { ACTOR_ANCHOR_Y, positionForTile } from './layout.js';
 
 type WorldCanvasProps = Readonly<{
   game: GameState;
@@ -66,7 +66,7 @@ function Scene(props: WorldCanvasProps): React.JSX.Element {
     : props.outcome?.actorId ?? props.motion?.actorId ?? props.rent?.fromId ?? actor.id;
   const focusActor = props.game.players.find(player => player.id === focusId) ?? actor;
   const point = positionForTile(focusActor.position);
-  const trackedPosition = useMemo(() => new THREE.Vector3(point.x, 0.27, point.z), []);
+  const trackedPosition = useMemo(() => new THREE.Vector3(point.x, ACTOR_ANCHOR_Y, point.z), []);
   return (
     <>
       <color attach="background" args={['#bfe6d9']} />
@@ -86,6 +86,7 @@ function Scene(props: WorldCanvasProps): React.JSX.Element {
         shadow-camera-bottom={-10}
         shadow-camera-near={0.5}
         shadow-camera-far={36}
+        shadow-intensity={0.3}
         shadow-bias={-0.0001}
         shadow-normalBias={0.025}
         shadow-radius={3}
