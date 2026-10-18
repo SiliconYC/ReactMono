@@ -23,6 +23,7 @@ type WorldCanvasProps = Readonly<{
   paused?: boolean;
   onMotionComplete: () => void;
   onActorStep: (tileId: number) => void;
+  onSelectTile?: (tileId: number) => void;
 }>;
 
 function CameraRig({ target, follow, reducedMotion }: { target: THREE.Vector3; follow: boolean; reducedMotion: boolean }): null {
@@ -65,7 +66,7 @@ function Scene(props: WorldCanvasProps): React.JSX.Element {
   const focusId = props.outcome?.stage === 'draw' ? null
     : props.outcome?.actorId ?? props.motion?.actorId ?? props.rent?.fromId ?? actor.id;
   const focusActor = props.game.players.find(player => player.id === focusId) ?? actor;
-  const point = positionForTile(focusActor.position);
+  const point = positionForTile(focusActor.position, props.game.map);
   const trackedPosition = useMemo(() => new THREE.Vector3(point.x, ACTOR_ANCHOR_Y, point.z), []);
   return (
     <>
@@ -92,13 +93,14 @@ function Scene(props: WorldCanvasProps): React.JSX.Element {
         shadow-radius={3}
       />
       <CameraRig target={trackedPosition} follow={props.followCurrent && props.outcome?.stage !== 'draw'} reducedMotion={props.reducedMotion} />
-      <MiniatureTown game={props.game} />
+      <MiniatureTown game={props.game} onSelectTile={props.onSelectTile} />
       {props.game.players.map((player, seat) => (
         <Mascot
           key={player.id}
           id={player.id}
           seat={seat}
           tileId={player.position}
+          map={props.game.map}
           active={player.id === focusId}
           bankrupt={player.bankrupt}
           awaitingExit={props.pendingBankruptIds?.includes(player.id) ?? false}
@@ -144,7 +146,7 @@ export function WorldCanvas(props: WorldCanvasProps): React.JSX.Element {
         camera={{ position: [10.2, 12.5, 10.2], zoom: 48, near: 0.1, far: 80 }}
         gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
         onCreated={() => setReady(true)}
-        fallback={<div className="scene-error" aria-hidden="true">此浏览器暂时无法建立 3D 场景，请启用 WebGL 后重试。</div>}
+        fallback={<div className="scene-error" role="status"><strong>当前浏览器无法建立 3D 场景</strong><span>仍可从下方列表查看地块，并使用原有回合操作继续游戏。</span><div className="scene-fallback-grid">{props.game.tiles.map(tile=><button key={tile.id} type="button" onClick={()=>props.onSelectTile?.(tile.id)}>{tile.id+1} · {tile.title}</button>)}</div></div>}
       >
         <Suspense fallback={null}>
           <Scene {...props} />

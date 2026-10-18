@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createGame, applyAction, DEFAULT_CONFIG, netWorth } from '../dist/core/game.js';
-import { serializeGame, deserializeGame, SaveError } from '../dist/core/save.js';
+import { createGame, applyAction, DEFAULT_CONFIG, netWorth } from '../.test-dist/core/game.js';
+import { serializeGame, deserializeGame, SaveError } from '../.test-dist/core/save.js';
 
 const now='2026-10-16T00:00:00.000Z';
 const roster=n=>Array.from({length:n},(_,i)=>({id:'p'+(i+1),name:'玩家'+(i+1),kind:'human'}));
@@ -70,9 +70,9 @@ test('P3-07: bank assets fund rent before land liquidation; bankruptcy never lea
     tiles:s.tiles.map(t=>t.id===1?{...t,ownerId:'p1',rent:40}:t)};
   // Choose deterministic landing on owned property without consuming market/dice differently.
   // All 24 board positions are valid, so reconstruct a property at the next dice destination.
-  const {nextDie}=await import('../dist/core/random.js');
+  const {nextDie}=await import('../.test-dist/core/random.js');
   const die=nextDie(s.randomState).value;
-  const {advancePosition}=await import('../dist/core/maps.js');
+  const {advancePosition}=await import('../.test-dist/core/maps.js');
   const landed=advancePosition(s.map,0,die);
   s={...s,tiles:s.tiles.map(t=>t.id===landed?{...t,kind:'property',price:100,rent:40,ownerId:'p1',level:0,upgradeCosts:[50,80],levelRents:[40,80,160]}:t)};
   // Avoid changing the start tile or invalid fixtures; use only 24-step non-start rolls.
@@ -150,7 +150,7 @@ test('P3-07: 100 seeded games across 3/4 seats conserve transfers, replay and in
   }
 });
 test('P3-07: computer has a legal bank action without touching P2 agent semantics',async()=>{
-  const {chooseComputerAction}=await import('../dist/core/agent.js');
+  const {chooseComputerAction}=await import('../.test-dist/core/agent.js');
   const s=createGame(7,{...DEFAULT_CONFIG,bankEnabled:true,initialCash:5000});
   const turn={...s,status:'playing',phase:'await_end_turn',currentPlayerIndex:1};
   const action=chooseComputerAction(turn);

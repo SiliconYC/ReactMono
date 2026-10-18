@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {DEFAULT_CONFIG,HARBOR_CONFIG} from '../dist/core/game.js';
-import {runSimulation} from '../dist/core/simulator.js';
+import {DEFAULT_CONFIG,HARBOR_CONFIG} from '../.test-dist/core/game.js';
+import {runSimulation} from '../.test-dist/core/simulator.js';
 
 // #44: independent, reproducible evidence. The P3 evaluator previously counted
 // only dice rolls, omitting turns spent detained in hospital/prison.

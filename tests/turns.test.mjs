@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createGame, applyAction, nextDie, DEFAULT_CONFIG } from '../dist/core/game.js';
+import { createGame, applyAction, nextDie, DEFAULT_CONFIG } from '../.test-dist/core/game.js';
 
 function act(state, type, actorId = state.players[state.currentPlayerIndex].id) {
   const result = applyAction(state, { type, actorId });

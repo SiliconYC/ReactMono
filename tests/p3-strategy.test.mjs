@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createGame,applyAction,DEFAULT_CONFIG,nextDie} from '../dist/core/game.js';
-import {serializeGame,deserializeGame,SaveError} from '../dist/core/save.js';
-import {runSimulation} from '../dist/core/simulator.js';
+import {createGame,applyAction,DEFAULT_CONFIG,nextDie} from '../.test-dist/core/game.js';
+import {serializeGame,deserializeGame,SaveError} from '../.test-dist/core/save.js';
+import {runSimulation} from '../.test-dist/core/simulator.js';
 const start=(seed=25,more={})=>{
   const s=createGame(seed,{...DEFAULT_CONFIG,strategyEnabled:true,...more});
   return applyAction(s,{type:'start_game',actorId:s.players[0].id}).state;

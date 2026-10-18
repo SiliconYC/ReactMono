@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createDemoGame, dispatchDemoAction } from '../dist/demo3d/session.js';
-import * as properties from '../dist/demo3d/properties.js';
+import { createDemoGame, dispatchDemoAction } from '../.test-dist/demo3d/session.js';
+import * as properties from '../.test-dist/demo3d/properties.js';
 
 const own = (state, ids, level = 1, ownerId = 'p1') => ({ ...state, tiles: state.tiles.map(tile => ids.includes(tile.id) ? { ...tile, ownerId, level } : tile) });
 
@@ -46,6 +46,21 @@ test('同街区连续建好的同业主房屋组成联排，允许不同等级',
   assert.deepEqual(properties.rowHouses?.(game), [{ blockId: 'north', ownerId: 'p1', tileIds: [1, 2, 3] }]);
 });
 
+test('主程序24格地图按规则地图边界识别联排街区，不沿用16格demo索引', async () => {
+  const { createGame, DEFAULT_CONFIG } = await import('../.test-dist/core/game.js');
+  const config = {
+    ...DEFAULT_CONFIG,
+    eventRules: { tileIds: [], bonus: 0, fee: 0 },
+    cardRules: { tileIds: [], rewardCash: 80, moveBonus: 2, maxHand: 3 },
+    tiles: DEFAULT_CONFIG.tiles.map(tile => tile.id === 0 ? tile : ({ ...tile, kind: 'property', price: tile.price ?? 100, rent: tile.rent ?? 20 }))
+  };
+  const base = createGame(1, { ...config, bankEnabled: true, loanEnabled: true, marketEnabled: true });
+  const game = own(base, [1, 2, 3, 4, 5, 6, 7]);
+  assert.deepEqual(properties.rowHouses(game), [
+    { blockId: 'north', ownerId: 'p1', tileIds: [1, 2, 3, 4, 5, 6, 7] }
+  ]);
+});
+
 test('空地、未买地、其他业主及街区边界都会截断联排', () => {
   const base = createDemoGame(1);
   for (const middle of [{ ownerId: 'p1', level: 0 }, { ownerId: null, level: 0 }, { ownerId: 'p2', level: 1 }]) {
@@ -60,7 +75,7 @@ test('空地、未买地、其他业主及街区边界都会截断联排', () =>
 });
 
 test('租金演出使用真实支付事件的双方与金额，不把应付金额当实付', async () => {
-  const { rentCueFor } = await import('../dist/demo3d/presentation.js');
+  const { rentCueFor } = await import('../.test-dist/demo3d/presentation.js');
   let state = createDemoGame(20261017);
   // First roll lands on tile 3; another player owns its upgraded residence.
   state = { ...own(state, [3], 2, 'p2'), players: state.players.map(p => p.id === 'p1' ? { ...p, cash: 10, bankBalance: 0 } : p) };

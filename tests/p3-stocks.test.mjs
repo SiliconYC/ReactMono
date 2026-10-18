@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createGame,applyAction,DEFAULT_CONFIG,STOCKS,netWorth,stockFee,quoteMarket,advanceMarket} from '../dist/core/game.js';
-import {serializeGame,deserializeGame,SaveError} from '../dist/core/save.js';
+import {createGame,applyAction,DEFAULT_CONFIG,STOCKS,netWorth,stockFee,quoteMarket,advanceMarket} from '../.test-dist/core/game.js';
+import {serializeGame,deserializeGame,SaveError} from '../.test-dist/core/save.js';
 
 const now='2026-10-16T00:00:00.000Z';
 const players=Array.from({length:4},(_,i)=>({id:'p'+(i+1),name:'玩家'+(i+1),kind:'human'}));

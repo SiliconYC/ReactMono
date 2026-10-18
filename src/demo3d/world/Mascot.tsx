@@ -4,6 +4,8 @@ import * as THREE from 'three';
 import { Dice } from './Dice.js';
 import type { OutcomeCue } from '../outcomes.js';
 import { ACTOR_ANCHOR_Y, ROAD_TILE_TOP, positionForTile } from './layout.js';
+import type { GameMap } from '../../core/types.js';
+import { mascotSeatLayout } from './seats.js';
 
 export type MotionCue = Readonly<{
   actorId: string;
@@ -16,6 +18,7 @@ type MascotProps = Readonly<{
   id: string;
   seat: number;
   tileId: number;
+  map: GameMap;
   active: boolean;
   motion: MotionCue | null;
   reducedMotion: boolean;
@@ -29,12 +32,11 @@ type MascotProps = Readonly<{
   outcome?: OutcomeCue | null;
 }>;
 
-const PLAYER_COLORS = ['#ff715b', '#4f7cff'] as const;
-
 export function Mascot({
   id,
   seat,
   tileId,
+  map,
   active,
   motion,
   reducedMotion,
@@ -56,16 +58,17 @@ export function Mascot({
   const completed = useRef(false);
   const reportedStep = useRef(-1);
   const isMoving = motion?.actorId === id && motion.path.length > 0;
-  const offset = seat === 0 ? -0.22 : 0.22;
+  const seatLayout = mascotSeatLayout(seat);
+  const {x: offsetX, z: offsetZ} = seatLayout;
   const actorOutcome = outcome?.actorId === id ? outcome : null;
 
   useLayoutEffect(() => {
     if (!reducedMotion || isMoving || !root.current) return;
-    const point = positionForTile(tileId);
-    root.current.position.set(point.x + offset, ACTOR_ANCHOR_Y, point.z - offset);
+    const point = positionForTile(tileId, map);
+    root.current.position.set(point.x + offsetX, ACTOR_ANCHOR_Y, point.z + offsetZ);
     // CameraRig must see the settled target before the single demand frame.
     if (active) trackedPosition.copy(root.current.position);
-  }, [reducedMotion, isMoving, tileId, offset, active, trackedPosition]);
+  }, [reducedMotion, isMoving, tileId, map, offsetX, offsetZ, active, trackedPosition]);
 
   useLayoutEffect(() => {
     outcomeElapsed.current = 0;
@@ -83,12 +86,12 @@ export function Mascot({
     reportedStep.current = -1;
     if (reducedMotion) {
       const finalTile = motion.path[motion.path.length - 1];
-      const final = positionForTile(finalTile);
-      root.current?.position.set(final.x + offset, ACTOR_ANCHOR_Y, final.z - offset);
+      const final = positionForTile(finalTile, map);
+      root.current?.position.set(final.x + offsetX, ACTOR_ANCHOR_Y, final.z + offsetZ);
       onStep(finalTile);
       queueMicrotask(onMotionComplete);
     }
-  }, [isMoving, motion?.nonce, motion, offset, onMotionComplete, onStep, reducedMotion]);
+  }, [isMoving, motion?.nonce, motion, map, offsetX, offsetZ, onMotionComplete, onStep, reducedMotion]);
 
   useFrame(({ clock }, delta) => {
     const group = root.current;
@@ -121,9 +124,9 @@ export function Mascot({
     }
 
     if (!isMoving || reducedMotion || motion === null) {
-      const point = positionForTile(tileId);
-      group.position.x = reducedMotion ? point.x + offset : THREE.MathUtils.lerp(group.position.x, point.x + offset, 0.2);
-      group.position.z = reducedMotion ? point.z - offset : THREE.MathUtils.lerp(group.position.z, point.z - offset, 0.2);
+      const point = positionForTile(tileId, map);
+      group.position.x = reducedMotion ? point.x + offsetX : THREE.MathUtils.lerp(group.position.x, point.x + offsetX, 0.2);
+      group.position.z = reducedMotion ? point.z + offsetZ : THREE.MathUtils.lerp(group.position.z, point.z + offsetZ, 0.2);
       group.position.y = ACTOR_ANCHOR_Y;
       if (active) trackedPosition.copy(group.position);
       return;
@@ -136,8 +139,8 @@ export function Mascot({
     const segment = Math.min(motion.path.length - 1, Math.floor(travelTime / stepDuration));
     const fromTile = segment === 0 ? motion.fromTileId : motion.path[segment - 1];
     const toTile = motion.path[segment];
-    const from = positionForTile(fromTile);
-    const to = positionForTile(toTile);
+    const from = positionForTile(fromTile, map);
+    const to = positionForTile(toTile, map);
     const local = THREE.MathUtils.clamp((travelTime - segment * stepDuration) / stepDuration, 0, 1);
     const eased = local * local * (3 - 2 * local);
     group.position.set(
@@ -156,8 +159,8 @@ export function Mascot({
 
     if (travelTime >= motion.path.length * stepDuration + 0.18 && !completed.current) {
       completed.current = true;
-      const final = positionForTile(motion.path[motion.path.length - 1]);
-      group.position.set(final.x + offset, ACTOR_ANCHOR_Y, final.z - offset);
+      const final = positionForTile(motion.path[motion.path.length - 1], map);
+      group.position.set(final.x + offsetX, ACTOR_ANCHOR_Y, final.z + offsetZ);
       onStep(motion.path[motion.path.length - 1]);
       onMotionComplete();
     }
@@ -165,7 +168,7 @@ export function Mascot({
 
   if (bankrupt && !awaitingExit) return null;
 
-  const color = PLAYER_COLORS[seat] ?? PLAYER_COLORS[0];
+  const color = seatLayout.color;
   const isFox = seat === 0;
   return (
     <group ref={root}>

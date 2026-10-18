@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { applyAction, createGame } from '../dist/core/game.js';
-import { chooseComputerAction } from '../dist/core/agent.js';
+import { applyAction, createGame } from '../.test-dist/core/game.js';
+import { chooseComputerAction } from '../.test-dist/core/agent.js';
 function computerTurn(seed=17) {
   const s=applyAction(createGame(seed),{type:'start_game',actorId:'p1'}).state;
   return {...s,currentPlayerIndex:1};

@@ -9,9 +9,9 @@ import { positionForTile } from './layout.js';
 export function RentTransfer({ game, cue, reducedMotion }: { game: GameState; cue: RentCue; reducedMotion: boolean }): React.JSX.Element | null {
   const root = useRef<THREE.Group>(null);
   const elapsed = useRef(0);
-  const from = positionForTile(cue.tileId);
+  const from = positionForTile(cue.tileId, game.map);
   const recipient = game.players.find(player => player.id === cue.toId);
-  const to = positionForTile(recipient?.position ?? cue.tileId);
+  const to = positionForTile(recipient?.position ?? cue.tileId, game.map);
   useFrame((_, delta) => {
     elapsed.current += delta;
     root.current?.children.forEach((coin, index) => {

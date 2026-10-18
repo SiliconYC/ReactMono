@@ -1,11 +1,12 @@
 /** P4 #65: 4 original paper-art characters. Identity is the persisted seat index, never AI/human status. */
+import type * as React from 'react';
 export const CHARACTER_NAMES = ['纸狐','圆熊','长耳兔','帆鸟'] as const;
 export const CHARACTER_FILES = ['fox','bear','rabbit','bird'] as const;
 export type CharacterMode = 'human'|'computer';
 export type CharacterDisplay = 'pawn'|'portrait'|'badge'|'setup'|'winner';
 
 /** Character assets have no network dependencies and are precached by the service worker. */
-export function characterMarker(seat:number,kind:CharacterMode,display:CharacterDisplay,active=false,moving=false):unknown {
+export function characterMarker(seat:number,kind:CharacterMode,display:CharacterDisplay,active=false,moving=false):React.JSX.Element {
   const index=Math.max(0,Math.min(3,seat));
   const name=CHARACTER_NAMES[index],filename=CHARACTER_FILES[index];
   // Preserve legacy .piece / .portrait / .player-dot selectors for P1-P4 browser contracts.

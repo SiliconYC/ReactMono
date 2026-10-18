@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFile,stat} from 'node:fs/promises';
+import {readFile,stat,readdir} from 'node:fs/promises';
 const assets=['fox','bear','rabbit','bird'];
 
 test('#65 ships four distinct licensed original characters and no network assets',async()=>{
@@ -18,10 +18,12 @@ test('#65 ships four distinct licensed original characters and no network assets
   }
   const unique=await Promise.all(assets.map(n=>readFile('dist/art/character-'+n+'.svg','utf8')));
   assert.equal(new Set(unique).size,4);
-  const [html,css,sw,app,characters]=await Promise.all([
-    'dist/index.html','dist/characters.css','dist/sw.js','dist/ui/app.js','dist/ui/characters.js'
+  const [html,sw,app,characters]=await Promise.all([
+    'dist/index.html','dist/sw.js','.test-dist/ui/app.js','.test-dist/ui/characters.js'
   ].map(p=>readFile(p,'utf8')));
-  assert.match(html,/href="\.\/characters\.css"/);
+  const cssName=(await readdir('dist/assets')).find(x=>x.startsWith('main-')&&x.endsWith('.css'));
+  const css=await readFile('dist/assets/'+cssName,'utf8');
+  assert.match(html,/assets\/main-[^\"]+\.css/);
   assert.match(css,/prefers-reduced-motion:reduce/);
   assert.match(css,/character-moving/);
   assert.match(app,/characterMarker/);

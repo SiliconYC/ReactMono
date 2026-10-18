@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { STOCKS, createMarket, advanceMarket, quoteMarket, validateMarket } from '../dist/core/market.js';
+import { STOCKS, createMarket, advanceMarket, quoteMarket, validateMarket } from '../.test-dist/core/market.js';
 
 test('P3-09: 5 invented stocks, finite quotes and independent PRNG',()=>{
   assert.equal(STOCKS.length,5);
@@ -48,8 +48,8 @@ test('P3-09: 500 seeds × 200 complete rounds prices bounded and never overflow'
 });
 
 test('P3-09: optional quotes settle precisely once per turn cycle, never consume dice RNG',async()=>{
-  const {createGame,applyAction,DEFAULT_CONFIG}=await import('../dist/core/game.js');
-  const {serializeGame,deserializeGame}=await import('../dist/core/save.js');
+  const {createGame,applyAction,DEFAULT_CONFIG}=await import('../.test-dist/core/game.js');
+  const {serializeGame,deserializeGame}=await import('../.test-dist/core/save.js');
   const config={...DEFAULT_CONFIG,tiles:[{id:0,kind:'start',title:'起点'},{id:1,kind:'neutral',title:'空地'}],maxRounds:4,marketEnabled:true};
   const plain={...config,marketEnabled:false};
   let a=createGame(42,config),b=createGame(42,plain);

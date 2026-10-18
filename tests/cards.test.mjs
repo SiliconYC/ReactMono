@@ -1,8 +1,8 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {createGame,applyAction,nextDie} from '../dist/core/game.js';
-import {serializeGame,deserializeGame} from '../dist/core/save.js';
-import {chooseComputerAction} from '../dist/core/agent.js';
-import {runSimulation} from '../dist/core/simulator.js';
+import {createGame,applyAction,nextDie} from '../.test-dist/core/game.js';
+import {serializeGame,deserializeGame} from '../.test-dist/core/save.js';
+import {chooseComputerAction} from '../.test-dist/core/agent.js';
+import {runSimulation} from '../.test-dist/core/simulator.js';
 const act=(s,a)=>applyAction(s,{actorId:s.players[s.currentPlayerIndex].id,...a});
 const start=()=>act(createGame(17),{type:'start_game'}).state;
 const withCards=(k='reward')=>{let s=start();return {...s,players:s.players.map((p,i)=>i===0?{...p,cards:{reward:k==='reward'?1:0,stride:k==='stride'?1:0}}:p)}};

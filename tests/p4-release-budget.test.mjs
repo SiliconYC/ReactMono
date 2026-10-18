@@ -3,7 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,readdirSync,statSync,mkdirSync,writeFileSync} from 'node:fs';
 import {join,relative} from 'node:path';
-const ROOT='dist',OUT='artifacts/issue72';
+const ROOT='dist',OUT='artifacts/main3d';
 function walk(dir){return readdirSync(dir,{withFileTypes:true}).flatMap(x=>{
   const path=join(dir,x.name);return x.isDirectory()?walk(path):[path];
 });}
@@ -15,7 +15,7 @@ test('#72 build footprint, CDN-free original art, and exact service-worker cache
  const js=assets.filter(x=>x.path.endsWith('.js')).reduce((a,x)=>a+x.bytes,0);
  const css=assets.filter(x=>x.path.endsWith('.css')).reduce((a,x)=>a+x.bytes,0);
  const art=assets.filter(x=>x.path.startsWith('art/')).reduce((a,x)=>a+x.bytes,0);
- const budget={total:2_000_000,js:800_000,css:180_000,art:120_000,svgFile:35_000};
+ const budget={total:8_000_000,js:2_500_000,css:180_000,art:120_000,svgFile:35_000};
  const manifest=JSON.parse(readFileSync(join(ROOT,'art-manifest.json'),'utf8'));
  assert.equal(manifest.schemaVersion,1);
  assert.equal(manifest.assets.length,6);
@@ -29,7 +29,7 @@ test('#72 build footprint, CDN-free original art, and exact service-worker cache
  }
  const index=readFileSync(join(ROOT,'index.html'),'utf8');
  const sw=readFileSync(join(ROOT,'sw.js'),'utf8');
- const runtime=assets.filter(x=>/^(core|ui|storage)\/.*\.js$/.test(x.path));
+ const runtime=assets.filter(x=>/^assets\/.*\.js$/.test(x.path));
  for(const file of runtime)assert.ok(sw.includes("'./"+file.path+"'"),'missing runtime precache '+file.path);
  for(const file of manifest.assets)assert.ok(sw.includes("'./"+file.path+"'"),'missing art precache '+file.path);
  assert.match(sw,/reactmono-[a-f0-9]{16}/);

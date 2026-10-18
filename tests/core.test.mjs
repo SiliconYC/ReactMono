@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createGame, applyAction, nextDie, DEFAULT_CONFIG } from '../dist/core/game.js';
+import { createGame, applyAction, nextDie, DEFAULT_CONFIG } from '../.test-dist/core/game.js';
 
 test('初始化两名玩家、24 格地图及版本化状态', () => {
   const state = createGame(1234);

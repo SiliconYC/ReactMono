@@ -18,24 +18,36 @@ export function streetForTile(tileId: number) {
 
 export type RowHouse = Readonly<{ blockId: string; ownerId: string; tileIds: readonly number[] }>;
 
-/** Only built, consecutive lots within an explicit street can share a frontage. */
+function sideForTile(game: GameState, tileId: number): 'north'|'east'|'south'|'west' {
+  const cell = game.map.cells[tileId];
+  if (cell.row === 1) return 'north';
+  if (cell.column === game.map.columns) return 'east';
+  if (cell.row === game.map.rows) return 'south';
+  return 'west';
+}
+
+/** Built properties share a frontage only while route neighbours stay on one straight map edge. */
 export function rowHouses(game: GameState): readonly RowHouse[] {
   const rows: RowHouse[] = [];
-  for (const block of STREET_BLOCKS) {
-    let run: number[] = [];
-    let owner: string | null = null;
-    const flush = () => {
-      if (run.length > 1 && owner !== null) rows.push({ blockId: block.id, ownerId: owner, tileIds: run });
-      run = [];
-    };
-    for (const id of block.tileIds) {
-      const tile = game.tiles[id];
-      const nextOwner = tile?.kind === 'property' && (tile.level ?? 0) > 0 ? tile.ownerId : null;
-      if (nextOwner === null || nextOwner !== owner) flush();
+  let run: number[] = [];
+  let owner: string | null = null;
+  let side: ReturnType<typeof sideForTile> | null = null;
+  const flush = () => {
+    if (run.length > 1 && owner !== null && side !== null) rows.push({ blockId: side, ownerId: owner, tileIds: run });
+    run = [];
+    owner = null;
+  };
+  for (const id of game.map.route) {
+    const tile = game.tiles[id];
+    const tileSide = sideForTile(game, id);
+    const nextOwner = tile?.kind === 'property' && (tile.level ?? 0) > 0 ? tile.ownerId : null;
+    if (nextOwner === null || nextOwner !== owner || tileSide !== side) flush();
+    if (nextOwner !== null) {
       owner = nextOwner;
-      if (owner !== null) run.push(id);
+      side = tileSide;
+      run.push(id);
     }
-    flush();
   }
+  flush();
   return rows;
 }

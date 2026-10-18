@@ -2,9 +2,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {mkdirSync,writeFileSync} from 'node:fs';
-import {createGame,applyAction,DEFAULT_CONFIG,HARBOR_CONFIG,loanLimit} from '../dist/core/game.js';
-import {chooseComputerAction} from '../dist/core/agent.js';
-import {serializeGame,deserializeGame} from '../dist/core/save.js';
+import {createGame,applyAction,DEFAULT_CONFIG,HARBOR_CONFIG,loanLimit} from '../.test-dist/core/game.js';
+import {chooseComputerAction} from '../.test-dist/core/agent.js';
+import {serializeGame,deserializeGame} from '../.test-dist/core/save.js';
 
 const NOW='2026-10-17T00:00:00.000Z';
 const styles=['conservative','balanced','aggressive'];

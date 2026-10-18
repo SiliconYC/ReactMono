@@ -1,4 +1,6 @@
 /** P4 #63: React 交互视觉切片，直接驱动正式规则引擎，不伪造棋局或交易。 */
+import * as React from 'react';
+import { createRoot } from 'react-dom/client';
 import {createGame,applyAction,DEFAULT_CONFIG,HARBOR_CONFIG,netWorth} from '../core/game.js';
 import type {GameState,GameAction,Tile} from '../core/game.js';
 
@@ -38,7 +40,7 @@ class VisualLab extends React.Component<object,LabState> {
         :type==='roll'?'走到了 '+(result.state.tiles.find(t=>t.id===result.state.players.find(x=>x.id===actor.id)?.position)?.title??'新位置')
         :'轮到 '+next.name+' · '+(result.state.phase==='await_roll'?'请掷骰':'继续选择')});
   };
-  render():unknown {
+  render():React.JSX.Element {
     const {game:g,selected,theme,message}=this.state;
     const p=g.players[g.currentPlayerIndex];
     const tile=g.tiles.find(t=>t.id===selected)??g.tiles[0];
@@ -134,4 +136,4 @@ class VisualLab extends React.Component<object,LabState> {
   }
 }
 const root=document.getElementById('root');
-if(root)ReactDOM.render(React.createElement(VisualLab,{}),root);
+if(root)createRoot(root).render(<VisualLab/>);

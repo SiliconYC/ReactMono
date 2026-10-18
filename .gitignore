@@ -1,5 +1,6 @@
 node_modules/
 dist/
+.test-dist/
 dist-3d-demo/
 __pycache__/
 *.tsbuildinfo

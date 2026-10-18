@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createGame, applyAction, DEFAULT_CONFIG, nextDie } from '../dist/core/game.js';
-import { DEFAULT_MAP, INTERNAL_TEST_MAP, advancePosition, inferMap, validateMap } from '../dist/core/maps.js';
-import { serializeGame, deserializeGame } from '../dist/core/save.js';
+import { createGame, applyAction, DEFAULT_CONFIG, nextDie } from '../.test-dist/core/game.js';
+import { DEFAULT_MAP, INTERNAL_TEST_MAP, advancePosition, inferMap, validateMap } from '../.test-dist/core/maps.js';
+import { serializeGame, deserializeGame } from '../.test-dist/core/save.js';
 const tiles=length=>Array.from({length},(_,i)=>i===0?{id:i,kind:'start',title:'起点'}
   :i%3===0?{id:i,kind:'neutral',title:'休息站'+i}
   :{id:i,kind:'property',title:'地产'+i,price:100+i*10,rent:20+i*2});

@@ -1,6 +1,6 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';
-import {readFile} from 'node:fs/promises';
-import {classifySound,SoundController} from '../dist/ui/audio.js';
+import {readFile,readdir} from 'node:fs/promises';
+import {classifySound,SoundController} from '../.test-dist/ui/audio.js';
 const e=type=>[{type,actorId:'p1'}];
 test('#68 seven distinguishable event families without downloaded audio',()=>{
  assert.equal(classifySound(e('die_rolled')),'dice');
@@ -15,8 +15,10 @@ test('#68 seven distinguishable event families without downloaded audio',()=>{
  controller.setVolume(-5);assert.equal(controller.level,0);controller.dispose();
 });
 test('#68 all audio is procedural, same-origin, offline',async()=>{
- const [html,css,sw,js]=await Promise.all(['dist/index.html','dist/audio.css','dist/sw.js','dist/ui/audio.js'].map(x=>readFile(x,'utf8')));
- assert.match(html,/audio.css/);assert.match(sw,/\.\/audio.css/);
+ const [html,sw,js]=await Promise.all(['dist/index.html','dist/sw.js','.test-dist/ui/audio.js'].map(x=>readFile(x,'utf8')));
+ const cssName=(await readdir('dist/assets')).find(x=>x.startsWith('main-')&&x.endsWith('.css'));
+ const css=await readFile('dist/assets/'+cssName,'utf8');
+ assert.match(html,/assets\/main-[^\"]+\.css/);assert.match(sw,/\.\/audio.css/);
  assert.match(js,/createOscillator/);assert.match(js,/createGain/);
  assert.doesNotMatch(js,/\.mp3|\.ogg|https:\/\//);
  assert.match(css,/audio-toggle/);

@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { createDemoGame, dispatchDemoAction } from '../dist/demo3d/session.js';
-import { routeSteps } from '../dist/demo3d/route.js';
+import { createDemoGame, dispatchDemoAction } from '../.test-dist/demo3d/session.js';
+import { routeSteps } from '../.test-dist/demo3d/route.js';
 
 test('3D 演示以固定种子启动两人 16 格真实规则对局', () => {
   const state = createDemoGame(20261017);

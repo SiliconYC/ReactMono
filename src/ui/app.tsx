@@ -1,4 +1,6 @@
-import { applyAction, createGame, type GameAction, type CardKind, type GameEvent, type GameState, type Tile, type GameMap, type PlayerConfig, DEFAULT_CONFIG, HARBOR_CONFIG, netWorth, resaleValue, loanLimit, STOCKS, quoteMarket, type StockId } from '../core/game.js';
+import * as React from 'react';
+import { createRoot } from 'react-dom/client';
+import { applyAction, createGame, type GameAction, type CardKind, type GameEvent, type GameState, type Tile, type GameMap, type PlayerConfig, DEFAULT_CONFIG, HARBOR_CONFIG, netWorth, resaleValue, loanLimit, STOCKS, quoteMarket, type StockId, propertyVisitAvailable } from '../core/game.js';
 import { chooseComputerAction } from '../core/agent.js';
 import { COMPUTER_STYLES, COMPUTER_STYLE_NAMES } from '../core/strategic-agent.js';
 import { listSlots, readSlot, writeSlot, deleteSlot, type SlotSummary } from '../storage/indexeddb.js';
@@ -8,6 +10,8 @@ import { eventCue, type VisualCue } from './feedback.js';
 import { SoundController } from './audio.js';
 import { GUIDE_STEPS, contextHint } from './guide.js';
 import { cpuDelay, cpuTurnKey, addCpuTiming, initialCpuTiming, MAX_CPU_ACTIONS_PER_TURN, type CpuTiming } from './computer-pace.js';
+import { WorldCanvas } from '../demo3d/world/WorldCanvas.js';
+import type { MotionCue } from '../demo3d/world/Mascot.js';
 
 interface UiState { readonly game: GameState; readonly message: string; readonly seedInput: string; readonly bankAmountInput: string; readonly stockAmountInput: string; readonly strategyDieInput:string; readonly roadblockTileInput:string; readonly playerSetup: readonly PlayerConfig[]; readonly roundsInput: string; readonly selectedMapId:string; readonly selectedTileId:number|null; readonly lastMotion:{playerId:string;tileId:number;revision:number}|null; readonly visualCue:VisualCue|null; readonly motionOff:boolean; readonly guideStep:number|null; readonly financePanel:'property'|'bank'|'loan'|'stock'|null; readonly awaitingHandoff: boolean; readonly fastMode: boolean; readonly cpuPaused:boolean; readonly cpuTiming:CpuTiming; readonly specialEnabled:boolean; readonly activeSeed: number | null; readonly saveSlots: readonly SlotSummary[]; readonly saveStatus: string; readonly storageBusy: boolean; readonly importPreview: SaveEnvelope | null; readonly importName: string; readonly offline: boolean; readonly pwaUpdate: boolean; readonly pwaMessage: string; }
 
@@ -26,6 +30,7 @@ class App extends React.Component<object, UiState> {
   }
 
   private computerTimer: number | null = null;
+  private onSceneTileSelect=(tileId:number):void=>this.setState({selectedTileId:tileId});
   private cpuTurnMark='';
   private cpuTurnActions=0;
   private lastCpuEvents: readonly GameEvent[]=[];
@@ -87,6 +92,9 @@ class App extends React.Component<object, UiState> {
     if(motionOff)this.cancelCue();
     this.setState({motionOff,visualCue:motionOff?null:this.state.visualCue});
   };
+  private finishSceneMotion=():void=>{
+    if(this.state.visualCue!==null)this.setState({visualCue:null});
+  };
   /** Ignore a rapid second tap against the same immutable turn state. */
   private lastCommittedAction:{game:GameState;signature:string;at:number}|null=null;
   private manualSaveBusy=false;
@@ -102,6 +110,12 @@ class App extends React.Component<object, UiState> {
     if(reg.waiting && navigator.serviceWorker.controller)this.setState({pwaUpdate:true});
   };
   private initPwa = async():Promise<void> => {
+    if(import.meta.env.DEV){
+      const registration=await navigator.serviceWorker?.getRegistration();
+      if(registration)await registration.unregister();
+      this.setState({pwaMessage:'开发预览不启用离线缓存。'});
+      return;
+    }
     if(!('serviceWorker' in navigator)){this.setState({pwaMessage:'本浏览器不支持应用安装，仍可在线游玩。'});return;}
     try{
       navigator.serviceWorker.addEventListener('controllerchange',this.controllerChanged);
@@ -321,7 +335,7 @@ class App extends React.Component<object, UiState> {
       this.setState({message:'所有玩家都必须填写不同的姓名（最多 24 字）。'});return;
     }
     let fresh:GameState;
-    try{fresh=createGame(seed,{...(this.state.selectedMapId==='harbor-20'?HARBOR_CONFIG:DEFAULT_CONFIG),players:roster,maxRounds:rounds,automaticLiquidation:true,bankEnabled:true,loanEnabled:true,marketEnabled:true,strategyEnabled:true,specialEnabled:this.state.specialEnabled});}
+    try{fresh=createGame(seed,{...(this.state.selectedMapId==='harbor-20'?HARBOR_CONFIG:DEFAULT_CONFIG),players:roster,maxRounds:rounds,automaticLiquidation:true,propertyVisitOnly:true,stockAccount:'bank',bankEnabled:true,loanEnabled:true,marketEnabled:true,strategyEnabled:true,specialEnabled:this.state.specialEnabled});}
     catch(e){this.setState({message:'开局配置无效：'+(e instanceof Error?e.message:String(e))});return;}
     this.saveEpoch++;
     this.stopTimer();
@@ -344,7 +358,7 @@ class App extends React.Component<object, UiState> {
   /** 每次状态变化只安排电脑的一步；重开后旧回调不会碰新对局。 */
   componentDidUpdate(_prevProps:object, prevState:UiState): void {
     if(this.state.game!==prevState.game && this.state.game.status!=='setup') this.scheduleAutosave(this.state.game);
-    if(this.state.storageBusy||this.state.cpuPaused||this.state.awaitingHandoff||document.hidden)return;
+    if(this.state.storageBusy||this.state.cpuPaused||this.state.awaitingHandoff||document.hidden||this.state.visualCue?.path.length)return;
     const snapshot = this.state.game;
     if (snapshot.status !== 'playing' || snapshot.players[snapshot.currentPlayerIndex].kind !== 'computer' || this.computerTimer !== null) return;
     const scheduledDelay=cpuDelay(this.state.fastMode?'fast':'normal',
@@ -388,6 +402,9 @@ class App extends React.Component<object, UiState> {
   }
 
   dispatch = (type: GameAction['type'],tileId?:number,cardType?:CardKind,stockId?:StockId): void => {
+    if(this.state.visualCue?.path.length && this.state.visualCue.step<this.state.visualCue.path.length&&!this.noMotion){
+      this.setState({message:'角色正在走过街区，请稍候再操作。'});return;
+    }
     void this.sound.activate();
     if(this.state.storageBusy||this.state.awaitingHandoff)return;
     const { game } = this.state;
@@ -535,7 +552,7 @@ class App extends React.Component<object, UiState> {
   };
 
   /** Pure presentation: a board button selects a map node; the engine owns all movement and economy. */
-  renderTile = (tile: Tile): unknown => {
+  renderTile = (tile: Tile): React.JSX.Element => {
     const { game } = this.state;
     const residents = game.players.filter(p => p.position === tile.id && !p.bankrupt);
     const owner = game.players.find(p => p.id === tile.ownerId);
@@ -555,7 +572,7 @@ class App extends React.Component<object, UiState> {
         style={cellPosition(game.map,tile.id)} data-tile-id={tile.id} data-owner-id={tile.ownerId??''}
         data-level={level} data-mortgaged={String(!!tile.mortgaged)} data-residents={residents.length}
         aria-label={label} aria-pressed={selected} title={label}
-        onClick={()=>this.setState({selectedTileId:tile.id,...(roadblockSelectable?{roadblockTileInput:String(tile.id)}:{})})}>
+        onClick={()=>this.setState({selectedTileId:tile.id,roadblockTileInput:roadblockSelectable?String(tile.id):this.state.roadblockTileInput})}>
         {ghost&&<span className="motion-step" data-motion-player={ghost.id} aria-hidden="true">{game.players.indexOf(ghost)+1}</span>}
         <span className="tile-index">{String(tile.id).padStart(2,'0')}{blocked?' 🚧':''}</span>
         <span className="tile-artwork" aria-hidden="true"><i className="art-roof"/><i className="art-body"/><i className="art-detail"/></span>
@@ -574,7 +591,7 @@ class App extends React.Component<object, UiState> {
     );
   };
 
-  render(): unknown {
+  render(): React.JSX.Element {
     const { game, message } = this.state;
     const current = game.players[game.currentPlayerIndex];
     const previousRoll = [...game.events].reverse().find(e => e.type === 'die_rolled');
@@ -628,30 +645,28 @@ class App extends React.Component<object, UiState> {
         </details>}
         <div className="layout">
           <section className="board-card" aria-label={`${game.tiles.length} 格游戏棋盘`}>
-            <div className="board-viewport" tabIndex={0} aria-label="棋盘浏览区；窄屏可横向滚动">
-              <div className={`board board-${game.map.id==='harbor-20'?'harbor':'classic'}`} data-board-theme={game.map.id}
-                style={{
-                  gridTemplateColumns:`repeat(${game.map.columns},minmax(0,1fr))`,
-                  gridTemplateRows:`repeat(${game.map.rows},minmax(0,1fr))`,
-                  aspectRatio:`${game.map.columns}/${game.map.rows}`
-                }}>
-                {game.tiles.map(this.renderTile)}
-                {game.map.columns>2&&game.map.rows>2&&game.map.cells.every(p=>p.row===1||p.row===game.map.rows||p.column===1||p.column===game.map.columns)&&
-                <div className="board-center" style={{gridColumn:`2/${game.map.columns}`,gridRow:`2/${game.map.rows}`}}>
-                  <div className="scene-horizon" aria-hidden="true">
-                    <span className="scene-hill"/><span className="scene-house house-one"/><span className="scene-house house-two"/>
-                    <span className="scene-tree tree-one"/><span className="scene-tree tree-two"/>
-                    <span className="scene-boat"/>
-                  </div>
-                  <div className="scene-info">
-                    <div className="center-title">{game.map.id==='harbor-20'?'海风港':'纸艺小镇'}</div>
-                    <div className="board-center-label">第 {game.round} / {game.maxRounds} 轮</div>
-                    <div className="dice-display" aria-label="上一次骰子点数">{previousRoll ? '⚀⚁⚂⚃⚄⚅'[Number(previousRoll.details?.value)-1] : '⚄'}</div>
-                    <div className="center-subtitle">{previousRoll?`掷出 ${previousRoll.details?.value} 点`:'准备出发'}</div>
-                    {this.state.visualCue&&<div className={`event-feedback tone-${this.state.visualCue.tone}`} data-event-revision={this.state.visualCue.revision} role="status" aria-live="polite"><b>{this.state.visualCue.text}</b></div>}
-                  </div>
-                </div>}
+            <div className="board-viewport board-viewport-3d" aria-label="三维街区棋盘">
+              {(() => {
+                const cue=this.state.visualCue;
+                const activeMotion:MotionCue|null=cue?.actorId&&cue.path.length?{
+                  actorId:cue.actorId,
+                  fromTileId:game.map.route[(game.map.route.indexOf(cue.path[cue.path.length-1])-cue.path.length+game.map.route.length)%game.map.route.length],
+                  path:cue.path,
+                  nonce:cue.revision
+                }:null;
+                return <WorldCanvas game={game} motion={activeMotion}
+                  dieValue={previousRoll?Number(previousRoll.details?.value):null} dieNonce={game.revision}
+                  reducedMotion={this.noMotion} followCurrent={true} rent={null} outcome={null}
+                  paused={this.state.financePanel!==null}
+                  onMotionComplete={this.finishSceneMotion} onActorStep={tileId=>this.setState({selectedTileId:tileId})}
+                  onSelectTile={this.onSceneTileSelect} />;
+              })()}
+              <div className="scene-hud" aria-live="polite">
+                <strong>{game.map.id==='harbor-20'?'海风港':'晴湾小镇'}</strong>
+                <span>第 {game.round} / {game.maxRounds} 轮 · {current.name} · {previousRoll?`最近掷出 ${previousRoll.details?.value} 点`:'准备出发'}</span>
+                {this.state.visualCue&&<small className={`event-feedback tone-${this.state.visualCue.tone}`} data-event-revision={this.state.visualCue.revision} role="status"><b>{this.state.visualCue.text}</b></small>}
               </div>
+              <details className="tile-semantic-list"><summary>按列表选择地块</summary><div>{game.tiles.map(tile=><button key={tile.id} type="button" data-tile-id={tile.id} aria-pressed={this.state.selectedTileId===tile.id} onClick={()=>this.setState({selectedTileId:tile.id})}>{tile.id+1} · {tile.title}</button>)}</div></details>
             </div>
             {this.state.selectedTileId!==null&&game.tiles[this.state.selectedTileId]&&(()=>{
               const tile=game.tiles[this.state.selectedTileId!], owner=game.players.find(p=>p.id===tile.ownerId);
@@ -792,7 +807,7 @@ class App extends React.Component<object, UiState> {
                   </div>}
                   <div id="finance-property" className="finance-pane" hidden={this.state.financePanel!=='property'}>
                 <strong id="property-management" className="management-heading">地产管理 · {current.name}</strong>
-                {game.tiles.filter(t=>t.kind==='property'&&t.ownerId===current.id&&t.mortgaged!==true&&(t.level??0)<2).map(tile=><button type="button" key={tile.id} className="secondary-btn" disabled={current.cash<(tile.upgradeCosts?.[tile.level??0]??Infinity)} onClick={()=>this.dispatch('upgrade_property',tile.id)}>升级 {tile.title} → {(tile.level??0)+1} 级 · 费用 {tile.upgradeCosts?.[tile.level??0]}</button>)}
+                {game.tiles.filter(t=>t.kind==='property'&&t.ownerId===current.id&&t.mortgaged!==true&&(t.level??0)<2).map(tile=>{const visit=propertyVisitAvailable(game,current,tile.id);return <button type="button" key={tile.id} className="secondary-btn" disabled={!visit||current.cash<(tile.upgradeCosts?.[tile.level??0]??Infinity)} onClick={()=>this.dispatch('upgrade_property',tile.id)}>{visit?'本次停留升级':'停留该地产后可建设'} · {tile.title} → {(tile.level??0)+1} 级 · 费用 {tile.upgradeCosts?.[tile.level??0]}</button>;})}
                 {game.tiles.filter(t=>t.kind==='property'&&t.ownerId===current.id&&t.mortgaged!==true).map(tile=><button type="button" key={'sell-'+tile.id} className="secondary-btn" onClick={()=>{
                   if(window.confirm('确认出售「'+tile.title+'」？价格 '+resaleValue(tile,game.resaleRules)+' 游戏币，建筑升级不返还原价。'))this.dispatch('sell_property',tile.id);
                 }}>出售 {tile.title} · 回收 {resaleValue(tile,game.resaleRules)} 游戏币</button>)}
@@ -824,7 +839,7 @@ class App extends React.Component<object, UiState> {
                 <div id="finance-stock" className="finance-pane" hidden={this.state.financePanel!=='stock'}>
                 {game.market&&<div id="stock-actions" className="bank-actions stock-actions" role="group" aria-label="股票交易">
                     <strong>虚拟股票交易所 · {current.name}</strong>
-                    <p className="purchase-info">本轮报价 · 每笔交易手续费 0.5%，最低 1 游戏币。仅使用手持现金，按当前市场价成交；行情每轮变化。</p>
+                    <p className="purchase-info">本轮报价 · 每笔交易手续费 0.5%，最低 1 游戏币。仅使用银行存款，按当前市场价成交；行情每轮变化。</p>
                     <label htmlFor="stock-amount">股票交易数量（股）</label>
                     <input id="stock-amount" type="text" aria-label="股票交易数量" inputMode="numeric"
                       value={this.state.stockAmountInput}
@@ -838,7 +853,7 @@ class App extends React.Component<object, UiState> {
                       return <div className="stock-entry" key={stock.id}>
                         <div><strong>{stock.name}</strong>（{stock.id}） · 报价 {quote} 游戏币</div>
                         <div className="purchase-info">持有 {held} 股 · 成本 {lot?.costBasis??0} · 市值 {marketValue} · 浮动盈亏 {pnl>=0?'+':''}{pnl}</div>
-                        <button type="button" className="secondary-btn" disabled={!/^[1-9][0-9]*$/.test(this.state.stockAmountInput)||quote*Number(this.state.stockAmountInput)+Math.max(1,Math.ceil(quote*Number(this.state.stockAmountInput)*0.005))>current.cash} onClick={()=>this.dispatch('buy_stock',undefined,undefined,stock.id)}>买入 {stock.name}</button>
+                        <button type="button" className="secondary-btn" disabled={!/^[1-9][0-9]*$/.test(this.state.stockAmountInput)||quote*Number(this.state.stockAmountInput)+Math.max(1,Math.ceil(quote*Number(this.state.stockAmountInput)*0.005))>(current.bankBalance??0)} onClick={()=>this.dispatch('buy_stock',undefined,undefined,stock.id)}>买入 {stock.name}</button>
                         <button type="button" className="secondary-btn" disabled={!/^[1-9][0-9]*$/.test(this.state.stockAmountInput)||Number(this.state.stockAmountInput)>held} onClick={()=>this.dispatch('sell_stock',undefined,undefined,stock.id)}>卖出 {stock.name}</button>
                       </div>;
                     })}
@@ -899,4 +914,4 @@ class App extends React.Component<object, UiState> {
 }
 const root = document.getElementById('root');
 if (!root) throw new Error('找不到游戏页面根节点');
-ReactDOM.render(React.createElement(App, {}), root);
+createRoot(root).render(<App />);

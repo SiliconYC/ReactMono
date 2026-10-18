@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createGame, applyAction, DEFAULT_CONFIG } from '../dist/core/game.js';
-import { choosePhaseAction } from '../dist/core/agent.js';
-import { runSimulation } from '../dist/core/simulator.js';
-import { deserializeGame, serializeGame, SaveError } from '../dist/core/save.js';
+import { createGame, applyAction, DEFAULT_CONFIG } from '../.test-dist/core/game.js';
+import { choosePhaseAction } from '../.test-dist/core/agent.js';
+import { runSimulation } from '../.test-dist/core/simulator.js';
+import { deserializeGame, serializeGame, SaveError } from '../.test-dist/core/save.js';
 
 const players = n => Array.from({length:n}, (_,i)=>({
   id:'p'+(i+1), name:'玩家'+(i+1), kind:i===0?'human':i%2?'computer':'human'
