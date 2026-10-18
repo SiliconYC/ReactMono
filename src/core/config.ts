@@ -43,6 +43,9 @@ export const HARBOR_CONFIG: GameConfig = {
 };
 
 export function validateConfig(config: GameConfig): void {
+  if(config.propertyVisitOnly!==undefined && typeof config.propertyVisitOnly!=='boolean')throw new Error('地产到访规则无效');
+  if(config.stockAccount!==undefined && !['cash','bank'].includes(config.stockAccount))throw new Error('股票结算账户无效');
+  if(config.stockAccount==='bank' && (config.bankEnabled!==true || config.marketEnabled!==true))throw new Error('存款股票交易需要银行和股市');
   if(config.strategyEnabled!==undefined&&typeof config.strategyEnabled!=='boolean')throw new Error('策略卡开关无效');
   if(config.specialEnabled!==undefined&&typeof config.specialEnabled!=='boolean')throw new Error('特殊设施开关无效');
   if(config.specialEnabled===true&&config.strategyEnabled!==true)throw new Error('特殊设施依赖策略卡');

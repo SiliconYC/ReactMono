@@ -59,6 +59,23 @@ export function sellProperty(state:GameState,actor:Player,action:Extract<GameAct
   });
 }
 
+/** The roll event scopes a visit; bank or stock actions cannot reopen a construction choice. */
+export function propertyVisitAvailable(state: GameState, actor: Player, tileId: number): boolean {
+  if (state.propertyVisitOnly !== true) return true;
+  if (actor.position !== tileId) return false;
+  let rolled = -1;
+  for (let index = state.events.length - 1; index >= 0; index--) {
+    const event = state.events[index];
+    if (event.type === 'turn_ended') break;
+    if (event.type === 'die_rolled') {
+      if (event.actorId === actor.id) rolled = index;
+      break;
+    }
+  }
+  return rolled >= 0 && !state.events.slice(rolled + 1).some(event => event.actorId === actor.id &&
+    ['property_bought', 'property_upgraded', 'property_declined'].includes(event.type));
+}
+
 /** Property decisions, purchases and upgrades remain pure commands. */
 export function declineProperty(state: GameState, actor: Player): ActionResult {
       if (state.phase !== 'await_decision') return reject(state,'INVALID_PHASE');
@@ -72,6 +89,7 @@ export function upgradeProperty(state: GameState, actor: Player, action: Extract
       if (state.phase !== 'await_end_turn' || !Number.isInteger(action.tileId))return reject(state,'INVALID_PHASE');
       const tile=state.tiles[action.tileId];
       if (!tile || tile.kind!=='property' || tile.ownerId!==actor.id || tile.mortgaged===true || (tile.level??0)>=2)return reject(state,'INVALID_PHASE');
+      if(!propertyVisitAvailable(state,actor,tile.id))return reject(state,'INVALID_PHASE');
       const level=tile.level??0;
       const cost=tile.upgradeCosts?.[level];
       if(cost===undefined)return reject(state,'INVALID_PHASE');
@@ -85,6 +103,7 @@ export function buyProperty(state: GameState, actor: Player): ActionResult {
       if (state.phase !== 'await_decision') return reject(state,'INVALID_PHASE');
       const tile = state.tiles[actor.position];
       if (tile.kind !== 'property' || tile.ownerId !== null) return reject(state,'INVALID_PHASE');
+      if(!propertyVisitAvailable(state,actor,tile.id))return reject(state,'INVALID_PHASE');
       const price = tile.price ?? 0;
       if (actor.cash < price) return reject(state,'INSUFFICIENT_FUNDS');
       return accept(state, [{ type: 'property_bought', actorId: actor.id, details: {
