@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createGame, applyAction, DEFAULT_CONFIG, DEFAULT_CARD_RULES, DEFAULT_EVENT_RULES, resaleValue, netWorth} from '../dist/core/game.js';
-import {serializeGame, deserializeGame} from '../dist/core/save.js';
-import {runSimulation} from '../dist/core/simulator.js';
+import {createGame, applyAction, DEFAULT_CONFIG, DEFAULT_CARD_RULES, DEFAULT_EVENT_RULES, resaleValue, netWorth} from '../.test-dist/core/game.js';
+import {serializeGame, deserializeGame} from '../.test-dist/core/save.js';
+import {runSimulation} from '../.test-dist/core/simulator.js';
 
 const tiles=[
   {id:0,kind:'start',title:'起点'},

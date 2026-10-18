@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createDemoGame, dispatchDemoAction } from '../dist/demo3d/session.js';
-import { applyAction, createGame, DEFAULT_CONFIG, quoteMarket, stockFee, loanLimit } from '../dist/core/game.js';
-import { serializeGame, deserializeGame } from '../dist/core/save.js';
+import { createDemoGame, dispatchDemoAction } from '../.test-dist/demo3d/session.js';
+import { applyAction, createGame, DEFAULT_CONFIG, quoteMarket, stockFee, loanLimit } from '../.test-dist/core/game.js';
+import { serializeGame, deserializeGame } from '../.test-dist/core/save.js';
 
 const act = (state, type, extra = {}) => {
   const result = dispatchDemoAction(state, { type, actorId: state.players[state.currentPlayerIndex].id, ...extra });
@@ -97,7 +97,7 @@ test('新规则/账户随存档往返，旧游戏继续允许现金股票和远�
 });
 
 test('demo种子链接只选择真实随机序列，非法参数安全回到默认种子', async () => {
-  const session = await import('../dist/demo3d/session.js');
+  const session = await import('../.test-dist/demo3d/session.js');
   assert.equal(session.demoSeedFromSearch?.('?seed=42'), 42);
   assert.equal(session.demoSeedFromSearch?.('?seed=0'), 0);
   for (const raw of ['', '?seed=-1', '?seed=Infinity', '?seed=1.5', '?seed=4294967296']) {
@@ -106,7 +106,7 @@ test('demo种子链接只选择真实随机序列，非法参数安全回到默�
 });
 
 test('可复现对局链接允许真实轮数配置，不改变初始账户与掷骰', async () => {
-  const session = await import('../dist/demo3d/session.js');
+  const session = await import('../.test-dist/demo3d/session.js');
   assert.equal(session.demoRoundsFromSearch?.('?rounds=24'), 24);
   for (const raw of ['', '?rounds=0', '?rounds=61', '?rounds=1.2']) assert.equal(session.demoRoundsFromSearch?.(raw), 12);
   const longer = createDemoGame(36, 24);

@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createGame, applyAction, DEFAULT_CONFIG, HARBOR_CONFIG } from '../dist/core/game.js';
-import { HARBOR_MAP, validateMap } from '../dist/core/maps.js';
-import { runSimulation } from '../dist/core/simulator.js';
-import { serializeGame, deserializeGame } from '../dist/core/save.js';
+import { createGame, applyAction, DEFAULT_CONFIG, HARBOR_CONFIG } from '../.test-dist/core/game.js';
+import { HARBOR_MAP, validateMap } from '../.test-dist/core/maps.js';
+import { runSimulation } from '../.test-dist/core/simulator.js';
+import { serializeGame, deserializeGame } from '../.test-dist/core/save.js';
 
 const players=n=>Array.from({length:n},(_,i)=>({id:'p'+(i+1),name:'航海者'+(i+1),kind:i%2?'computer':'human'}));
 

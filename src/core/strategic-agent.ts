@@ -2,7 +2,7 @@
 import type {GameAction, GameState, Player, ComputerStyle, CardKind, Tile} from './types.js';
 import {advancePosition} from './maps.js';
 import {loanLimit} from './loan.js';
-import {netWorth} from './property.js';
+import {netWorth, propertyVisitAvailable} from './property.js';
 import {handSize} from './cards.js';
 import {STOCKS, quoteMarket} from './market.js';
 
@@ -138,10 +138,12 @@ export function chooseStyledAction(state:GameState,style:ComputerStyle):GameActi
       }
       if(!did('property_upgraded')){
         const tile=firstOwned(state,p,t=>!t.mortgaged&&(t.level??0)<2&&
-          p.cash-(t.upgradeCosts?.[t.level??0]??Infinity)>=reserve);
+          p.cash-(t.upgradeCosts?.[t.level??0]??Infinity)>=reserve&&
+          (!state.propertyVisitOnly||propertyVisitAvailable(state,p,t.id)));
         if(tile)return {type:'upgrade_property',actorId:p.id,tileId:tile.id};
       }
-      if(state.market&&!did('stock_bought')&&p.cash>reserve+150){
+      const stockFunds=state.stockAccount==='bank'?balance:p.cash;
+      if(state.market&&!did('stock_bought')&&stockFunds>reserve+150){
         const holdings=STOCKS.reduce((sum,s)=>sum+(p.holdings?.[s.id]?.quantity??0),0);
         if(holdings<cfg.stockLimit){
           const choice=STOCKS.map(s=>({s,price:quoteMarket(state.market!,s.id),
@@ -149,7 +151,7 @@ export function chooseStyledAction(state:GameState,style:ComputerStyle):GameActi
             .sort((a,b)=>a.ratio-b.ratio||a.s.id.localeCompare(b.s.id))[0];
           const perShare=choice.price+Math.max(1,Math.ceil(choice.price*0.005));
           const quantity=Math.min(cfg.stockLimit-holdings,
-            Math.floor((p.cash-reserve-150)*cfg.invest/perShare));
+            Math.floor((stockFunds-reserve-150)*cfg.invest/perShare));
           if(quantity>0)return {type:'buy_stock',actorId:p.id,stockId:choice.s.id,quantity};
         }
       }

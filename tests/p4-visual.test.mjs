@@ -1,11 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFile,stat} from 'node:fs/promises';
+import {readFile,stat,readdir} from 'node:fs/promises';
 
 test('P4 #63 visual slice is real React and local and licensed',async()=>{
   const html=await readFile('dist/visual-lab.html','utf8');
-  const js=await readFile('dist/ui/visual-lab.js','utf8');
-  assert.match(html,/\.\/ui\/visual-lab\.js/);
+  const js=await readFile('.test-dist/ui/visual-lab.js','utf8');
+ assert.match(html,/\.\/assets\/visualLab-[^\"]+\.js/);
   assert.match(js,/applyAction/);
   assert.match(js,/createGame/);
   assert.match(js,/await_decision/);
@@ -23,11 +23,13 @@ test('P4 #63 visual slice is real React and local and licensed',async()=>{
   }
   assert.ok((await stat('dist/visual-tokens.css')).size>1000);
   assert.ok((await stat('dist/visual-lab.css')).size>1000);
+  const visualCss=(await readdir('dist/assets')).find(x=>x.startsWith('visualLab-')&&x.endsWith('.css'));
+  assert.ok(visualCss);
   const sw=await readFile('dist/sw.js','utf8');
-  for(const path of ['visual-lab.html','visual-tokens.css','visual-lab.css','art/house.svg','art/coin.svg','ui/visual-lab.js','art-manifest.json'])
+  for(const path of ['visual-lab.html','visual-tokens.css','visual-lab.css','art/house.svg','art/coin.svg','assets/visualLab-','art-manifest.json'])
     assert.ok(sw.includes(path),'SW missing offline resource '+path);
   assert.doesNotMatch(sw,/__CACHE_VERSION__|__RUNTIME_ASSETS__/);
   const index=await readFile('dist/index.html','utf8');
-  assert.match(index,/visual-tokens\.css/);
+  assert.match(index,/assets\/main-[^\"]+\.css/);
   assert.doesNotMatch(index,/https?:\/\/(?:unpkg|cdn|esm\.sh)/);
 });

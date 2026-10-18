@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createGame, applyAction, nextDie, DEFAULT_CONFIG, netWorth } from '../dist/core/game.js';
+import { createGame, applyAction, nextDie, DEFAULT_CONFIG, netWorth } from '../.test-dist/core/game.js';
 
 const act = (s, type, actorId = s.players[s.currentPlayerIndex].id) => applyAction(s, { type, actorId });
 function ok(s, type) { const r = act(s,type); assert.equal(r.ok,true,type+': '+r.reason); return r.state; }

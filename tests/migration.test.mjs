@@ -1,6 +1,6 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {createGame,applyAction,netWorth} from '../dist/core/game.js';
-import {deserializeGame,serializeGame} from '../dist/core/save.js';
+import {createGame,applyAction,netWorth} from '../.test-dist/core/game.js';
+import {deserializeGame,serializeGame} from '../.test-dist/core/save.js';
 function checksum(data){let h=0x811c9dc5;for(let i=0;i<data.length;i++){h^=data.charCodeAt(i);h=Math.imul(h,0x01000193)}return(h>>>0).toString(16).padStart(8,'0')}
 test('真实旧 v1 字段结构无损升级到 v3，净资产不变且导出后仍可再次读取',()=>{
   let state=applyAction(createGame(41),{type:'start_game',actorId:'p1'}).state;

@@ -1,7 +1,7 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {createGame,applyAction,nextDie,DEFAULT_CONFIG} from '../dist/core/game.js';
-import {serializeGame,deserializeGame} from '../dist/core/save.js';
-import {runSimulation} from '../dist/core/simulator.js';
+import {createGame,applyAction,nextDie,DEFAULT_CONFIG} from '../.test-dist/core/game.js';
+import {serializeGame,deserializeGame} from '../.test-dist/core/save.js';
+import {runSimulation} from '../.test-dist/core/simulator.js';
 const act=(s,type)=>applyAction(s,{type,actorId:s.players[s.currentPlayerIndex].id});
 function land(seed=17,initialCash=1500) {
  let s=act(createGame(seed,{...DEFAULT_CONFIG,initialCash}),'start_game').state;

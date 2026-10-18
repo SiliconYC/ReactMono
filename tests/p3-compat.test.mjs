@@ -2,8 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import ts from 'typescript';
-import { createGame, applyAction, DEFAULT_CONFIG } from '../dist/core/game.js';
-import { choosePhaseAction } from '../dist/core/agent.js';
+import { createGame, applyAction, DEFAULT_CONFIG } from '../.test-dist/core/game.js';
+import { choosePhaseAction } from '../.test-dist/core/agent.js';
 
 // Immutable pre-P3 engine: compare actual events, PRNG consumption, funds and state
 // at EVERY accepted action. Do not update the reference to make a failing test pass.

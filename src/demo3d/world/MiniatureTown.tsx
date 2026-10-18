@@ -3,19 +3,24 @@ import { useEffect, useMemo } from 'react';
 import type { GameState, Tile } from '../../core/game.js';
 import { rowHouses } from '../properties.js';
 import {
+  anchorsForMap,
   GROUND_TOP,
   ISLAND_BOTTOM,
-  LOT_ANCHORS,
+  inwardAngleForTile,
+  lotForTile,
   ROAD_CONNECTOR_CENTER_Y,
   ROAD_CONNECTOR_THICKNESS,
   ROAD_TILE_CENTER_Y,
-  ROAD_TILE_THICKNESS,
-  TILE_ANCHORS
+  ROAD_TILE_THICKNESS
 } from './layout.js';
 
-type TownProps = Readonly<{ game: GameState }>;
+type TownProps = Readonly<{ game: GameState; onSelectTile?: (tileId:number)=>void }>;
 
-const OWNER_COLORS: Readonly<Record<string, string>> = { p1: '#ff715b', p2: '#4f7cff' };
+const PLAYER_COLORS = ['#ff715b', '#4f7cff', '#8058ad', '#e38a2e'] as const;
+function colorForOwner(game: GameState, ownerId: string): string {
+  const index = game.players.findIndex(player => player.id === ownerId);
+  return PLAYER_COLORS[index] ?? '#f8c95d';
+}
 
 function Tree({ position, scale = 1 }: { position: [number, number, number]; scale?: number }): React.JSX.Element {
   return (
@@ -51,8 +56,8 @@ function Lamp({ position }: { position: [number, number, number] }): React.JSX.E
   );
 }
 
-function House({ tile }: { tile: Tile }): React.JSX.Element {
-  const owner = tile.ownerId === null ? null : OWNER_COLORS[tile.ownerId] ?? '#f8c95d';
+function House({ tile, game }: { tile: Tile; game: GameState }): React.JSX.Element {
+  const owner = tile.ownerId === null ? null : colorForOwner(game, tile.ownerId);
   if (owner === null || (tile.level ?? 0) === 0) {
     return (
       <group>
@@ -79,11 +84,11 @@ function House({ tile }: { tile: Tile }): React.JSX.Element {
       </mesh>
       <mesh position={[0, height / 2 + 0.16, 0]}>
         <boxGeometry args={[0.82, height, 0.76]} />
-        <meshStandardMaterial color={tile.ownerId === 'p1' ? '#ffb278' : '#91b5ff'} roughness={0.78} />
+        <meshStandardMaterial color={owner === '#ff715b' ? '#ffb278' : owner === '#4f7cff' ? '#91b5ff' : owner} roughness={0.78} />
       </mesh>
       <mesh position={[0, height + 0.42, 0]} rotation={[0, Math.PI / 4, 0]}>
         <coneGeometry args={[0.69, 0.5, 4]} />
-        <meshStandardMaterial color={tile.ownerId === 'p1' ? '#c85045' : '#385da9'} roughness={0.72} />
+        <meshStandardMaterial color={owner === '#ff715b' ? '#c85045' : owner === '#4f7cff' ? '#385da9' : owner} roughness={0.72} />
       </mesh>
       <mesh position={[0, 0.42, 0.39]}>
         <boxGeometry args={[0.2, 0.38, 0.03]} />
@@ -137,8 +142,8 @@ function BankBuilding(): React.JSX.Element {
   );
 }
 
-function NeutralLandmark({ tileId }: { tileId: number }): React.JSX.Element {
-  if (tileId === 8) return <BankBuilding />;
+function NeutralLandmark({ title }: { title: string }): React.JSX.Element {
+  if (title.includes('银行')) return <BankBuilding />;
 
   return (
     <group>
@@ -188,15 +193,16 @@ function ClockTower(): React.JSX.Element {
   );
 }
 
-export function MiniatureTown({ game }: TownProps): React.JSX.Element {
+export function MiniatureTown({ game, onSelectTile }: TownProps): React.JSX.Element {
+  const anchors = anchorsForMap(game.map);
   return (
     <group>
       <mesh position={[0, -0.82, 0]}>
-        <cylinderGeometry args={[8.35, 8.75, 0.72, 12]} />
+        <cylinderGeometry args={[Math.max(anchors.bounds.width, anchors.bounds.depth) / 2 + 1, Math.max(anchors.bounds.width, anchors.bounds.depth) / 2 + 1.3, 0.72, 12]} />
         <meshStandardMaterial color="#745846" roughness={1} />
       </mesh>
       <mesh position={[0, -0.42, 0]}>
-        <cylinderGeometry args={[8.15, 8.25, 0.26, 12]} />
+        <cylinderGeometry args={[Math.max(anchors.bounds.width, anchors.bounds.depth) / 2 + 0.8, Math.max(anchors.bounds.width, anchors.bounds.depth) / 2 + 0.9, 0.26, 12]} />
         <meshStandardMaterial color="#8ecf99" roughness={0.94} />
       </mesh>
       <mesh position={[0, ISLAND_BOTTOM, 0]} rotation={[-Math.PI / 2, 0, 0]}>
@@ -204,9 +210,9 @@ export function MiniatureTown({ game }: TownProps): React.JSX.Element {
         <meshStandardMaterial color="#76c7cc" roughness={0.38} metalness={0.02} />
       </mesh>
 
-      {TILE_ANCHORS.map((point, index) => (
+      {anchors.tiles.map((point, index) => (
         <group key={`road-${index}`} position={[point.x, ROAD_TILE_CENTER_Y, point.z]}>
-          <mesh>
+          <mesh onClick={event=>{event.stopPropagation();onSelectTile?.(index);}}>
             <boxGeometry args={[1.78, ROAD_TILE_THICKNESS, 1.78]} />
             <meshStandardMaterial color={index === 0 ? '#f4cc5c' : '#dbe2d6'} roughness={0.88} />
           </mesh>
@@ -217,8 +223,9 @@ export function MiniatureTown({ game }: TownProps): React.JSX.Element {
         </group>
       ))}
 
-      {TILE_ANCHORS.map((point, index) => {
-        const next = TILE_ANCHORS[(index + 1) % TILE_ANCHORS.length];
+      {game.map.route.map((tileId, index) => {
+        const point = anchors.tiles[tileId];
+        const next = anchors.tiles[game.map.route[(index + 1) % game.map.route.length]];
         const horizontal = point.z === next.z;
         return (
           <mesh key={`edge-${index}`} position={[(point.x + next.x) / 2, ROAD_CONNECTOR_CENTER_Y, (point.z + next.z) / 2]}>
@@ -229,45 +236,41 @@ export function MiniatureTown({ game }: TownProps): React.JSX.Element {
       })}
 
       {game.tiles.map(tile => {
-        const lot = LOT_ANCHORS[tile.id];
-        const road = TILE_ANCHORS[tile.id];
-        const inwardAngle = Math.abs(road.z) === 4 ? (road.z < 0 ? 0 : Math.PI) : (road.x > 0 ? -Math.PI / 2 : Math.PI / 2);
+        const lot = lotForTile(tile.id, game.map);
+        const inwardAngle = inwardAngleForTile(tile.id, game.map);
         return (
           <group key={tile.id} position={[lot.x, GROUND_TOP, lot.z]} rotation={[0, inwardAngle, 0]}>
-            {tile.kind === 'property' ? <House tile={tile} /> : <NeutralLandmark tileId={tile.id} />}
+            {tile.kind === 'property' ? <House tile={tile} game={game} /> : <NeutralLandmark title={tile.title} />}
           </group>
         );
       })}
 
       {/* Shared walls and roof strips visibly join only eligible street neighbours. */}
       {rowHouses(game).flatMap(row => row.tileIds.slice(1).map((id, index) => {
-        const a = LOT_ANCHORS[row.tileIds[index]];
-        const b = LOT_ANCHORS[id];
+        const a = lotForTile(row.tileIds[index], game.map);
+        const b = lotForTile(id, game.map);
         const horizontal = a.z === b.z;
         const height = Math.min(game.tiles[id].level ?? 1, game.tiles[row.tileIds[index]].level ?? 1) === 2 ? 1.45 : 0.85;
         return (
           <group key={`terrace-${id}`} position={[(a.x + b.x) / 2, GROUND_TOP, (a.z + b.z) / 2]}>
             <mesh position={[0, 0.09, 0]}>
               <boxGeometry args={horizontal ? [1.35, 0.18, 0.86] : [0.86, 0.18, 1.35]} />
-              <meshStandardMaterial color={row.ownerId === 'p1' ? '#ff715b' : '#4f7cff'} roughness={0.86} />
+              <meshStandardMaterial color={colorForOwner(game, row.ownerId)} roughness={0.86} />
             </mesh>
             <mesh position={[0, height / 2 + 0.18, 0]}>
               <boxGeometry args={horizontal ? [1.22, height, 0.72] : [0.72, height, 1.22]} />
-              <meshStandardMaterial color={row.ownerId === 'p1' ? '#ffb278' : '#91b5ff'} roughness={0.78} />
+              <meshStandardMaterial color={row.ownerId === game.players[0]?.id ? '#ffb278' : row.ownerId === game.players[1]?.id ? '#91b5ff' : colorForOwner(game, row.ownerId)} roughness={0.78} />
             </mesh>
             <mesh position={[0, height + 0.25, 0]}>
               <boxGeometry args={horizontal ? [1.35, 0.18, 0.86] : [0.86, 0.18, 1.35]} />
-              <meshStandardMaterial color={row.ownerId === 'p1' ? '#c85045' : '#385da9'} />
+              <meshStandardMaterial color={row.ownerId === game.players[0]?.id ? '#c85045' : row.ownerId === game.players[1]?.id ? '#385da9' : colorForOwner(game, row.ownerId)} />
             </mesh>
           </group>
         );
       }))}
 
       <ClockTower />
-      <Lamp position={[-2.9, GROUND_TOP, -2.9]} />
-      <Lamp position={[2.9, GROUND_TOP, -2.9]} />
-      <Lamp position={[-2.9, GROUND_TOP, 2.9]} />
-      <Lamp position={[2.9, GROUND_TOP, 2.9]} />
+      {[-1, 1].flatMap(x => [-1, 1].map(z => <Lamp key={`${x}-${z}`} position={[x * Math.max(2.9, anchors.bounds.width * 0.19), GROUND_TOP, z * Math.max(2.9, anchors.bounds.depth * 0.19)]} />))}
     </group>
   );
 }

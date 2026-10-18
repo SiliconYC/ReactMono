@@ -1,11 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createGame,applyAction,DEFAULT_CONFIG,HARBOR_CONFIG} from '../dist/core/game.js';
-import {chooseComputerAction} from '../dist/core/agent.js';
-import {COMPUTER_STYLES} from '../dist/core/strategic-agent.js';
-import {runStyleBenchmark} from '../dist/core/benchmark.js';
-import {runSimulation} from '../dist/core/simulator.js';
-import {deserializeGame,serializeGame} from '../dist/core/save.js';
+import {createGame,applyAction,DEFAULT_CONFIG,HARBOR_CONFIG} from '../.test-dist/core/game.js';
+import {chooseComputerAction} from '../.test-dist/core/agent.js';
+import {COMPUTER_STYLES} from '../.test-dist/core/strategic-agent.js';
+import {runStyleBenchmark} from '../.test-dist/core/benchmark.js';
+import {runSimulation} from '../.test-dist/core/simulator.js';
+import {deserializeGame,serializeGame} from '../.test-dist/core/save.js';
 
 const config=(style)=>({...DEFAULT_CONFIG,strategyEnabled:true,specialEnabled:true,bankEnabled:true,
   marketEnabled:true,loanEnabled:true,automaticLiquidation:true,maxRounds:20,
@@ -65,4 +65,28 @@ test('1000 局真实无界面对战：多人数、多地图、多风格、零拒
     assert.ok(score.actionSelection.end_turn>0);
   }
   assert.notDeepEqual(result.byStyle.conservative.actionSelection,result.byStyle.aggressive.actionSelection);
+});
+test('到访建设规则下电脑不会升级本回合未停留的地产或重复建设',()=>{
+  const visitConfig={...DEFAULT_CONFIG,players:[
+    {id:'p1',name:'甲',kind:'computer',computerStyle:'balanced'},
+    {id:'p2',name:'电脑',kind:'computer',computerStyle:'balanced'}
+  ],maxRounds:10,automaticLiquidation:true,propertyVisitOnly:true,stockAccount:'bank',
+  bankEnabled:true,loanEnabled:true,marketEnabled:true,strategyEnabled:true,specialEnabled:false};
+  const result=runSimulation(1,{config:visitConfig,maxActions:500});
+  assert.equal(result.finalState.status,'finished');
+  assert.ok(result.trace.some(row=>row.includes(':p2:buy_property:')),
+    '固定种子会覆盖电脑买地后的回合决策');
+});
+test('股票以银行存款结算时电脑按存款余额估算，不按现金余额误判',()=>{
+  const stockConfig={...DEFAULT_CONFIG,players:[
+    {id:'p1',name:'甲',kind:'computer',computerStyle:'balanced'},
+    {id:'p2',name:'乙',kind:'human'}
+  ],bankEnabled:true,marketEnabled:true,loanEnabled:false,strategyEnabled:true,
+  stockAccount:'bank',propertyVisitOnly:true};
+  const started=applyAction(createGame(17,stockConfig),{type:'start_game',actorId:'p1'}).state;
+  const wealthyInBank={...started,phase:'await_end_turn',players:started.players.map((p,i)=>i===0
+    ?{...p,cash:200,bankBalance:1000}:p)};
+  const action=chooseComputerAction(wealthyInBank);
+  assert.equal(action?.type,'buy_stock');
+  assert.equal(applyAction(wealthyInBank,action).ok,true);
 });

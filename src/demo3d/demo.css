@@ -162,6 +162,8 @@ button:focus-visible {
   line-height: 1.1;
   letter-spacing: 0.06em;
 }
+.retirement-flag{display:inline-flex;vertical-align:middle;border:1px solid #bd755f;border-radius:99px;padding:4px 9px;color:#8c4c39;background:#fff0e9;font-size:11px;font-weight:800;letter-spacing:.04em}
+.retirement-notice{margin:8px 0 0;padding:8px 12px;border:1px solid #e8d2bd;border-radius:10px;background:#fff9ee;color:#725940;font-size:12px;line-height:1.55}
 
 .round-chip {
   justify-self: center;

@@ -150,10 +150,11 @@ export function DemoApp(): React.JSX.Element {
   return (
     <main className="demo-shell" data-phase={game.phase} data-busy={String(busy)} data-visual-tile={visualTile} data-outcome={outcome?.stage ?? ''}>
       <header className="top-rail">
-        <div className="brand-block"><span className="brand-mark" aria-hidden="true">富</span><div><p>大富翁 · 3D 体验切片</p><h1>晴湾小镇</h1></div></div>
+        <div className="brand-block"><span className="brand-mark" aria-hidden="true">富</span><div><p>大富翁 · 迁移参考</p><h1>晴湾小镇 <small className="retirement-flag">待删除</small></h1></div></div>
         <div className="round-chip"><span>当前回合</span><strong>{shownGame.round} / {game.maxRounds}</strong></div>
         <button type="button" className="view-toggle" aria-pressed={!followCurrent} onClick={() => setFollowCurrent(value => !value)}>{followCurrent ? '全景视角' : '跟随角色'}</button>
       </header>
+      <p className="retirement-notice" role="note">独立 demo 已标记待删除；3D 场景与金融、地产玩法正在并入主程序。正式版完成双地图、电脑、存档、离线和移动端验收后，再移除本页源码。</p>
       <nav className="finance-tools" aria-label="金融服务">
         <button type="button" disabled={!canFinance} onClick={() => setFinanceTab('bank')}>银行</button>
         <button type="button" disabled={!canFinance} onClick={() => setFinanceTab('market')}>股市</button>

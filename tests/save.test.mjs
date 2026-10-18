@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createGame, applyAction, nextDie } from '../dist/core/game.js';
-import { serializeGame, deserializeGame, SaveError, MAX_SAVE_CHARS } from '../dist/core/save.js';
+import { createGame, applyAction, nextDie } from '../.test-dist/core/game.js';
+import { serializeGame, deserializeGame, SaveError, MAX_SAVE_CHARS } from '../.test-dist/core/save.js';
 const now='2026-10-16T00:00:00.000Z';
 function sample() {
   let state=applyAction(createGame(17),{type:'start_game',actorId:'p1'}).state;

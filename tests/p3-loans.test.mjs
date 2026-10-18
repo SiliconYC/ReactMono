@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createGame, applyAction, DEFAULT_CONFIG, netWorth, loanLimit, resaleValue } from '../dist/core/game.js';
-import { serializeGame, deserializeGame, SaveError } from '../dist/core/save.js';
+import { createGame, applyAction, DEFAULT_CONFIG, netWorth, loanLimit, resaleValue } from '../.test-dist/core/game.js';
+import { serializeGame, deserializeGame, SaveError } from '../.test-dist/core/save.js';
 
 const config={...DEFAULT_CONFIG,bankEnabled:true,loanEnabled:true,automaticLiquidation:true,
   players:[{id:'p1',name:'甲',kind:'human'},{id:'p2',name:'乙',kind:'human'},{id:'p3',name:'丙',kind:'human'}]};
@@ -110,8 +110,8 @@ test('P3-08: 100 deterministic seeded secured accounts across three local player
   }
 });
 test('P3-08: pledged land yields zero rent to the lender without losing ownership',async()=>{
-  const {nextDie}=await import('../dist/core/random.js');
-  const {advancePosition}=await import('../dist/core/maps.js');
+  const {nextDie}=await import('../.test-dist/core/random.js');
+  const {advancePosition}=await import('../.test-dist/core/maps.js');
   let s=doIt(createGame(72,config),'start_game');
   const target=advancePosition(s.map,0,nextDie(s.randomState).value);
   s={...s,currentPlayerIndex:1,tiles:s.tiles.map(t=>t.id===target?

@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {runSimulation} from '../dist/core/simulator.js';
-import {netWorth} from '../dist/core/game.js';
-import {serializeGame,deserializeGame} from '../dist/core/save.js';
+import {runSimulation} from '../.test-dist/core/simulator.js';
+import {netWorth} from '../.test-dist/core/game.js';
+import {serializeGame,deserializeGame} from '../.test-dist/core/save.js';
 
 test('P2 独立验收：100 固定种子经济、产权、卡牌与事件重放不变量',()=>{
   let cards=0,randomEvents=0,upgrades=0,rents=0;

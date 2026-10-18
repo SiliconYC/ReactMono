@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createGame,applyAction,nextDie,netWorth,DEFAULT_CONFIG} from '../dist/core/game.js';
-import {serializeGame,deserializeGame} from '../dist/core/save.js';
-import {chooseComputerAction} from '../dist/core/agent.js';
+import {createGame,applyAction,nextDie,netWorth,DEFAULT_CONFIG} from '../.test-dist/core/game.js';
+import {serializeGame,deserializeGame} from '../.test-dist/core/save.js';
+import {chooseComputerAction} from '../.test-dist/core/agent.js';
 const action=(s,type,tileId)=>applyAction(s,{type,actorId:s.players[s.currentPlayerIndex].id,...(tileId===undefined?{}:{tileId})});
 const ok=r=>{assert.equal(r.ok,true,r.reason);return r.state};
 const started=(seed=1,config=DEFAULT_CONFIG)=>ok(action(createGame(seed,config),'start_game'));

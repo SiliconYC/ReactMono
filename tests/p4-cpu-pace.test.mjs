@@ -1,7 +1,7 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {cpuDelay,cpuTurnKey,addCpuTiming,initialCpuTiming,MAX_CPU_ACTIONS_PER_TURN} from '../dist/ui/computer-pace.js';
-import {runSimulation} from '../dist/core/simulator.js';
-import {DEFAULT_CONFIG,HARBOR_CONFIG} from '../dist/core/game.js';
+import {cpuDelay,cpuTurnKey,addCpuTiming,initialCpuTiming,MAX_CPU_ACTIONS_PER_TURN} from '../.test-dist/ui/computer-pace.js';
+import {runSimulation} from '../.test-dist/core/simulator.js';
+import {DEFAULT_CONFIG,HARBOR_CONFIG} from '../.test-dist/core/game.js';
 test('#70 delay presets reduce wait but NEVER modify legal decisions',()=>{
  const r={type:'roll',actorId:'p1'};
  assert.equal(cpuDelay('normal',r),160);

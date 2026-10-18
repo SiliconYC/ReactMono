@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { applyAction, createGame, DEFAULT_CONFIG, nextDie } from '../dist/core/game.js';
-import { outcomeSequence } from '../dist/demo3d/outcomes.js';
+import { applyAction, createGame, DEFAULT_CONFIG, nextDie } from '../.test-dist/core/game.js';
+import { outcomeSequence } from '../.test-dist/demo3d/outcomes.js';
 
 function started(config = DEFAULT_CONFIG) {
   const setup = createGame(17, config);

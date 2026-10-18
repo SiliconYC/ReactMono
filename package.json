@@ -8,6 +8,7 @@
     "build": "tsc -p tsconfig.json && node scripts/build.mjs",
     "test": "npm run build && node --test tests/*.test.mjs",
     "dev": "npm run build && node scripts/serve.mjs",
+    "main:dev": "vite --config vite.main.config.ts",
     "demo:dev": "vite --config vite.demo.config.ts",
     "demo:build": "tsc -p tsconfig.demo.json && vite build --config vite.demo.config.ts"
   },

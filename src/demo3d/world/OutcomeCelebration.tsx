@@ -18,7 +18,7 @@ export function OutcomeCelebration({ game, cue, reducedMotion }: {
   const confetti = useRef<THREE.Group>(null);
   const elapsed = useRef(0);
   const winner = game.players.find(player => player.id === cue.winnerId);
-  const point = positionForTile(winner?.position ?? 0);
+  const point = positionForTile(winner?.position ?? 0, game.map);
   const draw = cue.stage === 'draw';
   const winnerSeat = game.players.findIndex(player => player.id === cue.winnerId);
   const seatOffset = winnerSeat === 0 ? -0.22 : 0.22;

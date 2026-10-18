@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { DEFAULT_CONFIG } from '../dist/core/game.js';
-import { runSimulation } from '../dist/core/simulator.js';
+import { DEFAULT_CONFIG } from '../.test-dist/core/game.js';
+import { runSimulation } from '../.test-dist/core/simulator.js';
 test('种子0到99的整局均结束，无违规指令、死锁、资金和产权错误',()=>{
   for(let seed=0;seed<100;seed++){
     const r=runSimulation(seed);

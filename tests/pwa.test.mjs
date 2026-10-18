@@ -21,12 +21,15 @@ test('PWA Manifest 安装作用域及双尺寸原创 PNG 图标',async()=>{
 test('Service Worker 同源预缓存完整运行依赖，不使用 CDN 或缓存私人存档',async()=>{
   const sw=await readFile('dist/sw.js','utf8');
   const html=await readFile('dist/index.html','utf8');
-  for(const name of ['index.html','ui/app.js','core/game.js','core/save.js',
-    'storage/indexeddb.js','vendor/react.production.min.js','vendor/react-dom.production.min.js'])
-      assert.ok(sw.includes(name),'缺少离线预缓存 '+name);
+  const entries=html.match(/\.\/assets\/[^\"\s]+\.(?:js|css)/g)??[];
+  assert.ok(entries.some(path=>path.includes('main-')&&path.endsWith('.js')));
+  assert.ok(entries.some(path=>path.includes('jsx-runtime-')&&path.endsWith('.js')));
+  assert.ok(entries.some(path=>path.includes('main-')&&path.endsWith('.css')));
+  for(const name of entries)assert.ok(sw.includes("'"+name+"'"),'缺少离线预缓存 '+name);
+  assert.doesNotMatch(html,/vendor\/react/);
   assert.doesNotMatch(sw,/__CACHE_VERSION__/);
   assert.match(sw,/reactmono-[a-f0-9]{16}/);
-  assert.ok(html.includes('manifest.webmanifest'));
+  assert.match(html,/assets\/manifest-[^\"]+\.webmanifest/);
   assert.ok(!/unpkg\.com|cdn\.jsdelivr/.test(html));
   assert.ok(!sw.includes('put(userSave')&&!sw.includes('fetch("https:'));
   assert.match(sw,/始终先返回与缓存脚本同版本的页面/);
