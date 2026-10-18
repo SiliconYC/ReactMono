@@ -57,7 +57,7 @@ P0 目标与治理 → P1 第一局能玩到底 → P2 可靠的准本地游戏�
 ## 当前版本试玩与验收
 
 - [GitHub Pages 在线游玩](https://siliconyc.github.io/ReactMono/)：P2 人机对局、存档、多种卡片/机会事件以及离线启动。
-- **低多边形 3D 体验切片（本地）**：执行 `npm install` 后运行 `npm run demo:dev -- --host 127.0.0.1`，在 Chrome 打开终端输出的网址；可完成投骰、逐格移动、独立买地/建房/升级、同街区联排、租金结算和双人完整对局。骰子与镜头跟随角色；买地、建房、升级只在当前停留地块触发，每次停留只能操作一次。支持现金/存款分账、银行存取款、地产抵押借还、存款买卖股票及逐轮行情，并按真实结算播放破产退场和胜利庆祝。生产构建命令为 `npm run demo:build`，产物位于 `dist-3d-demo/`。该独立入口用于验证未来 3D 化体验，尚未替换正式 PWA。
+- **低多边形 3D 体验切片（本地）**：执行 `npm install` 后运行 `npm run demo:dev`，固定打开 [http://127.0.0.1:4173/](http://127.0.0.1:4173/)；该端口由 Vite demo 配置固定，若已占用会明确报错，不会悄悄切换地址。可完成投骰、逐格移动、独立买地/建房/升级、同街区联排、租金结算和双人完整对局。骰子与镜头跟随角色；买地、建房、升级只在当前停留地块触发，每次停留只能操作一次。支持现金/存款分账、银行存取款、地产抵押借还、存款买卖股票及逐轮行情，并按真实结算播放破产退场和胜利庆祝。生产构建命令为 `npm run demo:build`，产物位于 `dist-3d-demo/`。该独立入口用于验证未来 3D 化体验，尚未替换正式 PWA。
 - [P2 总验收 Issue #20](https://github.com/SiliconYC/ReactMono/issues/20) / [PR #29](https://github.com/SiliconYC/ReactMono/pull/29)：规则/百种子、离线、自动存档、JSON 往返及 Chromium 公网交互证据。
 - [P3 16 项任务 #30–#45](https://github.com/SiliconYC/ReactMono/issues/30)：规则模块化 → 2–4 人/多地图 → 经济及股市 → 特殊格/AI → 综合验收。
 - [历史 P2 执行队列](docs/P2_QUEUE.md) 与 [实际开发实验日志](docs/EVOLUTION_LOG.md)。
