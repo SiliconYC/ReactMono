@@ -30,11 +30,11 @@ function Tree({ position, scale = 1 }: { position: [number, number, number]; sca
 function Lamp({ position }: { position: [number, number, number] }): React.JSX.Element {
   return (
     <group position={position}>
-      <mesh position={[0, 0.45, 0]} castShadow>
+      <mesh position={[0, 0.45, 0]}>
         <cylinderGeometry args={[0.035, 0.055, 0.9, 8]} />
         <meshStandardMaterial color="#29534f" roughness={0.7} />
       </mesh>
-      <mesh position={[0, 0.91, 0]} castShadow>
+      <mesh position={[0, 0.91, 0]}>
         <octahedronGeometry args={[0.13, 0]} />
         <meshStandardMaterial color="#ffe7a3" emissive="#f4b85d" emissiveIntensity={0.45} roughness={0.5} />
       </mesh>
@@ -52,7 +52,7 @@ function House({ tile }: { tile: Tile }): React.JSX.Element {
           <meshStandardMaterial color={owner ?? "#c5d79a"} roughness={0.92} />
         </mesh>
         {[-0.38, 0.38].map(x => [-0.38, 0.38].map(z => (
-          <mesh key={`${x}-${z}`} position={[x, 0.24, z]} castShadow>
+          <mesh key={`${x}-${z}`} position={[x, 0.24, z]}>
             <cylinderGeometry args={[0.035, 0.045, 0.38, 6]} />
             <meshStandardMaterial color="#e7f0c6" roughness={0.9} />
           </mesh>
@@ -190,7 +190,7 @@ export function MiniatureTown({ game }: TownProps): React.JSX.Element {
         <cylinderGeometry args={[8.15, 8.25, 0.26, 12]} />
         <meshStandardMaterial color="#8ecf99" roughness={0.94} />
       </mesh>
-      <mesh position={[0, -1.2, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+      <mesh position={[0, -1.2, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <circleGeometry args={[22, 48]} />
         <meshStandardMaterial color="#76c7cc" roughness={0.38} metalness={0.02} />
       </mesh>
