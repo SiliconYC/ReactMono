@@ -46,11 +46,20 @@ function CameraRig({ target, follow, reducedMotion }: { target: THREE.Vector3; f
 
 function Scene(props: WorldCanvasProps): React.JSX.Element {
   const invalidate = useThree(state => state.invalidate);
+  const scene = useThree(state => state.scene);
   useLayoutEffect(() => {
+    // Three.js does not inherit shadow flags from parent groups. Apply one
+    // scene-wide rule so height, mesh role, and material never create exceptions.
+    scene.traverse(object => {
+      if (object instanceof THREE.Mesh) {
+        object.castShadow = true;
+        object.receiveShadow = true;
+      }
+    });
     // Imperative actor/camera targets and useFrame callbacks are not host props;
     // request a demand frame after their layout effects have synchronized them.
     invalidate();
-  }, [invalidate, props.game, props.motion, props.rent, props.outcome,
+  }, [scene, invalidate, props.game, props.motion, props.rent, props.outcome,
     props.followCurrent, props.reducedMotion, props.paused]);
   const actor = props.game.players[props.game.currentPlayerIndex];
   const focusId = props.outcome?.stage === 'draw' ? null

@@ -75,7 +75,7 @@ export function Dice({ value, nonce, reducedMotion }: DiceProps): React.JSX.Elem
   if (value === null) return null;
   return (
     <group ref={root} position={[0, 2.25, 0]} scale={0.56}>
-      <mesh castShadow>
+      <mesh>
         <boxGeometry args={[1, 1, 1, 3, 3, 3]} />
         <meshStandardMaterial color="#fffaf0" roughness={0.32} metalness={0.02} />
       </mesh>
