@@ -1,0 +1,331 @@
+{
+  "repository": "tytannial/rich4-re",
+  "url": "https://github.com/tytannial/rich4-re",
+  "checked_at_utc": "2026-10-19T01:17:00Z",
+  "upstream_sha": "b7b76570f445ad07c0788314062b8500e77259e7",
+  "original_relation": "faithful",
+  "license": {
+    "spdx": "MIT",
+    "source_url": "https://github.com/tytannial/rich4-re/blob/b7b76570f445ad07c0788314062b8500e77259e7/LICENSE",
+    "risks": [
+      "MIT仅对仓库声称自有代码适用，原版商业游戏资源需另行合法取得",
+      "与mytbk/rich4 GPL-3.0的实质代码血缘尚未独立裁定",
+      "不可因MIT声明将原版音画/游戏程序复制至ReactMono"
+    ]
+  },
+  "execution": {
+    "attempted": true,
+    "environment": "研究端 Linux x86_64；CMake 3.31.6、Ninja 1.12.1、GCC 14.2；无已安装SDL3/FreeType开发包及商业MKF素材；外部git DNS受限；通过GitHub仓库接口读取源码",
+    "commands": [
+      {
+        "command": "git ls-remote https://github.com/tytannial/rich4-re.git HEAD",
+        "result": "failed: Could not resolve host: github.com"
+      },
+      {
+        "command": "cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release",
+        "result": "not_run: 无可本地克隆上游及SDL3/FreeType依赖"
+      },
+      {
+        "command": "ctest --test-dir build -R unit --output-on-failure",
+        "result": "not_run: 上游未成功构建，非PASS"
+      },
+      {
+        "command": "python tools/run_tests.py --matrix",
+        "result": "not_run: 需要上游可执行文件和合法原版MKF"
+      }
+    ],
+    "result": "B级静态源码审计已完成；A独立构建/运行/截图/测试为零",
+    "limitations": [
+      "没有可分发的原版资源",
+      "不能以README宣称或workflow配置代替独立测试",
+      "画质/操作/声音/跨平台真实性未独立验收"
+    ]
+  },
+  "evidence": [
+    {
+      "id": "B01",
+      "level": "B",
+      "claim": "仓库 LICENSE 声明 MIT，但不覆盖第三方或原版商业素材",
+      "source_url": "https://github.com/tytannial/rich4-re/blob/b7b76570f445ad07c0788314062b8500e77259e7/LICENSE#L1-L21",
+      "locator": "LICENSE:1-21",
+      "verification": "已读取固定 SHA 的对应路径，静态核查",
+      "limitations": "只能证明代码/测试定义存在，未独立运行"
+    },
+    {
+      "id": "B02",
+      "level": "B",
+      "claim": "CMake C++17、SDL3/FreeType、rich4_core 与 rich4_tests；main 支持 headless seed quickstart script",
+      "source_url": "https://github.com/tytannial/rich4-re/blob/b7b76570f445ad07c0788314062b8500e77259e7/CMakeLists.txt#L1-L113",
+      "locator": "CMakeLists.txt:1-113",
+      "verification": "已读取固定 SHA 的对应路径，静态核查",
+      "limitations": "只能证明代码/测试定义存在，未独立运行"
+    },
+    {
+      "id": "B03",
+      "level": "B",
+      "claim": "SDL dummy 模式与游戏初始化仍读取多个原版 MKF；L1 不能据 headless 推断为无版权资源可运行",
+      "source_url": "https://github.com/tytannial/rich4-re/blob/b7b76570f445ad07c0788314062b8500e77259e7/src/app/game/game_init.cpp#L16-L47",
+      "locator": "src/app/game/game_init.cpp:16-47",
+      "verification": "已读取固定 SHA 的对应路径，静态核查",
+      "limitations": "只能证明代码/测试定义存在，未独立运行"
+    },
+    {
+      "id": "B04",
+      "level": "B",
+      "claim": "联合住宅租金按地主与路段名聚合；连锁店全图计数乘2000；landingEvent 另处理同盟和神明",
+      "source_url": "https://github.com/tytannial/rich4-re/blob/b7b76570f445ad07c0788314062b8500e77259e7/src/app/game/turn_system.cpp#L982-L1010",
+      "locator": "src/app/game/turn_system.cpp:982-1010",
+      "verification": "已读取固定 SHA 的对应路径，静态核查",
+      "limitations": "只能证明代码/测试定义存在，未独立运行"
+    },
+    {
+      "id": "B05",
+      "level": "B",
+      "claim": "transferMoney 根据 flags 决定现金/存款优先和收款账户，资金不足可触发破产",
+      "source_url": "https://github.com/tytannial/rich4-re/blob/b7b76570f445ad07c0788314062b8500e77259e7/src/app/game/economy.cpp#L129-L206",
+      "locator": "src/app/game/economy.cpp:129-206",
+      "verification": "已读取固定 SHA 的对应路径，静态核查",
+      "limitations": "只能证明代码/测试定义存在，未独立运行"
+    },
+    {
+      "id": "B06",
+      "level": "B",
+      "claim": "stockTick 遍历12股票、停牌/新闻/动量和144期历史；交易函数单独存在",
+      "source_url": "https://github.com/tytannial/rich4-re/blob/b7b76570f445ad07c0788314062b8500e77259e7/src/app/game/stock_system.cpp#L105-L171",
+      "locator": "src/app/game/stock_system.cpp:105-171",
+      "verification": "已读取固定 SHA 的对应路径，静态核查",
+      "limitations": "只能证明代码/测试定义存在，未独立运行"
+    },
+    {
+      "id": "B07",
+      "level": "B",
+      "claim": "AI 卡牌、道具与具体效果存在独立目标选择与效果代码；不自动证明高水平AI或所有行为忠实",
+      "source_url": "https://github.com/tytannial/rich4-re/blob/b7b76570f445ad07c0788314062b8500e77259e7/src/app/ai/ai_card.cpp#L1224-L1285",
+      "locator": "src/app/ai/ai_card.cpp:1224-1285",
+      "verification": "已读取固定 SHA 的对应路径，静态核查",
+      "limitations": "只能证明代码/测试定义存在，未独立运行"
+    },
+    {
+      "id": "B08",
+      "level": "B",
+      "claim": "MKF索引解析、LZHUF读取、FLC/等距贴图和SDL texture 绘制链存在",
+      "source_url": "https://github.com/tytannial/rich4-re/blob/b7b76570f445ad07c0788314062b8500e77259e7/src/resource/mkf.cpp#L24-L98",
+      "locator": "src/resource/mkf.cpp:24-98",
+      "verification": "已读取固定 SHA 的对应路径，静态核查",
+      "limitations": "只能证明代码/测试定义存在，未独立运行"
+    },
+    {
+      "id": "B09",
+      "level": "B",
+      "claim": "SAVE*.DAT 固定字段顺序、股票数据、地图和回合快照写入，parseSaveBody 对应读取",
+      "source_url": "https://github.com/tytannial/rich4-re/blob/b7b76570f445ad07c0788314062b8500e77259e7/src/app/game/save_data.cpp#L453-L568",
+      "locator": "src/app/game/save_data.cpp:453-568",
+      "verification": "已读取固定 SHA 的对应路径，静态核查",
+      "limitations": "只能证明代码/测试定义存在，未独立运行"
+    },
+    {
+      "id": "B10",
+      "level": "B",
+      "claim": "test_rent 为1400/4000等精确数学断言；test_save/test_mkf 缺版权资源时SKIP，不据此认定文件兼容",
+      "source_url": "https://github.com/tytannial/rich4-re/blob/b7b76570f445ad07c0788314062b8500e77259e7/tests/unit/test_rent.cpp#L26-L65",
+      "locator": "tests/unit/test_rent.cpp:26-65",
+      "verification": "已读取固定 SHA 的对应路径，静态核查",
+      "limitations": "只能证明代码/测试定义存在，未独立运行"
+    },
+    {
+      "id": "B11",
+      "level": "B",
+      "claim": "测试编排脚本传递 seed/headless/quickstart/script，检查退出码和断言摘要；公开CI只执行L0",
+      "source_url": "https://github.com/tytannial/rich4-re/blob/b7b76570f445ad07c0788314062b8500e77259e7/tools/run_tests.py#L44-L98",
+      "locator": "tools/run_tests.py:44-98",
+      "verification": "已读取固定 SHA 的对应路径，静态核查",
+      "limitations": "只能证明代码/测试定义存在，未独立运行"
+    },
+    {
+      "id": "B12",
+      "level": "B",
+      "claim": "99个场景文件静态存在但验证深度不一；save_load查实际状态，news_fate只有wait trace无显式assert",
+      "source_url": "https://github.com/tytannial/rich4-re/blob/b7b76570f445ad07c0788314062b8500e77259e7/tests/scenarios/68_news_fate.txt#L1-L13",
+      "locator": "tests/scenarios/68_news_fate.txt:1-13",
+      "verification": "已读取固定 SHA 的对应路径，静态核查",
+      "limitations": "只能证明代码/测试定义存在，未独立运行"
+    },
+    {
+      "id": "B13",
+      "level": "B",
+      "claim": "开场AVI与全地图通关AVI分支明确留有TODO，不能视为完整演出重建",
+      "source_url": "https://github.com/tytannial/rich4-re/blob/b7b76570f445ad07c0788314062b8500e77259e7/src/app/game/victory.cpp#L399-L418",
+      "locator": "src/app/game/victory.cpp:399-418",
+      "verification": "已读取固定 SHA 的对应路径，静态核查",
+      "limitations": "只能证明代码/测试定义存在，未独立运行"
+    },
+    {
+      "id": "B14",
+      "level": "B",
+      "claim": "GitHub元数据显示fork=false；上游按C++/SDL模块组织而mytbk主要asm；不足以证明法律意义独立创作",
+      "source_url": "https://github.com/tytannial/rich4-re/blob/b7b76570f445ad07c0788314062b8500e77259e7/AGENTS.md#L1-L17",
+      "locator": "AGENTS.md:1-17",
+      "verification": "交叉核对GitHub repo元数据及 mytbk/rich4 的f81954d6树；平台fork=false",
+      "limitations": "代码逐函数来源没有完成法律鉴定，无法排除许可证冲突"
+    },
+    {
+      "id": "B15",
+      "level": "B",
+      "claim": "ReactMono已存在纯TS规则、5种卡、原创股票与每轮银行计息，和rich4-re不等价",
+      "source_url": "https://github.com/SiliconYC/ReactMono/blob/be88f92936e553bd369fe3c142394cd612659f5f/src/core/game.ts#L85-L110",
+      "locator": "src/core/game.ts:85-110",
+      "verification": "对照ReactMono dev@be88f929...和cards.ts、bank.ts、stocks.ts、maps.ts源码",
+      "limitations": "差异并不必然构成游戏缺陷"
+    },
+    {
+      "id": "C01",
+      "level": "C",
+      "claim": "作者README声明30卡/13道具/全部事件格/1:1存档及99 headless场景",
+      "source_url": "https://github.com/tytannial/rich4-re/blob/b7b76570f445ad07c0788314062b8500e77259e7/README.md#L10-L135",
+      "locator": "README.md:10-135",
+      "verification": "仅记录作者自述并逐项找源码落点",
+      "limitations": "未实际运行完整原作对照测试"
+    },
+    {
+      "id": "D01",
+      "level": "D",
+      "claim": "README称1999游戏版本、任务按1998原作，版本与扩展资料片边界尚未证实",
+      "source_url": "https://github.com/tytannial/rich4-re/blob/b7b76570f445ad07c0788314062b8500e77259e7/README.md#L1-L8",
+      "locator": "README.md:1-8",
+      "verification": "对照文字年代口径",
+      "limitations": "没有原始发行版样本校验"
+    },
+    {
+      "id": "D02",
+      "level": "D",
+      "claim": "当前不能验证上游L0/L1构建运行、原版截图或声画体验",
+      "source_url": "https://github.com/tytannial/rich4-re/blob/b7b76570f445ad07c0788314062b8500e77259e7/docs/testing.md#L1-L52",
+      "locator": "docs/testing.md:1-52",
+      "verification": "当前研究环境缺SDL3/FreeType依赖和合法原版MKF，git远端DNS失败",
+      "limitations": "无独立实测结果"
+    },
+    {
+      "id": "D03",
+      "level": "D",
+      "claim": "与GPL-3.0的mytbk/rich4可能共享逆向成果，但现有证据不能判定复制或独立性",
+      "source_url": "https://github.com/tytannial/rich4-re/blob/b7b76570f445ad07c0788314062b8500e77259e7/docs/reverse/README.md#L1-L40",
+      "locator": "docs/reverse/README.md:1-40",
+      "verification": "对照GitHub元数据、目录树和仓库文本搜索",
+      "limitations": "未做逐函数代码相似度及原作者授权核验"
+    }
+  ],
+  "features": [
+    {
+      "feature": "new_game_turn_ai",
+      "status": "partial",
+      "evidence_ids": [
+        "B02",
+        "B03",
+        "B04",
+        "B11"
+      ]
+    },
+    {
+      "feature": "residential_property_rent_alliance",
+      "status": "partial",
+      "evidence_ids": [
+        "B04",
+        "B05",
+        "B10",
+        "B12"
+      ]
+    },
+    {
+      "feature": "commercial_property_facilities",
+      "status": "partial",
+      "evidence_ids": [
+        "B04",
+        "C01"
+      ]
+    },
+    {
+      "feature": "bank_loans_dividends",
+      "status": "partial",
+      "evidence_ids": [
+        "B05",
+        "B06",
+        "B12"
+      ]
+    },
+    {
+      "feature": "stock_market",
+      "status": "partial",
+      "evidence_ids": [
+        "B06",
+        "B12"
+      ]
+    },
+    {
+      "feature": "cards_and_items",
+      "status": "partial",
+      "evidence_ids": [
+        "B07",
+        "C01"
+      ]
+    },
+    {
+      "feature": "gods_news_fate_events",
+      "status": "partial",
+      "evidence_ids": [
+        "B04",
+        "B12"
+      ]
+    },
+    {
+      "feature": "save_load_binary_snapshot",
+      "status": "partial",
+      "evidence_ids": [
+        "B09",
+        "B10",
+        "B12"
+      ]
+    },
+    {
+      "feature": "sdl_visual_audio_interaction",
+      "status": "partial",
+      "evidence_ids": [
+        "B08",
+        "B13",
+        "D02"
+      ]
+    },
+    {
+      "feature": "browser_pwa",
+      "status": "unknown",
+      "evidence_ids": [
+        "B02",
+        "B03",
+        "B15"
+      ]
+    },
+    {
+      "feature": "commercial_quality_and_original_fidelity",
+      "status": "unknown",
+      "evidence_ids": [
+        "C01",
+        "D02",
+        "D01"
+      ]
+    }
+  ],
+  "scores": {
+    "rules": 4,
+    "maintainability": 3.5,
+    "reproducibility": 2,
+    "presentation": null,
+    "reactmono_value": 4
+  },
+  "recommendation": "read_only_reference",
+  "open_questions": [
+    "与mytbk/rich4 GPL代码是否存在实际复制与版权传承问题？",
+    "1998、1999及资料片版本之间的资源/存档格式差异是什么？",
+    "合法原版资源支持下L0/L1的实际通过率、截图及声画是否符合原作？",
+    "哪些99个场景有精确业务断言，哪些仅trace/通用错误检查？",
+    "是否有可公开分发的最小无版权资产测试fixtures以支持独立L0验证？"
+  ]
+}
