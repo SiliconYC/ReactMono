@@ -1,0 +1,323 @@
+{
+  "repository": "zawsstt/monopoly-rich-life",
+  "url": "https://github.com/zawsstt/monopoly-rich-life",
+  "checked_at_utc": "2026-10-19T01:24:58.839Z",
+  "upstream_sha": "307c1761b150a7179fb0353618a95bc6effe3fee",
+  "default_branch": "main",
+  "fork": {
+    "github_metadata_fork": false,
+    "origin_caveat": "没有独立验证代码与素材血缘；fork=false 不能证明全部原创。"
+  },
+  "original_relation": "inspired",
+  "license": {
+    "spdx": null,
+    "source_url": "https://github.com/zawsstt/monopoly-rich-life/blob/307c1761b150a7179fb0353618a95bc6effe3fee/LICENSE#L1-L25",
+    "risks": [
+      "自定义学习专用且明确禁止商业使用、商业衍生作品及商用转发；不得作为 ReactMono 商业级游戏的代码/模型/音频复用来源。",
+      "源码、贴图/插画、音频、短片及未入库的 refs 参考资料须分别获得权利证明；本轮未取得。",
+      "Three.js 第三方库与作者整体许可证应分别核对，作者不能改变上游依赖本身的许可。"
+    ]
+  },
+  "execution": {
+    "attempted": true,
+    "environment": "OpenAI 容器（无 github.com DNS 解析），GitHub UTF-8 内容接口可用；无可访问本地仓库镜像、无本轮 Chromium 实测。",
+    "commands": [
+      "git ls-remote https://github.com/zawsstt/monopoly-rich-life.git HEAD"
+    ],
+    "result": "命令失败：Could not resolve host: github.com；未克隆、未启动静态服务器、未运行 WebGL / WebRTC / SQL / UI 测试。已通过 GitHub 接口读取精确 SHA 的源码、文件树和许可。",
+    "limitations": [
+      "无法读取 GitHub 上的 JPEG/PNG 二进制以做独立像素检查；仅保留上游海报和 ReactMono 历史预览 URL。",
+      "Supabase 项目联机、排行榜及 Storage 实际可达性未知；不使用生产密钥或上游账号。",
+      "未下载任何受限素材或上游可执行程序。"
+    ]
+  },
+  "evidence": [
+    {
+      "id": "E01",
+      "level": "B",
+      "claim": "上游 main 定位为完整提交，GitHub 元数据 fork=false；fork=false 不能证明代码或素材原创。",
+      "source_url": "https://github.com/zawsstt/monopoly-rich-life/tree/307c1761b150a7179fb0353618a95bc6effe3fee",
+      "locator": "GitHub REST repository, branch, tree",
+      "verification": "仓库元数据与 SHA 均已读取",
+      "limitations": "未执行与其他仓库的代码相似度/历史溯源"
+    },
+    {
+      "id": "E02",
+      "level": "C",
+      "claim": "作者称作书桌微缩沙盘、六名角色、22 块地产和 2–4 人联机。",
+      "source_url": "https://github.com/zawsstt/monopoly-rich-life/blob/307c1761b150a7179fb0353618a95bc6effe3fee/README.md#L1-L30",
+      "locator": "README 0x01–0x02",
+      "verification": "仅确认作者文字",
+      "limitations": "宣传不是功能或性能实测"
+    },
+    {
+      "id": "E03",
+      "level": "B",
+      "claim": "独立于 DOM 的游戏状态 G、新局、回合、购地/升级/收租逻辑确实在 game.js 中，但使用 Math.random；未找到在本轮定位点的种子接口。",
+      "source_url": "https://github.com/zawsstt/monopoly-rich-life/blob/307c1761b150a7179fb0353618a95bc6effe3fee/src/game.js#L80-L170",
+      "locator": "newGame/runGame; L28–33 rnd; L680–752 land",
+      "verification": "读取状态、调用与升级代码",
+      "limitations": "无运行、不代表完整规则无缺陷"
+    },
+    {
+      "id": "E04",
+      "level": "B",
+      "claim": "40 格/22 处地产/8 组属于自定义棋盘，不能当作大富翁4忠实复刻。",
+      "source_url": "https://github.com/zawsstt/monopoly-rich-life/blob/307c1761b150a7179fb0353618a95bc6effe3fee/src/data.js#L89-L150",
+      "locator": "GROUPS/BOARD/GRID_POS",
+      "verification": "核对地块数组与序号",
+      "limitations": "未与原版逐机制实测"
+    },
+    {
+      "id": "E05",
+      "level": "B",
+      "claim": "场景有木制棋盘框、桌面、透视镜头、全局/跟随模式、分档阴影和方向光，属于程序化 Three.js 场景。",
+      "source_url": "https://github.com/zawsstt/monopoly-rich-life/blob/307c1761b150a7179fb0353618a95bc6effe3fee/src/view3d.js#L586-L774",
+      "locator": "init/buildStaticScene/buildTable/buildBoardFrame",
+      "verification": "核查透视相机、渲染器、阴影与灯光",
+      "limitations": "未检查实际显卡画质及帧率"
+    },
+    {
+      "id": "E06",
+      "level": "B",
+      "claim": "地产等级来自真实 G.tiles 状态；动态资产优先逐格定制 Props3DModern/Props3D，回退八种地域风格的 Building3D.property 四级工厂。",
+      "source_url": "https://github.com/zawsstt/monopoly-rich-life/blob/307c1761b150a7179fb0353618a95bc6effe3fee/src/view3d.js#L1608-L1639",
+      "locator": "syncBuilding + buildings3d.js L1200–1529",
+      "verification": "跨 game.js / view3d.js / buildings3d.js 跟踪",
+      "limitations": "无独立视觉验收、作者宣称的 88 组合不代表唯一原始资产数"
+    },
+    {
+      "id": "E07",
+      "level": "B",
+      "claim": "角色使用 Char3D 六个脚本、工厂角色与兜底角色三级链；作者代码注释称 img2threejs 参考稿精修。",
+      "source_url": "https://github.com/zawsstt/monopoly-rich-life/blob/307c1761b150a7179fb0353618a95bc6effe3fee/src/view3d.js#L1745-L1778",
+      "locator": "buildTokens / assets/models/chars3d/boss.js L1–45",
+      "verification": "检查模型装载分支和生成物",
+      "limitations": "refs/ 来源图不在固定提交文件树中，授权不明"
+    },
+    {
+      "id": "E08",
+      "level": "B",
+      "claim": "环境工厂通过 replace 接管书房，作者注释定义书架、桌灯、墙地、暖光及程序化纹理。",
+      "source_url": "https://github.com/zawsstt/monopoly-rich-life/blob/307c1761b150a7179fb0353618a95bc6effe3fee/assets/models/specials3d/environment.js#L1-L44",
+      "locator": "Environment3D.replace 描述",
+      "verification": "核查文件头和场景调用",
+      "limitations": "描述细节尚未独立逐对象检验"
+    },
+    {
+      "id": "E09",
+      "level": "B",
+      "claim": "index.html 定义 Supabase Storage CDN、后退本地、RPC；按主题分批装载本地 JS 模型脚本。",
+      "source_url": "https://github.com/zawsstt/monopoly-rich-life/blob/307c1761b150a7179fb0353618a95bc6effe3fee/index.html#L20-L89",
+      "locator": "window.SB; L477–525 __loadBoardTheme",
+      "verification": "检查路径映射与脚本加载分支",
+      "limitations": "未测试 CDN 可达、错误恢复性能/安全"
+    },
+    {
+      "id": "E10",
+      "level": "B",
+      "claim": "联机采用 Supabase RPC/Reatime WebSocket 信令与 WebRTC 有序 DataChannel，房主端提供状态快照。",
+      "source_url": "https://github.com/zawsstt/monopoly-rich-life/blob/307c1761b150a7179fb0353618a95bc6effe3fee/src/net.js#L69-L100",
+      "locator": "NET.host/hostSignal; supa-rtc.js L35–144; net.js L365–387",
+      "verification": "核查接口和快照形状",
+      "limitations": "真实房间加入、弱网恢复与服务可达均未实测"
+    },
+    {
+      "id": "E11",
+      "level": "B",
+      "claim": "本机榜写入 localStorage；全网榜经 report_round RPC，上游 SQL 声明 players/mp_rooms/mp_members 与公开 Storage 桶。",
+      "source_url": "https://github.com/zawsstt/monopoly-rich-life/blob/307c1761b150a7179fb0353618a95bc6effe3fee/src/uix.js#L1802-L1855",
+      "locator": "recordMatchResults; supabase/migrations/20261003000001_init.sql L1–98",
+      "verification": "核查调用及迁移 SQL",
+      "limitations": "上线状态、云端防刷与 RLS 实效未知"
+    },
+    {
+      "id": "E12",
+      "level": "B",
+      "claim": "上游 LICENSE 自定义限制商业用途、衍生品商业传播；素材无可独立确认的可商用授权链。",
+      "source_url": "https://github.com/zawsstt/monopoly-rich-life/blob/307c1761b150a7179fb0353618a95bc6effe3fee/LICENSE#L1-L25",
+      "locator": "LICENSE 一至四及 README 0x08",
+      "verification": "读取许可全文、核查树中多媒体资产及模型注释",
+      "limitations": "未得到原始摄影/音频/参考图作者证明"
+    },
+    {
+      "id": "E13",
+      "level": "C",
+      "claim": "仓库附作者提供的 scene_poster.jpg，并有声称60FPS及视觉优越性的 README 描述。",
+      "source_url": "https://github.com/zawsstt/monopoly-rich-life/blob/307c1761b150a7179fb0353618a95bc6effe3fee/README.md#L1-L20",
+      "locator": "README/scene_poster.jpg",
+      "verification": "链接到作者海报、未读取二进制像素",
+      "limitations": "海报不等于同 SHA 独立运行截图，帧率未测"
+    },
+    {
+      "id": "E14",
+      "level": "B",
+      "claim": "固定提交文件树有 js/lib/three.min.js 和工具脚本及 mock-supabase，没有仓库根 package.json 或正式测试清单。",
+      "source_url": "https://github.com/zawsstt/monopoly-rich-life/tree/307c1761b150a7179fb0353618a95bc6effe3fee",
+      "locator": "Git tree; tools/mock-supabase.mjs L1–73",
+      "verification": "核查完整 198-entry Git 树与脚本入口",
+      "limitations": "不能由清单缺失断言任何场景都不可运行"
+    },
+    {
+      "id": "E15",
+      "level": "B",
+      "claim": "上游部分对象明确设置 castShadow=false；与 ReactMono AGENTS 的全局一致投受影准则不兼容。",
+      "source_url": "https://github.com/zawsstt/monopoly-rich-life/blob/307c1761b150a7179fb0353618a95bc6effe3fee/src/buildings3d.js#L650-L752",
+      "locator": "water, roof, curtain castShadow=false；部分布置另见其他模型",
+      "verification": "核查实际源码设置",
+      "limitations": "需运行检查最终场景所有对象是否覆盖属性"
+    },
+    {
+      "id": "E16",
+      "level": "D",
+      "claim": "在未独立运行前，书桌沙盘的实际画质、角色识别度、移动稳定性、手机帧率不可评分。",
+      "source_url": "https://github.com/zawsstt/monopoly-rich-life/blob/307c1761b150a7179fb0353618a95bc6effe3fee/README.md#L1-L20",
+      "locator": "README 海报与性能宣称",
+      "verification": "明确不可证状态",
+      "limitations": "待相同视口 Chromium 截图和性能测量"
+    }
+  ],
+  "features": [
+    {
+      "feature": "开局/回合及胜负",
+      "status": "partial",
+      "evidence_ids": [
+        "E03"
+      ]
+    },
+    {
+      "feature": "40 格/22 地产",
+      "status": "partial",
+      "evidence_ids": [
+        "E04"
+      ]
+    },
+    {
+      "feature": "购地/升楼/收租",
+      "status": "partial",
+      "evidence_ids": [
+        "E03",
+        "E06"
+      ]
+    },
+    {
+      "feature": "银行与股市（与大富翁4）",
+      "status": "unknown",
+      "evidence_ids": [
+        "E04"
+      ]
+    },
+    {
+      "feature": "卡片/道具/机会事件",
+      "status": "partial",
+      "evidence_ids": [
+        "E03",
+        "E04"
+      ]
+    },
+    {
+      "feature": "神明/复杂随机事件",
+      "status": "unknown",
+      "evidence_ids": [
+        "E03"
+      ]
+    },
+    {
+      "feature": "电脑对手",
+      "status": "partial",
+      "evidence_ids": [
+        "E03"
+      ]
+    },
+    {
+      "feature": "存读档/跨版本兼容",
+      "status": "unknown",
+      "evidence_ids": [
+        "E03",
+        "E14"
+      ]
+    },
+    {
+      "feature": "Three.js 书房/镜头/阴影",
+      "status": "partial",
+      "evidence_ids": [
+        "E05",
+        "E08"
+      ]
+    },
+    {
+      "feature": "角色/逐格建筑/四级成长",
+      "status": "partial",
+      "evidence_ids": [
+        "E06",
+        "E07"
+      ]
+    },
+    {
+      "feature": "本地战绩榜",
+      "status": "partial",
+      "evidence_ids": [
+        "E11"
+      ]
+    },
+    {
+      "feature": "Supabase 云榜",
+      "status": "claimed",
+      "evidence_ids": [
+        "E11"
+      ]
+    },
+    {
+      "feature": "WebRTC 联机及重连",
+      "status": "claimed",
+      "evidence_ids": [
+        "E10"
+      ]
+    },
+    {
+      "feature": "静态资源 CDN+本地回退",
+      "status": "partial",
+      "evidence_ids": [
+        "E09"
+      ]
+    },
+    {
+      "feature": "离线 PWA 安装/缓存",
+      "status": "unknown",
+      "evidence_ids": [
+        "E09",
+        "E14"
+      ]
+    },
+    {
+      "feature": "WebGL 实测帧率/真机兼容",
+      "status": "unknown",
+      "evidence_ids": [
+        "E13",
+        "E16"
+      ]
+    }
+  ],
+  "scores": {
+    "rules": null,
+    "maintainability": 2,
+    "reproducibility": null,
+    "presentation": null,
+    "reactmono_value": 3
+  },
+  "score_notes": {
+    "rules": "非大富翁4忠实复刻，无原版对照矩阵；不以原创游戏不同直接判为 0（E03,E04）。",
+    "maintainability": "2/5，低至中置信 B：game.js/view3d.js/资源脚本职责分离，但基于全局脚本和超大文件，根树没有包管理/测试契约（E03,E05,E09,E14）。",
+    "reproducibility": "null，远端 DNS 阻断，未实际运行；不等于不能运行（E14,E16）。",
+    "presentation": "null，只核对场景源码且有作者海报链接，无实际截图/视觉测量，不作商业级视觉评分（E05,E08,E13,E16）。",
+    "reactmono_value": "3/5，中置信 B：微缩构图/镜头、地产四段轮廓、资产多级兜底对 3D 视觉流程有参考价值；具体资源和联机后端不适合直接复用（E05,E06,E07,E09,E12,E15）。"
+  },
+  "recommendation": "read_only_reference",
+  "open_questions": [
+    "上游 307c176... 在一致环境的启动截图、相同视口手机性能及真实 60FPS 证据是什么？",
+    "被模型注释引用但未收录的 refs 参考图、插画、音频、短片具体版权主体及授权链是什么？",
+    "Supabase 房间创建/加入/断线恢复、排行榜 RPC 防刷与 Storage CDN 在自建实例能否独立复现？",
+    "经典与现代主题切换时个性化模型缺失、阴影设置、内存与绘制调用开销如何？",
+    "四级升级的结算、房主快照、断线恢复与玩家实际整局体验能否通过独立回归？"
+  ]
+}

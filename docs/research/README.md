@@ -38,7 +38,7 @@
 
 ## 已创建研究任务（2026-10-19）
 
-以下为**待执行**的研究任务，创建 Issue 不代表完成研究；对应的子目录应由实际研究者交付。
+以下九项是研究任务索引，创建 Issue 不代表完成；已交付研究请核对报告及证据分级。
 
 | Issue | 上游 | 预期目录 |
 | --- | --- | --- |
@@ -50,7 +50,7 @@
 | [#100](https://github.com/SiliconYC/ReactMono/issues/100) | [oama1111/rich4-remake-public](https://github.com/oama1111/rich4-remake-public) | `repositories/oama1111--rich4-remake-public/` |
 | [#101](https://github.com/SiliconYC/ReactMono/issues/101) | [JCRJPZB/Rich4](https://github.com/JCRJPZB/Rich4) | `repositories/JCRJPZB--Rich4/` |
 | [#102](https://github.com/SiliconYC/ReactMono/issues/102) | [Yakamozli/richman-3d](https://github.com/Yakamozli/richman-3d) | `repositories/Yakamozli--richman-3d/` |
-| [#103](https://github.com/SiliconYC/ReactMono/issues/103) | [zawsstt/monopoly-rich-life](https://github.com/zawsstt/monopoly-rich-life) | `repositories/zawsstt--monopoly-rich-life/` |
+| [#103](https://github.com/SiliconYC/ReactMono/issues/103) | [九章源码研究](repositories/zawsstt--monopoly-rich-life/README.md) | B/C 级证据；A 级浏览器实测未完成 |
 
 [综合综述 #104](https://github.com/SiliconYC/ReactMono/issues/104) 依赖这些研究真实合并成果，届时才创建 `comparative-review.md`、`verification-matrix.md` 与 `summary.json`。
 
@@ -67,4 +67,4 @@
 
 ## 执行状态
 
-本次仅完成**研究基础设施与任务拆分**。除仓库地址、公开文档和初查代码结构外，尚未完成任何目标仓库的独立复现、源码逐项验收或汇总结论。每个研究 Issue 必须单独完成、合并、关闭；综合 Issue 在它们完成或明确排除后启动。
+初始化阶段只建立规范与 Issue；随后各项研究已逐步交付。#103 的 B/C 级九章源码审计、锚点和 JSON 已提交，未能独立运行浏览器和联机，视觉、复现性评分留空；其他 Issue 状态以实际已合并报告为准。参见[研究成果索引](repositories/README.md)。

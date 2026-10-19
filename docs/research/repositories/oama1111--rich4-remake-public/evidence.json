@@ -1,0 +1,397 @@
+{
+  "repository": "oama1111/rich4-remake-public",
+  "url": "https://github.com/oama1111/rich4-remake-public",
+  "checked_at_utc": "2026-10-19T01:20:13Z",
+  "upstream_sha": "42ad97ad31f07541a9af35415e36be4da4147484",
+  "default_branch": "main",
+  "archived_at_check": true,
+  "upstream_last_commit_utc": "2026-09-26T03:27:30Z",
+  "original_relation": "faithful",
+  "original_relation_note": "仅指其自述目标为《大富翁4 超时空之旅》v3.11（2001）的保真重制；不是研究者证明与 1998 初版规则一致。",
+  "fork_relation": {
+    "github_fork_flag": false,
+    "credited_prior_project": "mytbk/rich4",
+    "relationship": "明确依赖并致谢其逆向资料；非 GitHub 元数据上的 fork，未独立证明代码逐字复制或完整血缘。",
+    "evidence_ids": [
+      "E15",
+      "E18"
+    ]
+  },
+  "license": {
+    "spdx": "GPL-3.0-or-later",
+    "source_url": "https://github.com/oama1111/rich4-remake-public/blob/42ad97ad31f07541a9af35415e36be4da4147484/LICENSE",
+    "risks": [
+      "GitHub API 自动识别为 GPL-3.0；package.json 与 README 自述 GPL-3.0-or-later。分发衍生源码须独立审查具体 GPL 义务与第三方来源。",
+      "GPL 不授予原版游戏商业图像、配乐、程序和字体素材的再分发权；镜像缺原版素材。",
+      "本研究仅引用短源码锚点/架构思想，不向 ReactMono 移植 GPL 实现。"
+    ],
+    "evidence_ids": [
+      "E14",
+      "E15",
+      "E20"
+    ]
+  },
+  "execution": {
+    "attempted": true,
+    "environment": "研究运行容器 Node 22.16.0 / npm 10.9.2；无 pnpm、无原作素材或逆向工作区；通过 GitHub 已授权读取接口查看固定提交文件与树。",
+    "commands": [
+      "git ls-remote https://github.com/oama1111/rich4-remake-public.git HEAD (失败：Could not resolve host: github.com)",
+      "GitHub 仓库读取接口：固定 42ad97ad... 文件/未截断 Git tree (成功)",
+      "本地 Node / npm 版本检查（成功）；未运行 pnpm check 或游戏。"
+    ],
+    "result": "可复核的远端静态审计完成，无法在当前容器 git clone、安装、运行原作依赖测试、浏览器或桌面联机实测。无 A 级玩法实测。",
+    "limitations": [
+      "受限环境无法解析 github.com 的 git clone 域名；上游文件逐项通过 GitHub 连接器读取。",
+      "无合法本地 MKF/MID/DAT/EXE 等素材，私有 rich4-spec / rich4-re 真值资料不在镜像。",
+      "不将上游 acceptance 自报数字当本研究实测；未运行构建、测试或抓屏。"
+    ]
+  },
+  "evidence": [
+    {
+      "id": "E01",
+      "level": "B",
+      "claim": "规则状态只经 Action 输入，reduce 采用不可变纯归约，MapTopology 把静态地理模板与产权状态分离。",
+      "source_url": "https://github.com/oama1111/rich4-remake-public/blob/42ad97ad31f07541a9af35415e36be4da4147484/packages/core/src/state/reduce.ts",
+      "locator": "1–10,383–405,1602+,6996+",
+      "verification": "在固定提交的 GitHub 文件内容中逐段查阅：reduce / reduceAll 声明及函数；地图静态输入。",
+      "limitations": "源码存在与实现路径已核，未独立运行游戏或对照原版二进制。"
+    },
+    {
+      "id": "E02",
+      "level": "B",
+      "claim": "reseed 是显式 action；本地与联机策略的随机数保存/重新播种时机不同。",
+      "source_url": "https://github.com/oama1111/rich4-remake-public/blob/42ad97ad31f07541a9af35415e36be4da4147484/packages/core/src/rng/policy.ts",
+      "locator": "16–26,43–61,73–99",
+      "verification": "在固定提交的 GitHub 文件内容中逐段查阅：single / multiplayer RNG policy；另见 packages/core/src/state/actions.ts 16–35。",
+      "limitations": "源码存在与实现路径已核，未独立运行游戏或对照原版二进制。"
+    },
+    {
+      "id": "E03",
+      "level": "B",
+      "claim": "1000 次同种子指纹一致及动作录制重放有自动化测试定义，不能推断本次测试通过。",
+      "source_url": "https://github.com/oama1111/rich4-remake-public/blob/42ad97ad31f07541a9af35415e36be4da4147484/packages/core/src/state/replay.test.ts",
+      "locator": "28–112",
+      "verification": "在固定提交的 GitHub 文件内容中逐段查阅：record/1000 同种子/逐字段重放断言。",
+      "limitations": "源码存在与实现路径已核，未独立运行游戏或对照原版二进制。"
+    },
+    {
+      "id": "E04",
+      "level": "B",
+      "claim": "联机按 actingSeat（可能是被动卡持有人或拍卖出价者，而非回合主人）授权提交。",
+      "source_url": "https://github.com/oama1111/rich4-remake-public/blob/42ad97ad31f07541a9af35415e36be4da4147484/packages/core/src/net/acting-seat.ts",
+      "locator": "21–41",
+      "verification": "在固定提交的 GitHub 文件内容中逐段查阅：actingSeat 按 pending 分支计算操作者。",
+      "limitations": "源码存在与实现路径已核，未独立运行游戏或对照原版二进制。"
+    },
+    {
+      "id": "E05",
+      "level": "B",
+      "claim": "Sequencer 在校验合法性后才分配连续动作序号；源注释说明防不了恶意客户端，但该注释并不能概括目前 Room 的镜像校验。",
+      "source_url": "https://github.com/oama1111/rich4-remake-public/blob/42ad97ad31f07541a9af35415e36be4da4147484/packages/core/src/net/sequencer.ts",
+      "locator": "1–15,65–151",
+      "verification": "在固定提交的 GitHub 文件内容中逐段查阅：submit 的检查顺序及安全边界。",
+      "limitations": "源码存在与实现路径已核，未独立运行游戏或对照原版二进制。"
+    },
+    {
+      "id": "E06",
+      "level": "B",
+      "claim": "Room 服务端真的运行同一 reducer 的状态镜像拒绝非法动作，并保存动作后的指纹；故不是纯无状态定序。",
+      "source_url": "https://github.com/oama1111/rich4-remake-public/blob/42ad97ad31f07541a9af35415e36be4da4147484/packages/server/src/room.ts",
+      "locator": "120–146,217–286",
+      "verification": "在固定提交的 GitHub 文件内容中逐段查阅：mirror / Sequencer 回调 / reduce / fingerprint。",
+      "limitations": "源码存在与实现路径已核，未独立运行游戏或对照原版二进制。"
+    },
+    {
+      "id": "E07",
+      "level": "B",
+      "claim": "客户端 submit 只发 intent，等待服务器广播；需要 WebSocket /ws endpoint。",
+      "source_url": "https://github.com/oama1111/rich4-remake-public/blob/42ad97ad31f07541a9af35415e36be4da4147484/packages/client/src/net-client.ts",
+      "locator": "190–202,459–480",
+      "verification": "在固定提交的 GitHub 文件内容中逐段查阅：submit/defaultWsUrl；另见 packages/server/src/hub.ts 637–710。",
+      "limitations": "源码存在与实现路径已核，未独立运行游戏或对照原版二进制。"
+    },
+    {
+      "id": "E08",
+      "level": "B",
+      "claim": "浏览器使用 /assets/game 读素材，桌面通过 rich4 协议读外部资源；浏览器单机回退 localStorage 保存。",
+      "source_url": "https://github.com/oama1111/rich4-remake-public/blob/42ad97ad31f07541a9af35415e36be4da4147484/packages/client/src/host.ts",
+      "locator": "1–22,30–47,239–315",
+      "verification": "在固定提交的 GitHub 文件内容中逐段查阅：assetBase / saveStore / browserStore。",
+      "limitations": "源码存在与实现路径已核，未独立运行游戏或对照原版二进制。"
+    },
+    {
+      "id": "E09",
+      "level": "B",
+      "claim": "Tauri 自定义异步 rich4 资源协议及目录发现逻辑存在；打包配置 bundle 没有 resources。",
+      "source_url": "https://github.com/oama1111/rich4-remake-public/blob/42ad97ad31f07541a9af35415e36be4da4147484/packages/desktop/src-tauri/src/lib.rs",
+      "locator": "543–574,632–672",
+      "verification": "在固定提交的 GitHub 文件内容中逐段查阅：URI scheme 和查找目录；另见 packages/desktop/src-tauri/tauri.conf.json 27–50。",
+      "limitations": "源码存在与实现路径已核，未独立运行游戏或对照原版二进制。"
+    },
+    {
+      "id": "E10",
+      "level": "B",
+      "claim": "素材抽取流水线从外部 MKF 解地面、精灵与 FLIC，缺失 MKF 会跳过归档。",
+      "source_url": "https://github.com/oama1111/rich4-remake-public/blob/42ad97ad31f07541a9af35415e36be4da4147484/packages/assets-pipeline/src/cli-extract.ts",
+      "locator": "113–181",
+      "verification": "在固定提交的 GitHub 文件内容中逐段查阅：existsSync、parseSpriteSheet、isGround、decodeFlic。",
+      "limitations": "源码存在与实现路径已核，未独立运行游戏或对照原版二进制。"
+    },
+    {
+      "id": "E11",
+      "level": "B",
+      "claim": "原版数据对照测试在 rich4-re 不存在时用 describe.skip 直接跳过。",
+      "source_url": "https://github.com/oama1111/rich4-remake-public/blob/42ad97ad31f07541a9af35415e36be4da4147484/packages/data/src/source-fidelity.test.ts",
+      "locator": "1–16,29–65",
+      "verification": "在固定提交的 GitHub 文件内容中逐段查阅：hasSource/describe.skip，解析 C 数值表。",
+      "limitations": "源码存在与实现路径已核，未独立运行游戏或对照原版二进制。"
+    },
+    {
+      "id": "E12",
+      "level": "B",
+      "claim": "新存档采用自有带版本号的 JSON，原版二进制存档走只读导入。",
+      "source_url": "https://github.com/oama1111/rich4-remake-public/blob/42ad97ad31f07541a9af35415e36be4da4147484/packages/core/src/loaders/savegame.ts",
+      "locator": "1–18",
+      "verification": "在固定提交的 GitHub 文件内容中逐段查阅：文件头阐明 JSON 和 importOriginalSave 边界。",
+      "limitations": "源码存在与实现路径已核，未独立运行游戏或对照原版二进制。"
+    },
+    {
+      "id": "E13",
+      "level": "B",
+      "claim": "工作流仅运行无资产的 check，文件本身说明不验证保真，无法把 CI 成功等价为原作真值一致。",
+      "source_url": "https://github.com/oama1111/rich4-remake-public/blob/42ad97ad31f07541a9af35415e36be4da4147484/.github/workflows/build.yml",
+      "locator": "1–13,31–53",
+      "verification": "在固定提交的 GitHub 文件内容中逐段查阅：RICH4_SKIP_ASSETS 和 pnpm check；与 vitest.config.ts 对照。",
+      "limitations": "源码存在与实现路径已核，未独立运行游戏或对照原版二进制。"
+    },
+    {
+      "id": "E14",
+      "level": "B",
+      "claim": "仓库包含 GNU GPL v3 许可证文本。",
+      "source_url": "https://github.com/oama1111/rich4-remake-public/blob/42ad97ad31f07541a9af35415e36be4da4147484/LICENSE",
+      "locator": "1–18",
+      "verification": "在固定提交的 GitHub 文件内容中逐段查阅：LICENSE 正文。",
+      "limitations": "没有独立法律意见；-or-later 额外表述见 README 和 package.json。"
+    },
+    {
+      "id": "E15",
+      "level": "C",
+      "claim": "作者将目标界定为《大富翁4 超时空之旅》v3.11 (2001)，并致谢 mytbk/rich4 的逆向资料；许可自称 GPL-3.0-or-later。",
+      "source_url": "https://github.com/oama1111/rich4-remake-public/blob/42ad97ad31f07541a9af35415e36be4da4147484/README.md",
+      "locator": "1–20,53–59",
+      "verification": "阅读上游仓库作者文档；不是研究者复现实测。",
+      "limitations": "此为上游表述；未独立核验原版 2001 发布信息或 GPL 血缘精确来源。"
+    },
+    {
+      "id": "E16",
+      "level": "C",
+      "claim": "作者说明公开镜像由私有仓库经 git filter-repo 删除资产与敏感配置，原版素材和规格仓库仍私有；差分测试外部前提缺失。",
+      "source_url": "https://github.com/oama1111/rich4-remake-public/blob/42ad97ad31f07541a9af35415e36be4da4147484/docs/handoff.md",
+      "locator": "18–32",
+      "verification": "阅读上游仓库作者文档；不是研究者复现实测。",
+      "limitations": "只有作者描述私有仓库 / 过滤过程；未查证私有库历史。"
+    },
+    {
+      "id": "E17",
+      "level": "C",
+      "claim": "作者提交了 2026-09-19 的两浏览器客户端联机、重连、失步自愈及拍卖故障修复报告。",
+      "source_url": "https://github.com/oama1111/rich4-remake-public/blob/42ad97ad31f07541a9af35415e36be4da4147484/docs/acceptance/net-20260919.md",
+      "locator": "1–49,62–120",
+      "verification": "阅读上游仓库作者文档；不是研究者复现实测。",
+      "limitations": "原始环境不在本次研究环境；部分报告链接指向私有仓库 Issue。"
+    },
+    {
+      "id": "E18",
+      "level": "C",
+      "claim": "作者的六区出处审计将 verified/fixed/approx/follow-up 分级并记录原版 exe 虚拟地址及差异修复。",
+      "source_url": "https://github.com/oama1111/rich4-remake-public/blob/42ad97ad31f07541a9af35415e36be4da4147484/docs/audit/provenance-summary.md",
+      "locator": "1–35,38–68",
+      "verification": "阅读上游仓库作者文档；不是研究者复现实测。",
+      "limitations": "该审计声称的原版 exe、Unicorn 与私有逆向样本不在镜像中，不能本次重现。"
+    },
+    {
+      "id": "E19",
+      "level": "C",
+      "claim": "作者记录 1000 局 8 图各 300 回合无卡死，但 0 局因胜负条件提前终局。",
+      "source_url": "https://github.com/oama1111/rich4-remake-public/blob/42ad97ad31f07541a9af35415e36be4da4147484/docs/acceptance/soak-20260919.md",
+      "locator": "1–45",
+      "verification": "阅读上游仓库作者文档；不是研究者复现实测。",
+      "limitations": "把跑完 300 回合上限称完赛，不意味着有独立完整胜负对局。"
+    },
+    {
+      "id": "E20",
+      "level": "C",
+      "claim": "上游 README 明确本公开镜像没有原版 MKF、商业素材，必须用户自带合法副本，Tauri 产物不带数据。",
+      "source_url": "https://github.com/oama1111/rich4-remake-public/blob/42ad97ad31f07541a9af35415e36be4da4147484/README.md",
+      "locator": "10–20,29–40",
+      "verification": "阅读上游仓库作者文档；不是研究者复现实测。",
+      "limitations": "文件路径与外部二进制需求一致；不能据此作原版素材版权许可判定。"
+    },
+    {
+      "id": "E21",
+      "level": "B",
+      "claim": "GitHub 仓库固定提交树中有 core/client/server/desktop/data/asset pipeline 与 docs/acceptance，未发现 assets/game/、rich4.exe 或 rich4-spec。",
+      "source_url": "https://github.com/oama1111/rich4-remake-public/blob/42ad97ad31f07541a9af35415e36be4da4147484/README.md",
+      "locator": "10–20",
+      "verification": "在固定提交的 GitHub 文件内容中逐段查阅：以 GitHub 公开提交 42ad97a 的完整 1051 条未截断 tree API 交叉比对目录；README 仅作可定位证明。",
+      "limitations": "仅覆盖公开镜像该提交，不代表私有仓库内容或外部运行机器不存在。"
+    }
+  ],
+  "features": [
+    {
+      "feature": "新局/回合/骰子",
+      "status": "partial",
+      "evidence_ids": [
+        "E01",
+        "E02",
+        "E03"
+      ]
+    },
+    {
+      "feature": "地图/地块/地产/租金",
+      "status": "partial",
+      "evidence_ids": [
+        "E01",
+        "E10"
+      ]
+    },
+    {
+      "feature": "银行/股票/商用经济",
+      "status": "partial",
+      "evidence_ids": [
+        "E01",
+        "E18"
+      ]
+    },
+    {
+      "feature": "卡片/道具",
+      "status": "partial",
+      "evidence_ids": [
+        "E01",
+        "E18"
+      ]
+    },
+    {
+      "feature": "神明/事件/特殊场所",
+      "status": "partial",
+      "evidence_ids": [
+        "E18"
+      ]
+    },
+    {
+      "feature": "电脑玩家和策略",
+      "status": "partial",
+      "evidence_ids": [
+        "E03",
+        "E18",
+        "E19"
+      ]
+    },
+    {
+      "feature": "本地存读档及原版导入",
+      "status": "partial",
+      "evidence_ids": [
+        "E08",
+        "E12"
+      ]
+    },
+    {
+      "feature": "浏览器交互/动画/配乐",
+      "status": "claimed",
+      "evidence_ids": [
+        "E08",
+        "E20"
+      ]
+    },
+    {
+      "feature": "Tauri 原生桌面/外部素材目录",
+      "status": "partial",
+      "evidence_ids": [
+        "E09",
+        "E20"
+      ]
+    },
+    {
+      "feature": "多人/WebSocket/房间/重连",
+      "status": "partial",
+      "evidence_ids": [
+        "E04",
+        "E05",
+        "E06",
+        "E07",
+        "E17"
+      ]
+    },
+    {
+      "feature": "可脱离原版素材直接开局",
+      "status": "unknown",
+      "evidence_ids": [
+        "E10",
+        "E20",
+        "E21"
+      ]
+    },
+    {
+      "feature": "严格与原版 v3.11 数值吻合",
+      "status": "claimed",
+      "evidence_ids": [
+        "E11",
+        "E16",
+        "E18"
+      ]
+    },
+    {
+      "feature": "商业级视觉/多平台实机稳定性",
+      "status": "unknown",
+      "evidence_ids": [
+        "E16",
+        "E20"
+      ]
+    },
+    {
+      "feature": "GitHub Pages 纯静态部署的无后端多人架构",
+      "status": "unknown",
+      "evidence_ids": [
+        "E06",
+        "E07"
+      ]
+    }
+  ],
+  "scores": {
+    "rules": 3,
+    "maintainability": 3,
+    "reproducibility": 1,
+    "presentation": null,
+    "reactmono_value": 4
+  },
+  "score_justification": {
+    "rules": {
+      "basis": "E01,E03,E11,E18；大量机制路径与可复现测试定义，但缺私有原版实证且来源审计仍有 approx/follow-up；3 仅表示源码覆盖较广，不是原版一致率。",
+      "confidence": "中"
+    },
+    "maintainability": {
+      "basis": "E01,E04,E06,E09,E11；包分层和契约/测试有价值，但巨大 reduce.ts（约 10,935 行）与客户端 main.ts（约 13,913 行）增加可维护性负担。",
+      "confidence": "中"
+    },
+    "reproducibility": {
+      "basis": "E11,E16,E20,E21；代码和不依赖资产的测试有可读性，完整游玩/真值核对依赖私有与商业资源；无法独立复现。",
+      "confidence": "高（针对公开镜像）"
+    },
+    "presentation": {
+      "basis": "E20；缺原版美术、无法本次独立渲染或评估实际交互，保持 null。",
+      "confidence": "不足"
+    },
+    "reactmono_value": {
+      "basis": "E01,E02,E03,E04,E06,E12,E18；动作日志/性质测试/异常交互归属值得借鉴；服务器、GPL 源码及原版美术排除。",
+      "confidence": "中"
+    }
+  },
+  "recommendation": "read_only_reference",
+  "open_questions": [
+    "原版 v3.11（2001）与 1998 基础版的规则差异究竟有哪些？需要合法原版差分样本。",
+    "六区审计 approx/follow-up 的当前残项哪些可在独立资料下复核？",
+    "公开镜像的自动化无素材通过项与有素材真值测试完整列表和数量在固定 SHA 下如何变化？",
+    "WebKit、Windows、Linux、实际玩家最终胜负局与商业级视觉是否经过独立验证？",
+    "与 mytbk/rich4 的具体源码复制边界、第三方文件授权与历史是否另有证据？"
+  ]
+}
