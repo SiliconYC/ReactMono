@@ -119,20 +119,21 @@ export function MiniatureTown({ game, view, onSelectTile }: TownProps): React.JS
         if(!detail||!canJoinLots(row.tileIds[index],id,game.map)||!visible(anchors.lots[id]))return null;
         const a = lotForTile(row.tileIds[index], game.map);
         const b = lotForTile(id, game.map);
-        const horizontal = a.z === b.z;
+        const length=Math.max(.1,Math.hypot(b.x-a.x,b.z-a.z)-.65);
+        const rotation=Math.atan2(b.x-a.x,b.z-a.z);
         const height = Math.min(game.tiles[id].level ?? 1, game.tiles[row.tileIds[index]].level ?? 1) === 2 ? 1.45 : 0.85;
         return (
-          <group key={`terrace-${id}`} position={[(a.x + b.x) / 2, GROUND_TOP, (a.z + b.z) / 2]}>
+          <group key={`terrace-${id}`} position={[(a.x + b.x) / 2, GROUND_TOP, (a.z + b.z) / 2]} rotation={[0,rotation,0]}>
             <mesh position={[0, 0.09, 0]}>
-              <boxGeometry args={horizontal ? [1.35, 0.18, 0.86] : [0.86, 0.18, 1.35]} />
+              <boxGeometry args={[0.86, 0.18, length]} />
               <meshStandardMaterial color={colorForOwner(game, row.ownerId)} roughness={0.86} />
             </mesh>
             <mesh position={[0, height / 2 + 0.18, 0]}>
-              <boxGeometry args={horizontal ? [1.22, height, 0.72] : [0.72, height, 1.22]} />
+              <boxGeometry args={[0.72, height, length]} />
               <meshStandardMaterial color={row.ownerId === game.players[0]?.id ? '#ffb278' : row.ownerId === game.players[1]?.id ? '#91b5ff' : colorForOwner(game, row.ownerId)} roughness={0.78} />
             </mesh>
             <mesh position={[0, height + 0.25, 0]}>
-              <boxGeometry args={horizontal ? [1.35, 0.18, 0.86] : [0.86, 0.18, 1.35]} />
+              <boxGeometry args={[0.86, 0.18, length]} />
               <meshStandardMaterial color={row.ownerId === game.players[0]?.id ? '#c85045' : row.ownerId === game.players[1]?.id ? '#385da9' : colorForOwner(game, row.ownerId)} />
             </mesh>
           </group>

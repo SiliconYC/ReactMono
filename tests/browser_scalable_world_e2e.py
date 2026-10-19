@@ -84,6 +84,17 @@ for(const name of ['drawElementsInstanced','drawArraysInstanced']){const old=Web
       assert pg.locator('.camera-toggle').get_attribute('aria-pressed')=='false'
       center=list(map(float,shell.get_attribute('data-camera-center').split(',')));assert math.hypot(center[0]-x,center[1]-z)<tolerance,(mid,index,center,[x,z])
       if index==len(level['map']['route'])//2:pg.screenshot(path=str(OUT/f'{mid}-{label}-far.png'))
+     # Raycast a rotated road in the real canvas using the same authored coordinates.
+     tile_id=level['map']['route'][len(level['map']['route'])//3]
+     target=level['world']['tiles'][tile_id]
+     current=json.loads(shell.get_attribute('data-camera-insets'))
+     current_zoom=float(shell.get_attribute('data-camera-zoom'));ccx,ccz=map(float,shell.get_attribute('data-camera-center').split(','))
+     px=(current['left']+width-current['right'])/2+((target['x']-ccx)-(target['z']-ccz))/math.sqrt(2)*current_zoom
+     py=(current['top']+height-current['bottom'])/2+((target['x']-ccx)+(target['z']-ccz))/math.sqrt(2)*SIN*current_zoom+.53*math.sqrt(1-SIN*SIN)*current_zoom
+     pg.mouse.click(px,py)
+     pg.locator('.board-inspector').wait_for()
+     assert pg.locator('.board-inspector strong').inner_text().startswith(str(tile_id+1)+' ·')
+     pg.get_by_role('button',name='关闭地块详情',exact=True).click()
      pg.get_by_role('button',name='定位当前玩家',exact=True).click();pg.wait_for_timeout(600)
      pg.evaluate('window.__metrics.frames=[]');pg.get_by_role('button',name='掷骰前进').click()
      pg.wait_for_function('document.querySelector("main").dataset.presenting==="false"',timeout=10000)
@@ -91,6 +102,7 @@ for(const name of ['drawElementsInstanced','drawArraysInstanced']){const old=Web
      motionMetrics={'p50':moving[len(moving)//2],'p95':moving[int(len(moving)*.95)],'frames':len(moving)}
      assert shell.get_attribute('data-camera-mode')=='follow'
      report.append({'motion':motionMetrics,'pinch':phone,'map':mid,'viewport':[width,height],'overview':overview,'followZoom':followZoom,'farCorners':True,'wheelDragKeyboard':True})
+     (OUT/'acceptance.json').write_text(json.dumps({'results':report,'errors':errors,'physicalPhones':0,'humanParticipants':0},ensure_ascii=False,indent=2))
      print('PASS',mid,label,json.dumps(overview),flush=True);faulthandler.dump_traceback_later(15);pg.goto('about:blank');ctx.close();faulthandler.cancel_dump_traceback_later()
    assert not errors,errors
    print('CLOSING browser',flush=True);faulthandler.dump_traceback_later(15);browser.close()

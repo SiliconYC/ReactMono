@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import * as THREE from 'three';
 import type { GameMap } from '../../core/types.js';
-import { anchorsForMap, ROAD_TILE_TOP } from './layout.js';
+import { anchorsForMap, labelForTile, ROAD_TILE_TOP } from './layout.js';
 import type { WorldView } from './world-view.js';
 import { Instances } from './Instances.js';
 
@@ -27,7 +27,7 @@ export function RoadLabels({map,view}:{map:GameMap;view:WorldView}):React.JSX.El
     g.setAttribute('atlasCell',new THREE.InstancedBufferAttribute(offsets,2));return g;
   },[visible,columns]);
   useEffect(()=>()=>geometry.dispose(),[geometry]);
-  const labels=useMemo(()=>visible.map(p=>({x:p.x+.48,y:ROAD_TILE_TOP+.008,z:p.z+.48})),[visible]);
+  const labels=useMemo(()=>visible.map(p=>({...labelForTile(p.id,map),y:ROAD_TILE_TOP+.008})),[visible]);
   const shader=(program:THREE.WebGLProgramParametersWithUniforms)=>{
     program.vertexShader='attribute vec2 atlasCell;\n'+program.vertexShader;
     program.vertexShader=program.vertexShader.replace('#include <uv_vertex>',`#include <uv_vertex>\n vMapUv=(vMapUv+atlasCell)/${columns.toFixed(1)};`);

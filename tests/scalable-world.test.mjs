@@ -28,14 +28,12 @@ test('镜头缩放有可读细节上限，拖动在正交地面上与屏幕位�
   assert.equal(view.clampWorldZoom(-1,3),3);
 });
 
-test('视域分块覆盖缩放、HUD偏移和远端浏览；裁切与雾不吞掉大图',()=>{
+test('连续地表覆盖缩放、HUD偏移和远端浏览；裁切与雾不吞掉大图',()=>{
   assert.equal(typeof view.worldView,'function');
   for(const zoom of [2,12,48,96]) for(const [width,height] of [[1440,900],[390,844],[844,390]]){
     const v=view.worldView({x:180,z:-110},zoom,{width,height});
-    const chunks=view.groundChunks(v);
-    for(const [x,z] of [[v.minX,v.minZ],[v.maxX,v.minZ],[v.minX,v.maxZ],[v.maxX,v.maxZ]]){
-      assert.ok(chunks.some(c=>x>=c.x-8&&x<=c.x+8&&z>=c.z-8&&z<=c.z+8),'地表未覆盖视域角');
-    }
+    const ground=view.groundBounds(v,[]);
+    assert.ok(ground.minX<v.minX&&ground.maxX>v.maxX&&ground.minZ<v.minZ&&ground.maxZ>v.maxZ,'真实地面几何未覆盖视域角');
     assert.ok(v.distance>v.depthReach+4,'镜头前后都必须容纳可见地面');
     assert.ok(v.far>v.distance+v.depthReach+4);
     assert.ok(v.fogNear>=v.distance+v.depthReach,'可见地面不得被远景雾抹掉');
@@ -105,4 +103,38 @@ test('320格密集蛇形路线仍在本格旁分配地产，不把内部地产�
   const {tiles,lots}=anchorsForMap(map);
   for(let id=0;id<cells.length;id++)assert.ok(Math.hypot(tiles[id].x-lots[id].x,tiles[id].z-lots[id].z)<=2.84,`内部地产 ${id} 远离所属路格`);
   for(const lot of lots)for(const road of tiles)assert.ok(Math.abs(lot.x-road.x)>=1.7||Math.abs(lot.z-road.z)>=1.7);
+});
+test('连续地面包围盒覆盖视域，并完整容纳离屏水域洞口',()=>{
+  const v=view.worldView({x:100,z:120},48,{width:390,height:844});
+  assert.equal(typeof view.groundBounds,'function');
+  const bounds=view.groundBounds(v,[{x:-200,z:-300},{x:500,z:800}]);
+  assert.ok(bounds.minX<v.minX&&bounds.maxX>v.maxX&&bounds.minZ<v.minZ&&bounds.maxZ>v.maxZ);
+  assert.ok(bounds.minX<-200&&bounds.maxX>500&&bounds.minZ<-300&&bounds.maxZ>800);
+});
+test('道路旋转后数字仍完整落在路砖内',async()=>{
+  const {labelForTile}=await import('../.test-dist/demo3d/world/layout.js');
+  assert.equal(typeof labelForTile,'function');
+  for(const {map,world}of LEVELS)for(const [id,t]of world.tiles.entries()){
+    const p=labelForTile(id,map);
+    for(const x of [-.22,.22])for(const z of [-.18,.18]){
+      const dx=p.x-t.x+(x+z)/Math.SQRT2,dz=p.z-t.z+(-x+z)/Math.SQRT2;
+      assert.ok(Math.abs(dx*Math.cos(t.rotation)-dz*Math.sin(t.rotation))<.89);
+      assert.ok(Math.abs(dx*Math.sin(t.rotation)+dz*Math.cos(t.rotation))<.89);
+    }
+  }
+});
+test('正式曲线地图仍能把同一街区的相邻房屋连接为联排，连接体不跨过道路',()=>{
+  assert.equal(canJoinLots(1,2,LEVELS.find(l=>l.map.id==='classic-24').map),true);
+  for(const {map,world} of LEVELS.filter(l=>l.playable)){
+    let count=0;
+    for(let i=0;i<map.route.length;i++){
+      const a=map.route[i],b=map.route[(i+1)%map.route.length];
+      if(!canJoinLots(a,b,map))continue;
+      count++;
+      const p=world.tiles[a],q=world.tiles[b];
+      const connector={x:(p.lotX+q.lotX)/2,z:(p.lotZ+q.lotZ)/2,rotation:Math.atan2(q.lotX-p.lotX,q.lotZ-p.lotZ),halfX:.43,halfZ:Math.hypot(p.lotX-q.lotX,p.lotZ-q.lotZ)/2-.325};
+      for(const t of world.tiles)assert.ok(!rectanglesOverlap(connector,{...t,halfX:.89,halfZ:.89}));
+    }
+    assert.ok(count>0,map.id+' 所有联排连接失效');
+  }
 });

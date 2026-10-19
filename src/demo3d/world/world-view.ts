@@ -1,7 +1,6 @@
 import { type WorldPoint } from './layout.js';
 
 export const CAMERA_ELEVATION = Math.atan2(12.2, Math.hypot(10.2,10.2));
-export const CHUNK_SIZE = 16;
 export type WorldView = ReturnType<typeof worldView>;
 export function worldView(center:WorldPoint,zoom:number,viewport:{width:number;height:number}) {
   const halfWidth=viewport.width/(2*zoom), halfHeight=viewport.height/(2*zoom);
@@ -17,13 +16,11 @@ export function worldView(center:WorldPoint,zoom:number,viewport:{width:number;h
     shadowRadius:halfExtent*Math.SQRT2+5
   };
 }
-export type GroundChunk=Readonly<{x:number;z:number}>;
-export function groundChunks(v:WorldView):GroundChunk[]{
-  const chunks:GroundChunk[]=[];
-  for(let x=Math.floor(v.minX/CHUNK_SIZE);x<=Math.floor(v.maxX/CHUNK_SIZE);x++)
-    for(let z=Math.floor(v.minZ/CHUNK_SIZE);z<=Math.floor(v.maxZ/CHUNK_SIZE);z++)
-      chunks.push({x:(x+.5)*CHUNK_SIZE,z:(z+.5)*CHUNK_SIZE});
-  return chunks;
+/** Bounds are geometry-only: the author's base fill extends across the view; no content is created. */
+export function groundBounds(v:WorldView,points:readonly WorldPoint[]){
+  const bounds={minX:v.minX-16,maxX:v.maxX+16,minZ:v.minZ-16,maxZ:v.maxZ+16};
+  for(const p of points){bounds.minX=Math.min(bounds.minX,p.x-1);bounds.maxX=Math.max(bounds.maxX,p.x+1);bounds.minZ=Math.min(bounds.minZ,p.z-1);bounds.maxZ=Math.max(bounds.maxZ,p.z+1);}
+  return bounds;
 }
 export function clampWorldZoom(zoom:number,overview:number):number{
   return Math.max(Math.min(overview,96),Math.min(96,zoom));

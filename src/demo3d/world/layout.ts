@@ -1,3 +1,4 @@
+import { rectanglesOverlap } from '../../core/level-world.js';
 export type WorldPoint = Readonly<{ x: number; z: number }>;
 import { worldForMap } from '../../core/level-data.js';
 import { INTERNAL_TEST_MAP } from '../../core/maps.js';
@@ -17,7 +18,7 @@ export type MapAnchors = Readonly<{
   tiles: readonly WorldPoint[];
   lots: readonly WorldPoint[];
   edges: readonly (readonly [WorldPoint,WorldPoint])[];
-  bounds: Readonly<{ width: number; depth: number }>;
+  bounds: Readonly<{ width: number; depth: number; projectedWidth?:number; projectedDepth?:number }>;
 }>;
 const anchorsByMap = new WeakMap<GameMap, MapAnchors>();
 
@@ -35,8 +36,12 @@ export function anchorsForMap(map: GameMap): MapAnchors {
   const world=worldForMap(map);
   if(world){
     const tiles=world.tiles.map(p=>({x:p.x,z:p.z})),lots=world.tiles.map(p=>({x:p.lotX,z:p.lotZ}));
-    const all=[...tiles,...lots];
-    const result={tiles,lots,edges:map.route.map((id,i)=>[tiles[id],tiles[map.route[(i+1)%map.route.length]]] as const),bounds:{width:Math.max(...all.map(p=>Math.abs(p.x)))*2+3,depth:Math.max(...all.map(p=>Math.abs(p.z)))*2+3}};
+    const all=[...tiles,...lots,...world.surfaces.flatMap(s=>s.points),...world.objects.flatMap(o=>[-1,1].flatMap(dx=>[-1,1].map(dz=>({x:o.x+dx*o.scale,z:o.z+dz*o.scale}))))];
+    const result={tiles,lots,edges:map.route.map((id,i)=>[tiles[id],tiles[map.route[(i+1)%map.route.length]]] as const),bounds:{
+      width:Math.max(...all.map(p=>Math.abs(p.x)))*2+3,depth:Math.max(...all.map(p=>Math.abs(p.z)))*2+3,
+      projectedWidth:Math.max(...all.map(p=>Math.abs(p.x-p.z)))*Math.SQRT2+4,
+      projectedDepth:Math.max(...all.map(p=>Math.abs(p.x+p.z)))*Math.SQRT2+4
+    }};
     anchorsByMap.set(map,result);return result;
   }
   for(const spacing of [2,4,6]){
@@ -112,8 +117,20 @@ export function isWorldSpaceFree(point:WorldPoint,halfSize:number,map:GameMap,in
 
 export function canJoinLots(a:number,b:number,map:GameMap):boolean{
   const {tiles,lots,edges}=anchorsForMap(map),p=lots[a],q=lots[b];
-  if(Math.hypot(p.x-q.x,p.z-q.z)>2.01 || (p.x!==q.x&&p.z!==q.z))return false;
-  const center={x:(p.x+q.x)/2,z:(p.z+q.z)/2};
-  return roadAreaFree(center,.7,tiles,edges);
+  const distance=Math.hypot(p.x-q.x,p.z-q.z),world=worldForMap(map);
+  if(!world){
+    if(distance>2.01||(p.x!==q.x&&p.z!==q.z))return false;
+    return roadAreaFree({x:(p.x+q.x)/2,z:(p.z+q.z)/2},.7,tiles,edges);
+  }
+  // A terrace follows its actual frontage. Sharp corners remain separate buildings.
+  if(distance>6||Math.cos(inwardAngleForTile(a,map)-inwardAngleForTile(b,map))<.85)return false;
+  const bridge={x:(p.x+q.x)/2,z:(p.z+q.z)/2,rotation:Math.atan2(q.x-p.x,q.z-p.z),halfX:.43,halfZ:Math.max(.1,distance/2-.325)};
+  if(tiles.some((t,id)=>rectanglesOverlap(bridge,{...t,rotation:world.tiles[id].rotation,halfX:.92,halfZ:.92})))return false;
+  if(edges.some(([r,s])=>rectanglesOverlap(bridge,{x:(r.x+s.x)/2,z:(r.z+s.z)/2,rotation:Math.atan2(s.x-r.x,s.z-r.z),halfX:.38,halfZ:Math.hypot(s.x-r.x,s.z-r.z)/2})))return false;
+  return lots.every((t,id)=>id===a||id===b||!rectanglesOverlap(bridge,{...t,rotation:inwardAngleForTile(id,map),halfX:.7,halfZ:.7}));
 }
 
+/** Camera-facing labels fit inside the inscribed circle of every rotated road tile. */
+export function labelForTile(tileId:number,map:GameMap):WorldPoint{
+  const p=positionForTile(tileId,map);return {x:p.x+.36,z:p.z+.36};
+}
