@@ -22,3 +22,5 @@
 
 - [tytannial/rich4-re（C++17 / SDL3 原版导向重建）](tytannial--rich4-re/README.md)：[Issue #96](https://github.com/SiliconYC/ReactMono/issues/96)，2026-10-19 UTC，固定上游 `b7b76570f445ad07c0788314062b8500e77259e7`；[源码锚点](tytannial--rich4-re/source-index.md)｜[结构化证据](tytannial--rich4-re/evidence.json)。核查联合收租、股票银行、存档与99场景脚本；未独立运行L0/L1或验收音画，建议只读规则契约参考。
 - [mytbk/rich4（原版 v3.11 逆向与规则）](mytbk--rich4/README.md)：[Issue #95](https://github.com/SiliconYC/ReactMono/issues/95)，2026-10-19 UTC，固定上游 `f81954d6a5675f63297036f9252720c6ca32a2b4`；[30 处源码索引](mytbk--rich4/source-index.md)｜[结构化证据](mytbk--rich4/evidence.json)。六条调用链，B/C/D 静态核查（A=0），未运行旧版程序或 MKF 测试，GPL/版权边界建议只读参考。
+
+- [zawsstt/monopoly-rich-life（Three.js 书桌沙盘）](zawsstt--monopoly-rich-life/README.md)：[Issue #103](https://github.com/SiliconYC/ReactMono/issues/103)，2026-10-19 UTC，固定上游 `307c1761b150a7179fb0353618a95bc6effe3fee`；[五组源码锚点](zawsstt--monopoly-rich-life/source-index.md)｜[结构化证据](zawsstt--monopoly-rich-life/evidence.json)。B/C 源码审计、无独立浏览器/联机测试，非商用许可只读参考。
