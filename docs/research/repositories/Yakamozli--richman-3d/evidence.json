@@ -1,0 +1,449 @@
+{
+  "repository": "Yakamozli/richman-3d",
+  "url": "https://github.com/Yakamozli/richman-3d",
+  "checked_at_utc": "2026-10-19T01:23:17Z",
+  "upstream_sha": "32e7f01f9888a28b8fd1267f5488c455e15abe4a",
+  "upstream_default_branch": "main",
+  "reactmono_baseline_sha": "be88f92936e553bd369fe3c142394cd612659f5f",
+  "original_relation": "inspired",
+  "license": {
+    "spdx": "MIT",
+    "source_url": "https://github.com/Yakamozli/richman-3d/blob/32e7f01f9888a28b8fd1267f5488c455e15abe4a/LICENSE",
+    "risks": [
+      "根 LICENSE 为项目自身 MIT 声明，需在任何代码复用中保留许可与著作权告知；本次不复制源码。",
+      "vendor/three.module.js 与 vendor/OrbitControls.js 属第三方代码，未来复用须独立检查版本、许可证及告知。",
+      "docs/research.md 明示角色与经典商业 IP 的人物特征映射；即使程序代码 MIT，也不自动授权原商业角色、美术、商标或上游自有版权之外的素材。",
+      "GitHub fork=false，只证明 GitHub 仓库元数据未标记 fork，不证明代码或设计完全独立原创。"
+    ],
+    "fork": false,
+    "github_parent": null
+  },
+  "execution": {
+    "attempted": true,
+    "environment": "云端 GitHub 源码连接器静态核查；本地执行容器无法解析 github.com DNS；未提供可交互 Chromium/WebGL 会话。",
+    "commands": [
+      {
+        "command": "git ls-remote https://github.com/Yakamozli/richman-3d.git HEAD",
+        "status": "failed",
+        "result": "Could not resolve host: github.com"
+      },
+      {
+        "command": "GET upstream main branch, Git tree, targeted source files via authenticated GitHub connector",
+        "status": "success",
+        "result": "代码和 LICENSE 按完整 SHA 定位"
+      },
+      {
+        "command": "Open https://richman-3d-sm2cnkoc.edgeone.cool/",
+        "status": "failed",
+        "result": "web fetch reported not accessible; no browser rendering or gameplay verification"
+      },
+      {
+        "command": "node test/smoke.mjs 8",
+        "status": "not_run",
+        "result": "上游工作树与 Node 测试执行未能准备，不宣称通过"
+      },
+      {
+        "command": "Open Chromium and capture independent 1365x768 and 390x844 gameplay screenshots",
+        "status": "not_run",
+        "result": "无法访问交互式 WebGL 浏览器；禁止假截图"
+      }
+    ],
+    "result": "SOURCE_AUDIT_ONLY; no independently executed upstream game/test; no independent screenshots.",
+    "limitations": [
+      "外部站点无法在当前工具中交互打开，不能核对真实帧率、画面观感、移动端或真机。",
+      "已提交截图仅存在于上游 docs/screenshots，属于上游提供材料；未复制到 ReactMono。",
+      "声称构建、测试与功能来自源码 B 或 README C，A 类上游运行证据为空。"
+    ],
+    "screenshots": []
+  },
+  "evidence": [
+    {
+      "id": "B01",
+      "level": "B",
+      "claim": "14×14 环状棋盘与52格硬编码数据、16色组/32城市",
+      "source_url": "https://github.com/Yakamozli/richman-3d/blob/32e7f01f9888a28b8fd1267f5488c455e15abe4a/js/config.js",
+      "locator": "L6-L18,L22-L107,L109-L122",
+      "verification": "读取 GRID/TILE_COUNT、TILES 和 tileGrid/tileWorld",
+      "limitations": "仅静态源码核查；未实测运行"
+    },
+    {
+      "id": "B02",
+      "level": "B",
+      "claim": "boardCanvas 绘制整张 2940×2940 贴图作为 3D 棋盘主体",
+      "source_url": "https://github.com/Yakamozli/richman-3d/blob/32e7f01f9888a28b8fd1267f5488c455e15abe4a/js/draw.js",
+      "locator": "L76-L134",
+      "verification": "S=CELL*GRID；CELL=210, GRID=14；绘制公园、中央徽章和循环 tile",
+      "limitations": "仅静态源码核查；未实测运行"
+    },
+    {
+      "id": "B03",
+      "level": "B",
+      "claim": "Three.js 单个 BoxGeometry 顶面贴 CanvasTexture，外加四栋中心 3D 装饰楼",
+      "source_url": "https://github.com/Yakamozli/richman-3d/blob/32e7f01f9888a28b8fd1267f5488c455e15abe4a/js/scene.js",
+      "locator": "L141-L190",
+      "verification": "静态检查 CanvasTexture、BoxGeometry、MeshStandardMaterial、4个 defs",
+      "limitations": "仅静态源码核查；未实测运行"
+    },
+    {
+      "id": "B04",
+      "level": "B",
+      "claim": "角色由 Sphere/Capsule/Cone 等几何组成，没有骨骼动画证据",
+      "source_url": "https://github.com/Yakamozli/richman-3d/blob/32e7f01f9888a28b8fd1267f5488c455e15abe4a/js/scene.js",
+      "locator": "L233-L402",
+      "verification": "检查 _buildCharacter 和按 style 组合配件",
+      "limitations": "仅静态源码核查；未实测运行"
+    },
+    {
+      "id": "B05",
+      "level": "B",
+      "claim": "地产房屋/酒店为简单模型，随房数重建子树并播放缩放动画",
+      "source_url": "https://github.com/Yakamozli/richman-3d/blob/32e7f01f9888a28b8fd1267f5488c455e15abe4a/js/scene.js",
+      "locator": "L405-L462",
+      "verification": "检查 updateHouses/count、roof、_animate",
+      "limitations": "仅静态源码核查；未实测运行"
+    },
+    {
+      "id": "B06",
+      "level": "B",
+      "claim": "相机具有自由旋转/跟随切换、窗口适配、2048平方阴影，渲染循环始终 requestAnimationFrame",
+      "source_url": "https://github.com/Yakamozli/richman-3d/blob/32e7f01f9888a28b8fd1267f5488c455e15abe4a/js/scene.js",
+      "locator": "L19-L45,L78-L88,L117-L139,L775-L776,L842-L852",
+      "verification": "源码直接核对",
+      "limitations": "仅静态源码核查；未实测运行"
+    },
+    {
+      "id": "B07",
+      "level": "B",
+      "claim": "卡面、骰面、金币、地契、纸币与地标以 Canvas 2D 过程绘图",
+      "source_url": "https://github.com/Yakamozli/richman-3d/blob/32e7f01f9888a28b8fd1267f5488c455e15abe4a/js/draw.js",
+      "locator": "L353-L433,L435-L1032",
+      "verification": "检查绘图方法输出 canvas，不是已导入商业图档",
+      "limitations": "仅静态源码核查；未实测运行"
+    },
+    {
+      "id": "B08",
+      "level": "B",
+      "claim": "UI 用 DOM 弹窗和 HTML 图片处理五选一翻牌；2D/3D混用",
+      "source_url": "https://github.com/Yakamozli/richman-3d/blob/32e7f01f9888a28b8fd1267f5488c455e15abe4a/js/ui.js",
+      "locator": "L544-L583",
+      "verification": "检查 _modal 与 pick-card 元素",
+      "limitations": "仅静态源码核查；未实测运行"
+    },
+    {
+      "id": "B09",
+      "level": "B",
+      "claim": "规则模块处理买地、租金、事件卡、破产、回合结算且通过 hooks 驱动 UI/场景",
+      "source_url": "https://github.com/Yakamozli/richman-3d/blob/32e7f01f9888a28b8fd1267f5488c455e15abe4a/js/game.js",
+      "locator": "L8-L25,L26-L55,L265-L334,L340-L434,L707-L727",
+      "verification": "检查状态与落地结算流程；不等于完整真人跑通",
+      "limitations": "仅静态源码核查；未实测运行"
+    },
+    {
+      "id": "B10",
+      "level": "B",
+      "claim": "AI 决策为现金阈值+规则启发式及随机，不是搜索/学习型对手",
+      "source_url": "https://github.com/Yakamozli/richman-3d/blob/32e7f01f9888a28b8fd1267f5488c455e15abe4a/js/ai.js",
+      "locator": "L1-L73",
+      "verification": "检查 buyDecision、remoteTotal、buildPlan 与 Math.random",
+      "limitations": "仅静态源码核查；未实测运行"
+    },
+    {
+      "id": "B11",
+      "level": "B",
+      "claim": "无头冒烟脚本有胜者、状态不变量、清算与初始资金断言，但没有截图/设备测试",
+      "source_url": "https://github.com/Yakamozli/richman-3d/blob/32e7f01f9888a28b8fd1267f5488c455e15abe4a/test/smoke.mjs",
+      "locator": "L1-L128",
+      "verification": "阅读桩接口与断言，未执行该脚本",
+      "limitations": "仅静态源码核查；未实测运行"
+    },
+    {
+      "id": "B12",
+      "level": "B",
+      "claim": "test/shot.html 的 ./vendor/three.module.js 相对 test/ 路径与实际根目录 vendor/ 不符",
+      "source_url": "https://github.com/Yakamozli/richman-3d/blob/32e7f01f9888a28b8fd1267f5488c455e15abe4a/test/shot.html",
+      "locator": "L7-L13",
+      "verification": "与 index.html L9-L10 导入路径、上游文件树交叉检查；尚未浏览器实测",
+      "limitations": "仅静态源码核查；未实测运行"
+    },
+    {
+      "id": "B13",
+      "level": "B",
+      "claim": "上游调研文档沿用40格和起点¥2000，和当前52格、GO_BONUS=3000不一致",
+      "source_url": "https://github.com/Yakamozli/richman-3d/blob/32e7f01f9888a28b8fd1267f5488c455e15abe4a/docs/research.md",
+      "locator": "L17-L23,L37-L55",
+      "verification": "对照 js/config.js L6-L18",
+      "limitations": "仅静态源码核查；未实测运行"
+    },
+    {
+      "id": "B14",
+      "level": "B",
+      "claim": "根目录 MIT LICENSE 提供软件使用/改编许可并要求保留声明",
+      "source_url": "https://github.com/Yakamozli/richman-3d/blob/32e7f01f9888a28b8fd1267f5488c455e15abe4a/LICENSE",
+      "locator": "L1-L20",
+      "verification": "阅读 MIT 授权与免责声明；不涵盖他人版权的授权确认",
+      "limitations": "不构成第三方版权或品牌的尽职核查意见"
+    },
+    {
+      "id": "B15",
+      "level": "B",
+      "claim": "角色设计笔记明确列原版角色与类似人物的对应关系，存在外观近似的版权/商标风险",
+      "source_url": "https://github.com/Yakamozli/richman-3d/blob/32e7f01f9888a28b8fd1267f5488c455e15abe4a/docs/research.md",
+      "locator": "L26-L35",
+      "verification": "读取角色参考表，不能推论已获权利人授权",
+      "limitations": "仅静态源码核查；未实测运行"
+    },
+    {
+      "id": "B16",
+      "level": "B",
+      "claim": "上游不依赖常规打包配置，静态 HTML importmap 从 vendor/ 加载 Three.js",
+      "source_url": "https://github.com/Yakamozli/richman-3d/blob/32e7f01f9888a28b8fd1267f5488c455e15abe4a/index.html",
+      "locator": "L1-L10,L49-L50",
+      "verification": "结合固定提交文件树：未见 package.json、构建工作流，资源 vendored",
+      "limitations": "仅静态源码核查；未实测运行"
+    },
+    {
+      "id": "B17",
+      "level": "B",
+      "claim": "ReactMono 使用 R3F 动态 Map anchors 的实体街区、独立地块与全局阴影策略",
+      "source_url": "https://github.com/SiliconYC/ReactMono/blob/be88f92936e553bd369fe3c142394cd612659f5f/src/demo3d/world/MiniatureTown.tsx",
+      "locator": "L196-L278",
+      "verification": "核查 ReactMono 基线 SHA 的 WorldCanvas.tsx L90-L164、layout.ts L31-L48",
+      "limitations": "source_url 指向 ReactMono 而非上游；固定 ReactMono SHA"
+    },
+    {
+      "id": "C01",
+      "level": "C",
+      "claim": "作者声称完整复刻核心玩法、全部素材程序绘制并给出在线试玩",
+      "source_url": "https://github.com/Yakamozli/richman-3d/blob/32e7f01f9888a28b8fd1267f5488c455e15abe4a/README.md",
+      "locator": "L1-L13,L24-L55",
+      "verification": "README 原文主张；不视为独立验证",
+      "limitations": "作者声称的完整/美术效果不能取代实测"
+    },
+    {
+      "id": "C02",
+      "level": "C",
+      "claim": "docs/screenshots/ 下三张 PNG 为上游提供的展示截图",
+      "source_url": "https://github.com/Yakamozli/richman-3d/blob/32e7f01f9888a28b8fd1267f5488c455e15abe4a/README.md",
+      "locator": "L8-L21",
+      "verification": "仓库文件树存在 shot-main/shot-assets/shot-cards.png",
+      "limitations": "不是研究者独立截图"
+    },
+    {
+      "id": "D01",
+      "level": "D",
+      "claim": "视觉商业完成度、运行性能和移动端体验尚不能通过本次静态核查定量判断",
+      "source_url": "https://github.com/Yakamozli/richman-3d",
+      "locator": "无独立运行/截图证据",
+      "verification": "标注未验证；列入后续浏览器测试",
+      "limitations": "不能据此判断实景像素质量"
+    }
+  ],
+  "features": [
+    {
+      "feature": "开局/本地2–4人设置",
+      "status": "partial",
+      "evidence_ids": [
+        "B09",
+        "C01"
+      ]
+    },
+    {
+      "feature": "52格/16色组地图",
+      "status": "partial",
+      "evidence_ids": [
+        "B01",
+        "B02"
+      ]
+    },
+    {
+      "feature": "3D实体棋盘路面",
+      "status": "partial",
+      "evidence_ids": [
+        "B02",
+        "B03"
+      ]
+    },
+    {
+      "feature": "角色程序化低模",
+      "status": "partial",
+      "evidence_ids": [
+        "B04"
+      ]
+    },
+    {
+      "feature": "地产买卖/收租/房屋/酒店",
+      "status": "partial",
+      "evidence_ids": [
+        "B05",
+        "B09"
+      ]
+    },
+    {
+      "feature": "银行与独立账户",
+      "status": "unknown",
+      "evidence_ids": [
+        "B09"
+      ]
+    },
+    {
+      "feature": "股票",
+      "status": "unknown",
+      "evidence_ids": [
+        "B09"
+      ]
+    },
+    {
+      "feature": "机会/事件与翻牌盲选",
+      "status": "partial",
+      "evidence_ids": [
+        "B07",
+        "B08",
+        "B09"
+      ]
+    },
+    {
+      "feature": "道具/路障",
+      "status": "partial",
+      "evidence_ids": [
+        "B09",
+        "B10"
+      ]
+    },
+    {
+      "feature": "神明/复杂原版事件",
+      "status": "unknown",
+      "evidence_ids": [
+        "B01",
+        "B09"
+      ]
+    },
+    {
+      "feature": "AI决策",
+      "status": "partial",
+      "evidence_ids": [
+        "B10",
+        "B11"
+      ]
+    },
+    {
+      "feature": "破产与结算",
+      "status": "partial",
+      "evidence_ids": [
+        "B09",
+        "B11"
+      ]
+    },
+    {
+      "feature": "保存与读取存档",
+      "status": "unknown",
+      "evidence_ids": [
+        "B09",
+        "B16"
+      ]
+    },
+    {
+      "feature": "多地图与非规则路径",
+      "status": "unknown",
+      "evidence_ids": [
+        "B01"
+      ]
+    },
+    {
+      "feature": "3D灯光/阴影与镜头",
+      "status": "partial",
+      "evidence_ids": [
+        "B06"
+      ]
+    },
+    {
+      "feature": "纸币/卡牌/地契程序绘图",
+      "status": "partial",
+      "evidence_ids": [
+        "B07",
+        "B08"
+      ]
+    },
+    {
+      "feature": "音频",
+      "status": "partial",
+      "evidence_ids": [
+        "C01"
+      ]
+    },
+    {
+      "feature": "端侧静态网页部署",
+      "status": "claimed",
+      "evidence_ids": [
+        "B16",
+        "C01"
+      ]
+    },
+    {
+      "feature": "移动端真机/WebGL和帧率",
+      "status": "unknown",
+      "evidence_ids": [
+        "D01"
+      ]
+    },
+    {
+      "feature": "自动化无头冒烟测试",
+      "status": "partial",
+      "evidence_ids": [
+        "B11"
+      ]
+    },
+    {
+      "feature": "独立真实截图",
+      "status": "unknown",
+      "evidence_ids": [
+        "C02",
+        "D01"
+      ]
+    }
+  ],
+  "scores": {
+    "rules": 1,
+    "maintainability": 2,
+    "reproducibility": 2,
+    "presentation": null,
+    "reactmono_value": 3
+  },
+  "score_evidence": {
+    "rules": [
+      "B01",
+      "B09",
+      "B13"
+    ],
+    "maintainability": [
+      "B03",
+      "B09",
+      "B11",
+      "B12"
+    ],
+    "reproducibility": [
+      "B11",
+      "B12",
+      "B16",
+      "D01"
+    ],
+    "presentation": [
+      "C02",
+      "D01"
+    ],
+    "reactmono_value": [
+      "B02",
+      "B03",
+      "B05",
+      "B07",
+      "B17"
+    ]
+  },
+  "recommendation": "read_only_reference",
+  "open_questions": [
+    "具备可交互 WebGL 浏览器时，能否在1365×768桌面与390×844手机独立截图并完成多回合验证？",
+    "修正 test/shot.html importmap 相对目录（仅上游本地临时副本）后，素材展示页是否具有可截图的真实画面？",
+    "实际 GPU 纹理占用（2940×2940 棋盘）、draw calls、CPU/GPU 帧时间及手机低端设备性能是多少？",
+    "是否存在独立存读档/银行股市等本次所读文件未暴露的实现？",
+    "第三方 vendor 版本/原始许可通知、原版风格角色相似度及运营商标风险需进一步确认。"
+  ]
+}
