@@ -2,11 +2,16 @@
 
 **本目录是多仓库研究产物的容器，不是游戏源码目录。**
 
-每个外部仓库一份独立子目录：`<GitHub owner>--<GitHub repo>/`。例如：
-`mytbk--rich4/README.md`、`mytbk--rich4/source-index.md`、`mytbk--rich4/evidence.json`。
+每个外部仓库一份独立子目录：`<GitHub owner>--<GitHub repo>/`。研究开展前不要创建空目录或占位文件；仅把真实交付的研究目录加入本表。仓库 fork/镜像不重复计算原创项目。
 
-研究开展前不要创建空目录或占位文件。完成每个研究 Issue 后再把真实报告目录和仓库链接添加到本页；一仓库只有一个权威目录，fork 不重复计算原创项目。
+研究标准见 [`../RESEARCH_STANDARD.md`](../RESEARCH_STANDARD.md)；完整候选与 Issue 清单见 [`../README.md`](../README.md)。
 
-研究标准见 [`../RESEARCH_STANDARD.md`](../RESEARCH_STANDARD.md)；候选清单见 [`../README.md`](../README.md)。此时**尚无独立深度研究报告**，请勿将候选表混同已验收成果。
+## 已交付研究
 
-详见 [待执行的九项研究 Issue](../README.md#已创建研究任务2026-10-19)。正式报告交付后将相应链接从“待执行”更新到“已合并/已验证”。
+| Issue | 上游仓库 | 研究成果 | 证据边界 |
+| --- | --- | --- | --- |
+| [#102](https://github.com/SiliconYC/ReactMono/issues/102) | [Yakamozli/richman-3d](https://github.com/Yakamozli/richman-3d) | [九章报告](Yakamozli--richman-3d/README.md) · [五组源码定位](Yakamozli--richman-3d/source-index.md) · [证据 JSON](Yakamozli--richman-3d/evidence.json) | 上游 `32e7f01f9888a28b8fd1267f5488c455e15abe4a`；B 级源码核查，**未独立运行/截图**；不宣称完成视觉实测 |
+
+## 待研究/其余并行任务
+
+请以 [研究任务清单](../README.md#已创建研究任务2026-10-19) 与 GitHub Issue、PR 的**实时状态**为准。其他任务可能并行推进；不要依据此文件缺少某一行就判断其尚未开展。后续研究 PR 合并时保留已交付行，不要用旧索引覆盖并行成果。
