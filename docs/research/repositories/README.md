@@ -1,15 +1,18 @@
-# 外部仓库研究索引
+# 已研究与待研究的外部仓库索引
 
-此处只保存已开展的真实研究文件，不承载游戏源码；每个上游 GitHub 仓库只保留一份权威目录，不创建占位文件。
+**本目录是多仓库研究产物的容器，不是游戏源码目录。**
 
-## 已交付的深度研究
+每个外部仓库一份独立子目录：`<GitHub owner>--<GitHub repo>/`。例如：
+`mytbk--rich4/README.md`、`mytbk--rich4/source-index.md`、`mytbk--rich4/evidence.json`。
 
-| 研究目标 | Issue | 研究产物与证据等级 | 主要结论 |
-| --- | --- | --- | --- |
-| [nurockplayer/richman4-remake](https://github.com/nurockplayer/richman4-remake) | [#99](https://github.com/SiliconYC/ReactMono/issues/99) | [九章报告](nurockplayer--richman4-remake/README.md) · [源码索引](nurockplayer--richman4-remake/source-index.md) · [结构化证据](nurockplayer--richman4-remake/evidence.json)；固定上游 SHA `961bdf47389a08e3143c0340490896b9f50edef9`；B/C/D 证据，A 级独立运行未执行 | Godot 中存在源地图、十二股和存档规则路径；历史可连续对局与尚未通过的原版主棋盘/股市视觉验收必须分开；许可证和私有素材仍是限制 |
+研究开展前不要创建空目录或占位文件。完成每个研究 Issue 后再把真实报告目录和仓库链接添加到本页；一仓库只有一个权威目录，fork 不重复计算原创项目。
 
-## 待交付的研究
+研究标准见 [`../RESEARCH_STANDARD.md`](../RESEARCH_STANDARD.md)；候选清单见 [`../README.md`](../README.md)。已交付的研究以对应 Issue 和实际报告为准，勿将候选清单混同独立验收。
 
-其他研究任务仍以 [研究入口](../README.md#已创建研究任务2026-10-19) 和相应 GitHub Issue 为准；创建任务不等于已经深度核验或独立验收。仅在真实交付研究目录后添加对应条目。
+详见 [待执行的九项研究 Issue](../README.md#已创建研究任务2026-10-19)。正式报告交付后将相应链接从“待执行”更新到“已合并/已验证”。
 
-研究规范：[RESEARCH_STANDARD.md](../RESEARCH_STANDARD.md)。后续跨仓库综合研究由 [Issue #104](https://github.com/SiliconYC/ReactMono/issues/104) 负责，必须重新核对各报告的证据差异，不得直接拼贴。
+## 已交付的单仓库研究
+
+- [JCRJPZB/Rich4（Cocos Creator 2.4.3）](JCRJPZB--Rich4/README.md)：[Issue #101](https://github.com/SiliconYC/ReactMono/issues/101)，2026-10-19 UTC，固定上游 `0c86a1b7fc889ff2f3a1f3cba7f5947f5e291ea0`；[源码锚点](JCRJPZB--Rich4/source-index.md)｜[结构化证据](JCRJPZB--Rich4/evidence.json)。仅静态数据核验，未独立启动引擎；授权不明，建议只读参考。
+
+- [nurockplayer/richman4-remake（Godot 高保真重制）](nurockplayer--richman4-remake/README.md)：[Issue #99](https://github.com/SiliconYC/ReactMono/issues/99)，固定上游 `961bdf47389a08e3143c0340490896b9f50edef9`；[源码索引](nurockplayer--richman4-remake/source-index.md)｜[结构化证据](nurockplayer--richman4-remake/evidence.json)。源数据和十二股路径已作固定源码审计；历史完整对局不能替代尚未通过的主棋盘/股市视觉验收。仅 B/C/D 级证据，无本轮独立 Godot 运行和原版私有素材；许可证未明确，建议只读参考。
