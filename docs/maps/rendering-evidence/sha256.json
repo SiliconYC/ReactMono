@@ -15,6 +15,7 @@
   "large-map-draw.png": "644a7da332b015eaeb588f112de8c7a8a3d6a652f46983d8eca7af0e02a931ed",
   "layout-tests.log": "531c79c6ef2d8c8933cd82f9845e3a860df74f45fa7e4cdf473c3abcc7461591",
   "main-game.log": "ec33f8bb3e7e6fff43f4b3e893551c18372c6c4a79fe93775b8de2661d337a42",
+  "merged-dev-node-tests.log": "4f5d1914220c0b500a16ff24ade25d513ab0f6c264eef75078392a7079011c97",
   "navigation-edges.json": "8bcbe86562b56bfb6bc332bab63f173eba9b416961f7c112c4a5f9bef6b6b12c",
   "navigation-edges.log": "6a7e1f774488b99c6c044f97d4a8b6acef959ebc859d8bd44e27b7db74e0c8ae",
   "node-tests.log": "0a5d661c1c997d3453e87daad56171cb149dd11e56b5f1a984eaa553874015eb",
@@ -31,6 +32,7 @@
   "runtime.log": "31a8b115c26efcf3128aea22b7d1b5c68d1f99e8da6a30d1414f3c3eec907b50",
   "shadow-red.log": "3d2a5040bc65301931de8060958d981519b9a7b80a93499997dd4e3647a750fa",
   "stress-maps.log": "c50f48a18e98d5f579ba8d7cc4e6867e926dc2e0ed9a8c41ca608786f73b72db",
+  "supplementary-checks.json": "2cc3a2fa0b5089ce9fec74ef1d5fe0c876c49d99a7ba41c28e23d998cf08e50d",
   "ui.log": "162fb4da1872dedbbee3580d3c7eb2a006f9fa5a85421bab57c54ba4b3018d8a",
   "world-motion.log": "6cfa3db018b937d544231cdd4b9af3341d3740db9dd9628057fdae8d4bc97e09"
 }
