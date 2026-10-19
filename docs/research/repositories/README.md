@@ -15,4 +15,7 @@
 
 - [JCRJPZB/Rich4（Cocos Creator 2.4.3）](JCRJPZB--Rich4/README.md)：[Issue #101](https://github.com/SiliconYC/ReactMono/issues/101)，2026-10-19 UTC，固定上游 `0c86a1b7fc889ff2f3a1f3cba7f5947f5e291ea0`；[源码锚点](JCRJPZB--Rich4/source-index.md)｜[结构化证据](JCRJPZB--Rich4/evidence.json)。仅静态数据核验，未独立启动引擎；授权不明，建议只读参考。
 
-- [lhr0909/richman4-remastered：原生移植与可玩性深度研究（Issue #97）](repositories/lhr0909--richman4-remastered/README.md) — [固定 SHA 源码索引](lhr0909--richman4-remastered/source-index.md) · [分级 JSON 证据](lhr0909--richman4-remastered/evidence.json)；静态核查完成，无上游游戏/47 项 CTest/20 场完整矩阵或移动设备独立实测。
+- [oama1111/rich4-remake-public（确定性规则与跨端联机研究）](oama1111--rich4-remake-public/README.md)：[Issue #100](https://github.com/SiliconYC/ReactMono/issues/100)，固定上游 `42ad97ad31f07541a9af35415e36be4da4147484`；[源码索引](oama1111--rich4-remake-public/source-index.md)｜[证据 JSON](oama1111--rich4-remake-public/evidence.json)。只读参考；独立原版游玩未验证，不移植 GPL 源码、后端或素材。
+- [iam567/rich4-renew-app（TypeScript + Capacitor）](iam567--rich4-renew-app/README.md)：[Issue #98](https://github.com/SiliconYC/ReactMono/issues/98)，固定上游 `1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79`；[源码索引](iam567--rich4-renew-app/source-index.md)｜[结构化证据](iam567--rich4-renew-app/evidence.json)。仅源码审计、无独立测试或截图；GPL 与商业素材风险，建议只读参考。
+
+- [lhr0909/richman4-remastered：原生移植与可玩性深度研究（Issue #97）](lhr0909--richman4-remastered/README.md) — [固定 SHA 源码索引](lhr0909--richman4-remastered/source-index.md) · [分级 JSON 证据](lhr0909--richman4-remastered/evidence.json)；固定上游 `3f4209a7dfb5b2f20799bf54e6c03c5faa11c557`，仅独立源码核查，无完整游戏、47/47 CTest、20/20 矩阵或移动设备独立实测。
