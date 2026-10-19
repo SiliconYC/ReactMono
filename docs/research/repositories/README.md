@@ -15,4 +15,6 @@
 
 - [JCRJPZB/Rich4（Cocos Creator 2.4.3）](JCRJPZB--Rich4/README.md)：[Issue #101](https://github.com/SiliconYC/ReactMono/issues/101)，2026-10-19 UTC，固定上游 `0c86a1b7fc889ff2f3a1f3cba7f5947f5e291ea0`；[源码锚点](JCRJPZB--Rich4/source-index.md)｜[结构化证据](JCRJPZB--Rich4/evidence.json)。仅静态数据核验，未独立启动引擎；授权不明，建议只读参考。
 
+- [oama1111/rich4-remake-public（确定性规则与跨端联机研究）](oama1111--rich4-remake-public/README.md)：[Issue #100](https://github.com/SiliconYC/ReactMono/issues/100)，固定上游 `42ad97ad31f07541a9af35415e36be4da4147484`；[源码索引](oama1111--rich4-remake-public/source-index.md)｜[证据 JSON](oama1111--rich4-remake-public/evidence.json)。只读参考；独立原版游玩未验证，不移植 GPL 源码、后端或素材。
+
 - [tytannial/rich4-re（C++17 / SDL3 原版导向重建）](tytannial--rich4-re/README.md)：[Issue #96](https://github.com/SiliconYC/ReactMono/issues/96)，2026-10-19 UTC，固定上游 `b7b76570f445ad07c0788314062b8500e77259e7`；[源码锚点](tytannial--rich4-re/source-index.md)｜[结构化证据](tytannial--rich4-re/evidence.json)。核查联合收租、股票银行、存档与99场景脚本；未独立运行L0/L1或验收音画，建议只读规则契约参考。
