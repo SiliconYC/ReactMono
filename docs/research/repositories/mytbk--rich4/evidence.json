@@ -1,0 +1,406 @@
+{
+  "repository": "mytbk/rich4",
+  "url": "https://github.com/mytbk/rich4",
+  "checked_at_utc": "2026-10-19T01:17:00Z",
+  "upstream_sha": "f81954d6a5675f63297036f9252720c6ca32a2b4",
+  "original_relation": "tool",
+  "license": {
+    "spdx": "GPL-3.0-or-later",
+    "source_url": "https://github.com/mytbk/rich4/blob/f81954d6a5675f63297036f9252720c6ca32a2b4/COPYING",
+    "risks": [
+      "部分 C 文件明示 GPL-3.0-or-later，COPYING 为 GPLv3；汇编由原版二进制逆向，不可推导原版权方已许可原作代码或素材。",
+      "ReactMono 未授权移植、复制或翻译 GPL 上游实现；避免将相关代码混入独立商业化游戏。",
+      "不同移植项目的版权标注及许可证需单独审计，作者自述不能替代法律结论。"
+    ]
+  },
+  "execution": {
+    "attempted": false,
+    "environment": "隔离 Linux 沙盒；2026-10-19；GitHub Git connector 可读写公开文本，但沙盒 git HTTPS 域名解析失败；gcc/node/python3 可用，i686-w64-mingw32-gcc/nasm/wine 未安装",
+    "commands": [
+      "git ls-remote https://github.com/mytbk/rich4.git HEAD (失败：Could not resolve host: github.com)",
+      "command -v i686-w64-mingw32-gcc nasm wine (均不可用)",
+      "cd asm && make (未执行：缺工具链和可克隆工作树)",
+      "cd csrc/mkf/test && sh runtest.sh (未执行：Data.mkf 等版权数据不可得；需要 gcc -m32)"
+    ],
+    "result": "仅完成指定 SHA 的公开源码静态核查；未执行逆向源码编译、原版游戏启动或资源测试，A 类证据=0",
+    "limitations": [
+      "隔离 shell 无法下载 GitHub；GitHub 连接器用于逐文件源码读取及提交报告。",
+      "缺原版 v3.11 可执行文件和 MKF 商业素材，无法交叉运行或核验摘要。",
+      "缺 Wine multilib、MinGW i686、NASM 和32位编译依赖；不生成虚假截图。"
+    ]
+  },
+  "evidence": [
+    {
+      "id": "B01",
+      "level": "B",
+      "claim": "链接目标为带 Win32/DirectDraw/DirectSound 依赖的 NASM 与 MinGW 构建，目标 rich4_mscrt.exe",
+      "source_url": "https://github.com/mytbk/rich4/blob/f81954d6a5675f63297036f9252720c6ca32a2b4/asm/Makefile#L1",
+      "locator": "L1-L5, L7-L80",
+      "verification": "阅读链接目标、OBJ 清单、链接命令",
+      "limitations": "仅验证指定版本的源码结构与分支，未执行原游戏"
+    },
+    {
+      "id": "B02",
+      "level": "B",
+      "claim": "MKF 文件开头的索引表偏移、尾部索引、每资源16字节头及 SPR/SMP 子图偏移得到实现交叉支持",
+      "source_url": "https://github.com/mytbk/rich4/blob/f81954d6a5675f63297036f9252720c6ca32a2b4/csrc/mkf/mkf.c#L32",
+      "locator": "L32-L59, L73-L92, L132-L173",
+      "verification": "与 csrc/mkf/mkf-format.md L4-L72 对照",
+      "limitations": "仅验证指定版本的源码结构与分支，未执行原游戏"
+    },
+    {
+      "id": "B03",
+      "level": "B",
+      "claim": "地图加载阶段读取 MAP.MKF、可选 MAPDAT.MKF，地图节点按40字节，土地、设施和商业属性有分表",
+      "source_url": "https://github.com/mytbk/rich4/blob/f81954d6a5675f63297036f9252720c6ca32a2b4/csrc/loadsave.c#L99",
+      "locator": "L99-L141",
+      "verification": "与 asm/rich4_load_map.asm L71-L165、docs/map.txt L1-L34 核对；csrc 是未整理草稿",
+      "limitations": "仅验证指定版本的源码结构与分支，未执行原游戏"
+    },
+    {
+      "id": "B04",
+      "level": "B",
+      "claim": "租金计算依地产模式按所有者、街区名与等级累加，并以物价指数相乘；联排另一分支加固定基数",
+      "source_url": "https://github.com/mytbk/rich4/blob/f81954d6a5675f63297036f9252720c6ca32a2b4/asm/rich4_player_core_actions.asm#L199",
+      "locator": "L199-L298",
+      "verification": "检查 _rich4_get_player_num_chain_store 与 _rich4_calculate_land_toll",
+      "limitations": "仅验证指定版本的源码结构与分支，未执行原游戏"
+    },
+    {
+      "id": "B05",
+      "level": "B",
+      "claim": "落地分派用节点 type_and_idx 区分住宅地块并按 owner/level、现金及 price_index 进入升级与付费路径",
+      "source_url": "https://github.com/mytbk/rich4/blob/f81954d6a5675f63297036f9252720c6ca32a2b4/asm/rich4_player_core_actions.asm#L322",
+      "locator": "L322-L435",
+      "verification": "检查 _rich4_handle_player_land_on_node 与结构体 rich4_map.h",
+      "limitations": "仅验证指定版本的源码结构与分支，未执行原游戏"
+    },
+    {
+      "id": "B06",
+      "level": "B",
+      "claim": "股票买卖函数按不同分支扣现金或银行存款、更新持股及上市公司拥有关系",
+      "source_url": "https://github.com/mytbk/rich4/blob/f81954d6a5675f63297036f9252720c6ca32a2b4/asm/rich4_stocks.asm#L94",
+      "locator": "L94-L224",
+      "verification": "阅读 _rich4_buy_stock、_rich4_sell_stock；账户分支语义待动态核对",
+      "limitations": "仅验证指定版本的源码结构与分支，未执行原游戏"
+    },
+    {
+      "id": "B07",
+      "level": "B",
+      "claim": "物价指数对存活玩家净资产求均值后除初始资金，计算值高于旧指数才更新，不是逐回合无条件重设",
+      "source_url": "https://github.com/mytbk/rich4/blob/f81954d6a5675f63297036f9252720c6ca32a2b4/asm/rich4_update_price_index.asm#L11",
+      "locator": "L11-L53",
+      "verification": "检查 _rich4_calculate_player_wealth、idiv 与 jle",
+      "limitations": "仅验证指定版本的源码结构与分支，未执行原游戏"
+    },
+    {
+      "id": "B08",
+      "level": "B",
+      "claim": "银行 UI 入口有银行禁入天数判定、财富计算及读取 panel.mkf 资源的路径",
+      "source_url": "https://github.com/mytbk/rich4/blob/f81954d6a5675f63297036f9252720c6ca32a2b4/asm/rich4_ui_bank.asm#L3490",
+      "locator": "L3490-L3563",
+      "verification": "阅读 _rich4_ui_bank_entry；不能据此独立确认完整贷款利率",
+      "limitations": "仅验证指定版本的源码结构与分支，未执行原游戏"
+    },
+    {
+      "id": "B09",
+      "level": "B",
+      "claim": "卡表与工具表把卡/道具分类、数值属性拆为静态数据；名称为字节字面量及人工注释",
+      "source_url": "https://github.com/mytbk/rich4/blob/f81954d6a5675f63297036f9252720c6ca32a2b4/asm/rich4_card_table.c#L1",
+      "locator": "L1-L34",
+      "verification": "交叉检视 asm/rich4_tool_table.c L1-L17；数值字段语义尚未完全证实",
+      "limitations": "仅验证指定版本的源码结构与分支，未执行原游戏"
+    },
+    {
+      "id": "B10",
+      "level": "B",
+      "claim": "神明附身例程检查旧神明并解除、赋新 ID 与地图对象状态且按神明类别进入处理分支",
+      "source_url": "https://github.com/mytbk/rich4/blob/f81954d6a5675f63297036f9252720c6ca32a2b4/asm/rich4_gods.asm#L472",
+      "locator": "L472-L553",
+      "verification": "检查 _rich4_attach_god/_rich4_detach_god；没有完整回合效果复现",
+      "limitations": "仅验证指定版本的源码结构与分支，未执行原游戏"
+    },
+    {
+      "id": "B11",
+      "level": "B",
+      "claim": "电脑使用卡片、道具在权重/随机判断后经跳转表分派，行为不仅是随机走格",
+      "source_url": "https://github.com/mytbk/rich4/blob/f81954d6a5675f63297036f9252720c6ca32a2b4/asm/rich4_ai_use_card.asm#L42",
+      "locator": "L42-L79",
+      "verification": "与 asm/rich4_ai_use_tool.asm L36-L73 对照；没有量化强度",
+      "limitations": "仅验证指定版本的源码结构与分支，未执行原游戏"
+    },
+    {
+      "id": "B12",
+      "level": "B",
+      "claim": "存档写入玩家0x68字节表、卡片60字节、道具60字节等并由读取函数逆向还原，旧存档包含非现代 JSON 的运行时状态",
+      "source_url": "https://github.com/mytbk/rich4/blob/f81954d6a5675f63297036f9252720c6ca32a2b4/asm/rich4_save_files.asm#L99",
+      "locator": "L99-L187, L529-L620",
+      "verification": "对照 docs/saveload.txt L1-L12 与 asm/rich4_player_info.h L8-L70；完整布局待样本对照",
+      "limitations": "仅验证指定版本的源码结构与分支，未执行原游戏"
+    },
+    {
+      "id": "B13",
+      "level": "B",
+      "claim": "角色状态含现金、存款、贷款、特殊融资、卡、神明及移动节点字段，显示原版跨子系统状态规模",
+      "source_url": "https://github.com/mytbk/rich4/blob/f81954d6a5675f63297036f9252720c6ca32a2b4/asm/rich4_player_info.h#L8",
+      "locator": "L8-L80",
+      "verification": "核查 player_info 与导出全局状态",
+      "limitations": "仅验证指定版本的源码结构与分支，未执行原游戏"
+    },
+    {
+      "id": "B14",
+      "level": "B",
+      "claim": "存在依赖原版 Data.mkf 的 MKF 工具测试脚本，需32位 GCC 和原版商业数据",
+      "source_url": "https://github.com/mytbk/rich4/blob/f81954d6a5675f63297036f9252720c6ca32a2b4/csrc/mkf/test/runtest.sh#L1",
+      "locator": "L1-L21",
+      "verification": "检查数据先 sha1sum 再解包校验的脚本分支",
+      "limitations": "仅验证指定版本的源码结构与分支，未执行原游戏"
+    },
+    {
+      "id": "B15",
+      "level": "B",
+      "claim": "原版地图节点用相邻节点字段而非单一循环路线表示，资料版地图清单是逆向文档的结论",
+      "source_url": "https://github.com/mytbk/rich4/blob/f81954d6a5675f63297036f9252720c6ca32a2b4/asm/rich4_map.h#L95",
+      "locator": "L95-L127",
+      "verification": "与 docs/map.txt L1-L15 对照",
+      "limitations": "仅验证指定版本的源码结构与分支，未执行原游戏"
+    },
+    {
+      "id": "B16",
+      "level": "B",
+      "claim": "源代码文本声明 GPL-3.0-or-later 且仓库包含 GPLv3 许可证全文",
+      "source_url": "https://github.com/mytbk/rich4/blob/f81954d6a5675f63297036f9252720c6ca32a2b4/asm/rich4_player_info.h#L1",
+      "locator": "L1-L4",
+      "verification": "并核查根目录 COPYING；不等于原版权素材获得授权",
+      "limitations": "仅验证指定版本的源码结构与分支，未执行原游戏"
+    },
+    {
+      "id": "B17",
+      "level": "B",
+      "claim": "部分旧 C 反编译含未完成占位与无效语法，不能将 csrc 当作独立可编译的完整重建引擎",
+      "source_url": "https://github.com/mytbk/rich4/blob/f81954d6a5675f63297036f9252720c6ca32a2b4/csrc/player_action.c#L25",
+      "locator": "L25-L56",
+      "verification": "fcn.0040829d 形式非合法 C 标识，另见 csrc/loadsave.c 未解标识符",
+      "limitations": "仅验证指定版本的源码结构与分支，未执行原游戏"
+    },
+    {
+      "id": "B18",
+      "level": "B",
+      "claim": "遥控骰子工具处理包含 AI 参数选择、变更骰子状态及消耗工具后处理入口",
+      "source_url": "https://github.com/mytbk/rich4/blob/f81954d6a5675f63297036f9252720c6ca32a2b4/asm/rich4_tool_yaokongtouzi.asm#L1",
+      "locator": "L1-L83",
+      "verification": "核查 _rich4_use_tool_yaokongtouzi 与 fcn_0040dd1f；骰点概率未测",
+      "limitations": "仅验证指定版本的源码结构与分支，未执行原游戏"
+    },
+    {
+      "id": "B19",
+      "level": "B",
+      "claim": "ReactMono 当前地图以单环路线前进，无法表达原版节点多邻接与交叉路线",
+      "source_url": "https://github.com/SiliconYC/ReactMono/blob/be88f92936e553bd369fe3c142394cd612659f5f/src/core/maps.ts#L12-L41",
+      "locator": "L12-L41",
+      "verification": "阅读 makeRingMap、advancePosition",
+      "limitations": "从两套模型作结构级比较，未做功能迁移"
+    },
+    {
+      "id": "B20",
+      "level": "B",
+      "claim": "ReactMono 股票采用五个原创报价标的和0.5%手续费，可选银行结算；不同于原版12股/各地图股票表与部分结算规则",
+      "source_url": "https://github.com/SiliconYC/ReactMono/blob/be88f92936e553bd369fe3c142394cd612659f5f/src/core/stocks.ts#L1-L51",
+      "locator": "L1-L51",
+      "verification": "同 asm/rich4_all_stocks.c L1-L8、asm/rich4_stocks.asm L94-L224 比较",
+      "limitations": "不同规则是产品决策，非自动判定缺陷"
+    },
+    {
+      "id": "B21",
+      "level": "B",
+      "claim": "ReactMono 现有卡片种类远少于上游逆向表；但现有实现支持非法指令拒绝和确定性状态变更",
+      "source_url": "https://github.com/SiliconYC/ReactMono/blob/be88f92936e553bd369fe3c142394cd612659f5f/src/core/cards.ts#L5-L50",
+      "locator": "L5-L50",
+      "verification": "源码对照，建议只独立写规则测试",
+      "limitations": "仅验证指定版本的源码结构与分支，未执行原游戏"
+    },
+    {
+      "id": "C01",
+      "level": "C",
+      "claim": "作者指向 v3.11 原始 rich4.exe 给出摘要；声称重编译后可在 multilib Wine 使用",
+      "source_url": "https://github.com/mytbk/rich4/blob/f81954d6a5675f63297036f9252720c6ca32a2b4/readme.rst#L1",
+      "locator": "L1-L11, L29-L39",
+      "verification": "作者说明；未核对原版二进制哈希",
+      "limitations": "仅验证指定版本的源码结构与分支，未执行原游戏"
+    },
+    {
+      "id": "C02",
+      "level": "C",
+      "claim": "作者叙述2018数据解压和存档格式、2021 r2dumpbin、2025 rich4_asm 与运行库替换里程碑",
+      "source_url": "https://github.com/mytbk/rich4/blob/f81954d6a5675f63297036f9252720c6ca32a2b4/readme.rst#L9",
+      "locator": "L9-L11",
+      "verification": "历史为作者叙述，与源码提交结构相容但不等于研究者运行",
+      "limitations": "仅验证指定版本的源码结构与分支，未执行原游戏"
+    },
+    {
+      "id": "C03",
+      "level": "C",
+      "claim": "lhr0909 项目明确承认从 mytbk 逆向汇编进行重写且其源码为 GPL-3.0-or-later",
+      "source_url": "https://github.com/lhr0909/richman4-remastered/blob/3f4209a7dfb5b2f20799bf54e6c03c5faa11c557/README.md",
+      "locator": "致谢 / Acknowledgements",
+      "verification": "第三方维护者明确声明；兼有 src/direction.cpp 的逐文件派生注释",
+      "limitations": "不判定法律上的全部派生范围"
+    },
+    {
+      "id": "C04",
+      "level": "C",
+      "claim": "tytannial 在 mytbk/rich4#6 讨论中称参考该项目的注释与笔记；不是实际代码复制的独立证据",
+      "source_url": "https://github.com/mytbk/rich4/issues/6",
+      "locator": "2026-07-20 tytannial comment",
+      "verification": "阅读第一方 issue 评论与上游 README related work",
+      "limitations": "只支持参考关系，不能证明其全部代码的来源"
+    },
+    {
+      "id": "D01",
+      "level": "D",
+      "claim": "缺乏原版安装目录和可执行构建测试，游戏启动、原版字节一致性、完整规则忠实性均尚未独立验证",
+      "source_url": "https://github.com/mytbk/rich4/blob/f81954d6a5675f63297036f9252720c6ca32a2b4/readme.rst#L29",
+      "locator": "L29-L39",
+      "verification": "保留未验证，不据作者构建指令上调为 A",
+      "limitations": "仅验证指定版本的源码结构与分支，未执行原游戏"
+    },
+    {
+      "id": "D02",
+      "level": "D",
+      "claim": "GPL 覆盖和反汇编的原版权归属、合同与地域因素复杂；对公开商业游戏直接使用上游代码存在合规风险",
+      "source_url": "https://github.com/mytbk/rich4/blob/f81954d6a5675f63297036f9252720c6ca32a2b4/COPYING",
+      "locator": "GPLv3全文",
+      "verification": "风险筛选；需要法律顾问判定具体衍生关系",
+      "limitations": "不是法律裁定"
+    }
+  ],
+  "features": [
+    {
+      "feature": "原版启动/完整对局",
+      "status": "claimed",
+      "evidence_ids": [
+        "C01",
+        "B01",
+        "D01"
+      ]
+    },
+    {
+      "feature": "回合/移动",
+      "status": "partial",
+      "evidence_ids": [
+        "B05",
+        "B13",
+        "B18"
+      ]
+    },
+    {
+      "feature": "地图节点/资源读取",
+      "status": "partial",
+      "evidence_ids": [
+        "B02",
+        "B03",
+        "B15"
+      ]
+    },
+    {
+      "feature": "地产买卖/升级/租金",
+      "status": "partial",
+      "evidence_ids": [
+        "B04",
+        "B05",
+        "B07"
+      ]
+    },
+    {
+      "feature": "银行/存款贷款",
+      "status": "partial",
+      "evidence_ids": [
+        "B06",
+        "B08",
+        "B13"
+      ]
+    },
+    {
+      "feature": "股市买卖/上市公司",
+      "status": "partial",
+      "evidence_ids": [
+        "B06",
+        "B07",
+        "B20"
+      ]
+    },
+    {
+      "feature": "卡片/道具",
+      "status": "partial",
+      "evidence_ids": [
+        "B09",
+        "B18",
+        "B21"
+      ]
+    },
+    {
+      "feature": "神明/事件",
+      "status": "partial",
+      "evidence_ids": [
+        "B10",
+        "B13"
+      ]
+    },
+    {
+      "feature": "电脑对手",
+      "status": "partial",
+      "evidence_ids": [
+        "B11"
+      ]
+    },
+    {
+      "feature": "原版二进制存读档",
+      "status": "partial",
+      "evidence_ids": [
+        "B12",
+        "B13"
+      ]
+    },
+    {
+      "feature": "图形音效/交互",
+      "status": "unknown",
+      "evidence_ids": [
+        "B01",
+        "B08",
+        "D01"
+      ]
+    },
+    {
+      "feature": "浏览器/PWA/现代原生平台",
+      "status": "unknown",
+      "evidence_ids": [
+        "B01",
+        "C01",
+        "D01"
+      ]
+    }
+  ],
+  "scores": {
+    "rules": 3,
+    "maintainability": 2,
+    "reproducibility": null,
+    "presentation": null,
+    "reactmono_value": 4
+  },
+  "score_explanations": {
+    "rules": "3/5：六条以上规则源码锚点，覆盖主要系统但未验证玩家体验及动态忠实性",
+    "maintainability": "2/5：子系统拆分清楚但汇编量大、依赖硬编码地址和旧运行环境，旧 csrc 尚有无效语法",
+    "reproducibility": "null：未实际编译运行；作者说明不能升级为 A",
+    "presentation": "null：无合法资源、截图或 GUI 实测",
+    "reactmono_value": "4/5：地图拓扑、租金、物价指数、股市和存档格式有可用于独立规则测试的可追溯依据，不能移植源码"
+  },
+  "recommendation": "read_only_reference",
+  "open_questions": [
+    "原版 v3.11 与 Steam 版、资料片不同版本的二进制、地图及 SAVE 布局差异如何？",
+    "原版正确运行的 Wine multilib 版本、Win32 图形和音效要求能否在合法素材环境复现？",
+    "地产联排租金在所有权、查封、神明/联盟分支的具体算例为何？",
+    "股市银行结算及股票成本/控制权变更是否在异动节点同步更新？",
+    "二进制 SAVE 文件具体长度、地图追加记录的安全读写校验和兼容性如何？",
+    "第三方跨平台重建利用原始代码与纯规则事实的边界如何合规评估？"
+  ]
+}
