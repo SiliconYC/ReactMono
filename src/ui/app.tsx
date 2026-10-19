@@ -804,13 +804,14 @@ class App extends React.Component<object, UiState> {
       message: "已返回游戏首页。",
     });
   };
-  private toggleCamera = (): void => {
-    const cameraFollow = !this.state.cameraFollow;
+  private setCameraFollow = (cameraFollow:boolean): void => {
+    if(this.state.cameraFollow===cameraFollow)return;
     try {
       localStorage.setItem("reactmono-camera-follow", cameraFollow ? "1" : "0");
     } catch {}
     this.setState({ cameraFollow });
   };
+  private toggleCamera = (): void => this.setCameraFollow(!this.state.cameraFollow);
   private continueSavedGame = (): void => {
     const slot =
       this.state.saveSlots.find((item) => item.kind === "auto") ??
@@ -2787,7 +2788,7 @@ class App extends React.Component<object, UiState> {
         data-scene-step={this.state.visualCue?.step ?? 0}
         data-die-actor={this.state.dieActorId ?? ""}
         onClickCapture={(event) => {
-          if (event.detail > 1) {
+          if (event.detail > 1 && !(event.target instanceof Element && event.target.closest(".world-navigation"))) {
             event.preventDefault();
             event.stopPropagation();
           }
@@ -2812,6 +2813,7 @@ class App extends React.Component<object, UiState> {
             dieNonce={this.state.dieNonce}
             reducedMotion={this.noMotion}
             followCurrent={this.state.cameraFollow}
+            onFollowCurrentChange={this.setCameraFollow}
             rent={this.state.rentCue}
             outcome={this.state.outcomeCue}
             pendingBankruptIds={

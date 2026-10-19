@@ -15,7 +15,7 @@ export function worldView(center:WorldPoint,zoom:number,viewport:{width:number;h
     minZ:center.z-halfExtent,maxZ:center.z+halfExtent,
     far:distance+depthReach+40,
     fogNear:distance+depthReach+8,fogFar:distance+depthReach+80,
-    shadowRadius:halfExtent+5
+    shadowRadius:halfExtent*Math.SQRT2+5
   };
 }
 export type GroundChunk=Readonly<{x:number;z:number}>;
@@ -33,17 +33,18 @@ function noise(x:number,z:number,salt:number):number{
   return ((n^(n>>>16))>>>0)/4294967296;
 }
 export type Scenery=WorldPoint&Readonly<{scale:number;tone:number}>;
-export function sceneryForChunks(chunks:readonly GroundChunk[],map:GameMap):Scenery[]{
+export function sceneryForChunks(chunks:readonly GroundChunk[],map:GameMap,stride=1):Scenery[]{
   const result:Scenery[]=[];
+  const hasTower=isWorldSpaceFree({x:0,z:0},2.7,map);
   for(const chunk of chunks){
     const cx=Math.floor(chunk.x/16),cz=Math.floor(chunk.z/16);
     // Low contrast groves leave open meadow between neighbourhoods.
-    if(noise(cx,cz,71)>.6)continue;
+    if(noise(cx,cz,71)>.6||noise(cx,cz,937)>1/stride)continue;
     for(let i=0;i<7;i++){
       const x=chunk.x+(noise(cx,cz,100+i*3)-.5)*13;
       const z=chunk.z+(noise(cx,cz,101+i*3)-.5)*13;
       const p={x,z,scale:.55+noise(cx,cz,102+i*3)*.5,tone:noise(cx,cz,200+i)};
-      if(isWorldSpaceFree(p,.65,map)&&(!isWorldSpaceFree({x:0,z:0},2.7,map)||Math.hypot(x,z)>3.7))result.push(p);
+      if(isWorldSpaceFree(p,.65,map)&&(!hasTower||Math.hypot(x,z)>3.7))result.push(p);
     }
   }
   return result;

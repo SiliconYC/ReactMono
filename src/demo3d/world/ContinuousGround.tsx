@@ -24,7 +24,7 @@ function meadowShader(shader:THREE.WebGLProgramParametersWithUniforms):void{
 export function ContinuousGround({view,map}:{view:WorldView;map:GameMap}):React.JSX.Element{
   const chunks=useMemo(()=>groundChunks(view),[view]);
   const ground=useMemo(()=>chunks.map(c=>({...c,y:GROUND_TOP-.03})),[chunks]);
-  const scenery=useMemo(()=>sceneryForChunks(chunks,map),[chunks,map]);
+  const scenery=useMemo(()=>sceneryForChunks(chunks,map,view.zoom<4?8:view.zoom<9?2:1),[chunks,map]);
   const crowns=useMemo(()=>scenery.map(p=>({...p,y:GROUND_TOP+.84*p.scale,sx:p.scale,sy:p.scale*1.14,sz:p.scale,color:p.tone>.5?'#82ac80':'#6e9d79'})),[scenery]);
   const trunks=useMemo(()=>scenery.map(p=>({...p,y:GROUND_TOP+.28*p.scale,sx:p.scale,sy:p.scale,sz:p.scale})),[scenery]);
   return <group name="连续世界地表">

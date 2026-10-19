@@ -13,3 +13,5 @@
 .world-navigation[hidden]{display:none}
 
 @media(max-height:520px) and (min-width:651px){.world-navigation{right:calc(var(--world-safe-right,20px) + 8px)}.world-minimap{display:none}}
+
+@media(max-width:600px){.canvas-shell[data-camera-mode='overview'] .world-minimap{display:none}.canvas-shell[data-camera-mode='overview'] .world-camera-buttons{grid-template-columns:repeat(4,44px)}}

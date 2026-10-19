@@ -3,6 +3,20 @@ import assert from 'node:assert/strict';
 import { LEVELS } from '../.test-dist/core/level-data.js';
 import { anchorsForMap, inwardAngleForTile, canJoinLots } from '../.test-dist/demo3d/world/layout.js';
 import * as view from '../.test-dist/demo3d/world/world-view.js';
+import * as THREE from 'three';
+
+test('竖屏远景四角在真实光源投影内，不能只覆盖世界包围盒半宽',()=>{
+  const v=view.worldView({x:0,z:0},1.16,{width:390,height:844});
+  const light=new THREE.DirectionalLight();
+  light.position.copy(new THREE.Vector3(-.43,.8,.4).normalize().multiplyScalar(v.shadowRadius*2.5+20));
+  Object.assign(light.shadow.camera,{left:-v.shadowRadius,right:v.shadowRadius,top:v.shadowRadius,bottom:-v.shadowRadius,near:1,far:v.shadowRadius*5+60});
+  light.updateMatrixWorld();light.target.updateMatrixWorld();light.shadow.camera.updateProjectionMatrix();light.shadow.updateMatrices(light);
+  const hw=390/2/1.16,hh=844/2/1.16;
+  for(const x of [-hw,hw])for(const y of [-hh,hh]){
+    const point=new THREE.Vector3((x-y/Math.sin(view.CAMERA_ELEVATION))/Math.SQRT2,0,(-x-y/Math.sin(view.CAMERA_ELEVATION))/Math.SQRT2).project(light.shadow.camera);
+    assert.ok(Math.abs(point.x)<=1&&Math.abs(point.y)<=1,'可见角落超出统一阴影相机');
+  }
+});
 test('镜头缩放有可读细节上限，拖动在正交地面上与屏幕位移一致',()=>{
   assert.equal(typeof view.panWorld,'function');
   assert.equal(typeof view.clampWorldZoom,'function');
@@ -73,4 +87,15 @@ test('320格狭长双排路线的地产不占用相邻平行道路，联排不�
       for(const road of tiles)assert.ok(Math.abs(center.x-road.x)>=1.6||Math.abs(center.z-road.z)>=1.6);
     }
   }
+});
+
+test('320格密集蛇形路线仍在本格旁分配地产，不把内部地产甩到地图远端',()=>{
+  const cells=[];
+  for(let x=1;x<=20;x++)cells.push({column:x,row:1});
+  for(let z=2;z<=16;z++)for(let i=0;i<19;i++)cells.push({column:z%2===0?20-i:i+2,row:z});
+  for(let z=16;z>=2;z--)cells.push({column:1,row:z});
+  const map={id:'layout-dense-320',version:1,columns:20,rows:16,cells,route:cells.map((_,i)=>i)};
+  const {tiles,lots}=anchorsForMap(map);
+  for(let id=0;id<cells.length;id++)assert.ok(Math.hypot(tiles[id].x-lots[id].x,tiles[id].z-lots[id].z)<=2.84,`内部地产 ${id} 远离所属路格`);
+  for(const lot of lots)for(const road of tiles)assert.ok(Math.abs(lot.x-road.x)>=1.7||Math.abs(lot.z-road.z)>=1.7);
 });

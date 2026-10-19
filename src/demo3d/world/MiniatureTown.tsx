@@ -204,7 +204,7 @@ export function MiniatureTown({ game, view, onSelectTile }: TownProps): React.JS
   const roads=useMemo(()=>anchors.tiles.map((p,id)=>({...p,y:ROAD_TILE_CENTER_Y,color:id===0?'#e8b84c':game.tiles[id].kind==='property'?'#f0ebd8':'#c9dcd4'})),[anchors,game.map]);
   const edges=useMemo(()=>game.map.route.map((id,i)=>{
     const a=anchors.tiles[id],b=anchors.tiles[game.map.route[(i+1)%game.map.route.length]];
-    return {x:(a.x+b.x)/2,y:ROAD_CONNECTOR_CENTER_Y,z:(a.z+b.z)/2,sx:a.z===b.z?2:.72,sz:a.z===b.z?.72:2};
+    return {x:(a.x+b.x)/2,y:ROAD_CONNECTOR_CENTER_Y,z:(a.z+b.z)/2,sx:a.z===b.z?Math.abs(a.x-b.x):.72,sz:a.z===b.z?.72:Math.abs(a.z-b.z)};
   }),[anchors,game.map]);
   const lots=useMemo(()=>game.tiles.map(tile=>({...anchors.lots[tile.id],y:GROUND_TOP+.035,rotation:inwardAngleForTile(tile.id,game.map),color:tile.ownerId?colorForOwner(game,tile.ownerId):tile.kind==='property'?'#d2d8b3':'#9fbe91'})),[game.tiles,anchors,game.players]);
   const posts:Instance[]=detail?lots.filter(visible).flatMap(p=>[-.43,.43].map(x=>({x:p.x+Math.cos(p.rotation)*x,z:p.z-Math.sin(p.rotation)*x,y:GROUND_TOP+.15,color:p.color}))):[];

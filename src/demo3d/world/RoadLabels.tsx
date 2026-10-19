@@ -33,5 +33,5 @@ export function RoadLabels({map,view}:{map:GameMap;view:WorldView}):React.JSX.El
     program.vertexShader=program.vertexShader.replace('#include <uv_vertex>',`#include <uv_vertex>\n vMapUv=(vMapUv+atlasCell)/${columns.toFixed(1)};`);
   };
   if(view.zoom<17)return null;
-  return <Instances items={labels}><primitive object={geometry} attach="geometry"/><meshStandardMaterial map={atlas} transparent alphaTest={.2} roughness={1} onBeforeCompile={shader}/></Instances>;
+  return <Instances items={labels}><primitive object={geometry} attach="geometry"/><meshStandardMaterial key={columns} customProgramCacheKey={()=>`road-labels-${columns}`} map={atlas} transparent alphaTest={.2} roughness={1} onBeforeCompile={shader}/></Instances>;
 }
