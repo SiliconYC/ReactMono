@@ -1,4 +1,5 @@
 export type WorldPoint = Readonly<{ x: number; z: number }>;
+import { worldForMap } from '../../core/level-data.js';
 import { INTERNAL_TEST_MAP } from '../../core/maps.js';
 import type { GameMap } from '../../core/types.js';
 
@@ -31,6 +32,13 @@ function roadAreaFree(point:WorldPoint,halfSize:number,tiles:readonly WorldPoint
 export function anchorsForMap(map: GameMap): MapAnchors {
   const cached=anchorsByMap.get(map);
   if(cached)return cached;
+  const world=worldForMap(map);
+  if(world){
+    const tiles=world.tiles.map(p=>({x:p.x,z:p.z})),lots=world.tiles.map(p=>({x:p.lotX,z:p.lotZ}));
+    const all=[...tiles,...lots];
+    const result={tiles,lots,edges:map.route.map((id,i)=>[tiles[id],tiles[map.route[(i+1)%map.route.length]]] as const),bounds:{width:Math.max(...all.map(p=>Math.abs(p.x)))*2+3,depth:Math.max(...all.map(p=>Math.abs(p.z)))*2+3}};
+    anchorsByMap.set(map,result);return result;
+  }
   for(const spacing of [2,4,6]){
     const tiles=map.cells.map(cell=>({x:(cell.column-(map.columns+1)/2)*spacing,z:(cell.row-(map.rows+1)/2)*spacing}));
     const edges:RoadEdge[]=map.route.map((id,i)=>[tiles[id],tiles[map.route[(i+1)%map.route.length]]]);

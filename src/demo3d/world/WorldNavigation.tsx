@@ -1,3 +1,5 @@
+import { WorldMapShapes } from '../../ui/LevelPreview.js';
+import { worldForMap } from '../../core/level-data.js';
 import { useMemo, type MutableRefObject } from 'react';
 import type { GameState } from '../../core/game.js';
 import { anchorsForMap } from './layout.js';
@@ -23,7 +25,9 @@ export function WorldNavigation({game,nav,changed,disabled}:{game:GameState;nav:
         const nearest=anchors.tiles.reduce((a,b)=>Math.hypot(a.x-p.x,a.z-p.y)<Math.hypot(b.x-p.x,b.z-p.y)?a:b);
         Object.assign(n,{mode:'browse',center:nearest,zoom:Math.max(24,n.actualZoom)});changed();
       }}>
-        <polyline points={[...game.map.route,game.map.route[0]].map(id=>`${anchors.tiles[id].x},${anchors.tiles[id].z}`).join(' ')} fill="none" stroke="#648671" strokeWidth={1.2} strokeLinejoin="round"/>
+        <rect x={bounds.x} y={bounds.z} width={bounds.width} height={bounds.depth} fill={worldForMap(game.map)?.base.color??'#b7cd9a'}/>
+        <WorldMapShapes world={worldForMap(game.map)}/>
+        <polyline points={[...game.map.route,game.map.route[0]].map(id=>`${anchors.tiles[id].x},${anchors.tiles[id].z}`).join(' ')} fill="none" stroke="#fff5dc" strokeWidth={1.2} strokeLinejoin="round"/>
         <circle cx={anchors.tiles[0].x} cy={anchors.tiles[0].z} r={marker} fill="#dfac41"/>
         <polygon data-world-viewport="" fill="#d9ab5530" stroke="#c29443" strokeWidth={marker*.25} pointerEvents="none"/>
         {game.players.filter(p=>!p.bankrupt).sort((a,b)=>Number(a.id===game.players[game.currentPlayerIndex].id)-Number(b.id===game.players[game.currentPlayerIndex].id)).map(p=><circle key={p.id} cx={anchors.tiles[p.position].x} cy={anchors.tiles[p.position].z} r={marker} fill={MASCOT_SEAT_COLORS[game.players.findIndex(q=>p.id===q.id)]} stroke="#fff9e8" strokeWidth={marker*.3}/>)}

@@ -1,8 +1,10 @@
 /** Exchange-format levels. No React, filesystem, random numbers or executable map recipes. */
+import { validateWorld, type WorldDefinition } from './level-world.js';
 import catalog from '../data/levels.json' with { type: 'json' };
 import type { GameConfig, GameMap, TileConfig, FacilityConfig } from './types.js';
 
 export interface LevelDefinition {
+  readonly world?: WorldDefinition;
   readonly name: string;
   readonly description: string;
   readonly playable: boolean;
@@ -53,14 +55,15 @@ function freeze<T>(value: T): T {
 }
 /** Parse a whole catalog so duplicate IDs and stale references fail before any game starts. */
 export function loadLevelCatalog(value: unknown): readonly LevelDefinition[] {
-  if (!record(value) || !keys(value, ['schemaVersion','levels']) || value.schemaVersion !== 1 ||
+  if (!record(value) || !keys(value, ['schemaVersion','levels']) || (value.schemaVersion !== 1 && value.schemaVersion !== 2) ||
       !Array.isArray(value.levels) || !value.levels.length) invalid('目录版本或内容');
   const ids = new Set<string>();
   for (const level of value.levels) {
-    if (!record(level) || !keys(level, ['name','description','playable','map','tiles','initialCash','maxRounds','eventRules','cardRules','facilityConfig']) ||
+    if (!record(level) || !keys(level, ['name','description','playable','map','tiles','initialCash','maxRounds','eventRules','cardRules','facilityConfig'], ['world']) ||
         !text(level.name) || !text(level.description) || typeof level.playable !== 'boolean' ||
         !integer(level.initialCash, 0) || !integer(level.maxRounds, 1, 10000)) invalid('关卡说明或开局参数');
     validateLevelMap(level.map);
+    if (value.schemaVersion === 2 || level.world !== undefined) validateWorld(level.world, level.map.cells.length);
     if (ids.has(level.map.id) || /^custom-\d+$/.test(level.map.id)) invalid('地图标识重复或使用保留标识');
     ids.add(level.map.id);
     if (!Array.isArray(level.tiles) || level.tiles.length !== level.map.cells.length) invalid('地块数量');
@@ -116,4 +119,9 @@ export function levelConfig(id: string): GameConfig {
     eventRules: level.eventRules, cardRules: level.cardRules,
     ...(level.facilityConfig ? {facilityConfig:level.facilityConfig} : {})
   };
+}
+
+/** Scene lookup is presentation-only; it never changes a saved rule map. */
+export function worldForMap(map: Pick<GameMap,'id'|'version'>): WorldDefinition | undefined {
+  return LEVELS.find(level=>level.map.id===map.id&&level.map.version===map.version)?.world;
 }

@@ -1,5 +1,4 @@
-import type { GameMap } from '../../core/types.js';
-import { isWorldSpaceFree, type WorldPoint } from './layout.js';
+import { type WorldPoint } from './layout.js';
 
 export const CAMERA_ELEVATION = Math.atan2(12.2, Math.hypot(10.2,10.2));
 export const CHUNK_SIZE = 16;
@@ -25,29 +24,6 @@ export function groundChunks(v:WorldView):GroundChunk[]{
     for(let z=Math.floor(v.minZ/CHUNK_SIZE);z<=Math.floor(v.maxZ/CHUNK_SIZE);z++)
       chunks.push({x:(x+.5)*CHUNK_SIZE,z:(z+.5)*CHUNK_SIZE});
   return chunks;
-}
-/** Coordinate hash: independent of the game's PRNG and of chunk traversal order. */
-function noise(x:number,z:number,salt:number):number{
-  let n=Math.imul(x^salt,374761393)^Math.imul(z,668265263);
-  n=Math.imul(n^(n>>>13),1274126177);
-  return ((n^(n>>>16))>>>0)/4294967296;
-}
-export type Scenery=WorldPoint&Readonly<{scale:number;tone:number}>;
-export function sceneryForChunks(chunks:readonly GroundChunk[],map:GameMap,stride=1):Scenery[]{
-  const result:Scenery[]=[];
-  const hasTower=isWorldSpaceFree({x:0,z:0},2.7,map);
-  for(const chunk of chunks){
-    const cx=Math.floor(chunk.x/16),cz=Math.floor(chunk.z/16);
-    // Low contrast groves leave open meadow between neighbourhoods.
-    if(noise(cx,cz,71)>.6||noise(cx,cz,937)>1/stride)continue;
-    for(let i=0;i<7;i++){
-      const x=chunk.x+(noise(cx,cz,100+i*3)-.5)*13;
-      const z=chunk.z+(noise(cx,cz,101+i*3)-.5)*13;
-      const p={x,z,scale:.55+noise(cx,cz,102+i*3)*.5,tone:noise(cx,cz,200+i)};
-      if(isWorldSpaceFree(p,.65,map)&&(!hasTower||Math.hypot(x,z)>3.7))result.push(p);
-    }
-  }
-  return result;
 }
 export function clampWorldZoom(zoom:number,overview:number):number{
   return Math.max(Math.min(overview,96),Math.min(96,zoom));

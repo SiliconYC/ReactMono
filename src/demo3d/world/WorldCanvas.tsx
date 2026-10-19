@@ -1,3 +1,4 @@
+import { worldForMap } from '../../core/level-data.js';
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type MutableRefObject, type CSSProperties } from "react";
 import * as THREE from "three";
@@ -173,8 +174,8 @@ function Scene(props: WorldCanvasProps & {nav:MutableRefObject<Navigation>;chang
   );
   return (
     <>
-      <color attach="background" args={['#c4d5b2']} />
-      <fog attach="fog" args={['#c4d5b2',100,200]} />
+      <color attach="background" args={[worldForMap(props.game.map)?.background??'#b7cd9a']} />
+      <fog attach="fog" args={[worldForMap(props.game.map)?.background??'#b7cd9a',100,200]} />
       <WorldLighting nav={props.nav}/>
       <CameraRig target={trackedPosition} reducedMotion={props.reducedMotion} insets={props.viewportInsets} map={props.game.map} nav={props.nav} onView={setView} changed={props.changed}/>
       <ContinuousGround view={view} map={props.game.map}/>

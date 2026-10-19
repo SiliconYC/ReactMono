@@ -7,7 +7,7 @@ from playwright.sync_api import sync_playwright
 from browser_live_e2e import Handler,open_new_game_setup,select_map
 from browser_main_runtime_e2e import METRICS
 
-OUT=Path('artifacts/scalable-world');OUT.mkdir(parents=True,exist_ok=True)
+OUT=Path(os.environ.get('WORLD_OUTPUT','artifacts/scalable-world'));OUT.mkdir(parents=True,exist_ok=True)
 LEVELS=[l for l in json.loads(Path('src/data/levels.json').read_text())['levels'] if not l['map']['id'].startswith('internal-')]
 SIN=math.sin(math.atan2(12.2,math.hypot(10.2,10.2)))
 
@@ -36,8 +36,8 @@ for(const name of ['drawElementsInstanced','drawArraysInstanced']){const old=Web
      zoom=float(shell.get_attribute('data-camera-zoom'));cx,cz=map(float,shell.get_attribute('data-camera-center').split(','))
      sx=(insets['left']+width-insets['right'])/2;sy=(insets['top']+height-insets['bottom'])/2
      hits=0;coords=[]
-     for cell in level['map']['cells']:
-      x=(cell['column']-(level['map']['columns']+1)/2)*2;z=(cell['row']-(level['map']['rows']+1)/2)*2
+     for cell in level['world']['tiles']:
+      x=cell['x'];z=cell['z']
       px=sx+((x-cx)-(z-cz))/math.sqrt(2)*zoom
       py=sy+((x-cx)+(z-cz))/math.sqrt(2)*SIN*zoom+.53*math.sqrt(1-SIN*SIN)*zoom
       assert insets['left']-2<px<width-insets['right']+2,(mid,phone,px)
@@ -72,13 +72,13 @@ for(const name of ['drawElementsInstanced','drawArraysInstanced']){const old=Web
      if phone:pg.get_by_role('button',name='放大地图',exact=True).click();pg.wait_for_timeout(500)
      # Physical pointer clicks on minimap at a far corner, last tile and a concave section.
      for index in [len(level['map']['route'])//2,len(level['map']['route'])-1,len(level['map']['route'])//3]:
-      tile=level['map']['cells'][level['map']['route'][index]]
-      x=(tile['column']-(level['map']['columns']+1)/2)*2;z=(tile['row']-(level['map']['rows']+1)/2)*2
+      tile=level['world']['tiles'][level['map']['route'][index]]
+      x=tile['x'];z=tile['z']
       screen=pg.locator('.world-minimap svg').evaluate('(svg,p)=>{const q=new DOMPoint(p.x,p.z).matrixTransform(svg.getScreenCTM());return {x:q.x,y:q.y}}',{'x':x,'z':z})
       # Native MouseEvent client coordinates are integral pixels. At 360 cells,
       # one minimap pixel spans adjacent road cells; verify that physical precision.
       svgBox=pg.locator('.world-minimap svg').bounding_box()
-      tolerance=max(.15,1.6*max((level['map']['columns']*2+8)/svgBox['width'],(level['map']['rows']*2+8)/svgBox['height']))
+      tolerance=max(.15,1.6*max((max(t['x'] for t in level['world']['tiles'])-min(t['x'] for t in level['world']['tiles'])+8)/svgBox['width'],(max(t['z'] for t in level['world']['tiles'])-min(t['z'] for t in level['world']['tiles'])+8)/svgBox['height']))
       print('NAV',mid,label,index,[x,z],screen,'from',shell.get_attribute('data-camera-center'),flush=True)
       pg.mouse.click(screen['x'],screen['y']);pg.wait_for_function("([x,z,t])=>{const p=document.querySelector('.canvas-shell').dataset.cameraCenter.split(',').map(Number);return Math.hypot(p[0]-x,p[1]-z)<t}",arg=[x,z,tolerance],timeout=5000)
       assert pg.locator('.camera-toggle').get_attribute('aria-pressed')=='false'

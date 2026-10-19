@@ -1,3 +1,4 @@
+import { LevelPreview } from './LevelPreview.js';
 import * as React from "react";
 import { createRoot } from "react-dom/client";
 import {
@@ -2537,15 +2538,11 @@ class App extends React.Component<object, UiState> {
                     onClick={() => this.selectMap(m.map.id)}
                   >
                     <div className="map-card-art">
-                      <svg className="map-route-preview" viewBox={`0 0 ${m.map.columns + 2} ${m.map.rows + 2}`} aria-hidden="true">
-                        <polyline points={[...m.map.route, m.map.route[0]].map(id => `${m.map.cells[id].column + 0.5},${m.map.cells[id].row + 0.5}`).join(" ")}
-                          fill="none" stroke="currentColor" strokeWidth="3" vectorEffect="non-scaling-stroke" strokeLinejoin="round" />
-                        <circle cx={m.map.cells[0].column + 0.5} cy={m.map.cells[0].row + 0.5} r={Math.max(m.map.columns, m.map.rows) * 0.035} fill="#dc9355" />
-                      </svg>
+                      <LevelPreview map={m.map}/>
                     </div>
                     <div>
                       <strong>{m.name}</strong>
-                      <small>{m.tiles.length} 格 · {m.description}</small>
+                      <small>{m.description}</small>
                     </div>
                     <span className="map-check">
                       {this.state.selectedMapId === m.map.id ? "✓" : "○"}

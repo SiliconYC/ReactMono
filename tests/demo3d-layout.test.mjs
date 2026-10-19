@@ -4,6 +4,7 @@ import { readFile } from 'node:fs/promises';
 
 import { LOT_ANCHORS, TILE_ANCHORS, anchorsForMap, positionForTile } from '../.test-dist/demo3d/world/layout.js';
 import { MASCOT_SEAT_COLORS, MASCOT_SEAT_OFFSETS, mascotSeatLayout } from '../.test-dist/demo3d/world/seats.js';
+import { worldForMap } from '../.test-dist/core/level-data.js';
 import { DEFAULT_MAP, HARBOR_MAP } from '../.test-dist/core/maps.js';
 
 test('开发入口先进入 Vite 根目录内模块，避免父目录脚本被回退为 HTML', async () => {
@@ -47,7 +48,7 @@ test('每个地产锚点都位于道路外侧而不是角色行走线上', () =>
   }
 });
 
-test('正式地图坐标从地图单元派生，经典24格和海港20格环线都唯一连续', () => {
+test('正式地图使用关卡指定的世界坐标，规则方格不再限制道路形状', () => {
   for (const map of [DEFAULT_MAP, HARBOR_MAP]) {
     const layout = anchorsForMap(map);
     assert.equal(layout.tiles.length, map.cells.length);
@@ -56,7 +57,8 @@ test('正式地图坐标从地图单元派生，经典24格和海港20格环线�
     for (let index = 0; index < map.route.length; index += 1) {
       const current = layout.tiles[map.route[index]];
       const next = layout.tiles[map.route[(index + 1) % map.route.length]];
-      assert.equal(Math.hypot(next.x - current.x, next.z - current.z), 2);
+      assert.ok(Math.hypot(next.x - current.x, next.z - current.z) > 2);
+      assert.deepEqual(current,{x:worldForMap(map).tiles[map.route[index]].x,z:worldForMap(map).tiles[map.route[index]].z});
       const lot = layout.lots[map.route[index]];
       assert.ok(Math.hypot(lot.x - current.x, lot.z - current.z) >= 1.2);
     }

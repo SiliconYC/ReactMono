@@ -1,35 +1,38 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import * as THREE from 'three';
 import type { GameMap } from '../../core/types.js';
+import { worldForMap } from '../../core/level-data.js';
+import type { ScenePoint } from '../../core/level-world.js';
 import { GROUND_TOP } from './layout.js';
-import { groundChunks, sceneryForChunks, type WorldView } from './world-view.js';
-import { Instances } from './Instances.js';
+import type { WorldView } from './world-view.js';
+import { AuthoredScenery } from './AuthoredScenery.js';
 
-/** Seamless meadow colour in absolute world coordinates; no moving texture or pedestal edge. */
-function meadowShader(shader:THREE.WebGLProgramParametersWithUniforms):void{
-  shader.vertexShader='varying vec2 meadowPosition;\n'+shader.vertexShader;
-  shader.vertexShader=shader.vertexShader.replace('#include <worldpos_vertex>',`#include <worldpos_vertex>
-    vec4 meadowWorld=vec4(transformed,1.0);
-    #ifdef USE_INSTANCING
-      meadowWorld=instanceMatrix*meadowWorld;
-    #endif
-    meadowPosition=(modelMatrix*meadowWorld).xz;`);
-  shader.fragmentShader='varying vec2 meadowPosition;\n'+shader.fragmentShader;
-  shader.fragmentShader=shader.fragmentShader.replace('#include <color_fragment>',`#include <color_fragment>
-    float meadowPatch=sin(meadowPosition.x*.16+sin(meadowPosition.y*.12)*1.8)*sin(meadowPosition.y*.11+cos(meadowPosition.x*.07));
-    float grain=sin(meadowPosition.x*9.1+meadowPosition.y*3.7)*sin(meadowPosition.y*8.3);
-    float detailFade=1.0-smoothstep(.035,.14,length(fwidth(meadowPosition)));
-    diffuseColor.rgb*=.97+meadowPatch*.045+grain*.009*detailFade;`);
+function path(points:readonly ScenePoint[]):THREE.Path {
+  const p=new THREE.Path();points.forEach((v,i)=>i?p.lineTo(v.x,-v.z):p.moveTo(v.x,-v.z));p.closePath();return p;
 }
+export function surfaceGeometry(points:readonly ScenePoint[],holes:readonly (readonly ScenePoint[])[],thickness=0):THREE.BufferGeometry{
+  const shape=new THREE.Shape(path(points).getPoints());shape.holes=holes.map(path);
+  const geometry=thickness?new THREE.ExtrudeGeometry(shape,{depth:thickness,bevelEnabled:false}):new THREE.ShapeGeometry(shape);geometry.rotateX(-Math.PI/2);if(thickness)geometry.translate(0,-thickness,0);return geometry;
+}
+/** The base material is explicitly chosen by the author; every shoreline comes from JSON. */
 export function ContinuousGround({view,map}:{view:WorldView;map:GameMap}):React.JSX.Element{
-  const chunks=useMemo(()=>groundChunks(view),[view]);
-  const ground=useMemo(()=>chunks.map(c=>({...c,y:GROUND_TOP-.03})),[chunks]);
-  const scenery=useMemo(()=>sceneryForChunks(chunks,map,view.zoom<4?8:view.zoom<9?2:1),[chunks,map]);
-  const crowns=useMemo(()=>scenery.map(p=>({...p,y:GROUND_TOP+.84*p.scale,sx:p.scale,sy:p.scale*1.14,sz:p.scale,color:p.tone>.5?'#82ac80':'#6e9d79'})),[scenery]);
-  const trunks=useMemo(()=>scenery.map(p=>({...p,y:GROUND_TOP+.28*p.scale,sx:p.scale,sy:p.scale,sz:p.scale})),[scenery]);
-  return <group name="连续世界地表">
-    <Instances items={ground}><boxGeometry args={[16,.06,16]}/><meshStandardMaterial color="#b5ca98" roughness={1} onBeforeCompile={meadowShader}/></Instances>
-    <Instances items={trunks}><cylinderGeometry args={[.055,.09,.6,5]}/><meshStandardMaterial color="#a08b63" roughness={1}/></Instances>
-    <Instances items={crowns}><dodecahedronGeometry args={[.54,0]}/><meshStandardMaterial roughness={1}/></Instances>
+  const world=worldForMap(map);
+  const surfaces=world?.surfaces??[];
+  const geometry=useMemo(()=>{
+    // Include all authored water holes even when the camera is browsing beyond the level.
+    const points=surfaces.flatMap(s=>s.points);
+    const minX=Math.min(view.minX-16,...points.map(p=>p.x-1)),maxX=Math.max(view.maxX+16,...points.map(p=>p.x+1));
+    const minZ=Math.min(view.minZ-16,...points.map(p=>p.z-1)),maxZ=Math.max(view.maxZ+16,...points.map(p=>p.z+1));
+    return surfaceGeometry([{x:minX,z:minZ},{x:maxX,z:minZ},{x:maxX,z:maxZ},{x:minX,z:maxZ}],world?.base.kind==='grass'?surfaces.filter(s=>s.kind==='water').map(s=>s.points):[]);
+  },[world,view]);
+  const terrain=useMemo(()=>surfaces.map(s=>({surface:s,geometry:surfaceGeometry(s.points,s.holes,s.kind==='grass'||s.kind==='sand'?.07:0)})),[world]);
+  useEffect(()=>()=>geometry.dispose(),[geometry]);
+  useEffect(()=>()=>terrain.forEach(t=>t.geometry.dispose()),[terrain]);
+  return <group name="关卡指定地形">
+    <mesh geometry={geometry} position={[0,GROUND_TOP-(world?.base.kind==='water'?.07:0),0]}><meshStandardMaterial color={world?.base.color??'#b7cd9a'} roughness={1}/></mesh>
+    {terrain.map(({surface:s,geometry:g})=><mesh key={s.id} name={s.id} geometry={g} position={[0,GROUND_TOP+(s.kind==='water'?-.07:s.kind==='grass'?0.002:.004),0]}>
+      <meshStandardMaterial color={s.color} roughness={s.kind==='water'?.48:1} metalness={s.kind==='water'?.06:0}/>
+    </mesh>)}
+    {world&&<AuthoredScenery world={world} view={view}/>}
   </group>;
 }
