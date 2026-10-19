@@ -1,6 +1,6 @@
 # 数据关卡与大地图压力测试
 
-来源：[P007 背景艺术方案与规格](../proposals/P007-scalable-world-maps.md) · [Issue #94](https://github.com/SiliconYC/ReactMono/issues/94)。本轮背景只提设计，不修改场景地表、海面、雾或阴影。
+来源：[P007 背景艺术方案与规格](../proposals/P007-scalable-world-maps.md) · [Issue #94](https://github.com/SiliconYC/ReactMono/issues/94)。数据任务 #94 当时只提背景设计；后续 #107 已实现连续地表与大地图显示，见[渲染画面与验收](RENDERING_ACCEPTANCE.md)。
 
 ## 三张地图
 
@@ -75,4 +75,4 @@ python3 -u tests/browser_stress_maps_e2e.py
 - [360 格桌面](evidence/ridges-360-desktop.png)、[360 格手机](evidence/ridges-360-phone.png)
 - [选图桌面](evidence/selection-desktop.png)、[选图手机](evidence/selection-phone.png)
 
-后续采用 P007 的连续地表、局部分区景观、可见分块与独立地形数据方案，统一解决这些问题。本轮不借加入压力图之机调整背景或宣称画面可正式发布。
+上述截图是 #94 的历史缺陷基线。后续 #107 已完成连续地表、局部布局、可见分块及镜头/雾/阴影/可读性修复，见[新画面与验收](RENDERING_ACCEPTANCE.md)。独立地形区域格式仍待后续任务；本地通过不等于正式发布或物理设备验收完成。

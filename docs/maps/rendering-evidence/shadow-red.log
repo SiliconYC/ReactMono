@@ -1,0 +1,72 @@
+TAP version 13
+# Subtest: 竖屏远景四角在真实光源投影内，不能只覆盖世界包围盒半宽
+not ok 1 - 竖屏远景四角在真实光源投影内，不能只覆盖世界包围盒半宽
+  ---
+  duration_ms: 3.56025
+  type: 'test'
+  location: '/Users/laocao/Documents/coding/ReactMono/tests/scalable-world.test.mjs:8:1'
+  failureType: 'testCodeFailure'
+  error: '可见角落超出统一阴影相机'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///Users/laocao/Documents/coding/ReactMono/tests/scalable-world.test.mjs:17:12)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: 镜头缩放有可读细节上限，拖动在正交地面上与屏幕位移一致
+ok 2 - 镜头缩放有可读细节上限，拖动在正交地面上与屏幕位移一致
+  ---
+  duration_ms: 0.590292
+  type: 'test'
+  ...
+# Subtest: 视域分块覆盖缩放、HUD偏移和远端浏览；裁切与雾不吞掉大图
+ok 3 - 视域分块覆盖缩放、HUD偏移和远端浏览；裁切与雾不吞掉大图
+  ---
+  duration_ms: 1.619875
+  type: 'test'
+  ...
+# Subtest: 装饰世界种子稳定且全部通过道路/地产禁入区
+ok 4 - 装饰世界种子稳定且全部通过道路/地产禁入区
+  ---
+  duration_ms: 35.015208
+  type: 'test'
+  ...
+# Subtest: 全部内置地图地产在道路旁独立落地，凹角和首尾不侵占任何道路或其他地产
+ok 5 - 全部内置地图地产在道路旁独立落地，凹角和首尾不侵占任何道路或其他地产
+  ---
+  duration_ms: 30.137542
+  type: 'test'
+  ...
+# Subtest: 地产布局跟随真实 route 邻接关系，反向路线仍无占用冲突
+ok 6 - 地产布局跟随真实 route 邻接关系，反向路线仍无占用冲突
+  ---
+  duration_ms: 7.504916
+  type: 'test'
+  ...
+# Subtest: 320格狭长双排路线的地产不占用相邻平行道路，联排不跨路
+ok 7 - 320格狭长双排路线的地产不占用相邻平行道路，联排不跨路
+  ---
+  duration_ms: 19.763375
+  type: 'test'
+  ...
+# Subtest: 320格密集蛇形路线仍在本格旁分配地产，不把内部地产甩到地图远端
+ok 8 - 320格密集蛇形路线仍在本格旁分配地产，不把内部地产甩到地图远端
+  ---
+  duration_ms: 14.161417
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 7
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 206.521083

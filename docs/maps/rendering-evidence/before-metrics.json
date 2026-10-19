@@ -1,0 +1,35 @@
+[
+  {
+    "map": "harbor-20",
+    "frames": 91,
+    "p50": 16.699999999999818,
+    "p95": 16.700000000000273,
+    "drawsPerFrame": 433.0,
+    "gpu": {
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "vendor": "Google Inc. (Apple)"
+    }
+  },
+  {
+    "map": "bays-120",
+    "frames": 90,
+    "p50": 16.699999999999818,
+    "p95": 16.799999999999727,
+    "drawsPerFrame": 926.0,
+    "gpu": {
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "vendor": "Google Inc. (Apple)"
+    }
+  },
+  {
+    "map": "ridges-360",
+    "frames": 90,
+    "p50": 16.699999999999818,
+    "p95": 16.700000000000273,
+    "drawsPerFrame": 1560.0,
+    "gpu": {
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "vendor": "Google Inc. (Apple)"
+    }
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "check": "node-tests",
+    "exitCode": 0,
+    "seconds": 13.94
+  },
+  {
+    "check": "demo-build",
+    "exitCode": 0,
+    "seconds": 3.0
+  },
+  {
+    "check": "world",
+    "exitCode": 0,
+    "seconds": 104.93
+  },
+  {
+    "check": "navigation-edges",
+    "exitCode": 0,
+    "seconds": 6.31
+  },
+  {
+    "check": "ui",
+    "exitCode": 0,
+    "seconds": 47.07
+  },
+  {
+    "check": "main-game",
+    "exitCode": 0,
+    "seconds": 104.01
+  },
+  {
+    "check": "stress-maps",
+    "exitCode": 0,
+    "seconds": 65.75
+  },
+  {
+    "check": "runtime",
+    "exitCode": 0,
+    "seconds": 47.0
+  },
+  {
+    "check": "demo",
+    "exitCode": 0,
+    "seconds": 86.31
+  }
+]
