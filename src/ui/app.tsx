@@ -963,6 +963,7 @@ class App extends React.Component<object, UiState> {
       game: result.state,
       displayGame: result.state,
       activeSeed: seed,
+      cameraFollow: fresh.map.cells.length >= 60 || this.state.cameraFollow,
       selectedTileId: null,
       lastMotion: null,
       visualCue: null,

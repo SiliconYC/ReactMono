@@ -5,7 +5,8 @@ import { rowHouses } from '../properties.js';
 import {
   anchorsForMap,
   GROUND_TOP,
-  ISLAND_BOTTOM,
+  canJoinLots,
+  isWorldSpaceFree,
   inwardAngleForTile,
   lotForTile,
   ROAD_CONNECTOR_CENTER_Y,
@@ -14,7 +15,10 @@ import {
   ROAD_TILE_THICKNESS
 } from './layout.js';
 
-type TownProps = Readonly<{ game: GameState; onSelectTile?: (tileId:number)=>void }>;
+import { RoadLabels } from './RoadLabels.js';
+import { Instances, type Instance } from './Instances.js';
+import type { WorldView } from './world-view.js';
+type TownProps = Readonly<{ game: GameState; view:WorldView; onSelectTile?: (tileId:number)=>void }>;
 
 import { MASCOT_SEAT_COLORS as PLAYER_COLORS } from './seats.js';
 function colorForOwner(game: GameState, ownerId: string): string {
@@ -193,60 +197,40 @@ function ClockTower(): React.JSX.Element {
   );
 }
 
-export function MiniatureTown({ game, onSelectTile }: TownProps): React.JSX.Element {
+export function MiniatureTown({ game, view, onSelectTile }: TownProps): React.JSX.Element {
   const anchors = anchorsForMap(game.map);
+  const detail=view.zoom>=17;
+  const visible=(p:{x:number;z:number})=>p.x>=view.minX&&p.x<=view.maxX&&p.z>=view.minZ&&p.z<=view.maxZ;
+  const roads=useMemo(()=>anchors.tiles.map((p,id)=>({...p,y:ROAD_TILE_CENTER_Y,color:id===0?'#e8b84c':game.tiles[id].kind==='property'?'#f0ebd8':'#c9dcd4'})),[anchors,game.map]);
+  const edges=useMemo(()=>game.map.route.map((id,i)=>{
+    const a=anchors.tiles[id],b=anchors.tiles[game.map.route[(i+1)%game.map.route.length]];
+    return {x:(a.x+b.x)/2,y:ROAD_CONNECTOR_CENTER_Y,z:(a.z+b.z)/2,sx:a.z===b.z?2:.72,sz:a.z===b.z?.72:2};
+  }),[anchors,game.map]);
+  const lots=useMemo(()=>game.tiles.map(tile=>({...anchors.lots[tile.id],y:GROUND_TOP+.035,rotation:inwardAngleForTile(tile.id,game.map),color:tile.ownerId?colorForOwner(game,tile.ownerId):tile.kind==='property'?'#d2d8b3':'#9fbe91'})),[game.tiles,anchors,game.players]);
+  const posts:Instance[]=detail?lots.filter(visible).flatMap(p=>[-.43,.43].map(x=>({x:p.x+Math.cos(p.rotation)*x,z:p.z-Math.sin(p.rotation)*x,y:GROUND_TOP+.15,color:p.color}))):[];
+  const simpleHouses=game.tiles.filter(t=>t.ownerId&&(t.level??0)>0&&!detail).map(t=>({...anchors.lots[t.id],y:GROUND_TOP+.5,sy:1+(t.level??1)*.3,color:colorForOwner(game,t.ownerId!)}));
   return (
-    <group>
-      <mesh position={[0, -0.82, 0]}>
-        <cylinderGeometry args={[Math.max(anchors.bounds.width, anchors.bounds.depth) / 2 + 1, Math.max(anchors.bounds.width, anchors.bounds.depth) / 2 + 1.3, 0.72, 12]} />
-        <meshStandardMaterial color="#745846" roughness={1} />
-      </mesh>
-      <mesh position={[0, -0.42, 0]}>
-        <cylinderGeometry args={[Math.max(anchors.bounds.width, anchors.bounds.depth) / 2 + 0.8, Math.max(anchors.bounds.width, anchors.bounds.depth) / 2 + 0.9, 0.26, 12]} />
-        <meshStandardMaterial color="#8ecf99" roughness={0.94} />
-      </mesh>
-      <mesh position={[0, ISLAND_BOTTOM, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <circleGeometry args={[22, 48]} />
-        <meshStandardMaterial color="#76c7cc" roughness={0.38} metalness={0.02} />
-      </mesh>
-
-      {anchors.tiles.map((point, index) => (
-        <group key={`road-${index}`} position={[point.x, ROAD_TILE_CENTER_Y, point.z]}>
-          <mesh onClick={event=>{event.stopPropagation();onSelectTile?.(index);}}>
-            <boxGeometry args={[1.78, ROAD_TILE_THICKNESS, 1.78]} />
-            <meshStandardMaterial color={index === 0 ? '#f4cc5c' : '#dbe2d6'} roughness={0.88} />
-          </mesh>
-          <mesh position={[0, ROAD_TILE_THICKNESS / 2 + 0.004, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-            <ringGeometry args={[0.13, 0.17, 16]} />
-            <meshBasicMaterial color={index === 0 ? '#fff9d9' : '#9eb4a6'} side={THREE.DoubleSide} />
-          </mesh>
-        </group>
-      ))}
-
-      {game.map.route.map((tileId, index) => {
-        const point = anchors.tiles[tileId];
-        const next = anchors.tiles[game.map.route[(index + 1) % game.map.route.length]];
-        const horizontal = point.z === next.z;
-        return (
-          <mesh key={`edge-${index}`} position={[(point.x + next.x) / 2, ROAD_CONNECTOR_CENTER_Y, (point.z + next.z) / 2]}>
-            <boxGeometry args={horizontal ? [2, ROAD_CONNECTOR_THICKNESS, 0.72] : [0.72, ROAD_CONNECTOR_THICKNESS, 2]} />
-            <meshStandardMaterial color="#dbe2d6" roughness={0.88} />
-          </mesh>
-        );
-      })}
-
-      {game.tiles.map(tile => {
+    <group name="路线与街区">
+      <RoadLabels map={game.map} view={view}/>
+      <Instances items={edges}><boxGeometry args={[1,ROAD_CONNECTOR_THICKNESS,1]}/><meshStandardMaterial color="#d7d7bd" roughness={1}/></Instances>
+      <Instances items={roads} onSelect={onSelectTile}><boxGeometry args={[1.78,ROAD_TILE_THICKNESS,1.78]}/><meshStandardMaterial roughness={.94}/></Instances>
+      <Instances items={lots}><boxGeometry args={[1.18,.07,1.18]}/><meshStandardMaterial roughness={1}/></Instances>
+      <Instances items={posts}><cylinderGeometry args={[.035,.045,.3,5]}/><meshStandardMaterial roughness={1}/></Instances>
+      <Instances items={simpleHouses}><boxGeometry args={[.78,.8,.78]}/><meshStandardMaterial roughness={.9}/></Instances>
+      {detail&&game.tiles.filter(tile=>visible(anchors.lots[tile.id])).map(tile => {
         const lot = lotForTile(tile.id, game.map);
-        const inwardAngle = inwardAngleForTile(tile.id, game.map);
+        const angle = inwardAngleForTile(tile.id, game.map);
+        if(tile.kind==='property'&&(tile.level??0)===0)return null;
         return (
-          <group key={tile.id} position={[lot.x, GROUND_TOP, lot.z]} rotation={[0, inwardAngle, 0]}>
-            {tile.kind === 'property' ? <House tile={tile} game={game} /> : <NeutralLandmark title={tile.title} />}
+          <group key={tile.id} position={[lot.x, GROUND_TOP, lot.z]} rotation={[0, angle, 0]}>
+            {tile.kind === 'property' ? <House tile={tile} game={game} /> : <group scale={.72}><NeutralLandmark title={tile.title} /></group>}
           </group>
         );
       })}
 
       {/* Shared walls and roof strips visibly join only eligible street neighbours. */}
       {rowHouses(game).flatMap(row => row.tileIds.slice(1).map((id, index) => {
+        if(!detail||!canJoinLots(row.tileIds[index],id,game.map)||!visible(anchors.lots[id]))return null;
         const a = lotForTile(row.tileIds[index], game.map);
         const b = lotForTile(id, game.map);
         const horizontal = a.z === b.z;
@@ -269,8 +253,7 @@ export function MiniatureTown({ game, onSelectTile }: TownProps): React.JSX.Elem
         );
       }))}
 
-      <ClockTower />
-      {[-1, 1].flatMap(x => [-1, 1].map(z => <Lamp key={`${x}-${z}`} position={[x * Math.max(2.9, anchors.bounds.width * 0.19), GROUND_TOP, z * Math.max(2.9, anchors.bounds.depth * 0.19)]} />))}
+      {detail&&visible({x:0,z:0})&&isWorldSpaceFree({x:0,z:0},2.7,game.map)&&<ClockTower />}
     </group>
   );
 }

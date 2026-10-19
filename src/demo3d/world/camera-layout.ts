@@ -20,7 +20,7 @@ export function cameraFrame(
   const height = Math.max(1, viewport.height - insets.top - insets.bottom);
   const elevation = Math.atan2(12.2, Math.hypot(10.2, 10.2));
   const projectedWidth = (bounds.width + bounds.depth) / Math.SQRT2;
-  // Include roofs, the die over the actor, and the island's underside.
+  // Include roofs and the die over the actor above the continuous ground.
   const projectedHeight =
     projectedWidth * Math.sin(elevation) + 3.6 * Math.cos(elevation);
   return {
