@@ -1,0 +1,375 @@
+{
+  "repository": "JCRJPZB/Rich4",
+  "url": "https://github.com/JCRJPZB/Rich4",
+  "checked_at_utc": "2026-10-19T01:20:22Z",
+  "upstream_sha": "0c86a1b7fc889ff2f3a1f3cba7f5947f5e291ea0",
+  "upstream_default_branch": "main",
+  "upstream_last_commit_utc": "2021-08-07T00:24:23Z",
+  "original_relation": "derived",
+  "license": {
+    "spdx": null,
+    "source_url": null,
+    "risks": [
+      "固定提交完整树及 GitHub 元数据未发现 LICENSE 或明示源码许可",
+      "原作角色与图像、图集、字体、音效版权独立，来源与授权不可确认",
+      "只允许研究思想，不得复制上游代码、素材或原版资源"
+    ]
+  },
+  "execution": {
+    "attempted": true,
+    "environment": "GitHub 连接器源码取证；V8 独立 JSON.parse 与地图库索引检查；受限网络容器（无法解析 github.com）；无 Cocos Creator 2.4.3 编辑器",
+    "commands": [
+      "GitHub API /repos/JCRJPZB/Rich4/git/trees/0c86a1b7fc889ff2f3a1f3cba7f5947f5e291ea0?recursive=1",
+      "GitHub fetch_file: assets/resources/config/Japan.json, assets/Scene/Game.fire, assets/Scene/TestScene.fire @ fixed SHA",
+      "V8 JSON.parse(three files); compare declared Count to Object.keys; validate route/point bounds",
+      "git ls-remote https://github.com/JCRJPZB/Rich4.git HEAD (failed: Could not resolve host github.com)"
+    ],
+    "result": "静态数据级测试通过：3 JSON 可解析；Japan 96/96 点、3/3 线、3/3 路径、15/15 道路、2/2 建筑；路段点索引和路径路段索引越界 0；未运行/构建 Cocos 编辑器游戏",
+    "limitations": [
+      "Cocos Creator 2.4.3 不可用",
+      "容器无法直接克隆 GitHub（DNS 不解析）",
+      "没有浏览器/手机运行截图或整局游戏证据",
+      "未验证动态脚本执行、Prefab 依赖、引擎生成构建、声音/真实交互"
+    ]
+  },
+  "evidence": [
+    {
+      "id": "R01",
+      "level": "B",
+      "claim": "上游 main 固定提交为唯一初始提交；GitHub fork=false、无父提交；远端最后 push 是 2021-08-07。",
+      "source_url": "https://api.github.com/repos/JCRJPZB/Rich4/commits/0c86a1b7fc889ff2f3a1f3cba7f5947f5e291ea0",
+      "locator": "commit metadata; repository API fork=false, pushed_at=2021-08-07T00:27:39Z; tree SHA",
+      "verification": "GitHub 连接器查询仓库元数据、提交与树",
+      "limitations": "不构成对复制历史或源代码血缘的排除证明"
+    },
+    {
+      "id": "R02",
+      "level": "B",
+      "claim": "Cocos Creator 2.4.3，960×640 设计尺寸，有项目工程描述。",
+      "source_url": "https://github.com/JCRJPZB/Rich4/blob/0c86a1b7fc889ff2f3a1f3cba7f5947f5e291ea0/project.json#L1-L7",
+      "locator": "project.json 1-7; settings/project.json 31-44",
+      "verification": "逐行核查工程配置",
+      "limitations": "不保证匹配编辑器确实能打开"
+    },
+    {
+      "id": "R03",
+      "level": "B",
+      "claim": "Game.fire/TestScene.fire 是可解析的 Cocos 场景序列化数据，不是独立可玩发行物。",
+      "source_url": "https://github.com/JCRJPZB/Rich4/blob/0c86a1b7fc889ff2f3a1f3cba7f5947f5e291ea0/assets/Scene/Game.fire",
+      "locator": "assets/Scene/{Game,TestScene}.fire; assets/resources/; tree",
+      "verification": "核查完整目录结构与 .fire JSON",
+      "limitations": "无引擎预览、Prefab 引用完整性或截图"
+    },
+    {
+      "id": "R04",
+      "level": "A",
+      "claim": "Japan.json、Game.fire、TestScene.fire 的 JSON.parse 成功；节点/路线等声明数与对象数吻合；路线与路径索引检查越界 0。",
+      "source_url": "https://github.com/JCRJPZB/Rich4/blob/0c86a1b7fc889ff2f3a1f3cba7f5947f5e291ea0/assets/resources/config/Japan.json",
+      "locator": "Japan.json pointCount=96,lineCount=3,pathCount=3,roadCount=15,buildingCount=2; Game.fire 707 records; TestScene.fire 31 records",
+      "verification": "从固定 SHA 取 UTF-8 内容，在 V8 用 JSON.parse；Object.keys 与配置的 *Count 比较；检查 line/reverseLine 的点索引和 path/reversePath 的路线索引范围。96/96,3/3,3/3,15/15,2/2; out-of-bounds=0",
+      "limitations": "仅数据级执行测试；未验证 Cocos 运行、图形呈现或业务"
+    },
+    {
+      "id": "R05",
+      "level": "B",
+      "claim": "主游戏通过 Ready 事件启动，地图 Japan 和四角色硬编码；胜负界面仅有 TODO。",
+      "source_url": "https://github.com/JCRJPZB/Rich4/blob/0c86a1b7fc889ff2f3a1f3cba7f5947f5e291ea0/assets/Script/GameCore/Game.js#L8-L55",
+      "locator": "Game.js onLoad, modelLoaded, gameStart, gameOver",
+      "verification": "固定 SHA 逐行查阅",
+      "limitations": "没有实测实际启动与运行异常"
+    },
+    {
+      "id": "R06",
+      "level": "B",
+      "claim": "地图通过 JSON 装配道路、建筑、点、正反线路径与动态 Sprite。",
+      "source_url": "https://github.com/JCRJPZB/Rich4/blob/0c86a1b7fc889ff2f3a1f3cba7f5947f5e291ea0/assets/Script/Map/PointMgr.js#L104-L176",
+      "locator": "PointMgr.init/findNextPoint; Map.js 16-63",
+      "verification": "联读 Map.js、PointMgr.js 与 Japan.json",
+      "limitations": "只证明代码存在，未实测节点点击/镜头"
+    },
+    {
+      "id": "R07",
+      "level": "B",
+      "claim": "分岔路线未实现选择、DiceControler.exchangeMode 写错赋值目标。",
+      "source_url": "https://github.com/JCRJPZB/Rich4/blob/0c86a1b7fc889ff2f3a1f3cba7f5947f5e291ea0/assets/Script/Player/PlayerCtrlDirector.js#L95-L117",
+      "locator": "PlayerCtrlDirector.moveToNext 95-117; DiceControler.js 66-78",
+      "verification": "固定 SHA 检查分支与字段赋值",
+      "limitations": "实际可达性/故障外显须编辑器复现"
+    },
+    {
+      "id": "R08",
+      "level": "B",
+      "claim": "PlayerRound 提供循环/骰子/淘汰/胜负调用，但初始化 isBot 从尚未赋值的自身映射读取，且 AI 初始化实参与形参不一致。",
+      "source_url": "https://github.com/JCRJPZB/Rich4/blob/0c86a1b7fc889ff2f3a1f3cba7f5947f5e291ea0/assets/Script/Player/PlayerRound.js#L17-L36",
+      "locator": "PlayerRound.init 17-36, mainLoop 43-56, gameOver 117-134; PlayerAttr.js onLoad 8-17",
+      "verification": "交叉对照 PlayerAttr.isBot、AICtrl.init",
+      "limitations": "无法确认引擎生命周期的全部副作用"
+    },
+    {
+      "id": "R09",
+      "level": "B",
+      "claim": "购地和收费流程存在，但升级地块没有扣费，设施建造/升级有 this.point 错误引用。",
+      "source_url": "https://github.com/JCRJPZB/Rich4/blob/0c86a1b7fc889ff2f3a1f3cba7f5947f5e291ea0/assets/Script/Player/PlayerLandActivity.js#L25-L125",
+      "locator": "PlayerLandActivity.buyLand/upgradeLand/charge; PointMgr.buildFacility 223-238",
+      "verification": "核对现金调用与局部 point 对象",
+      "limitations": "经济运行结果未用引擎验证"
+    },
+    {
+      "id": "R10",
+      "level": "B",
+      "claim": "银行有存取款与余额调整；股票经理有交易和价格波动；资产更新处有 == 非赋值。",
+      "source_url": "https://github.com/JCRJPZB/Rich4/blob/0c86a1b7fc889ff2f3a1f3cba7f5947f5e291ea0/assets/Script/UI/Stock/StockMgr.js#L186-L229",
+      "locator": "BankPane.js 42-82; StockMgr.js 186-229; PlayerAttrDirector.js 104-132",
+      "verification": "固定提交跨文件数据流核查",
+      "limitations": "没有逐笔交易及会计一致性实测"
+    },
+    {
+      "id": "R11",
+      "level": "B",
+      "claim": "CardMgr 有可调用卡片流程；ToolMgr 大量逻辑注释；随机道具明确跳过；Magic.js 承认有未完事件。",
+      "source_url": "https://github.com/JCRJPZB/Rich4/blob/0c86a1b7fc889ff2f3a1f3cba7f5947f5e291ea0/assets/Script/UI/Tool/ToolMgr.js#L9-L170",
+      "locator": "CardMgr.js 80-148; ToolMgr.js 9-170; PlayerLandActivity.js 131-142; Magic.js registEvent",
+      "verification": "固定 SHA 检视逻辑主体和注释",
+      "limitations": "卡片事件不代表每张卡对局中有效"
+    },
+    {
+      "id": "R12",
+      "level": "B",
+      "claim": "项目树无 package.json/README/LICENSE/CI 和独立运行测试产物；Test/*.ts 是 Cocos 场景脚本，未见断言测试或存读档链路。",
+      "source_url": "https://api.github.com/repos/JCRJPZB/Rich4/git/trees/0c86a1b7fc889ff2f3a1f3cba7f5947f5e291ea0?recursive=1",
+      "locator": "444 Git tree entries; Test.ts, TestPlayer.ts; no package/README/LICENSE/test runner files",
+      "verification": "完整仓库树遍历并读取测试组件",
+      "limitations": "树中找不到不能证明作者另有私有工具或未提交内容；引擎可能另行生成包"
+    },
+    {
+      "id": "R13",
+      "level": "B",
+      "claim": "AICtrl.aiLogic 只有有卡概率路径；卡片实际调用被注释，stockTrade 先读未声明的 stock，引用不存在的 vlo，并且缺完结回调。",
+      "source_url": "https://github.com/JCRJPZB/Rich4/blob/0c86a1b7fc889ff2f3a1f3cba7f5947f5e291ea0/assets/Script/AI/AICtrl.js#L26-L90",
+      "locator": "AICtrl.js 26-90; PlayerRound.js 60-69",
+      "verification": "逐项追踪分支、标识符、回调和函数签名",
+      "limitations": "具体报错/挂机未动态再现"
+    },
+    {
+      "id": "R14",
+      "level": "D",
+      "claim": "与后来的 Rich4 重制项目的共同代码血缘未证明；同主题不等于直接衍生。",
+      "source_url": "https://github.com/JCRJPZB/Rich4",
+      "locator": "GitHub fork=false + sole initial commit; no cross-repository file fingerprint comparison",
+      "verification": "有限元数据核查后保留未知",
+      "limitations": "跨库源码/历史未系统全文 diff，不得断言绝无共同起源"
+    },
+    {
+      "id": "R15",
+      "level": "B",
+      "claim": "仓库树没有独立 LICENSE、素材许可或来源说明；对图像/角色/声音的再发布授权无法确认。",
+      "source_url": "https://api.github.com/repos/JCRJPZB/Rich4/git/trees/0c86a1b7fc889ff2f3a1f3cba7f5947f5e291ea0?recursive=1",
+      "locator": "444 entries; assets/resources/Texture and animation; missing LICENSE",
+      "verification": "全树核查与 GitHub license=null 交叉核对",
+      "limitations": "无许可声明不等于侵权已被证明；引擎自身授权另计"
+    },
+    {
+      "id": "R16",
+      "level": "A",
+      "claim": "直接 Git 克隆的远端探测失败，限制了引擎运行研究。",
+      "source_url": "https://github.com/JCRJPZB/Rich4",
+      "locator": "local git ls-remote https://github.com/JCRJPZB/Rich4.git HEAD",
+      "verification": "容器运行，输出 fatal: Could not resolve host: github.com",
+      "limitations": "此环境 DNS 受限；上游仓库 GitHub API 可读取，不能据此声称项目失效"
+    }
+  ],
+  "features": [
+    {
+      "feature": "new_game",
+      "status": "partial",
+      "evidence_ids": [
+        "R05"
+      ]
+    },
+    {
+      "feature": "turn_dice_movement",
+      "status": "partial",
+      "evidence_ids": [
+        "R07",
+        "R08"
+      ]
+    },
+    {
+      "feature": "map_and_routes",
+      "status": "partial",
+      "evidence_ids": [
+        "R04",
+        "R06",
+        "R07"
+      ]
+    },
+    {
+      "feature": "property_purchase_rent_upgrade",
+      "status": "partial",
+      "evidence_ids": [
+        "R09"
+      ]
+    },
+    {
+      "feature": "bank_deposits",
+      "status": "partial",
+      "evidence_ids": [
+        "R10"
+      ]
+    },
+    {
+      "feature": "stock_market",
+      "status": "partial",
+      "evidence_ids": [
+        "R10"
+      ]
+    },
+    {
+      "feature": "cards",
+      "status": "partial",
+      "evidence_ids": [
+        "R11"
+      ]
+    },
+    {
+      "feature": "items",
+      "status": "partial",
+      "evidence_ids": [
+        "R11"
+      ]
+    },
+    {
+      "feature": "special_events_magic",
+      "status": "partial",
+      "evidence_ids": [
+        "R11"
+      ]
+    },
+    {
+      "feature": "computer_ai",
+      "status": "partial",
+      "evidence_ids": [
+        "R08",
+        "R13"
+      ]
+    },
+    {
+      "feature": "elimination_victory",
+      "status": "partial",
+      "evidence_ids": [
+        "R05",
+        "R08"
+      ]
+    },
+    {
+      "feature": "save_load",
+      "status": "unknown",
+      "evidence_ids": [
+        "R12"
+      ]
+    },
+    {
+      "feature": "presentation_animation",
+      "status": "partial",
+      "evidence_ids": [
+        "R02",
+        "R03"
+      ]
+    },
+    {
+      "feature": "audio",
+      "status": "unknown",
+      "evidence_ids": [
+        "R03",
+        "R12"
+      ]
+    },
+    {
+      "feature": "mobile_web_pwa",
+      "status": "unknown",
+      "evidence_ids": [
+        "R02",
+        "R12"
+      ]
+    },
+    {
+      "feature": "faithful_1998_rules",
+      "status": "unknown",
+      "evidence_ids": [
+        "R14",
+        "R05"
+      ]
+    }
+  ],
+  "scores": {
+    "rules": 2,
+    "maintainability": 1,
+    "reproducibility": 1,
+    "presentation": null,
+    "reactmono_value": 2
+  },
+  "score_evidence": {
+    "rules": {
+      "evidence_ids": [
+        "R05",
+        "R06",
+        "R07",
+        "R08",
+        "R09",
+        "R10",
+        "R11",
+        "R13"
+      ],
+      "confidence": "medium",
+      "note": "主机制有代码，部分功能高风险，未验原版等价"
+    },
+    "maintainability": {
+      "evidence_ids": [
+        "R05",
+        "R09",
+        "R12",
+        "R13"
+      ],
+      "confidence": "high",
+      "note": "硬编码节点和明显的错误引用/回调问题"
+    },
+    "reproducibility": {
+      "evidence_ids": [
+        "R02",
+        "R03",
+        "R04",
+        "R12",
+        "R16"
+      ],
+      "confidence": "medium",
+      "note": "静态数据可复核，游戏不能在当前环境打开"
+    },
+    "presentation": {
+      "evidence_ids": [
+        "R03",
+        "R12"
+      ],
+      "confidence": "low",
+      "note": "null；无独立截图或实机操作"
+    },
+    "reactmono_value": {
+      "evidence_ids": [
+        "R06",
+        "R07",
+        "R09",
+        "R13",
+        "R15"
+      ],
+      "confidence": "medium",
+      "note": "主要用于路径拓扑和回归用例，不宜直接复用"
+    }
+  },
+  "recommendation": "read_only_reference",
+  "open_questions": [
+    "Cocos Creator 2.4.3 的 Game.fire 是否能实际启动并完成 2–4 人整局？",
+    "全部 Prefab/Atlas/原版图像素材的版权及其来源是否获许可？",
+    "与其他 Rich4 重制仓库是否共享过源码文件或更早原始仓库？",
+    "实际是否存在未提交的存档、音效与打包测试资源？",
+    "原版 1998 规则、经济参数和事件效果有没有可重复对照的权威基线？"
+  ]
+}
