@@ -1,0 +1,404 @@
+{
+  "repository": "nurockplayer/richman4-remake",
+  "url": "https://github.com/nurockplayer/richman4-remake",
+  "checked_at_utc": "2026-10-19T01:19:33Z",
+  "upstream_sha": "961bdf47389a08e3143c0340490896b9f50edef9",
+  "upstream_default_branch": "main",
+  "upstream_fork_flag": false,
+  "original_relation": "faithful",
+  "original_relation_note": "原作忠实复刻是项目目标，不代表本轮独立证明已达到",
+  "license": {
+    "spdx": null,
+    "source_url": null,
+    "risks": [
+      "公开仓库没有 LICENSE/COPYING，仓库许可元数据为 null；不能推断可复制源代码",
+      "原版游戏、图像、音频及 EXE 有独立商业版权，公开仓库不包含授权分发",
+      "mytbk/rich4等研究来源及其他组件衍生权限需逐项核验"
+    ]
+  },
+  "execution": {
+    "attempted": false,
+    "environment": "经GitHub API只读固定源码；本容器无Godot，不能解析github.com克隆；无原版私有资产或macOS成品运行环境",
+    "commands": [],
+    "result": "NOT_RUN (no A evidence)",
+    "limitations": [
+      "Godot not installed",
+      "git clone cannot resolve github.com from local container",
+      "original private Git/LFS assets absent",
+      "no independent Mac native app or visual capture"
+    ],
+    "suggested_commands": [
+      "git checkout 961bdf47389a08e3143c0340490896b9f50edef9",
+      "godot --version (must be 4.7.2-stable)",
+      "bash tools/check.sh",
+      "godot --path .",
+      "bash tools/package_macos.sh (owner-authorized private assets on Mac only)"
+    ]
+  },
+  "evidence": [
+    {
+      "id": "B01",
+      "level": "B",
+      "claim": "parse_map_payload 校验10-word地图头、表界限、保存版别与 SHA-256",
+      "source_url": "https://github.com/nurockplayer/richman4-remake/blob/961bdf47389a08e3143c0340490896b9f50edef9/tools/import_original.py",
+      "locator": "L710-L768",
+      "verification": "fixed_commit_source_checked",
+      "limitations": "未取到私有 map.mkf"
+    },
+    {
+      "id": "B02",
+      "level": "B",
+      "claim": "parse_stock_groups 依 Game 4 组与资料片 8 组读取每组12股票的PE表",
+      "source_url": "https://github.com/nurockplayer/richman4-remake/blob/961bdf47389a08e3143c0340490896b9f50edef9/tools/import_original.py",
+      "locator": "L404-L496",
+      "verification": "fixed_commit_source_checked",
+      "limitations": "未取到私有 EXE"
+    },
+    {
+      "id": "B03",
+      "level": "B",
+      "claim": "load_catalog/normalize_map/stock capability 明确限制原版地图与股市能力",
+      "source_url": "https://github.com/nurockplayer/richman4-remake/blob/961bdf47389a08e3143c0340490896b9f50edef9/game/content/original_maps.gd",
+      "locator": "L20-L55;L231-L280;L310-L535",
+      "verification": "fixed_commit_source_checked",
+      "limitations": "未取到完整原版 catalog"
+    },
+    {
+      "id": "B04",
+      "level": "B",
+      "claim": "图局规则记录 seed、rng_state、路网、回合、银行、市场并通过 choose_action 操作",
+      "source_url": "https://github.com/nurockplayer/richman4-remake/blob/961bdf47389a08e3143c0340490896b9f50edef9/game/core/game_state.gd",
+      "locator": "L590-L650;L5163-L5200;L6293-L6320",
+      "verification": "fixed_commit_source_checked",
+      "limitations": "未运行独立完整对局"
+    },
+    {
+      "id": "B05",
+      "level": "B",
+      "claim": "股票模型 12 支、144历史点、保存随机数做价格更新而非原版墙钟轨迹",
+      "source_url": "https://github.com/nurockplayer/richman4-remake/blob/961bdf47389a08e3143c0340490896b9f50edef9/game/core/original_stock_market.gd",
+      "locator": "L1-L103;L155-L180",
+      "verification": "fixed_commit_source_checked",
+      "limitations": "尚无原版价格 golden trace"
+    },
+    {
+      "id": "B06",
+      "level": "B",
+      "claim": "原股市源版面板和旧三股 UI 并存；能力不足分流到旧弹窗；旧存档显式告知",
+      "source_url": "https://github.com/nurockplayer/richman4-remake/blob/961bdf47389a08e3143c0340490896b9f50edef9/game/ui/main_ui.gd",
+      "locator": "L321-L350;L479-L494;L1140-L1154",
+      "verification": "fixed_commit_source_checked",
+      "limitations": "实际旧存档路径未本次运行"
+    },
+    {
+      "id": "B07",
+      "level": "B",
+      "claim": "640x480原版方向shell及440x440棋盘；源码承认原始投影未知，缺贴图采用路网fallback",
+      "source_url": "https://github.com/nurockplayer/richman4-remake/blob/961bdf47389a08e3143c0340490896b9f50edef9/game/ui/board_view.gd",
+      "locator": "L15-L25;L560-L615;L912-L921",
+      "verification": "fixed_commit_source_checked",
+      "limitations": "代码布局不是原版画面验证"
+    },
+    {
+      "id": "B08",
+      "level": "B",
+      "claim": "source stock UI 是状态投影，显示概览/详情/量输入及 fallback 画面",
+      "source_url": "https://github.com/nurockplayer/richman4-remake/blob/961bdf47389a08e3143c0340490896b9f50edef9/game/ui/stock_panel.gd",
+      "locator": "L4-L19;L58-L125;L134-L160",
+      "verification": "fixed_commit_source_checked",
+      "limitations": "本次未取得独立渲染截图"
+    },
+    {
+      "id": "B09",
+      "level": "B",
+      "claim": "graph/stock/scene 合成测试源码存在；使用fixture和4x4测试像素",
+      "source_url": "https://github.com/nurockplayer/richman4-remake/blob/961bdf47389a08e3143c0340490896b9f50edef9/tests/scene_visuals.gd",
+      "locator": "L27-L58",
+      "verification": "fixed_commit_source_checked",
+      "limitations": "测试未运行，不能代表原版视觉"
+    },
+    {
+      "id": "B10",
+      "level": "B",
+      "claim": "项目锁定Godot 4.7.2并有headless脚本和Mac私人打包流程",
+      "source_url": "https://github.com/nurockplayer/richman4-remake/blob/961bdf47389a08e3143c0340490896b9f50edef9/tools/check.sh",
+      "locator": "L1-L55",
+      "verification": "fixed_commit_source_checked",
+      "limitations": "当前环境未安装Godot"
+    },
+    {
+      "id": "B11",
+      "level": "B",
+      "claim": "受限原版资产单独私有仓库，revision及manifest哈希经校验",
+      "source_url": "https://github.com/nurockplayer/richman4-remake/blob/961bdf47389a08e3143c0340490896b9f50edef9/config/private-assets.json",
+      "locator": "L1-L10",
+      "verification": "fixed_commit_source_checked",
+      "limitations": "未获得私有资产与验证运行"
+    },
+    {
+      "id": "B12",
+      "level": "B",
+      "claim": "上游Git树无LICENSE/COPYING且仓库license元数据为空",
+      "source_url": "https://github.com/nurockplayer/richman4-remake/tree/961bdf47389a08e3143c0340490896b9f50edef9",
+      "locator": "L1-L14",
+      "verification": "fixed_commit_source_checked",
+      "limitations": "这不是全面法律尽调"
+    },
+    {
+      "id": "C01",
+      "level": "C",
+      "claim": "作者报告159aeb0历史打包版人机回合、30日AI结算、存读档通过",
+      "source_url": "https://github.com/nurockplayer/richman4-remake/blob/961bdf47389a08e3143c0340490896b9f50edef9/docs/fidelity.md",
+      "locator": "L5-L9",
+      "verification": "upstream_author_statement_not_independent",
+      "limitations": "本次不能复跑已签名包"
+    },
+    {
+      "id": "C02",
+      "level": "C",
+      "claim": "2026-09-10原主棋盘/股市视觉被退回，#99完整逐幕验收仍OPEN",
+      "source_url": "https://github.com/nurockplayer/richman4-remake/blob/961bdf47389a08e3143c0340490896b9f50edef9/docs/fidelity.md",
+      "locator": "L5-L9",
+      "verification": "upstream_author_statement_not_independent",
+      "limitations": "没有本次独立对照像素及实机意见"
+    },
+    {
+      "id": "C03",
+      "level": "C",
+      "claim": "作者记录Game四图、MultiverseJourney八图并列来源节点和设施统计",
+      "source_url": "https://github.com/nurockplayer/richman4-remake/blob/961bdf47389a08e3143c0340490896b9f50edef9/docs/fidelity.md",
+      "locator": "L13-L24",
+      "verification": "upstream_author_statement_not_independent",
+      "limitations": "统计未对私有source重新计算"
+    },
+    {
+      "id": "C04",
+      "level": "C",
+      "claim": "交接说明银行PR212仍draft，Panel21/23/24缺失和本机磁盘/锁屏阻断native验收",
+      "source_url": "https://github.com/nurockplayer/richman4-remake/issues/52",
+      "locator": "L57-L67",
+      "verification": "upstream_author_statement_not_independent",
+      "limitations": "详见上游#52；本研究环境不同"
+    },
+    {
+      "id": "C05",
+      "level": "C",
+      "claim": "高保真90–95%是上游目标、非测量分值",
+      "source_url": "https://github.com/nurockplayer/richman4-remake/issues/1",
+      "locator": "L1-L14",
+      "verification": "upstream_author_statement_not_independent",
+      "limitations": "详见上游#1"
+    },
+    {
+      "id": "C06",
+      "level": "C",
+      "claim": "原版透视/走路/事件时序/golden trace 尚未完整核对",
+      "source_url": "https://github.com/nurockplayer/richman4-remake/blob/961bdf47389a08e3143c0340490896b9f50edef9/docs/fidelity.md",
+      "locator": "L32-L67",
+      "verification": "upstream_author_statement_not_independent",
+      "limitations": "上游自述不是独立实测"
+    },
+    {
+      "id": "D01",
+      "level": "D",
+      "claim": "没有足够独立同版同局画面对比，不宜给商业视觉完成度数字分",
+      "source_url": "https://github.com/nurockplayer/richman4-remake/blob/961bdf47389a08e3143c0340490896b9f50edef9/docs/fidelity.md",
+      "locator": "L5-L9",
+      "verification": "researcher_uncertainty",
+      "limitations": "仅证明资料不足，不证明所有外观均失败"
+    }
+  ],
+  "features": [
+    {
+      "feature": "2–4人开局/人机回合",
+      "status": "partial",
+      "evidence_ids": [
+        "B04",
+        "C01"
+      ]
+    },
+    {
+      "feature": "原版4+8地图数据",
+      "status": "claimed",
+      "evidence_ids": [
+        "B01",
+        "B03",
+        "C03"
+      ]
+    },
+    {
+      "feature": "路网/分岔/地产升级租金结算",
+      "status": "partial",
+      "evidence_ids": [
+        "B03",
+        "B04",
+        "B09",
+        "C01"
+      ]
+    },
+    {
+      "feature": "银行ATM/贷款/途中暂停与续走",
+      "status": "partial",
+      "evidence_ids": [
+        "B04",
+        "C04"
+      ]
+    },
+    {
+      "feature": "十二股源目录/价格历史/持股",
+      "status": "partial",
+      "evidence_ids": [
+        "B02",
+        "B03",
+        "B05",
+        "B08"
+      ]
+    },
+    {
+      "feature": "三股旧档与原始股票分流",
+      "status": "partial",
+      "evidence_ids": [
+        "B06"
+      ]
+    },
+    {
+      "feature": "卡片/道具/神明/事件",
+      "status": "partial",
+      "evidence_ids": [
+        "B04",
+        "C06"
+      ]
+    },
+    {
+      "feature": "AI接手与长局结算",
+      "status": "claimed",
+      "evidence_ids": [
+        "B04",
+        "C01"
+      ]
+    },
+    {
+      "feature": "序列化存档/恢复固定RNG",
+      "status": "partial",
+      "evidence_ids": [
+        "B04",
+        "B09",
+        "C01"
+      ]
+    },
+    {
+      "feature": "原版主棋盘视觉逐幕最终验收",
+      "status": "unknown",
+      "evidence_ids": [
+        "B07",
+        "C02",
+        "D01"
+      ]
+    },
+    {
+      "feature": "原版股市视觉逐幕最终验收",
+      "status": "unknown",
+      "evidence_ids": [
+        "B08",
+        "C02",
+        "D01"
+      ]
+    },
+    {
+      "feature": "步态/镜头/原版音画时序",
+      "status": "unknown",
+      "evidence_ids": [
+        "C06",
+        "B07"
+      ]
+    },
+    {
+      "feature": "macOS私有完整封包交付",
+      "status": "claimed",
+      "evidence_ids": [
+        "B10",
+        "B11",
+        "C01",
+        "C04"
+      ]
+    },
+    {
+      "feature": "浏览器/PWA/Pages端运行",
+      "status": "unknown",
+      "evidence_ids": [
+        "B10"
+      ]
+    }
+  ],
+  "scores": {
+    "rules": null,
+    "maintainability": 3,
+    "reproducibility": 2,
+    "presentation": null,
+    "reactmono_value": 4
+  },
+  "score_details": {
+    "rules": {
+      "value": null,
+      "reason": "不足：源码实现与原版逐步轨迹尚无A类一致性验证",
+      "confidence": "insufficient",
+      "evidence_ids": [
+        "B01",
+        "B04",
+        "C06"
+      ]
+    },
+    "maintainability": {
+      "value": 3,
+      "reason": "中信：分层良好但核心state有9590行、MainUI有4696行",
+      "confidence": "medium",
+      "evidence_ids": [
+        "B03",
+        "B04",
+        "B08",
+        "B09"
+      ]
+    },
+    "reproducibility": {
+      "value": 2,
+      "reason": "中信：公开测试和引擎版锁定，但完整素材与macOS封包依赖私有环境",
+      "confidence": "medium",
+      "evidence_ids": [
+        "B10",
+        "B11",
+        "C01",
+        "C04"
+      ]
+    },
+    "presentation": {
+      "value": null,
+      "reason": "不足：虽有源式面板代码但缺独立同态视觉验收",
+      "confidence": "insufficient",
+      "evidence_ids": [
+        "B07",
+        "B08",
+        "C02",
+        "D01"
+      ]
+    },
+    "reactmono_value": {
+      "value": 4,
+      "reason": "中信：地图源哈希、旧档能力、用户旅程验收方法高可借鉴；不建议复制素材/源码",
+      "confidence": "medium",
+      "evidence_ids": [
+        "B01",
+        "B03",
+        "B06",
+        "C02"
+      ]
+    }
+  },
+  "recommendation": "read_only_reference",
+  "open_questions": [
+    "持合法素材的独立审计者能否复算4+8地图与原版股票源字节统计？",
+    "能否拿到同版原作/复刻逐幕图像、交互和独立视觉裁决？",
+    "最终封包普通开局与旧v4存档能否分别核对12股/3股路径？",
+    "上游银行候选PR212何时完成实机及素材验收并进入main？",
+    "上游代码许可证与第三方代码、商业原版资产授权如何取得？"
+  ]
+}
