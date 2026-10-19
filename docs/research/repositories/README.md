@@ -14,3 +14,5 @@
 ## 已交付的单仓库研究
 
 - [JCRJPZB/Rich4（Cocos Creator 2.4.3）](JCRJPZB--Rich4/README.md)：[Issue #101](https://github.com/SiliconYC/ReactMono/issues/101)，2026-10-19 UTC，固定上游 `0c86a1b7fc889ff2f3a1f3cba7f5947f5e291ea0`；[源码锚点](JCRJPZB--Rich4/source-index.md)｜[结构化证据](JCRJPZB--Rich4/evidence.json)。仅静态数据核验，未独立启动引擎；授权不明，建议只读参考。
+
+- [oama1111/rich4-remake-public（确定性规则与跨端联机研究）](oama1111--rich4-remake-public/README.md)：[Issue #100](https://github.com/SiliconYC/ReactMono/issues/100)，固定上游 `42ad97ad31f07541a9af35415e36be4da4147484`；[源码索引](oama1111--rich4-remake-public/source-index.md)｜[证据 JSON](oama1111--rich4-remake-public/evidence.json)。只读参考；独立原版游玩未验证，不移植 GPL 源码、后端或素材。
