@@ -13,7 +13,7 @@
 | 远端活动 | 仓库元数据 `pushed_at=2021-08-07T00:27:39Z`；2026 年网页元数据更新**不等于代码提交** | R01 |
 | GitHub fork 关系 | `fork=false`；初始提交无父，**只能排除 GitHub 显式 fork 标记**，不能排除源码借鉴/复制、素材移植或与后续项目共享来源 | R01 / R14 |
 | 引擎、场景 | [`project.json`](https://github.com/JCRJPZB/Rich4/blob/0c86a1b7fc889ff2f3a1f3cba7f5947f5e291ea0/project.json) 指明 `cocos-creator-js`、**2.4.3**；[编辑器配置](https://github.com/JCRJPZB/Rich4/blob/0c86a1b7fc889ff2f3a1f3cba7f5947f5e291ea0/settings/project.json) 为 960×640；有 `Game.fire`、`TestScene.fire` | R02 / R03 |
-| 文件与许可 | Git 树 444 条项，含 48 个 JS、5 个 TS、96? **不是**：96 为地图节点数；仓库无顶层 README、LICENSE、package.json | R01 / R15 |
+| 文件与许可 | Git 树 444 条项，含 48 个 JS 和 5 个 TS；96 是地图节点数而不是脚本数。仓库无顶层 README、LICENSE、package.json | R01 / R15 |
 | 研究环境 | GitHub 连接器读取固定提交源码与树；在受限 V8 环境解析三个 JSON/场景并检查路径数据；容器尝试 `git ls-remote` 失败（DNS 无法解析 `github.com`）；没有 Cocos Creator 2.4.3 可执行实例 | R03 / R04 |
 
 **许可判定**：本次完整文件树未发现独立 `LICENSE` 或许可证声明，也未发现素材授权凭证。GitHub 公共可读 ≠ 允许商业/开源重用。代码许可证 `spdx=null`；原作人物、美术、音效/字体及 Cocos 资源授权均需另查。不能把资源复制进 ReactMono（R15）。
