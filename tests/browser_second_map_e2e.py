@@ -13,7 +13,8 @@ def exercise(browser,url,map_id,size,players):
     page.goto(url,wait_until='load')
     open_new_game_setup(page)
     select_map(page,map_id)
-    assert page.locator('.setup-map-choice button').count()==2
+    assert page.locator('.setup-map-choice button[data-map-id="classic-24"]').count()==1
+    assert page.locator('.setup-map-choice button[data-map-id="harbor-20"]').count()==1
     selected=page.locator('.setup-map-choice button[aria-pressed="true"]')
     assert selected.count()==1
     assert ('海港' in selected.inner_text())==(map_id=='harbor-20')

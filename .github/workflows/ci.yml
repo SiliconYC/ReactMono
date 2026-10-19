@@ -59,6 +59,9 @@ jobs:
       - name: 主程序两图四人完整对局、规则功能、动画与离线存档
         timeout-minutes: 10
         run: python -u tests/browser_main_game_acceptance.py
+      - name: 数据关卡五图选择、压力地图移动、存档及离线回归
+        timeout-minutes: 10
+        run: python -u tests/browser_stress_maps_e2e.py
       - name: 主程序WebAudio/GPU、损坏文件拒绝与双SW更新检查
         timeout-minutes: 5
         run: python -u tests/browser_main_runtime_e2e.py
@@ -71,6 +74,7 @@ jobs:
             artifacts/ui-rebuild/
             artifacts/main3d/
             artifacts/issue63/
+            artifacts/stress-maps/
           if-no-files-found: warn
           retention-days: 30
       - name: 确认产物不含第三方运行时引用

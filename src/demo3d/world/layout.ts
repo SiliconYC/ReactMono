@@ -12,13 +12,6 @@ export const ROAD_CONNECTOR_CENTER_Y = GROUND_TOP + ROAD_CONNECTOR_THICKNESS / 2
 export const ACTOR_ANCHOR_Y = ROAD_TILE_TOP - 0.1;
 export const ISLAND_BOTTOM = -1.18;
 
-export const TILE_ANCHORS: readonly WorldPoint[] = [
-  { x: -4, z: -4 }, { x: -2, z: -4 }, { x: 0, z: -4 }, { x: 2, z: -4 }, { x: 4, z: -4 },
-  { x: 4, z: -2 }, { x: 4, z: 0 }, { x: 4, z: 2 }, { x: 4, z: 4 },
-  { x: 2, z: 4 }, { x: 0, z: 4 }, { x: -2, z: 4 }, { x: -4, z: 4 },
-  { x: -4, z: 2 }, { x: -4, z: 0 }, { x: -4, z: -2 }
-];
-
 const LOT_OFFSET = 1.35;
 
 export type MapAnchors = Readonly<{
@@ -48,6 +41,7 @@ export function anchorsForMap(map: GameMap): MapAnchors {
   return result;
 }
 
+export const TILE_ANCHORS = anchorsForMap(INTERNAL_TEST_MAP).tiles;
 export const LOT_ANCHORS = anchorsForMap(INTERNAL_TEST_MAP).lots;
 
 export function positionForTile(tileId: number, map: GameMap = INTERNAL_TEST_MAP): WorldPoint {

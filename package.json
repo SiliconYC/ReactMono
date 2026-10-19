@@ -10,7 +10,9 @@
     "dev": "npm run build && node scripts/serve.mjs",
     "main:dev": "vite --config vite.main.config.ts",
     "demo:dev": "vite --config vite.demo.config.ts",
-    "demo:build": "tsc -p tsconfig.demo.json && vite build --config vite.demo.config.ts"
+    "demo:build": "tsc -p tsconfig.demo.json && vite build --config vite.demo.config.ts",
+    "maps:validate": "tsc -p tsconfig.json && node scripts/validate-maps.mjs",
+    "maps:generate": "tsc -p tsconfig.json && node scripts/generate-map.mjs"
   },
   "dependencies": {
     "@react-three/fiber": "8.18.0",

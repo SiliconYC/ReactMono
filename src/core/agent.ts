@@ -2,6 +2,7 @@
 import { type GameAction, type GameState } from './game.js';
 import { handSize } from './cards.js';
 import {chooseStyledAction} from './strategic-agent.js';
+import {propertyVisitAvailable} from './property.js';
 export interface ComputerOptions { readonly reserveCash?: number }
 export function choosePhaseAction(state: GameState, reserveCash: number): GameAction | null {
   if (!Number.isFinite(reserveCash) || reserveCash < 0) throw new Error('保留资金必须为非负有限数字');
@@ -45,7 +46,8 @@ export function choosePhaseAction(state: GameState, reserveCash: number): GameAc
       return { type: player.cash >= (tile.price ?? 0) + reserveCash ? 'buy_property' : 'decline_property', actorId: player.id };
     }
     case 'await_end_turn': {
-      const target=state.tiles.find(t=>t.kind==='property'&&t.ownerId===player.id&&
+      const target=state.tiles.find(t=>t.kind==='property'&&t.ownerId===player.id&&!t.mortgaged&&
+        propertyVisitAvailable(state,player,t.id)&&
         (t.level??0)<2&&player.cash >= (t.upgradeCosts?.[t.level??0]??Infinity)+reserveCash);
       if(target)return {type:'upgrade_property',actorId:player.id,tileId:target.id};
       // Banking is strictly opt-in; never affect the P2 reference agent.

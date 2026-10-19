@@ -1,0 +1,11 @@
+
+> reactmono@0.2.0 maps:validate
+> tsc -p tsconfig.json && node scripts/validate-maps.mjs
+
+classic-24：经典环线，24 格，8×6，可选
+harbor-20：海港环线，20 格，6×6，可选
+internal-square-16：内部方环，16 格，5×5，内部测试
+bend-60：曲湾长街，60 格，19×13，可选
+bays-120：双湾漫游，120 格，31×25，可选
+ridges-360：群峰回廊，360 格，71×71，可选
+关卡校验通过：6 张

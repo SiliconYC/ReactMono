@@ -1,0 +1,4265 @@
+{
+  "schemaVersion": 1,
+  "levels": [
+    {
+      "name": "群峰回廊",
+      "description": "多重深湾 · 360 格压力地图",
+      "playable": true,
+      "map": {
+        "id": "ridges-360",
+        "version": 1,
+        "columns": 71,
+        "rows": 71,
+        "cells": [
+          {
+            "column": 1,
+            "row": 1
+          },
+          {
+            "column": 2,
+            "row": 1
+          },
+          {
+            "column": 3,
+            "row": 1
+          },
+          {
+            "column": 4,
+            "row": 1
+          },
+          {
+            "column": 5,
+            "row": 1
+          },
+          {
+            "column": 6,
+            "row": 1
+          },
+          {
+            "column": 7,
+            "row": 1
+          },
+          {
+            "column": 8,
+            "row": 1
+          },
+          {
+            "column": 9,
+            "row": 1
+          },
+          {
+            "column": 10,
+            "row": 1
+          },
+          {
+            "column": 11,
+            "row": 1
+          },
+          {
+            "column": 12,
+            "row": 1
+          },
+          {
+            "column": 13,
+            "row": 1
+          },
+          {
+            "column": 14,
+            "row": 1
+          },
+          {
+            "column": 15,
+            "row": 1
+          },
+          {
+            "column": 16,
+            "row": 1
+          },
+          {
+            "column": 17,
+            "row": 1
+          },
+          {
+            "column": 18,
+            "row": 1
+          },
+          {
+            "column": 19,
+            "row": 1
+          },
+          {
+            "column": 20,
+            "row": 1
+          },
+          {
+            "column": 21,
+            "row": 1
+          },
+          {
+            "column": 22,
+            "row": 1
+          },
+          {
+            "column": 23,
+            "row": 1
+          },
+          {
+            "column": 24,
+            "row": 1
+          },
+          {
+            "column": 25,
+            "row": 1
+          },
+          {
+            "column": 26,
+            "row": 1
+          },
+          {
+            "column": 27,
+            "row": 1
+          },
+          {
+            "column": 28,
+            "row": 1
+          },
+          {
+            "column": 29,
+            "row": 1
+          },
+          {
+            "column": 30,
+            "row": 1
+          },
+          {
+            "column": 31,
+            "row": 1
+          },
+          {
+            "column": 32,
+            "row": 1
+          },
+          {
+            "column": 33,
+            "row": 1
+          },
+          {
+            "column": 34,
+            "row": 1
+          },
+          {
+            "column": 35,
+            "row": 1
+          },
+          {
+            "column": 36,
+            "row": 1
+          },
+          {
+            "column": 37,
+            "row": 1
+          },
+          {
+            "column": 38,
+            "row": 1
+          },
+          {
+            "column": 39,
+            "row": 1
+          },
+          {
+            "column": 40,
+            "row": 1
+          },
+          {
+            "column": 41,
+            "row": 1
+          },
+          {
+            "column": 42,
+            "row": 1
+          },
+          {
+            "column": 43,
+            "row": 1
+          },
+          {
+            "column": 44,
+            "row": 1
+          },
+          {
+            "column": 45,
+            "row": 1
+          },
+          {
+            "column": 46,
+            "row": 1
+          },
+          {
+            "column": 47,
+            "row": 1
+          },
+          {
+            "column": 48,
+            "row": 1
+          },
+          {
+            "column": 49,
+            "row": 1
+          },
+          {
+            "column": 50,
+            "row": 1
+          },
+          {
+            "column": 51,
+            "row": 1
+          },
+          {
+            "column": 52,
+            "row": 1
+          },
+          {
+            "column": 53,
+            "row": 1
+          },
+          {
+            "column": 54,
+            "row": 1
+          },
+          {
+            "column": 55,
+            "row": 1
+          },
+          {
+            "column": 56,
+            "row": 1
+          },
+          {
+            "column": 57,
+            "row": 1
+          },
+          {
+            "column": 58,
+            "row": 1
+          },
+          {
+            "column": 59,
+            "row": 1
+          },
+          {
+            "column": 60,
+            "row": 1
+          },
+          {
+            "column": 61,
+            "row": 1
+          },
+          {
+            "column": 62,
+            "row": 1
+          },
+          {
+            "column": 63,
+            "row": 1
+          },
+          {
+            "column": 64,
+            "row": 1
+          },
+          {
+            "column": 65,
+            "row": 1
+          },
+          {
+            "column": 66,
+            "row": 1
+          },
+          {
+            "column": 67,
+            "row": 1
+          },
+          {
+            "column": 68,
+            "row": 1
+          },
+          {
+            "column": 69,
+            "row": 1
+          },
+          {
+            "column": 70,
+            "row": 1
+          },
+          {
+            "column": 71,
+            "row": 1
+          },
+          {
+            "column": 71,
+            "row": 2
+          },
+          {
+            "column": 71,
+            "row": 3
+          },
+          {
+            "column": 71,
+            "row": 4
+          },
+          {
+            "column": 71,
+            "row": 5
+          },
+          {
+            "column": 71,
+            "row": 6
+          },
+          {
+            "column": 71,
+            "row": 7
+          },
+          {
+            "column": 71,
+            "row": 8
+          },
+          {
+            "column": 71,
+            "row": 9
+          },
+          {
+            "column": 71,
+            "row": 10
+          },
+          {
+            "column": 71,
+            "row": 11
+          },
+          {
+            "column": 71,
+            "row": 12
+          },
+          {
+            "column": 71,
+            "row": 13
+          },
+          {
+            "column": 71,
+            "row": 14
+          },
+          {
+            "column": 71,
+            "row": 15
+          },
+          {
+            "column": 71,
+            "row": 16
+          },
+          {
+            "column": 71,
+            "row": 17
+          },
+          {
+            "column": 71,
+            "row": 18
+          },
+          {
+            "column": 71,
+            "row": 19
+          },
+          {
+            "column": 71,
+            "row": 20
+          },
+          {
+            "column": 71,
+            "row": 21
+          },
+          {
+            "column": 71,
+            "row": 22
+          },
+          {
+            "column": 71,
+            "row": 23
+          },
+          {
+            "column": 71,
+            "row": 24
+          },
+          {
+            "column": 71,
+            "row": 25
+          },
+          {
+            "column": 71,
+            "row": 26
+          },
+          {
+            "column": 71,
+            "row": 27
+          },
+          {
+            "column": 71,
+            "row": 28
+          },
+          {
+            "column": 71,
+            "row": 29
+          },
+          {
+            "column": 71,
+            "row": 30
+          },
+          {
+            "column": 71,
+            "row": 31
+          },
+          {
+            "column": 71,
+            "row": 32
+          },
+          {
+            "column": 71,
+            "row": 33
+          },
+          {
+            "column": 71,
+            "row": 34
+          },
+          {
+            "column": 71,
+            "row": 35
+          },
+          {
+            "column": 71,
+            "row": 36
+          },
+          {
+            "column": 71,
+            "row": 37
+          },
+          {
+            "column": 71,
+            "row": 38
+          },
+          {
+            "column": 71,
+            "row": 39
+          },
+          {
+            "column": 71,
+            "row": 40
+          },
+          {
+            "column": 71,
+            "row": 41
+          },
+          {
+            "column": 71,
+            "row": 42
+          },
+          {
+            "column": 71,
+            "row": 43
+          },
+          {
+            "column": 71,
+            "row": 44
+          },
+          {
+            "column": 71,
+            "row": 45
+          },
+          {
+            "column": 71,
+            "row": 46
+          },
+          {
+            "column": 71,
+            "row": 47
+          },
+          {
+            "column": 71,
+            "row": 48
+          },
+          {
+            "column": 71,
+            "row": 49
+          },
+          {
+            "column": 71,
+            "row": 50
+          },
+          {
+            "column": 71,
+            "row": 51
+          },
+          {
+            "column": 71,
+            "row": 52
+          },
+          {
+            "column": 71,
+            "row": 53
+          },
+          {
+            "column": 71,
+            "row": 54
+          },
+          {
+            "column": 71,
+            "row": 55
+          },
+          {
+            "column": 71,
+            "row": 56
+          },
+          {
+            "column": 71,
+            "row": 57
+          },
+          {
+            "column": 71,
+            "row": 58
+          },
+          {
+            "column": 71,
+            "row": 59
+          },
+          {
+            "column": 71,
+            "row": 60
+          },
+          {
+            "column": 71,
+            "row": 61
+          },
+          {
+            "column": 71,
+            "row": 62
+          },
+          {
+            "column": 71,
+            "row": 63
+          },
+          {
+            "column": 71,
+            "row": 64
+          },
+          {
+            "column": 71,
+            "row": 65
+          },
+          {
+            "column": 71,
+            "row": 66
+          },
+          {
+            "column": 71,
+            "row": 67
+          },
+          {
+            "column": 71,
+            "row": 68
+          },
+          {
+            "column": 71,
+            "row": 69
+          },
+          {
+            "column": 71,
+            "row": 70
+          },
+          {
+            "column": 71,
+            "row": 71
+          },
+          {
+            "column": 70,
+            "row": 71
+          },
+          {
+            "column": 69,
+            "row": 71
+          },
+          {
+            "column": 68,
+            "row": 71
+          },
+          {
+            "column": 67,
+            "row": 71
+          },
+          {
+            "column": 66,
+            "row": 71
+          },
+          {
+            "column": 65,
+            "row": 71
+          },
+          {
+            "column": 64,
+            "row": 71
+          },
+          {
+            "column": 63,
+            "row": 71
+          },
+          {
+            "column": 62,
+            "row": 71
+          },
+          {
+            "column": 61,
+            "row": 71
+          },
+          {
+            "column": 60,
+            "row": 71
+          },
+          {
+            "column": 59,
+            "row": 71
+          },
+          {
+            "column": 58,
+            "row": 71
+          },
+          {
+            "column": 57,
+            "row": 71
+          },
+          {
+            "column": 56,
+            "row": 71
+          },
+          {
+            "column": 56,
+            "row": 70
+          },
+          {
+            "column": 56,
+            "row": 69
+          },
+          {
+            "column": 56,
+            "row": 68
+          },
+          {
+            "column": 56,
+            "row": 67
+          },
+          {
+            "column": 56,
+            "row": 66
+          },
+          {
+            "column": 56,
+            "row": 65
+          },
+          {
+            "column": 56,
+            "row": 64
+          },
+          {
+            "column": 56,
+            "row": 63
+          },
+          {
+            "column": 56,
+            "row": 62
+          },
+          {
+            "column": 56,
+            "row": 61
+          },
+          {
+            "column": 56,
+            "row": 60
+          },
+          {
+            "column": 56,
+            "row": 59
+          },
+          {
+            "column": 56,
+            "row": 58
+          },
+          {
+            "column": 56,
+            "row": 57
+          },
+          {
+            "column": 56,
+            "row": 56
+          },
+          {
+            "column": 56,
+            "row": 55
+          },
+          {
+            "column": 56,
+            "row": 54
+          },
+          {
+            "column": 56,
+            "row": 53
+          },
+          {
+            "column": 56,
+            "row": 52
+          },
+          {
+            "column": 56,
+            "row": 51
+          },
+          {
+            "column": 55,
+            "row": 51
+          },
+          {
+            "column": 54,
+            "row": 51
+          },
+          {
+            "column": 53,
+            "row": 51
+          },
+          {
+            "column": 52,
+            "row": 51
+          },
+          {
+            "column": 51,
+            "row": 51
+          },
+          {
+            "column": 50,
+            "row": 51
+          },
+          {
+            "column": 49,
+            "row": 51
+          },
+          {
+            "column": 48,
+            "row": 51
+          },
+          {
+            "column": 47,
+            "row": 51
+          },
+          {
+            "column": 46,
+            "row": 51
+          },
+          {
+            "column": 45,
+            "row": 51
+          },
+          {
+            "column": 44,
+            "row": 51
+          },
+          {
+            "column": 43,
+            "row": 51
+          },
+          {
+            "column": 42,
+            "row": 51
+          },
+          {
+            "column": 41,
+            "row": 51
+          },
+          {
+            "column": 41,
+            "row": 52
+          },
+          {
+            "column": 41,
+            "row": 53
+          },
+          {
+            "column": 41,
+            "row": 54
+          },
+          {
+            "column": 41,
+            "row": 55
+          },
+          {
+            "column": 41,
+            "row": 56
+          },
+          {
+            "column": 41,
+            "row": 57
+          },
+          {
+            "column": 41,
+            "row": 58
+          },
+          {
+            "column": 41,
+            "row": 59
+          },
+          {
+            "column": 41,
+            "row": 60
+          },
+          {
+            "column": 41,
+            "row": 61
+          },
+          {
+            "column": 41,
+            "row": 62
+          },
+          {
+            "column": 41,
+            "row": 63
+          },
+          {
+            "column": 41,
+            "row": 64
+          },
+          {
+            "column": 41,
+            "row": 65
+          },
+          {
+            "column": 41,
+            "row": 66
+          },
+          {
+            "column": 41,
+            "row": 67
+          },
+          {
+            "column": 41,
+            "row": 68
+          },
+          {
+            "column": 41,
+            "row": 69
+          },
+          {
+            "column": 41,
+            "row": 70
+          },
+          {
+            "column": 41,
+            "row": 71
+          },
+          {
+            "column": 40,
+            "row": 71
+          },
+          {
+            "column": 39,
+            "row": 71
+          },
+          {
+            "column": 38,
+            "row": 71
+          },
+          {
+            "column": 37,
+            "row": 71
+          },
+          {
+            "column": 36,
+            "row": 71
+          },
+          {
+            "column": 35,
+            "row": 71
+          },
+          {
+            "column": 34,
+            "row": 71
+          },
+          {
+            "column": 33,
+            "row": 71
+          },
+          {
+            "column": 32,
+            "row": 71
+          },
+          {
+            "column": 31,
+            "row": 71
+          },
+          {
+            "column": 31,
+            "row": 70
+          },
+          {
+            "column": 31,
+            "row": 69
+          },
+          {
+            "column": 31,
+            "row": 68
+          },
+          {
+            "column": 31,
+            "row": 67
+          },
+          {
+            "column": 31,
+            "row": 66
+          },
+          {
+            "column": 31,
+            "row": 65
+          },
+          {
+            "column": 31,
+            "row": 64
+          },
+          {
+            "column": 31,
+            "row": 63
+          },
+          {
+            "column": 31,
+            "row": 62
+          },
+          {
+            "column": 31,
+            "row": 61
+          },
+          {
+            "column": 31,
+            "row": 60
+          },
+          {
+            "column": 31,
+            "row": 59
+          },
+          {
+            "column": 31,
+            "row": 58
+          },
+          {
+            "column": 31,
+            "row": 57
+          },
+          {
+            "column": 31,
+            "row": 56
+          },
+          {
+            "column": 31,
+            "row": 55
+          },
+          {
+            "column": 31,
+            "row": 54
+          },
+          {
+            "column": 31,
+            "row": 53
+          },
+          {
+            "column": 31,
+            "row": 52
+          },
+          {
+            "column": 31,
+            "row": 51
+          },
+          {
+            "column": 30,
+            "row": 51
+          },
+          {
+            "column": 29,
+            "row": 51
+          },
+          {
+            "column": 28,
+            "row": 51
+          },
+          {
+            "column": 27,
+            "row": 51
+          },
+          {
+            "column": 26,
+            "row": 51
+          },
+          {
+            "column": 25,
+            "row": 51
+          },
+          {
+            "column": 24,
+            "row": 51
+          },
+          {
+            "column": 23,
+            "row": 51
+          },
+          {
+            "column": 22,
+            "row": 51
+          },
+          {
+            "column": 21,
+            "row": 51
+          },
+          {
+            "column": 20,
+            "row": 51
+          },
+          {
+            "column": 19,
+            "row": 51
+          },
+          {
+            "column": 18,
+            "row": 51
+          },
+          {
+            "column": 17,
+            "row": 51
+          },
+          {
+            "column": 16,
+            "row": 51
+          },
+          {
+            "column": 16,
+            "row": 52
+          },
+          {
+            "column": 16,
+            "row": 53
+          },
+          {
+            "column": 16,
+            "row": 54
+          },
+          {
+            "column": 16,
+            "row": 55
+          },
+          {
+            "column": 16,
+            "row": 56
+          },
+          {
+            "column": 16,
+            "row": 57
+          },
+          {
+            "column": 16,
+            "row": 58
+          },
+          {
+            "column": 16,
+            "row": 59
+          },
+          {
+            "column": 16,
+            "row": 60
+          },
+          {
+            "column": 16,
+            "row": 61
+          },
+          {
+            "column": 16,
+            "row": 62
+          },
+          {
+            "column": 16,
+            "row": 63
+          },
+          {
+            "column": 16,
+            "row": 64
+          },
+          {
+            "column": 16,
+            "row": 65
+          },
+          {
+            "column": 16,
+            "row": 66
+          },
+          {
+            "column": 16,
+            "row": 67
+          },
+          {
+            "column": 16,
+            "row": 68
+          },
+          {
+            "column": 16,
+            "row": 69
+          },
+          {
+            "column": 16,
+            "row": 70
+          },
+          {
+            "column": 16,
+            "row": 71
+          },
+          {
+            "column": 15,
+            "row": 71
+          },
+          {
+            "column": 14,
+            "row": 71
+          },
+          {
+            "column": 13,
+            "row": 71
+          },
+          {
+            "column": 12,
+            "row": 71
+          },
+          {
+            "column": 11,
+            "row": 71
+          },
+          {
+            "column": 10,
+            "row": 71
+          },
+          {
+            "column": 9,
+            "row": 71
+          },
+          {
+            "column": 8,
+            "row": 71
+          },
+          {
+            "column": 7,
+            "row": 71
+          },
+          {
+            "column": 6,
+            "row": 71
+          },
+          {
+            "column": 5,
+            "row": 71
+          },
+          {
+            "column": 4,
+            "row": 71
+          },
+          {
+            "column": 3,
+            "row": 71
+          },
+          {
+            "column": 2,
+            "row": 71
+          },
+          {
+            "column": 1,
+            "row": 71
+          },
+          {
+            "column": 1,
+            "row": 70
+          },
+          {
+            "column": 1,
+            "row": 69
+          },
+          {
+            "column": 1,
+            "row": 68
+          },
+          {
+            "column": 1,
+            "row": 67
+          },
+          {
+            "column": 1,
+            "row": 66
+          },
+          {
+            "column": 1,
+            "row": 65
+          },
+          {
+            "column": 1,
+            "row": 64
+          },
+          {
+            "column": 1,
+            "row": 63
+          },
+          {
+            "column": 1,
+            "row": 62
+          },
+          {
+            "column": 1,
+            "row": 61
+          },
+          {
+            "column": 1,
+            "row": 60
+          },
+          {
+            "column": 1,
+            "row": 59
+          },
+          {
+            "column": 1,
+            "row": 58
+          },
+          {
+            "column": 1,
+            "row": 57
+          },
+          {
+            "column": 1,
+            "row": 56
+          },
+          {
+            "column": 1,
+            "row": 55
+          },
+          {
+            "column": 1,
+            "row": 54
+          },
+          {
+            "column": 1,
+            "row": 53
+          },
+          {
+            "column": 1,
+            "row": 52
+          },
+          {
+            "column": 1,
+            "row": 51
+          },
+          {
+            "column": 1,
+            "row": 50
+          },
+          {
+            "column": 1,
+            "row": 49
+          },
+          {
+            "column": 1,
+            "row": 48
+          },
+          {
+            "column": 1,
+            "row": 47
+          },
+          {
+            "column": 1,
+            "row": 46
+          },
+          {
+            "column": 1,
+            "row": 45
+          },
+          {
+            "column": 1,
+            "row": 44
+          },
+          {
+            "column": 1,
+            "row": 43
+          },
+          {
+            "column": 1,
+            "row": 42
+          },
+          {
+            "column": 1,
+            "row": 41
+          },
+          {
+            "column": 1,
+            "row": 40
+          },
+          {
+            "column": 1,
+            "row": 39
+          },
+          {
+            "column": 1,
+            "row": 38
+          },
+          {
+            "column": 1,
+            "row": 37
+          },
+          {
+            "column": 1,
+            "row": 36
+          },
+          {
+            "column": 1,
+            "row": 35
+          },
+          {
+            "column": 1,
+            "row": 34
+          },
+          {
+            "column": 1,
+            "row": 33
+          },
+          {
+            "column": 1,
+            "row": 32
+          },
+          {
+            "column": 1,
+            "row": 31
+          },
+          {
+            "column": 1,
+            "row": 30
+          },
+          {
+            "column": 1,
+            "row": 29
+          },
+          {
+            "column": 1,
+            "row": 28
+          },
+          {
+            "column": 1,
+            "row": 27
+          },
+          {
+            "column": 1,
+            "row": 26
+          },
+          {
+            "column": 1,
+            "row": 25
+          },
+          {
+            "column": 1,
+            "row": 24
+          },
+          {
+            "column": 1,
+            "row": 23
+          },
+          {
+            "column": 1,
+            "row": 22
+          },
+          {
+            "column": 1,
+            "row": 21
+          },
+          {
+            "column": 1,
+            "row": 20
+          },
+          {
+            "column": 1,
+            "row": 19
+          },
+          {
+            "column": 1,
+            "row": 18
+          },
+          {
+            "column": 1,
+            "row": 17
+          },
+          {
+            "column": 1,
+            "row": 16
+          },
+          {
+            "column": 1,
+            "row": 15
+          },
+          {
+            "column": 1,
+            "row": 14
+          },
+          {
+            "column": 1,
+            "row": 13
+          },
+          {
+            "column": 1,
+            "row": 12
+          },
+          {
+            "column": 1,
+            "row": 11
+          },
+          {
+            "column": 1,
+            "row": 10
+          },
+          {
+            "column": 1,
+            "row": 9
+          },
+          {
+            "column": 1,
+            "row": 8
+          },
+          {
+            "column": 1,
+            "row": 7
+          },
+          {
+            "column": 1,
+            "row": 6
+          },
+          {
+            "column": 1,
+            "row": 5
+          },
+          {
+            "column": 1,
+            "row": 4
+          },
+          {
+            "column": 1,
+            "row": 3
+          },
+          {
+            "column": 1,
+            "row": 2
+          }
+        ],
+        "route": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87,
+          88,
+          89,
+          90,
+          91,
+          92,
+          93,
+          94,
+          95,
+          96,
+          97,
+          98,
+          99,
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          106,
+          107,
+          108,
+          109,
+          110,
+          111,
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134,
+          135,
+          136,
+          137,
+          138,
+          139,
+          140,
+          141,
+          142,
+          143,
+          144,
+          145,
+          146,
+          147,
+          148,
+          149,
+          150,
+          151,
+          152,
+          153,
+          154,
+          155,
+          156,
+          157,
+          158,
+          159,
+          160,
+          161,
+          162,
+          163,
+          164,
+          165,
+          166,
+          167,
+          168,
+          169,
+          170,
+          171,
+          172,
+          173,
+          174,
+          175,
+          176,
+          177,
+          178,
+          179,
+          180,
+          181,
+          182,
+          183,
+          184,
+          185,
+          186,
+          187,
+          188,
+          189,
+          190,
+          191,
+          192,
+          193,
+          194,
+          195,
+          196,
+          197,
+          198,
+          199,
+          200,
+          201,
+          202,
+          203,
+          204,
+          205,
+          206,
+          207,
+          208,
+          209,
+          210,
+          211,
+          212,
+          213,
+          214,
+          215,
+          216,
+          217,
+          218,
+          219,
+          220,
+          221,
+          222,
+          223,
+          224,
+          225,
+          226,
+          227,
+          228,
+          229,
+          230,
+          231,
+          232,
+          233,
+          234,
+          235,
+          236,
+          237,
+          238,
+          239,
+          240,
+          241,
+          242,
+          243,
+          244,
+          245,
+          246,
+          247,
+          248,
+          249,
+          250,
+          251,
+          252,
+          253,
+          254,
+          255,
+          256,
+          257,
+          258,
+          259,
+          260,
+          261,
+          262,
+          263,
+          264,
+          265,
+          266,
+          267,
+          268,
+          269,
+          270,
+          271,
+          272,
+          273,
+          274,
+          275,
+          276,
+          277,
+          278,
+          279,
+          280,
+          281,
+          282,
+          283,
+          284,
+          285,
+          286,
+          287,
+          288,
+          289,
+          290,
+          291,
+          292,
+          293,
+          294,
+          295,
+          296,
+          297,
+          298,
+          299,
+          300,
+          301,
+          302,
+          303,
+          304,
+          305,
+          306,
+          307,
+          308,
+          309,
+          310,
+          311,
+          312,
+          313,
+          314,
+          315,
+          316,
+          317,
+          318,
+          319,
+          320,
+          321,
+          322,
+          323,
+          324,
+          325,
+          326,
+          327,
+          328,
+          329,
+          330,
+          331,
+          332,
+          333,
+          334,
+          335,
+          336,
+          337,
+          338,
+          339,
+          340,
+          341,
+          342,
+          343,
+          344,
+          345,
+          346,
+          347,
+          348,
+          349,
+          350,
+          351,
+          352,
+          353,
+          354,
+          355,
+          356,
+          357,
+          358,
+          359
+        ]
+      },
+      "tiles": [
+        {
+          "id": 0,
+          "kind": "start",
+          "title": "群峰回廊起点"
+        },
+        {
+          "id": 1,
+          "kind": "property",
+          "title": "群峰回廊街区001",
+          "price": 110,
+          "rent": 22
+        },
+        {
+          "id": 2,
+          "kind": "property",
+          "title": "群峰回廊街区002",
+          "price": 120,
+          "rent": 24
+        },
+        {
+          "id": 3,
+          "kind": "neutral",
+          "title": "群峰回廊驿站003"
+        },
+        {
+          "id": 4,
+          "kind": "property",
+          "title": "群峰回廊街区004",
+          "price": 140,
+          "rent": 28
+        },
+        {
+          "id": 5,
+          "kind": "property",
+          "title": "群峰回廊街区005",
+          "price": 150,
+          "rent": 30
+        },
+        {
+          "id": 6,
+          "kind": "neutral",
+          "title": "群峰回廊驿站006"
+        },
+        {
+          "id": 7,
+          "kind": "property",
+          "title": "群峰回廊街区007",
+          "price": 170,
+          "rent": 34
+        },
+        {
+          "id": 8,
+          "kind": "property",
+          "title": "群峰回廊街区008",
+          "price": 180,
+          "rent": 36
+        },
+        {
+          "id": 9,
+          "kind": "neutral",
+          "title": "群峰回廊驿站009"
+        },
+        {
+          "id": 10,
+          "kind": "property",
+          "title": "群峰回廊街区010",
+          "price": 200,
+          "rent": 40
+        },
+        {
+          "id": 11,
+          "kind": "property",
+          "title": "群峰回廊街区011",
+          "price": 210,
+          "rent": 42
+        },
+        {
+          "id": 12,
+          "kind": "neutral",
+          "title": "群峰回廊驿站012"
+        },
+        {
+          "id": 13,
+          "kind": "property",
+          "title": "群峰回廊街区013",
+          "price": 230,
+          "rent": 46
+        },
+        {
+          "id": 14,
+          "kind": "property",
+          "title": "群峰回廊街区014",
+          "price": 240,
+          "rent": 48
+        },
+        {
+          "id": 15,
+          "kind": "neutral",
+          "title": "群峰回廊驿站015"
+        },
+        {
+          "id": 16,
+          "kind": "property",
+          "title": "群峰回廊街区016",
+          "price": 260,
+          "rent": 52
+        },
+        {
+          "id": 17,
+          "kind": "property",
+          "title": "群峰回廊街区017",
+          "price": 270,
+          "rent": 54
+        },
+        {
+          "id": 18,
+          "kind": "neutral",
+          "title": "群峰回廊驿站018"
+        },
+        {
+          "id": 19,
+          "kind": "property",
+          "title": "群峰回廊街区019",
+          "price": 290,
+          "rent": 58
+        },
+        {
+          "id": 20,
+          "kind": "property",
+          "title": "群峰回廊街区020",
+          "price": 300,
+          "rent": 60
+        },
+        {
+          "id": 21,
+          "kind": "neutral",
+          "title": "群峰回廊驿站021"
+        },
+        {
+          "id": 22,
+          "kind": "property",
+          "title": "群峰回廊街区022",
+          "price": 320,
+          "rent": 64
+        },
+        {
+          "id": 23,
+          "kind": "property",
+          "title": "群峰回廊街区023",
+          "price": 330,
+          "rent": 66
+        },
+        {
+          "id": 24,
+          "kind": "neutral",
+          "title": "群峰回廊驿站024"
+        },
+        {
+          "id": 25,
+          "kind": "property",
+          "title": "群峰回廊街区025",
+          "price": 110,
+          "rent": 22
+        },
+        {
+          "id": 26,
+          "kind": "property",
+          "title": "群峰回廊街区026",
+          "price": 120,
+          "rent": 24
+        },
+        {
+          "id": 27,
+          "kind": "neutral",
+          "title": "群峰回廊驿站027"
+        },
+        {
+          "id": 28,
+          "kind": "property",
+          "title": "群峰回廊街区028",
+          "price": 140,
+          "rent": 28
+        },
+        {
+          "id": 29,
+          "kind": "property",
+          "title": "群峰回廊街区029",
+          "price": 150,
+          "rent": 30
+        },
+        {
+          "id": 30,
+          "kind": "neutral",
+          "title": "群峰回廊驿站030"
+        },
+        {
+          "id": 31,
+          "kind": "property",
+          "title": "群峰回廊街区031",
+          "price": 170,
+          "rent": 34
+        },
+        {
+          "id": 32,
+          "kind": "property",
+          "title": "群峰回廊街区032",
+          "price": 180,
+          "rent": 36
+        },
+        {
+          "id": 33,
+          "kind": "neutral",
+          "title": "群峰回廊驿站033"
+        },
+        {
+          "id": 34,
+          "kind": "property",
+          "title": "群峰回廊街区034",
+          "price": 200,
+          "rent": 40
+        },
+        {
+          "id": 35,
+          "kind": "property",
+          "title": "群峰回廊街区035",
+          "price": 210,
+          "rent": 42
+        },
+        {
+          "id": 36,
+          "kind": "neutral",
+          "title": "群峰回廊驿站036"
+        },
+        {
+          "id": 37,
+          "kind": "property",
+          "title": "群峰回廊街区037",
+          "price": 230,
+          "rent": 46
+        },
+        {
+          "id": 38,
+          "kind": "property",
+          "title": "群峰回廊街区038",
+          "price": 240,
+          "rent": 48
+        },
+        {
+          "id": 39,
+          "kind": "neutral",
+          "title": "群峰回廊驿站039"
+        },
+        {
+          "id": 40,
+          "kind": "property",
+          "title": "群峰回廊街区040",
+          "price": 260,
+          "rent": 52
+        },
+        {
+          "id": 41,
+          "kind": "property",
+          "title": "群峰回廊街区041",
+          "price": 270,
+          "rent": 54
+        },
+        {
+          "id": 42,
+          "kind": "neutral",
+          "title": "群峰回廊驿站042"
+        },
+        {
+          "id": 43,
+          "kind": "property",
+          "title": "群峰回廊街区043",
+          "price": 290,
+          "rent": 58
+        },
+        {
+          "id": 44,
+          "kind": "property",
+          "title": "群峰回廊街区044",
+          "price": 300,
+          "rent": 60
+        },
+        {
+          "id": 45,
+          "kind": "neutral",
+          "title": "群峰回廊驿站045"
+        },
+        {
+          "id": 46,
+          "kind": "property",
+          "title": "群峰回廊街区046",
+          "price": 320,
+          "rent": 64
+        },
+        {
+          "id": 47,
+          "kind": "property",
+          "title": "群峰回廊街区047",
+          "price": 330,
+          "rent": 66
+        },
+        {
+          "id": 48,
+          "kind": "neutral",
+          "title": "群峰回廊驿站048"
+        },
+        {
+          "id": 49,
+          "kind": "property",
+          "title": "群峰回廊街区049",
+          "price": 110,
+          "rent": 22
+        },
+        {
+          "id": 50,
+          "kind": "property",
+          "title": "群峰回廊街区050",
+          "price": 120,
+          "rent": 24
+        },
+        {
+          "id": 51,
+          "kind": "neutral",
+          "title": "群峰回廊驿站051"
+        },
+        {
+          "id": 52,
+          "kind": "property",
+          "title": "群峰回廊街区052",
+          "price": 140,
+          "rent": 28
+        },
+        {
+          "id": 53,
+          "kind": "property",
+          "title": "群峰回廊街区053",
+          "price": 150,
+          "rent": 30
+        },
+        {
+          "id": 54,
+          "kind": "neutral",
+          "title": "群峰回廊驿站054"
+        },
+        {
+          "id": 55,
+          "kind": "property",
+          "title": "群峰回廊街区055",
+          "price": 170,
+          "rent": 34
+        },
+        {
+          "id": 56,
+          "kind": "property",
+          "title": "群峰回廊街区056",
+          "price": 180,
+          "rent": 36
+        },
+        {
+          "id": 57,
+          "kind": "neutral",
+          "title": "群峰回廊驿站057"
+        },
+        {
+          "id": 58,
+          "kind": "property",
+          "title": "群峰回廊街区058",
+          "price": 200,
+          "rent": 40
+        },
+        {
+          "id": 59,
+          "kind": "property",
+          "title": "群峰回廊街区059",
+          "price": 210,
+          "rent": 42
+        },
+        {
+          "id": 60,
+          "kind": "neutral",
+          "title": "群峰回廊驿站060"
+        },
+        {
+          "id": 61,
+          "kind": "property",
+          "title": "群峰回廊街区061",
+          "price": 230,
+          "rent": 46
+        },
+        {
+          "id": 62,
+          "kind": "property",
+          "title": "群峰回廊街区062",
+          "price": 240,
+          "rent": 48
+        },
+        {
+          "id": 63,
+          "kind": "neutral",
+          "title": "群峰回廊驿站063"
+        },
+        {
+          "id": 64,
+          "kind": "property",
+          "title": "群峰回廊街区064",
+          "price": 260,
+          "rent": 52
+        },
+        {
+          "id": 65,
+          "kind": "property",
+          "title": "群峰回廊街区065",
+          "price": 270,
+          "rent": 54
+        },
+        {
+          "id": 66,
+          "kind": "neutral",
+          "title": "群峰回廊驿站066"
+        },
+        {
+          "id": 67,
+          "kind": "property",
+          "title": "群峰回廊街区067",
+          "price": 290,
+          "rent": 58
+        },
+        {
+          "id": 68,
+          "kind": "property",
+          "title": "群峰回廊街区068",
+          "price": 300,
+          "rent": 60
+        },
+        {
+          "id": 69,
+          "kind": "neutral",
+          "title": "群峰回廊驿站069"
+        },
+        {
+          "id": 70,
+          "kind": "property",
+          "title": "群峰回廊街区070",
+          "price": 320,
+          "rent": 64
+        },
+        {
+          "id": 71,
+          "kind": "property",
+          "title": "群峰回廊街区071",
+          "price": 330,
+          "rent": 66
+        },
+        {
+          "id": 72,
+          "kind": "neutral",
+          "title": "群峰回廊驿站072"
+        },
+        {
+          "id": 73,
+          "kind": "property",
+          "title": "群峰回廊街区073",
+          "price": 110,
+          "rent": 22
+        },
+        {
+          "id": 74,
+          "kind": "property",
+          "title": "群峰回廊街区074",
+          "price": 120,
+          "rent": 24
+        },
+        {
+          "id": 75,
+          "kind": "neutral",
+          "title": "群峰回廊驿站075"
+        },
+        {
+          "id": 76,
+          "kind": "property",
+          "title": "群峰回廊街区076",
+          "price": 140,
+          "rent": 28
+        },
+        {
+          "id": 77,
+          "kind": "property",
+          "title": "群峰回廊街区077",
+          "price": 150,
+          "rent": 30
+        },
+        {
+          "id": 78,
+          "kind": "neutral",
+          "title": "群峰回廊驿站078"
+        },
+        {
+          "id": 79,
+          "kind": "property",
+          "title": "群峰回廊街区079",
+          "price": 170,
+          "rent": 34
+        },
+        {
+          "id": 80,
+          "kind": "property",
+          "title": "群峰回廊街区080",
+          "price": 180,
+          "rent": 36
+        },
+        {
+          "id": 81,
+          "kind": "neutral",
+          "title": "群峰回廊驿站081"
+        },
+        {
+          "id": 82,
+          "kind": "property",
+          "title": "群峰回廊街区082",
+          "price": 200,
+          "rent": 40
+        },
+        {
+          "id": 83,
+          "kind": "property",
+          "title": "群峰回廊街区083",
+          "price": 210,
+          "rent": 42
+        },
+        {
+          "id": 84,
+          "kind": "neutral",
+          "title": "群峰回廊驿站084"
+        },
+        {
+          "id": 85,
+          "kind": "property",
+          "title": "群峰回廊街区085",
+          "price": 230,
+          "rent": 46
+        },
+        {
+          "id": 86,
+          "kind": "property",
+          "title": "群峰回廊街区086",
+          "price": 240,
+          "rent": 48
+        },
+        {
+          "id": 87,
+          "kind": "neutral",
+          "title": "群峰回廊驿站087"
+        },
+        {
+          "id": 88,
+          "kind": "property",
+          "title": "群峰回廊街区088",
+          "price": 260,
+          "rent": 52
+        },
+        {
+          "id": 89,
+          "kind": "property",
+          "title": "群峰回廊街区089",
+          "price": 270,
+          "rent": 54
+        },
+        {
+          "id": 90,
+          "kind": "neutral",
+          "title": "群峰回廊驿站090"
+        },
+        {
+          "id": 91,
+          "kind": "property",
+          "title": "群峰回廊街区091",
+          "price": 290,
+          "rent": 58
+        },
+        {
+          "id": 92,
+          "kind": "property",
+          "title": "群峰回廊街区092",
+          "price": 300,
+          "rent": 60
+        },
+        {
+          "id": 93,
+          "kind": "neutral",
+          "title": "群峰回廊驿站093"
+        },
+        {
+          "id": 94,
+          "kind": "property",
+          "title": "群峰回廊街区094",
+          "price": 320,
+          "rent": 64
+        },
+        {
+          "id": 95,
+          "kind": "property",
+          "title": "群峰回廊街区095",
+          "price": 330,
+          "rent": 66
+        },
+        {
+          "id": 96,
+          "kind": "neutral",
+          "title": "群峰回廊驿站096"
+        },
+        {
+          "id": 97,
+          "kind": "property",
+          "title": "群峰回廊街区097",
+          "price": 110,
+          "rent": 22
+        },
+        {
+          "id": 98,
+          "kind": "property",
+          "title": "群峰回廊街区098",
+          "price": 120,
+          "rent": 24
+        },
+        {
+          "id": 99,
+          "kind": "neutral",
+          "title": "群峰回廊驿站099"
+        },
+        {
+          "id": 100,
+          "kind": "property",
+          "title": "群峰回廊街区100",
+          "price": 140,
+          "rent": 28
+        },
+        {
+          "id": 101,
+          "kind": "property",
+          "title": "群峰回廊街区101",
+          "price": 150,
+          "rent": 30
+        },
+        {
+          "id": 102,
+          "kind": "neutral",
+          "title": "群峰回廊驿站102"
+        },
+        {
+          "id": 103,
+          "kind": "property",
+          "title": "群峰回廊街区103",
+          "price": 170,
+          "rent": 34
+        },
+        {
+          "id": 104,
+          "kind": "property",
+          "title": "群峰回廊街区104",
+          "price": 180,
+          "rent": 36
+        },
+        {
+          "id": 105,
+          "kind": "neutral",
+          "title": "群峰回廊驿站105"
+        },
+        {
+          "id": 106,
+          "kind": "property",
+          "title": "群峰回廊街区106",
+          "price": 200,
+          "rent": 40
+        },
+        {
+          "id": 107,
+          "kind": "property",
+          "title": "群峰回廊街区107",
+          "price": 210,
+          "rent": 42
+        },
+        {
+          "id": 108,
+          "kind": "neutral",
+          "title": "群峰回廊驿站108"
+        },
+        {
+          "id": 109,
+          "kind": "property",
+          "title": "群峰回廊街区109",
+          "price": 230,
+          "rent": 46
+        },
+        {
+          "id": 110,
+          "kind": "property",
+          "title": "群峰回廊街区110",
+          "price": 240,
+          "rent": 48
+        },
+        {
+          "id": 111,
+          "kind": "neutral",
+          "title": "群峰回廊驿站111"
+        },
+        {
+          "id": 112,
+          "kind": "property",
+          "title": "群峰回廊街区112",
+          "price": 260,
+          "rent": 52
+        },
+        {
+          "id": 113,
+          "kind": "property",
+          "title": "群峰回廊街区113",
+          "price": 270,
+          "rent": 54
+        },
+        {
+          "id": 114,
+          "kind": "neutral",
+          "title": "群峰回廊驿站114"
+        },
+        {
+          "id": 115,
+          "kind": "property",
+          "title": "群峰回廊街区115",
+          "price": 290,
+          "rent": 58
+        },
+        {
+          "id": 116,
+          "kind": "property",
+          "title": "群峰回廊街区116",
+          "price": 300,
+          "rent": 60
+        },
+        {
+          "id": 117,
+          "kind": "neutral",
+          "title": "群峰回廊驿站117"
+        },
+        {
+          "id": 118,
+          "kind": "property",
+          "title": "群峰回廊街区118",
+          "price": 320,
+          "rent": 64
+        },
+        {
+          "id": 119,
+          "kind": "property",
+          "title": "群峰回廊街区119",
+          "price": 330,
+          "rent": 66
+        },
+        {
+          "id": 120,
+          "kind": "neutral",
+          "title": "群峰回廊驿站120"
+        },
+        {
+          "id": 121,
+          "kind": "property",
+          "title": "群峰回廊街区121",
+          "price": 110,
+          "rent": 22
+        },
+        {
+          "id": 122,
+          "kind": "property",
+          "title": "群峰回廊街区122",
+          "price": 120,
+          "rent": 24
+        },
+        {
+          "id": 123,
+          "kind": "neutral",
+          "title": "群峰回廊驿站123"
+        },
+        {
+          "id": 124,
+          "kind": "property",
+          "title": "群峰回廊街区124",
+          "price": 140,
+          "rent": 28
+        },
+        {
+          "id": 125,
+          "kind": "property",
+          "title": "群峰回廊街区125",
+          "price": 150,
+          "rent": 30
+        },
+        {
+          "id": 126,
+          "kind": "neutral",
+          "title": "群峰回廊驿站126"
+        },
+        {
+          "id": 127,
+          "kind": "property",
+          "title": "群峰回廊街区127",
+          "price": 170,
+          "rent": 34
+        },
+        {
+          "id": 128,
+          "kind": "property",
+          "title": "群峰回廊街区128",
+          "price": 180,
+          "rent": 36
+        },
+        {
+          "id": 129,
+          "kind": "neutral",
+          "title": "群峰回廊驿站129"
+        },
+        {
+          "id": 130,
+          "kind": "property",
+          "title": "群峰回廊街区130",
+          "price": 200,
+          "rent": 40
+        },
+        {
+          "id": 131,
+          "kind": "property",
+          "title": "群峰回廊街区131",
+          "price": 210,
+          "rent": 42
+        },
+        {
+          "id": 132,
+          "kind": "neutral",
+          "title": "群峰回廊驿站132"
+        },
+        {
+          "id": 133,
+          "kind": "property",
+          "title": "群峰回廊街区133",
+          "price": 230,
+          "rent": 46
+        },
+        {
+          "id": 134,
+          "kind": "property",
+          "title": "群峰回廊街区134",
+          "price": 240,
+          "rent": 48
+        },
+        {
+          "id": 135,
+          "kind": "neutral",
+          "title": "群峰回廊驿站135"
+        },
+        {
+          "id": 136,
+          "kind": "property",
+          "title": "群峰回廊街区136",
+          "price": 260,
+          "rent": 52
+        },
+        {
+          "id": 137,
+          "kind": "property",
+          "title": "群峰回廊街区137",
+          "price": 270,
+          "rent": 54
+        },
+        {
+          "id": 138,
+          "kind": "neutral",
+          "title": "群峰回廊驿站138"
+        },
+        {
+          "id": 139,
+          "kind": "property",
+          "title": "群峰回廊街区139",
+          "price": 290,
+          "rent": 58
+        },
+        {
+          "id": 140,
+          "kind": "property",
+          "title": "群峰回廊街区140",
+          "price": 300,
+          "rent": 60
+        },
+        {
+          "id": 141,
+          "kind": "neutral",
+          "title": "群峰回廊驿站141"
+        },
+        {
+          "id": 142,
+          "kind": "property",
+          "title": "群峰回廊街区142",
+          "price": 320,
+          "rent": 64
+        },
+        {
+          "id": 143,
+          "kind": "property",
+          "title": "群峰回廊街区143",
+          "price": 330,
+          "rent": 66
+        },
+        {
+          "id": 144,
+          "kind": "neutral",
+          "title": "群峰回廊驿站144"
+        },
+        {
+          "id": 145,
+          "kind": "property",
+          "title": "群峰回廊街区145",
+          "price": 110,
+          "rent": 22
+        },
+        {
+          "id": 146,
+          "kind": "property",
+          "title": "群峰回廊街区146",
+          "price": 120,
+          "rent": 24
+        },
+        {
+          "id": 147,
+          "kind": "neutral",
+          "title": "群峰回廊驿站147"
+        },
+        {
+          "id": 148,
+          "kind": "property",
+          "title": "群峰回廊街区148",
+          "price": 140,
+          "rent": 28
+        },
+        {
+          "id": 149,
+          "kind": "property",
+          "title": "群峰回廊街区149",
+          "price": 150,
+          "rent": 30
+        },
+        {
+          "id": 150,
+          "kind": "neutral",
+          "title": "群峰回廊驿站150"
+        },
+        {
+          "id": 151,
+          "kind": "property",
+          "title": "群峰回廊街区151",
+          "price": 170,
+          "rent": 34
+        },
+        {
+          "id": 152,
+          "kind": "property",
+          "title": "群峰回廊街区152",
+          "price": 180,
+          "rent": 36
+        },
+        {
+          "id": 153,
+          "kind": "neutral",
+          "title": "群峰回廊驿站153"
+        },
+        {
+          "id": 154,
+          "kind": "property",
+          "title": "群峰回廊街区154",
+          "price": 200,
+          "rent": 40
+        },
+        {
+          "id": 155,
+          "kind": "property",
+          "title": "群峰回廊街区155",
+          "price": 210,
+          "rent": 42
+        },
+        {
+          "id": 156,
+          "kind": "neutral",
+          "title": "群峰回廊驿站156"
+        },
+        {
+          "id": 157,
+          "kind": "property",
+          "title": "群峰回廊街区157",
+          "price": 230,
+          "rent": 46
+        },
+        {
+          "id": 158,
+          "kind": "property",
+          "title": "群峰回廊街区158",
+          "price": 240,
+          "rent": 48
+        },
+        {
+          "id": 159,
+          "kind": "neutral",
+          "title": "群峰回廊驿站159"
+        },
+        {
+          "id": 160,
+          "kind": "property",
+          "title": "群峰回廊街区160",
+          "price": 260,
+          "rent": 52
+        },
+        {
+          "id": 161,
+          "kind": "property",
+          "title": "群峰回廊街区161",
+          "price": 270,
+          "rent": 54
+        },
+        {
+          "id": 162,
+          "kind": "neutral",
+          "title": "群峰回廊驿站162"
+        },
+        {
+          "id": 163,
+          "kind": "property",
+          "title": "群峰回廊街区163",
+          "price": 290,
+          "rent": 58
+        },
+        {
+          "id": 164,
+          "kind": "property",
+          "title": "群峰回廊街区164",
+          "price": 300,
+          "rent": 60
+        },
+        {
+          "id": 165,
+          "kind": "neutral",
+          "title": "群峰回廊驿站165"
+        },
+        {
+          "id": 166,
+          "kind": "property",
+          "title": "群峰回廊街区166",
+          "price": 320,
+          "rent": 64
+        },
+        {
+          "id": 167,
+          "kind": "property",
+          "title": "群峰回廊街区167",
+          "price": 330,
+          "rent": 66
+        },
+        {
+          "id": 168,
+          "kind": "neutral",
+          "title": "群峰回廊驿站168"
+        },
+        {
+          "id": 169,
+          "kind": "property",
+          "title": "群峰回廊街区169",
+          "price": 110,
+          "rent": 22
+        },
+        {
+          "id": 170,
+          "kind": "property",
+          "title": "群峰回廊街区170",
+          "price": 120,
+          "rent": 24
+        },
+        {
+          "id": 171,
+          "kind": "neutral",
+          "title": "群峰回廊驿站171"
+        },
+        {
+          "id": 172,
+          "kind": "property",
+          "title": "群峰回廊街区172",
+          "price": 140,
+          "rent": 28
+        },
+        {
+          "id": 173,
+          "kind": "property",
+          "title": "群峰回廊街区173",
+          "price": 150,
+          "rent": 30
+        },
+        {
+          "id": 174,
+          "kind": "neutral",
+          "title": "群峰回廊驿站174"
+        },
+        {
+          "id": 175,
+          "kind": "property",
+          "title": "群峰回廊街区175",
+          "price": 170,
+          "rent": 34
+        },
+        {
+          "id": 176,
+          "kind": "property",
+          "title": "群峰回廊街区176",
+          "price": 180,
+          "rent": 36
+        },
+        {
+          "id": 177,
+          "kind": "neutral",
+          "title": "群峰回廊驿站177"
+        },
+        {
+          "id": 178,
+          "kind": "property",
+          "title": "群峰回廊街区178",
+          "price": 200,
+          "rent": 40
+        },
+        {
+          "id": 179,
+          "kind": "property",
+          "title": "群峰回廊街区179",
+          "price": 210,
+          "rent": 42
+        },
+        {
+          "id": 180,
+          "kind": "neutral",
+          "title": "群峰回廊驿站180"
+        },
+        {
+          "id": 181,
+          "kind": "property",
+          "title": "群峰回廊街区181",
+          "price": 230,
+          "rent": 46
+        },
+        {
+          "id": 182,
+          "kind": "property",
+          "title": "群峰回廊街区182",
+          "price": 240,
+          "rent": 48
+        },
+        {
+          "id": 183,
+          "kind": "neutral",
+          "title": "群峰回廊驿站183"
+        },
+        {
+          "id": 184,
+          "kind": "property",
+          "title": "群峰回廊街区184",
+          "price": 260,
+          "rent": 52
+        },
+        {
+          "id": 185,
+          "kind": "property",
+          "title": "群峰回廊街区185",
+          "price": 270,
+          "rent": 54
+        },
+        {
+          "id": 186,
+          "kind": "neutral",
+          "title": "群峰回廊驿站186"
+        },
+        {
+          "id": 187,
+          "kind": "property",
+          "title": "群峰回廊街区187",
+          "price": 290,
+          "rent": 58
+        },
+        {
+          "id": 188,
+          "kind": "property",
+          "title": "群峰回廊街区188",
+          "price": 300,
+          "rent": 60
+        },
+        {
+          "id": 189,
+          "kind": "neutral",
+          "title": "群峰回廊驿站189"
+        },
+        {
+          "id": 190,
+          "kind": "property",
+          "title": "群峰回廊街区190",
+          "price": 320,
+          "rent": 64
+        },
+        {
+          "id": 191,
+          "kind": "property",
+          "title": "群峰回廊街区191",
+          "price": 330,
+          "rent": 66
+        },
+        {
+          "id": 192,
+          "kind": "neutral",
+          "title": "群峰回廊驿站192"
+        },
+        {
+          "id": 193,
+          "kind": "property",
+          "title": "群峰回廊街区193",
+          "price": 110,
+          "rent": 22
+        },
+        {
+          "id": 194,
+          "kind": "property",
+          "title": "群峰回廊街区194",
+          "price": 120,
+          "rent": 24
+        },
+        {
+          "id": 195,
+          "kind": "neutral",
+          "title": "群峰回廊驿站195"
+        },
+        {
+          "id": 196,
+          "kind": "property",
+          "title": "群峰回廊街区196",
+          "price": 140,
+          "rent": 28
+        },
+        {
+          "id": 197,
+          "kind": "property",
+          "title": "群峰回廊街区197",
+          "price": 150,
+          "rent": 30
+        },
+        {
+          "id": 198,
+          "kind": "neutral",
+          "title": "群峰回廊驿站198"
+        },
+        {
+          "id": 199,
+          "kind": "property",
+          "title": "群峰回廊街区199",
+          "price": 170,
+          "rent": 34
+        },
+        {
+          "id": 200,
+          "kind": "property",
+          "title": "群峰回廊街区200",
+          "price": 180,
+          "rent": 36
+        },
+        {
+          "id": 201,
+          "kind": "neutral",
+          "title": "群峰回廊驿站201"
+        },
+        {
+          "id": 202,
+          "kind": "property",
+          "title": "群峰回廊街区202",
+          "price": 200,
+          "rent": 40
+        },
+        {
+          "id": 203,
+          "kind": "property",
+          "title": "群峰回廊街区203",
+          "price": 210,
+          "rent": 42
+        },
+        {
+          "id": 204,
+          "kind": "neutral",
+          "title": "群峰回廊驿站204"
+        },
+        {
+          "id": 205,
+          "kind": "property",
+          "title": "群峰回廊街区205",
+          "price": 230,
+          "rent": 46
+        },
+        {
+          "id": 206,
+          "kind": "property",
+          "title": "群峰回廊街区206",
+          "price": 240,
+          "rent": 48
+        },
+        {
+          "id": 207,
+          "kind": "neutral",
+          "title": "群峰回廊驿站207"
+        },
+        {
+          "id": 208,
+          "kind": "property",
+          "title": "群峰回廊街区208",
+          "price": 260,
+          "rent": 52
+        },
+        {
+          "id": 209,
+          "kind": "property",
+          "title": "群峰回廊街区209",
+          "price": 270,
+          "rent": 54
+        },
+        {
+          "id": 210,
+          "kind": "neutral",
+          "title": "群峰回廊驿站210"
+        },
+        {
+          "id": 211,
+          "kind": "property",
+          "title": "群峰回廊街区211",
+          "price": 290,
+          "rent": 58
+        },
+        {
+          "id": 212,
+          "kind": "property",
+          "title": "群峰回廊街区212",
+          "price": 300,
+          "rent": 60
+        },
+        {
+          "id": 213,
+          "kind": "neutral",
+          "title": "群峰回廊驿站213"
+        },
+        {
+          "id": 214,
+          "kind": "property",
+          "title": "群峰回廊街区214",
+          "price": 320,
+          "rent": 64
+        },
+        {
+          "id": 215,
+          "kind": "property",
+          "title": "群峰回廊街区215",
+          "price": 330,
+          "rent": 66
+        },
+        {
+          "id": 216,
+          "kind": "neutral",
+          "title": "群峰回廊驿站216"
+        },
+        {
+          "id": 217,
+          "kind": "property",
+          "title": "群峰回廊街区217",
+          "price": 110,
+          "rent": 22
+        },
+        {
+          "id": 218,
+          "kind": "property",
+          "title": "群峰回廊街区218",
+          "price": 120,
+          "rent": 24
+        },
+        {
+          "id": 219,
+          "kind": "neutral",
+          "title": "群峰回廊驿站219"
+        },
+        {
+          "id": 220,
+          "kind": "property",
+          "title": "群峰回廊街区220",
+          "price": 140,
+          "rent": 28
+        },
+        {
+          "id": 221,
+          "kind": "property",
+          "title": "群峰回廊街区221",
+          "price": 150,
+          "rent": 30
+        },
+        {
+          "id": 222,
+          "kind": "neutral",
+          "title": "群峰回廊驿站222"
+        },
+        {
+          "id": 223,
+          "kind": "property",
+          "title": "群峰回廊街区223",
+          "price": 170,
+          "rent": 34
+        },
+        {
+          "id": 224,
+          "kind": "property",
+          "title": "群峰回廊街区224",
+          "price": 180,
+          "rent": 36
+        },
+        {
+          "id": 225,
+          "kind": "neutral",
+          "title": "群峰回廊驿站225"
+        },
+        {
+          "id": 226,
+          "kind": "property",
+          "title": "群峰回廊街区226",
+          "price": 200,
+          "rent": 40
+        },
+        {
+          "id": 227,
+          "kind": "property",
+          "title": "群峰回廊街区227",
+          "price": 210,
+          "rent": 42
+        },
+        {
+          "id": 228,
+          "kind": "neutral",
+          "title": "群峰回廊驿站228"
+        },
+        {
+          "id": 229,
+          "kind": "property",
+          "title": "群峰回廊街区229",
+          "price": 230,
+          "rent": 46
+        },
+        {
+          "id": 230,
+          "kind": "property",
+          "title": "群峰回廊街区230",
+          "price": 240,
+          "rent": 48
+        },
+        {
+          "id": 231,
+          "kind": "neutral",
+          "title": "群峰回廊驿站231"
+        },
+        {
+          "id": 232,
+          "kind": "property",
+          "title": "群峰回廊街区232",
+          "price": 260,
+          "rent": 52
+        },
+        {
+          "id": 233,
+          "kind": "property",
+          "title": "群峰回廊街区233",
+          "price": 270,
+          "rent": 54
+        },
+        {
+          "id": 234,
+          "kind": "neutral",
+          "title": "群峰回廊驿站234"
+        },
+        {
+          "id": 235,
+          "kind": "property",
+          "title": "群峰回廊街区235",
+          "price": 290,
+          "rent": 58
+        },
+        {
+          "id": 236,
+          "kind": "property",
+          "title": "群峰回廊街区236",
+          "price": 300,
+          "rent": 60
+        },
+        {
+          "id": 237,
+          "kind": "neutral",
+          "title": "群峰回廊驿站237"
+        },
+        {
+          "id": 238,
+          "kind": "property",
+          "title": "群峰回廊街区238",
+          "price": 320,
+          "rent": 64
+        },
+        {
+          "id": 239,
+          "kind": "property",
+          "title": "群峰回廊街区239",
+          "price": 330,
+          "rent": 66
+        },
+        {
+          "id": 240,
+          "kind": "neutral",
+          "title": "群峰回廊驿站240"
+        },
+        {
+          "id": 241,
+          "kind": "property",
+          "title": "群峰回廊街区241",
+          "price": 110,
+          "rent": 22
+        },
+        {
+          "id": 242,
+          "kind": "property",
+          "title": "群峰回廊街区242",
+          "price": 120,
+          "rent": 24
+        },
+        {
+          "id": 243,
+          "kind": "neutral",
+          "title": "群峰回廊驿站243"
+        },
+        {
+          "id": 244,
+          "kind": "property",
+          "title": "群峰回廊街区244",
+          "price": 140,
+          "rent": 28
+        },
+        {
+          "id": 245,
+          "kind": "property",
+          "title": "群峰回廊街区245",
+          "price": 150,
+          "rent": 30
+        },
+        {
+          "id": 246,
+          "kind": "neutral",
+          "title": "群峰回廊驿站246"
+        },
+        {
+          "id": 247,
+          "kind": "property",
+          "title": "群峰回廊街区247",
+          "price": 170,
+          "rent": 34
+        },
+        {
+          "id": 248,
+          "kind": "property",
+          "title": "群峰回廊街区248",
+          "price": 180,
+          "rent": 36
+        },
+        {
+          "id": 249,
+          "kind": "neutral",
+          "title": "群峰回廊驿站249"
+        },
+        {
+          "id": 250,
+          "kind": "property",
+          "title": "群峰回廊街区250",
+          "price": 200,
+          "rent": 40
+        },
+        {
+          "id": 251,
+          "kind": "property",
+          "title": "群峰回廊街区251",
+          "price": 210,
+          "rent": 42
+        },
+        {
+          "id": 252,
+          "kind": "neutral",
+          "title": "群峰回廊驿站252"
+        },
+        {
+          "id": 253,
+          "kind": "property",
+          "title": "群峰回廊街区253",
+          "price": 230,
+          "rent": 46
+        },
+        {
+          "id": 254,
+          "kind": "property",
+          "title": "群峰回廊街区254",
+          "price": 240,
+          "rent": 48
+        },
+        {
+          "id": 255,
+          "kind": "neutral",
+          "title": "群峰回廊驿站255"
+        },
+        {
+          "id": 256,
+          "kind": "property",
+          "title": "群峰回廊街区256",
+          "price": 260,
+          "rent": 52
+        },
+        {
+          "id": 257,
+          "kind": "property",
+          "title": "群峰回廊街区257",
+          "price": 270,
+          "rent": 54
+        },
+        {
+          "id": 258,
+          "kind": "neutral",
+          "title": "群峰回廊驿站258"
+        },
+        {
+          "id": 259,
+          "kind": "property",
+          "title": "群峰回廊街区259",
+          "price": 290,
+          "rent": 58
+        },
+        {
+          "id": 260,
+          "kind": "property",
+          "title": "群峰回廊街区260",
+          "price": 300,
+          "rent": 60
+        },
+        {
+          "id": 261,
+          "kind": "neutral",
+          "title": "群峰回廊驿站261"
+        },
+        {
+          "id": 262,
+          "kind": "property",
+          "title": "群峰回廊街区262",
+          "price": 320,
+          "rent": 64
+        },
+        {
+          "id": 263,
+          "kind": "property",
+          "title": "群峰回廊街区263",
+          "price": 330,
+          "rent": 66
+        },
+        {
+          "id": 264,
+          "kind": "neutral",
+          "title": "群峰回廊驿站264"
+        },
+        {
+          "id": 265,
+          "kind": "property",
+          "title": "群峰回廊街区265",
+          "price": 110,
+          "rent": 22
+        },
+        {
+          "id": 266,
+          "kind": "property",
+          "title": "群峰回廊街区266",
+          "price": 120,
+          "rent": 24
+        },
+        {
+          "id": 267,
+          "kind": "neutral",
+          "title": "群峰回廊驿站267"
+        },
+        {
+          "id": 268,
+          "kind": "property",
+          "title": "群峰回廊街区268",
+          "price": 140,
+          "rent": 28
+        },
+        {
+          "id": 269,
+          "kind": "property",
+          "title": "群峰回廊街区269",
+          "price": 150,
+          "rent": 30
+        },
+        {
+          "id": 270,
+          "kind": "neutral",
+          "title": "群峰回廊驿站270"
+        },
+        {
+          "id": 271,
+          "kind": "property",
+          "title": "群峰回廊街区271",
+          "price": 170,
+          "rent": 34
+        },
+        {
+          "id": 272,
+          "kind": "property",
+          "title": "群峰回廊街区272",
+          "price": 180,
+          "rent": 36
+        },
+        {
+          "id": 273,
+          "kind": "neutral",
+          "title": "群峰回廊驿站273"
+        },
+        {
+          "id": 274,
+          "kind": "property",
+          "title": "群峰回廊街区274",
+          "price": 200,
+          "rent": 40
+        },
+        {
+          "id": 275,
+          "kind": "property",
+          "title": "群峰回廊街区275",
+          "price": 210,
+          "rent": 42
+        },
+        {
+          "id": 276,
+          "kind": "neutral",
+          "title": "群峰回廊驿站276"
+        },
+        {
+          "id": 277,
+          "kind": "property",
+          "title": "群峰回廊街区277",
+          "price": 230,
+          "rent": 46
+        },
+        {
+          "id": 278,
+          "kind": "property",
+          "title": "群峰回廊街区278",
+          "price": 240,
+          "rent": 48
+        },
+        {
+          "id": 279,
+          "kind": "neutral",
+          "title": "群峰回廊驿站279"
+        },
+        {
+          "id": 280,
+          "kind": "property",
+          "title": "群峰回廊街区280",
+          "price": 260,
+          "rent": 52
+        },
+        {
+          "id": 281,
+          "kind": "property",
+          "title": "群峰回廊街区281",
+          "price": 270,
+          "rent": 54
+        },
+        {
+          "id": 282,
+          "kind": "neutral",
+          "title": "群峰回廊驿站282"
+        },
+        {
+          "id": 283,
+          "kind": "property",
+          "title": "群峰回廊街区283",
+          "price": 290,
+          "rent": 58
+        },
+        {
+          "id": 284,
+          "kind": "property",
+          "title": "群峰回廊街区284",
+          "price": 300,
+          "rent": 60
+        },
+        {
+          "id": 285,
+          "kind": "neutral",
+          "title": "群峰回廊驿站285"
+        },
+        {
+          "id": 286,
+          "kind": "property",
+          "title": "群峰回廊街区286",
+          "price": 320,
+          "rent": 64
+        },
+        {
+          "id": 287,
+          "kind": "property",
+          "title": "群峰回廊街区287",
+          "price": 330,
+          "rent": 66
+        },
+        {
+          "id": 288,
+          "kind": "neutral",
+          "title": "群峰回廊驿站288"
+        },
+        {
+          "id": 289,
+          "kind": "property",
+          "title": "群峰回廊街区289",
+          "price": 110,
+          "rent": 22
+        },
+        {
+          "id": 290,
+          "kind": "property",
+          "title": "群峰回廊街区290",
+          "price": 120,
+          "rent": 24
+        },
+        {
+          "id": 291,
+          "kind": "neutral",
+          "title": "群峰回廊驿站291"
+        },
+        {
+          "id": 292,
+          "kind": "property",
+          "title": "群峰回廊街区292",
+          "price": 140,
+          "rent": 28
+        },
+        {
+          "id": 293,
+          "kind": "property",
+          "title": "群峰回廊街区293",
+          "price": 150,
+          "rent": 30
+        },
+        {
+          "id": 294,
+          "kind": "neutral",
+          "title": "群峰回廊驿站294"
+        },
+        {
+          "id": 295,
+          "kind": "property",
+          "title": "群峰回廊街区295",
+          "price": 170,
+          "rent": 34
+        },
+        {
+          "id": 296,
+          "kind": "property",
+          "title": "群峰回廊街区296",
+          "price": 180,
+          "rent": 36
+        },
+        {
+          "id": 297,
+          "kind": "neutral",
+          "title": "群峰回廊驿站297"
+        },
+        {
+          "id": 298,
+          "kind": "property",
+          "title": "群峰回廊街区298",
+          "price": 200,
+          "rent": 40
+        },
+        {
+          "id": 299,
+          "kind": "property",
+          "title": "群峰回廊街区299",
+          "price": 210,
+          "rent": 42
+        },
+        {
+          "id": 300,
+          "kind": "neutral",
+          "title": "群峰回廊驿站300"
+        },
+        {
+          "id": 301,
+          "kind": "property",
+          "title": "群峰回廊街区301",
+          "price": 230,
+          "rent": 46
+        },
+        {
+          "id": 302,
+          "kind": "property",
+          "title": "群峰回廊街区302",
+          "price": 240,
+          "rent": 48
+        },
+        {
+          "id": 303,
+          "kind": "neutral",
+          "title": "群峰回廊驿站303"
+        },
+        {
+          "id": 304,
+          "kind": "property",
+          "title": "群峰回廊街区304",
+          "price": 260,
+          "rent": 52
+        },
+        {
+          "id": 305,
+          "kind": "property",
+          "title": "群峰回廊街区305",
+          "price": 270,
+          "rent": 54
+        },
+        {
+          "id": 306,
+          "kind": "neutral",
+          "title": "群峰回廊驿站306"
+        },
+        {
+          "id": 307,
+          "kind": "property",
+          "title": "群峰回廊街区307",
+          "price": 290,
+          "rent": 58
+        },
+        {
+          "id": 308,
+          "kind": "property",
+          "title": "群峰回廊街区308",
+          "price": 300,
+          "rent": 60
+        },
+        {
+          "id": 309,
+          "kind": "neutral",
+          "title": "群峰回廊驿站309"
+        },
+        {
+          "id": 310,
+          "kind": "property",
+          "title": "群峰回廊街区310",
+          "price": 320,
+          "rent": 64
+        },
+        {
+          "id": 311,
+          "kind": "property",
+          "title": "群峰回廊街区311",
+          "price": 330,
+          "rent": 66
+        },
+        {
+          "id": 312,
+          "kind": "neutral",
+          "title": "群峰回廊驿站312"
+        },
+        {
+          "id": 313,
+          "kind": "property",
+          "title": "群峰回廊街区313",
+          "price": 110,
+          "rent": 22
+        },
+        {
+          "id": 314,
+          "kind": "property",
+          "title": "群峰回廊街区314",
+          "price": 120,
+          "rent": 24
+        },
+        {
+          "id": 315,
+          "kind": "neutral",
+          "title": "群峰回廊驿站315"
+        },
+        {
+          "id": 316,
+          "kind": "property",
+          "title": "群峰回廊街区316",
+          "price": 140,
+          "rent": 28
+        },
+        {
+          "id": 317,
+          "kind": "property",
+          "title": "群峰回廊街区317",
+          "price": 150,
+          "rent": 30
+        },
+        {
+          "id": 318,
+          "kind": "neutral",
+          "title": "群峰回廊驿站318"
+        },
+        {
+          "id": 319,
+          "kind": "property",
+          "title": "群峰回廊街区319",
+          "price": 170,
+          "rent": 34
+        },
+        {
+          "id": 320,
+          "kind": "property",
+          "title": "群峰回廊街区320",
+          "price": 180,
+          "rent": 36
+        },
+        {
+          "id": 321,
+          "kind": "neutral",
+          "title": "群峰回廊驿站321"
+        },
+        {
+          "id": 322,
+          "kind": "property",
+          "title": "群峰回廊街区322",
+          "price": 200,
+          "rent": 40
+        },
+        {
+          "id": 323,
+          "kind": "property",
+          "title": "群峰回廊街区323",
+          "price": 210,
+          "rent": 42
+        },
+        {
+          "id": 324,
+          "kind": "neutral",
+          "title": "群峰回廊驿站324"
+        },
+        {
+          "id": 325,
+          "kind": "property",
+          "title": "群峰回廊街区325",
+          "price": 230,
+          "rent": 46
+        },
+        {
+          "id": 326,
+          "kind": "property",
+          "title": "群峰回廊街区326",
+          "price": 240,
+          "rent": 48
+        },
+        {
+          "id": 327,
+          "kind": "neutral",
+          "title": "群峰回廊驿站327"
+        },
+        {
+          "id": 328,
+          "kind": "property",
+          "title": "群峰回廊街区328",
+          "price": 260,
+          "rent": 52
+        },
+        {
+          "id": 329,
+          "kind": "property",
+          "title": "群峰回廊街区329",
+          "price": 270,
+          "rent": 54
+        },
+        {
+          "id": 330,
+          "kind": "neutral",
+          "title": "群峰回廊驿站330"
+        },
+        {
+          "id": 331,
+          "kind": "property",
+          "title": "群峰回廊街区331",
+          "price": 290,
+          "rent": 58
+        },
+        {
+          "id": 332,
+          "kind": "property",
+          "title": "群峰回廊街区332",
+          "price": 300,
+          "rent": 60
+        },
+        {
+          "id": 333,
+          "kind": "neutral",
+          "title": "群峰回廊驿站333"
+        },
+        {
+          "id": 334,
+          "kind": "property",
+          "title": "群峰回廊街区334",
+          "price": 320,
+          "rent": 64
+        },
+        {
+          "id": 335,
+          "kind": "property",
+          "title": "群峰回廊街区335",
+          "price": 330,
+          "rent": 66
+        },
+        {
+          "id": 336,
+          "kind": "neutral",
+          "title": "群峰回廊驿站336"
+        },
+        {
+          "id": 337,
+          "kind": "property",
+          "title": "群峰回廊街区337",
+          "price": 110,
+          "rent": 22
+        },
+        {
+          "id": 338,
+          "kind": "property",
+          "title": "群峰回廊街区338",
+          "price": 120,
+          "rent": 24
+        },
+        {
+          "id": 339,
+          "kind": "neutral",
+          "title": "群峰回廊驿站339"
+        },
+        {
+          "id": 340,
+          "kind": "property",
+          "title": "群峰回廊街区340",
+          "price": 140,
+          "rent": 28
+        },
+        {
+          "id": 341,
+          "kind": "property",
+          "title": "群峰回廊街区341",
+          "price": 150,
+          "rent": 30
+        },
+        {
+          "id": 342,
+          "kind": "neutral",
+          "title": "群峰回廊驿站342"
+        },
+        {
+          "id": 343,
+          "kind": "property",
+          "title": "群峰回廊街区343",
+          "price": 170,
+          "rent": 34
+        },
+        {
+          "id": 344,
+          "kind": "property",
+          "title": "群峰回廊街区344",
+          "price": 180,
+          "rent": 36
+        },
+        {
+          "id": 345,
+          "kind": "neutral",
+          "title": "群峰回廊驿站345"
+        },
+        {
+          "id": 346,
+          "kind": "property",
+          "title": "群峰回廊街区346",
+          "price": 200,
+          "rent": 40
+        },
+        {
+          "id": 347,
+          "kind": "property",
+          "title": "群峰回廊街区347",
+          "price": 210,
+          "rent": 42
+        },
+        {
+          "id": 348,
+          "kind": "neutral",
+          "title": "群峰回廊驿站348"
+        },
+        {
+          "id": 349,
+          "kind": "property",
+          "title": "群峰回廊街区349",
+          "price": 230,
+          "rent": 46
+        },
+        {
+          "id": 350,
+          "kind": "property",
+          "title": "群峰回廊街区350",
+          "price": 240,
+          "rent": 48
+        },
+        {
+          "id": 351,
+          "kind": "neutral",
+          "title": "群峰回廊驿站351"
+        },
+        {
+          "id": 352,
+          "kind": "property",
+          "title": "群峰回廊街区352",
+          "price": 260,
+          "rent": 52
+        },
+        {
+          "id": 353,
+          "kind": "property",
+          "title": "群峰回廊街区353",
+          "price": 270,
+          "rent": 54
+        },
+        {
+          "id": 354,
+          "kind": "neutral",
+          "title": "群峰回廊驿站354"
+        },
+        {
+          "id": 355,
+          "kind": "property",
+          "title": "群峰回廊街区355",
+          "price": 290,
+          "rent": 58
+        },
+        {
+          "id": 356,
+          "kind": "property",
+          "title": "群峰回廊街区356",
+          "price": 300,
+          "rent": 60
+        },
+        {
+          "id": 357,
+          "kind": "neutral",
+          "title": "群峰回廊驿站357"
+        },
+        {
+          "id": 358,
+          "kind": "property",
+          "title": "群峰回廊街区358",
+          "price": 320,
+          "rent": 64
+        },
+        {
+          "id": 359,
+          "kind": "property",
+          "title": "群峰回廊街区359",
+          "price": 330,
+          "rent": 66
+        }
+      ],
+      "initialCash": 1500,
+      "maxRounds": 60,
+      "eventRules": {
+        "tileIds": [
+          3,
+          9,
+          15,
+          21,
+          27,
+          33,
+          39,
+          45,
+          51,
+          57,
+          63,
+          69,
+          75,
+          81,
+          87,
+          93,
+          99,
+          105,
+          111,
+          117,
+          123,
+          129,
+          135,
+          141,
+          147,
+          153,
+          159,
+          165,
+          171,
+          177,
+          183,
+          189,
+          195,
+          201,
+          207,
+          213,
+          219,
+          225,
+          231,
+          237,
+          243,
+          249,
+          255,
+          261,
+          267,
+          273,
+          279,
+          285,
+          291,
+          297,
+          303,
+          309,
+          315,
+          321,
+          327,
+          333,
+          339,
+          345,
+          351,
+          357
+        ],
+        "bonus": 120,
+        "fee": 60
+      },
+      "cardRules": {
+        "tileIds": [
+          6,
+          12,
+          18,
+          24,
+          30,
+          36,
+          42,
+          48,
+          54,
+          60,
+          66,
+          72,
+          78,
+          84,
+          90,
+          96,
+          102,
+          108,
+          114,
+          120,
+          126,
+          132,
+          138,
+          144,
+          150,
+          156,
+          162,
+          168,
+          174,
+          180,
+          186,
+          192,
+          198,
+          204,
+          210,
+          216,
+          222,
+          228,
+          234,
+          240,
+          246,
+          252,
+          258,
+          264,
+          270,
+          276,
+          282,
+          288,
+          294,
+          300,
+          306,
+          312,
+          318,
+          324,
+          330,
+          336,
+          342,
+          348,
+          354
+        ],
+        "rewardCash": 80,
+        "moveBonus": 2,
+        "maxHand": 3
+      },
+      "facilityConfig": {
+        "hospitalTiles": [
+          3
+        ],
+        "prisonTiles": [
+          9
+        ],
+        "shopTiles": [
+          12
+        ],
+        "hospitalTurns": 2,
+        "prisonTurns": 3,
+        "hospitalFee": 50,
+        "prisonFee": 80,
+        "prices": {
+          "reward": 120,
+          "stride": 110,
+          "remote": 210,
+          "roadblock": 180,
+          "rent_free": 160
+        },
+        "stock": {
+          "reward": 2,
+          "stride": 2,
+          "remote": 2,
+          "roadblock": 2,
+          "rent_free": 2
+        }
+      }
+    }
+  ]
+}
