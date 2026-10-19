@@ -1,0 +1,519 @@
+{
+  "repository": "iam567/rich4-renew-app",
+  "url": "https://github.com/iam567/rich4-renew-app",
+  "checked_at_utc": "2026-10-19T01:22:00Z",
+  "upstream_sha": "1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79",
+  "default_branch": "main",
+  "upstream_commit_at_utc": "2026-10-18T17:34:57Z",
+  "original_relation": "derived",
+  "upstream_fork_flag": false,
+  "license": {
+    "spdx": "GPL-3.0-or-later",
+    "repository_api_spdx": "GPL-3.0",
+    "source_url": "https://github.com/iam567/rich4-renew-app/blob/1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79/LICENSE",
+    "risks": [
+      "代码 GPL 使用条件不与 ReactMono 默认独立许可混同；不直接复制实现",
+      "原版商业素材和作者高清重绘的发布资产不属于本代码的 GPL 许可",
+      "THIRD_PARTY 的 mytbk/rich4 子模块说法在当前源码树中无法找到对应指针，血缘仍需复核"
+    ]
+  },
+  "execution": {
+    "attempted": false,
+    "environment": "ChatGPT GitHub read/write connector; sandbox Linux with git but github.com DNS unavailable, no upstream checkout/node_modules nor licensed 1.696 GB asset pack; no mobile toolchain",
+    "commands": [
+      "git ls-remote https://github.com/iam567/rich4-renew-app.git HEAD (failed: Could not resolve host github.com)"
+    ],
+    "suggested_commands_not_executed": [
+      "cd game && npm ci",
+      "cd game && npm test",
+      "cd game && npm run build",
+      "cd game && npm run dev",
+      "cd game && npm run package -- apk",
+      "cd game && npm run package -- ipa"
+    ],
+    "result": "static_source_review_only; no upstream build/test/browser/device run; no independent screenshots; GitHub branch/contents/releases fetched via connector",
+    "limitations": [
+      "game/public/assets and original/HD/audio resources not in upstream Git",
+      "large release assets not downloaded and legal terms not independently cleared",
+      "iOS unsigned IPA requires signing; Android SDK/JDK 21 and iOS Xcode absent",
+      "some Vitest describe.skipIf(!haveMaps) blocks may skip",
+      "no human full-session, perceptual or performance tests"
+    ],
+    "independent_screenshot_count": 0,
+    "upstream_test_pass_count": null,
+    "upstream_test_skip_count": null
+  },
+  "evidence": [
+    {
+      "id": "E01",
+      "level": "B",
+      "claim": "Game 实例化经济/卡牌/道具/对象/事件/地点/黑市/岔路模块，Flow 生成回合事件。",
+      "source_url": "https://github.com/iam567/rich4-renew-app/blob/1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79/game/src/core/game.ts#L248-L333",
+      "locator": "game/src/core/game.ts#L248-L333;#L617-L653",
+      "verification": "已阅读指定 SHA 的构造器与回合生成器；未运行",
+      "limitations": "无法以源码数量衡量整局稳定性"
+    },
+    {
+      "id": "E02",
+      "level": "B",
+      "claim": "人机行动通过 generator 的提问/回答及事件流分离，AI 使用股票、黑市、卡道具。",
+      "source_url": "https://github.com/iam567/rich4-renew-app/blob/1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79/game/src/core/game.ts#L804-L877",
+      "locator": "game/src/core/game.ts#L804-L877",
+      "verification": "已核对 playerTurn；具体 UI 消费见 E11",
+      "limitations": "AI 合理性和难度曲线未实测"
+    },
+    {
+      "id": "E03",
+      "level": "B",
+      "claim": "地产买卖、升级、街区租金与银行存取/融资/准备金存在具体规则分支。",
+      "source_url": "https://github.com/iam567/rich4-renew-app/blob/1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79/game/src/core/game.ts#L1005-L1051",
+      "locator": "game/src/core/game.ts#L1005-L1051;#L1320-L1470",
+      "verification": "已核对分支及状态字段",
+      "limitations": "未与原游戏全部分支逐一比较"
+    },
+    {
+      "id": "E04",
+      "level": "B",
+      "claim": "股票有 12 槽市场数据与开市、涨跌/停牌/买卖/转让状态处理。",
+      "source_url": "https://github.com/iam567/rich4-renew-app/blob/1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79/game/src/core/modules/stocks.ts#L35-L76",
+      "locator": "game/src/core/modules/stocks.ts#L35-L76;#L137-L403",
+      "verification": "已阅读股票模块",
+      "limitations": "价格行为的原作一致性未独立复现"
+    },
+    {
+      "id": "E05",
+      "level": "B",
+      "claim": "30 张基础卡、6 张大富豪专属卡、2 张歌舞伎町卡分别定义，重制卡池可覆盖原配置。",
+      "source_url": "https://github.com/iam567/rich4-renew-app/blob/1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79/game/src/core/modules/cards.ts#L37-L120",
+      "locator": "game/src/core/modules/cards.ts#L37-L120;#L148-L231",
+      "verification": "已核对牌表、修改参数及领取抽取逻辑",
+      "limitations": "功能完整效果未通过可玩性验收"
+    },
+    {
+      "id": "E06",
+      "level": "B",
+      "claim": "13 种基础道具、3 种跨城道具、地图注册道具及神明/路障对象槽有数据和规则实现。",
+      "source_url": "https://github.com/iam567/rich4-renew-app/blob/1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79/game/src/core/modules/tools.ts#L34-L79",
+      "locator": "game/src/core/modules/tools.ts#L34-L79",
+      "verification": "已核对 tools，并交叉阅读 objects.ts 中槽位及附身处理",
+      "limitations": "技能动画与 1998 行为仍待复现"
+    },
+    {
+      "id": "E07",
+      "level": "B",
+      "claim": "Boards 从原始十六进制字节记录解析节点、地产、设施及公司；自制地图可变世界尺寸。",
+      "source_url": "https://github.com/iam567/rich4-renew-app/blob/1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79/game/src/core/board.ts#L1-L155",
+      "locator": "game/src/core/board.ts#L1-L155",
+      "verification": "已核对 DataView 的偏移解析",
+      "limitations": "原始地图字节数据在分离素材中，未拿到实测"
+    },
+    {
+      "id": "E08",
+      "level": "B",
+      "claim": "大富豪模式五城市各有 Game，引入 12 玩家、跨城移动、共享卡池和非当前城市的结算。",
+      "source_url": "https://github.com/iam567/rich4-renew-app/blob/1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79/game/src/core/world.ts#L32-L70",
+      "locator": "game/src/core/world.ts#L32-L70;#L277-L340;#L1085-L1162",
+      "verification": "已追踪 World 构造、sharePool 与 run",
+      "limitations": "跨城全程可玩、性能和兼容性未独立测试"
+    },
+    {
+      "id": "E09",
+      "level": "B",
+      "claim": "大富翁城/歌舞伎町有单独的规则类型与入口，为非原版新增玩法。",
+      "source_url": "https://github.com/iam567/rich4-renew-app/blob/1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79/game/src/core/kabukicho.ts#L37-L80",
+      "locator": "game/src/core/kabukicho.ts#L37-L80",
+      "verification": "已核对地图规则入口并参考 core/finale.ts",
+      "limitations": "不将二创规则算成原版一致性"
+    },
+    {
+      "id": "E10",
+      "level": "B",
+      "claim": "存档保留完整引擎/模块/RNG 状态，区分普通和跨城存档，并处理旧存档卡池与地图名。",
+      "source_url": "https://github.com/iam567/rich4-renew-app/blob/1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79/game/src/core/save.ts#L14-L105",
+      "locator": "game/src/core/save.ts#L14-L105;#L108-L235",
+      "verification": "已阅读 saveGame/loadGame/saveWorld/loadWorld",
+      "limitations": "版本常量为 1；未验证跨所有发布版本迁移"
+    },
+    {
+      "id": "E11",
+      "level": "B",
+      "claim": "前端以 DOM + Canvas 2D 绘制图面并异步消费规则事件，非 React/Three.js。",
+      "source_url": "https://github.com/iam567/rich4-renew-app/blob/1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79/game/src/ui/main.ts#L450-L530",
+      "locator": "game/src/ui/main.ts#L450-L530;#L913-L1068",
+      "verification": "已核对入口装配、加载与事件处理，交叉阅读 board-view.ts",
+      "limitations": "真实操作、渲染帧率、触控体验尚未知"
+    },
+    {
+      "id": "E12",
+      "level": "B",
+      "claim": "地图 JSON/图像从 public/assets 载入；缺失时抛出加载错误，仓库不包含所需完整素材。",
+      "source_url": "https://github.com/iam567/rich4-renew-app/blob/1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79/game/src/ui/assets.ts#L4-L105",
+      "locator": "game/src/ui/assets.ts#L4-L105",
+      "verification": "已核对 ASSETS、mapList 和 loadMap；递归树检索没有 public/assets 正式资源",
+      "limitations": "单独 Release 中有素材，未下载检查"
+    },
+    {
+      "id": "E13",
+      "level": "B",
+      "claim": "浏览器端 IndexedDB 分配七个槽，普通和大富豪 AUTO 独立（0 与 6）。",
+      "source_url": "https://github.com/iam567/rich4-renew-app/blob/1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79/game/src/ui/saves.ts#L1-L50",
+      "locator": "game/src/ui/saves.ts#L1-L50",
+      "verification": "已阅读存取实现",
+      "limitations": "未验证各手机 WebView 的存储生命周期"
+    },
+    {
+      "id": "E14",
+      "level": "B",
+      "claim": "Vite/TypeScript/Vitest/Capacitor 的打包脚本包含 Android debug APK 与未签名 iOS IPA；vite 相对 base。",
+      "source_url": "https://github.com/iam567/rich4-renew-app/blob/1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79/game/package.json#L1-L35",
+      "locator": "game/package.json#L1-L35",
+      "verification": "已核对 scripts/dependencies，并交叉检查 vite.config.ts、package.mjs",
+      "limitations": "未运行构建；安装包存在不是实机验收"
+    },
+    {
+      "id": "E15",
+      "level": "B",
+      "claim": "银行、股票、卡牌、跨城市、旧档和长程模拟的 Vitest 用例包含可检验的数值断言。",
+      "source_url": "https://github.com/iam567/rich4-renew-app/blob/1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79/game/src/core/bank.test.ts#L53-L211",
+      "locator": "game/src/core/bank.test.ts#L53-L211",
+      "verification": "已审查部分测试断言，并交叉读取 stocks.test.ts、cards.test.ts、world.test.ts、save.test.ts",
+      "limitations": "测试定义不是测试通过；本次没有运行 Vitest"
+    },
+    {
+      "id": "E16",
+      "level": "B",
+      "claim": "股票地图测试按本地地图资产存在与否自动跳过（describe.skipIf(!haveMaps)）。",
+      "source_url": "https://github.com/iam567/rich4-renew-app/blob/1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79/game/src/core/modules/stocks.test.ts#L1-L84",
+      "locator": "game/src/core/modules/stocks.test.ts#L1-L84",
+      "verification": "已核对 haveMaps 基于 editor/site/assets/map-2.json",
+      "limitations": "仅证实这一类跳过；未统计整个测试集实际跳过数"
+    },
+    {
+      "id": "E17",
+      "level": "C",
+      "claim": "上游 README 声称根据原版反汇编还原规则，完整素材放在 Releases，包含大富豪模式。",
+      "source_url": "https://github.com/iam567/rich4-renew-app/blob/1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79/README.md",
+      "locator": "README.md",
+      "verification": "上游自述；未获原版游戏独立行为对照",
+      "limitations": "声称不能升格为忠实度结论"
+    },
+    {
+      "id": "E18",
+      "level": "C",
+      "claim": "上游 THIRD_PARTY 把 mytbk/rich4 列作反编译研究来源，声称原样 Git 子模块和提取器引用。",
+      "source_url": "https://github.com/iam567/rich4-renew-app/blob/1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79/THIRD_PARTY.md",
+      "locator": "THIRD_PARTY.md",
+      "verification": "仅确认其说明文字",
+      "limitations": "需另行取得实际子模块指针/上游对应版本与复制范围"
+    },
+    {
+      "id": "E19",
+      "level": "B",
+      "claim": "固定 SHA 仓库树无 .gitmodules 或 upstream/rich4，无法按 THIRD_PARTY 声称验证子模块指针。",
+      "source_url": "https://github.com/iam567/rich4-renew-app/blob/1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79/THIRD_PARTY.md",
+      "locator": "THIRD_PARTY.md",
+      "verification": "对固定 commit 的完整递归 Git 树检查（382 个条目、truncated=false），另请求 .gitmodules 返回 404",
+      "limitations": "不据此断定未遵守署名或侵权"
+    },
+    {
+      "id": "E20",
+      "level": "C",
+      "claim": "源码 package 版本 0.2.2 与 CHANGELOG 0.2.2 一致；公开安装包最新 v0.2.1 且无 v0.2.2 Release。",
+      "source_url": "https://github.com/iam567/rich4-renew-app/blob/1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79/CHANGELOG.md",
+      "locator": "CHANGELOG.md",
+      "verification": "对 GitHub Releases 列表与 v0.2.2 tag 查询（404），对照固定 SHA package.json",
+      "limitations": "未来可有新发行版；结果只在检查时间有效"
+    },
+    {
+      "id": "E21",
+      "level": "C",
+      "claim": "单独 assets Release 有约 1.696 GB rich4-assets.tar；v0.2.1 有约 1.643 GB APK、1.628 GB unsigned IPA。",
+      "source_url": "https://github.com/iam567/rich4-renew-app/blob/1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79/README.md",
+      "locator": "README.md",
+      "verification": "检查 GitHub Releases API 发布资产名称及字节大小",
+      "limitations": "未下载、未验证散列或安装"
+    },
+    {
+      "id": "E22",
+      "level": "B",
+      "claim": "代码以 GPL-3.0-or-later 标示，仓库 LICENSE 是 GPL v3；原版/重绘素材不受代码 GPL 许可覆盖。",
+      "source_url": "https://github.com/iam567/rich4-renew-app/blob/1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79/game/package.json#L1-L35",
+      "locator": "game/package.json#L1-L35",
+      "verification": "对照 README、LICENSE、GitHub 许可证元数据",
+      "limitations": "授权说明不能替代对每一素材/衍生代码来源的法律核验"
+    },
+    {
+      "id": "E23",
+      "level": "B",
+      "claim": "原生横竖屏使用 Capacitor screen-orientation，UI 提供简繁切换；手机相关只是代码能力。",
+      "source_url": "https://github.com/iam567/rich4-renew-app/blob/1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79/game/src/ui/orientation.ts#L7-L27",
+      "locator": "game/src/ui/orientation.ts#L7-L27",
+      "verification": "交叉读取 ui/lang.ts",
+      "limitations": "未在任何手机、平板或浏览器运行"
+    },
+    {
+      "id": "E24",
+      "level": "B",
+      "claim": "核心只定义 Generator Flow 与 Ask/Answer，UI 有 2D Canvas 游戏图面；为 ReactMono 提供规则/显示解耦参考，不推荐直接迁移。",
+      "source_url": "https://github.com/iam567/rich4-renew-app/blob/1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79/game/src/core/types.ts#L78-L180",
+      "locator": "game/src/core/types.ts#L78-L180",
+      "verification": "交叉阅读 flow.ts/game.ts/ui/main.ts",
+      "limitations": "结论属架构适配建议而非原游戏效果证明"
+    }
+  ],
+  "features": [
+    {
+      "feature": "new_game_turns",
+      "status": "verified",
+      "evidence_ids": [
+        "E01",
+        "E02"
+      ],
+      "scope": "source-code evidence only unless status is claimed/unknown; not an end-to-end runtime certification"
+    },
+    {
+      "feature": "board_original_parsing",
+      "status": "partial",
+      "evidence_ids": [
+        "E07",
+        "E12"
+      ],
+      "scope": "source-code evidence only unless status is claimed/unknown; not an end-to-end runtime certification"
+    },
+    {
+      "feature": "property_and_rent",
+      "status": "verified",
+      "evidence_ids": [
+        "E03"
+      ],
+      "scope": "source-code evidence only unless status is claimed/unknown; not an end-to-end runtime certification"
+    },
+    {
+      "feature": "bank_and_loans",
+      "status": "verified",
+      "evidence_ids": [
+        "E03",
+        "E15"
+      ],
+      "scope": "source-code evidence only unless status is claimed/unknown; not an end-to-end runtime certification"
+    },
+    {
+      "feature": "stocks_and_company",
+      "status": "verified",
+      "evidence_ids": [
+        "E04",
+        "E15",
+        "E16"
+      ],
+      "scope": "source-code evidence only unless status is claimed/unknown; not an end-to-end runtime certification"
+    },
+    {
+      "feature": "cards",
+      "status": "verified",
+      "evidence_ids": [
+        "E05",
+        "E15"
+      ],
+      "scope": "source-code evidence only unless status is claimed/unknown; not an end-to-end runtime certification"
+    },
+    {
+      "feature": "items_and_gods",
+      "status": "verified",
+      "evidence_ids": [
+        "E06"
+      ],
+      "scope": "source-code evidence only unless status is claimed/unknown; not an end-to-end runtime certification"
+    },
+    {
+      "feature": "events_npc",
+      "status": "partial",
+      "evidence_ids": [
+        "E01",
+        "E06"
+      ],
+      "scope": "source-code evidence only unless status is claimed/unknown; not an end-to-end runtime certification"
+    },
+    {
+      "feature": "computer_ai",
+      "status": "partial",
+      "evidence_ids": [
+        "E02",
+        "E15"
+      ],
+      "scope": "source-code evidence only unless status is claimed/unknown; not an end-to-end runtime certification"
+    },
+    {
+      "feature": "normal_save",
+      "status": "verified",
+      "evidence_ids": [
+        "E10",
+        "E13",
+        "E15"
+      ],
+      "scope": "source-code evidence only unless status is claimed/unknown; not an end-to-end runtime certification"
+    },
+    {
+      "feature": "tycoon_save",
+      "status": "partial",
+      "evidence_ids": [
+        "E08",
+        "E10",
+        "E13"
+      ],
+      "scope": "source-code evidence only unless status is claimed/unknown; not an end-to-end runtime certification"
+    },
+    {
+      "feature": "custom_maps",
+      "status": "partial",
+      "evidence_ids": [
+        "E07",
+        "E09",
+        "E12"
+      ],
+      "scope": "source-code evidence only unless status is claimed/unknown; not an end-to-end runtime certification"
+    },
+    {
+      "feature": "tycoon_mode",
+      "status": "partial",
+      "evidence_ids": [
+        "E08",
+        "E09"
+      ],
+      "scope": "source-code evidence only unless status is claimed/unknown; not an end-to-end runtime certification"
+    },
+    {
+      "feature": "kabukicho",
+      "status": "partial",
+      "evidence_ids": [
+        "E09"
+      ],
+      "scope": "source-code evidence only unless status is claimed/unknown; not an end-to-end runtime certification"
+    },
+    {
+      "feature": "mobile_native_packaging",
+      "status": "claimed",
+      "evidence_ids": [
+        "E14",
+        "E20",
+        "E21",
+        "E23"
+      ],
+      "scope": "source-code evidence only unless status is claimed/unknown; not an end-to-end runtime certification"
+    },
+    {
+      "feature": "real_device_playability",
+      "status": "unknown",
+      "evidence_ids": [
+        "E20",
+        "E21",
+        "E23"
+      ],
+      "scope": "source-code evidence only unless status is claimed/unknown; not an end-to-end runtime certification"
+    },
+    {
+      "feature": "visual_audio_quality",
+      "status": "unknown",
+      "evidence_ids": [
+        "E11",
+        "E12"
+      ],
+      "scope": "source-code evidence only unless status is claimed/unknown; not an end-to-end runtime certification"
+    },
+    {
+      "feature": "original_rule_fidelity",
+      "status": "unknown",
+      "evidence_ids": [
+        "E17",
+        "E18",
+        "E19"
+      ],
+      "scope": "source-code evidence only unless status is claimed/unknown; not an end-to-end runtime certification"
+    },
+    {
+      "feature": "pwa_offline",
+      "status": "unknown",
+      "evidence_ids": [
+        "E14",
+        "E23"
+      ],
+      "scope": "source-code evidence only unless status is claimed/unknown; not an end-to-end runtime certification"
+    }
+  ],
+  "scores": {
+    "rules": 3,
+    "maintainability": 3,
+    "reproducibility": 1,
+    "presentation": null,
+    "reactmono_value": 4
+  },
+  "score_rationale": {
+    "rules": {
+      "confidence": "medium-low",
+      "evidence_ids": [
+        "E01",
+        "E03",
+        "E04",
+        "E05",
+        "E06",
+        "E17"
+      ],
+      "note": "breadth of coded systems, not independent equivalence to original"
+    },
+    "maintainability": {
+      "confidence": "medium",
+      "evidence_ids": [
+        "E01",
+        "E08",
+        "E10",
+        "E11",
+        "E16"
+      ],
+      "note": "logical modules and tests; some massive files and asset coupling"
+    },
+    "reproducibility": {
+      "confidence": "medium",
+      "evidence_ids": [
+        "E12",
+        "E14",
+        "E16",
+        "E21"
+      ],
+      "note": "build scripts present but split proprietary asset pack and skipped tests; no actual execution"
+    },
+    "presentation": {
+      "confidence": "insufficient",
+      "evidence_ids": [
+        "E11",
+        "E12",
+        "E20",
+        "E21"
+      ],
+      "note": "no researcher screenshots, mobile run or commercial-quality visual audit"
+    },
+    "reactmono_value": {
+      "confidence": "medium",
+      "evidence_ids": [
+        "E02",
+        "E07",
+        "E08",
+        "E10",
+        "E14",
+        "E22"
+      ],
+      "note": "architecture and testing patterns useful as read-only concepts, GPL/assets block direct copying"
+    }
+  },
+  "recommendation": "read_only_reference",
+  "open_questions": [
+    "能否在不分发原版资产的合规条件下获得可复现的核心规则测试样本？",
+    "第三方说明的 mytbk/rich4 Git 子模块在哪个历史版本，如何证明代码血缘与具体逆向证据？",
+    "0.2.2 的发行、Android/iOS 真机回归及横竖屏截图是否有独立可复核记录？",
+    "全量 Vitest 在无 assets 与有 assets 情况下的跳过与失败数量各是多少？",
+    "十二人五城连续整局、歌舞伎町和移动端内存负荷是否稳定？"
+  ],
+  "cross_repo_comparison": {
+    "reactmono": "React + TypeScript + Three.js + PWA + GitHub Pages + local saves",
+    "upstream": "Vite + TypeScript + Canvas 2D/DOM + Capacitor iOS/Android; separate proprietary assets",
+    "transfer_policy": "patterns_only_no_GPL_code_or_assets"
+  }
+}

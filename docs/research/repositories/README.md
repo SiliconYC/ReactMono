@@ -15,4 +15,7 @@
 
 - [JCRJPZB/Rich4（Cocos Creator 2.4.3）](JCRJPZB--Rich4/README.md)：[Issue #101](https://github.com/SiliconYC/ReactMono/issues/101)，2026-10-19 UTC，固定上游 `0c86a1b7fc889ff2f3a1f3cba7f5947f5e291ea0`；[源码锚点](JCRJPZB--Rich4/source-index.md)｜[结构化证据](JCRJPZB--Rich4/evidence.json)。仅静态数据核验，未独立启动引擎；授权不明，建议只读参考。
 
-- [zawsstt/monopoly-rich-life（Three.js 书桌沙盘）](zawsstt--monopoly-rich-life/README.md)：[Issue #103](https://github.com/SiliconYC/ReactMono/issues/103)，2026-10-19 UTC，固定上游 `307c1761b150a7179fb0353618a95bc6effe3fee`；[五组源码锚点](zawsstt--monopoly-rich-life/source-index.md)｜[结构化证据](zawsstt--monopoly-rich-life/evidence.json)。**仅 B/C 级源码核验，未运行浏览器、未取得截图；非商用许可，只读参考。**
+- [oama1111/rich4-remake-public（确定性规则与跨端联机研究）](oama1111--rich4-remake-public/README.md)：[Issue #100](https://github.com/SiliconYC/ReactMono/issues/100)，固定上游 `42ad97ad31f07541a9af35415e36be4da4147484`；[源码索引](oama1111--rich4-remake-public/source-index.md)｜[证据 JSON](oama1111--rich4-remake-public/evidence.json)。只读参考；独立原版游玩未验证，不移植 GPL 源码、后端或素材。
+- [iam567/rich4-renew-app（TypeScript + Capacitor）](iam567--rich4-renew-app/README.md)：[Issue #98](https://github.com/SiliconYC/ReactMono/issues/98)，固定上游 `1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79`；[源码索引](iam567--rich4-renew-app/source-index.md)｜[结构化证据](iam567--rich4-renew-app/evidence.json)。仅源码审计、无独立测试或截图；GPL 与商业素材风险，建议只读参考。
+
+- [zawsstt/monopoly-rich-life（Three.js 书桌沙盘）](zawsstt--monopoly-rich-life/README.md)：[Issue #103](https://github.com/SiliconYC/ReactMono/issues/103)，2026-10-19 UTC，固定上游 `307c1761b150a7179fb0353618a95bc6effe3fee`；[五组源码锚点](zawsstt--monopoly-rich-life/source-index.md)｜[结构化证据](zawsstt--monopoly-rich-life/evidence.json)。**B/C 级源码与作者证据，尚无浏览器 A 级实测；非商用许可，只读参考。**

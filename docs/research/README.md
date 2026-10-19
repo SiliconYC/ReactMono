@@ -38,7 +38,7 @@
 
 ## 已创建研究任务（2026-10-19）
 
-以下是 2026-10-19 建立的九项研究任务，**创建 Issue 不等于完成**；交付状态以对应研究报告、PR 合并和验收为准。#103 已交付 B/C 级静态源码审计，其余按实际远端成果更新。
+以下为研究任务索引，创建 Issue 不代表完成；请以已合并的具体报告及证据等级确认交付状态。
 
 | Issue | 上游 | 预期目录 |
 | --- | --- | --- |
@@ -50,7 +50,7 @@
 | [#100](https://github.com/SiliconYC/ReactMono/issues/100) | [oama1111/rich4-remake-public](https://github.com/oama1111/rich4-remake-public) | `repositories/oama1111--rich4-remake-public/` |
 | [#101](https://github.com/SiliconYC/ReactMono/issues/101) | [JCRJPZB/Rich4](https://github.com/JCRJPZB/Rich4) | `repositories/JCRJPZB--Rich4/` |
 | [#102](https://github.com/SiliconYC/ReactMono/issues/102) | [Yakamozli/richman-3d](https://github.com/Yakamozli/richman-3d) | `repositories/Yakamozli--richman-3d/` |
-| [#103](https://github.com/SiliconYC/ReactMono/issues/103) | [zawsstt/monopoly-rich-life](https://github.com/zawsstt/monopoly-rich-life) | [九章报告与证据](repositories/zawsstt--monopoly-rich-life/README.md)（源码 B / 作者 C；浏览器实测未完成） |
+| [#103](https://github.com/SiliconYC/ReactMono/issues/103) | [zawsstt/monopoly-rich-life](https://github.com/zawsstt/monopoly-rich-life) | [九章报告与证据](repositories/zawsstt--monopoly-rich-life/README.md)（B/C 静态核查；未做 A 级浏览器实测） |
 
 [综合综述 #104](https://github.com/SiliconYC/ReactMono/issues/104) 依赖这些研究真实合并成果，届时才创建 `comparative-review.md`、`verification-matrix.md` 与 `summary.json`。
 
@@ -67,4 +67,4 @@
 
 ## 执行状态
 
-研究基础设施与九项研究 Issue 已于初始化时建立。随后 #103 已补交 `zawsstt/monopoly-rich-life` 的独立九章源码审计、精确 SHA 证据索引、分级 JSON；因环境限制未独立运行浏览器/联机，也未生成真实对照截图，视觉及可复现性未评分。见[已交付研究索引](repositories/README.md)；其他研究以真实合并记录为准，综合 #104 仍需跨仓库复核。
+#103 已完成针对 `zawsstt/monopoly-rich-life` 的九章 B/C 级静态研究、源码锚点及 JSON；缺少独立浏览器截图、联机和素材许可源头核查，实测分数保留 null。其余研究按实际 PR 合并记录判定；#104 综合分析不得提前替代。
