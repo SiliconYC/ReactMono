@@ -24,3 +24,5 @@
 - [mytbk/rich4（原版 v3.11 逆向与规则）](mytbk--rich4/README.md)：[Issue #95](https://github.com/SiliconYC/ReactMono/issues/95)，2026-10-19 UTC，固定上游 `f81954d6a5675f63297036f9252720c6ca32a2b4`；[30 处源码索引](mytbk--rich4/source-index.md)｜[结构化证据](mytbk--rich4/evidence.json)。六条调用链，B/C/D 静态核查（A=0），未运行旧版程序或 MKF 测试，GPL/版权边界建议只读参考。
 
 - [zawsstt/monopoly-rich-life（Three.js 书桌沙盘）](zawsstt--monopoly-rich-life/README.md)：[Issue #103](https://github.com/SiliconYC/ReactMono/issues/103)，2026-10-19 UTC，固定上游 `307c1761b150a7179fb0353618a95bc6effe3fee`；[五组源码锚点](zawsstt--monopoly-rich-life/source-index.md)｜[结构化证据](zawsstt--monopoly-rich-life/evidence.json)。B/C 源码审计、无独立浏览器/联机测试，非商用许可只读参考。
+
+- [Yakamozli/richman-3d（Three.js 程序化棋盘）](Yakamozli--richman-3d/README.md)：[Issue #102](https://github.com/SiliconYC/ReactMono/issues/102)，2026-10-19 UTC，固定上游 `32e7f01f9888a28b8fd1267f5488c455e15abe4a`；[源码锚点](Yakamozli--richman-3d/source-index.md)｜[结构化证据](Yakamozli--richman-3d/evidence.json)。仅 B/C/D 源码审计；无独立运行或截图。
