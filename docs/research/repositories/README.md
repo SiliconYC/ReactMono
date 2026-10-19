@@ -7,12 +7,12 @@
 
 研究开展前不要创建空目录或占位文件。完成每个研究 Issue 后再把真实报告目录和仓库链接添加到本页；一仓库只有一个权威目录，fork 不重复计算原创项目。
 
-研究标准见 [`../RESEARCH_STANDARD.md`](../RESEARCH_STANDARD.md)；候选清单及任务见 [`../README.md`](../README.md)。
+研究标准见 [`../RESEARCH_STANDARD.md`](../RESEARCH_STANDARD.md)；候选清单见 [`../README.md`](../README.md)。已交付的研究以对应 Issue 和实际报告为准，勿将候选清单混同独立验收。
 
-## 已交付的独立仓库研究
+详见 [待执行的九项研究 Issue](../README.md#已创建研究任务2026-10-19)。正式报告交付后将相应链接从“待执行”更新到“已合并/已验证”。
 
-| Issue / 上游 | 研究报告 | 固定证据 | 实测边界 |
-| --- | --- | --- | --- |
-| [#103](https://github.com/SiliconYC/ReactMono/issues/103) / [zawsstt/monopoly-rich-life](https://github.com/zawsstt/monopoly-rich-life) | [九章报告](zawsstt--monopoly-rich-life/README.md) | [五组源码锚点](zawsstt--monopoly-rich-life/source-index.md) · [16 条分级证据 JSON](zawsstt--monopoly-rich-life/evidence.json) · 上游 `307c1761b150a7179fb0353618a95bc6effe3fee` | **B/C 级源码/文档核查完成；无 A 级浏览器截图或联机实测**，画面、独立复现分数均为 null |
+## 已交付的单仓库研究
 
-未列入此表的 [#95–#102](../README.md#已创建研究任务2026-10-19) 不因创建 Issue 就视为完成；每项须以最新 `dev` 中实际存在的报告和合并记录为准。后续若其他研究合并，以真实结果更新本索引，避免覆盖其他研究者并发成果。
+- [JCRJPZB/Rich4（Cocos Creator 2.4.3）](JCRJPZB--Rich4/README.md)：[Issue #101](https://github.com/SiliconYC/ReactMono/issues/101)，2026-10-19 UTC，固定上游 `0c86a1b7fc889ff2f3a1f3cba7f5947f5e291ea0`；[源码锚点](JCRJPZB--Rich4/source-index.md)｜[结构化证据](JCRJPZB--Rich4/evidence.json)。仅静态数据核验，未独立启动引擎；授权不明，建议只读参考。
+
+- [zawsstt/monopoly-rich-life（Three.js 书桌沙盘）](zawsstt--monopoly-rich-life/README.md)：[Issue #103](https://github.com/SiliconYC/ReactMono/issues/103)，2026-10-19 UTC，固定上游 `307c1761b150a7179fb0353618a95bc6effe3fee`；[五组源码锚点](zawsstt--monopoly-rich-life/source-index.md)｜[结构化证据](zawsstt--monopoly-rich-life/evidence.json)。**仅 B/C 级源码核验，未运行浏览器、未取得截图；非商用许可，只读参考。**
