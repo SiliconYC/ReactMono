@@ -28,6 +28,30 @@ error=None
 try:
     upstream=scope["checkout"]("rich4re",folder)
     if upstream:
+        # Temporary compatibility shim for pre-existing upstream GCC/Clang error:
+        # nested DisplayConfig with default initializers is invalid as an in-class default argument.
+        # This changes ONLY the declaration/call forwarding, never rent/trade production logic.
+        header=upstream/"include/game/application.h"
+        source=header.read_text(encoding="utf-8")
+        before=("    bool init(const std::string& gameDir, bool headless = false,\\n"
+                "              const DisplayConfig& display = DisplayConfig{});")
+        before=before.replace("\\\\n","\\n")
+        replacement=("    bool init(const std::string& gameDir, bool headless,\\n"
+                     "              const DisplayConfig& display);\\n"
+                     "    bool init(const std::string& gameDir, bool headless = false) {\\n"
+                     "        return init(gameDir, headless, DisplayConfig{});\\n"
+                     "    }")
+        replacement=replacement.replace("\\\\n","\\n")
+        if before not in source:
+            raise RuntimeError("Pinned upstream Application::init declaration changed")
+        header.write_text(source.replace(before,replacement,1),encoding="utf-8")
+        context["log"].append("EPHEMERAL HEADER PATCH: Application::init default argument moved to inline 2-argument overload; unchanged economy implementation")
+        (OUT/"compiler-compatibility.patch").write_text(
+            "Upstream SHA b7b76570f445ad07c0788314062b8500e77259e7\\n"
+            "Source: include/game/application.h\\n"
+            "- "+before+"\\n+ "+replacement+"\\n"
+            "Only ephemeral test clone is patched; not part of ReactMono business code.\\n",
+            encoding="utf-8")
         economy(upstream)
         binary=upstream/"build-issue121"/"rich4_tests"
         if binary.exists():
