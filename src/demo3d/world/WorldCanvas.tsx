@@ -14,8 +14,10 @@ import { ACTOR_ANCHOR_Y, anchorsForMap, positionForTile } from "./layout.js";
 
 import { ContinuousGround } from './ContinuousGround.js';
 import { worldView, CAMERA_ELEVATION, clampWorldZoom, type WorldView } from './world-view.js';
-import { useWorldNavigation, type Navigation } from './world-navigation.js';
+import { useWorldNavigation, initialNavigation, type ContextRequest, type Navigation } from './world-navigation.js';
+import { mapProjectionBounds, screenToGround } from './camera-math.js';
 import { WorldNavigation } from './WorldNavigation.js';
+import { MapContextMenu } from './MapContextMenu.js';
 import './world-navigation.css';
 
 type WorldCanvasProps = Readonly<{
@@ -36,9 +38,10 @@ type WorldCanvasProps = Readonly<{
   onSelectTile?: (tileId: number) => void;
 }>;
 
-function CameraRig({target,reducedMotion,insets,map,nav,onView,changed}:{
+function CameraRig({target,reducedMotion,insets,map,nav,onView,changed,onContext}:{
   target:THREE.Vector3;reducedMotion:boolean;insets?:ViewportInsets;map:GameState['map'];
   nav:MutableRefObject<Navigation>;onView:(view:WorldView)=>void;changed:()=>void;
+  onContext:(request:ContextRequest)=>void;
 }):null {
   const {camera,size,invalidate}=useThree();
   const initialized=useRef(false),lastRegion=useRef('');
@@ -46,27 +49,32 @@ function CameraRig({target,reducedMotion,insets,map,nav,onView,changed}:{
   const logical=useMemo(()=>new THREE.Vector3(),[]);
   const direction=useMemo(()=>new THREE.Vector3(Math.cos(CAMERA_ELEVATION)/Math.SQRT2,Math.sin(CAMERA_ELEVATION),Math.cos(CAMERA_ELEVATION)/Math.SQRT2),[]);
   const right=useMemo(()=>new THREE.Vector3(1,0,-1).normalize(),[]);
-  useWorldNavigation(nav,changed);
+  useWorldNavigation(nav,changed,onContext);
   useFrame((_,delta)=>{
     if(!(camera instanceof THREE.OrthographicCamera))return;
-    const n=nav.current,bounds=anchorsForMap(map).bounds;
+    const n=nav.current;
+    const blend=reducedMotion||!initialized.current?1:1-Math.exp(-8*Math.min(delta,.1));
+    n.actualYaw=THREE.MathUtils.lerp(n.actualYaw,n.yaw,blend);
+    n.actualElevation=THREE.MathUtils.lerp(n.actualElevation,n.elevation,blend);
+    const yaw=n.actualYaw,elevation=n.actualElevation,bounds=mapProjectionBounds(map,yaw);
+    direction.set(Math.sin(yaw)*Math.cos(elevation),Math.sin(elevation),Math.cos(yaw)*Math.cos(elevation));
+    right.set(Math.cos(yaw),0,-Math.sin(yaw));
     const phoneOverview=size.width<=600&&n.mode==='overview';
-    const safe=insets?{...insets,top:insets.top+(phoneOverview?52:0),right:phoneOverview?insets.right:Math.max(insets.right,size.width<=600?132:202)}:undefined;
-    const overview=cameraFrame(size,safe,bounds);
+    const safe=insets?{...insets,top:insets.top+(phoneOverview?84:0),right:phoneOverview?insets.right:Math.max(insets.right,size.width<=600?132:202)}:undefined;
+    const overview=cameraFrame(size,safe,bounds,elevation);
     n.overviewZoom=Math.min(overview.zoom,64);
-    const follow=cameraFrame(size,safe,size.width<=600?{width:7,depth:5}:{width:11,depth:9});
-    const zoom=clampWorldZoom(n.zoom??(n.mode==='follow'?Math.min(follow.zoom,64):overview.zoom),n.overviewZoom);
+    const follow=cameraFrame(size,safe,size.width<=600?{width:7,depth:5}:{width:11,depth:9},elevation);
+    const zoom=n.zoom===null?clampWorldZoom(n.mode==='follow'?Math.min(follow.zoom,64):overview.zoom,n.overviewZoom):Math.max(.05,Math.min(96,n.zoom));
     const center=n.mode==='browse'&&n.center?n.center:n.mode==='follow'?target:{x:0,z:0};
     const limitX=bounds.width/2+8,limitZ=bounds.depth/2+8;
-    const blend=reducedMotion||!initialized.current?1:1-Math.exp(-8*Math.min(delta,.1));
     camera.zoom=THREE.MathUtils.lerp(camera.zoom,zoom,blend);
     const targetX=Math.max(-limitX,Math.min(limitX,center.x)),targetZ=Math.max(-limitZ,Math.min(limitZ,center.z));
     if(n.mode==='browse')n.center={x:targetX,z:targetZ};
     logical.lerp(new THREE.Vector3(targetX,.3,targetZ),blend);
     look.copy(logical).addScaledVector(right,-overview.offsetX/camera.zoom);
-    const groundOffset=overview.offsetY/camera.zoom/Math.sin(CAMERA_ELEVATION)/Math.SQRT2;
-    look.x+=groundOffset;look.z+=groundOffset;
-    const v=worldView({x:look.x,z:look.z},camera.zoom,size);
+    const groundOffset=screenToGround({x:0,y:overview.offsetY/camera.zoom},yaw,elevation);
+    look.x+=groundOffset.x;look.z+=groundOffset.z;
+    const v=worldView({x:look.x,z:look.z},camera.zoom,size,yaw,elevation);
     camera.position.copy(look).addScaledVector(direction,v.distance);
     camera.near=.1;camera.far=v.far;camera.lookAt(look);camera.updateProjectionMatrix();
     n.actualCenter={x:logical.x,z:logical.z};n.actualZoom=camera.zoom;
@@ -79,10 +87,13 @@ function CameraRig({target,reducedMotion,insets,map,nav,onView,changed}:{
     if(element){
       const hw=(size.width-(safe?.left??0)-(safe?.right??0))/2/camera.zoom;
       const hh=(size.height-(safe?.top??0)-(safe?.bottom??0))/2/camera.zoom;
-      const points=[[-hw,-hh],[hw,-hh],[hw,hh],[-hw,hh]].map(([x,y])=>`${logical.x+(x-y/Math.sin(CAMERA_ELEVATION))/Math.SQRT2},${logical.z+(-x-y/Math.sin(CAMERA_ELEVATION))/Math.SQRT2}`).join(' ');
+      const points=[[-hw,-hh],[hw,-hh],[hw,hh],[-hw,hh]].map(([x,y])=>{const p=screenToGround({x,y},yaw,elevation);return `${logical.x+p.x},${logical.z+p.z}`;}).join(' ');
       element.querySelector('[data-world-viewport]')?.setAttribute('points',points);
-      element.dataset.cameraInsets=JSON.stringify(safe??{top:0,right:0,bottom:0,left:0});element.dataset.cameraMode=n.mode;element.dataset.cameraZoom=camera.zoom.toFixed(2);element.dataset.cameraCenter=`${logical.x.toFixed(2)},${logical.z.toFixed(2)}`;}
-    if(Math.abs(camera.zoom-zoom)>.01||Math.hypot(logical.x-targetX,logical.z-targetZ)>.01)invalidate();
+      element.dataset.cameraInsets=JSON.stringify(safe??{top:0,right:0,bottom:0,left:0});element.dataset.cameraMode=n.mode;element.dataset.cameraZoom=camera.zoom.toFixed(2);element.dataset.cameraCenter=`${logical.x.toFixed(2)},${logical.z.toFixed(2)}`;
+      element.dataset.cameraYaw=yaw.toFixed(6);element.dataset.cameraElevation=elevation.toFixed(6);
+      const arrow=element.querySelector<HTMLElement>('[data-compass-arrow]');if(arrow)arrow.style.transform=`rotate(${yaw}rad)`;
+    }
+    if(Math.abs(camera.zoom-zoom)>.01||Math.hypot(logical.x-targetX,logical.z-targetZ)>.01||Math.abs(n.actualYaw-n.yaw)>.0001||Math.abs(n.actualElevation-n.elevation)>.0001)invalidate();
     initialized.current=true;
   },-3);
   return null;
@@ -96,8 +107,9 @@ function WorldLighting({nav}:{nav:MutableRefObject<Navigation>}):React.JSX.Eleme
   useFrame(()=>{
     if(!light.current||!(camera instanceof THREE.OrthographicCamera))return;
     const direction=new THREE.Vector3();camera.getWorldDirection(direction);
-    const center=camera.position.clone().addScaledVector(direction,worldView(nav.current.actualCenter,camera.zoom,size).distance);
-    const view=worldView({x:center.x,z:center.z},camera.zoom,size);
+    const n=nav.current;
+    const center=camera.position.clone().addScaledVector(direction,worldView(n.actualCenter,camera.zoom,size,n.actualYaw,n.actualElevation).distance);
+    const view=worldView({x:center.x,z:center.z},camera.zoom,size,n.actualYaw,n.actualElevation);
     const radius=view.shadowRadius,texel=radius*2/2048;
     center.x=Math.round(center.x/texel)*texel;center.z=Math.round(center.z/texel)*texel;center.y=0;
     target.position.copy(center);target.updateMatrixWorld();
@@ -123,7 +135,7 @@ function WorldLighting({nav}:{nav:MutableRefObject<Navigation>}):React.JSX.Eleme
   </>;
 }
 
-function Scene(props: WorldCanvasProps & {nav:MutableRefObject<Navigation>;changed:()=>void;navigationRevision:number}): React.JSX.Element {
+function Scene(props: WorldCanvasProps & {nav:MutableRefObject<Navigation>;changed:()=>void;navigationRevision:number;onContext:(request:ContextRequest)=>void}): React.JSX.Element {
   const [view,setView]=useState(()=>worldView({x:0,z:0},32,{width:1280,height:720}));
   const invalidate = useThree((state) => state.invalidate);
   const scene = useThree((state) => state.scene);
@@ -177,9 +189,9 @@ function Scene(props: WorldCanvasProps & {nav:MutableRefObject<Navigation>;chang
       <color attach="background" args={[worldForMap(props.game.map)?.background??'#b7cd9a']} />
       <fog attach="fog" args={[worldForMap(props.game.map)?.background??'#b7cd9a',100,200]} />
       <WorldLighting nav={props.nav}/>
-      <CameraRig target={trackedPosition} reducedMotion={props.reducedMotion} insets={props.viewportInsets} map={props.game.map} nav={props.nav} onView={setView} changed={props.changed}/>
+      <CameraRig target={trackedPosition} reducedMotion={props.reducedMotion} insets={props.viewportInsets} map={props.game.map} nav={props.nav} onView={setView} changed={props.changed} onContext={props.onContext}/>
       <ContinuousGround view={view} map={props.game.map}/>
-      <MiniatureTown game={props.game} view={view} onSelectTile={props.onSelectTile}/>
+      <MiniatureTown game={props.game} view={view} nav={props.nav} onSelectTile={props.onSelectTile}/>
       {props.game.players.map((player, seat) => (
         <Mascot
           key={player.id}
@@ -222,7 +234,12 @@ function Scene(props: WorldCanvasProps & {nav:MutableRefObject<Navigation>;chang
 export function WorldCanvas(props: WorldCanvasProps): React.JSX.Element {
   const [ready, setReady] = useState(false);
   const [navigationRevision,setNavigationRevision]=useState(0);
-  const nav=useRef<Navigation>({mode:props.followCurrent?'follow':'overview',center:null,zoom:null,actualCenter:{x:0,z:0},actualZoom:32,overviewZoom:2,draggedUntil:0});
+  const nav=useRef<Navigation>(initialNavigation(props.followCurrent));
+  const [context,setContext]=useState<ContextRequest|null>(null);
+  const shell=useRef<HTMLDivElement>(null);
+  const canOpenContext=!props.paused&&!props.motion&&!props.rent&&!props.outcome;
+  const openContext=useCallback((request:ContextRequest)=>{if(canOpenContext)setContext(request);},[canOpenContext]);
+  useEffect(()=>{setContext(null);},[props.game.map.id,props.game.currentPlayerIndex,canOpenContext]);
   const appliedFollow=useRef(props.followCurrent);
   const onFollowChange=useRef(props.onFollowCurrentChange);onFollowChange.current=props.onFollowCurrentChange;
   const changed=useCallback(()=>{
@@ -250,10 +267,12 @@ export function WorldCanvas(props: WorldCanvasProps): React.JSX.Element {
   return (
     <div
       className="canvas-shell"
+      ref={shell}
       style={{'--world-safe-top':`${props.viewportInsets?.top??80}px`,'--world-safe-right':`${props.viewportInsets?.right??20}px` } as CSSProperties}
       onClickCapture={event=>{if(event.target instanceof HTMLCanvasElement&&performance.now()<nav.current.draggedUntil){event.preventDefault();event.stopPropagation();}}}
       data-ready={String(ready)}
       data-frameloop={frameLoop}
+      data-show-numbers={String(nav.current.showNumbers)}
       data-safe-insets={
         props.viewportInsets ? JSON.stringify(props.viewportInsets) : undefined
       }
@@ -297,10 +316,11 @@ export function WorldCanvas(props: WorldCanvasProps): React.JSX.Element {
         }
       >
         <Suspense fallback={null}>
-          <Scene {...props} nav={nav} changed={changed} navigationRevision={navigationRevision} />
+          <Scene {...props} nav={nav} changed={changed} navigationRevision={navigationRevision} onContext={openContext}/>
         </Suspense>
       </Canvas>
       <WorldNavigation game={props.game} nav={nav} changed={changed} disabled={props.paused??false}/>
+      {context&&canOpenContext&&<MapContextMenu game={props.game} request={context} nav={nav} changed={changed} onSelect={props.onSelectTile} onClose={()=>setContext(null)} canvas={()=>shell.current?.querySelector('canvas')??null}/>}
     </div>
   );
 }

@@ -1,0 +1,8 @@
+PASS visible title/setup/arrival, purchase + deposit, modal focus at 1440×900
+PASS visible title/setup/arrival, purchase + deposit, modal focus at 1280×720
+PASS visible title/setup/arrival, purchase + deposit, modal focus at 1920×1080
+PASS visible title/setup/arrival, purchase + deposit, modal focus at 2560×1440
+PASS visible title/setup/arrival, purchase + deposit, modal focus at 390×844
+PASS visible title/setup/arrival, purchase + deposit, modal focus at 360×640
+PASS visible title/setup/arrival, purchase + deposit, modal focus at 844×390
+PASS four long names / large balances and 200% equivalent viewport

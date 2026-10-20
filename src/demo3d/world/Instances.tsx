@@ -1,9 +1,9 @@
 import { useLayoutEffect, useRef } from 'react';
 import { useThree } from '@react-three/fiber';
 import * as THREE from 'three';
-export type Instance = Readonly<{x:number;y:number;z:number;sx?:number;sy?:number;sz?:number;rotation?:number;color?:string}>;
+export type Instance = Readonly<{x:number;y:number;z:number;sx?:number;sy?:number;sz?:number;rotation?:number;color?:string;tileId?:number}>;
 /** One geometry/material per batch. Bounds include every instance for correct frustum/shadows. */
-export function Instances({items,children,onSelect}:{items:readonly Instance[];children:React.ReactNode;onSelect?:(id:number)=>void}):React.JSX.Element {
+export function Instances({items,children,onSelect,mapTiles=false}:{items:readonly Instance[];children:React.ReactNode;onSelect?:(id:number)=>void;mapTiles?:boolean}):React.JSX.Element {
   const mesh=useRef<THREE.InstancedMesh>(null);
   const invalidate=useThree(s=>s.invalidate);
   useLayoutEffect(()=>{
@@ -19,5 +19,5 @@ export function Instances({items,children,onSelect}:{items:readonly Instance[];c
     if(mesh.current.instanceColor)mesh.current.instanceColor.needsUpdate=true;
     mesh.current.computeBoundingSphere();mesh.current.computeBoundingBox();invalidate();
   },[items,invalidate]);
-  return <instancedMesh key={items.length} ref={mesh} args={[undefined,undefined,items.length]} onClick={onSelect?e=>{e.stopPropagation();if(e.instanceId!==undefined)onSelect(e.instanceId);}:undefined}>{children}</instancedMesh>;
+  return <instancedMesh key={items.length} ref={mesh} userData={{mapTiles,tileIds:items.map(p=>p.tileId)}} args={[undefined,undefined,items.length]} onClick={onSelect?e=>{e.stopPropagation();if(e.instanceId!==undefined)onSelect(e.instanceId);}:undefined}>{children}</instancedMesh>;
 }

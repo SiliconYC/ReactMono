@@ -1,19 +1,20 @@
 import { WorldMapShapes } from '../../ui/LevelPreview.js';
 import { worldForMap } from '../../core/level-data.js';
-import { useMemo, type MutableRefObject } from 'react';
+import { useMemo, useState, type MutableRefObject } from 'react';
 import type { GameState } from '../../core/game.js';
 import { anchorsForMap } from './layout.js';
-import type { Navigation } from './world-navigation.js';
+import { resetOrientation, type Navigation } from './world-navigation.js';
 import { clampWorldZoom } from './world-view.js';
 import { MASCOT_SEAT_COLORS } from './seats.js';
 export function WorldNavigation({game,nav,changed,disabled}:{game:GameState;nav:MutableRefObject<Navigation>;changed:()=>void;disabled:boolean}):React.JSX.Element{
+  const [help,setHelp]=useState(false);
   const anchors=anchorsForMap(game.map);
   const bounds=useMemo(()=>{
     const xs=anchors.tiles.map(p=>p.x),zs=anchors.tiles.map(p=>p.z);
     return {x:Math.min(...xs)-4,z:Math.min(...zs)-4,width:Math.max(...xs)-Math.min(...xs)+8,depth:Math.max(...zs)-Math.min(...zs)+8};
   },[anchors]);
   const reset=(mode:'overview'|'follow')=>{Object.assign(nav.current,{mode,center:null,zoom:null});changed();};
-  const zoom=(factor:number)=>{if(nav.current.mode==='overview'){nav.current.mode='browse';nav.current.center=nav.current.actualCenter;}nav.current.zoom=clampWorldZoom((nav.current.zoom??nav.current.actualZoom)*factor,nav.current.overviewZoom);changed();};
+  const zoom=(factor:number)=>{if(nav.current.mode==='overview'){nav.current.mode='browse';nav.current.center=nav.current.actualCenter;}nav.current.zoom=clampWorldZoom((nav.current.zoom??nav.current.actualZoom)*factor,Math.min(nav.current.overviewZoom,nav.current.actualZoom));changed();};
   const n=nav.current;
   const marker=Math.max(bounds.width,bounds.depth)/48;
   return <div className="world-navigation" aria-label="地图浏览" hidden={disabled}>
@@ -41,5 +42,10 @@ export function WorldNavigation({game,nav,changed,disabled}:{game:GameState;nav:
       <button type="button" aria-label="查看全图" title="查看全图（Home）" onClick={()=>reset('overview')}>全图</button>
       <button type="button" aria-label="定位当前玩家" title="定位并跟随当前玩家" onClick={()=>reset('follow')}>定位</button>
     </div>
+    <div className="world-camera-extras">
+      <button type="button" aria-label="视角回正" title="视角回正（R）" onClick={()=>{resetOrientation(nav.current);changed();}}><span data-compass-arrow="" aria-hidden="true">↑</span> 回正</button>
+      <button type="button" aria-label="地图操作说明" aria-expanded={help} onClick={()=>setHelp(!help)}>？</button>
+    </div>
+    {help&&<div className="world-input-help" role="note"><strong>地图操作</strong><span>左键拖动：平移</span><span>Shift＋左键 / 中键拖动：旋转</span><span>滚轮 / 双指：缩放</span><span>右键：地图菜单</span><span>方向键：移动 · R：回正</span><span>Home：全图 · 编号近景可见</span></div>}
   </div>;
 }

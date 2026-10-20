@@ -47,11 +47,15 @@ function Landmark({o}:{o:SceneObject}):React.JSX.Element{
 }
 /** Culling selects existing records. It never creates or moves a plant. */
 export function AuthoredScenery({world,view}:{world:WorldDefinition;view:WorldView}):React.JSX.Element{
+  const objectTileIds=useMemo(()=>{
+    const lots=new Map(world.tiles.map((p,id)=>[`${p.lotX},${p.lotZ}`,id]));
+    return new Map(world.objects.map(o=>[o.id,lots.get(`${o.x},${o.z}`)]));
+  },[world]);
   const objects=useMemo(()=>visibleDecorations(world,view),[world,view]);
   const items=(kind:string,y:number,scale=1)=>objects.filter(o=>o.kind===kind).map(o=>({...o,y:GROUND_TOP+y*o.scale,sx:o.scale*scale,sy:o.scale*scale,sz:o.scale*scale}));
   const trunks=objects.filter(o=>o.kind==='tree'||o.kind==='pine').map(o=>({...o,y:GROUND_TOP+.4*o.scale,sx:o.scale,sy:o.scale,sz:o.scale,color:'#947a56'}));
   const detailed=(o:SceneObject)=>view.zoom>=17||!o.id.startsWith('站点-');
-  const stationSilhouettes=objects.filter(o=>!detailed(o)).map(o=>({...o,y:GROUND_TOP+.42*o.scale,sx:o.scale,sy:o.scale,sz:o.scale}));
+  const stationSilhouettes=objects.filter(o=>!detailed(o)).map(o=>({...o,tileId:objectTileIds.get(o.id),y:GROUND_TOP+.42*o.scale,sx:o.scale,sy:o.scale,sz:o.scale}));
   const foliage=items('tree',1.1);
   const flowers=objects.filter(o=>o.kind==='flower');
   const petals=flowers.flatMap(o=>[0,1,2,3,4].map(i=>({x:o.x+Math.cos(i*Math.PI*.4)*.19*o.scale,z:o.z+Math.sin(i*Math.PI*.4)*.19*o.scale,y:GROUND_TOP+.34*o.scale,sx:o.scale,sy:o.scale*.4,sz:o.scale,color:o.color})));
@@ -65,6 +69,6 @@ export function AuthoredScenery({world,view}:{world:WorldDefinition;view:WorldVi
     <Instances items={petals}><sphereGeometry args={[.17,6,4]}/><meshStandardMaterial roughness={1}/></Instances>
     <Instances items={items('flower',.35)}><sphereGeometry args={[.1,6,4]}/><meshStandardMaterial color="#e6bd68" roughness={1}/></Instances>
     <Instances items={stationSilhouettes}><boxGeometry args={[1.1,.84,1.1]}/><meshStandardMaterial roughness={1}/></Instances>
-    {objects.filter(o=>!['tree','pine','rock','flower'].includes(o.kind)&&detailed(o)).map(o=><group key={o.id} name={o.id} position={[o.x,GROUND_TOP,o.z]} rotation={[0,o.rotation,0]} scale={o.scale}><Landmark o={o}/></group>)}
+    {objects.filter(o=>!['tree','pine','rock','flower'].includes(o.kind)&&detailed(o)).map(o=><group key={o.id} name={o.id} userData={{tileId:objectTileIds.get(o.id)}} position={[o.x,GROUND_TOP,o.z]} rotation={[0,o.rotation,0]} scale={o.scale}><Landmark o={o}/></group>)}
   </group>;
 }

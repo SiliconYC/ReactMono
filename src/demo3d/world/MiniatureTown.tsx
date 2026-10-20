@@ -1,5 +1,6 @@
 import { worldForMap } from '../../core/level-data.js';
-import { useMemo } from 'react';
+import { useMemo, type MutableRefObject } from 'react';
+import type { Navigation } from './world-navigation.js';
 import type { GameState, Tile } from '../../core/game.js';
 import { rowHouses } from '../properties.js';
 import {
@@ -17,7 +18,7 @@ import {
 import { RoadLabels } from './RoadLabels.js';
 import { Instances, type Instance } from './Instances.js';
 import type { WorldView } from './world-view.js';
-type TownProps = Readonly<{ game: GameState; view:WorldView; onSelectTile?: (tileId:number)=>void }>;
+type TownProps = Readonly<{ game: GameState; view:WorldView; nav:MutableRefObject<Navigation>;onSelectTile?: (tileId:number)=>void }>;
 
 import { MASCOT_SEAT_COLORS as PLAYER_COLORS } from './seats.js';
 function colorForOwner(game: GameState, ownerId: string): string {
@@ -83,7 +84,7 @@ function House({ tile, game }: { tile: Tile; game: GameState }): React.JSX.Eleme
   );
 }
 
-export function MiniatureTown({ game, view, onSelectTile }: TownProps): React.JSX.Element {
+export function MiniatureTown({ game, view, nav, onSelectTile }: TownProps): React.JSX.Element {
   const anchors = anchorsForMap(game.map);
   const detail=view.zoom>=17;
   const visible=(p:{x:number;z:number})=>p.x>=view.minX&&p.x<=view.maxX&&p.z>=view.minZ&&p.z<=view.maxZ;
@@ -94,13 +95,13 @@ export function MiniatureTown({ game, view, onSelectTile }: TownProps): React.JS
   }),[anchors,game.map]);
   const lots=useMemo(()=>game.tiles.map(tile=>({...anchors.lots[tile.id],y:GROUND_TOP+.035,rotation:inwardAngleForTile(tile.id,game.map),color:tile.ownerId?colorForOwner(game,tile.ownerId):tile.kind==='property'?'#d2d8b3':'#9fbe91'})),[game.tiles,anchors,game.players]);
   const posts:Instance[]=detail?lots.filter(visible).flatMap(p=>[-.43,.43].map(x=>({x:p.x+Math.cos(p.rotation)*x,z:p.z-Math.sin(p.rotation)*x,y:GROUND_TOP+.15,color:p.color}))):[];
-  const simpleHouses=game.tiles.filter(t=>t.ownerId&&(t.level??0)>0&&!detail).map(t=>({...anchors.lots[t.id],y:GROUND_TOP+.5,sy:1+(t.level??1)*.3,color:colorForOwner(game,t.ownerId!)}));
+  const simpleHouses=game.tiles.filter(t=>t.ownerId&&(t.level??0)>0&&!detail).map(t=>({...anchors.lots[t.id],tileId:t.id,y:GROUND_TOP+.5,sy:1+(t.level??1)*.3,color:colorForOwner(game,t.ownerId!)}));
   return (
     <group name="路线与街区">
-      <RoadLabels map={game.map} view={view}/>
+      <RoadLabels map={game.map} view={view} nav={nav}/>
       <Instances items={edges}><boxGeometry args={[1,ROAD_CONNECTOR_THICKNESS,1]}/><meshStandardMaterial color="#d7d7bd" roughness={1}/></Instances>
-      <Instances items={roads} onSelect={onSelectTile}><boxGeometry args={[1.78,ROAD_TILE_THICKNESS,1.78]}/><meshStandardMaterial roughness={.94}/></Instances>
-      <Instances items={lots}><boxGeometry args={[1.18,.07,1.18]}/><meshStandardMaterial roughness={1}/></Instances>
+      <Instances items={roads} onSelect={onSelectTile} mapTiles><boxGeometry args={[1.78,ROAD_TILE_THICKNESS,1.78]}/><meshStandardMaterial roughness={.94}/></Instances>
+      <Instances items={lots} mapTiles><boxGeometry args={[1.18,.07,1.18]}/><meshStandardMaterial roughness={1}/></Instances>
       <Instances items={posts}><cylinderGeometry args={[.035,.045,.3,5]}/><meshStandardMaterial roughness={1}/></Instances>
       <Instances items={simpleHouses}><boxGeometry args={[.78,.8,.78]}/><meshStandardMaterial roughness={.9}/></Instances>
       {detail&&game.tiles.filter(tile=>visible(anchors.lots[tile.id])).map(tile => {
@@ -108,7 +109,7 @@ export function MiniatureTown({ game, view, onSelectTile }: TownProps): React.JS
         const angle = inwardAngleForTile(tile.id, game.map);
         if(tile.kind!=='property'||(tile.level??0)===0)return null;
         return (
-          <group key={tile.id} position={[lot.x, GROUND_TOP, lot.z]} rotation={[0, angle, 0]}>
+          <group key={tile.id} userData={{tileId:tile.id}} position={[lot.x, GROUND_TOP, lot.z]} rotation={[0, angle, 0]}>
             <House tile={tile} game={game} />
           </group>
         );
@@ -123,7 +124,7 @@ export function MiniatureTown({ game, view, onSelectTile }: TownProps): React.JS
         const rotation=Math.atan2(b.x-a.x,b.z-a.z);
         const height = Math.min(game.tiles[id].level ?? 1, game.tiles[row.tileIds[index]].level ?? 1) === 2 ? 1.45 : 0.85;
         return (
-          <group key={`terrace-${id}`} position={[(a.x + b.x) / 2, GROUND_TOP, (a.z + b.z) / 2]} rotation={[0,rotation,0]}>
+          <group key={`terrace-${id}`} userData={{tileId:id}} position={[(a.x + b.x) / 2, GROUND_TOP, (a.z + b.z) / 2]} rotation={[0,rotation,0]}>
             <mesh position={[0, 0.09, 0]}>
               <boxGeometry args={[0.86, 0.18, length]} />
               <meshStandardMaterial color={colorForOwner(game, row.ownerId)} roughness={0.86} />
