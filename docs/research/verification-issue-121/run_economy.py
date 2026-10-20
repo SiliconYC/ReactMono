@@ -33,15 +33,17 @@ try:
         # This changes ONLY the declaration/call forwarding, never rent/trade production logic.
         header=upstream/"include/game/application.h"
         source=header.read_text(encoding="utf-8")
-        before=("    bool init(const std::string& gameDir, bool headless = false,\\n"
-                "              const DisplayConfig& display = DisplayConfig{});")
-        before=before.replace("\\\\n","\\n")
-        replacement=("    bool init(const std::string& gameDir, bool headless,\\n"
-                     "              const DisplayConfig& display);\\n"
-                     "    bool init(const std::string& gameDir, bool headless = false) {\\n"
-                     "        return init(gameDir, headless, DisplayConfig{});\\n"
-                     "    }")
-        replacement=replacement.replace("\\\\n","\\n")
+        before=chr(10).join([
+            "    bool init(const std::string& gameDir, bool headless = false,",
+            "              const DisplayConfig& display = DisplayConfig{});"
+        ])
+        replacement=chr(10).join([
+            "    bool init(const std::string& gameDir, bool headless,",
+            "              const DisplayConfig& display);",
+            "    bool init(const std::string& gameDir, bool headless = false) {",
+            "        return init(gameDir, headless, DisplayConfig{});",
+            "    }"
+        ])
         if before not in source:
             raise RuntimeError("Pinned upstream Application::init declaration changed")
         header.write_text(source.replace(before,replacement,1),encoding="utf-8")
