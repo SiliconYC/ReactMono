@@ -1,14 +1,14 @@
 /* 精确版本的同源静态资源缓存；IndexedDB 和用户文件不归服务工作线程管理。 */
-const VERSION='reactmono-4993a3881aa47dae';
+const VERSION='reactmono-a81158a55f98c0a7';
 const PRECACHE=['./','./index.html','./style.css','./board-art.css','./characters.css','./action-layout.css','./motion.css','./audio.css','./guide.css','./board-3d.css',
  './visual-lab.html','./visual-lab.css','./visual-tokens.css','./art-manifest.json',
  './art/house.svg','./art/coin.svg',
  './art/character-fox.svg','./art/character-bear.svg','./art/character-rabbit.svg','./art/character-bird.svg',
- './assets/game-cUZhUH8-.js',
- './assets/main-CHQapHsj.css',
- './assets/main-DsPO7joT.js',
+ './assets/game-CUMMtzrM.js',
+ './assets/main-BxgcCAch.js',
+ './assets/main-D3keK-f5.css',
  './assets/manifest-C-zx9ihZ.webmanifest',
- './assets/visualLab-CRMsCC19.js',
+ './assets/visualLab-DBnp-A7I.js',
  './assets/visualLab-rR3xiTWP.css',
  './manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png'];
 const urls=PRECACHE.map(path=>new URL(path,self.registration.scope).href);
