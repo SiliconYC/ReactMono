@@ -57,7 +57,7 @@ def browser(projs):
   try:b=pw.chromium.launch(channel="chrome",**opts)
   except Exception:b=pw.chromium.launch(**opts)
   report["chromium_version"]=b.version
-  for name,url in [("richman3d","http://127.0.0.1:8121/"),("richlife","http://127.0.0.1:8122/?auto=1&nofly=1&cdn=0&allmax=1"),("reactmono","http://127.0.0.1:4173/")]:
+  for name,url in [("richman3d","http://127.0.0.1:8121/"),("richlife","http://127.0.0.1:8122/?auto=1&nofly=1&cdn=0"),("reactmono","http://127.0.0.1:4173/")]:
    for kind,w,h in [("desktop",1440,900),("mobile",390,844)]:
     d={"name":name,"viewport":kind,"size":[w,h],"url":url}
     if name!="reactmono" and not projs.get(name):d["blocked"]="clone failed";report["views"].append(d);continue
@@ -89,9 +89,11 @@ def browser(projs):
               webgl: webgl.length, body: document.body.innerText.slice(0,280),
               controls:[...document.querySelectorAll('button')].filter(b=>b.getBoundingClientRect().width>0).slice(0,12).map(b=>b.innerText.trim().slice(0,30))}}
      """)
-     d["raf_ms"]=page.evaluate("""async()=>{let a=[],old=performance.now();
-      for(let i=0;i<75;i++){await new Promise(requestAnimationFrame);let now=performance.now();if(i>5)a.push(now-old);old=now}
-      a.sort((x,y)=>x-y);return {n:a.length,median:a[Math.floor(a.length*.5)],p95:a[Math.floor(a.length*.95)]}}""")
+     d["raf_ms"]=page.evaluate("""async()=>await Promise.race([
+       (async()=>{let a=[],old=performance.now();for(let i=0;i<15;i++){
+         await new Promise(requestAnimationFrame);let now=performance.now();if(i>2)a.push(now-old);old=now;
+       } a.sort((x,y)=>x-y);return {n:a.length,median:a[Math.floor(a.length*.5)],p95:a[Math.floor(a.length*.95)]};})(),
+       new Promise(resolve=>setTimeout(()=>resolve({timeout:true,n:0}),6000))])""")
      filename=name+"-"+kind+".png";path=OUT/filename
      page.screenshot(path=str(path),full_page=False,animations="disabled")
      d["screenshot"]=filename;d["sha256"]=hashlib.sha256(path.read_bytes()).hexdigest()
@@ -158,6 +160,7 @@ def main():
  try:
   for name in REPOS:projs[name]=checkout(name,work)
   if projs.get("richman3d"):run("richman3d smoke",["node","test/smoke.mjs","2"],projs["richman3d"],120)
+  run("CJK font setup",["bash","-lc","if ! fc-list :lang=zh family | grep -q .; then sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-microhei; fi"],timeout=240)
   if run("ReactMono npm ci",["npm","ci","--ignore-scripts"],timeout=360)["exit"]==0:
    proc=subprocess.Popen(["npm","run","main:dev","--","--host","127.0.0.1","--port","4173","--strictPort"],cwd=ROOT,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
    time.sleep(7)
