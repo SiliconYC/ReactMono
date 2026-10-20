@@ -160,12 +160,12 @@ def main():
  try:
   for name in REPOS:projs[name]=checkout(name,work)
   if projs.get("richman3d"):run("richman3d smoke",["node","test/smoke.mjs","2"],projs["richman3d"],120)
+  economy(projs.get("rich4re"))
   run("CJK font setup",["bash","-lc","if ! fc-list :lang=zh family | grep -q .; then sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-microhei; fi"],timeout=240)
   if run("ReactMono npm ci",["npm","ci","--ignore-scripts"],timeout=360)["exit"]==0:
    proc=subprocess.Popen(["npm","run","main:dev","--","--host","127.0.0.1","--port","4173","--strictPort"],cwd=ROOT,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
    time.sleep(7)
   browser(projs)
-  economy(projs.get("rich4re"))
  finally:
   if proc:proc.terminate()
   shutil.rmtree(work,ignore_errors=True)
