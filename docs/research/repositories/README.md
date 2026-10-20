@@ -26,3 +26,5 @@
 - [zawsstt/monopoly-rich-life（Three.js 书桌沙盘）](zawsstt--monopoly-rich-life/README.md)：[Issue #103](https://github.com/SiliconYC/ReactMono/issues/103)，2026-10-19 UTC，固定上游 `307c1761b150a7179fb0353618a95bc6effe3fee`；[五组源码锚点](zawsstt--monopoly-rich-life/source-index.md)｜[结构化证据](zawsstt--monopoly-rich-life/evidence.json)。B/C 源码审计、无独立浏览器/联机测试，非商用许可只读参考。
 
 - [Yakamozli/richman-3d（Three.js 程序化棋盘）](Yakamozli--richman-3d/README.md)：[Issue #102](https://github.com/SiliconYC/ReactMono/issues/102)，2026-10-19 UTC，固定上游 `32e7f01f9888a28b8fd1267f5488c455e15abe4a`；[源码锚点](Yakamozli--richman-3d/source-index.md)｜[结构化证据](Yakamozli--richman-3d/evidence.json)。仅 B/C/D 源码审计；无独立运行或截图。
+
+- [lhr0909/richman4-remastered：原生移植与可玩性深度研究（Issue #97）](lhr0909--richman4-remastered/README.md)：固定上游 `3f4209a7dfb5b2f20799bf54e6c03c5faa11c557`；[源码索引](lhr0909--richman4-remastered/source-index.md)｜[结构化证据](lhr0909--richman4-remastered/evidence.json)。仅独立源码核查，无完整游戏、47/47 CTest、20/20 矩阵或移动设备独立实测；只读参考。
