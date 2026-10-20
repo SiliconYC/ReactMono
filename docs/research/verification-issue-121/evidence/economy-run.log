@@ -1,12 +1,14 @@
-$ git clone --depth 1 https://github.com/tytannial/rich4-re.git /tmp/issue121-economy-54a0yivq/rich4re
-Cloning into '/tmp/issue121-economy-54a0yivq/rich4re'...
+$ git clone --depth 1 https://github.com/tytannial/rich4-re.git /tmp/issue121-economy-0bsp43lu/rich4re
+Cloning into '/tmp/issue121-economy-0bsp43lu/rich4re'...
 
 
 $ git checkout --detach b7b76570f445ad07c0788314062b8500e77259e7
 HEAD is now at b7b7657 docs: 发布准备——README（构建/运行/测试/免责声明）+ MIT LICENSE
 
 
-$ cmake -S /tmp/issue121-economy-54a0yivq/rich4re -B /tmp/issue121-economy-54a0yivq/rich4re/build-issue121 -DCMAKE_BUILD_TYPE=Release -DSDL_UNIX_CONSOLE_BUILD=ON
+EPHEMERAL HEADER PATCH: Application::init default argument moved to inline 2-argument overload; unchanged economy implementation
+
+$ cmake -S /tmp/issue121-economy-0bsp43lu/rich4re -B /tmp/issue121-economy-0bsp43lu/rich4re/build-issue121 -DCMAKE_BUILD_TYPE=Release -DSDL_UNIX_CONSOLE_BUILD=ON
 -- The CXX compiler identification is GNU 13.3.0
 -- Detecting CXX compiler ABI info
 -- Detecting CXX compiler ABI info - done
@@ -466,7 +468,7 @@ Call Stack (most recent call first):
 -- 
 -- SDL3 was configured with the following options:
 -- 
--- Platform: Linux-7.0.0-1017-azure
+-- Platform: Linux-6.17.0-1022-azure
 -- 64-bit:   TRUE
 -- Compiler: /usr/bin/cc
 -- Revision: SDL-3.4.16-release-3.4.16
@@ -605,12 +607,12 @@ Call Stack (most recent call first):
 -- CMAKE_C_FLAGS and CMAKE_PREFIX_PATH CMake variables correctly.
 -- 
 -- Using system FreeType 2.13.2
--- Configuring done (38.9s)
+-- Configuring done (22.4s)
 -- Generating done (0.1s)
--- Build files have been written to: /tmp/issue121-economy-54a0yivq/rich4re/build-issue121
+-- Build files have been written to: /tmp/issue121-economy-0bsp43lu/rich4re/build-issue121
 
 
-$ cmake --build /tmp/issue121-economy-54a0yivq/rich4re/build-issue121 --target rich4_tests -j 3
+$ cmake --build /tmp/issue121-economy-0bsp43lu/rich4re/build-issue121 --target rich4_tests -j 3
 [  0%] Building C object _deps/sdl3-build/CMakeFiles/SDL3-static.dir/cmake_pch.h.gch
 [  1%] Building C object _deps/sdl3-build/CMakeFiles/SDL3-static.dir/src/dynapi/SDL_dynapi.c.o
 [  1%] Building C object _deps/sdl3-build/CMakeFiles/SDL3-static.dir/src/SDL_assert.c.o
@@ -637,8 +639,8 @@ $ cmake --build /tmp/issue121-economy-54a0yivq/rich4re/build-issue121 --target r
 [  7%] Building C object _deps/sdl3-build/CMakeFiles/SDL3-static.dir/src/core/SDL_core_unsupported.c.o
 [  7%] Building C object _deps/sdl3-build/CMakeFiles/SDL3-static.dir/src/cpuinfo/SDL_cpuinfo.c.o
 [  7%] Building C object _deps/sdl3-build/CMakeFiles/SDL3-static.dir/src/events/SDL_categories.c.o
-[  7%] Building C object _deps/sdl3-build/CMakeFiles/SDL3-static.dir/src/events/SDL_displayevents.c.o
 [  7%] Building C object _deps/sdl3-build/CMakeFiles/SDL3-static.dir/src/events/SDL_clipboardevents.c.o
+[  7%] Building C object _deps/sdl3-build/CMakeFiles/SDL3-static.dir/src/events/SDL_displayevents.c.o
 [  8%] Building C object _deps/sdl3-build/CMakeFiles/SDL3-static.dir/src/events/SDL_dropevents.c.o
 [  8%] Building C object _deps/sdl3-build/CMakeFiles/SDL3-static.dir/src/events/SDL_events.c.o
 [  8%] Building C object _deps/sdl3-build/CMakeFiles/SDL3-static.dir/src/events/SDL_eventwatch.c.o
@@ -754,8 +756,8 @@ $ cmake --build /tmp/issue121-economy-54a0yivq/rich4re/build-issue121 --target r
 [ 40%] Building C object _deps/sdl3-build/CMakeFiles/SDL3-static.dir/src/libm/e_log10.c.o
 [ 40%] Building C object _deps/sdl3-build/CMakeFiles/SDL3-static.dir/src/libm/e_pow.c.o
 [ 40%] Building C object _deps/sdl3-build/CMakeFiles/SDL3-static.dir/src/libm/e_rem_pio2.c.o
-[ 40%] Building C object _deps/sdl3-build/CMakeFiles/SDL3-static.dir/src/libm/e_sqrt.c.o
 [ 41%] Building C object _deps/sdl3-build/CMakeFiles/SDL3-static.dir/src/libm/k_cos.c.o
+[ 41%] Building C object _deps/sdl3-build/CMakeFiles/SDL3-static.dir/src/libm/e_sqrt.c.o
 [ 41%] Building C object _deps/sdl3-build/CMakeFiles/SDL3-static.dir/src/libm/k_rem_pio2.c.o
 [ 41%] Building C object _deps/sdl3-build/CMakeFiles/SDL3-static.dir/src/libm/k_sin.c.o
 [ 42%] Building C object _deps/sdl3-build/CMakeFiles/SDL3-static.dir/src/libm/k_tan.c.o
@@ -860,175 +862,403 @@ $ cmake --build /tmp/issue121-economy-54a0yivq/rich4re/build-issue121 --target r
 [ 69%] Building CXX object CMakeFiles/rich4_core.dir/src/app/ai/ai_card.cpp.o
 [ 69%] Building CXX object CMakeFiles/rich4_core.dir/src/app/ai/ai_item.cpp.o
 [ 70%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/ai_dialog.cpp.o
-In file included from /tmp/issue121-economy-54a0yivq/rich4re/src/app/ai/ai_item.cpp:11:
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::windowWidth’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:32:25: note: defined here
-   32 |         int windowWidth = 1280;
-      |                         ^~~~~~~
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::windowHeight’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:33:26: note: defined here
-   33 |         int windowHeight = 960;
-      |                          ^~~~~~
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::canvasWidth’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:34:25: note: defined here
-   34 |         int canvasWidth = 0;
-      |                         ^~~~
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::canvasHeight’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:35:26: note: defined here
-   35 |         int canvasHeight = 0;
-      |                          ^~~~
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::uiScale’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:36:23: note: defined here
-   36 |         float uiScale = 1.0f;
-      |                       ^~~~~~~
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::autoScale’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:37:24: note: defined here
-   37 |         bool autoScale = false;
-      |                        ^~~~~~~~
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::linearFilter’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:39:27: note: defined here
-   39 |         bool linearFilter = true;
-      |                           ^~~~~~~
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::vsync’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:41:20: note: defined here
-   41 |         bool vsync = true;
-      |                    ^~~~~~~
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::fullscreen’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:42:25: note: defined here
-   42 |         bool fullscreen = false;
-      |                         ^~~~~~~~
-In file included from /tmp/issue121-economy-54a0yivq/rich4re/src/app/ai/ai_card.cpp:13:
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::windowWidth’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:32:25: note: defined here
-   32 |         int windowWidth = 1280;
-      |                         ^~~~~~~
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::windowHeight’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:33:26: note: defined here
-   33 |         int windowHeight = 960;
-      |                          ^~~~~~
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::canvasWidth’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:34:25: note: defined here
-   34 |         int canvasWidth = 0;
-      |                         ^~~~
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::canvasHeight’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:35:26: note: defined here
-   35 |         int canvasHeight = 0;
-      |                          ^~~~
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::uiScale’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:36:23: note: defined here
-   36 |         float uiScale = 1.0f;
-      |                       ^~~~~~~
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::autoScale’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:37:24: note: defined here
-   37 |         bool autoScale = false;
-      |                        ^~~~~~~~
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::linearFilter’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:39:27: note: defined here
-   39 |         bool linearFilter = true;
-      |                           ^~~~~~~
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::vsync’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:41:20: note: defined here
-   41 |         bool vsync = true;
-      |                    ^~~~~~~
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::fullscreen’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:42:25: note: defined here
-   42 |         bool fullscreen = false;
-      |                         ^~~~~~~~
-In file included from /tmp/issue121-economy-54a0yivq/rich4re/src/app/dialogs/ai_dialog.cpp:5:
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::windowWidth’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:32:25: note: defined here
-   32 |         int windowWidth = 1280;
-      |                         ^~~~~~~
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::windowHeight’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:33:26: note: defined here
-   33 |         int windowHeight = 960;
-      |                          ^~~~~~
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::canvasWidth’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:34:25: note: defined here
-   34 |         int canvasWidth = 0;
-      |                         ^~~~
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::canvasHeight’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:35:26: note: defined here
-   35 |         int canvasHeight = 0;
-      |                          ^~~~
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::uiScale’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:36:23: note: defined here
-   36 |         float uiScale = 1.0f;
-      |                       ^~~~~~~
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::autoScale’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:37:24: note: defined here
-   37 |         bool autoScale = false;
-      |                        ^~~~~~~~
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::linearFilter’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:39:27: note: defined here
-   39 |         bool linearFilter = true;
-      |                           ^~~~~~~
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::vsync’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:41:20: note: defined here
-   41 |         bool vsync = true;
-      |                    ^~~~~~~
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:45:60: error: default member initializer for ‘rich4::Application::DisplayConfig::fullscreen’ required before the end of its enclosing class
-   45 |               const DisplayConfig& display = DisplayConfig{});
-      |                                                            ^
-/tmp/issue121-economy-54a0yivq/rich4re/include/game/application.h:42:25: note: defined here
-   42 |         bool fullscreen = false;
-      |                         ^~~~~~~~
-gmake[3]: *** [CMakeFiles/rich4_core.dir/build.make:79: CMakeFiles/rich4_core.dir/src/app/ai/ai_card.cpp.o] Error 1
-gmake[3]: *** Waiting for unfinished jobs....
-gmake[3]: *** [CMakeFiles/rich4_core.dir/build.make:107: CMakeFiles/rich4_core.dir/src/app/dialogs/ai_dialog.cpp.o] Error 1
-gmake[3]: *** [CMakeFiles/rich4_core.dir/build.make:93: CMakeFiles/rich4_core.dir/src/app/ai/ai_item.cpp.o] Error 1
-gmake[2]: *** [CMakeFiles/Makefile2:115: CMakeFiles/rich4_core.dir/all] Error 2
-gmake[1]: *** [CMakeFiles/Makefile2:188: CMakeFiles/rich4_tests.dir/rule] Error 2
-gmake: *** [Makefile:161: rich4_tests] Error 2
+[ 70%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/auction_dialog.cpp.o
+[ 70%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/bank_dialog.cpp.o
+[ 70%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/bank_stay_dialog.cpp.o
+[ 71%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/card_bag_dialog.cpp.o
+[ 71%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/confirm_dialog.cpp.o
+[ 71%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/date_dialog.cpp.o
+[ 72%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/dividend_dialog.cpp.o
+[ 72%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/facility_dialog.cpp.o
+[ 72%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/help_dialog.cpp.o
+[ 72%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/hotkey_dialog.cpp.o
+[ 73%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/item_bag_dialog.cpp.o
+[ 73%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/jail_dialog.cpp.o
+[ 73%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/lab_dialog.cpp.o
+[ 74%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/load_dialog.cpp.o
+[ 74%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/lottery_dialog.cpp.o
+[ 74%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/magic_house_dialog.cpp.o
+[ 74%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/map_dialog.cpp.o
+[ 75%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/message_dialog.cpp.o
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/dialogs/magic_house_dialog.cpp: In function ‘int rich4::deathGodSummonDialog(Application&, int)’:
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/dialogs/magic_house_dialog.cpp:901:52: warning: ‘%zu’ directive output may be truncated writing between 1 and 20 bytes into a region of size 6 [-Wformat-truncation=]
+  901 |             std::snprintf(nm, sizeof(nm), "dg.face.%zu", i);
+      |                                                    ^~~
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/dialogs/magic_house_dialog.cpp:901:43: note: directive argument in the range [0, 18446744073709551614]
+  901 |             std::snprintf(nm, sizeof(nm), "dg.face.%zu", i);
+      |                                           ^~~~~~~~~~~~~
+In file included from /usr/include/stdio.h:980,
+                 from /usr/include/c++/13/cstdio:42,
+                 from /tmp/issue121-economy-0bsp43lu/rich4re/src/app/dialogs/magic_house_dialog.cpp:25:
+In function ‘int snprintf(char*, size_t, const char*, ...)’,
+    inlined from ‘int rich4::deathGodSummonDialog(Application&, int)’ at /tmp/issue121-economy-0bsp43lu/rich4re/src/app/dialogs/magic_house_dialog.cpp:901:26:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:54:35: note: ‘__builtin___snprintf_chk’ output between 10 and 29 bytes into a destination of size 14
+   54 |   return __builtin___snprintf_chk (__s, __n, __USE_FORTIFY_LEVEL - 1,
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   55 |                                    __glibc_objsize (__s), __fmt,
+      |                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   56 |                                    __va_arg_pack ());
+      |                                    ~~~~~~~~~~~~~~~~~
+[ 75%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/minigame_dialog.cpp.o
+[ 75%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/month_settle_dialog.cpp.o
+[ 75%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/new_game_dialog.cpp.o
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/dialogs/minigame_dialog.cpp: In function ‘void rich4::{anonymous}::drawDig(DigCtx&)’:
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/dialogs/minigame_dialog.cpp:553:42: warning: suggest parentheses around ‘&&’ within ‘||’ [-Wparentheses]
+  553 |     if ((ui.state == 1 || ui.state == 6) && (ui.anim & 0xF) == 4 || ui.state == 4 ||
+      |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/dialogs/minigame_dialog.cpp: In function ‘bool rich4::{anonymous}::moneyHandler(const SDL_Event*, void*)’:
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/dialogs/minigame_dialog.cpp:1040:20: warning: ‘void* memset(void*, int, size_t)’ clearing an object of non-trivial type ‘struct rich4::{anonymous}::MoneyBag’; use assignment or value-initialization instead [-Wclass-memaccess]
+ 1040 |         std::memset(ui.bags, 0, sizeof(ui.bags));
+      |         ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/dialogs/minigame_dialog.cpp:723:8: note: ‘struct rich4::{anonymous}::MoneyBag’ declared here
+  723 | struct MoneyBag {
+      |        ^~~~~~~~
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/dialogs/minigame_dialog.cpp: In function ‘bool rich4::{anonymous}::balloonHandler(const SDL_Event*, void*)’:
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/dialogs/minigame_dialog.cpp:1377:20: warning: ‘void* memset(void*, int, size_t)’ clearing an object of non-trivial type ‘struct rich4::{anonymous}::Balloon’; use assignment or value-initialization instead [-Wclass-memaccess]
+ 1377 |         std::memset(ui.balloons, 0, sizeof(ui.balloons));
+      |         ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/dialogs/minigame_dialog.cpp:1176:8: note: ‘struct rich4::{anonymous}::Balloon’ declared here
+ 1176 | struct Balloon {
+      |        ^~~~~~~
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/dialogs/month_settle_dialog.cpp: In function ‘bool rich4::{anonymous}::settleHandler(const SDL_Event*, void*)’:
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/dialogs/month_settle_dialog.cpp:460:77: warning: ‘__builtin___snprintf_chk’ output may be truncated before the last format character [-Wformat-truncation=]
+  460 |             std::snprintf(ui.rowInterest[i], sizeof(ui.rowInterest[i]), "$%s", digits);
+      |                                                                             ^
+In file included from /usr/include/stdio.h:980,
+                 from /usr/include/c++/13/cstdio:42,
+                 from /tmp/issue121-economy-0bsp43lu/rich4re/src/app/dialogs/month_settle_dialog.cpp:6:
+In function ‘int snprintf(char*, size_t, const char*, ...)’,
+    inlined from ‘bool rich4::{anonymous}::settleHandler(const SDL_Event*, void*)’ at /tmp/issue121-economy-0bsp43lu/rich4re/src/app/dialogs/month_settle_dialog.cpp:460:26:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:54:35: note: ‘__builtin___snprintf_chk’ output between 2 and 25 bytes into a destination of size 24
+   54 |   return __builtin___snprintf_chk (__s, __n, __USE_FORTIFY_LEVEL - 1,
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   55 |                                    __glibc_objsize (__s), __fmt,
+      |                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   56 |                                    __va_arg_pack ());
+      |                                    ~~~~~~~~~~~~~~~~~
+[ 76%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/news_dialog.cpp.o
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/dialogs/minigame_dialog.cpp: In function ‘void rich4::{anonymous}::drawMoney(MoneyCtx&, bool)’:
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/dialogs/minigame_dialog.cpp:1011:38: warning: ‘%03d’ directive output may be truncated writing between 3 and 11 bytes into a region of size 8 [-Wformat-truncation=]
+ 1011 |     std::snprintf(buf, sizeof(buf), "%03d", ui.countdown >> 1);  // 50ms tick → 秒
+      |                                      ^~~~
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/dialogs/minigame_dialog.cpp:1011:37: note: directive argument in the range [-1073741824, 1073741823]
+ 1011 |     std::snprintf(buf, sizeof(buf), "%03d", ui.countdown >> 1);  // 50ms tick → 秒
+      |                                     ^~~~~~
+In file included from /usr/include/stdio.h:980,
+                 from /usr/include/c++/13/cstdio:42,
+                 from /tmp/issue121-economy-0bsp43lu/rich4re/src/app/dialogs/minigame_dialog.cpp:45:
+In function ‘int snprintf(char*, size_t, const char*, ...)’,
+    inlined from ‘void rich4::{anonymous}::drawMoney(MoneyCtx&, bool)’ at /tmp/issue121-economy-0bsp43lu/rich4re/src/app/dialogs/minigame_dialog.cpp:1011:18:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:54:35: note: ‘__builtin___snprintf_chk’ output between 4 and 12 bytes into a destination of size 8
+   54 |   return __builtin___snprintf_chk (__s, __n, __USE_FORTIFY_LEVEL - 1,
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   55 |                                    __glibc_objsize (__s), __fmt,
+      |                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   56 |                                    __va_arg_pack ());
+      |                                    ~~~~~~~~~~~~~~~~~
+[ 76%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/number_input_dialog.cpp.o
+[ 76%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/player_select_dialog.cpp.o
+[ 77%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/query_dialog.cpp.o
+[ 77%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/roulette_dialog.cpp.o
+[ 77%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/save_dialog.cpp.o
+[ 77%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/settings_dialog.cpp.o
+[ 78%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/shop_dialog.cpp.o
+[ 78%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/spec_pt_dialog.cpp.o
+[ 78%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/stock_market_dialog.cpp.o
+[ 79%] Building CXX object CMakeFiles/rich4_core.dir/src/app/dialogs/target_select_dialog.cpp.o
+[ 79%] Building CXX object CMakeFiles/rich4_core.dir/src/app/game/card_effects.cpp.o
+[ 79%] Building CXX object CMakeFiles/rich4_core.dir/src/app/game/card_lines.cpp.o
+[ 79%] Building CXX object CMakeFiles/rich4_core.dir/src/app/game/date_util.cpp.o
+[ 80%] Building CXX object CMakeFiles/rich4_core.dir/src/app/game/economy.cpp.o
+[ 80%] Building CXX object CMakeFiles/rich4_core.dir/src/app/game/event_common.cpp.o
+[ 80%] Building CXX object CMakeFiles/rich4_core.dir/src/app/game/event_stack.cpp.o
+[ 81%] Building CXX object CMakeFiles/rich4_core.dir/src/app/game/fate_event.cpp.o
+[ 81%] Building CXX object CMakeFiles/rich4_core.dir/src/app/game/game_init.cpp.o
+[ 81%] Building CXX object CMakeFiles/rich4_core.dir/src/app/game/game_loop.cpp.o
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/game/game_init.cpp: In function ‘bool rich4::gameInit(Application&)’:
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/game/game_init.cpp:55:19: warning: ignoring return value of ‘size_t fread(void*, size_t, size_t, FILE*)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+   55 |         std::fread(state.settings, 1, sizeof(state.settings), fp);
+      |         ~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[ 81%] Building CXX object CMakeFiles/rich4_core.dir/src/app/game/game_shutdown.cpp.o
+[ 82%] Building CXX object CMakeFiles/rich4_core.dir/src/app/game/item_effects.cpp.o
+[ 82%] Building CXX object CMakeFiles/rich4_core.dir/src/app/game/item_lines.cpp.o
+[ 82%] Building CXX object CMakeFiles/rich4_core.dir/src/app/game/map_objects.cpp.o
+[ 83%] Building CXX object CMakeFiles/rich4_core.dir/src/app/game/map_render.cpp.o
+[ 83%] Building CXX object CMakeFiles/rich4_core.dir/src/app/game/new_game.cpp.o
+[ 83%] Building CXX object CMakeFiles/rich4_core.dir/src/app/game/save_data.cpp.o
+[ 83%] Building CXX object CMakeFiles/rich4_core.dir/src/app/game/stock_system.cpp.o
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/game/save_data.cpp:40:6: warning: ‘void rich4::{anonymous}::writeU16(uint8_t*, uint16_t)’ defined but not used [-Wunused-function]
+   40 | void writeU16(uint8_t* p, uint16_t v) {
+      |      ^~~~~~~~
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/game/map_render.cpp: In function ‘void rich4::renderMap(Application&, int, int)’:
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/game/map_render.cpp:763:44: warning: ‘%d’ directive output may be truncated writing between 1 and 10 bytes into a region of size 8 [-Wformat-truncation=]
+  763 |         std::snprintf(text, sizeof(text), "%d", state.remainingSteps);
+      |                                            ^~
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/game/map_render.cpp:763:43: note: directive argument in the range [1, 2147483647]
+  763 |         std::snprintf(text, sizeof(text), "%d", state.remainingSteps);
+      |                                           ^~~~
+In file included from /usr/include/stdio.h:980,
+                 from /usr/include/c++/13/cstdio:42,
+                 from /tmp/issue121-economy-0bsp43lu/rich4re/src/app/game/map_render.cpp:6:
+In function ‘int snprintf(char*, size_t, const char*, ...)’,
+    inlined from ‘void rich4::renderMap(Application&, int, int)’ at /tmp/issue121-economy-0bsp43lu/rich4re/src/app/game/map_render.cpp:763:22:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:54:35: note: ‘__builtin___snprintf_chk’ output between 2 and 11 bytes into a destination of size 8
+   54 |   return __builtin___snprintf_chk (__s, __n, __USE_FORTIFY_LEVEL - 1,
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   55 |                                    __glibc_objsize (__s), __fmt,
+      |                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   56 |                                    __va_arg_pack ());
+      |                                    ~~~~~~~~~~~~~~~~~
+[ 84%] Building CXX object CMakeFiles/rich4_core.dir/src/app/game/trade_market.cpp.o
+[ 84%] Building CXX object CMakeFiles/rich4_core.dir/src/app/game/turn_system.cpp.o
+[ 84%] Building CXX object CMakeFiles/rich4_core.dir/src/app/game/victory.cpp.o
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/game/turn_system.cpp: In function ‘void rich4::landAfterMove(Application&, int, uint16_t)’:
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/game/turn_system.cpp:1963:41: warning: comparison is always true due to limited range of data type [-Wtype-limits]
+ 1963 |             if (st.players[p].charIndex >= 0 && st.players[p].charIndex < 12) {
+      |                 ~~~~~~~~~~~~~~~~~~~~~~~~^~~~
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/game/turn_system.cpp: In function ‘int rich4::landingEvent(Application&, uint16_t)’:
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/game/turn_system.cpp:2318:34: warning: comparison is always true due to limited range of data type [-Wtype-limits]
+ 2318 |                 if (pl.charIndex >= 0 && pl.charIndex < 12) {
+      |                     ~~~~~~~~~~~~~^~~~
+[ 85%] Building CXX object CMakeFiles/rich4_core.dir/src/app/ui/float_message.cpp.o
+[ 85%] Building CXX object CMakeFiles/rich4_core.dir/src/app/ui/game_panel.cpp.o
+[ 85%] Building CXX object CMakeFiles/rich4_core.dir/src/app/ui/main_menu.cpp.o
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/ui/game_panel.cpp: In function ‘void rich4::renderGamePanel(Application&, uint8_t)’:
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/ui/game_panel.cpp:534:48: warning: ‘%d’ directive output may be truncated writing between 1 and 10 bytes into a region of size 8 [-Wformat-truncation=]
+  534 |             std::snprintf(text, sizeof(text), "%d", d);
+      |                                                ^~
+In function ‘void rich4::{anonymous}::drawCalendar(rich4::Application&)’,
+    inlined from ‘void rich4::renderGamePanel(Application&, uint8_t)’ at /tmp/issue121-economy-0bsp43lu/rich4re/src/app/ui/game_panel.cpp:770:21:
+/tmp/issue121-economy-0bsp43lu/rich4re/src/app/ui/game_panel.cpp:534:47: note: directive argument in the range [1, 2147483647]
+  534 |             std::snprintf(text, sizeof(text), "%d", d);
+      |                                               ^~~~
+In file included from /usr/include/stdio.h:980,
+                 from /usr/include/c++/13/cstdio:42,
+                 from /usr/include/c++/13/ext/string_conversions.h:45,
+                 from /usr/include/c++/13/bits/basic_string.h:4109,
+                 from /usr/include/c++/13/string:54,
+                 from /tmp/issue121-economy-0bsp43lu/rich4re/include/game/game_state.h:5,
+                 from /tmp/issue121-economy-0bsp43lu/rich4re/include/game/app/game_panel.h:3,
+                 from /tmp/issue121-economy-0bsp43lu/rich4re/src/app/ui/game_panel.cpp:2:
+In function ‘int snprintf(char*, size_t, const char*, ...)’,
+    inlined from ‘void rich4::{anonymous}::drawCalendar(rich4::Application&)’ at /tmp/issue121-economy-0bsp43lu/rich4re/src/app/ui/game_panel.cpp:534:26,
+    inlined from ‘void rich4::renderGamePanel(Application&, uint8_t)’ at /tmp/issue121-economy-0bsp43lu/rich4re/src/app/ui/game_panel.cpp:770:21:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:54:35: note: ‘__builtin___snprintf_chk’ output between 2 and 11 bytes into a destination of size 8
+   54 |   return __builtin___snprintf_chk (__s, __n, __USE_FORTIFY_LEVEL - 1,
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   55 |                                    __glibc_objsize (__s), __fmt,
+      |                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   56 |                                    __va_arg_pack ());
+      |                                    ~~~~~~~~~~~~~~~~~
+[ 85%] Building CXX object CMakeFiles/rich4_core.dir/src/app/ui/object_tip.cpp.o
+[ 86%] Building CXX object CMakeFiles/rich4_core.dir/src/app/ui/ui_layout.cpp.o
+[ 86%] Building CXX object CMakeFiles/rich4_core.dir/src/application.cpp.o
+[ 86%] Building CXX object CMakeFiles/rich4_core.dir/src/core/clock.cpp.o
+[ 87%] Building CXX object CMakeFiles/rich4_core.dir/src/core/config.cpp.o
+[ 87%] Building CXX object CMakeFiles/rich4_core.dir/src/core/debug_hooks.cpp.o
+[ 87%] Building CXX object CMakeFiles/rich4_core.dir/src/core/encoding.cpp.o
+[ 87%] Building CXX object CMakeFiles/rich4_core.dir/src/core/log.cpp.o
+[ 88%] Building CXX object CMakeFiles/rich4_core.dir/src/core/paths.cpp.o
+[ 88%] Building CXX object CMakeFiles/rich4_core.dir/src/core/rng.cpp.o
+[ 88%] Building CXX object CMakeFiles/rich4_core.dir/src/core/trace.cpp.o
+[ 89%] Building CXX object CMakeFiles/rich4_core.dir/src/debug/debug.cpp.o
+[ 89%] Building CXX object CMakeFiles/rich4_core.dir/src/debug/debug_keys.cpp.o
+/tmp/issue121-economy-0bsp43lu/rich4re/src/debug/debug.cpp:2495:6: warning: ‘bool rich4::debug::{anonymous}::stepFirstIsBlocking(const std::string&)’ defined but not used [-Wunused-function]
+ 2495 | bool stepFirstIsBlocking(const std::string& line) {
+      |      ^~~~~~~~~~~~~~~~~~~
+/tmp/issue121-economy-0bsp43lu/rich4re/src/debug/debug.cpp:90:6: warning: ‘rich4::debug::{anonymous}::g_started’ defined but not used [-Wunused-variable]
+   90 | bool g_started = false;
+      |      ^~~~~~~~~
+[ 89%] Building CXX object CMakeFiles/rich4_core.dir/src/gen/big5_tables.cpp.o
+[ 89%] Building CXX object CMakeFiles/rich4_core.dir/src/gen/holiday_tables.cpp.o
+[ 90%] Building CXX object CMakeFiles/rich4_core.dir/src/gen/lzhuf_tables.cpp.o
+[ 90%] Building CXX object CMakeFiles/rich4_core.dir/src/gen/map_tables.cpp.o
+[ 90%] Building CXX object CMakeFiles/rich4_core.dir/src/gen/new_game_tables.cpp.o
+[ 91%] Building CXX object CMakeFiles/rich4_core.dir/src/platform/audio.cpp.o
+[ 91%] Building CXX object CMakeFiles/rich4_core.dir/src/platform/input.cpp.o
+[ 91%] Building CXX object CMakeFiles/rich4_core.dir/src/platform/renderer.cpp.o
+[ 91%] Building CXX object CMakeFiles/rich4_core.dir/src/platform/stb_vorbis_impl.cpp.o
+[ 92%] Building CXX object CMakeFiles/rich4_core.dir/src/platform/window.cpp.o
+[ 92%] Building CXX object CMakeFiles/rich4_core.dir/src/render/blit.cpp.o
+[ 92%] Building CXX object CMakeFiles/rich4_core.dir/src/render/cursor.cpp.o
+[ 93%] Building CXX object CMakeFiles/rich4_core.dir/src/render/fli.cpp.o
+[ 93%] Building CXX object CMakeFiles/rich4_core.dir/src/render/iso_blit.cpp.o
+[ 93%] Building CXX object CMakeFiles/rich4_core.dir/src/render/raw_bitmap.cpp.o
+[ 93%] Building CXX object CMakeFiles/rich4_core.dir/src/render/surface.cpp.o
+[ 94%] Building CXX object CMakeFiles/rich4_core.dir/src/render/text.cpp.o
+[ 94%] Building CXX object CMakeFiles/rich4_core.dir/src/render/ui_image.cpp.o
+[ 94%] Building CXX object CMakeFiles/rich4_core.dir/src/resource/lzhuf.cpp.o
+[ 95%] Building CXX object CMakeFiles/rich4_core.dir/src/resource/mkf.cpp.o
+[ 95%] Building CXX object CMakeFiles/rich4_core.dir/src/resource/smp.cpp.o
+[ 95%] Building CXX object CMakeFiles/rich4_core.dir/src/resource/spr.cpp.o
+[ 95%] Linking CXX static library librich4_core.a
+[ 95%] Built target rich4_core
+[ 96%] Building CXX object CMakeFiles/rich4_tests.dir/tests/unit/test_encoding.cpp.o
+[ 96%] Building CXX object CMakeFiles/rich4_tests.dir/tests/unit/test_god.cpp.o
+[ 96%] Building CXX object CMakeFiles/rich4_tests.dir/tests/unit/test_issue121.cpp.o
+/tmp/issue121-economy-0bsp43lu/rich4re/tests/unit/test_encoding.cpp: In function ‘void big5_full_table_convert()’:
+/tmp/issue121-economy-0bsp43lu/rich4re/tests/unit/test_encoding.cpp:101:20: warning: comparison is always false due to limited range of data type [-Wtype-limits]
+  101 |             if (cp >= 0x10000u) {
+      |                 ~~~^~~~~~~~~~~
+[ 97%] Building CXX object CMakeFiles/rich4_tests.dir/tests/unit/test_main.cpp.o
+[ 97%] Building CXX object CMakeFiles/rich4_tests.dir/tests/unit/test_minigame.cpp.o
+[ 97%] Building CXX object CMakeFiles/rich4_tests.dir/tests/unit/test_mkf.cpp.o
+[ 97%] Building CXX object CMakeFiles/rich4_tests.dir/tests/unit/test_rent.cpp.o
+[ 98%] Building CXX object CMakeFiles/rich4_tests.dir/tests/unit/test_save.cpp.o
+In file included from /tmp/issue121-economy-0bsp43lu/rich4re/tests/unit/test_issue121.cpp:2:
+/tmp/issue121-economy-0bsp43lu/rich4re/tests/unit/test_issue121.cpp: In function ‘void issue121_trade_capacity_reuse()’:
+/tmp/issue121-economy-0bsp43lu/rich4re/tests/unit/test_issue121.cpp:35:42: warning: array subscript 7 is above array bounds of ‘rich4::TradeSlot [7]’ [-Warray-bounds=]
+   35 |  MT_EQ(static_cast<int>(s.tradeSlots[0][7].type),0);
+      |                         ~~~~~~~~~~~~~~~~~^
+/tmp/issue121-economy-0bsp43lu/rich4re/tests/unit/microtest.h:47:20: note: in definition of macro ‘MT_EQ’
+   47 |         auto va = (a);                                                     \
+      |                    ^
+In file included from /tmp/issue121-economy-0bsp43lu/rich4re/tests/unit/test_issue121.cpp:6:
+/tmp/issue121-economy-0bsp43lu/rich4re/include/game/game_state.h:542:15: note: while referencing ‘rich4::GameState::tradeSlots’
+  542 |     TradeSlot tradeSlots[8][7] = {};
+      |               ^~~~~~~~~~
+[ 98%] Building CXX object CMakeFiles/rich4_tests.dir/tests/unit/test_surface.cpp.o
+[ 98%] Building CXX object CMakeFiles/rich4_tests.dir/tests/unit/test_trade.cpp.o
+In file included from /tmp/issue121-economy-0bsp43lu/rich4re/tests/unit/test_trade.cpp:1:
+/tmp/issue121-economy-0bsp43lu/rich4re/tests/unit/test_trade.cpp: In function ‘void trade_queue_board_full_rejects()’:
+/tmp/issue121-economy-0bsp43lu/rich4re/tests/unit/test_trade.cpp:37:46: warning: array subscript 7 is above array bounds of ‘rich4::TradeSlot [7]’ [-Warray-bounds=]
+   37 |     MT_EQ(static_cast<int>(st.tradeSlots[0][7].type), 0);  // 第 8 筆被拒（槽 0..6 已滿）
+      |                            ~~~~~~~~~~~~~~~~~~^
+/tmp/issue121-economy-0bsp43lu/rich4re/tests/unit/microtest.h:47:20: note: in definition of macro ‘MT_EQ’
+   47 |         auto va = (a);                                                     \
+      |                    ^
+In file included from /tmp/issue121-economy-0bsp43lu/rich4re/tests/unit/test_trade.cpp:4:
+/tmp/issue121-economy-0bsp43lu/rich4re/include/game/game_state.h:542:15: note: while referencing ‘rich4::GameState::tradeSlots’
+  542 |     TradeSlot tradeSlots[8][7] = {};
+      |               ^~~~~~~~~~
+[100%] Linking CXX executable rich4_tests
+[100%] Built target rich4_tests
+
+
+$ ctest --test-dir /tmp/issue121-economy-0bsp43lu/rich4re/build-issue121 --output-on-failure
+Internal ctest changing into directory: /tmp/issue121-economy-0bsp43lu/rich4re/build-issue121
+Test project /tmp/issue121-economy-0bsp43lu/rich4re/build-issue121
+    Start 1: unit
+1/1 Test #1: unit .............................   Passed    0.01 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.09 sec
+
+
+$ /tmp/issue121-economy-0bsp43lu/rich4re/build-issue121/rich4_tests
+[ RUN  ] big5_ascii_and_empty
+[  OK  ] big5_ascii_and_empty
+[ RUN  ] big5_common_phrases
+[  OK  ] big5_common_phrases
+[ RUN  ] big5_length_semantics
+[  OK  ] big5_length_semantics
+[ RUN  ] big5_invalid_sequences
+[  OK  ] big5_invalid_sequences
+[ RUN  ] big5_full_table_count
+[  OK  ] big5_full_table_count
+[ RUN  ] big5_full_table_convert
+[  OK  ] big5_full_table_convert
+[ RUN  ] god_pair_even_to_big
+[  OK  ] god_pair_even_to_big
+[ RUN  ] god_pair_odd_to_small
+[  OK  ] god_pair_odd_to_small
+[ RUN  ] issue121_rent_owner_and_multiplier
+[rich4][2026-10-20 18:18:21.163][DEBUG]   routeRent match estate[1] owner=1 level=1 fee=200
+[rich4][2026-10-20 18:18:21.163][DEBUG]   routeRent match estate[2] owner=1 level=2 fee=400
+[rich4][2026-10-20 18:18:21.163][INFO ] routeRent: owner=1 cur=(A type=0) matched=2 sum=600 total=1200 (M=2)
+[  OK  ] issue121_rent_owner_and_multiplier
+[ RUN  ] issue121_chain_multiplier
+[rich4][2026-10-20 18:18:21.163][DEBUG]   routeRent match chain estate[1] owner=1
+[rich4][2026-10-20 18:18:21.163][DEBUG]   routeRent match chain estate[2] owner=1
+[rich4][2026-10-20 18:18:21.163][INFO ] routeRent: owner=1 cur=(A type=1) matched=2 sum=4000 total=12000 (M=3)
+[  OK  ] issue121_chain_multiplier
+[ RUN  ] issue121_same_trade_overwrite
+[rich4][2026-10-20 18:18:21.163][INFO ] queueTradeOrder: p0 slot0 type=3 obj=1 price=250 count=1 (RE 0x4246C5)
+[rich4][2026-10-20 18:18:21.163][INFO ] queueTradeOrder: p0 slot0 type=3 obj=1 price=400 count=1 (RE 0x4246C5)
+[  OK  ] issue121_same_trade_overwrite
+[ RUN  ] issue121_trade_capacity_reuse
+[rich4][2026-10-20 18:18:21.163][INFO ] queueTradeOrder: p0 slot0 type=3 obj=1 price=101 count=1 (RE 0x4246C5)
+[rich4][2026-10-20 18:18:21.163][INFO ] queueTradeOrder: p0 slot1 type=3 obj=2 price=102 count=1 (RE 0x4246C5)
+[rich4][2026-10-20 18:18:21.163][INFO ] queueTradeOrder: p0 slot2 type=3 obj=3 price=103 count=1 (RE 0x4246C5)
+[rich4][2026-10-20 18:18:21.163][INFO ] queueTradeOrder: p0 slot3 type=3 obj=4 price=104 count=1 (RE 0x4246C5)
+[rich4][2026-10-20 18:18:21.163][INFO ] queueTradeOrder: p0 slot4 type=3 obj=5 price=105 count=1 (RE 0x4246C5)
+[rich4][2026-10-20 18:18:21.163][INFO ] queueTradeOrder: p0 slot5 type=3 obj=6 price=106 count=1 (RE 0x4246C5)
+[rich4][2026-10-20 18:18:21.163][INFO ] queueTradeOrder: p0 slot6 type=3 obj=7 price=107 count=1 (RE 0x4246C5)
+[rich4][2026-10-20 18:18:21.163][INFO ] queueTradeOrder: p0 board full (RE 0x4246C5)
+[rich4][2026-10-20 18:18:21.163][INFO ] queueTradeOrder: p0 slot6 type=3 obj=8 price=108 count=1 (RE 0x4246C5)
+[  OK  ] issue121_trade_capacity_reuse
+[ RUN  ] money_doll_deadzone_keeps_dir_and_walk
+[  OK  ] money_doll_deadzone_keeps_dir_and_walk
+[ RUN  ] money_doll_step_left_and_right
+[  OK  ] money_doll_step_left_and_right
+[ RUN  ] money_doll_walk_wraps_and_converges
+[  OK  ] money_doll_walk_wraps_and_converges
+[ RUN  ] mkf_data_read_stable
+[rich4][2026-10-20 18:18:21.163][ERROR] MKF open failed: ../resources/MultiverseJourney/Data.mkf
+  SKIP (no ../resources/MultiverseJourney/Data.mkf)
+[  OK  ] mkf_data_read_stable
+[ RUN  ] rent_same_street_sum
+[rich4][2026-10-20 18:18:21.163][DEBUG]   routeRent match estate[1] owner=1 level=2 fee=400
+[rich4][2026-10-20 18:18:21.163][DEBUG]   routeRent match estate[2] owner=1 level=3 fee=800
+[rich4][2026-10-20 18:18:21.163][DEBUG]   routeRent match estate[3] owner=1 level=1 fee=200
+[rich4][2026-10-20 18:18:21.163][INFO ] routeRent: owner=1 cur=(TAIPEI type=0) matched=3 sum=1400 total=1400 (M=1)
+[rich4][2026-10-20 18:18:21.163][DEBUG]   routeRent match estate[1] owner=1 level=2 fee=400
+[rich4][2026-10-20 18:18:21.163][DEBUG]   routeRent match estate[2] owner=1 level=3 fee=800
+[rich4][2026-10-20 18:18:21.164][DEBUG]   routeRent match estate[3] owner=1 level=1 fee=200
+[rich4][2026-10-20 18:18:21.164][INFO ] routeRent: owner=1 cur=(TAIPEI type=0) matched=3 sum=1400 total=1400 (M=1)
+[  OK  ] rent_same_street_sum
+[ RUN  ] rent_chain_stores_2000
+[rich4][2026-10-20 18:18:21.164][DEBUG]   routeRent match chain estate[1] owner=1
+[rich4][2026-10-20 18:18:21.164][DEBUG]   routeRent match chain estate[2] owner=1
+[rich4][2026-10-20 18:18:21.164][INFO ] routeRent: owner=1 cur=(A type=1) matched=2 sum=4000 total=4000 (M=1)
+[  OK  ] rent_chain_stores_2000
+[ RUN  ] rent_money_mul
+[rich4][2026-10-20 18:18:21.164][DEBUG]   routeRent match estate[1] owner=1 level=1 fee=200
+[rich4][2026-10-20 18:18:21.164][INFO ] routeRent: owner=1 cur=(X type=0) matched=1 sum=200 total=600 (M=3)
+[  OK  ] rent_money_mul
+[ RUN  ] save_roundtrip_stable
+  SKIP (no ../resources/MultiverseJourney/SAVE0.DAT)
+[  OK  ] save_roundtrip_stable
+[ RUN  ] save_header
+  SKIP (no ../resources/MultiverseJourney/SAVE0.DAT)
+[  OK  ] save_header
+[ RUN  ] surface_runtime_size_fill_clip
+[  OK  ] surface_runtime_size_fill_clip
+[ RUN  ] surface_blit_clips_to_runtime_canvas
+[  OK  ] surface_blit_clips_to_runtime_canvas
+[ RUN  ] surface_region_save_restore_uses_canvas
+[  OK  ] surface_region_save_restore_uses_canvas
+[ RUN  ] surface_scrolled_map_runtime_width
+[  OK  ] surface_scrolled_map_runtime_width
+[ RUN  ] surface_scrolled_map_high_canvas_rows_clamped
+[  OK  ] surface_scrolled_map_high_canvas_rows_clamped
+[ RUN  ] trade_queue_writes_fields
+[rich4][2026-10-20 18:18:21.166][INFO ] queueTradeOrder: p0 slot0 type=1 obj=2 price=150 count=10 (RE 0x4246C5)
+[  OK  ] trade_queue_writes_fields
+[ RUN  ] trade_queue_same_obj_overwrites_price
+[rich4][2026-10-20 18:18:21.166][INFO ] queueTradeOrder: p0 slot0 type=3 obj=5 price=900 count=0 (RE 0x4246C5)
+[rich4][2026-10-20 18:18:21.166][INFO ] queueTradeOrder: p0 slot0 type=3 obj=5 price=1200 count=0 (RE 0x4246C5)
+[  OK  ] trade_queue_same_obj_overwrites_price
+[ RUN  ] trade_queue_board_full_rejects
+[rich4][2026-10-20 18:18:21.166][INFO ] queueTradeOrder: p0 slot0 type=3 obj=1 price=100 count=0 (RE 0x4246C5)
+[rich4][2026-10-20 18:18:21.166][INFO ] queueTradeOrder: p0 slot1 type=3 obj=2 price=100 count=0 (RE 0x4246C5)
+[rich4][2026-10-20 18:18:21.166][INFO ] queueTradeOrder: p0 slot2 type=3 obj=3 price=100 count=0 (RE 0x4246C5)
+[rich4][2026-10-20 18:18:21.166][INFO ] queueTradeOrder: p0 slot3 type=3 obj=4 price=100 count=0 (RE 0x4246C5)
+[rich4][2026-10-20 18:18:21.166][INFO ] queueTradeOrder: p0 slot4 type=3 obj=5 price=100 count=0 (RE 0x4246C5)
+[rich4][2026-10-20 18:18:21.166][INFO ] queueTradeOrder: p0 slot5 type=3 obj=6 price=100 count=0 (RE 0x4246C5)
+[rich4][2026-10-20 18:18:21.166][INFO ] queueTradeOrder: p0 slot6 type=3 obj=7 price=100 count=0 (RE 0x4246C5)
+[rich4][2026-10-20 18:18:21.166][INFO ] queueTradeOrder: p0 board full (RE 0x4246C5)
+[  OK  ] trade_queue_board_full_rejects
+[ RUN  ] trade_remove_shifts_forward
+[rich4][2026-10-20 18:18:21.166][INFO ] queueTradeOrder: p1 slot0 type=3 obj=1 price=100 count=0 (RE 0x4246C5)
+[rich4][2026-10-20 18:18:21.166][INFO ] queueTradeOrder: p1 slot1 type=3 obj=2 price=200 count=0 (RE 0x4246C5)
+[  OK  ] trade_remove_shifts_forward
+[ RUN  ] trade_age_increments_and_skips_dead
+[rich4][2026-10-20 18:18:21.166][INFO ] queueTradeOrder: p0 slot0 type=3 obj=7 price=300 count=0 (RE 0x4246C5)
+[rich4][2026-10-20 18:18:21.166][INFO ] queueTradeOrder: p1 slot0 type=3 obj=7 price=300 count=0 (RE 0x4246C5)
+[  OK  ] trade_age_increments_and_skips_dead
+[ RUN  ] trade_clear_invalid_drops_bare_stock
+[rich4][2026-10-20 18:18:21.166][INFO ] queueTradeOrder: p0 slot0 type=1 obj=2 price=150 count=10 (RE 0x4246C5)
+[  OK  ] trade_clear_invalid_drops_bare_stock
+UNIT checks=114 fails=0 -> PASS

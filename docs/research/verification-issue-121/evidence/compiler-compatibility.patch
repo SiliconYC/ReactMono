@@ -1,0 +1,6 @@
+Upstream SHA b7b76570f445ad07c0788314062b8500e77259e7\nSource: include/game/application.h\n-     bool init(const std::string& gameDir, bool headless = false,
+              const DisplayConfig& display = DisplayConfig{});\n+     bool init(const std::string& gameDir, bool headless,
+              const DisplayConfig& display);
+    bool init(const std::string& gameDir, bool headless = false) {
+        return init(gameDir, headless, DisplayConfig{});
+    }\nOnly ephemeral test clone is patched; not part of ReactMono business code.\n

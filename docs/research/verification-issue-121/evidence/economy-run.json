@@ -1,6 +1,6 @@
 {
-  "utc": "2026-10-20T18:13:29.732597+00:00",
-  "os": "7.0.0-1017-azure",
+  "utc": "2026-10-20T18:18:21.167319+00:00",
+  "os": "6.17.0-1022-azure",
   "reactmono_base_sha": "4494a16d017b0697fa7e74f9d450154e0c228ede",
   "pins": {
     "richman3d": "32e7f01f9888a28b8fd1267f5488c455e15abe4a",
@@ -16,11 +16,11 @@
         "--depth",
         "1",
         "https://github.com/tytannial/rich4-re.git",
-        "/tmp/issue121-economy-54a0yivq/rich4re"
+        "/tmp/issue121-economy-0bsp43lu/rich4re"
       ],
       "cwd": "/home/runner/work/ReactMono/ReactMono",
       "exit": 0,
-      "seconds": 0.6
+      "seconds": 1.0
     },
     {
       "label": "pin rich4re",
@@ -30,7 +30,7 @@
         "--detach",
         "b7b76570f445ad07c0788314062b8500e77259e7"
       ],
-      "cwd": "/tmp/issue121-economy-54a0yivq/rich4re",
+      "cwd": "/tmp/issue121-economy-0bsp43lu/rich4re",
       "exit": 0,
       "seconds": 0.0
     },
@@ -39,30 +39,51 @@
       "args": [
         "cmake",
         "-S",
-        "/tmp/issue121-economy-54a0yivq/rich4re",
+        "/tmp/issue121-economy-0bsp43lu/rich4re",
         "-B",
-        "/tmp/issue121-economy-54a0yivq/rich4re/build-issue121",
+        "/tmp/issue121-economy-0bsp43lu/rich4re/build-issue121",
         "-DCMAKE_BUILD_TYPE=Release",
         "-DSDL_UNIX_CONSOLE_BUILD=ON"
       ],
       "cwd": "/home/runner/work/ReactMono/ReactMono",
       "exit": 0,
-      "seconds": 40.5
+      "seconds": 23.3
     },
     {
       "label": "cmake build unit",
       "args": [
         "cmake",
         "--build",
-        "/tmp/issue121-economy-54a0yivq/rich4re/build-issue121",
+        "/tmp/issue121-economy-0bsp43lu/rich4re/build-issue121",
         "--target",
         "rich4_tests",
         "-j",
         "3"
       ],
       "cwd": "/home/runner/work/ReactMono/ReactMono",
-      "exit": 2,
-      "seconds": 34.4
+      "exit": 0,
+      "seconds": 45.8
+    },
+    {
+      "label": "ctest rent/trade",
+      "args": [
+        "ctest",
+        "--test-dir",
+        "/tmp/issue121-economy-0bsp43lu/rich4re/build-issue121",
+        "--output-on-failure"
+      ],
+      "cwd": "/home/runner/work/ReactMono/ReactMono",
+      "exit": 0,
+      "seconds": 0.6
+    },
+    {
+      "label": "native unit stdout",
+      "args": [
+        "/tmp/issue121-economy-0bsp43lu/rich4re/build-issue121/rich4_tests"
+      ],
+      "cwd": "/tmp/issue121-economy-0bsp43lu/rich4re",
+      "exit": 0,
+      "seconds": 0.0
     }
   ],
   "views": [],
@@ -74,9 +95,9 @@
   "build_flag": "SDL_UNIX_CONSOLE_BUILD=ON (no X11/Wayland, dummy-only unit test)",
   "error": null,
   "acceptance": {
-    "compile": false,
-    "ctest": false,
-    "native_unit_stdout": false,
-    "passed": false
+    "compile": true,
+    "ctest": true,
+    "native_unit_stdout": true,
+    "passed": true
   }
 }
