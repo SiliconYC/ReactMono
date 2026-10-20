@@ -1,0 +1,47 @@
+name: Research #121 isolated upstream verification
+on:
+  push:
+    branches:
+      - research-121-visual-economy-20261021
+    paths:
+      - .github/workflows/issue121-research.yml
+      - docs/research/verification-issue-121/run.py
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: issue121-upstream-evidence
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 28
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install headless browser driver
+        run: python -m pip install playwright
+      - name: Independent pinned upstream Chromium and C++ rent/trade experiments
+        run: python -u docs/research/verification-issue-121/run.py
+      - name: Archive original screenshots, commands, failures and results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue121-independent-execution
+          path: docs/research/verification-issue-121/evidence/
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Push generated research evidence to isolated task branch
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/research/verification-issue-121/evidence/
+          if ! git diff --cached --quiet; then
+            git commit -m "research(#121): store independently generated browser and rule evidence"
+            git push origin HEAD:research-121-visual-economy-20261021
+          fi
