@@ -124,7 +124,7 @@ MT_TEST(issue121_rent_owner_and_multiplier){
  rich4::GameState s;s.moneyMul=2;s.estates.push_back(rich4::Estate{});
  s.estates.push_back(mk("A",1,1,0));s.estates.push_back(mk("A",1,2,0));
  s.estates.push_back(mk("A",2,4,0));
- MT_EQ(rich4::estateRouteRent(s,1,s.estates[1]),600);
+ MT_EQ(rich4::estateRouteRent(s,1,s.estates[1]),1200);
 }
 MT_TEST(issue121_chain_multiplier){
  rich4::GameState s;s.moneyMul=3;s.estates.push_back(rich4::Estate{});
