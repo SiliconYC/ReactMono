@@ -33,14 +33,14 @@ def checkout(name,wd):
  if name=="richlife": args=["git","clone","--depth","1","--filter=blob:none","--sparse","https://github.com/"+repo+".git",str(dst)]
  if run("clone "+name,args,timeout=300)["exit"]!=0:return None
  if name=="richlife":
-  if run("sparse assets",["git","sparse-checkout","set","index.html","css","js","src","assets/models","assets/img"],dst,180)["exit"]!=0:return None
+  if run("sparse assets",["git","sparse-checkout","set","css","js","src","assets/models","assets/img"],dst,180)["exit"]!=0:return None
  if run("pin "+name,["git","checkout","--detach",sha],dst,180)["exit"]!=0:return None
  head=subprocess.run(["git","rev-parse","HEAD"],cwd=dst,capture_output=True,text=True).stdout.strip()
  if head!=sha:raise RuntimeError(name+" SHA mismatch "+head)
  return dst
 class Handler(http.server.SimpleHTTPRequestHandler):
  def log_message(self,*x):pass
-def http(directory,port):
+def serve(directory,port):
  from functools import partial
  srv=http.server.ThreadingHTTPServer(("127.0.0.1",port),partial(Handler,directory=str(directory)))
  threading.Thread(target=srv.serve_forever,daemon=True).start()
@@ -50,8 +50,8 @@ def browser(projs):
   from playwright.sync_api import sync_playwright
  except Exception as e:report["browser_error"]=str(e);return
  servers=[]
- if projs.get("richman3d"):servers.append(http(projs["richman3d"],8121))
- if projs.get("richlife"):servers.append(http(projs["richlife"],8122))
+ if projs.get("richman3d"):servers.append(serve(projs["richman3d"],8121))
+ if projs.get("richlife"):servers.append(serve(projs["richlife"],8122))
  with sync_playwright() as pw:
   opts={"headless":True,"args":["--no-sandbox","--disable-dev-shm-usage","--enable-webgl","--use-angle=swiftshader","--enable-unsafe-swiftshader"]}
   try:b=pw.chromium.launch(channel="chrome",**opts)
