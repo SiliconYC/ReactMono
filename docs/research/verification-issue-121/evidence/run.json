@@ -1,0 +1,124 @@
+{
+  "utc": "2026-10-20T17:39:51.366983+00:00",
+  "os": "7.0.0-1017-azure",
+  "reactmono_base_sha": "4494a16d017b0697fa7e74f9d450154e0c228ede",
+  "pins": {
+    "richman3d": "32e7f01f9888a28b8fd1267f5488c455e15abe4a",
+    "richlife": "307c1761b150a7179fb0353618a95bc6effe3fee",
+    "rich4re": "b7b76570f445ad07c0788314062b8500e77259e7"
+  },
+  "commands": [
+    {
+      "label": "clone richman3d",
+      "args": [
+        "git",
+        "clone",
+        "--depth",
+        "1",
+        "https://github.com/Yakamozli/richman-3d.git",
+        "/tmp/reactmono-121-04h38ojs/richman3d"
+      ],
+      "cwd": "/home/runner/work/ReactMono/ReactMono",
+      "exit": 0,
+      "seconds": 0.2
+    },
+    {
+      "label": "pin richman3d",
+      "args": [
+        "git",
+        "checkout",
+        "--detach",
+        "32e7f01f9888a28b8fd1267f5488c455e15abe4a"
+      ],
+      "cwd": "/tmp/reactmono-121-04h38ojs/richman3d",
+      "exit": 0,
+      "seconds": 0.0
+    },
+    {
+      "label": "clone richlife",
+      "args": [
+        "git",
+        "clone",
+        "--depth",
+        "1",
+        "--filter=blob:none",
+        "--sparse",
+        "https://github.com/zawsstt/monopoly-rich-life.git",
+        "/tmp/reactmono-121-04h38ojs/richlife"
+      ],
+      "cwd": "/home/runner/work/ReactMono/ReactMono",
+      "exit": 0,
+      "seconds": 0.3
+    },
+    {
+      "label": "sparse assets",
+      "args": [
+        "git",
+        "sparse-checkout",
+        "set",
+        "index.html",
+        "css",
+        "js",
+        "src",
+        "assets/models",
+        "assets/img"
+      ],
+      "cwd": "/tmp/reactmono-121-04h38ojs/richlife",
+      "exit": 128,
+      "seconds": 0.0
+    },
+    {
+      "label": "clone rich4re",
+      "args": [
+        "git",
+        "clone",
+        "--depth",
+        "1",
+        "https://github.com/tytannial/rich4-re.git",
+        "/tmp/reactmono-121-04h38ojs/rich4re"
+      ],
+      "cwd": "/home/runner/work/ReactMono/ReactMono",
+      "exit": 0,
+      "seconds": 0.3
+    },
+    {
+      "label": "pin rich4re",
+      "args": [
+        "git",
+        "checkout",
+        "--detach",
+        "b7b76570f445ad07c0788314062b8500e77259e7"
+      ],
+      "cwd": "/tmp/reactmono-121-04h38ojs/rich4re",
+      "exit": 0,
+      "seconds": 0.0
+    },
+    {
+      "label": "richman3d smoke",
+      "args": [
+        "node",
+        "test/smoke.mjs",
+        "2"
+      ],
+      "cwd": "/tmp/reactmono-121-04h38ojs/richman3d",
+      "exit": 0,
+      "seconds": 6.1
+    },
+    {
+      "label": "ReactMono npm ci",
+      "args": [
+        "npm",
+        "ci",
+        "--ignore-scripts"
+      ],
+      "cwd": "/home/runner/work/ReactMono/ReactMono",
+      "exit": 0,
+      "seconds": 4.1
+    }
+  ],
+  "views": [],
+  "caveats": [
+    "Headless Chromium software rendering; simulated viewport is not a physical phone",
+    "Executable tests of a reconstruction do not prove original Richman 4 parity"
+  ]
+}
