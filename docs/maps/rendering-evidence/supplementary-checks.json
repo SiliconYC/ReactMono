@@ -1,0 +1,20 @@
+{
+  "updatedWorldNavigationAndMotion": {
+    "exitCode": 0,
+    "log": "world-motion.log",
+    "cases": 10,
+    "phonePinchCases": 5
+  },
+  "populatedSave": {
+    "exitCode": 0,
+    "log": "populated.log",
+    "viewports": 2,
+    "navigationCyclesPerViewport": 4
+  },
+  "mergedDevNodeTests": {
+    "exitCode": 0,
+    "tests": 170,
+    "failures": 0,
+    "log": "merged-dev-node-tests.log"
+  }
+}

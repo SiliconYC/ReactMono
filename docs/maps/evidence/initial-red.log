@@ -1,0 +1,123 @@
+TAP version 13
+# Subtest: JSON 压力地图精确格数、凹形无重叠闭环，任意起格跨圈不截断
+not ok 1 - JSON 压力地图精确格数、凹形无重叠闭环，任意起格跨圈不截断
+  ---
+  duration_ms: 1.209917
+  type: 'test'
+  location: '/Users/laocao/Documents/coding/ReactMono/tests/data-driven-maps.test.mjs:14:1'
+  failureType: 'testCodeFailure'
+  error: '缺少可交换 JSON 关卡目录'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    data (file:///Users/laocao/Documents/coding/ReactMono/tests/data-driven-maps.test.mjs:11:10)
+    TestContext.<anonymous> (file:///Users/laocao/Documents/coding/ReactMono/tests/data-driven-maps.test.mjs:15:24)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: 通用 JSON 加载接受额外关卡，无需修改 TS 注册名单；内置数据冻结
+not ok 2 - 通用 JSON 加载接受额外关卡，无需修改 TS 注册名单；内置数据冻结
+  ---
+  duration_ms: 0.139417
+  type: 'test'
+  location: '/Users/laocao/Documents/coding/ReactMono/tests/data-driven-maps.test.mjs:31:1'
+  failureType: 'testCodeFailure'
+  error: '缺少可交换 JSON 关卡目录'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    data (file:///Users/laocao/Documents/coding/ReactMono/tests/data-driven-maps.test.mjs:11:10)
+    TestContext.<anonymous> (file:///Users/laocao/Documents/coding/ReactMono/tests/data-driven-maps.test.mjs:32:41)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: 目录拒绝重复标识、断路、重复格、越界、非有限值、错误站点及未知字段
+not ok 3 - 目录拒绝重复标识、断路、重复格、越界、非有限值、错误站点及未知字段
+  ---
+  duration_ms: 0.117209
+  type: 'test'
+  location: '/Users/laocao/Documents/coding/ReactMono/tests/data-driven-maps.test.mjs:42:1'
+  failureType: 'testCodeFailure'
+  error: '缺少可交换 JSON 关卡目录'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    data (file:///Users/laocao/Documents/coding/ReactMono/tests/data-driven-maps.test.mjs:11:10)
+    TestContext.<anonymous> (file:///Users/laocao/Documents/coding/ReactMono/tests/data-driven-maps.test.mjs:43:34)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: 三张大图真实规则开局、完整圈移动、存读档隔离与篡改拒绝
+not ok 4 - 三张大图真实规则开局、完整圈移动、存读档隔离与篡改拒绝
+  ---
+  duration_ms: 0.113
+  type: 'test'
+  location: '/Users/laocao/Documents/coding/ReactMono/tests/data-driven-maps.test.mjs:62:1'
+  failureType: 'testCodeFailure'
+  error: '缺少可交换 JSON 关卡目录'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    data (file:///Users/laocao/Documents/coding/ReactMono/tests/data-driven-maps.test.mjs:11:10)
+    TestContext.<anonymous> (file:///Users/laocao/Documents/coding/ReactMono/tests/data-driven-maps.test.mjs:63:29)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: 60/120/360 格各 30 种子、2/3/4 人真实完整模拟，无非法动作且存档不丢格
+not ok 5 - 60/120/360 格各 30 种子、2/3/4 人真实完整模拟，无非法动作且存档不丢格
+  ---
+  duration_ms: 0.119041
+  type: 'test'
+  location: '/Users/laocao/Documents/coding/ReactMono/tests/data-driven-maps.test.mjs:78:1'
+  failureType: 'testCodeFailure'
+  error: '缺少可交换 JSON 关卡目录'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    data (file:///Users/laocao/Documents/coding/ReactMono/tests/data-driven-maps.test.mjs:11:10)
+    TestContext.<anonymous> (file:///Users/laocao/Documents/coding/ReactMono/tests/data-driven-maps.test.mjs:79:29)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 0
+# fail 5
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 51.962125

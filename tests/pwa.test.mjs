@@ -23,7 +23,7 @@ test('Service Worker 同源预缓存完整运行依赖，不使用 CDN 或缓存
   const html=await readFile('dist/index.html','utf8');
   const entries=html.match(/\.\/assets\/[^\"\s]+\.(?:js|css)/g)??[];
   assert.ok(entries.some(path=>path.includes('main-')&&path.endsWith('.js')));
-  assert.ok(entries.some(path=>path.includes('jsx-runtime-')&&path.endsWith('.js')));
+  assert.ok((html.match(/rel="modulepreload"[^>]+href="\.\/assets\/[^"]+\.js"/g)??[]).length>0,'共享运行依赖同源预加载');
   assert.ok(entries.some(path=>path.includes('main-')&&path.endsWith('.css')));
   for(const name of entries)assert.ok(sw.includes("'"+name+"'"),'缺少离线预缓存 '+name);
   assert.doesNotMatch(html,/vendor\/react/);

@@ -1,4 +1,6 @@
+import { rectanglesOverlap } from '../../core/level-world.js';
 export type WorldPoint = Readonly<{ x: number; z: number }>;
+import { worldForMap } from '../../core/level-data.js';
 import { INTERNAL_TEST_MAP } from '../../core/maps.js';
 import type { GameMap } from '../../core/types.js';
 
@@ -10,44 +12,80 @@ export const ROAD_TILE_CENTER_Y = GROUND_TOP + ROAD_TILE_THICKNESS / 2;
 export const ROAD_CONNECTOR_THICKNESS = 0.04;
 export const ROAD_CONNECTOR_CENTER_Y = GROUND_TOP + ROAD_CONNECTOR_THICKNESS / 2;
 export const ACTOR_ANCHOR_Y = ROAD_TILE_TOP - 0.1;
-export const ISLAND_BOTTOM = -1.18;
-
-export const TILE_ANCHORS: readonly WorldPoint[] = [
-  { x: -4, z: -4 }, { x: -2, z: -4 }, { x: 0, z: -4 }, { x: 2, z: -4 }, { x: 4, z: -4 },
-  { x: 4, z: -2 }, { x: 4, z: 0 }, { x: 4, z: 2 }, { x: 4, z: 4 },
-  { x: 2, z: 4 }, { x: 0, z: 4 }, { x: -2, z: 4 }, { x: -4, z: 4 },
-  { x: -4, z: 2 }, { x: -4, z: 0 }, { x: -4, z: -2 }
-];
-
-const LOT_OFFSET = 1.35;
+export const LOT_HALF_SIZE = 0.84;
 
 export type MapAnchors = Readonly<{
   tiles: readonly WorldPoint[];
   lots: readonly WorldPoint[];
-  bounds: Readonly<{ width: number; depth: number }>;
+  edges: readonly (readonly [WorldPoint,WorldPoint])[];
+  bounds: Readonly<{ width: number; depth: number; projectedWidth?:number; projectedDepth?:number }>;
 }>;
 const anchorsByMap = new WeakMap<GameMap, MapAnchors>();
 
-/** Derive world positions from rules-map cells; tile IDs and cyclic order stay untouched. */
-export function anchorsForMap(map: GameMap): MapAnchors {
-  const cached = anchorsByMap.get(map);
-  if (cached) return cached;
-  const tiles = map.cells.map(cell => ({
-    x: (cell.column - (map.columns + 1) / 2) * 2,
-    z: (cell.row - (map.rows + 1) / 2) * 2
-  }));
-  const lots = map.cells.map((cell, tileId) => {
-    const road = tiles[tileId];
-    const outwardX = cell.column === 1 ? -1 : cell.column === map.columns ? 1 : 0;
-    const outwardZ = cell.row === 1 ? -1 : cell.row === map.rows ? 1 : 0;
-    const length = Math.hypot(outwardX, outwardZ) || 1;
-    return { x: road.x + outwardX / length * LOT_OFFSET, z: road.z + outwardZ / length * LOT_OFFSET };
-  });
-  const result = { tiles, lots, bounds: { width: map.columns * 2, depth: map.rows * 2 } };
-  anchorsByMap.set(map, result);
-  return result;
+type RoadEdge=readonly [WorldPoint,WorldPoint];
+function roadAreaFree(point:WorldPoint,halfSize:number,tiles:readonly WorldPoint[],edges:readonly RoadEdge[]):boolean{
+  return tiles.every(p=>Math.abs(p.x-point.x)>=.92+halfSize||Math.abs(p.z-point.z)>=.92+halfSize)&&edges.every(([a,b])=>
+    Math.abs(point.x-(a.x+b.x)/2)>=Math.abs(a.x-b.x)/2+.36+halfSize||
+    Math.abs(point.z-(a.z+b.z)/2)>=Math.abs(a.z-b.z)/2+.36+halfSize);
 }
 
+/** Layout is independent of rule/save coordinates. Crowded routes get wider streets. */
+export function anchorsForMap(map: GameMap): MapAnchors {
+  const cached=anchorsByMap.get(map);
+  if(cached)return cached;
+  const world=worldForMap(map);
+  if(world){
+    const tiles=world.tiles.map(p=>({x:p.x,z:p.z})),lots=world.tiles.map(p=>({x:p.lotX,z:p.lotZ}));
+    const all=[...tiles,...lots,...world.surfaces.flatMap(s=>s.points),...world.objects.flatMap(o=>[-1,1].flatMap(dx=>[-1,1].map(dz=>({x:o.x+dx*o.scale,z:o.z+dz*o.scale}))))];
+    const result={tiles,lots,edges:map.route.map((id,i)=>[tiles[id],tiles[map.route[(i+1)%map.route.length]]] as const),bounds:{
+      width:Math.max(...all.map(p=>Math.abs(p.x)))*2+3,depth:Math.max(...all.map(p=>Math.abs(p.z)))*2+3,
+      projectedWidth:Math.max(...all.map(p=>Math.abs(p.x-p.z)))*Math.SQRT2+4,
+      projectedDepth:Math.max(...all.map(p=>Math.abs(p.x+p.z)))*Math.SQRT2+4
+    }};
+    anchorsByMap.set(map,result);return result;
+  }
+  for(const spacing of [2,4,6]){
+    const tiles=map.cells.map(cell=>({x:(cell.column-(map.columns+1)/2)*spacing,z:(cell.row-(map.rows+1)/2)*spacing}));
+    const edges:RoadEdge[]=map.route.map((id,i)=>[tiles[id],tiles[map.route[(i+1)%map.route.length]]]);
+    const area=edges.reduce((sum,[a,b])=>sum+a.x*b.z-b.x*a.z,0);
+    const candidates:WorldPoint[][]=Array.from({length:tiles.length},()=>[]);
+    map.route.forEach((id,i)=>{
+      const prev=tiles[map.route[(i+map.route.length-1)%map.route.length]],next=tiles[map.route[(i+1)%map.route.length]];
+      const normal={x:(next.z-prev.z)*Math.sign(area),z:-(next.x-prev.x)*Math.sign(area)};
+      for(let dx=-1;dx<=1;dx++)for(let dz=-1;dz<=1;dz++){
+        if(dx===0&&dz===0)continue;
+        const p={x:tiles[id].x+dx*2,z:tiles[id].z+dz*2};
+        if(roadAreaFree(p,LOT_HALF_SIZE,tiles,edges))candidates[id].push(p);
+      }
+      const score=(p:WorldPoint)=>{
+        const dx=p.x-tiles[id].x,dz=p.z-tiles[id].z;
+        return (dx*normal.x+dz*normal.z)/Math.hypot(dx,dz)-Math.hypot(dx,dz)*.01;
+      };
+      candidates[id].sort((a,b)=>score(b)-score(a)||a.x-b.x||a.z-b.z);
+    });
+    // Matching permits crowded corners to displace a neighbour to a second
+    // choice. If no local allocation exists, widen the layout rather than
+    // moving a property away from its own road or altering saved topology.
+    const owners=new Map<string,number>(),lots:WorldPoint[]=Array(tiles.length);
+    function assign(id:number,seen:Set<string>):boolean{
+      for(const p of candidates[id]){
+        const key=`${p.x},${p.z}`;
+        if(seen.has(key))continue;
+        seen.add(key);
+        const owner=owners.get(key);
+        if(owner===undefined||assign(owner,seen)){owners.set(key,id);lots[id]=p;return true;}
+      }
+      return false;
+    }
+    if(!tiles.every((_,id)=>assign(id,new Set())))continue;
+    const all=[...tiles,...lots];
+    const result={tiles,lots,edges,bounds:{width:Math.max(...all.map(p=>Math.abs(p.x)))*2+3,depth:Math.max(...all.map(p=>Math.abs(p.z)))*2+3}};
+    anchorsByMap.set(map,result);return result;
+  }
+  throw new Error('此路线无法分配不重叠的局部地产');
+}
+
+export const TILE_ANCHORS = anchorsForMap(INTERNAL_TEST_MAP).tiles;
 export const LOT_ANCHORS = anchorsForMap(INTERNAL_TEST_MAP).lots;
 
 export function positionForTile(tileId: number, map: GameMap = INTERNAL_TEST_MAP): WorldPoint {
@@ -62,12 +100,37 @@ export function lotForTile(tileId: number, map: GameMap = INTERNAL_TEST_MAP): Wo
   return point;
 }
 
-/** Face every landmark back toward the shared town center. */
+/** Every door faces its own road, including concave and interior streets. */
 export function inwardAngleForTile(tileId: number, map: GameMap = INTERNAL_TEST_MAP): number {
-  const { tiles } = anchorsForMap(map);
+  const { tiles, lots } = anchorsForMap(map);
   const point = tiles[tileId];
   if (point === undefined) throw new Error(`3D 场景不存在格子 ${tileId}`);
-  if (Math.abs(point.z) >= Math.abs(point.x)) return point.z < 0 ? 0 : Math.PI;
-  return point.x > 0 ? -Math.PI / 2 : Math.PI / 2;
+  return Math.atan2(point.x-lots[tileId].x,point.z-lots[tileId].z);
 }
 
+/** A shared exclusion rule for scenery and cross-lot geometry. */
+export function isWorldSpaceFree(point:WorldPoint,halfSize:number,map:GameMap,includeLots=true):boolean{
+  const {tiles,lots,edges}=anchorsForMap(map);
+  return roadAreaFree(point,halfSize,tiles,edges)&&
+    (!includeLots||lots.every(p=>Math.abs(p.x-point.x)>=LOT_HALF_SIZE+halfSize||Math.abs(p.z-point.z)>=LOT_HALF_SIZE+halfSize));
+}
+
+export function canJoinLots(a:number,b:number,map:GameMap):boolean{
+  const {tiles,lots,edges}=anchorsForMap(map),p=lots[a],q=lots[b];
+  const distance=Math.hypot(p.x-q.x,p.z-q.z),world=worldForMap(map);
+  if(!world){
+    if(distance>2.01||(p.x!==q.x&&p.z!==q.z))return false;
+    return roadAreaFree({x:(p.x+q.x)/2,z:(p.z+q.z)/2},.7,tiles,edges);
+  }
+  // A terrace follows its actual frontage. Sharp corners remain separate buildings.
+  if(distance>6||Math.cos(inwardAngleForTile(a,map)-inwardAngleForTile(b,map))<.85)return false;
+  const bridge={x:(p.x+q.x)/2,z:(p.z+q.z)/2,rotation:Math.atan2(q.x-p.x,q.z-p.z),halfX:.43,halfZ:Math.max(.1,distance/2-.325)};
+  if(tiles.some((t,id)=>rectanglesOverlap(bridge,{...t,rotation:world.tiles[id].rotation,halfX:.92,halfZ:.92})))return false;
+  if(edges.some(([r,s])=>rectanglesOverlap(bridge,{x:(r.x+s.x)/2,z:(r.z+s.z)/2,rotation:Math.atan2(s.x-r.x,s.z-r.z),halfX:.38,halfZ:Math.hypot(s.x-r.x,s.z-r.z)/2})))return false;
+  return lots.every((t,id)=>id===a||id===b||!rectanglesOverlap(bridge,{...t,rotation:inwardAngleForTile(id,map),halfX:.7,halfZ:.7}));
+}
+
+/** Camera-facing labels fit inside the inscribed circle of every rotated road tile. */
+export function labelForTile(tileId:number,map:GameMap):WorldPoint{
+  const p=positionForTile(tileId,map);return {x:p.x+.36,z:p.z+.36};
+}

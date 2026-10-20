@@ -59,6 +59,18 @@ jobs:
       - name: 主程序两图四人完整对局、规则功能、动画与离线存档
         timeout-minutes: 10
         run: python -u tests/browser_main_game_acceptance.py
+      - name: 数据关卡五图选择、压力地图移动、存档及离线回归
+        timeout-minutes: 10
+        run: python -u tests/browser_stress_maps_e2e.py
+      - name: P007 五图真实路线像素、远端浏览、双指和移动帧检查
+        timeout-minutes: 5
+        run: python -u tests/browser_scalable_world_e2e.py
+      - name: P007 越界停绘、松手误选、跨图和平局镜头
+        timeout-minutes: 3
+        run: python -u tests/browser_world_navigation_edges.py
+      - name: P007 满建360格地图与多次导航资源检查
+        timeout-minutes: 3
+        run: python -u tests/browser_world_populated_e2e.py
       - name: 主程序WebAudio/GPU、损坏文件拒绝与双SW更新检查
         timeout-minutes: 5
         run: python -u tests/browser_main_runtime_e2e.py
@@ -71,6 +83,8 @@ jobs:
             artifacts/ui-rebuild/
             artifacts/main3d/
             artifacts/issue63/
+            artifacts/stress-maps/
+            artifacts/scalable-world/
           if-no-files-found: warn
           retention-days: 30
       - name: 确认产物不含第三方运行时引用

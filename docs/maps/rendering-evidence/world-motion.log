@@ -1,0 +1,41 @@
+NAV classic-24 desktop 12 [7.0, 5.0] {'x': 1377.8333333333333, 'y': 202.66666666666666} from -0.00,-0.00
+NAV classic-24 desktop 23 [-7.0, -3.0] {'x': 1296.1666666666667, 'y': 156} from 6.92,4.95
+NAV classic-24 desktop 8 [7.0, -3.0] {'x': 1377.8333333333333, 'y': 156} from -6.75,-2.85
+PASS classic-24 desktop {"zoom": 30.25, "roadPixels": 24, "cells": 24, "p50": 16.699999999999818, "p95": 16.700000000000728, "allPassDrawsPerFrame": 185.0, "renderer": {"calls": 185, "triangles": 31240, "geometries": 93, "textures": 4, "programs": 15, "pixelRatio": 1, "shadowType": 1}, "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"}
+NAV harbor-20 desktop 10 [5.0, 5.0] {'x': 1366.1666666666667, 'y': 202.66666666666666} from -0.00,-0.00
+NAV harbor-20 desktop 19 [-5.0, -3.0] {'x': 1307.8333333333333, 'y': 156} from 4.92,4.92
+NAV harbor-20 desktop 6 [5.0, -3.0] {'x': 1366.1666666666667, 'y': 156} from -4.79,-2.83
+PASS harbor-20 desktop {"zoom": 33.27, "roadPixels": 19, "cells": 20, "p50": 16.699999999999818, "p95": 16.700000000000728, "allPassDrawsPerFrame": 175.0, "renderer": {"calls": 175, "triangles": 27024, "geometries": 88, "textures": 4, "programs": 15, "pixelRatio": 1, "shadowType": 1}, "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"}
+NAV bend-60 desktop 30 [4.0, -2.0] {'x': 1349.7272727272727, 'y': 167.13636363636363} from -0.00,-0.00
+NAV bend-60 desktop 59 [-18.0, -10.0] {'x': 1279.7272727272727, 'y': 141.6818181818182} from 3.81,-1.91
+NAV bend-60 desktop 20 [18.0, -8.0] {'x': 1394.2727272727273, 'y': 148.04545454545456} from -17.54,-9.83
+PASS bend-60 desktop {"zoom": 16.64, "roadPixels": 59, "cells": 60, "p50": 16.699999999999818, "p95": 16.799999999999727, "allPassDrawsPerFrame": 63.0, "renderer": {"calls": 63, "triangles": 49456, "geometries": 33, "textures": 4, "programs": 13, "pixelRatio": 1, "shadowType": 1}, "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"}
+NAV bays-120 desktop 60 [18.0, 24.0] {'x': 1370.75, 'y': 218.5} from -0.00,-0.00
+NAV bays-120 desktop 119 [-30.0, -22.0] {'x': 1280.75, 'y': 132.25} from 17.78,23.71
+NAV bays-120 desktop 40 [30.0, -4.0] {'x': 1393.25, 'y': 166} from -29.41,-21.44
+PASS bays-120 desktop {"zoom": 10.4, "roadPixels": 119, "cells": 120, "p50": 16.699999999999818, "p95": 16.700000000000728, "allPassDrawsPerFrame": 63.0, "renderer": {"calls": 63, "triangles": 96176, "geometries": 33, "textures": 4, "programs": 13, "pixelRatio": 1, "shadowType": 1}, "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"}
+NAV ridges-360 desktop 180 [30.0, 30.0] {'x': 1358.2837837837837, 'y': 194.78378378378378} from -0.00,-0.00
+NAV ridges-360 desktop 359 [-70.0, -68.0] {'x': 1287.337837837838, 'y': 125.25675675675676} from 29.37,29.37
+NAV ridges-360 desktop 120 [70.0, 30.0] {'x': 1386.662162162162, 'y': 194.78378378378378} from -69.37,-67.39
+PASS ridges-360 desktop {"zoom": 4.44, "roadPixels": 360, "cells": 360, "p50": 16.699999999999818, "p95": 16.800000000000182, "allPassDrawsPerFrame": 63.0, "renderer": {"calls": 63, "triangles": 283576, "geometries": 33, "textures": 4, "programs": 12, "pixelRatio": 1, "shadowType": 1}, "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"}
+NAV classic-24 phone 12 [7.0, 5.0] {'x': 348.1111111111111, 'y': 220.22222222222223} from -0.00,-0.00
+NAV classic-24 phone 23 [-7.0, -3.0] {'x': 299.8888888888889, 'y': 192.66666666666666} from 6.83,4.88
+NAV classic-24 phone 8 [7.0, -3.0] {'x': 348.1111111111111, 'y': 192.66666666666666} from -6.57,-2.75
+PASS classic-24 phone {"zoom": 12.73, "roadPixels": 23, "cells": 24, "p50": 16.699999999999818, "p95": 16.700000000000728, "allPassDrawsPerFrame": 63.0, "renderer": {"calls": 63, "triangles": 41480, "geometries": 33, "textures": 4, "programs": 13, "pixelRatio": 2, "shadowType": 1}, "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"}
+NAV harbor-20 phone 10 [5.0, 5.0] {'x': 341.22222222222223, 'y': 220.22222222222223} from -0.00,-0.00
+NAV harbor-20 phone 19 [-5.0, -3.0] {'x': 306.77777777777777, 'y': 192.66666666666666} from 4.86,4.86
+NAV harbor-20 phone 6 [5.0, -3.0] {'x': 341.22222222222223, 'y': 192.66666666666666} from -4.60,-2.68
+PASS harbor-20 phone {"zoom": 14.23, "roadPixels": 19, "cells": 20, "p50": 16.699999999999818, "p95": 16.799999999999727, "allPassDrawsPerFrame": 63.0, "renderer": {"calls": 63, "triangles": 31376, "geometries": 33, "textures": 4, "programs": 13, "pixelRatio": 2, "shadowType": 1}, "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"}
+NAV bend-60 phone 30 [4.0, -2.0] {'x': 331.75, 'y': 199.125} from -0.00,-0.00
+NAV bend-60 phone 59 [-18.0, -10.0] {'x': 289.125, 'y': 183.625} from 3.72,-1.86
+NAV bend-60 phone 20 [18.0, -8.0] {'x': 358.875, 'y': 187.5} from -17.33,-9.75
+PASS bend-60 phone {"zoom": 6.54, "roadPixels": 59, "cells": 60, "p50": 16.699999999999818, "p95": 16.800000000000182, "allPassDrawsPerFrame": 63.0, "renderer": {"calls": 63, "triangles": 54672, "geometries": 33, "textures": 4, "programs": 13, "pixelRatio": 2, "shadowType": 1}, "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"}
+NAV bays-120 phone 60 [18.0, 24.0] {'x': 343.92857142857144, 'y': 229.57142857142858} from -0.00,-0.00
+NAV bays-120 phone 119 [-30.0, -22.0] {'x': 290.7857142857143, 'y': 178.64285714285714} from 17.62,23.50
+NAV bays-120 phone 40 [30.0, -4.0] {'x': 357.2142857142857, 'y': 198.57142857142858} from -29.00,-21.05
+PASS bays-120 phone {"zoom": 3.96, "roadPixels": 119, "cells": 120, "p50": 16.699999999999818, "p95": 16.700000000000728, "allPassDrawsPerFrame": 63.0, "renderer": {"calls": 63, "triangles": 143184, "geometries": 33, "textures": 4, "programs": 13, "pixelRatio": 2, "shadowType": 1}, "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"}
+NAV ridges-360 phone 180 [30.0, 30.0] {'x': 336.56756756756755, 'y': 215.56756756756758} from -0.00,-0.00
+NAV ridges-360 phone 359 [-70.0, -68.0] {'x': 294.6756756756757, 'y': 174.51351351351352} from 27.49,29.45
+NAV ridges-360 phone 120 [70.0, 30.0] {'x': 353.3243243243243, 'y': 215.56756756756758} from -66.96,-66.90
+PASS ridges-360 phone {"zoom": 1.65, "roadPixels": 360, "cells": 360, "p50": 16.699999999999818, "p95": 16.700000000000728, "allPassDrawsPerFrame": 63.0, "renderer": {"calls": 63, "triangles": 207728, "geometries": 33, "textures": 4, "programs": 12, "pixelRatio": 2, "shadowType": 1}, "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"}
+CLOSING browser

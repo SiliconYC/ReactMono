@@ -1,3 +1,4 @@
+import { DEFAULT_ELEVATION } from './camera-math.js';
 /** Pure orthographic composition; no DOM, Three renderer or saved-game dependencies. */
 export type ViewportInsets = Readonly<{
   top: number;
@@ -8,7 +9,8 @@ export type ViewportInsets = Readonly<{
 export function cameraFrame(
   viewport: Readonly<{ width: number; height: number }>,
   insets: ViewportInsets = { top: 0, right: 0, bottom: 0, left: 0 },
-  bounds: Readonly<{ width: number; depth: number }>,
+  bounds: Readonly<{ width: number; depth: number; projectedWidth?:number; projectedDepth?:number }>,
+  elevation=DEFAULT_ELEVATION,
 ): Readonly<{
   zoom: number;
   offsetX: number;
@@ -18,11 +20,10 @@ export function cameraFrame(
 }> {
   const width = Math.max(1, viewport.width - insets.left - insets.right);
   const height = Math.max(1, viewport.height - insets.top - insets.bottom);
-  const elevation = Math.atan2(12.2, Math.hypot(10.2, 10.2));
-  const projectedWidth = (bounds.width + bounds.depth) / Math.SQRT2;
-  // Include roofs, the die over the actor, and the island's underside.
+  const projectedWidth = bounds.projectedWidth ?? (bounds.width + bounds.depth) / Math.SQRT2;
+  // Include roofs and the die over the actor above the continuous ground.
   const projectedHeight =
-    projectedWidth * Math.sin(elevation) + 3.6 * Math.cos(elevation);
+    (bounds.projectedDepth ?? projectedWidth) * Math.sin(elevation) + 3.6 * Math.cos(elevation);
   return {
     zoom: Math.min(width / projectedWidth, height / projectedHeight),
     offsetX: (insets.left - insets.right) / 2,

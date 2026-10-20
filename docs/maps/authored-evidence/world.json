@@ -1,0 +1,347 @@
+{
+  "results": [
+    {
+      "motion": {
+        "p50": 16.69999999999891,
+        "p95": 16.700000000000728,
+        "frames": 92
+      },
+      "pinch": false,
+      "map": "classic-24",
+      "viewport": [
+        1440,
+        900
+      ],
+      "overview": {
+        "zoom": 22.4,
+        "roadPixels": 23,
+        "cells": 24,
+        "p50": 16.699999999999818,
+        "p95": 16.700000000000273,
+        "allPassDrawsPerFrame": 235.0,
+        "renderer": {
+          "calls": 235,
+          "triangles": 17884,
+          "geometries": 120,
+          "textures": 4,
+          "programs": 14,
+          "pixelRatio": 1,
+          "shadowType": 1
+        },
+        "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+      },
+      "followZoom": 51.16,
+      "farCorners": true,
+      "wheelDragKeyboard": true
+    },
+    {
+      "motion": {
+        "p50": 16.69999999999891,
+        "p95": 16.700000000000728,
+        "frames": 91
+      },
+      "pinch": false,
+      "map": "harbor-20",
+      "viewport": [
+        1440,
+        900
+      ],
+      "overview": {
+        "zoom": 17.78,
+        "roadPixels": 19,
+        "cells": 20,
+        "p50": 16.699999999999818,
+        "p95": 16.800000000000182,
+        "allPassDrawsPerFrame": 213.0,
+        "renderer": {
+          "calls": 213,
+          "triangles": 14956,
+          "geometries": 109,
+          "textures": 4,
+          "programs": 14,
+          "pixelRatio": 1,
+          "shadowType": 1
+        },
+        "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+      },
+      "followZoom": 51.16,
+      "farCorners": true,
+      "wheelDragKeyboard": true
+    },
+    {
+      "motion": {
+        "p50": 16.69999999999891,
+        "p95": 16.700000000000728,
+        "frames": 91
+      },
+      "pinch": false,
+      "map": "bend-60",
+      "viewport": [
+        1440,
+        900
+      ],
+      "overview": {
+        "zoom": 10.24,
+        "roadPixels": 59,
+        "cells": 60,
+        "p50": 16.699999999999818,
+        "p95": 16.700000000000273,
+        "allPassDrawsPerFrame": 139.0,
+        "renderer": {
+          "calls": 139,
+          "triangles": 20102,
+          "geometries": 72,
+          "textures": 4,
+          "programs": 12,
+          "pixelRatio": 1,
+          "shadowType": 1
+        },
+        "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+      },
+      "followZoom": 51.16,
+      "farCorners": true,
+      "wheelDragKeyboard": true
+    },
+    {
+      "motion": {
+        "p50": 16.69999999999891,
+        "p95": 16.799999999999272,
+        "frames": 91
+      },
+      "pinch": false,
+      "map": "bays-120",
+      "viewport": [
+        1440,
+        900
+      ],
+      "overview": {
+        "zoom": 4.78,
+        "roadPixels": 119,
+        "cells": 120,
+        "p50": 16.699999999999818,
+        "p95": 16.700000000000728,
+        "allPassDrawsPerFrame": 159.0,
+        "renderer": {
+          "calls": 159,
+          "triangles": 26648,
+          "geometries": 82,
+          "textures": 4,
+          "programs": 12,
+          "pixelRatio": 1,
+          "shadowType": 1
+        },
+        "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+      },
+      "followZoom": 51.16,
+      "farCorners": true,
+      "wheelDragKeyboard": true
+    },
+    {
+      "motion": {
+        "p50": 16.69999999999891,
+        "p95": 16.799999999999272,
+        "frames": 92
+      },
+      "pinch": false,
+      "map": "ridges-360",
+      "viewport": [
+        1440,
+        900
+      ],
+      "overview": {
+        "zoom": 2.5,
+        "roadPixels": 360,
+        "cells": 360,
+        "p50": 16.699999999999818,
+        "p95": 16.700000000000728,
+        "allPassDrawsPerFrame": 197.0,
+        "renderer": {
+          "calls": 197,
+          "triangles": 67368,
+          "geometries": 100,
+          "textures": 4,
+          "programs": 12,
+          "pixelRatio": 1,
+          "shadowType": 1
+        },
+        "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+      },
+      "followZoom": 51.16,
+      "farCorners": true,
+      "wheelDragKeyboard": true
+    },
+    {
+      "motion": {
+        "p50": 16.69999999999891,
+        "p95": 16.700000000000728,
+        "frames": 91
+      },
+      "pinch": true,
+      "map": "classic-24",
+      "viewport": [
+        390,
+        844
+      ],
+      "overview": {
+        "zoom": 8.8,
+        "roadPixels": 23,
+        "cells": 24,
+        "p50": 16.699999999999818,
+        "p95": 16.700000000000273,
+        "allPassDrawsPerFrame": 137.0,
+        "renderer": {
+          "calls": 137,
+          "triangles": 14212,
+          "geometries": 71,
+          "textures": 4,
+          "programs": 12,
+          "pixelRatio": 2,
+          "shadowType": 1
+        },
+        "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+      },
+      "followZoom": 27.57,
+      "farCorners": true,
+      "wheelDragKeyboard": true
+    },
+    {
+      "motion": {
+        "p50": 16.69999999999891,
+        "p95": 16.700000000000728,
+        "frames": 91
+      },
+      "pinch": true,
+      "map": "harbor-20",
+      "viewport": [
+        390,
+        844
+      ],
+      "overview": {
+        "zoom": 7.84,
+        "roadPixels": 19,
+        "cells": 20,
+        "p50": 16.699999999999818,
+        "p95": 16.799999999999727,
+        "allPassDrawsPerFrame": 131.0,
+        "renderer": {
+          "calls": 131,
+          "triangles": 11956,
+          "geometries": 68,
+          "textures": 4,
+          "programs": 12,
+          "pixelRatio": 2,
+          "shadowType": 1
+        },
+        "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+      },
+      "followZoom": 27.57,
+      "farCorners": true,
+      "wheelDragKeyboard": true
+    },
+    {
+      "motion": {
+        "p50": 16.69999999999891,
+        "p95": 16.700000000000728,
+        "frames": 91
+      },
+      "pinch": true,
+      "map": "bend-60",
+      "viewport": [
+        390,
+        844
+      ],
+      "overview": {
+        "zoom": 5.83,
+        "roadPixels": 59,
+        "cells": 60,
+        "p50": 16.699999999999818,
+        "p95": 16.799999999999727,
+        "allPassDrawsPerFrame": 139.0,
+        "renderer": {
+          "calls": 139,
+          "triangles": 20102,
+          "geometries": 72,
+          "textures": 4,
+          "programs": 12,
+          "pixelRatio": 2,
+          "shadowType": 1
+        },
+        "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+      },
+      "followZoom": 27.57,
+      "farCorners": true,
+      "wheelDragKeyboard": true
+    },
+    {
+      "motion": {
+        "p50": 16.69999999999891,
+        "p95": 16.700000000000728,
+        "frames": 91
+      },
+      "pinch": true,
+      "map": "bays-120",
+      "viewport": [
+        390,
+        844
+      ],
+      "overview": {
+        "zoom": 1.84,
+        "roadPixels": 119,
+        "cells": 120,
+        "p50": 16.699999999999818,
+        "p95": 16.700000000000273,
+        "allPassDrawsPerFrame": 159.0,
+        "renderer": {
+          "calls": 159,
+          "triangles": 26648,
+          "geometries": 82,
+          "textures": 4,
+          "programs": 12,
+          "pixelRatio": 2,
+          "shadowType": 1
+        },
+        "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+      },
+      "followZoom": 27.57,
+      "farCorners": true,
+      "wheelDragKeyboard": true
+    },
+    {
+      "motion": {
+        "p50": 16.69999999999891,
+        "p95": 16.799999999999272,
+        "frames": 91
+      },
+      "pinch": true,
+      "map": "ridges-360",
+      "viewport": [
+        390,
+        844
+      ],
+      "overview": {
+        "zoom": 1.01,
+        "roadPixels": 356,
+        "cells": 360,
+        "p50": 16.699999999999818,
+        "p95": 16.700000000000728,
+        "allPassDrawsPerFrame": 197.0,
+        "renderer": {
+          "calls": 197,
+          "triangles": 67368,
+          "geometries": 100,
+          "textures": 4,
+          "programs": 12,
+          "pixelRatio": 2,
+          "shadowType": 1
+        },
+        "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)"
+      },
+      "followZoom": 27.57,
+      "farCorners": true,
+      "wheelDragKeyboard": true
+    }
+  ],
+  "errors": [],
+  "physicalPhones": 0,
+  "humanParticipants": 0
+}

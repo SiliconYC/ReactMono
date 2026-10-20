@@ -32,6 +32,11 @@ def open_saved_games(page):
     if page.locator('.title-shell[data-setup-screen="title"]').count():
         page.get_by_role('button',name='读取存档').click()
         return 'title'
+    if page.locator('.game-top').count():
+        if page.locator('dialog').count(): page.keyboard.press('Escape')
+        page.get_by_role('button',name=re.compile('^菜单')).click()
+        page.get_by_role('dialog').get_by_role('button',name=re.compile('^存档')).click()
+        return 'game'
     menu=page.locator('.utility-menu')
     if not menu.count(): return 'missing'
     assets=page.locator('.asset-overview')
@@ -45,7 +50,9 @@ def open_saved_games(page):
     return 'game'
 
 def select_map(page,map_id):
-    label='海港环线' if map_id=='harbor-20' else '经典环线'
+    import json
+    levels=json.loads((ROOT/'src/data/levels.json').read_text())['levels']
+    label=next(level['name'] for level in levels if level['map']['id']==map_id)
     cards=page.locator('.setup-map-choice button')
     if cards.count():
         cards.filter(has_text=label).click()
@@ -71,7 +78,8 @@ def main():
             page.on('request',lambda request:external.append(request.url) if not request.url.startswith('http://127.0.0.1:') else None)
             page.goto(f'http://127.0.0.1:{server.server_port}/ReactMono/',wait_until='load')
             open_new_game_setup(page)
-            assert page.locator('.setup-map-choice button').count()==2, page.locator('body').inner_text()
+            assert page.locator('.setup-map-choice button[data-map-id="classic-24"]').count()==1
+            assert page.locator('.setup-map-choice button[data-map-id="harbor-20"]').count()==1
             page.get_by_label('对局种子').fill('17')
             page.get_by_label('快速模式').check()
             page.get_by_role('button',name=re.compile('开始游戏')).click()

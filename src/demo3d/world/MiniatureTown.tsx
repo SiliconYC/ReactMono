@@ -1,11 +1,12 @@
-import * as THREE from 'three';
-import { useEffect, useMemo } from 'react';
+import { worldForMap } from '../../core/level-data.js';
+import { useMemo, type MutableRefObject } from 'react';
+import type { Navigation } from './world-navigation.js';
 import type { GameState, Tile } from '../../core/game.js';
 import { rowHouses } from '../properties.js';
 import {
   anchorsForMap,
   GROUND_TOP,
-  ISLAND_BOTTOM,
+  canJoinLots,
   inwardAngleForTile,
   lotForTile,
   ROAD_CONNECTOR_CENTER_Y,
@@ -14,46 +15,15 @@ import {
   ROAD_TILE_THICKNESS
 } from './layout.js';
 
-type TownProps = Readonly<{ game: GameState; onSelectTile?: (tileId:number)=>void }>;
+import { RoadLabels } from './RoadLabels.js';
+import { Instances, type Instance } from './Instances.js';
+import type { WorldView } from './world-view.js';
+type TownProps = Readonly<{ game: GameState; view:WorldView; nav:MutableRefObject<Navigation>;onSelectTile?: (tileId:number)=>void }>;
 
 import { MASCOT_SEAT_COLORS as PLAYER_COLORS } from './seats.js';
 function colorForOwner(game: GameState, ownerId: string): string {
   const index = game.players.findIndex(player => player.id === ownerId);
   return PLAYER_COLORS[index] ?? '#f8c95d';
-}
-
-function Tree({ position, scale = 1 }: { position: [number, number, number]; scale?: number }): React.JSX.Element {
-  return (
-    <group position={position} scale={scale}>
-      <mesh position={[0, 0.34, 0]}>
-        <cylinderGeometry args={[0.1, 0.15, 0.68, 7]} />
-        <meshStandardMaterial color="#8f6546" roughness={0.9} />
-      </mesh>
-      <mesh position={[0, 0.92, 0]}>
-        <dodecahedronGeometry args={[0.45, 0]} />
-        <meshStandardMaterial color="#4d9d72" roughness={0.9} />
-      </mesh>
-      <mesh position={[-0.2, 0.84, 0.1]}>
-        <dodecahedronGeometry args={[0.28, 0]} />
-        <meshStandardMaterial color="#6fbf85" roughness={0.9} />
-      </mesh>
-    </group>
-  );
-}
-
-function Lamp({ position }: { position: [number, number, number] }): React.JSX.Element {
-  return (
-    <group position={position}>
-      <mesh position={[0, 0.45, 0]}>
-        <cylinderGeometry args={[0.035, 0.055, 0.9, 8]} />
-        <meshStandardMaterial color="#29534f" roughness={0.7} />
-      </mesh>
-      <mesh position={[0, 0.91, 0]}>
-        <octahedronGeometry args={[0.13, 0]} />
-        <meshStandardMaterial color="#ffe7a3" emissive="#f4b85d" emissiveIntensity={0.45} roughness={0.5} />
-      </mesh>
-    </group>
-  );
 }
 
 function House({ tile, game }: { tile: Tile; game: GameState }): React.JSX.Element {
@@ -114,163 +84,63 @@ function House({ tile, game }: { tile: Tile; game: GameState }): React.JSX.Eleme
   );
 }
 
-function BankBuilding(): React.JSX.Element {
-  const sign = useMemo(() => {
-    const canvas = document.createElement('canvas');
-    canvas.width = 256; canvas.height = 80;
-    const context = canvas.getContext('2d');
-    if (context) {
-      context.fillStyle = '#24594f'; context.fillRect(0, 0, 256, 80);
-      context.fillStyle = '#ffe39b'; context.font = 'bold 45px "PingFang SC", "Microsoft YaHei", sans-serif';
-      context.textAlign = 'center'; context.textBaseline = 'middle'; context.fillText('晴湾银行', 128, 42);
-    }
-    const texture = new THREE.CanvasTexture(canvas);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    return texture;
-  }, []);
-  useEffect(() => () => sign.dispose(), [sign]);
-  return (
-    <group name="晴湾银行">
-      <mesh position={[0, 0.05, 0]}><cylinderGeometry args={[1.05, 1.12, 0.2, 8]} /><meshStandardMaterial color="#c1d3c4" /></mesh>
-      <mesh position={[0, 0.65, -0.05]}><boxGeometry args={[1.24, 1.05, 0.96]} /><meshStandardMaterial color="#fff2ce" /></mesh>
-      <mesh position={[0, 1.23, 0]}><boxGeometry args={[1.48, 0.18, 1.15]} /><meshStandardMaterial color="#427f73" /></mesh>
-      <mesh position={[0, 0.54, 0.455]}><boxGeometry args={[0.3, 0.72, 0.035]} /><meshStandardMaterial color="#3a7165" /></mesh>
-      {[-0.5, 0.5].map(x => <mesh key={x} position={[x, 0.68, 0.55]}><cylinderGeometry args={[0.075, 0.09, 0.92, 8]} /><meshStandardMaterial color="#fff9e9" /></mesh>)}
-      <mesh position={[0, 1.12, 0.59]}><planeGeometry args={[1.14, 0.36]} /><meshBasicMaterial map={sign} /></mesh>
-      <mesh position={[0, 1.58, 0]} rotation={[Math.PI / 2, 0, 0]}><cylinderGeometry args={[0.22, 0.22, 0.08, 16]} /><meshStandardMaterial color="#ffd461" metalness={0.4} roughness={0.3} /></mesh>
-    </group>
-  );
-}
-
-function NeutralLandmark({ title }: { title: string }): React.JSX.Element {
-  if (title.includes('银行')) return <BankBuilding />;
-
-  return (
-    <group>
-      <mesh position={[0, 0.07, 0]}>
-        <cylinderGeometry args={[0.62, 0.7, 0.14, 8]} />
-        <meshStandardMaterial color="#b9d889" roughness={0.92} />
-      </mesh>
-      <Tree position={[-0.2, 0.08, 0.05]} scale={0.7} />
-      <mesh position={[0.32, 0.19, 0.12]}>
-        <boxGeometry args={[0.5, 0.1, 0.16]} />
-        <meshStandardMaterial color="#d49a63" roughness={0.9} />
-      </mesh>
-    </group>
-  );
-}
-
-function ClockTower(): React.JSX.Element {
-  return (
-    <group position={[0, GROUND_TOP, 0]}>
-      <mesh position={[0, 0.14, 0]}>
-        <cylinderGeometry args={[2.25, 2.4, 0.28, 12]} />
-        <meshStandardMaterial color="#92c89e" roughness={0.9} />
-      </mesh>
-      <mesh position={[0, 1.18, 0]}>
-        <boxGeometry args={[1.15, 2.05, 1.15]} />
-        <meshStandardMaterial color="#f6d993" roughness={0.78} />
-      </mesh>
-      <mesh position={[0, 2.38, 0]} rotation={[0, Math.PI / 4, 0]}>
-        <coneGeometry args={[1.02, 0.82, 4]} />
-        <meshStandardMaterial color="#d15b4e" roughness={0.72} />
-      </mesh>
-      {[0, Math.PI / 2, Math.PI, -Math.PI / 2].map(angle => (
-        <mesh key={angle} position={[Math.sin(angle) * 0.581, 1.42, Math.cos(angle) * 0.581]} rotation={[0, angle, 0]}>
-          <circleGeometry args={[0.27, 16]} />
-          <meshStandardMaterial color="#fff9df" roughness={0.5} />
-        </mesh>
-      ))}
-      <mesh position={[0, 2.94, 0]}>
-        <sphereGeometry args={[0.13, 8, 6]} />
-        <meshStandardMaterial color="#f8c95d" metalness={0.2} roughness={0.45} />
-      </mesh>
-      <Tree position={[-1.55, 0.18, -1.3]} scale={0.9} />
-      <Tree position={[1.4, 0.18, 1.55]} scale={0.82} />
-      <Tree position={[-1.5, 0.18, 1.45]} scale={0.65} />
-      <Lamp position={[1.55, 0.18, -1.35]} />
-    </group>
-  );
-}
-
-export function MiniatureTown({ game, onSelectTile }: TownProps): React.JSX.Element {
+export function MiniatureTown({ game, view, nav, onSelectTile }: TownProps): React.JSX.Element {
   const anchors = anchorsForMap(game.map);
+  const detail=view.zoom>=17;
+  const visible=(p:{x:number;z:number})=>p.x>=view.minX&&p.x<=view.maxX&&p.z>=view.minZ&&p.z<=view.maxZ;
+  const roads=useMemo(()=>anchors.tiles.map((p,id)=>({...p,y:ROAD_TILE_CENTER_Y,rotation:worldForMap(game.map)?.tiles[id].rotation??0,color:id===0?'#e8b84c':game.tiles[id].kind==='property'?'#f0ebd8':'#c9dcd4'})),[anchors,game.map]);
+  const edges=useMemo(()=>game.map.route.map((id,i)=>{
+    const a=anchors.tiles[id],b=anchors.tiles[game.map.route[(i+1)%game.map.route.length]];
+    return {x:(a.x+b.x)/2,y:ROAD_CONNECTOR_CENTER_Y,z:(a.z+b.z)/2,sx:.72,sz:Math.hypot(a.x-b.x,a.z-b.z),rotation:Math.atan2(b.x-a.x,b.z-a.z)};
+  }),[anchors,game.map]);
+  const lots=useMemo(()=>game.tiles.map(tile=>({...anchors.lots[tile.id],y:GROUND_TOP+.035,rotation:inwardAngleForTile(tile.id,game.map),color:tile.ownerId?colorForOwner(game,tile.ownerId):tile.kind==='property'?'#d2d8b3':'#9fbe91'})),[game.tiles,anchors,game.players]);
+  const posts:Instance[]=detail?lots.filter(visible).flatMap(p=>[-.43,.43].map(x=>({x:p.x+Math.cos(p.rotation)*x,z:p.z-Math.sin(p.rotation)*x,y:GROUND_TOP+.15,color:p.color}))):[];
+  const simpleHouses=game.tiles.filter(t=>t.ownerId&&(t.level??0)>0&&!detail).map(t=>({...anchors.lots[t.id],tileId:t.id,y:GROUND_TOP+.5,sy:1+(t.level??1)*.3,color:colorForOwner(game,t.ownerId!)}));
   return (
-    <group>
-      <mesh position={[0, -0.82, 0]}>
-        <cylinderGeometry args={[Math.max(anchors.bounds.width, anchors.bounds.depth) / 2 + 1, Math.max(anchors.bounds.width, anchors.bounds.depth) / 2 + 1.3, 0.72, 12]} />
-        <meshStandardMaterial color="#745846" roughness={1} />
-      </mesh>
-      <mesh position={[0, -0.42, 0]}>
-        <cylinderGeometry args={[Math.max(anchors.bounds.width, anchors.bounds.depth) / 2 + 0.8, Math.max(anchors.bounds.width, anchors.bounds.depth) / 2 + 0.9, 0.26, 12]} />
-        <meshStandardMaterial color="#8ecf99" roughness={0.94} />
-      </mesh>
-      <mesh position={[0, ISLAND_BOTTOM, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <circleGeometry args={[22, 48]} />
-        <meshStandardMaterial color="#76c7cc" roughness={0.38} metalness={0.02} />
-      </mesh>
-
-      {anchors.tiles.map((point, index) => (
-        <group key={`road-${index}`} position={[point.x, ROAD_TILE_CENTER_Y, point.z]}>
-          <mesh onClick={event=>{event.stopPropagation();onSelectTile?.(index);}}>
-            <boxGeometry args={[1.78, ROAD_TILE_THICKNESS, 1.78]} />
-            <meshStandardMaterial color={index === 0 ? '#f4cc5c' : '#dbe2d6'} roughness={0.88} />
-          </mesh>
-          <mesh position={[0, ROAD_TILE_THICKNESS / 2 + 0.004, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-            <ringGeometry args={[0.13, 0.17, 16]} />
-            <meshBasicMaterial color={index === 0 ? '#fff9d9' : '#9eb4a6'} side={THREE.DoubleSide} />
-          </mesh>
-        </group>
-      ))}
-
-      {game.map.route.map((tileId, index) => {
-        const point = anchors.tiles[tileId];
-        const next = anchors.tiles[game.map.route[(index + 1) % game.map.route.length]];
-        const horizontal = point.z === next.z;
-        return (
-          <mesh key={`edge-${index}`} position={[(point.x + next.x) / 2, ROAD_CONNECTOR_CENTER_Y, (point.z + next.z) / 2]}>
-            <boxGeometry args={horizontal ? [2, ROAD_CONNECTOR_THICKNESS, 0.72] : [0.72, ROAD_CONNECTOR_THICKNESS, 2]} />
-            <meshStandardMaterial color="#dbe2d6" roughness={0.88} />
-          </mesh>
-        );
-      })}
-
-      {game.tiles.map(tile => {
+    <group name="路线与街区">
+      <RoadLabels map={game.map} view={view} nav={nav}/>
+      <Instances items={edges}><boxGeometry args={[1,ROAD_CONNECTOR_THICKNESS,1]}/><meshStandardMaterial color="#d7d7bd" roughness={1}/></Instances>
+      <Instances items={roads} onSelect={onSelectTile} mapTiles><boxGeometry args={[1.78,ROAD_TILE_THICKNESS,1.78]}/><meshStandardMaterial roughness={.94}/></Instances>
+      <Instances items={lots} mapTiles><boxGeometry args={[1.18,.07,1.18]}/><meshStandardMaterial roughness={1}/></Instances>
+      <Instances items={posts}><cylinderGeometry args={[.035,.045,.3,5]}/><meshStandardMaterial roughness={1}/></Instances>
+      <Instances items={simpleHouses}><boxGeometry args={[.78,.8,.78]}/><meshStandardMaterial roughness={.9}/></Instances>
+      {detail&&game.tiles.filter(tile=>visible(anchors.lots[tile.id])).map(tile => {
         const lot = lotForTile(tile.id, game.map);
-        const inwardAngle = inwardAngleForTile(tile.id, game.map);
+        const angle = inwardAngleForTile(tile.id, game.map);
+        if(tile.kind!=='property'||(tile.level??0)===0)return null;
         return (
-          <group key={tile.id} position={[lot.x, GROUND_TOP, lot.z]} rotation={[0, inwardAngle, 0]}>
-            {tile.kind === 'property' ? <House tile={tile} game={game} /> : <NeutralLandmark title={tile.title} />}
+          <group key={tile.id} userData={{tileId:tile.id}} position={[lot.x, GROUND_TOP, lot.z]} rotation={[0, angle, 0]}>
+            <House tile={tile} game={game} />
           </group>
         );
       })}
 
       {/* Shared walls and roof strips visibly join only eligible street neighbours. */}
       {rowHouses(game).flatMap(row => row.tileIds.slice(1).map((id, index) => {
+        if(!detail||!canJoinLots(row.tileIds[index],id,game.map)||!visible(anchors.lots[id]))return null;
         const a = lotForTile(row.tileIds[index], game.map);
         const b = lotForTile(id, game.map);
-        const horizontal = a.z === b.z;
+        const length=Math.max(.1,Math.hypot(b.x-a.x,b.z-a.z)-.65);
+        const rotation=Math.atan2(b.x-a.x,b.z-a.z);
         const height = Math.min(game.tiles[id].level ?? 1, game.tiles[row.tileIds[index]].level ?? 1) === 2 ? 1.45 : 0.85;
         return (
-          <group key={`terrace-${id}`} position={[(a.x + b.x) / 2, GROUND_TOP, (a.z + b.z) / 2]}>
+          <group key={`terrace-${id}`} userData={{tileId:id}} position={[(a.x + b.x) / 2, GROUND_TOP, (a.z + b.z) / 2]} rotation={[0,rotation,0]}>
             <mesh position={[0, 0.09, 0]}>
-              <boxGeometry args={horizontal ? [1.35, 0.18, 0.86] : [0.86, 0.18, 1.35]} />
+              <boxGeometry args={[0.86, 0.18, length]} />
               <meshStandardMaterial color={colorForOwner(game, row.ownerId)} roughness={0.86} />
             </mesh>
             <mesh position={[0, height / 2 + 0.18, 0]}>
-              <boxGeometry args={horizontal ? [1.22, height, 0.72] : [0.72, height, 1.22]} />
+              <boxGeometry args={[0.72, height, length]} />
               <meshStandardMaterial color={row.ownerId === game.players[0]?.id ? '#ffb278' : row.ownerId === game.players[1]?.id ? '#91b5ff' : colorForOwner(game, row.ownerId)} roughness={0.78} />
             </mesh>
             <mesh position={[0, height + 0.25, 0]}>
-              <boxGeometry args={horizontal ? [1.35, 0.18, 0.86] : [0.86, 0.18, 1.35]} />
+              <boxGeometry args={[0.86, 0.18, length]} />
               <meshStandardMaterial color={row.ownerId === game.players[0]?.id ? '#c85045' : row.ownerId === game.players[1]?.id ? '#385da9' : colorForOwner(game, row.ownerId)} />
             </mesh>
           </group>
         );
       }))}
 
-      <ClockTower />
-      {[-1, 1].flatMap(x => [-1, 1].map(z => <Lamp key={`${x}-${z}`} position={[x * Math.max(2.9, anchors.bounds.width * 0.19), GROUND_TOP, z * Math.max(2.9, anchors.bounds.depth * 0.19)]} />))}
     </group>
   );
 }

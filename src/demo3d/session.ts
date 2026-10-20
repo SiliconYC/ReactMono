@@ -1,5 +1,4 @@
 import {
-  INTERNAL_TEST_MAP,
   applyAction,
   createGame,
   type ActionResult,
@@ -7,46 +6,22 @@ import {
   type GameConfig,
   type GameEvent,
   type GameState,
-  type RejectReason,
-  type TileConfig
+  type RejectReason
 } from '../core/game.js';
+import { levelConfig } from '../core/level-data.js';
 import { routeSteps } from './route.js';
 
-const TILE_NAMES = [
-  '晨曦车站', '银杏小路', '甜橙街', '河畔公园',
-  '红砖巷', '钟楼广场', '风铃街', '云朵花园',
-  '晴湾银行', '蜜糖路', '书店街', '星光露台',
-  '松果公园', '琥珀大道', '月桂巷', '归家广场'
-] as const;
-
-const DEMO_TILES: readonly TileConfig[] = TILE_NAMES.map((title, id): TileConfig => {
-  if (id === 0) return { id, kind: 'start', title };
-  if (id % 4 === 0 || id === 15) return { id, kind: 'neutral', title };
-  return {
-    id,
-    kind: 'property',
-    title,
-    price: 100 + id * 12,
-    rent: 18 + id * 3
-  };
-});
-
 export const DEMO_CONFIG: GameConfig = {
-  map: INTERNAL_TEST_MAP,
+  ...levelConfig('internal-square-16'),
   players: [
     { id: 'p1', name: '桃桃', kind: 'human' },
     { id: 'p2', name: '阿团', kind: 'human' }
   ],
-  tiles: DEMO_TILES,
-  initialCash: 1800,
   bankEnabled: true,
   loanEnabled: true,
   marketEnabled: true,
   propertyVisitOnly: true,
-  stockAccount: 'bank',
-  maxRounds: 12,
-  eventRules: { tileIds: [], bonus: 0, fee: 0 },
-  cardRules: { tileIds: [], rewardCash: 80, moveBonus: 2, maxHand: 3 }
+  stockAccount: 'bank'
 };
 
 export type AcceptedDemoCommand = {

@@ -29,7 +29,7 @@
 | E18 / B | 商业资源/商标/文字分发边界 | [`NOTICE.md:1-75`](https://github.com/lhr0909/richman4-remastered/blob/3f4209a7dfb5b2f20799bf54e6c03c5faa11c557/NOTICE.md#L1-L75) | 不带原版 MKF/可执行档；但转录原版台词和名称仍为商业权利；个人使用构建含原版资源不可公开分发 |
 | E19 / D | UI 主观保真程度不定 | [`docs/ui/effects.md:1-58`](https://github.com/lhr0909/richman4-remastered/blob/3f4209a7dfb5b2f20799bf54e6c03c5faa11c557/docs/ui/effects.md#L1-L58) | 有原版 FLC 功能与界面规格，但公开仓库缺同状态原版 vs 原生独立截图，不能据静态代码断言全幅保真 |
 | E20 / B | 作者验收可复现条件与界限 | [`docs/migrations/031-native-acceptance.md:137-160`](https://github.com/lhr0909/richman4-remastered/blob/3f4209a7dfb5b2f20799bf54e6c03c5faa11c557/docs/migrations/031-native-acceptance.md#L137-L160) | 10/5 原始 19 场 aggregate failed、20 场仅 5 场 interrupted；10/6 新成果没有公开的 summary.json；测试编排 tests/native_acceptance_tests.py 用 mock，并非原生端到端本轮运行 |
-| E21 / B | ReactMono 产品边界（本仓库 dev） | [`../../../README.md:1-20`](https://github.com/SiliconYC/ReactMono/blob/dev/README.md) | 本项目 dev 的 README/AGENTS/PROJECT_CHARTER、src/core、src/ui、src/demo3d；原上游不是 React 3D/PWA，遵守现有产品约束 |
+| E21 / B | ReactMono 产品边界（本仓库 dev） | [`../../../../README.md:1-20`](https://github.com/SiliconYC/ReactMono/blob/dev/README.md) | 本项目 dev 的 README/AGENTS/PROJECT_CHARTER、src/core、src/ui、src/demo3d；原上游不是 React 3D/PWA，遵守现有产品约束 |
 
 ## 跨模块端到端检查（只读、非运行）
 
@@ -73,6 +73,18 @@ python3 scripts/run_native_acceptance.py \
 ```
 
 **应留存而本次不存在的 A 级材料**：完整输入清单/哈希、版本化本机工具链、CTest 全部用例详情、单次 20 场汇总 `summary.json` 与失败/运行日志、真实 UI 比较图及录像、Android APK 本机运行/音频与后台恢复日志、iOS `.xcresult` 和实机安装证明。虚拟显示 `SDL_VIDEODRIVER=dummy` / `SDL_AUDIODRIVER=dummy` 的 30 日自动回放不能单独证明人类视听体验、对局胜负流程或相机/文字保真。
+
+## 不依赖商业素材的独立验证路线（本次未执行）
+
+为避免误把资源缺失当成所有测试均无法运行，可先在有 C++20、CMake 与 Python 的可联网环境运行（注意这只是**未来建议命令**，本研究未运行）：
+
+```sh
+cmake -S . -B build/core-only -DRICH4_BUILD_GAME=OFF -DRICH4_BUILD_VIEWER=OFF -DBUILD_TESTING=ON
+cmake --build build/core-only --parallel
+ctest --test-dir build/core-only --output-on-failure
+```
+
+CMake `RICH4_BUILD_GAME=OFF` 可以绕过 SDL3/FreeType/FluidSynth 的游戏宿主依赖，但测试注册仍依 `Python3`、本地资源和 `RICH4_ORACLE_DIR` 配置变化；此路线不能检验原版画面、原生音频、Android/iOS 或 20 场完整验收。避免将测试数量与作者在另一环境的 `47/47` 直接比较。
 
 ## 法律与污染隔离
 

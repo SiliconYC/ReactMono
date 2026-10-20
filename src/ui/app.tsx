@@ -1,3 +1,4 @@
+import { LevelPreview } from './LevelPreview.js';
 import * as React from "react";
 import { createRoot } from "react-dom/client";
 import {
@@ -11,7 +12,6 @@ import {
   type GameMap,
   type PlayerConfig,
   DEFAULT_CONFIG,
-  HARBOR_CONFIG,
   netWorth,
   resaleValue,
   loanLimit,
@@ -20,6 +20,7 @@ import {
   type StockId,
   propertyVisitAvailable,
 } from "../core/game.js";
+import { LEVELS, PLAYABLE_LEVELS, levelConfig } from "../core/level-data.js";
 import { chooseComputerAction } from "../core/agent.js";
 import {
   COMPUTER_STYLES,
@@ -781,7 +782,7 @@ class App extends React.Component<object, UiState> {
     this.cpuTurnActions = 0;
     this.lastCpuEvents = [];
     const base =
-      this.state.selectedMapId === "harbor-20" ? HARBOR_CONFIG : DEFAULT_CONFIG;
+      levelConfig(LEVELS.some(level => level.map.id === this.state.selectedMapId) ? this.state.selectedMapId : "classic-24");
     const fresh = createGame(20261015, base);
     this.setState({
       game: fresh,
@@ -804,13 +805,14 @@ class App extends React.Component<object, UiState> {
       message: "已返回游戏首页。",
     });
   };
-  private toggleCamera = (): void => {
-    const cameraFollow = !this.state.cameraFollow;
+  private setCameraFollow = (cameraFollow:boolean): void => {
+    if(this.state.cameraFollow===cameraFollow)return;
     try {
       localStorage.setItem("reactmono-camera-follow", cameraFollow ? "1" : "0");
     } catch {}
     this.setState({ cameraFollow });
   };
+  private toggleCamera = (): void => this.setCameraFollow(!this.state.cameraFollow);
   private continueSavedGame = (): void => {
     const slot =
       this.state.saveSlots.find((item) => item.kind === "auto") ??
@@ -852,8 +854,9 @@ class App extends React.Component<object, UiState> {
     this.setState({ playerSetup: roster });
   };
   private selectMap = (id: string): void => {
-    if (id !== "classic-24" && id !== "harbor-20") return;
-    const base = id === "harbor-20" ? HARBOR_CONFIG : DEFAULT_CONFIG;
+    const level = PLAYABLE_LEVELS.find(level => level.map.id === id);
+    if (!level) return;
+    const base = levelConfig(id);
     this.cancelCue();
     this.cpuTurnMark = "";
     this.cpuTurnActions = 0;
@@ -864,6 +867,7 @@ class App extends React.Component<object, UiState> {
     });
     this.setState({
       selectedMapId: id,
+      roundsInput: String(base.maxRounds),
       selectedTileId: null,
       lastMotion: null,
       visualCue: null,
@@ -871,9 +875,7 @@ class App extends React.Component<object, UiState> {
       game: fresh,
       displayGame: fresh,
       message:
-        id === "harbor-20"
-          ? "已选择海港环线：20 格，独立价格及海港主题地产。"
-          : "已选择经典环线：24 格，原有规则完整保留。",
+        `已选择${level.name}：${level.tiles.length} 格，${level.description}。`,
     });
   };
   private acknowledgeHandoff = (): void => {
@@ -926,9 +928,7 @@ class App extends React.Component<object, UiState> {
     let fresh: GameState;
     try {
       fresh = createGame(seed, {
-        ...(this.state.selectedMapId === "harbor-20"
-          ? HARBOR_CONFIG
-          : DEFAULT_CONFIG),
+        ...levelConfig(this.state.selectedMapId),
         players: roster,
         maxRounds: rounds,
         automaticLiquidation: true,
@@ -938,7 +938,7 @@ class App extends React.Component<object, UiState> {
         loanEnabled: true,
         marketEnabled: true,
         strategyEnabled: true,
-        specialEnabled: this.state.specialEnabled,
+        specialEnabled: this.state.specialEnabled && !!LEVELS.find(level => level.map.id === this.state.selectedMapId)?.facilityConfig,
       });
     } catch (e) {
       this.setState({
@@ -965,6 +965,7 @@ class App extends React.Component<object, UiState> {
       game: result.state,
       displayGame: result.state,
       activeSeed: seed,
+      cameraFollow: fresh.map.cells.length >= 60 || this.state.cameraFollow,
       selectedTileId: null,
       lastMotion: null,
       visualCue: null,
@@ -2526,35 +2527,25 @@ class App extends React.Component<object, UiState> {
                 role="group"
                 aria-label="选择地图"
               >
-                {[
-                  {
-                    id: "classic-24",
-                    name: "经典环线",
-                    sub: "24 格 · 均衡布局",
-                  },
-                  {
-                    id: "harbor-20",
-                    name: "海港环线",
-                    sub: "20 格 · 海风与新机遇",
-                  },
-                ].map((m) => (
+                {PLAYABLE_LEVELS.map((m) => (
                   <button
-                    key={m.id}
+                    key={m.map.id}
+                    data-map-id={m.map.id}
                     className={
-                      this.state.selectedMapId === m.id ? "selected" : ""
+                      this.state.selectedMapId === m.map.id ? "selected" : ""
                     }
-                    aria-pressed={this.state.selectedMapId === m.id}
-                    onClick={() => this.selectMap(m.id)}
+                    aria-pressed={this.state.selectedMapId === m.map.id}
+                    onClick={() => this.selectMap(m.map.id)}
                   >
                     <div className="map-card-art">
-                      <TownIllustration harbor={m.id === "harbor-20"} />
+                      <LevelPreview map={m.map}/>
                     </div>
                     <div>
                       <strong>{m.name}</strong>
-                      <small>{m.sub}</small>
+                      <small>{m.description}</small>
                     </div>
                     <span className="map-check">
-                      {this.state.selectedMapId === m.id ? "✓" : "○"}
+                      {this.state.selectedMapId === m.map.id ? "✓" : "○"}
                     </span>
                   </button>
                 ))}
@@ -2679,7 +2670,8 @@ class App extends React.Component<object, UiState> {
                     <input
                       type="checkbox"
                       aria-label="启用医院、监狱与商店"
-                      checked={this.state.specialEnabled}
+                      checked={this.state.specialEnabled && !!LEVELS.find(level => level.map.id === this.state.selectedMapId)?.facilityConfig}
+                      disabled={!LEVELS.find(level => level.map.id === this.state.selectedMapId)?.facilityConfig}
                       onChange={(e) =>
                         this.setState({ specialEnabled: e.target.checked })
                       }
@@ -2793,7 +2785,7 @@ class App extends React.Component<object, UiState> {
         data-scene-step={this.state.visualCue?.step ?? 0}
         data-die-actor={this.state.dieActorId ?? ""}
         onClickCapture={(event) => {
-          if (event.detail > 1) {
+          if (event.detail > 1 && !(event.target instanceof Element && event.target.closest(".world-navigation"))) {
             event.preventDefault();
             event.stopPropagation();
           }
@@ -2818,6 +2810,7 @@ class App extends React.Component<object, UiState> {
             dieNonce={this.state.dieNonce}
             reducedMotion={this.noMotion}
             followCurrent={this.state.cameraFollow}
+            onFollowCurrentChange={this.setCameraFollow}
             rent={this.state.rentCue}
             outcome={this.state.outcomeCue}
             pendingBankruptIds={
@@ -2837,7 +2830,7 @@ class App extends React.Component<object, UiState> {
             <span className="brand-mark">富</span>
             <div>
               <strong>
-                {game.map.id === "harbor-20" ? "海风港" : "晴湾小镇"}
+                {LEVELS.find(level => level.map.id === game.map.id)?.name ?? "自定义地图"}
               </strong>
               <small>大富翁 · 本机对局</small>
             </div>

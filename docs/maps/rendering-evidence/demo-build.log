@@ -1,0 +1,14 @@
+
+> reactmono@0.2.0 demo:build
+> tsc -p tsconfig.demo.json && vite build --config vite.demo.config.ts
+
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 73 modules transformed.
+rendering chunks...
+computing gzip size...
+dist-3d-demo/index.html                     0.59 kB │ gzip:   0.43 kB
+dist-3d-demo/assets/index-vsto39_N.css     27.18 kB │ gzip:   6.58 kB
+dist-3d-demo/assets/index-DoQuxyxZ.js   1,173.63 kB │ gzip: 317.62 kB
+
+✓ built in 273ms

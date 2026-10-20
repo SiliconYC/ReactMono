@@ -1,0 +1,155 @@
+{
+  "results": [
+    {
+      "phone": false,
+      "mode": "follow",
+      "renderer": {
+        "calls": 634,
+        "triangles": 49404,
+        "geometries": 471,
+        "textures": 4,
+        "programs": 15,
+        "pixelRatio": 1,
+        "shadowType": 1
+      },
+      "allPassDrawsPerFrame": 636.9166666666666,
+      "p50": 16.699999999999818,
+      "p95": 16.700000000000273
+    },
+    {
+      "phone": false,
+      "mode": "overview",
+      "renderer": {
+        "calls": 65,
+        "triangles": 280752,
+        "geometries": 33,
+        "textures": 4,
+        "programs": 13,
+        "pixelRatio": 1,
+        "shadowType": 1
+      },
+      "allPassDrawsPerFrame": 65.0,
+      "p50": 16.699999999999818,
+      "p95": 16.700000000000728
+    },
+    {
+      "phone": false,
+      "navigationCycles": 4,
+      "nearMemory": [
+        {
+          "calls": 634,
+          "triangles": 49404,
+          "geometries": 471,
+          "textures": 4,
+          "programs": 15,
+          "pixelRatio": 1,
+          "shadowType": 1
+        },
+        {
+          "calls": 636,
+          "triangles": 49440,
+          "geometries": 471,
+          "textures": 4,
+          "programs": 15,
+          "pixelRatio": 1,
+          "shadowType": 1
+        },
+        {
+          "calls": 634,
+          "triangles": 49404,
+          "geometries": 471,
+          "textures": 4,
+          "programs": 15,
+          "pixelRatio": 1,
+          "shadowType": 1
+        },
+        {
+          "calls": 636,
+          "triangles": 49440,
+          "geometries": 471,
+          "textures": 4,
+          "programs": 15,
+          "pixelRatio": 1,
+          "shadowType": 1
+        }
+      ]
+    },
+    {
+      "phone": true,
+      "mode": "follow",
+      "renderer": {
+        "calls": 566,
+        "triangles": 50772,
+        "geometries": 471,
+        "textures": 4,
+        "programs": 15,
+        "pixelRatio": 2,
+        "shadowType": 1
+      },
+      "allPassDrawsPerFrame": 566.0,
+      "p50": 16.699999999999818,
+      "p95": 16.799999999999727
+    },
+    {
+      "phone": true,
+      "mode": "overview",
+      "renderer": {
+        "calls": 65,
+        "triangles": 205720,
+        "geometries": 30,
+        "textures": 4,
+        "programs": 12,
+        "pixelRatio": 2,
+        "shadowType": 1
+      },
+      "allPassDrawsPerFrame": 65.0,
+      "p50": 16.699999999999818,
+      "p95": 16.700000000000728
+    },
+    {
+      "phone": true,
+      "navigationCycles": 4,
+      "nearMemory": [
+        {
+          "calls": 566,
+          "triangles": 50772,
+          "geometries": 471,
+          "textures": 4,
+          "programs": 15,
+          "pixelRatio": 2,
+          "shadowType": 1
+        },
+        {
+          "calls": 566,
+          "triangles": 50772,
+          "geometries": 471,
+          "textures": 4,
+          "programs": 15,
+          "pixelRatio": 2,
+          "shadowType": 1
+        },
+        {
+          "calls": 566,
+          "triangles": 50772,
+          "geometries": 471,
+          "textures": 4,
+          "programs": 15,
+          "pixelRatio": 2,
+          "shadowType": 1
+        },
+        {
+          "calls": 566,
+          "triangles": 50772,
+          "geometries": 471,
+          "textures": 4,
+          "programs": 15,
+          "pixelRatio": 2,
+          "shadowType": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "fixture": "规则生成并通过正式存档导入的360格满建压力对局；不冒充自然养成进度",
+  "physicalPhones": 0
+}
