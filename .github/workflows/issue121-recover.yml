@@ -4,6 +4,7 @@ on:
     branches: [research-121-visual-economy-20261021]
     paths:
       - .github/workflows/issue121-recover.yml
+      - docs/research/verification-issue-121/run_economy.py
 permissions:
   actions: read
   contents: write
