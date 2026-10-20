@@ -18,7 +18,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           mkdir -p docs/research/verification-issue-121/evidence
-          gh run download 39471057645 -R SiliconYC/ReactMono -n issue121-independent-execution -D docs/research/verification-issue-121/evidence
+          mkdir -p /tmp/issue121-saved-artifact
+          gh run download 39471057645 -R SiliconYC/ReactMono -n issue121-independent-execution -D /tmp/issue121-saved-artifact
+          cp -f /tmp/issue121-saved-artifact/* docs/research/verification-issue-121/evidence/
       - name: Install C++ font library needed by native reverse-engineering tests
         run: |
           sudo apt-get update -qq
