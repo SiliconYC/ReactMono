@@ -43,5 +43,7 @@ jobs:
           git add docs/research/verification-issue-121/evidence/
           if ! git diff --cached --quiet; then
             git commit -m "research(#121): store independently generated browser and rule evidence"
+            git fetch origin research-121-visual-economy-20261021
+            git rebase origin/research-121-visual-economy-20261021
             git push origin HEAD:research-121-visual-economy-20261021
           fi
