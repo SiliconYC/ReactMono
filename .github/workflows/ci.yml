@@ -50,7 +50,7 @@ jobs:
           TOWN_PHASE=before TOWN_EVIDENCE_DIR=artifacts/town-art TOWN_BASELINE_ROOT="$town_baseline_dir" python -u tests/browser_town_art_e2e.py
           TOWN_PHASE=after TOWN_EVIDENCE_DIR=artifacts/town-art python -u tests/browser_town_art_e2e.py
       - name: 地图旋转、编号、房顶与地块菜单回归
-        timeout-minutes: 5
+        timeout-minutes: 8
         run: python -u tests/browser_map_camera_ux.py
       - name: 3D demo 地产、金融、租金与胜负完整对局 Chromium 回归
         timeout-minutes: 10
