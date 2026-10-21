@@ -11,10 +11,10 @@
 ## 实施顺序
 
 - [x] 核对远端、去重并创建综合 Issue；固定种子17、四席位、四种产权与0/1/2级、联排和抵押的正式存档；拍摄双视口改前画面。
-- [ ] 在 `town-kit.ts` / `ResidentialBuildings.tsx` 构建合批住宅细节与地块状态，替换 `MiniatureTown.tsx` 原简单房屋；几何限界、分级与拾取回归。
-- [ ] 深化 `SceneryModels.tsx` / `AuthoredScenery.tsx` 四设施及钟楼、亭台、街具；只精修 `levels.json` 的 `classic-24.world`，构建步道、花园、湖岸与广场层次。
-- [ ] 实际主程序复拍并审查，修正比例、旋转遮挡、手机可读性；完成 `npm test`、`maps:validate`、`demo:build`、既有完整对局/离线/五图/360格/运行时回归。
-- [ ] 独立审查与完整远端 CI；修复后 PR 合并 `dev`，更新提案/候选池/日志与验收记录，关闭 Issue。
+- [x] 在 `town-kit.ts` / `ResidentialBuildings.tsx` 构建合批住宅细节与地块状态，替换 `MiniatureTown.tsx` 原简单房屋；几何限界、分级与拾取回归。
+- [x] 深化 `SceneryModels.tsx` / `AuthoredScenery.tsx` 四设施及钟楼、亭台、街具；只精修 `levels.json` 的 `classic-24.world`，构建步道、花园、湖岸与广场层次。
+- [x] 实际主程序复拍并审查，修正比例、旋转遮挡、手机可读性；完成 `npm test`、`maps:validate`、`demo:build`、既有完整对局/离线/五图/360格/运行时回归。
+- [ ] 独立审查通过；PR #128完整远端CI作为合并门槛，修复后合并`dev`并关闭Issue。提案、候选池、日志和验收记录已更新。
 
 ## 审查重点
 

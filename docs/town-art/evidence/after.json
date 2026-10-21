@@ -38,7 +38,7 @@
         "cameraElevation": "0.702025",
         "labelYaw": "0.7853981633974483",
         "labelScaleZ": "0.999999982885729",
-        "renderStats": "{\"calls\":725,\"triangles\":70076,\"geometries\":367,\"textures\":8,\"programs\":17,\"pixelRatio\":1,\"shadowType\":1}"
+        "renderStats": "{\"calls\":725,\"triangles\":70148,\"geometries\":367,\"textures\":8,\"programs\":17,\"pixelRatio\":1,\"shadowType\":1}"
       }
     },
     {
@@ -78,7 +78,7 @@
         "cameraElevation": "0.702025",
         "labelYaw": "0.7853981633974483",
         "labelScaleZ": "0.999999982885729",
-        "renderStats": "{\"calls\":723,\"triangles\":69980,\"geometries\":366,\"textures\":8,\"programs\":15,\"pixelRatio\":1,\"shadowType\":1}"
+        "renderStats": "{\"calls\":723,\"triangles\":70052,\"geometries\":366,\"textures\":8,\"programs\":15,\"pixelRatio\":1,\"shadowType\":1}"
       }
     }
   ],

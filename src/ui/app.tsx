@@ -3124,6 +3124,8 @@ class App extends React.Component<object, UiState> {
               {game.tiles[this.state.selectedTileId].kind === "property"
                 ? `地价 ${game.tiles[this.state.selectedTileId].price} · ${game.tiles[this.state.selectedTileId].ownerId ? game.players.find((p) => p.id === game.tiles[this.state.selectedTileId!].ownerId)?.name + "所有" : "尚无地主"}`
                 : "公共地块"}
+              {game.tiles[this.state.selectedTileId].kind === "property" &&
+                ` · ${game.tiles[this.state.selectedTileId].level ?? 0} 级${game.tiles[this.state.selectedTileId].mortgaged ? " · 抵押中" : ""}`}
             </span>
           </aside>
         )}

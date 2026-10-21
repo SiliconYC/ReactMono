@@ -73,6 +73,12 @@ export function residentialParts(tile:Tile,owner:string|null,seat:number):TownPa
     for(let i=0;i<=seat;i++)add(-.635+i*.05,.66,.704,.025,.055,.018,TOWN.trim);
   }
   if(tile.mortgaged) {
+    if(level>0){
+      const roofY=(level===2?1.48:.81)+.65;
+      add(.16,roofY,-.13,.26,.04,.29,'#b56854');
+      add(.16,roofY+.024,-.13,.17,.015,.035,TOWN.trim);
+      add(.16,roofY+.024,-.13,.035,.016,.19,TOWN.trim);
+    }
     add(.43,.38,.67,.04,.5,.04,TOWN.timber);
     add(.43,.58,.67,.33,.23,.06,'#b56854');
     add(.43,.58,.708,.2,.035,.02,TOWN.trim);

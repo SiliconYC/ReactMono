@@ -3,6 +3,7 @@ from pathlib import Path
 from http.server import ThreadingHTTPServer
 from threading import Thread
 import json
+import faulthandler
 from playwright.sync_api import sync_playwright
 from browser_live_e2e import Handler
 from browser_main_game_acceptance import fixture,load_fixture
@@ -10,6 +11,7 @@ from browser_main_runtime_e2e import METRICS
 OUT=Path('artifacts/scalable-world');OUT.mkdir(parents=True,exist_ok=True)
 
 def main():
+ faulthandler.dump_traceback_later(30,repeat=True)
  server=ThreadingHTTPServer(('127.0.0.1',0),Handler);thread=Thread(target=server.serve_forever,daemon=True);thread.start();url=f'http://127.0.0.1:{server.server_port}/ReactMono/'
  report=[];errors=[]
  try:
@@ -25,6 +27,7 @@ def main():
     for cycle in range(4):
      for mode,button in [('follow','定位当前玩家'),('overview','查看全图')]:
       pg.get_by_role('button',name=button,exact=True).click();pg.wait_for_timeout(1100)
+      print('navigation cycle',phone,cycle,mode,flush=True)
       stats=json.loads(shell.get_attribute('data-render-stats'))
       if mode=='follow':near.append(stats)
       if cycle==0:
@@ -34,7 +37,7 @@ def main():
     assert near[-1]['textures']==near[0]['textures'],near
     assert near[-1]['geometries']<=near[0]['geometries']+8,near
     report.append({'phone':phone,'navigationCycles':4,'nearMemory':near})
-    pg.goto('about:blank');ctx.close()
+    print('closing context',phone,flush=True);pg.goto('about:blank');ctx.close();print('closed context',phone,flush=True)
    assert not errors,errors
    browser.close()
   (OUT/'populated.json').write_text(json.dumps({'results':report,'errors':errors,'fixture':'规则生成并通过正式存档导入的360格满建压力对局；不冒充自然养成进度','physicalPhones':0},ensure_ascii=False,indent=2));print('PASS populated large-town rendering, stable navigation memory',json.dumps(report),flush=True)
