@@ -1,0 +1,172 @@
+{
+  "date": "2026-10-22",
+  "baseline": "5e9b041800010cb305f7828807fee8a896922d9a",
+  "source": "本仓库原创程序几何、Canvas中文图集和显式JSON，参考图仅借鉴临街关系与建筑体量，未复制素材",
+  "license": "无第三方素材；仓库尚无LICENSE，不擅自赋予新许可",
+  "rebuild": [
+    "npm run build",
+    "npm run demo:build"
+  ],
+  "runtime": "同源主程序bundle，无独立下载的模型或远端纹理",
+  "files": [
+    {
+      "source": "src/demo3d/world/urban-kit.ts",
+      "role": "8类背景建筑、4类树形及街道日常设施的原创几何分件"
+    },
+    {
+      "source": "src/demo3d/world/UrbanScenery.tsx",
+      "role": "形状合批、相机裁切、遮挡淡出与可释放中文图集",
+      "atlas": {
+        "width": 256,
+        "height": 1152,
+        "rows": 12
+      },
+      "shadow": "继承全局PCF投影/受影，不按对象关闭"
+    },
+    {
+      "source": "src/demo3d/world/street-property-kit.ts",
+      "role": "开放空地、6组地址门脸、分级成长与抵押"
+    },
+    {
+      "source": "src/demo3d/world/StreetProperties.tsx",
+      "role": "产权拾取、旋转与分段临街联排"
+    },
+    {
+      "source": "src/data/levels.json",
+      "role": "只重新编排classic-24.world，其余五图不变"
+    }
+  ],
+  "productionBytes": 1536752,
+  "mainBundle": {
+    "path": "dist/assets/main-DtQgqZf8.js",
+    "bytes": 1065918
+  },
+  "filesBuilt": [
+    {
+      "path": "dist/.nojekyll",
+      "bytes": 0
+    },
+    {
+      "path": "dist/action-layout.css",
+      "bytes": 6795
+    },
+    {
+      "path": "dist/art/character-bear.svg",
+      "bytes": 773
+    },
+    {
+      "path": "dist/art/character-bird.svg",
+      "bytes": 690
+    },
+    {
+      "path": "dist/art/character-fox.svg",
+      "bytes": 661
+    },
+    {
+      "path": "dist/art/character-rabbit.svg",
+      "bytes": 730
+    },
+    {
+      "path": "dist/art/coin.svg",
+      "bytes": 336
+    },
+    {
+      "path": "dist/art/house.svg",
+      "bytes": 365
+    },
+    {
+      "path": "dist/art-manifest.json",
+      "bytes": 1744
+    },
+    {
+      "path": "dist/assets/game-y_zXWu0_.js",
+      "bytes": 331309
+    },
+    {
+      "path": "dist/assets/main-D3keK-f5.css",
+      "bytes": 35664
+    },
+    {
+      "path": "dist/assets/main-DtQgqZf8.js",
+      "bytes": 1065918
+    },
+    {
+      "path": "dist/assets/manifest-C-zx9ihZ.webmanifest",
+      "bytes": 597
+    },
+    {
+      "path": "dist/assets/visualLab-CTC30xlz.js",
+      "bytes": 7643
+    },
+    {
+      "path": "dist/assets/visualLab-rR3xiTWP.css",
+      "bytes": 7762
+    },
+    {
+      "path": "dist/audio.css",
+      "bytes": 1027
+    },
+    {
+      "path": "dist/board-3d.css",
+      "bytes": 18595
+    },
+    {
+      "path": "dist/board-art.css",
+      "bytes": 13910
+    },
+    {
+      "path": "dist/characters.css",
+      "bytes": 4822
+    },
+    {
+      "path": "dist/guide.css",
+      "bytes": 2449
+    },
+    {
+      "path": "dist/icons/icon-192.png",
+      "bytes": 736
+    },
+    {
+      "path": "dist/icons/icon-512.png",
+      "bytes": 3940
+    },
+    {
+      "path": "dist/index.html",
+      "bytes": 788
+    },
+    {
+      "path": "dist/manifest.webmanifest",
+      "bytes": 597
+    },
+    {
+      "path": "dist/motion.css",
+      "bytes": 2043
+    },
+    {
+      "path": "dist/style.css",
+      "bytes": 15283
+    },
+    {
+      "path": "dist/sw.js",
+      "bytes": 2642
+    },
+    {
+      "path": "dist/visual-lab.css",
+      "bytes": 6171
+    },
+    {
+      "path": "dist/visual-lab.html",
+      "bytes": 591
+    },
+    {
+      "path": "dist/visual-tokens.css",
+      "bytes": 2171
+    }
+  ],
+  "measurement": {
+    "cycles": "正常动画跟随镜头各6轮，197 geometries / 11 textures稳定；桌面303、手机281次绘制",
+    "fixedReducedMotionTelemetry": "可能为零或前一镜头数值，不作为近景性能改善证据",
+    "physicalPhones": 0,
+    "slowDevice": "沿用既有启动实际帧预算，超过50ms选择1024阴影与近景0.65DPR，远景细路恢复设备DPR"
+  }
+}

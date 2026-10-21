@@ -1,0 +1,25 @@
+[信息] 旋转后：phone=False yaw=-0.291817 cutaway=
+[信息] 街区资源：phone=False cycle=0 stats={'calls': 303, 'triangles': 110696, 'geometries': 197, 'textures': 11, 'programs': 23, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 旋转后：phone=False yaw=-0.291823 cutaway=
+[信息] 街区资源：phone=False cycle=1 stats={'calls': 303, 'triangles': 110696, 'geometries': 197, 'textures': 11, 'programs': 23, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 旋转后：phone=False yaw=-0.291814 cutaway=
+[信息] 街区资源：phone=False cycle=2 stats={'calls': 303, 'triangles': 110696, 'geometries': 197, 'textures': 11, 'programs': 23, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 旋转后：phone=False yaw=-0.292172 cutaway=
+[信息] 街区资源：phone=False cycle=3 stats={'calls': 303, 'triangles': 110696, 'geometries': 197, 'textures': 11, 'programs': 23, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 旋转后：phone=False yaw=-0.291814 cutaway=
+[信息] 街区资源：phone=False cycle=4 stats={'calls': 303, 'triangles': 110696, 'geometries': 197, 'textures': 11, 'programs': 23, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 旋转后：phone=False yaw=-0.291827 cutaway=
+[信息] 街区资源：phone=False cycle=5 stats={'calls': 303, 'triangles': 110696, 'geometries': 197, 'textures': 11, 'programs': 23, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 旋转后：phone=True yaw=-0.264891 cutaway=
+[信息] 街区资源：phone=True cycle=0 stats={'calls': 281, 'triangles': 108804, 'geometries': 197, 'textures': 11, 'programs': 23, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 旋转后：phone=True yaw=-0.264889 cutaway=
+[信息] 街区资源：phone=True cycle=1 stats={'calls': 281, 'triangles': 108804, 'geometries': 197, 'textures': 11, 'programs': 23, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 旋转后：phone=True yaw=-0.264897 cutaway=
+[信息] 街区资源：phone=True cycle=2 stats={'calls': 281, 'triangles': 108804, 'geometries': 197, 'textures': 11, 'programs': 23, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 旋转后：phone=True yaw=-0.264882 cutaway=
+[信息] 街区资源：phone=True cycle=3 stats={'calls': 281, 'triangles': 108804, 'geometries': 197, 'textures': 11, 'programs': 23, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 旋转后：phone=True yaw=-0.264881 cutaway=
+[信息] 街区资源：phone=True cycle=4 stats={'calls': 281, 'triangles': 108804, 'geometries': 197, 'textures': 11, 'programs': 23, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 旋转后：phone=True yaw=-0.264903 cutaway=
+[信息] 街区资源：phone=True cycle=5 stats={'calls': 281, 'triangles': 108804, 'geometries': 197, 'textures': 11, 'programs': 23, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[完成] 同一Canvas双视口各六轮导航和遮挡切换资源稳定。

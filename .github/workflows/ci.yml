@@ -43,12 +43,22 @@ jobs:
         timeout-minutes: 5
         run: |
           town_baseline_dir="$(mktemp -d)"
-          git fetch --no-tags origin 56d5aefaed9ac40e2cced3b6f91d7225e155aeef
-          git archive 56d5aefaed9ac40e2cced3b6f91d7225e155aeef | tar -x -C "$town_baseline_dir"
+          git fetch --no-tags origin 5e9b041800010cb305f7828807fee8a896922d9a
+          git archive 5e9b041800010cb305f7828807fee8a896922d9a | tar -x -C "$town_baseline_dir"
           ln -s "$GITHUB_WORKSPACE/node_modules" "$town_baseline_dir/node_modules"
           (cd "$town_baseline_dir" && npm run build)
           TOWN_PHASE=before TOWN_EVIDENCE_DIR=artifacts/town-art TOWN_BASELINE_ROOT="$town_baseline_dir" python -u tests/browser_town_art_e2e.py
           TOWN_PHASE=after TOWN_EVIDENCE_DIR=artifacts/town-art python -u tests/browser_town_art_e2e.py
+          printf '%s' "$town_baseline_dir" > "$RUNNER_TEMP/reactmono-town-baseline-path"
+      - name: 生活街区新局与中央街景双视口真实对照
+        timeout-minutes: 5
+        run: |
+          town_baseline_dir="$(cat "$RUNNER_TEMP/reactmono-town-baseline-path")"
+          LIVING_PHASE=before LIVING_EVIDENCE_DIR=artifacts/town-art LIVING_BASELINE_ROOT="$town_baseline_dir" python -u tests/browser_living_town_e2e.py
+          LIVING_PHASE=after LIVING_EVIDENCE_DIR=artifacts/town-art python -u tests/browser_living_town_e2e.py
+      - name: 生活街区建筑遮挡与六轮导航资源回收
+        timeout-minutes: 5
+        run: python -u tests/browser_living_town_runtime_e2e.py
       - name: 地图旋转、编号、房顶与地块菜单回归
         timeout-minutes: 8
         run: python -u tests/browser_map_camera_ux.py
@@ -100,7 +110,9 @@ jobs:
             artifacts/scalable-world/
             artifacts/map-camera-ux/
             artifacts/town-art/
+            artifacts/living-town/
             docs/town-art/evidence/
+            docs/living-town/evidence/
           if-no-files-found: warn
           retention-days: 30
       - name: 确认产物不含第三方运行时引用

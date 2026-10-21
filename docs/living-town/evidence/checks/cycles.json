@@ -1,0 +1,144 @@
+{
+  "results": [
+    {
+      "phone": false,
+      "samples": [
+        {
+          "calls": 303,
+          "triangles": 110696,
+          "geometries": 197,
+          "textures": 11,
+          "programs": 23,
+          "pixelRatio": 1,
+          "shadowType": 1,
+          "shadowSize": 2048
+        },
+        {
+          "calls": 303,
+          "triangles": 110696,
+          "geometries": 197,
+          "textures": 11,
+          "programs": 23,
+          "pixelRatio": 1,
+          "shadowType": 1,
+          "shadowSize": 2048
+        },
+        {
+          "calls": 303,
+          "triangles": 110696,
+          "geometries": 197,
+          "textures": 11,
+          "programs": 23,
+          "pixelRatio": 1,
+          "shadowType": 1,
+          "shadowSize": 2048
+        },
+        {
+          "calls": 303,
+          "triangles": 110696,
+          "geometries": 197,
+          "textures": 11,
+          "programs": 23,
+          "pixelRatio": 1,
+          "shadowType": 1,
+          "shadowSize": 2048
+        },
+        {
+          "calls": 303,
+          "triangles": 110696,
+          "geometries": 197,
+          "textures": 11,
+          "programs": 23,
+          "pixelRatio": 1,
+          "shadowType": 1,
+          "shadowSize": 2048
+        },
+        {
+          "calls": 303,
+          "triangles": 110696,
+          "geometries": 197,
+          "textures": 11,
+          "programs": 23,
+          "pixelRatio": 1,
+          "shadowType": 1,
+          "shadowSize": 2048
+        }
+      ],
+      "cutawaySets": [
+        "",
+        "转角咖啡馆"
+      ]
+    },
+    {
+      "phone": true,
+      "samples": [
+        {
+          "calls": 281,
+          "triangles": 108804,
+          "geometries": 197,
+          "textures": 11,
+          "programs": 23,
+          "pixelRatio": 1,
+          "shadowType": 1,
+          "shadowSize": 2048
+        },
+        {
+          "calls": 281,
+          "triangles": 108804,
+          "geometries": 197,
+          "textures": 11,
+          "programs": 23,
+          "pixelRatio": 1,
+          "shadowType": 1,
+          "shadowSize": 2048
+        },
+        {
+          "calls": 281,
+          "triangles": 108804,
+          "geometries": 197,
+          "textures": 11,
+          "programs": 23,
+          "pixelRatio": 1,
+          "shadowType": 1,
+          "shadowSize": 2048
+        },
+        {
+          "calls": 281,
+          "triangles": 108804,
+          "geometries": 197,
+          "textures": 11,
+          "programs": 23,
+          "pixelRatio": 1,
+          "shadowType": 1,
+          "shadowSize": 2048
+        },
+        {
+          "calls": 281,
+          "triangles": 108804,
+          "geometries": 197,
+          "textures": 11,
+          "programs": 23,
+          "pixelRatio": 1,
+          "shadowType": 1,
+          "shadowSize": 2048
+        },
+        {
+          "calls": 281,
+          "triangles": 108804,
+          "geometries": 197,
+          "textures": 11,
+          "programs": 23,
+          "pixelRatio": 1,
+          "shadowType": 1,
+          "shadowSize": 2048
+        }
+      ],
+      "cutawaySets": [
+        "",
+        "转角咖啡馆"
+      ]
+    }
+  ],
+  "errors": [],
+  "physicalPhones": 0
+}

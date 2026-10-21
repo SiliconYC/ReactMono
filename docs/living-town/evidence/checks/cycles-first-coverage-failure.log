@@ -1,0 +1,18 @@
+[信息] 街区资源：phone=False cycle=0 stats={'calls': 303, 'triangles': 110696, 'geometries': 197, 'textures': 11, 'programs': 23, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 街区资源：phone=False cycle=1 stats={'calls': 303, 'triangles': 110696, 'geometries': 197, 'textures': 11, 'programs': 23, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 街区资源：phone=False cycle=2 stats={'calls': 303, 'triangles': 110696, 'geometries': 197, 'textures': 11, 'programs': 23, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 街区资源：phone=False cycle=3 stats={'calls': 303, 'triangles': 110696, 'geometries': 197, 'textures': 11, 'programs': 23, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 街区资源：phone=False cycle=4 stats={'calls': 303, 'triangles': 110696, 'geometries': 197, 'textures': 11, 'programs': 23, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 街区资源：phone=False cycle=5 stats={'calls': 303, 'triangles': 110696, 'geometries': 197, 'textures': 11, 'programs': 23, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 街区资源：phone=True cycle=0 stats={'calls': 281, 'triangles': 108804, 'geometries': 197, 'textures': 11, 'programs': 23, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 街区资源：phone=True cycle=1 stats={'calls': 281, 'triangles': 108804, 'geometries': 197, 'textures': 11, 'programs': 23, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 街区资源：phone=True cycle=2 stats={'calls': 281, 'triangles': 108804, 'geometries': 197, 'textures': 11, 'programs': 23, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 街区资源：phone=True cycle=3 stats={'calls': 281, 'triangles': 108804, 'geometries': 197, 'textures': 11, 'programs': 23, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 街区资源：phone=True cycle=4 stats={'calls': 281, 'triangles': 108804, 'geometries': 197, 'textures': 11, 'programs': 23, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 街区资源：phone=True cycle=5 stats={'calls': 281, 'triangles': 108804, 'geometries': 197, 'textures': 11, 'programs': 23, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+Traceback (most recent call last):
+  File "/Users/laocao/Documents/coding/ReactMono/tests/browser_living_town_runtime_e2e.py", line 83, in <module>
+    街区资源验收_类().api_执行()
+  File "/Users/laocao/Documents/coding/ReactMono/tests/browser_living_town_runtime_e2e.py", line 64, in api_执行
+    assert len(遮挡集合) > 1, 遮挡集合
+AssertionError: {'转角咖啡馆'}

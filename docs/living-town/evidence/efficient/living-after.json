@@ -1,0 +1,202 @@
+{
+  "results": [
+    {
+      "phone": false,
+      "state": "fresh",
+      "mode": "overview",
+      "camera": {
+        "ready": "true",
+        "frameloop": "demand",
+        "showNumbers": "true",
+        "safeInsets": "{\"top\":80,\"right\":24,\"bottom\":212,\"left\":256}",
+        "visibleRoadLabels": "24",
+        "cameraInsets": "{\"top\":80,\"right\":202,\"bottom\":212,\"left\":256}",
+        "cameraMode": "overview",
+        "cameraZoom": "22.40",
+        "cameraCenter": "0.00,0.00",
+        "cameraYaw": "0.785398",
+        "cameraElevation": "0.702025",
+        "cameraProjection": "{\"zoom\":22.399340917080288,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
+        "labelYaw": "0.7853981633974483",
+        "labelScaleZ": "0.999999982885729",
+        "renderStats": "{\"calls\":345,\"triangles\":91704,\"geometries\":189,\"textures\":10,\"programs\":20,\"pixelRatio\":0.65,\"shadowType\":1,\"shadowSize\":1024}",
+        "cutawayBuildings": "",
+        "renderBudget": "{\"mode\":\"efficient\",\"shadowSize\":1024,\"medianMs\":250,\"samplesMs\":[649.8999999999996,16.700000000000728,33.29999999999927,766.7000000000007,250]}"
+      }
+    },
+    {
+      "phone": false,
+      "state": "fresh",
+      "mode": "district",
+      "camera": {
+        "ready": "true",
+        "frameloop": "demand",
+        "showNumbers": "true",
+        "safeInsets": "{\"top\":80,\"right\":24,\"bottom\":212,\"left\":256}",
+        "visibleRoadLabels": "24",
+        "cameraInsets": "{\"top\":80,\"right\":202,\"bottom\":212,\"left\":256}",
+        "cameraMode": "browse",
+        "cameraZoom": "37.85",
+        "cameraCenter": "0.00,0.00",
+        "cameraYaw": "0.785398",
+        "cameraElevation": "0.702025",
+        "cameraProjection": "{\"zoom\":37.85488614986569,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
+        "labelYaw": "0.7853981633974483",
+        "labelScaleZ": "0.999999982885729",
+        "renderStats": "{\"calls\":345,\"triangles\":91704,\"geometries\":189,\"textures\":10,\"programs\":20,\"pixelRatio\":0.65,\"shadowType\":1,\"shadowSize\":1024}",
+        "cutawayBuildings": "",
+        "renderBudget": "{\"mode\":\"efficient\",\"shadowSize\":1024,\"medianMs\":250,\"samplesMs\":[649.8999999999996,16.700000000000728,33.29999999999927,766.7000000000007,250]}"
+      }
+    },
+    {
+      "phone": false,
+      "state": "built",
+      "mode": "overview",
+      "camera": {
+        "ready": "true",
+        "frameloop": "demand",
+        "showNumbers": "true",
+        "safeInsets": "{\"top\":80,\"right\":24,\"bottom\":212,\"left\":256}",
+        "visibleRoadLabels": "24",
+        "cameraInsets": "{\"top\":80,\"right\":202,\"bottom\":212,\"left\":256}",
+        "cameraMode": "overview",
+        "cameraZoom": "22.40",
+        "cameraCenter": "0.00,0.00",
+        "cameraYaw": "0.785398",
+        "cameraElevation": "0.702025",
+        "cameraProjection": "{\"zoom\":22.399340917080288,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
+        "labelYaw": "0.7853981633974483",
+        "labelScaleZ": "0.999999982885729",
+        "renderStats": "{\"calls\":359,\"triangles\":111836,\"geometries\":197,\"textures\":11,\"programs\":23,\"pixelRatio\":0.65,\"shadowType\":1,\"shadowSize\":1024}",
+        "cutawayBuildings": "转角咖啡馆",
+        "renderBudget": "{\"mode\":\"efficient\",\"shadowSize\":1024,\"medianMs\":216.69999999999982,\"samplesMs\":[1033.2999999999997,16.699999999999818,33.20000000000073,1366.6999999999998,216.69999999999982]}"
+      }
+    },
+    {
+      "phone": false,
+      "state": "built",
+      "mode": "district",
+      "camera": {
+        "ready": "true",
+        "frameloop": "demand",
+        "showNumbers": "true",
+        "safeInsets": "{\"top\":80,\"right\":24,\"bottom\":212,\"left\":256}",
+        "visibleRoadLabels": "24",
+        "cameraInsets": "{\"top\":80,\"right\":202,\"bottom\":212,\"left\":256}",
+        "cameraMode": "browse",
+        "cameraZoom": "37.85",
+        "cameraCenter": "0.00,0.00",
+        "cameraYaw": "0.785398",
+        "cameraElevation": "0.702025",
+        "cameraProjection": "{\"zoom\":37.85488614986569,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
+        "labelYaw": "0.7853981633974483",
+        "labelScaleZ": "0.999999982885729",
+        "renderStats": "{\"calls\":359,\"triangles\":111836,\"geometries\":197,\"textures\":11,\"programs\":23,\"pixelRatio\":0.65,\"shadowType\":1,\"shadowSize\":1024}",
+        "cutawayBuildings": "转角咖啡馆",
+        "renderBudget": "{\"mode\":\"efficient\",\"shadowSize\":1024,\"medianMs\":216.69999999999982,\"samplesMs\":[1033.2999999999997,16.699999999999818,33.20000000000073,1366.6999999999998,216.69999999999982]}"
+      }
+    },
+    {
+      "phone": true,
+      "state": "fresh",
+      "mode": "overview",
+      "camera": {
+        "ready": "true",
+        "frameloop": "demand",
+        "showNumbers": "true",
+        "safeInsets": "{\"top\":210,\"right\":24,\"bottom\":250,\"left\":24}",
+        "visibleRoadLabels": "0",
+        "cameraInsets": "{\"top\":294,\"right\":24,\"bottom\":250,\"left\":24}",
+        "cameraMode": "overview",
+        "cameraZoom": "8.80",
+        "cameraCenter": "0.00,0.00",
+        "cameraYaw": "0.785398",
+        "cameraElevation": "0.702025",
+        "cameraProjection": "{\"zoom\":8.804842433323248,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
+        "labelYaw": "0.7853981633974483",
+        "labelScaleZ": "0.999999982885729",
+        "renderStats": "{\"calls\":343,\"triangles\":91608,\"geometries\":188,\"textures\":10,\"programs\":18,\"pixelRatio\":0.65,\"shadowType\":1,\"shadowSize\":1024}",
+        "cutawayBuildings": "",
+        "renderBudget": "{\"mode\":\"efficient\",\"shadowSize\":1024,\"medianMs\":133.20000000000073,\"samplesMs\":[600,16.59999999999991,16.699999999999818,766.6999999999998,133.20000000000073]}"
+      }
+    },
+    {
+      "phone": true,
+      "state": "fresh",
+      "mode": "district",
+      "camera": {
+        "ready": "true",
+        "frameloop": "demand",
+        "showNumbers": "true",
+        "safeInsets": "{\"top\":210,\"right\":24,\"bottom\":250,\"left\":24}",
+        "visibleRoadLabels": "24",
+        "cameraInsets": "{\"top\":210,\"right\":132,\"bottom\":250,\"left\":24}",
+        "cameraMode": "browse",
+        "cameraZoom": "25.15",
+        "cameraCenter": "0.00,0.00",
+        "cameraYaw": "0.785398",
+        "cameraElevation": "0.702025",
+        "cameraProjection": "{\"zoom\":25.14751047381453,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
+        "labelYaw": "0.7853981633974483",
+        "labelScaleZ": "0.999999982885729",
+        "renderStats": "{\"calls\":278,\"triangles\":88866,\"geometries\":189,\"textures\":10,\"programs\":20,\"pixelRatio\":0.65,\"shadowType\":1,\"shadowSize\":1024}",
+        "cutawayBuildings": "",
+        "renderBudget": "{\"mode\":\"efficient\",\"shadowSize\":1024,\"medianMs\":133.20000000000073,\"samplesMs\":[600,16.59999999999991,16.699999999999818,766.6999999999998,133.20000000000073]}"
+      }
+    },
+    {
+      "phone": true,
+      "state": "built",
+      "mode": "overview",
+      "camera": {
+        "ready": "true",
+        "frameloop": "demand",
+        "showNumbers": "true",
+        "safeInsets": "{\"top\":210,\"right\":24,\"bottom\":250,\"left\":24}",
+        "visibleRoadLabels": "0",
+        "cameraInsets": "{\"top\":294,\"right\":24,\"bottom\":250,\"left\":24}",
+        "cameraMode": "overview",
+        "cameraZoom": "8.80",
+        "cameraCenter": "0.00,0.00",
+        "cameraYaw": "0.785398",
+        "cameraElevation": "0.702025",
+        "cameraProjection": "{\"zoom\":8.804842433323248,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
+        "labelYaw": "0.7853981633974483",
+        "labelScaleZ": "0.999999982885729",
+        "renderStats": "{\"calls\":357,\"triangles\":111740,\"geometries\":196,\"textures\":11,\"programs\":21,\"pixelRatio\":0.65,\"shadowType\":1,\"shadowSize\":1024}",
+        "cutawayBuildings": "转角咖啡馆",
+        "renderBudget": "{\"mode\":\"efficient\",\"shadowSize\":1024,\"medianMs\":216.59999999999945,\"samplesMs\":[750.0999999999999,16.59999999999991,16.59999999999991,950.0000000000005,216.59999999999945]}"
+      }
+    },
+    {
+      "phone": true,
+      "state": "built",
+      "mode": "district",
+      "camera": {
+        "ready": "true",
+        "frameloop": "demand",
+        "showNumbers": "true",
+        "safeInsets": "{\"top\":210,\"right\":24,\"bottom\":250,\"left\":24}",
+        "visibleRoadLabels": "24",
+        "cameraInsets": "{\"top\":210,\"right\":132,\"bottom\":250,\"left\":24}",
+        "cameraMode": "browse",
+        "cameraZoom": "25.15",
+        "cameraCenter": "0.00,0.00",
+        "cameraYaw": "0.785398",
+        "cameraElevation": "0.702025",
+        "cameraProjection": "{\"zoom\":25.14751047381453,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
+        "labelYaw": "0.7853981633974483",
+        "labelScaleZ": "0.999999982885729",
+        "renderStats": "{\"calls\":294,\"triangles\":109024,\"geometries\":197,\"textures\":11,\"programs\":23,\"pixelRatio\":0.65,\"shadowType\":1,\"shadowSize\":1024}",
+        "cutawayBuildings": "转角咖啡馆",
+        "renderBudget": "{\"mode\":\"efficient\",\"shadowSize\":1024,\"medianMs\":216.59999999999945,\"samplesMs\":[750.0999999999999,16.59999999999991,16.59999999999991,950.0000000000005,216.59999999999945]}"
+      }
+    }
+  ],
+  "fixtureSha256": {
+    "fresh": "4474618d975239f6eff0c12f55be365578581fa24338c91ba3f7231e1c7f0dd6",
+    "built": "6776be847d7cacf0d859378980fe32b223c4594c4a621daea030f685330645d9"
+  },
+  "errors": [],
+  "physicalPhones": 0
+}
