@@ -2,6 +2,8 @@
 
 > Issue [#98](https://github.com/SiliconYC/ReactMono/issues/98) · 范围：**仅研究，不修改 ReactMono 游戏代码** · 结论：**只读技术参考**。本文中「源码实现」只表示固定 SHA 下存在可追溯代码；不等于真实运行、原版忠实度或商品级观感。
 
+> **#104 证据质量整改（2026-10-21）**：先前 `evidence.json` 将 `new_game_turns`、`property_and_rent`、`bank_and_loans`、`stocks_and_company`、`cards`、`items_and_gods`、`normal_save` 共七项标为 `verified`，但引用均只有 B 级静态代码，没有任何 A 级独立运行。现在将这七项全部更正为 `partial`（逻辑路径可找到，完整功能可玩性/原版等价未测）。原文报告中“功能已实现”“源码存在”的描述仍指静态核查；不能以其替代独立运行。见 [#104 证据矩阵](../../verification-matrix.md)。
+
 ## 1. 研究身份与复现基线
 
 | 项目 | 结果 |
