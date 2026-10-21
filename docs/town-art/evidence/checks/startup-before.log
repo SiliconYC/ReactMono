@@ -1,0 +1,36 @@
+
+> reactmono@0.2.0 demo:build
+> tsc -p tsconfig.demo.json && vite build --config vite.demo.config.ts
+
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 83 modules transformed.
+rendering chunks...
+computing gzip size...
+dist-3d-demo/index.html                     0.59 kB │ gzip:   0.43 kB
+dist-3d-demo/assets/index-USzPsZlP.css     29.35 kB │ gzip:   7.00 kB
+dist-3d-demo/assets/index-CdDxefOz.js   1,290.50 kB │ gzip: 353.30 kB
+
+✓ built in 240ms
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 1200 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+test_desktop_full_turn (__main__.时序验收_类) ... TRACE {"frames": [[20.2, 7.699999999999999], [986.8, 966.5999999999999], [1003.5, 16.700000000000045], [1020.2, 16.700000000000045], [1120.1, 99.89999999999986], [4236.7, 3116.6], [6336.6, 2099.9000000000005], [6836.6, 500], [7403.2, 566.5999999999995], [7436.6, 33.400000000000546], [7453.2, 16.599999999999454]], "states": [[161.5, "false", "0", "false"], [1026, "true", "0", "false"], [6344, "true", "0", "true"], [6843.300000000745, "true", "3", "true"], [7429, "false", "3", "true"]]}
+FAIL
+
+======================================================================
+FAIL: test_desktop_full_turn (__main__.时序验收_类)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/laocao/Documents/coding/ReactMono/tests/browser_demo3d_e2e.py", line 462, in test_desktop_full_turn
+    self.exercise_turn(1280, 800, False)
+  File "/Users/laocao/Documents/coding/ReactMono/tests/browser_demo3d_e2e.py", line 177, in exercise_turn
+    self.assertTrue(intermediates)
+AssertionError: [] is not true
+
+----------------------------------------------------------------------
+Ran 1 test in 11.469s
+
+FAILED (failures=1)

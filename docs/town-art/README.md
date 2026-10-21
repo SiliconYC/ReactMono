@@ -48,7 +48,7 @@
 | --- | --- |
 | 构建与 Node 回归 | `npm test` 190/190；含规则摘要、存档、100种子与既有完整模拟，新增占地/成长/屋面绕序/后窗方向检查；[日志](evidence/checks/node.log) |
 | 关卡与迁移 demo | `maps:validate` 六张校验通过；`demo:build` 通过，既有大包提示保留；[关卡](evidence/checks/maps.log)、[构建](evidence/checks/demo-build.log) |
-| 软件渲染 demo | 显式 SwiftShader 完整 8/8 通过；此前隔离重复的三个桌面首回合也通过；角色/移动及原断言未改；[日志](evidence/checks/demo-sw.log) |
+| 软件渲染 demo | 显式 SwiftShader 完整 9/9 通过（含新增无WebGL闭环）；软件渲染加四倍CPU限速的三个桌面首回合也通过；角色/移动及原断言未改；[日志](evidence/checks/demo-sw.log) |
 | 实际经营闭环 | 买地、到访建设/升级、出售、抵押借还、租金、设施、两图四人完整局及正常/快速最终状态等价通过；[日志](evidence/checks/main-game.log) |
 | 旧档和离线 | 主程序旧现金股票/异地建设规则、文件往返、PWA缓存后断网重载与自动续局通过；同上日志 |
 | 镜头/拾取/触控 | 24/360格桌面与手机旋转、缩放、菜单、回正、数字朝向、触屏及二级屋顶右键/普通左键通过；[结果](evidence/checks/camera.json)、[日志](evidence/checks/camera.log) |
@@ -74,8 +74,14 @@
 
 远端另一次完整CI在demo桌面首回合未观察到中间行走格，见[慢帧记录](evidence/checks/ci-demo-slow-frame.txt)。保留角色、移动实现和原断言，改为合批设施盒体，精修版近景绘制由725降至373次；独立复核已检查父级变换、卸载更新、实例拾取和统一阴影。本地隔离软件渲染的三个桌面首回合及完整8项套件通过；最新远端CI继续作为门槛，单独重跑不能替代全量验收。
 
+后续CI仍复现同一失败，因此没有把合批当作根治。软件渲染加四倍CPU限速时，时序证据明确显示投骰在约1.0秒发生，而场景到6.3秒才创建完成。现将两个宿主的投骰和主程序电脑入口门控到真实初始化绘制完成；不改变角色和移动代码。相同条件三次首回合通过，见[修前时序](evidence/checks/startup-before.log)、[修后时序](evidence/checks/startup-after.log)、[三次限速复测](evidence/checks/startup-cpu4.log)。专用错误边界只接收renderer构造失败，正常场景错误继续抛出；无WebGL降级仍可完成原回合操作，见[降级测试](evidence/checks/no-webgl.log)。
+
+无WebGL降级另以真实主程序复验：正式读档、真人投骰买地、电脑首行动及交接真人回合通过，见[主程序降级续局](evidence/checks/main-no-webgl.log)。这只处理画布不可用时的界面到达解锁，规则和演员实现不变。
+
 ## 重跑、集成与回滚
 
 先执行`npm test`，再运行`TOWN_PHASE=after python3 tests/browser_town_art_e2e.py`；不要在改后代码上运行`before`覆盖历史样本。其他入口为表中的既有脚本，主程序`npm run main:dev`在`127.0.0.1:4174`，迁移demo`npm run demo:dev`在`127.0.0.1:4173`。
+
+冷启动可复测：`DEMO_SWIFTSHADER=1 DEMO_CPU_THROTTLE=4 PYTHONPATH=tests python3 -m unittest browser_demo3d_e2e.Demo3DBrowserTest.test_desktop_full_turn -v`。软件渲染完整套件：`DEMO_SWIFTSHADER=1 python3 tests/browser_demo3d_e2e.py -v`。不要同时运行多个GPU验收来比较时序。
 
 所有者授权覆盖合并`dev`，未授权发布正式服务。仓库`dev`推送会触发Pages，因此PR完整CI通过后，合并提交使用`[skip actions]`阻止该次自动发布；不修改部署工作流。最终合并SHA与Issue关闭状态见PR。回滚本PR表现提交即可，既有存档不迁移、不清空。

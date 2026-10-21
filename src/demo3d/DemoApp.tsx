@@ -50,6 +50,7 @@ export function DemoApp(): React.JSX.Element {
   const [dieNonce, setDieNonce] = useState(0);
   const [visualTile, setVisualTile] = useState(0);
   const [followCurrent, setFollowCurrent] = useState(true);
+  const [sceneReady,setSceneReady]=useState(false);
   const [message, setMessage] = useState('现金买地盖楼，存款投资股票。每次停留只能进行一次地产操作。');
   const [reducedMotion, setReducedMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   useEffect(() => {
@@ -166,7 +167,7 @@ export function DemoApp(): React.JSX.Element {
           reducedMotion={reducedMotion} followCurrent={followCurrent} rent={rent} outcome={outcome}
           paused={financeTab !== null}
           pendingBankruptIds={outcomes.filter(cue => cue.stage === 'bankrupt' && cue.actorId).map(cue => cue.actorId!)}
-          onMotionComplete={finishMotion} onActorStep={setVisualTile} />
+          onMotionComplete={finishMotion} onActorStep={setVisualTile} onReadyChange={setSceneReady}/>
         <div className="location-card" aria-live="polite"><span>{motion ? '正在前进' : '当前位置'}</span><strong>{displayTile.title}</strong><small>{lastDie === null ? '等待投骰' : `最近掷出 ${lastDie} 点`}</small></div>
         <div className="event-toast" role="status"><span aria-hidden="true">✦</span>{message}</div>
         {rent && <div className="rent-receipt" role="status" aria-label="租金结算"><span>租金结算 · {game.tiles[rent.tileId].title}</span><strong>{game.players.find(p => p.id === rent.fromId)?.name} <b>−¥{rent.amount}</b></strong><i aria-hidden="true">● → ● → ●</i><strong>{game.players.find(p => p.id === rent.toId)?.name} <em>+¥{rent.amount}</em></strong></div>}
@@ -202,7 +203,7 @@ export function DemoApp(): React.JSX.Element {
       </section>}
 
       <footer className="action-dock" aria-label="回合操作"><div className="turn-copy"><span>{current.name}的回合</span><strong>{busy ? outcome ? '正在揭晓本局结果' : rent ? '正在结算租金' : '看，角色正在穿过街区' : game.status === 'finished' ? winner ? `${winner.name}获胜！` : '本局平局' : '下一步做什么？'}</strong></div><div className="action-buttons">
-        {game.phase === 'await_roll' && <button type="button" className="primary-action" disabled={busy} onClick={() => perform('roll')}><span className="dice-icon" aria-hidden="true">⚄</span>投骰前进</button>}
+        {game.phase === 'await_roll' && <button type="button" className="primary-action" disabled={busy||!sceneReady} onClick={() => perform('roll')}><span className="dice-icon" aria-hidden="true">⚄</span>投骰前进</button>}
         {game.phase === 'await_decision' && !busy && <><button type="button" className="primary-action" disabled={current.cash < (currentTile.price ?? 0)} onClick={() => perform('buy_property')}>买下此地 · ¥{currentTile.price}</button><button type="button" className="secondary-action" onClick={() => perform('decline_property')}>暂不购买</button></>}
         {game.phase === 'await_end_turn' && !busy && <button type="button" className="primary-action" onClick={() => perform('end_turn')}>结束回合 <span aria-hidden="true">→</span></button>}
         {game.status === 'finished' && !busy && <button type="button" className="primary-action" onClick={reset}>再逛一次晴湾</button>}

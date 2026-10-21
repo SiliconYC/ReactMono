@@ -15,3 +15,15 @@ Ran 8 tests in 313.925s
 停止并行 GPU 测试后，隔离的三个软件渲染桌面首回合均通过；
 完整 SwiftShader 软件渲染套件 8/8 通过，用时 165.353s，见 demo-sw.log。
 最终是否修复以最新提交的完整 CI 为准，不能只凭该优化或单独重跑宣布通过。
+
+run 39594935899 / ccee242 再次在同一中间格断言失败（其余7项通过，319.426s）。
+合批降低成本，但不足以修复根因。
+
+进一步用 DEMO_SWIFTSHADER=1 DEMO_CPU_THROTTLE=4 复现，并记录rAF与DOM时序：
+修前 busy=1026ms，ready=6344ms，直接到tile3；初始场景还没创建就允许投骰。
+R3F本地源码也明确onCreated早于第一次渲染。新检查sceneReady=true首先失败。
+修正为等待实际绘制及初始镜头可见范围更新后，再开放宿主投骰/电脑入口。
+修后 ready=6972ms，busy=7811ms，tile1=9061ms，tile2=9288ms；帧间隔66–100ms。
+同条件独立三次桌面测试全部通过，见startup-before/after.log及startup-cpu4.log。
+保留角色、Dice、移动时钟和原中间格断言。无WebGL时使用真实错误边界降级，
+不通过超时或原生Canvas fallback挂载冒充GPU就绪，其他场景错误继续抛出。

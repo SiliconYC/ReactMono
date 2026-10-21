@@ -1,6 +1,6 @@
 import { worldForMap } from '../../core/level-data.js';
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type MutableRefObject, type CSSProperties } from "react";
+import { addAfterEffect, Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Component, Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type MutableRefObject, type CSSProperties } from "react";
 import * as THREE from "three";
 import type { GameState } from "../../core/game.js";
 import { RentTransfer } from "./RentTransfer.js";
@@ -38,7 +38,56 @@ type WorldCanvasProps = Readonly<{
   onMotionComplete: () => void;
   onActorStep: (tileId: number) => void;
   onSelectTile?: (tileId: number) => void;
+  onReadyChange?: (ready: boolean) => void;
 }>;
+
+function SceneReadiness({onReady}:{onReady:()=>void}):null {
+  const {gl,invalidate}=useThree();
+  useEffect(()=>{
+    const firstFrame=gl.info.render.frame;
+    // Camera-aligned visibility updates can mount geometry after the first draw.
+    // Complete that upload before a host starts the existing wall-clock motion.
+    const unsubscribe=addAfterEffect(()=>{
+      if(gl.info.render.frame<firstFrame+2)return;
+      unsubscribe();onReady();
+    });
+    invalidate(2);
+    return unsubscribe;
+  },[gl,invalidate,onReady]);
+  return null;
+}
+
+class RendererUnavailable extends Error {}
+
+class RendererBoundary extends Component<{children:React.ReactNode;fallback:React.ReactNode},{failure:unknown}> {
+  state:{failure:unknown}={failure:null};
+  static getDerivedStateFromError(failure:unknown):{failure:unknown}{return {failure};}
+  render():React.ReactNode {
+    if(this.state.failure!==null){
+      if(!(this.state.failure instanceof RendererUnavailable))throw this.state.failure;
+      return this.props.fallback;
+    }
+    return this.props.children;
+  }
+}
+
+function FallbackContent({game,onSelectTile}:Pick<WorldCanvasProps,'game'|'onSelectTile'>):React.JSX.Element {
+  return <div className="scene-error" role="status">
+    <strong>当前浏览器无法建立 3D 场景</strong>
+    <span>仍可从下方列表查看地块，并使用原有回合操作继续游戏。</span>
+    <div className="scene-fallback-grid">{game.tiles.map(tile=><button key={tile.id} type="button" onClick={()=>onSelectTile?.(tile.id)}>{tile.id+1} · {tile.title}</button>)}</div>
+  </div>;
+}
+
+function OperationalFallback({onReady,motion,onActorStep,onMotionComplete,children}:{onReady:()=>void;children:React.ReactNode}&Pick<WorldCanvasProps,'motion'|'onActorStep'|'onMotionComplete'>):React.JSX.Element {
+  useEffect(onReady,[onReady]);
+  // Without a renderer there is no actor frame callback to release arrival UI.
+  useEffect(()=>{
+    if(!motion?.path.length)return;
+    onActorStep(motion.path[motion.path.length-1]);onMotionComplete();
+  },[motion,onActorStep,onMotionComplete]);
+  return <>{children}</>;
+}
 
 function CameraRig({target,reducedMotion,insets,map,nav,onView,changed,onContext}:{
   target:THREE.Vector3;reducedMotion:boolean;insets?:ViewportInsets;map:GameState['map'];
@@ -240,6 +289,9 @@ function Scene(props: WorldCanvasProps & {nav:MutableRefObject<Navigation>;chang
 
 export function WorldCanvas(props: WorldCanvasProps): React.JSX.Element {
   const [ready, setReady] = useState(false);
+  const markReady=useCallback(()=>setReady(true),[]);
+  useLayoutEffect(()=>{setReady(false);},[props.game.map.id,props.game.map.version]);
+  useLayoutEffect(()=>{props.onReadyChange?.(ready);},[ready,props.onReadyChange]);
   const [navigationRevision,setNavigationRevision]=useState(0);
   const nav=useRef<Navigation>(initialNavigation(props.followCurrent));
   const [context,setContext]=useState<ContextRequest|null>(null);
@@ -290,6 +342,7 @@ export function WorldCanvas(props: WorldCanvasProps): React.JSX.Element {
           正在搭建晴湾小镇…
         </div>
       )}
+      <RendererBoundary fallback={<OperationalFallback key={`${props.game.map.id}/${props.game.map.version}`} onReady={markReady} motion={props.motion} onActorStep={props.onActorStep} onMotionComplete={props.onMotionComplete}><FallbackContent game={props.game} onSelectTile={props.onSelectTile}/></OperationalFallback>}>
       <Canvas
         aria-label="晴湾小镇 3D 棋盘"
         data-testid="world-canvas"
@@ -298,34 +351,18 @@ export function WorldCanvas(props: WorldCanvasProps): React.JSX.Element {
         shadows={{type:THREE.PCFShadowMap}}
         dpr={[1, 2]}
         camera={{ position: [10.2, 12.5, 10.2], zoom: 48, near: 0.1, far: 80 }}
-        gl={{
-          antialias: true,
-          alpha: false,
-          powerPreference: "high-performance",
+        gl={canvas=>{
+          try{return new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'high-performance'});}
+          catch(cause){throw new RendererUnavailable('无法创建三维绘图环境',{cause});}
         }}
-        onCreated={() => setReady(true)}
-        fallback={
-          <div className="scene-error" role="status">
-            <strong>当前浏览器无法建立 3D 场景</strong>
-            <span>仍可从下方列表查看地块，并使用原有回合操作继续游戏。</span>
-            <div className="scene-fallback-grid">
-              {props.game.tiles.map((tile) => (
-                <button
-                  key={tile.id}
-                  type="button"
-                  onClick={() => props.onSelectTile?.(tile.id)}
-                >
-                  {tile.id + 1} · {tile.title}
-                </button>
-              ))}
-            </div>
-          </div>
-        }
+        fallback={<FallbackContent game={props.game} onSelectTile={props.onSelectTile}/>}
       >
         <Suspense fallback={null}>
           <Scene {...props} nav={nav} changed={changed} navigationRevision={navigationRevision} onContext={openContext}/>
+          <SceneReadiness key={`${props.game.map.id}/${props.game.map.version}`} onReady={markReady}/>
         </Suspense>
       </Canvas>
+      </RendererBoundary>
       <WorldNavigation game={props.game} nav={nav} changed={changed} disabled={props.paused??false}/>
       {context&&canOpenContext&&<MapContextMenu game={props.game} request={context} nav={nav} changed={changed} onSelect={props.onSelectTile} onClose={()=>setContext(null)} canvas={()=>shell.current?.querySelector('canvas')??null}/>}
     </div>

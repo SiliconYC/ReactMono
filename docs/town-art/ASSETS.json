@@ -40,10 +40,10 @@
   ],
   "budget": {
     "policy": "继承既有构建测试门槛，无放宽",
-    "productionBytes": 1507087,
+    "productionBytes": 1508739,
     "mainBundle": {
-      "path": "dist/assets/main-BaSOBSgz.js",
-      "bytes": 1043456
+      "path": "dist/assets/main-CyYpD6Eb.js",
+      "bytes": 1045108
     },
     "physicalMobileVerified": false
   },
@@ -89,8 +89,8 @@
       "bytes": 324106
     },
     {
-      "path": "dist/assets/main-BaSOBSgz.js",
-      "bytes": 1043456
+      "path": "dist/assets/main-CyYpD6Eb.js",
+      "bytes": 1045108
     },
     {
       "path": "dist/assets/main-D3keK-f5.css",
@@ -169,5 +169,5 @@
       "bytes": 2171
     }
   ],
-  "measurementSource": "StaticBlocks source build; paths and byte sizes from locally rebuilt production output"
+  "measurementSource": "Final scene readiness/renderer fallback source build; bundled paths and bytes checked locally"
 }
