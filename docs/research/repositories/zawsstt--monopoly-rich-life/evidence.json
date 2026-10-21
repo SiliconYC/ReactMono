@@ -24,12 +24,27 @@
     "commands": [
       "git ls-remote https://github.com/zawsstt/monopoly-rich-life.git HEAD"
     ],
-    "result": "命令失败：Could not resolve host: github.com；未克隆、未启动静态服务器、未运行 WebGL / WebRTC / SQL / UI 测试。已通过 GitHub 接口读取精确 SHA 的源码、文件树和许可。",
+    "result": "2026-10-19 初查仅 B/C 静态；2026-10-21 #121 在 Chromium 155 Linux SwiftShader 获得 1440×900/390×844 首回合真实截图 A，仍未验证完整局、真机及升级动画/性能。",
     "limitations": [
-      "无法读取 GitHub 上的 JPEG/PNG 二进制以做独立像素检查；仅保留上游海报和 ReactMono 历史预览 URL。",
+      "【初查历史条件，已由 #121 部分补证】无法读取 GitHub 上的 JPEG/PNG 二进制以做独立像素检查；仅保留上游海报和 ReactMono 历史预览 URL。",
       "Supabase 项目联机、排行榜及 Storage 实际可达性未知；不使用生产密钥或上游账号。",
-      "未下载任何受限素材或上游可执行程序。"
-    ]
+      "【初查历史条件，已由 #121 部分补证】未下载任何受限素材或上游可执行程序。",
+      "#121 的 A 证据仅扩展新增单项，不能扩展为原商业游戏差分或全套画面/性能验收"
+    ],
+    "baseline_before_issue121": {
+      "result": "命令失败：Could not resolve host: github.com；未克隆、未启动静态服务器、未运行 WebGL / WebRTC / SQL / UI 测试。已通过 GitHub 接口读取精确 SHA 的源码、文件树和许可。",
+      "limitations": [
+        "无法读取 GitHub 上的 JPEG/PNG 二进制以做独立像素检查；仅保留上游海报和 ReactMono 历史预览 URL。",
+        "Supabase 项目联机、排行榜及 Storage 实际可达性未知；不使用生产密钥或上游账号。",
+        "未下载任何受限素材或上游可执行程序。"
+      ]
+    },
+    "issue121_followup": {
+      "evidence_id": "A121_CHROMIUM",
+      "results_path": "docs/research/verification-issue-121/RESULTS.md",
+      "run_log": "docs/research/verification-issue-121/evidence/run.log",
+      "constraints": "Two screenshots of first-turn Chromium software renderer only"
+    }
   },
   "evidence": [
     {
