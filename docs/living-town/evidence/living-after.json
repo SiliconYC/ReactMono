@@ -1,0 +1,202 @@
+{
+  "results": [
+    {
+      "phone": false,
+      "state": "fresh",
+      "mode": "overview",
+      "camera": {
+        "ready": "true",
+        "frameloop": "demand",
+        "showNumbers": "true",
+        "safeInsets": "{\"top\":80,\"right\":24,\"bottom\":212,\"left\":256}",
+        "visibleRoadLabels": "24",
+        "cameraInsets": "{\"top\":80,\"right\":202,\"bottom\":212,\"left\":256}",
+        "cameraMode": "overview",
+        "cameraZoom": "22.40",
+        "cameraCenter": "0.00,0.00",
+        "cameraYaw": "0.785398",
+        "cameraElevation": "0.702025",
+        "cameraProjection": "{\"zoom\":22.399340917080288,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
+        "labelYaw": "0.7853981633974483",
+        "labelScaleZ": "0.999999982885729",
+        "renderStats": "{\"calls\":0,\"triangles\":0,\"geometries\":0,\"textures\":0,\"programs\":0,\"pixelRatio\":1,\"shadowType\":1,\"shadowSize\":2048}",
+        "cutawayBuildings": "",
+        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.699999999999932,\"samplesMs\":[16.699999999999932,16.700000000000045,16.700000000000045,16.699999999999932,16.600000000000023]}"
+      }
+    },
+    {
+      "phone": false,
+      "state": "fresh",
+      "mode": "district",
+      "camera": {
+        "ready": "true",
+        "frameloop": "demand",
+        "showNumbers": "true",
+        "safeInsets": "{\"top\":80,\"right\":24,\"bottom\":212,\"left\":256}",
+        "visibleRoadLabels": "24",
+        "cameraInsets": "{\"top\":80,\"right\":202,\"bottom\":212,\"left\":256}",
+        "cameraMode": "browse",
+        "cameraZoom": "37.85",
+        "cameraCenter": "0.00,0.00",
+        "cameraYaw": "0.785398",
+        "cameraElevation": "0.702025",
+        "cameraProjection": "{\"zoom\":37.85488614986569,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
+        "labelYaw": "0.7853981633974483",
+        "labelScaleZ": "0.999999982885729",
+        "renderStats": "{\"calls\":347,\"triangles\":91196,\"geometries\":206,\"textures\":10,\"programs\":17,\"pixelRatio\":1,\"shadowType\":1,\"shadowSize\":2048}",
+        "cutawayBuildings": "",
+        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.699999999999932,\"samplesMs\":[16.699999999999932,16.700000000000045,16.700000000000045,16.699999999999932,16.600000000000023]}"
+      }
+    },
+    {
+      "phone": false,
+      "state": "built",
+      "mode": "overview",
+      "camera": {
+        "ready": "true",
+        "frameloop": "demand",
+        "showNumbers": "true",
+        "safeInsets": "{\"top\":80,\"right\":24,\"bottom\":212,\"left\":256}",
+        "visibleRoadLabels": "24",
+        "cameraInsets": "{\"top\":80,\"right\":202,\"bottom\":212,\"left\":256}",
+        "cameraMode": "overview",
+        "cameraZoom": "22.40",
+        "cameraCenter": "0.00,0.00",
+        "cameraYaw": "0.785398",
+        "cameraElevation": "0.702025",
+        "cameraProjection": "{\"zoom\":22.399340917080288,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
+        "labelYaw": "0.7853981633974483",
+        "labelScaleZ": "0.999999982885729",
+        "renderStats": "{\"calls\":0,\"triangles\":0,\"geometries\":0,\"textures\":0,\"programs\":0,\"pixelRatio\":1,\"shadowType\":1,\"shadowSize\":2048}",
+        "cutawayBuildings": "",
+        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.600000000000023,\"samplesMs\":[16.599999999999966,16.700000000000045,16.599999999999966,16.80000000000001,16.600000000000023]}"
+      }
+    },
+    {
+      "phone": false,
+      "state": "built",
+      "mode": "district",
+      "camera": {
+        "ready": "true",
+        "frameloop": "demand",
+        "showNumbers": "true",
+        "safeInsets": "{\"top\":80,\"right\":24,\"bottom\":212,\"left\":256}",
+        "visibleRoadLabels": "24",
+        "cameraInsets": "{\"top\":80,\"right\":202,\"bottom\":212,\"left\":256}",
+        "cameraMode": "browse",
+        "cameraZoom": "37.85",
+        "cameraCenter": "0.00,0.00",
+        "cameraYaw": "0.785398",
+        "cameraElevation": "0.702025",
+        "cameraProjection": "{\"zoom\":37.85488614986569,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
+        "labelYaw": "0.7853981633974483",
+        "labelScaleZ": "0.999999982885729",
+        "renderStats": "{\"calls\":351,\"triangles\":111328,\"geometries\":206,\"textures\":10,\"programs\":17,\"pixelRatio\":1,\"shadowType\":1,\"shadowSize\":2048}",
+        "cutawayBuildings": "",
+        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.600000000000023,\"samplesMs\":[16.599999999999966,16.700000000000045,16.599999999999966,16.80000000000001,16.600000000000023]}"
+      }
+    },
+    {
+      "phone": true,
+      "state": "fresh",
+      "mode": "overview",
+      "camera": {
+        "ready": "true",
+        "frameloop": "demand",
+        "showNumbers": "true",
+        "safeInsets": "{\"top\":210,\"right\":24,\"bottom\":250,\"left\":24}",
+        "visibleRoadLabels": "0",
+        "cameraInsets": "{\"top\":294,\"right\":24,\"bottom\":250,\"left\":24}",
+        "cameraMode": "overview",
+        "cameraZoom": "8.80",
+        "cameraCenter": "0.00,0.00",
+        "cameraYaw": "0.785398",
+        "cameraElevation": "0.702025",
+        "cameraProjection": "{\"zoom\":8.804842433323248,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
+        "labelYaw": "0.7853981633974483",
+        "labelScaleZ": "0.999999982885729",
+        "renderStats": "{\"calls\":345,\"triangles\":91100,\"geometries\":205,\"textures\":10,\"programs\":15,\"pixelRatio\":1,\"shadowType\":1,\"shadowSize\":2048}",
+        "cutawayBuildings": "",
+        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.69999999999999,\"samplesMs\":[33.30000000000001,16.69999999999999,16.700000000000045,16.600000000000023,16.699999999999932]}"
+      }
+    },
+    {
+      "phone": true,
+      "state": "fresh",
+      "mode": "district",
+      "camera": {
+        "ready": "true",
+        "frameloop": "demand",
+        "showNumbers": "true",
+        "safeInsets": "{\"top\":210,\"right\":24,\"bottom\":250,\"left\":24}",
+        "visibleRoadLabels": "24",
+        "cameraInsets": "{\"top\":210,\"right\":132,\"bottom\":250,\"left\":24}",
+        "cameraMode": "browse",
+        "cameraZoom": "25.15",
+        "cameraCenter": "0.00,0.00",
+        "cameraYaw": "0.785398",
+        "cameraElevation": "0.702025",
+        "cameraProjection": "{\"zoom\":25.14751047381453,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
+        "labelYaw": "0.7853981633974483",
+        "labelScaleZ": "0.999999982885729",
+        "renderStats": "{\"calls\":310,\"triangles\":90058,\"geometries\":205,\"textures\":10,\"programs\":15,\"pixelRatio\":1,\"shadowType\":1,\"shadowSize\":2048}",
+        "cutawayBuildings": "",
+        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.69999999999999,\"samplesMs\":[33.30000000000001,16.69999999999999,16.700000000000045,16.600000000000023,16.699999999999932]}"
+      }
+    },
+    {
+      "phone": true,
+      "state": "built",
+      "mode": "overview",
+      "camera": {
+        "ready": "true",
+        "frameloop": "demand",
+        "showNumbers": "true",
+        "safeInsets": "{\"top\":210,\"right\":24,\"bottom\":250,\"left\":24}",
+        "visibleRoadLabels": "0",
+        "cameraInsets": "{\"top\":294,\"right\":24,\"bottom\":250,\"left\":24}",
+        "cameraMode": "overview",
+        "cameraZoom": "8.80",
+        "cameraCenter": "0.00,0.00",
+        "cameraYaw": "0.785398",
+        "cameraElevation": "0.702025",
+        "cameraProjection": "{\"zoom\":8.804842433323248,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
+        "labelYaw": "0.7853981633974483",
+        "labelScaleZ": "0.999999982885729",
+        "renderStats": "{\"calls\":0,\"triangles\":0,\"geometries\":0,\"textures\":0,\"programs\":0,\"pixelRatio\":1,\"shadowType\":1,\"shadowSize\":2048}",
+        "cutawayBuildings": "",
+        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.69999999999999,\"samplesMs\":[16.600000000000023,16.69999999999999,16.69999999999999,16.700000000000045,16.69999999999999]}"
+      }
+    },
+    {
+      "phone": true,
+      "state": "built",
+      "mode": "district",
+      "camera": {
+        "ready": "true",
+        "frameloop": "demand",
+        "showNumbers": "true",
+        "safeInsets": "{\"top\":210,\"right\":24,\"bottom\":250,\"left\":24}",
+        "visibleRoadLabels": "24",
+        "cameraInsets": "{\"top\":210,\"right\":132,\"bottom\":250,\"left\":24}",
+        "cameraMode": "browse",
+        "cameraZoom": "25.15",
+        "cameraCenter": "0.00,0.00",
+        "cameraYaw": "0.785398",
+        "cameraElevation": "0.702025",
+        "cameraProjection": "{\"zoom\":25.14751047381453,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
+        "labelYaw": "0.7853981633974483",
+        "labelScaleZ": "0.999999982885729",
+        "renderStats": "{\"calls\":349,\"triangles\":111232,\"geometries\":205,\"textures\":10,\"programs\":15,\"pixelRatio\":1,\"shadowType\":1,\"shadowSize\":2048}",
+        "cutawayBuildings": "",
+        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.69999999999999,\"samplesMs\":[16.600000000000023,16.69999999999999,16.69999999999999,16.700000000000045,16.69999999999999]}"
+      }
+    }
+  ],
+  "fixtureSha256": {
+    "fresh": "4474618d975239f6eff0c12f55be365578581fa24338c91ba3f7231e1c7f0dd6",
+    "built": "6776be847d7cacf0d859378980fe32b223c4594c4a621daea030f685330645d9"
+  },
+  "errors": [],
+  "physicalPhones": 0
+}

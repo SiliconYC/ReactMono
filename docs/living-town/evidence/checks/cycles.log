@@ -1,0 +1,25 @@
+[信息] 旋转后：phone=False yaw=0.306641 cutaway=转角咖啡馆
+[信息] 街区资源：phone=False cycle=0 stats={'calls': 294, 'triangles': 110186, 'geometries': 206, 'textures': 10, 'programs': 17, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 旋转后：phone=False yaw=0.306629 cutaway=转角咖啡馆
+[信息] 街区资源：phone=False cycle=1 stats={'calls': 294, 'triangles': 110186, 'geometries': 206, 'textures': 10, 'programs': 17, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 旋转后：phone=False yaw=0.306632 cutaway=转角咖啡馆
+[信息] 街区资源：phone=False cycle=2 stats={'calls': 294, 'triangles': 110186, 'geometries': 206, 'textures': 10, 'programs': 17, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 旋转后：phone=False yaw=0.306629 cutaway=转角咖啡馆
+[信息] 街区资源：phone=False cycle=3 stats={'calls': 294, 'triangles': 110186, 'geometries': 206, 'textures': 10, 'programs': 17, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 旋转后：phone=False yaw=0.306628 cutaway=转角咖啡馆
+[信息] 街区资源：phone=False cycle=4 stats={'calls': 294, 'triangles': 110186, 'geometries': 206, 'textures': 10, 'programs': 17, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 旋转后：phone=False yaw=0.306642 cutaway=转角咖啡馆
+[信息] 街区资源：phone=False cycle=5 stats={'calls': 294, 'triangles': 110186, 'geometries': 206, 'textures': 10, 'programs': 17, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 旋转后：phone=True yaw=0.306623 cutaway=转角咖啡馆
+[信息] 街区资源：phone=True cycle=0 stats={'calls': 272, 'triangles': 108294, 'geometries': 206, 'textures': 10, 'programs': 17, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 旋转后：phone=True yaw=0.306642 cutaway=转角咖啡馆
+[信息] 街区资源：phone=True cycle=1 stats={'calls': 272, 'triangles': 108294, 'geometries': 206, 'textures': 10, 'programs': 17, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 旋转后：phone=True yaw=0.306628 cutaway=转角咖啡馆
+[信息] 街区资源：phone=True cycle=2 stats={'calls': 272, 'triangles': 108294, 'geometries': 206, 'textures': 10, 'programs': 17, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 旋转后：phone=True yaw=0.306630 cutaway=转角咖啡馆
+[信息] 街区资源：phone=True cycle=3 stats={'calls': 272, 'triangles': 108294, 'geometries': 206, 'textures': 10, 'programs': 17, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 旋转后：phone=True yaw=0.306615 cutaway=转角咖啡馆
+[信息] 街区资源：phone=True cycle=4 stats={'calls': 272, 'triangles': 108294, 'geometries': 206, 'textures': 10, 'programs': 17, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[信息] 旋转后：phone=True yaw=0.306625 cutaway=转角咖啡馆
+[信息] 街区资源：phone=True cycle=5 stats={'calls': 272, 'triangles': 108294, 'geometries': 206, 'textures': 10, 'programs': 17, 'pixelRatio': 1, 'shadowType': 1, 'shadowSize': 2048}
+[完成] 同一Canvas双视口各六轮导航和遮挡切换资源稳定。

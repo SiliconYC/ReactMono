@@ -1,0 +1,27 @@
+2026-10-21T17:29:46.5870691Z Traceback (most recent call last):
+2026-10-21T17:29:46.5871355Z   File "/home/runner/work/ReactMono/ReactMono/tests/browser_scalable_world_e2e.py", line 123, in <module>
+2026-10-21T17:29:46.5877019Z     if __name__=='__main__':main()
+2026-10-21T17:29:46.5877392Z                             ^^^^^^
+2026-10-21T17:29:46.5877975Z   File "/home/runner/work/ReactMono/ReactMono/tests/browser_scalable_world_e2e.py", line 60, in main
+2026-10-21T17:29:46.5878519Z     assert hits/len(coords)>.94,(mid,phone,'rendered road missing',hits,len(coords))
+2026-10-21T17:29:46.5878875Z            ^^^^^^^^^^^^^^^^^^^^
+2026-10-21T17:29:46.5879249Z AssertionError: ('classic-24', False, 'rendered road missing', 16, 24)
+2026-10-21T17:29:46.6094189Z ##[error]Process completed with exit code 1.
+2026-10-21T17:29:46.6158008Z ##[group]Run actions/upload-artifact@v4
+2026-10-21T17:29:46.6158268Z with:
+2026-10-21T17:29:46.6158474Z   name: main-game-3d-ui-acceptance
+2026-10-21T17:29:46.6159231Z   path: artifacts/ui-rebuild/
+2026-10-21T17:29:46.6159973Z   if-no-files-found: warn
+2026-10-21T17:29:46.6160185Z   retention-days: 30
+2026-10-21T17:29:46.6160380Z   compression-level: 6
+2026-10-21T17:29:46.6160581Z   overwrite: false
+2026-10-21T17:29:46.6160782Z   include-hidden-files: false
+2026-10-21T17:29:46.6161002Z ##[endgroup]
+2026-10-21T17:29:46.7459567Z (node:7850) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-21T17:29:46.7460252Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-21T17:29:46.7836080Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-10-21T17:29:46.7840903Z The least common ancestor is /home/runner/work/ReactMono/ReactMono. This will be the root directory of the artifact
+2026-10-21T17:29:46.7841896Z With the provided path, there will be 238 files uploaded
+2026-10-21T17:29:46.7844732Z Artifact name is valid!
+2026-10-21T17:29:46.7845183Z Root directory input is valid!
+2026-10-21T17:29:46.9918210Z Beginning upload of artifact content to blob storage

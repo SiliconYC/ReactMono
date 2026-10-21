@@ -1,0 +1,14 @@
+PASS stage: 1–6 点实际中间帧/输入屏障/正常与跳过存档等价
+PASS stage: 现金/存款/股票买卖手续费/抵押借还/解除抵押/文件往返/不重掷
+PASS stage: 旧档现金股票账户买卖，银行存款不变
+PASS stage: 直接建设/升级/同到访一次/旧规则异地升级兼容
+PASS stage: 五种手牌真实使用、目标选择与持久化
+PASS stage: 真实商店购买、医院/监狱停留、跳过和真人交接
+PASS stage: 租金→破产→胜利与结果输入隔离
+PASS stage: 待执行电脑计时器在菜单期间暂停，关闭后恢复
+Traceback (most recent call last):
+  File "/tmp/reactmono-living-main-sw.py", line 10, in <module>
+    main()
+  File "/Users/laocao/Documents/coding/ReactMono/tests/browser_main_game_acceptance.py", line 238, in main
+    expect(page.locator('.canvas-shell')).to_have_attribute('data-frameloop','never')
+AssertionError

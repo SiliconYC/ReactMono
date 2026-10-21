@@ -7,7 +7,7 @@ No game state is changed through React internals or a test-only app API.
 from pathlib import Path
 from http.server import ThreadingHTTPServer
 from threading import Thread
-from playwright.sync_api import sync_playwright, expect
+from playwright.sync_api import sync_playwright, expect, TimeoutError as 浏览器超时
 from browser_live_e2e import Handler, open_new_game_setup, select_map
 import json, re, subprocess, time, os
 
@@ -115,7 +115,21 @@ def main():
     normal,_=export_current(page)
     assert [e for e in normal['events'] if e['type']=='die_rolled'][-1]['details']['value']==int(die)
     load_fixture(page,url,raw,'跳过'+die)
-    page.get_by_role('button',name='掷骰前进').click();page.get_by_role('button',name='跳过演出').click()
+    page.evaluate("""() => {
+     window.__skipTimeline=[];
+     const record=kind=>window.__skipTimeline.push({kind,at:performance.now(),
+      presenting:document.querySelector('main.app-shell')?.dataset.presenting,
+      step:document.querySelector('main.app-shell')?.dataset.sceneStep});
+     document.addEventListener('click',e=>record('click:'+e.target.textContent?.trim().slice(0,16)),true);
+     new MutationObserver(()=>record('presentation')).observe(document.querySelector('main.app-shell'),
+      {attributes:true,attributeFilter:['data-presenting','data-scene-step']});
+    }""")
+    try:
+     page.get_by_role('button',name='掷骰前进').click();page.get_by_role('button',name='跳过演出').click()
+    except 浏览器超时:
+     print('[错误] 跳过演出输入追踪',die,page.evaluate('JSON.stringify({timeline:window.__skipTimeline,camera:{...document.querySelector(".canvas-shell").dataset}})'),flush=True)
+     page.screenshot(path=str(OUT/'skip-timeout.png'))
+     raise
     skipped,_=export_current(page)
     assert normal==skipped,'skipping presentation must preserve exact rule state'
    report.append('1–6 点实际中间帧/输入屏障/正常与跳过存档等价')
@@ -219,6 +233,9 @@ def main():
    page.keyboard.press('Escape');page.wait_for_function('(old)=>document.querySelector("main").dataset.gameRevision!==old',arg=revision,timeout=6000)
    report.append('待执行电脑计时器在菜单期间暂停，关闭后恢复')
    print('PASS stage: '+report[-1],flush=True)
+   # 恢复行动已验证；隔离旧页面，避免它持续绘制并与后续手机场景争用GPU。
+   page.get_by_role('button',name=re.compile('^菜单')).click()
+   expect(page.locator('.canvas-shell')).to_have_attribute('data-frameloop','never')
    # Full real games on both maps, four seats, fixed seeds, fast/normal end states equal.
    for board in ['classic-24','harbor-20']:
     outcomes=[]

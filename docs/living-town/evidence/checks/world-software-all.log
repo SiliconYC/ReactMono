@@ -1,0 +1,41 @@
+NAV classic-24 desktop 12 [9.9964, 6.1266] {'x': 1369.9912842625556, 'y': 193.6315881864955} from -0.00,-0.00
+NAV classic-24 desktop 23 [-13.0303, -4.7607] {'x': 1295.2512235655954, 'y': 158.2935908692067} from 9.99,6.12
+NAV classic-24 desktop 8 [11.9405, -6.4442] {'x': 1376.3014438599344, 'y': 152.82928672734823} from -12.81,-4.66
+PASS classic-24 desktop {"zoom": 22.399340917080288, "roadPixels": 23, "cells": 24, "p50": 83.40000000000146, "p95": 100, "allPassDrawsPerFrame": 299.0, "renderer": {"calls": 299, "triangles": 87404, "geometries": 182, "textures": 10, "programs": 17, "pixelRatio": 0.65, "shadowType": 1, "shadowSize": 1024}, "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)"}
+NAV harbor-20 desktop 10 [5.3845, 4.5935] {'x': 1359.9096133506564, 'y': 191.34048663843944} from -0.00,-0.00
+NAV harbor-20 desktop 19 [-12.4182, -5.5867] {'x': 1298.9482241904977, 'y': 156.4806544821796} from 5.37,4.58
+NAV harbor-20 desktop 6 [9.5846, -8.3172] {'x': 1374.2919222482722, 'y': 147.13066413791648} from -12.05,-5.38
+PASS harbor-20 desktop {"zoom": 17.782732675780682, "roadPixels": 20, "cells": 20, "p50": 50, "p95": 50.100000000000364, "allPassDrawsPerFrame": 245.0, "renderer": {"calls": 245, "triangles": 30704, "geometries": 128, "textures": 7, "programs": 16, "pixelRatio": 0.65, "shadowType": 1, "shadowSize": 1024}, "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)"}
+NAV bend-60 desktop 30 [35.5378, 15.3326] {'x': 1398.6706668835131, 'y': 200.65751306368543} from -0.00,-0.00
+NAV bend-60 desktop 59 [-33.2467, -9.0665] {'x': 1276.2629119137207, 'y': 157.23727951857774} from 35.52,15.32
+NAV bend-60 desktop 20 [15.8155, -5.2211] {'x': 1363.57318902381, 'y': 164.08048955806106} from -32.49,-8.80
+PASS bend-60 desktop {"zoom": 10.238257863835344, "roadPixels": 59, "cells": 60, "p50": 33.400000000001455, "p95": 50.100000000000364, "allPassDrawsPerFrame": 159.0, "renderer": {"calls": 159, "triangles": 25638, "geometries": 85, "textures": 4, "programs": 14, "pixelRatio": 0.65, "shadowType": 1, "shadowSize": 1024}, "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)"}
+NAV bays-120 desktop 60 [98.1576, 7.0195] {'x': 1403.0295999160385, 'y': 181.65539694919727} from -0.01,-0.00
+NAV bays-120 desktop 119 [-93.8162, -16.3182] {'x': 1270.9875281385125, 'y': 165.60342392724132} from 98.06,7.01
+NAV bays-120 desktop 40 [46.231, -50.808] {'x': 1367.313810342863, 'y': 141.88089175257733} from -91.92,-16.09
+PASS bays-120 desktop {"zoom": 4.7822196987618, "roadPixels": 120, "cells": 120, "p50": 50, "p95": 50.100000000000364, "allPassDrawsPerFrame": 179.0, "renderer": {"calls": 179, "triangles": 33704, "geometries": 95, "textures": 4, "programs": 15, "pixelRatio": 0.65, "shadowType": 1, "shadowSize": 1024}, "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)"}
+NAV ridges-360 desktop 180 [128.9881, 58.0704] {'x': 1391.9768441065896, 'y': 200.93527846796275} from -0.23,-0.09
+NAV ridges-360 desktop 359 [-159.8064, -62.1207] {'x': 1271.1770295204226, 'y': 150.6605585723018} from 128.94,58.05
+NAV ridges-360 desktop 120 [82.7982, -70.9122] {'x': 1372.6560767244075, 'y': 146.983163158143} from -157.61,-63.98
+PASS ridges-360 desktop {"zoom": 2.498250273268324, "roadPixels": 359, "cells": 360, "p50": 100, "p95": 116.79999999999927, "allPassDrawsPerFrame": 225.0, "renderer": {"calls": 225, "triangles": 80680, "geometries": 117, "textures": 4, "programs": 15, "pixelRatio": 1, "shadowType": 1, "shadowSize": 1024}, "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)"}
+NAV classic-24 phone 12 [9.9964, 6.1266] {'x': 343.48056785027103, 'y': 214.88722350059734} from -0.00,-0.00
+NAV classic-24 phone 23 [-13.0303, -4.7607] {'x': 299.34834153397077, 'y': 194.0209774656268} from 9.98,6.12
+NAV classic-24 phone 8 [11.9405, -6.4442] {'x': 347.20656685062795, 'y': 190.79443597233896} from -12.61,-4.56
+PASS classic-24 phone {"zoom": 8.804842433323248, "roadPixels": 23, "cells": 24, "p50": 66.69999999999891, "p95": 100, "allPassDrawsPerFrame": 297.0, "renderer": {"calls": 297, "triangles": 87308, "geometries": 181, "textures": 10, "programs": 15, "pixelRatio": 0.65, "shadowType": 1, "shadowSize": 1024}, "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)"}
+NAV harbor-20 phone 10 [5.3845, 4.5935] {'x': 337.5275812165781, 'y': 213.53438258650712} from -0.00,-0.00
+NAV harbor-20 phone 19 [-12.4182, -5.5867] {'x': 301.531332379151, 'y': 192.95048169423941} from 5.36,4.57
+NAV harbor-20 phone 6 [9.5846, -8.3172] {'x': 346.019992184694, 'y': 187.42953501476975} from -11.85,-5.26
+PASS harbor-20 phone {"zoom": 7.844400176085541, "roadPixels": 19, "cells": 20, "p50": 16.699999999999818, "p95": 16.799999999999272, "allPassDrawsPerFrame": 235.0, "renderer": {"calls": 235, "triangles": 19776, "geometries": 124, "textures": 7, "programs": 14, "pixelRatio": 0.65, "shadowType": 1, "shadowSize": 1024}, "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)"}
+NAV bend-60 phone 30 [35.5378, 15.3326] {'x': 360.5531974902261, 'y': 219.0966953744046} from -0.00,-0.00
+NAV bend-60 phone 59 [-33.2467, -9.0665] {'x': 288.0001496985181, 'y': 193.36082365367295} from 35.44,15.29
+NAV bend-60 phone 20 [15.8155, -5.2211] {'x': 339.75035710522076, 'y': 197.41690445644443} from -32.05,-8.64
+PASS bend-60 phone {"zoom": 5.833647625009133, "roadPixels": 59, "cells": 60, "p50": 16.699999999999818, "p95": 33.399999999999636, "allPassDrawsPerFrame": 159.0, "renderer": {"calls": 159, "triangles": 25638, "geometries": 85, "textures": 4, "programs": 14, "pixelRatio": 0.65, "shadowType": 1, "shadowSize": 1024}, "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)"}
+NAV bays-120 phone 60 [98.1576, 7.0195] {'x': 366.44759994602475, 'y': 208.24275518162682} from -0.00,-0.00
+NAV bays-120 phone 119 [-93.8162, -16.3182] {'x': 281.56341094618665, 'y': 197.92362966751227} from 97.84,7.00
+NAV bays-120 phone 40 [46.231, -50.808] {'x': 343.4874495061262, 'y': 182.67343041237112} from -91.57,-16.04
+PASS bays-120 phone {"zoom": 1.8447667186752974, "roadPixels": 119, "cells": 120, "p50": 66.60000000000036, "p95": 83.30000000000109, "allPassDrawsPerFrame": 179.0, "renderer": {"calls": 179, "triangles": 33704, "geometries": 95, "textures": 4, "programs": 15, "pixelRatio": 2, "shadowType": 1, "shadowSize": 1024}, "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)"}
+NAV ridges-360 phone 180 [128.9881, 58.0704] {'x': 356.4625174724625, 'y': 219.19987871441612} from -0.01,-0.00
+NAV ridges-360 phone 359 [-159.8064, -62.1207] {'x': 285.1331031453924, 'y': 189.5138536331687} from 128.91,58.04
+NAV ridges-360 phone 120 [82.7982, -70.9122] {'x': 345.0540643515549, 'y': 187.3424391981416} from -156.81,-63.64
+PASS ridges-360 phone {"zoom": 1.009503042254331, "roadPixels": 358, "cells": 360, "p50": 83.39999999999964, "p95": 216.59999999999854, "allPassDrawsPerFrame": 225.0, "renderer": {"calls": 225, "triangles": 80680, "geometries": 117, "textures": 4, "programs": 15, "pixelRatio": 2, "shadowType": 1, "shadowSize": 1024}, "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)"}
+CLOSING browser
