@@ -14,7 +14,7 @@ export class UrbanModel {
     this.parts.push({shape,x,y,z,sx,sy,sz,color,...extra});
   }
   box(x:number,y:number,z:number,sx:number,sy:number,sz:number,color:string):void {this.add('box',x,y,z,sx,sy,sz,color);}
-  sign(label:string,x:number,y:number,z:number,width:number,height=.25):void {
+  sign(label:typeof URBAN_LABELS[number],x:number,y:number,z:number,width:number,height=.25):void {
     this.box(x,y,z,width+.12,height+.09,.075,C.dark);
     this.add('sign',x,y,z+.044,width,height,.01,'#ffffff',{label});
   }

@@ -17,13 +17,13 @@ function Material({ghost}:{ghost:boolean}):React.JSX.Element {
 
 function SignBatch({parts,ghost}:{parts:readonly UrbanPart[];ghost:boolean}):React.JSX.Element {
   const texture=useMemo(()=>{
-    const canvas=document.createElement('canvas');canvas.width=512;canvas.height=64*URBAN_LABELS.length;
+    const canvas=document.createElement('canvas');canvas.width=256;canvas.height=96*URBAN_LABELS.length;
     const context=canvas.getContext('2d')!;
     for(const [i,label]of URBAN_LABELS.entries()) {
-      context.fillStyle='#3e5759';context.fillRect(0,i*64,512,64);
-      context.strokeStyle='#d3be91';context.lineWidth=2;context.strokeRect(6,i*64+5,500,54);
-      context.fillStyle='#fff3d8';context.font='bold 43px "PingFang SC", "Microsoft YaHei", sans-serif';
-      context.textAlign='center';context.textBaseline='middle';context.fillText(label,256,i*64+34);
+      context.fillStyle='#3e5759';context.fillRect(0,i*96,256,96);
+      context.strokeStyle='#d3be91';context.lineWidth=2;context.strokeRect(4,i*96+5,248,86);
+      context.fillStyle='#fff3d8';context.font='bold 64px "PingFang SC", "Microsoft YaHei", sans-serif';
+      context.textAlign='center';context.textBaseline='middle';context.fillText(label,128,i*96+50,234);
     }
     const result=new THREE.CanvasTexture(canvas);result.colorSpace=THREE.SRGBColorSpace;return result;
   },[]);
