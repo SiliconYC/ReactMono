@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createGame } from '../.test-dist/core/game.js';
 import { LEVELS } from '../.test-dist/core/level-data.js';
-import { rectanglesOverlap, URBAN_SCENERY_KINDS } from '../.test-dist/core/level-world.js';
+import { rectanglesOverlap, pointInPolygon, URBAN_SCENERY_KINDS } from '../.test-dist/core/level-world.js';
 
 test('街区部件确定且贴地；不同功能建筑和街边小物保持可读的尺度层级',async()=>{
   const kit=await import('../.test-dist/demo3d/world/urban-kit.js').catch(()=>null);
@@ -20,6 +20,19 @@ test('街区部件确定且贴地；不同功能建筑和街边小物保持可�
   }
   assert.ok(height(kit.urbanParts('hotel','#c79578'))>height(kit.urbanParts('bakery','#c79578'))+1);
   assert.ok(height(kit.urbanParts('car','#c79578'))<height(kit.urbanParts('corner-cafe','#c79578'))/2);
+});
+
+test('同高人行道不能盖住车行街，铺地只能沿边界衔接',()=>{
+  const surfaces=LEVELS.find(l=>l.map.id==='classic-24').world.surfaces.filter(s=>s.kind==='plaza');
+  const cross=(a,b,c)=>(b.x-a.x)*(c.z-a.z)-(b.z-a.z)*(c.x-a.x);
+  const loops=s=>[s.points,...s.holes];
+  const edges=s=>loops(s).flatMap(ps=>ps.map((p,i)=>[p,ps[(i+1)%ps.length]]));
+  const inside=(p,s)=>pointInPolygon(p,s.points)&&!s.holes.some(h=>pointInPolygon(p,h))&&!edges(s).some(([a,b])=>Math.abs(cross(a,b,p))<1e-7&&p.x>=Math.min(a.x,b.x)-1e-7&&p.x<=Math.max(a.x,b.x)+1e-7&&p.z>=Math.min(a.z,b.z)-1e-7&&p.z<=Math.max(a.z,b.z)+1e-7);
+  for(let i=0;i<surfaces.length;i++)for(let j=i+1;j<surfaces.length;j++){
+    const a=surfaces[i],b=surfaces[j];
+    const overlap=a.points.some(p=>inside(p,b))||b.points.some(p=>inside(p,a))||edges(a).some(([p,q])=>edges(b).some(([r,s])=>cross(p,q,r)*cross(p,q,s)<-1e-8&&cross(r,s,p)*cross(r,s,q)<-1e-8));
+    assert.ok(!overlap,`${a.id} 与 ${b.id} 共面交叠`);
+  }
 });
 
 test('生活街区按模型真实占地避开棋盘路线，不沿用小道具的统一半径',async()=>{
