@@ -14,7 +14,8 @@
 - [x] 在 `town-kit.ts` / `ResidentialBuildings.tsx` 构建合批住宅细节与地块状态，替换 `MiniatureTown.tsx` 原简单房屋；几何限界、分级与拾取回归。
 - [x] 深化 `SceneryModels.tsx` / `AuthoredScenery.tsx` 四设施及钟楼、亭台、街具；只精修 `levels.json` 的 `classic-24.world`，构建步道、花园、湖岸与广场层次。
 - [x] 实际主程序复拍并审查，修正比例、旋转遮挡、手机可读性；完成 `npm test`、`maps:validate`、`demo:build`、既有完整对局/离线/五图/360格/运行时回归。
-- [ ] 独立审查通过；PR #128 完整远端 CI 作为合并门槛，修复后合并 `dev` 并关闭 Issue。提案、候选池、日志和验收记录已更新。
+
+独立审查通过，提案、候选池、日志和验收记录已更新。PR #128 的完整远端 CI 是合并门槛；最终检查、`dev` 合并 SHA 和 Issue 关闭状态以 [PR](https://github.com/SiliconYC/ReactMono/pull/128) 为准。
 
 ## 审查重点
 

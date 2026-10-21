@@ -56,7 +56,7 @@
 | 满建360格 | 双视口各四轮跟随/概览导航，无几何/纹理累积；跟随桌面176、手机166次绘制，纹理4；[原始结果](evidence/checks/populated.json) |
 | 既有2000局对照 | 原实验1000对完整执行，无非法动作；原候选仍拒绝，没有采用经济或策略变更；[汇总](evidence/checks/balance-summary.json) |
 | 运行时与更新 | WebAudio回收、GPU闲置停绘、坏档拒绝、保存删除、人机交接、双Service Worker升级/旧缓存清理及离线续局通过；[结果](evidence/checks/runtime.json)、[日志](evidence/checks/runtime.log) |
-| 完整远端CI | 在[PR检查](https://github.com/SiliconYC/ReactMono/pull/128/checks)运行，包含demo、七视口、完整对局、五图、360格、离线/双SW和新美术截图；以最终检查结果作为合并门槛 |
+| 完整远端CI | 包含demo、七视口、完整对局、五图、360格、离线/双SW和新美术截图；最终结果与运行日志见[PR检查](https://github.com/SiliconYC/ReactMono/pull/128/checks)，全部通过才可合并 |
 
 满建360格采样的帧间隔 `p50/p95` 约 `16.7ms`，来自本机 Chromium 与模拟手机视口，不能推广为物理手机 GPU 性能。近景住宅使用三批实例，钟楼刻度与静态设施盒体也合批。固定桌面近景由原版483次绘制降至373次，几何资源244→191；手机由187次升至371次、几何95→190，因旧版手机近景曾简化为色盒。两视口纹理均由4增至8，细节与三角形成本仍上升，未宣称所有指标下降。减少动态初始帧的统计可能为零，不作为性能结果。
 
