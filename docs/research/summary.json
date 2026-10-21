@@ -41,7 +41,7 @@
         "D": 2
       },
       "execution": {
-        "attempted_oiginal_study": false,
+        "attempted_original_study": false,
         "latest_result": "仅完成指定 SHA 的公开源码静态核查；未执行逆向源码编译、原版游戏启动或资源测试，A 类证据=0",
         "issue121_followup": null
       },
@@ -187,7 +187,7 @@
         "D": 3
       },
       "execution": {
-        "attempted_oiginal_study": true,
+        "attempted_original_study": true,
         "latest_result": "2026-10-19 初查仅 B 静态；2026-10-21 #121 在 Linux 独立编译执行四项 C++ 经济边界，修正两处仅测试用例的越界访问后 126 断言、0 失败、3 资源测试跳过；不涉及原作二进制差分或 SDL 完整 UI。",
         "issue121_followup": {
           "evidence_id": "A121_ECONOMY",
@@ -339,7 +339,7 @@
         "D": 1
       },
       "execution": {
-        "attempted_oiginal_study": false,
+        "attempted_original_study": false,
         "latest_result": "not_run: 上游构建、CTest、20 场 runner、原版对照、Android/iOS 真机均未运行；没有 A 类证据",
         "issue121_followup": null
       },
@@ -526,7 +526,7 @@
         "D": 0
       },
       "execution": {
-        "attempted_oiginal_study": false,
+        "attempted_original_study": false,
         "latest_result": "static_source_review_only; no upstream build/test/browser/device run; no independent screenshots; GitHub branch/contents/releases fetched via connector",
         "issue121_followup": null
       },
@@ -725,7 +725,7 @@
         "D": 1
       },
       "execution": {
-        "attempted_oiginal_study": false,
+        "attempted_original_study": false,
         "latest_result": "NOT_RUN (no A evidence)",
         "issue121_followup": null
       },
@@ -887,7 +887,7 @@
         "D": 0
       },
       "execution": {
-        "attempted_oiginal_study": true,
+        "attempted_original_study": true,
         "latest_result": "可复核的远端静态审计完成，无法在当前容器 git clone、安装、运行原作依赖测试、浏览器或桌面联机实测。无 A 级玩法实测。",
         "issue121_followup": null
       },
@@ -1047,7 +1047,7 @@
         "D": 1
       },
       "execution": {
-        "attempted_oiginal_study": true,
+        "attempted_original_study": true,
         "latest_result": "静态数据级测试通过：3 JSON 可解析；Japan 96/96 点、3/3 线、3/3 路径、15/15 道路、2/2 建筑；路段点索引和路径路段索引越界 0；未运行/构建 Cocos 编辑器游戏",
         "issue121_followup": null
       },
@@ -1210,7 +1210,7 @@
         "D": 1
       },
       "execution": {
-        "attempted_oiginal_study": true,
+        "attempted_original_study": true,
         "latest_result": "2026-10-19 初查仅 B/C 静态；2026-10-21 #121 在 Chromium 155 Linux SwiftShader 获得 1440×900/390×844 首回合真实截图 A，仍未验证完整局、真机及升级动画/性能。",
         "issue121_followup": {
           "evidence_id": "A121_CHROMIUM",
@@ -1420,7 +1420,7 @@
         "D": 1
       },
       "execution": {
-        "attempted_oiginal_study": true,
+        "attempted_original_study": true,
         "latest_result": "2026-10-19 初查仅 B/C 静态；2026-10-21 #121 在 Chromium 155 Linux SwiftShader 获得 1440×900/390×844 首回合真实截图 A，仍未验证完整局、真机及升级动画/性能。",
         "issue121_followup": {
           "evidence_id": "A121_CHROMIUM",
