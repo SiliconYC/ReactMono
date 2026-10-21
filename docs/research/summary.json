@@ -1,0 +1,1630 @@
+{
+  "schema": "reactmono-cross-research/v1",
+  "issue": 104,
+  "scope": "Nine repositories pinned to their own upstream SHAs and ReactMono dev baseline",
+  "checked_date_utc": "2026-10-21",
+  "reactmono_dev_baseline": "6b87e4aed02e30235573bc0e12d8d6e215a6b603",
+  "independent_experiment": {
+    "issue": 121,
+    "merged_pr": 122,
+    "merge_sha": "6b87e4aed02e30235573bc0e12d8d6e215a6b603",
+    "report": "verification-issue-121/RESULTS.md",
+    "interpretation": "A applies only to 6 first-turn browser screenshots and 4 C++ economic boundary cases; 126 assertions 0 failed, 3 commercial samples skipped; not 1998 binary delta or real-device FPS"
+  },
+  "verification_contract": {
+    "evidence_id_closure": true,
+    "report_paths_reviewed_per_repository": [
+      "README.md",
+      "source-index.md",
+      "evidence.json"
+    ],
+    "upstream_code_spot_checks": 27,
+    "executed_this_issue": "GitHub connector static source audit and structured data validation; no independent game binary runs",
+    "score_interpretation": "Individual source assessments only; null means insufficient/irrelevant evidence, not zero. No composite rank.",
+    "provenance_rule": "No unverified upstream claim or reconstruction runtime output may be generalized into original-game differential proof"
+  },
+  "repositories": [
+    {
+      "repository": "mytbk/rich4",
+      "slug": "mytbk--rich4",
+      "url": "https://github.com/mytbk/rich4",
+      "upstream_sha": "f81954d6a5675f63297036f9252720c6ca32a2b4",
+      "original_relation": "tool",
+      "license": {
+        "spdx": "GPL-3.0-or-later",
+        "source_url": "https://github.com/mytbk/rich4/blob/f81954d6a5675f63297036f9252720c6ca32a2b4/COPYING"
+      },
+      "evidence_levels": {
+        "A": 0,
+        "B": 21,
+        "C": 4,
+        "D": 2
+      },
+      "execution": {
+        "attempted_oiginal_study": false,
+        "latest_result": "仅完成指定 SHA 的公开源码静态核查；未执行逆向源码编译、原版游戏启动或资源测试，A 类证据=0",
+        "issue121_followup": null
+      },
+      "features": [
+        {
+          "feature": "原版启动/完整对局",
+          "status": "claimed",
+          "evidence_ids": [
+            "C01",
+            "B01",
+            "D01"
+          ]
+        },
+        {
+          "feature": "回合/移动",
+          "status": "partial",
+          "evidence_ids": [
+            "B05",
+            "B13",
+            "B18"
+          ]
+        },
+        {
+          "feature": "地图节点/资源读取",
+          "status": "partial",
+          "evidence_ids": [
+            "B02",
+            "B03",
+            "B15"
+          ]
+        },
+        {
+          "feature": "地产买卖/升级/租金",
+          "status": "partial",
+          "evidence_ids": [
+            "B04",
+            "B05",
+            "B07"
+          ]
+        },
+        {
+          "feature": "银行/存款贷款",
+          "status": "partial",
+          "evidence_ids": [
+            "B06",
+            "B08",
+            "B13"
+          ]
+        },
+        {
+          "feature": "股市买卖/上市公司",
+          "status": "partial",
+          "evidence_ids": [
+            "B06",
+            "B07",
+            "B20"
+          ]
+        },
+        {
+          "feature": "卡片/道具",
+          "status": "partial",
+          "evidence_ids": [
+            "B09",
+            "B18",
+            "B21"
+          ]
+        },
+        {
+          "feature": "神明/事件",
+          "status": "partial",
+          "evidence_ids": [
+            "B10",
+            "B13"
+          ]
+        },
+        {
+          "feature": "电脑对手",
+          "status": "partial",
+          "evidence_ids": [
+            "B11"
+          ]
+        },
+        {
+          "feature": "原版二进制存读档",
+          "status": "partial",
+          "evidence_ids": [
+            "B12",
+            "B13"
+          ]
+        },
+        {
+          "feature": "图形音效/交互",
+          "status": "unknown",
+          "evidence_ids": [
+            "B01",
+            "B08",
+            "D01"
+          ]
+        },
+        {
+          "feature": "浏览器/PWA/现代原生平台",
+          "status": "unknown",
+          "evidence_ids": [
+            "B01",
+            "C01",
+            "D01"
+          ]
+        }
+      ],
+      "scores": {
+        "rules": 3,
+        "maintainability": 2,
+        "reproducibility": null,
+        "presentation": null,
+        "reactmono_value": 4
+      },
+      "recommendation": "read_only_reference",
+      "source_report": "repositories/mytbk--rich4/README.md",
+      "source_index": "repositories/mytbk--rich4/source-index.md",
+      "source_evidence": "repositories/mytbk--rich4/evidence.json",
+      "limitations": [
+        "原版 v3.11 与 Steam 版、资料片不同版本的二进制、地图及 SAVE 布局差异如何？",
+        "原版正确运行的 Wine multilib 版本、Win32 图形和音效要求能否在合法素材环境复现？",
+        "地产联排租金在所有权、查封、神明/联盟分支的具体算例为何？",
+        "股市银行结算及股票成本/控制权变更是否在异动节点同步更新？",
+        "二进制 SAVE 文件具体长度、地图追加记录的安全读写校验和兼容性如何？"
+      ]
+    },
+    {
+      "repository": "tytannial/rich4-re",
+      "slug": "tytannial--rich4-re",
+      "url": "https://github.com/tytannial/rich4-re",
+      "upstream_sha": "b7b76570f445ad07c0788314062b8500e77259e7",
+      "original_relation": "faithful",
+      "license": {
+        "spdx": "MIT",
+        "source_url": "https://github.com/tytannial/rich4-re/blob/b7b76570f445ad07c0788314062b8500e77259e7/LICENSE"
+      },
+      "evidence_levels": {
+        "A": 1,
+        "B": 15,
+        "C": 1,
+        "D": 3
+      },
+      "execution": {
+        "attempted_oiginal_study": true,
+        "latest_result": "2026-10-19 初查仅 B 静态；2026-10-21 #121 在 Linux 独立编译执行四项 C++ 经济边界，修正两处仅测试用例的越界访问后 126 断言、0 失败、3 资源测试跳过；不涉及原作二进制差分或 SDL 完整 UI。",
+        "issue121_followup": {
+          "evidence_id": "A121_ECONOMY",
+          "results_path": "docs/research/verification-issue-121/RESULTS.md",
+          "run_log": "docs/research/verification-issue-121/evidence/economy-run.log",
+          "constraints": "Only C++ reconstructed rules, 3 commercial samples skipped"
+        }
+      },
+      "features": [
+        {
+          "feature": "new_game_turn_ai",
+          "status": "partial",
+          "evidence_ids": [
+            "B02",
+            "B03",
+            "B04",
+            "B11"
+          ]
+        },
+        {
+          "feature": "residential_property_rent_alliance",
+          "status": "partial",
+          "evidence_ids": [
+            "B04",
+            "B05",
+            "B10",
+            "B12",
+            "A121_ECONOMY"
+          ]
+        },
+        {
+          "feature": "commercial_property_facilities",
+          "status": "partial",
+          "evidence_ids": [
+            "B04",
+            "C01"
+          ]
+        },
+        {
+          "feature": "bank_loans_dividends",
+          "status": "partial",
+          "evidence_ids": [
+            "B05",
+            "B06",
+            "B12"
+          ]
+        },
+        {
+          "feature": "stock_market",
+          "status": "partial",
+          "evidence_ids": [
+            "B06",
+            "B12"
+          ]
+        },
+        {
+          "feature": "cards_and_items",
+          "status": "partial",
+          "evidence_ids": [
+            "B07",
+            "C01"
+          ]
+        },
+        {
+          "feature": "gods_news_fate_events",
+          "status": "partial",
+          "evidence_ids": [
+            "B04",
+            "B12"
+          ]
+        },
+        {
+          "feature": "save_load_binary_snapshot",
+          "status": "partial",
+          "evidence_ids": [
+            "B09",
+            "B10",
+            "B12"
+          ]
+        },
+        {
+          "feature": "sdl_visual_audio_interaction",
+          "status": "partial",
+          "evidence_ids": [
+            "B08",
+            "B13",
+            "D02"
+          ]
+        },
+        {
+          "feature": "browser_pwa",
+          "status": "unknown",
+          "evidence_ids": [
+            "B02",
+            "B03",
+            "B15"
+          ]
+        },
+        {
+          "feature": "commercial_quality_and_original_fidelity",
+          "status": "unknown",
+          "evidence_ids": [
+            "C01",
+            "D02",
+            "D01"
+          ]
+        },
+        {
+          "feature": "issue121_rent_and_trade_native_tests",
+          "status": "verified",
+          "evidence_ids": [
+            "A121_ECONOMY"
+          ]
+        }
+      ],
+      "scores": {
+        "rules": 4,
+        "maintainability": 3.5,
+        "reproducibility": 2,
+        "presentation": null,
+        "reactmono_value": 4
+      },
+      "recommendation": "read_only_reference",
+      "source_report": "repositories/tytannial--rich4-re/README.md",
+      "source_index": "repositories/tytannial--rich4-re/source-index.md",
+      "source_evidence": "repositories/tytannial--rich4-re/evidence.json",
+      "limitations": [
+        "与mytbk/rich4 GPL代码是否存在实际复制与版权传承问题？",
+        "1998、1999及资料片版本之间的资源/存档格式差异是什么？",
+        "合法原版资源支持下L0/L1的实际通过率、截图及声画是否符合原作？",
+        "哪些99个场景有精确业务断言，哪些仅trace/通用错误检查？",
+        "是否有可公开分发的最小无版权资产测试fixtures以支持独立L0验证？"
+      ]
+    },
+    {
+      "repository": "lhr0909/richman4-remastered",
+      "slug": "lhr0909--richman4-remastered",
+      "url": "https://github.com/lhr0909/richman4-remastered",
+      "upstream_sha": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+      "original_relation": "faithful",
+      "license": {
+        "spdx": "GPL-3.0-or-later",
+        "source_url": "https://github.com/lhr0909/richman4-remastered/blob/3f4209a7dfb5b2f20799bf54e6c03c5faa11c557/LICENSE"
+      },
+      "evidence_levels": {
+        "A": 0,
+        "B": 18,
+        "C": 2,
+        "D": 1
+      },
+      "execution": {
+        "attempted_oiginal_study": false,
+        "latest_result": "not_run: 上游构建、CTest、20 场 runner、原版对照、Android/iOS 真机均未运行；没有 A 类证据",
+        "issue121_followup": null
+      },
+      "features": [
+        {
+          "feature": "new_game_turns_maps_property",
+          "status": "partial",
+          "evidence_ids": [
+            "E04",
+            "E05",
+            "E15"
+          ]
+        },
+        {
+          "feature": "original_style_toolbar_minimap_ui",
+          "status": "partial",
+          "evidence_ids": [
+            "E06",
+            "E12",
+            "E16"
+          ]
+        },
+        {
+          "feature": "character_anim_flc_voice_music",
+          "status": "partial",
+          "evidence_ids": [
+            "E07",
+            "E12",
+            "E16"
+          ]
+        },
+        {
+          "feature": "cards_tools_shops_gods",
+          "status": "partial",
+          "evidence_ids": [
+            "E08",
+            "E15",
+            "E16"
+          ]
+        },
+        {
+          "feature": "stocks_bank_financing_auctions",
+          "status": "partial",
+          "evidence_ids": [
+            "E09",
+            "E16"
+          ]
+        },
+        {
+          "feature": "interactive_three_minigames",
+          "status": "partial",
+          "evidence_ids": [
+            "E11",
+            "E16"
+          ]
+        },
+        {
+          "feature": "saves_slots_autosave",
+          "status": "partial",
+          "evidence_ids": [
+            "E10",
+            "E16"
+          ]
+        },
+        {
+          "feature": "computer_ai_managed_mode",
+          "status": "partial",
+          "evidence_ids": [
+            "E05",
+            "E09",
+            "E16"
+          ]
+        },
+        {
+          "feature": "android_real_device_install",
+          "status": "claimed",
+          "evidence_ids": [
+            "E13",
+            "E16"
+          ]
+        },
+        {
+          "feature": "ios_simulator_touch_test_pass",
+          "status": "claimed",
+          "evidence_ids": [
+            "E14",
+            "E16"
+          ]
+        },
+        {
+          "feature": "ios_physical_device",
+          "status": "unknown",
+          "evidence_ids": [
+            "E14",
+            "E16"
+          ]
+        },
+        {
+          "feature": "full_original_game_equivalence",
+          "status": "unknown",
+          "evidence_ids": [
+            "E03",
+            "E15",
+            "E19",
+            "E20"
+          ]
+        },
+        {
+          "feature": "modern_react_3d_graphics",
+          "status": "absent",
+          "evidence_ids": [
+            "E02",
+            "E19",
+            "E21"
+          ]
+        },
+        {
+          "feature": "original_avi_cinematics",
+          "status": "partial",
+          "evidence_ids": [
+            "E16",
+            "E18"
+          ]
+        },
+        {
+          "feature": "47_of_47_ctest_pass",
+          "status": "claimed",
+          "evidence_ids": [
+            "E02",
+            "E16"
+          ]
+        },
+        {
+          "feature": "20_of_20_native_acceptance_pass",
+          "status": "claimed",
+          "evidence_ids": [
+            "E15",
+            "E16",
+            "E20"
+          ]
+        },
+        {
+          "feature": "source_license_attribution",
+          "status": "verified",
+          "evidence_ids": [
+            "E17",
+            "E18"
+          ]
+        }
+      ],
+      "scores": {
+        "rules": 3,
+        "maintainability": 3,
+        "reproducibility": 1,
+        "presentation": null,
+        "reactmono_value": 3
+      },
+      "recommendation": "read_only_reference",
+      "source_report": "repositories/lhr0909--richman4-remastered/README.md",
+      "source_index": "repositories/lhr0909--richman4-remastered/source-index.md",
+      "source_evidence": "repositories/lhr0909--richman4-remastered/evidence.json",
+      "limitations": [
+        "可否提供去商业数据化的 2026-10-06 47/47 CTest 完整日志和配置以及同一批次 20/20 summary.json？",
+        "原版 v3.11 与 Steam 版 MKF/字体/过场差异如何？",
+        "哪些 UI 画面/输入序列经原版与原生相同存档的帧级独立对照？",
+        "23 个 AVI 占位资源是否有合法可分发替代？",
+        "iOS 真机侧载、后台保存、音频和完整结局是否已独立完成验收？"
+      ]
+    },
+    {
+      "repository": "iam567/rich4-renew-app",
+      "slug": "iam567--rich4-renew-app",
+      "url": "https://github.com/iam567/rich4-renew-app",
+      "upstream_sha": "1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79",
+      "original_relation": "derived",
+      "license": {
+        "spdx": "GPL-3.0-or-later",
+        "source_url": "https://github.com/iam567/rich4-renew-app/blob/1a85b631700e5bbc9da64d5d995c9f0f9d9b4f79/LICENSE"
+      },
+      "evidence_levels": {
+        "A": 0,
+        "B": 20,
+        "C": 4,
+        "D": 0
+      },
+      "execution": {
+        "attempted_oiginal_study": false,
+        "latest_result": "static_source_review_only; no upstream build/test/browser/device run; no independent screenshots; GitHub branch/contents/releases fetched via connector",
+        "issue121_followup": null
+      },
+      "features": [
+        {
+          "feature": "new_game_turns",
+          "status": "partial",
+          "evidence_ids": [
+            "E01",
+            "E02"
+          ]
+        },
+        {
+          "feature": "board_original_parsing",
+          "status": "partial",
+          "evidence_ids": [
+            "E07",
+            "E12"
+          ]
+        },
+        {
+          "feature": "property_and_rent",
+          "status": "partial",
+          "evidence_ids": [
+            "E03"
+          ]
+        },
+        {
+          "feature": "bank_and_loans",
+          "status": "partial",
+          "evidence_ids": [
+            "E03",
+            "E15"
+          ]
+        },
+        {
+          "feature": "stocks_and_company",
+          "status": "partial",
+          "evidence_ids": [
+            "E04",
+            "E15",
+            "E16"
+          ]
+        },
+        {
+          "feature": "cards",
+          "status": "partial",
+          "evidence_ids": [
+            "E05",
+            "E15"
+          ]
+        },
+        {
+          "feature": "items_and_gods",
+          "status": "partial",
+          "evidence_ids": [
+            "E06"
+          ]
+        },
+        {
+          "feature": "events_npc",
+          "status": "partial",
+          "evidence_ids": [
+            "E01",
+            "E06"
+          ]
+        },
+        {
+          "feature": "computer_ai",
+          "status": "partial",
+          "evidence_ids": [
+            "E02",
+            "E15"
+          ]
+        },
+        {
+          "feature": "normal_save",
+          "status": "partial",
+          "evidence_ids": [
+            "E10",
+            "E13",
+            "E15"
+          ]
+        },
+        {
+          "feature": "tycoon_save",
+          "status": "partial",
+          "evidence_ids": [
+            "E08",
+            "E10",
+            "E13"
+          ]
+        },
+        {
+          "feature": "custom_maps",
+          "status": "partial",
+          "evidence_ids": [
+            "E07",
+            "E09",
+            "E12"
+          ]
+        },
+        {
+          "feature": "tycoon_mode",
+          "status": "partial",
+          "evidence_ids": [
+            "E08",
+            "E09"
+          ]
+        },
+        {
+          "feature": "kabukicho",
+          "status": "partial",
+          "evidence_ids": [
+            "E09"
+          ]
+        },
+        {
+          "feature": "mobile_native_packaging",
+          "status": "claimed",
+          "evidence_ids": [
+            "E14",
+            "E20",
+            "E21",
+            "E23"
+          ]
+        },
+        {
+          "feature": "real_device_playability",
+          "status": "unknown",
+          "evidence_ids": [
+            "E20",
+            "E21",
+            "E23"
+          ]
+        },
+        {
+          "feature": "visual_audio_quality",
+          "status": "unknown",
+          "evidence_ids": [
+            "E11",
+            "E12"
+          ]
+        },
+        {
+          "feature": "original_rule_fidelity",
+          "status": "unknown",
+          "evidence_ids": [
+            "E17",
+            "E18",
+            "E19"
+          ]
+        },
+        {
+          "feature": "pwa_offline",
+          "status": "unknown",
+          "evidence_ids": [
+            "E14",
+            "E23"
+          ]
+        }
+      ],
+      "scores": {
+        "rules": 3,
+        "maintainability": 3,
+        "reproducibility": 1,
+        "presentation": null,
+        "reactmono_value": 4
+      },
+      "recommendation": "read_only_reference",
+      "source_report": "repositories/iam567--rich4-renew-app/README.md",
+      "source_index": "repositories/iam567--rich4-renew-app/source-index.md",
+      "source_evidence": "repositories/iam567--rich4-renew-app/evidence.json",
+      "limitations": [
+        "能否在不分发原版资产的合规条件下获得可复现的核心规则测试样本？",
+        "第三方说明的 mytbk/rich4 Git 子模块在哪个历史版本，如何证明代码血缘与具体逆向证据？",
+        "0.2.2 的发行、Android/iOS 真机回归及横竖屏截图是否有独立可复核记录？",
+        "全量 Vitest 在无 assets 与有 assets 情况下的跳过与失败数量各是多少？",
+        "十二人五城连续整局、歌舞伎町和移动端内存负荷是否稳定？"
+      ]
+    },
+    {
+      "repository": "nurockplayer/richman4-remake",
+      "slug": "nurockplayer--richman4-remake",
+      "url": "https://github.com/nurockplayer/richman4-remake",
+      "upstream_sha": "961bdf47389a08e3143c0340490896b9f50edef9",
+      "original_relation": "faithful",
+      "license": {
+        "spdx": null,
+        "source_url": null
+      },
+      "evidence_levels": {
+        "A": 0,
+        "B": 12,
+        "C": 6,
+        "D": 1
+      },
+      "execution": {
+        "attempted_oiginal_study": false,
+        "latest_result": "NOT_RUN (no A evidence)",
+        "issue121_followup": null
+      },
+      "features": [
+        {
+          "feature": "2–4人开局/人机回合",
+          "status": "partial",
+          "evidence_ids": [
+            "B04",
+            "C01"
+          ]
+        },
+        {
+          "feature": "原版4+8地图数据",
+          "status": "claimed",
+          "evidence_ids": [
+            "B01",
+            "B03",
+            "C03"
+          ]
+        },
+        {
+          "feature": "路网/分岔/地产升级租金结算",
+          "status": "partial",
+          "evidence_ids": [
+            "B03",
+            "B04",
+            "B09",
+            "C01"
+          ]
+        },
+        {
+          "feature": "银行ATM/贷款/途中暂停与续走",
+          "status": "partial",
+          "evidence_ids": [
+            "B04",
+            "C04"
+          ]
+        },
+        {
+          "feature": "十二股源目录/价格历史/持股",
+          "status": "partial",
+          "evidence_ids": [
+            "B02",
+            "B03",
+            "B05",
+            "B08"
+          ]
+        },
+        {
+          "feature": "三股旧档与原始股票分流",
+          "status": "partial",
+          "evidence_ids": [
+            "B06"
+          ]
+        },
+        {
+          "feature": "卡片/道具/神明/事件",
+          "status": "partial",
+          "evidence_ids": [
+            "B04",
+            "C06"
+          ]
+        },
+        {
+          "feature": "AI接手与长局结算",
+          "status": "claimed",
+          "evidence_ids": [
+            "B04",
+            "C01"
+          ]
+        },
+        {
+          "feature": "序列化存档/恢复固定RNG",
+          "status": "partial",
+          "evidence_ids": [
+            "B04",
+            "B09",
+            "C01"
+          ]
+        },
+        {
+          "feature": "原版主棋盘视觉逐幕最终验收",
+          "status": "unknown",
+          "evidence_ids": [
+            "B07",
+            "C02",
+            "D01"
+          ]
+        },
+        {
+          "feature": "原版股市视觉逐幕最终验收",
+          "status": "unknown",
+          "evidence_ids": [
+            "B08",
+            "C02",
+            "D01"
+          ]
+        },
+        {
+          "feature": "步态/镜头/原版音画时序",
+          "status": "unknown",
+          "evidence_ids": [
+            "C06",
+            "B07"
+          ]
+        },
+        {
+          "feature": "macOS私有完整封包交付",
+          "status": "claimed",
+          "evidence_ids": [
+            "B10",
+            "B11",
+            "C01",
+            "C04"
+          ]
+        },
+        {
+          "feature": "浏览器/PWA/Pages端运行",
+          "status": "unknown",
+          "evidence_ids": [
+            "B10"
+          ]
+        }
+      ],
+      "scores": {
+        "rules": null,
+        "maintainability": 3,
+        "reproducibility": 2,
+        "presentation": null,
+        "reactmono_value": 4
+      },
+      "recommendation": "read_only_reference",
+      "source_report": "repositories/nurockplayer--richman4-remake/README.md",
+      "source_index": "repositories/nurockplayer--richman4-remake/source-index.md",
+      "source_evidence": "repositories/nurockplayer--richman4-remake/evidence.json",
+      "limitations": [
+        "持合法素材的独立审计者能否复算4+8地图与原版股票源字节统计？",
+        "能否拿到同版原作/复刻逐幕图像、交互和独立视觉裁决？",
+        "最终封包普通开局与旧v4存档能否分别核对12股/3股路径？",
+        "上游银行候选PR212何时完成实机及素材验收并进入main？",
+        "上游代码许可证与第三方代码、商业原版资产授权如何取得？"
+      ]
+    },
+    {
+      "repository": "oama1111/rich4-remake-public",
+      "slug": "oama1111--rich4-remake-public",
+      "url": "https://github.com/oama1111/rich4-remake-public",
+      "upstream_sha": "42ad97ad31f07541a9af35415e36be4da4147484",
+      "original_relation": "faithful",
+      "license": {
+        "spdx": "GPL-3.0-or-later",
+        "source_url": "https://github.com/oama1111/rich4-remake-public/blob/42ad97ad31f07541a9af35415e36be4da4147484/LICENSE"
+      },
+      "evidence_levels": {
+        "A": 0,
+        "B": 15,
+        "C": 6,
+        "D": 0
+      },
+      "execution": {
+        "attempted_oiginal_study": true,
+        "latest_result": "可复核的远端静态审计完成，无法在当前容器 git clone、安装、运行原作依赖测试、浏览器或桌面联机实测。无 A 级玩法实测。",
+        "issue121_followup": null
+      },
+      "features": [
+        {
+          "feature": "新局/回合/骰子",
+          "status": "partial",
+          "evidence_ids": [
+            "E01",
+            "E02",
+            "E03"
+          ]
+        },
+        {
+          "feature": "地图/地块/地产/租金",
+          "status": "partial",
+          "evidence_ids": [
+            "E01",
+            "E10"
+          ]
+        },
+        {
+          "feature": "银行/股票/商用经济",
+          "status": "partial",
+          "evidence_ids": [
+            "E01",
+            "E18"
+          ]
+        },
+        {
+          "feature": "卡片/道具",
+          "status": "partial",
+          "evidence_ids": [
+            "E01",
+            "E18"
+          ]
+        },
+        {
+          "feature": "神明/事件/特殊场所",
+          "status": "partial",
+          "evidence_ids": [
+            "E18"
+          ]
+        },
+        {
+          "feature": "电脑玩家和策略",
+          "status": "partial",
+          "evidence_ids": [
+            "E03",
+            "E18",
+            "E19"
+          ]
+        },
+        {
+          "feature": "本地存读档及原版导入",
+          "status": "partial",
+          "evidence_ids": [
+            "E08",
+            "E12"
+          ]
+        },
+        {
+          "feature": "浏览器交互/动画/配乐",
+          "status": "claimed",
+          "evidence_ids": [
+            "E08",
+            "E20"
+          ]
+        },
+        {
+          "feature": "Tauri 原生桌面/外部素材目录",
+          "status": "partial",
+          "evidence_ids": [
+            "E09",
+            "E20"
+          ]
+        },
+        {
+          "feature": "多人/WebSocket/房间/重连",
+          "status": "partial",
+          "evidence_ids": [
+            "E04",
+            "E05",
+            "E06",
+            "E07",
+            "E17"
+          ]
+        },
+        {
+          "feature": "可脱离原版素材直接开局",
+          "status": "unknown",
+          "evidence_ids": [
+            "E10",
+            "E20",
+            "E21"
+          ]
+        },
+        {
+          "feature": "严格与原版 v3.11 数值吻合",
+          "status": "claimed",
+          "evidence_ids": [
+            "E11",
+            "E16",
+            "E18"
+          ]
+        },
+        {
+          "feature": "商业级视觉/多平台实机稳定性",
+          "status": "unknown",
+          "evidence_ids": [
+            "E16",
+            "E20"
+          ]
+        },
+        {
+          "feature": "GitHub Pages 纯静态部署的无后端多人架构",
+          "status": "unknown",
+          "evidence_ids": [
+            "E06",
+            "E07"
+          ]
+        }
+      ],
+      "scores": {
+        "rules": 3,
+        "maintainability": 3,
+        "reproducibility": 1,
+        "presentation": null,
+        "reactmono_value": 4
+      },
+      "recommendation": "read_only_reference",
+      "source_report": "repositories/oama1111--rich4-remake-public/README.md",
+      "source_index": "repositories/oama1111--rich4-remake-public/source-index.md",
+      "source_evidence": "repositories/oama1111--rich4-remake-public/evidence.json",
+      "limitations": [
+        "原版 v3.11（2001）与 1998 基础版的规则差异究竟有哪些？需要合法原版差分样本。",
+        "六区审计 approx/follow-up 的当前残项哪些可在独立资料下复核？",
+        "公开镜像的自动化无素材通过项与有素材真值测试完整列表和数量在固定 SHA 下如何变化？",
+        "WebKit、Windows、Linux、实际玩家最终胜负局与商业级视觉是否经过独立验证？",
+        "与 mytbk/rich4 的具体源码复制边界、第三方文件授权与历史是否另有证据？"
+      ]
+    },
+    {
+      "repository": "JCRJPZB/Rich4",
+      "slug": "JCRJPZB--Rich4",
+      "url": "https://github.com/JCRJPZB/Rich4",
+      "upstream_sha": "0c86a1b7fc889ff2f3a1f3cba7f5947f5e291ea0",
+      "original_relation": "derived",
+      "license": {
+        "spdx": null,
+        "source_url": null
+      },
+      "evidence_levels": {
+        "A": 2,
+        "B": 13,
+        "C": 0,
+        "D": 1
+      },
+      "execution": {
+        "attempted_oiginal_study": true,
+        "latest_result": "静态数据级测试通过：3 JSON 可解析；Japan 96/96 点、3/3 线、3/3 路径、15/15 道路、2/2 建筑；路段点索引和路径路段索引越界 0；未运行/构建 Cocos 编辑器游戏",
+        "issue121_followup": null
+      },
+      "features": [
+        {
+          "feature": "new_game",
+          "status": "partial",
+          "evidence_ids": [
+            "R05"
+          ]
+        },
+        {
+          "feature": "turn_dice_movement",
+          "status": "partial",
+          "evidence_ids": [
+            "R07",
+            "R08"
+          ]
+        },
+        {
+          "feature": "map_and_routes",
+          "status": "partial",
+          "evidence_ids": [
+            "R04",
+            "R06",
+            "R07"
+          ]
+        },
+        {
+          "feature": "property_purchase_rent_upgrade",
+          "status": "partial",
+          "evidence_ids": [
+            "R09"
+          ]
+        },
+        {
+          "feature": "bank_deposits",
+          "status": "partial",
+          "evidence_ids": [
+            "R10"
+          ]
+        },
+        {
+          "feature": "stock_market",
+          "status": "partial",
+          "evidence_ids": [
+            "R10"
+          ]
+        },
+        {
+          "feature": "cards",
+          "status": "partial",
+          "evidence_ids": [
+            "R11"
+          ]
+        },
+        {
+          "feature": "items",
+          "status": "partial",
+          "evidence_ids": [
+            "R11"
+          ]
+        },
+        {
+          "feature": "special_events_magic",
+          "status": "partial",
+          "evidence_ids": [
+            "R11"
+          ]
+        },
+        {
+          "feature": "computer_ai",
+          "status": "partial",
+          "evidence_ids": [
+            "R08",
+            "R13"
+          ]
+        },
+        {
+          "feature": "elimination_victory",
+          "status": "partial",
+          "evidence_ids": [
+            "R05",
+            "R08"
+          ]
+        },
+        {
+          "feature": "save_load",
+          "status": "unknown",
+          "evidence_ids": [
+            "R12"
+          ]
+        },
+        {
+          "feature": "presentation_animation",
+          "status": "partial",
+          "evidence_ids": [
+            "R02",
+            "R03"
+          ]
+        },
+        {
+          "feature": "audio",
+          "status": "unknown",
+          "evidence_ids": [
+            "R03",
+            "R12"
+          ]
+        },
+        {
+          "feature": "mobile_web_pwa",
+          "status": "unknown",
+          "evidence_ids": [
+            "R02",
+            "R12"
+          ]
+        },
+        {
+          "feature": "faithful_1998_rules",
+          "status": "unknown",
+          "evidence_ids": [
+            "R14",
+            "R05"
+          ]
+        }
+      ],
+      "scores": {
+        "rules": 2,
+        "maintainability": 1,
+        "reproducibility": 1,
+        "presentation": null,
+        "reactmono_value": 2
+      },
+      "recommendation": "read_only_reference",
+      "source_report": "repositories/JCRJPZB--Rich4/README.md",
+      "source_index": "repositories/JCRJPZB--Rich4/source-index.md",
+      "source_evidence": "repositories/JCRJPZB--Rich4/evidence.json",
+      "limitations": [
+        "Cocos Creator 2.4.3 的 Game.fire 是否能实际启动并完成 2–4 人整局？",
+        "全部 Prefab/Atlas/原版图像素材的版权及其来源是否获许可？",
+        "与其他 Rich4 重制仓库是否共享过源码文件或更早原始仓库？",
+        "实际是否存在未提交的存档、音效与打包测试资源？",
+        "原版 1998 规则、经济参数和事件效果有没有可重复对照的权威基线？"
+      ]
+    },
+    {
+      "repository": "Yakamozli/richman-3d",
+      "slug": "Yakamozli--richman-3d",
+      "url": "https://github.com/Yakamozli/richman-3d",
+      "upstream_sha": "32e7f01f9888a28b8fd1267f5488c455e15abe4a",
+      "original_relation": "inspired",
+      "license": {
+        "spdx": "MIT",
+        "source_url": "https://github.com/Yakamozli/richman-3d/blob/32e7f01f9888a28b8fd1267f5488c455e15abe4a/LICENSE"
+      },
+      "evidence_levels": {
+        "A": 1,
+        "B": 17,
+        "C": 2,
+        "D": 1
+      },
+      "execution": {
+        "attempted_oiginal_study": true,
+        "latest_result": "2026-10-19 初查仅 B/C 静态；2026-10-21 #121 在 Chromium 155 Linux SwiftShader 获得 1440×900/390×844 首回合真实截图 A，仍未验证完整局、真机及升级动画/性能。",
+        "issue121_followup": {
+          "evidence_id": "A121_CHROMIUM",
+          "results_path": "docs/research/verification-issue-121/RESULTS.md",
+          "run_log": "docs/research/verification-issue-121/evidence/run.log",
+          "constraints": "Two screenshots of first-turn Chromium software renderer only"
+        }
+      },
+      "features": [
+        {
+          "feature": "开局/本地2–4人设置",
+          "status": "partial",
+          "evidence_ids": [
+            "B09",
+            "C01"
+          ]
+        },
+        {
+          "feature": "52格/16色组地图",
+          "status": "partial",
+          "evidence_ids": [
+            "B01",
+            "B02"
+          ]
+        },
+        {
+          "feature": "3D实体棋盘路面",
+          "status": "partial",
+          "evidence_ids": [
+            "B02",
+            "B03"
+          ]
+        },
+        {
+          "feature": "角色程序化低模",
+          "status": "partial",
+          "evidence_ids": [
+            "B04"
+          ]
+        },
+        {
+          "feature": "地产买卖/收租/房屋/酒店",
+          "status": "partial",
+          "evidence_ids": [
+            "B05",
+            "B09"
+          ]
+        },
+        {
+          "feature": "银行与独立账户",
+          "status": "unknown",
+          "evidence_ids": [
+            "B09"
+          ]
+        },
+        {
+          "feature": "股票",
+          "status": "unknown",
+          "evidence_ids": [
+            "B09"
+          ]
+        },
+        {
+          "feature": "机会/事件与翻牌盲选",
+          "status": "partial",
+          "evidence_ids": [
+            "B07",
+            "B08",
+            "B09"
+          ]
+        },
+        {
+          "feature": "道具/路障",
+          "status": "partial",
+          "evidence_ids": [
+            "B09",
+            "B10"
+          ]
+        },
+        {
+          "feature": "神明/复杂原版事件",
+          "status": "unknown",
+          "evidence_ids": [
+            "B01",
+            "B09"
+          ]
+        },
+        {
+          "feature": "AI决策",
+          "status": "partial",
+          "evidence_ids": [
+            "B10",
+            "B11"
+          ]
+        },
+        {
+          "feature": "破产与结算",
+          "status": "partial",
+          "evidence_ids": [
+            "B09",
+            "B11"
+          ]
+        },
+        {
+          "feature": "保存与读取存档",
+          "status": "unknown",
+          "evidence_ids": [
+            "B09",
+            "B16"
+          ]
+        },
+        {
+          "feature": "多地图与非规则路径",
+          "status": "unknown",
+          "evidence_ids": [
+            "B01"
+          ]
+        },
+        {
+          "feature": "3D灯光/阴影与镜头",
+          "status": "partial",
+          "evidence_ids": [
+            "B06"
+          ]
+        },
+        {
+          "feature": "纸币/卡牌/地契程序绘图",
+          "status": "partial",
+          "evidence_ids": [
+            "B07",
+            "B08"
+          ]
+        },
+        {
+          "feature": "音频",
+          "status": "partial",
+          "evidence_ids": [
+            "C01"
+          ]
+        },
+        {
+          "feature": "端侧静态网页部署",
+          "status": "claimed",
+          "evidence_ids": [
+            "B16",
+            "C01"
+          ]
+        },
+        {
+          "feature": "移动端真机/WebGL和帧率",
+          "status": "unknown",
+          "evidence_ids": [
+            "D01"
+          ]
+        },
+        {
+          "feature": "自动化无头冒烟测试",
+          "status": "verified",
+          "evidence_ids": [
+            "B11",
+            "A121_CHROMIUM"
+          ]
+        },
+        {
+          "feature": "独立真实截图",
+          "status": "verified",
+          "evidence_ids": [
+            "C02",
+            "D01",
+            "A121_CHROMIUM"
+          ]
+        }
+      ],
+      "scores": {
+        "rules": 1,
+        "maintainability": 2,
+        "reproducibility": 2,
+        "presentation": null,
+        "reactmono_value": 3
+      },
+      "recommendation": "read_only_reference",
+      "source_report": "repositories/Yakamozli--richman-3d/README.md",
+      "source_index": "repositories/Yakamozli--richman-3d/source-index.md",
+      "source_evidence": "repositories/Yakamozli--richman-3d/evidence.json",
+      "limitations": [
+        "具备可交互 WebGL 浏览器时，能否在1365×768桌面与390×844手机独立截图并完成多回合验证？",
+        "修正 test/shot.html importmap 相对目录（仅上游本地临时副本）后，素材展示页是否具有可截图的真实画面？",
+        "实际 GPU 纹理占用（2940×2940 棋盘）、draw calls、CPU/GPU 帧时间及手机低端设备性能是多少？",
+        "是否存在独立存读档/银行股市等本次所读文件未暴露的实现？",
+        "第三方 vendor 版本/原始许可通知、原版风格角色相似度及运营商标风险需进一步确认。"
+      ]
+    },
+    {
+      "repository": "zawsstt/monopoly-rich-life",
+      "slug": "zawsstt--monopoly-rich-life",
+      "url": "https://github.com/zawsstt/monopoly-rich-life",
+      "upstream_sha": "307c1761b150a7179fb0353618a95bc6effe3fee",
+      "original_relation": "inspired",
+      "license": {
+        "spdx": null,
+        "source_url": "https://github.com/zawsstt/monopoly-rich-life/blob/307c1761b150a7179fb0353618a95bc6effe3fee/LICENSE#L1-L25"
+      },
+      "evidence_levels": {
+        "A": 1,
+        "B": 13,
+        "C": 2,
+        "D": 1
+      },
+      "execution": {
+        "attempted_oiginal_study": true,
+        "latest_result": "2026-10-19 初查仅 B/C 静态；2026-10-21 #121 在 Chromium 155 Linux SwiftShader 获得 1440×900/390×844 首回合真实截图 A，仍未验证完整局、真机及升级动画/性能。",
+        "issue121_followup": {
+          "evidence_id": "A121_CHROMIUM",
+          "results_path": "docs/research/verification-issue-121/RESULTS.md",
+          "run_log": "docs/research/verification-issue-121/evidence/run.log",
+          "constraints": "Two screenshots of first-turn Chromium software renderer only"
+        }
+      },
+      "features": [
+        {
+          "feature": "开局/回合及胜负",
+          "status": "partial",
+          "evidence_ids": [
+            "E03"
+          ]
+        },
+        {
+          "feature": "40 格/22 地产",
+          "status": "partial",
+          "evidence_ids": [
+            "E04"
+          ]
+        },
+        {
+          "feature": "购地/升楼/收租",
+          "status": "partial",
+          "evidence_ids": [
+            "E03",
+            "E06"
+          ]
+        },
+        {
+          "feature": "银行与股市（与大富翁4）",
+          "status": "unknown",
+          "evidence_ids": [
+            "E04"
+          ]
+        },
+        {
+          "feature": "卡片/道具/机会事件",
+          "status": "partial",
+          "evidence_ids": [
+            "E03",
+            "E04"
+          ]
+        },
+        {
+          "feature": "神明/复杂随机事件",
+          "status": "unknown",
+          "evidence_ids": [
+            "E03"
+          ]
+        },
+        {
+          "feature": "电脑对手",
+          "status": "partial",
+          "evidence_ids": [
+            "E03"
+          ]
+        },
+        {
+          "feature": "存读档/跨版本兼容",
+          "status": "unknown",
+          "evidence_ids": [
+            "E03",
+            "E14"
+          ]
+        },
+        {
+          "feature": "Three.js 书房/镜头/阴影",
+          "status": "partial",
+          "evidence_ids": [
+            "E05",
+            "E08"
+          ]
+        },
+        {
+          "feature": "角色/逐格建筑/四级成长",
+          "status": "partial",
+          "evidence_ids": [
+            "E06",
+            "E07"
+          ]
+        },
+        {
+          "feature": "本地战绩榜",
+          "status": "partial",
+          "evidence_ids": [
+            "E11"
+          ]
+        },
+        {
+          "feature": "Supabase 云榜",
+          "status": "claimed",
+          "evidence_ids": [
+            "E11"
+          ]
+        },
+        {
+          "feature": "WebRTC 联机及重连",
+          "status": "claimed",
+          "evidence_ids": [
+            "E10"
+          ]
+        },
+        {
+          "feature": "静态资源 CDN+本地回退",
+          "status": "partial",
+          "evidence_ids": [
+            "E09"
+          ]
+        },
+        {
+          "feature": "离线 PWA 安装/缓存",
+          "status": "unknown",
+          "evidence_ids": [
+            "E09",
+            "E14"
+          ]
+        },
+        {
+          "feature": "WebGL 实测帧率/真机兼容",
+          "status": "unknown",
+          "evidence_ids": [
+            "E13",
+            "E16"
+          ]
+        },
+        {
+          "feature": "独立 Chromium 游戏首回合截图",
+          "status": "verified",
+          "evidence_ids": [
+            "A121_CHROMIUM"
+          ]
+        }
+      ],
+      "scores": {
+        "rules": null,
+        "maintainability": 2,
+        "reproducibility": null,
+        "presentation": null,
+        "reactmono_value": 3
+      },
+      "recommendation": "read_only_reference",
+      "source_report": "repositories/zawsstt--monopoly-rich-life/README.md",
+      "source_index": "repositories/zawsstt--monopoly-rich-life/source-index.md",
+      "source_evidence": "repositories/zawsstt--monopoly-rich-life/evidence.json",
+      "limitations": [
+        "上游 307c176... 在一致环境的启动截图、相同视口手机性能及真实 60FPS 证据是什么？",
+        "被模型注释引用但未收录的 refs 参考图、插画、音频、短片具体版权主体及授权链是什么？",
+        "Supabase 房间创建/加入/断线恢复、排行榜 RPC 防刷与 Storage CDN 在自建实例能否独立复现？",
+        "经典与现代主题切换时个性化模型缺失、阴影设置、内存与绘制调用开销如何？",
+        "四级升级的结算、房主快照、断线恢复与玩家实际整局体验能否通过独立回归？"
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "priority": "P0",
+      "decision": "Original 3D art direction and multi-level visual acceptance",
+      "adopt": "Design principles and fresh original models only",
+      "source": [
+        "zawsstt/monopoly-rich-life",
+        "Yakamozli/richman-3d"
+      ],
+      "excludes": "Third-party copyrighted assets, license-restricted model code, presenter screenshots as product tests"
+    },
+    {
+      "priority": "P1",
+      "decision": "Optional street-consolidated rent contract and balance tests",
+      "source": [
+        "mytbk/rich4",
+        "tytannial/rich4-re",
+        "iam567/rich4-renew-app"
+      ],
+      "adopt": "Independent TS tests and opt-in versioned gameplay mode, not source copy"
+    },
+    {
+      "priority": "P1",
+      "decision": "Map branch graph with validated edges only when required by gameplay",
+      "source": [
+        "mytbk/rich4",
+        "nurockplayer/richman4-remake",
+        "JCRJPZB/Rich4"
+      ]
+    },
+    {
+      "priority": "P1",
+      "decision": "Repeatable action replay and save migration regression tests",
+      "source": [
+        "oama1111/rich4-remake-public",
+        "lhr0909/richman4-remastered"
+      ]
+    },
+    {
+      "priority": "exclude",
+      "decision": "Original commercial MKF, EXE, characters, GPL copying, Supabase/WebSocket runtime dependency, other game engines, original-game RNG reseed defaults"
+    }
+  ],
+  "unresolved": [
+    "No clean-room legal lineage review for GPL-vs-MIT reverse engineering references",
+    "No legally owned executable/resources for original-1998-v3.11 binary delta or SAVE.DAT fixture checks",
+    "No whole-playthrough upstream UX or physical phone benchmark",
+    "No 4-tier zawsstt building-upgrade execution screenshot",
+    "No meaningful independent Android/iOS or cloud-service verification"
+  ]
+}
