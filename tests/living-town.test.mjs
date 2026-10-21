@@ -31,7 +31,11 @@ test('生活街区按模型真实占地避开棋盘路线，不沿用小道具�
     const minZ=Math.min(...p.map(q=>q.z-q.sz/2))*o.scale,maxZ=Math.max(...p.map(q=>q.z+q.sz/2))*o.scale;
     const c=Math.cos(o.rotation),s=Math.sin(o.rotation),x=(minX+maxX)/2,z=(minZ+maxZ)/2;
     const bounds={x:o.x+c*x+s*z,z:o.z-s*x+c*z,rotation:o.rotation,halfX:(maxX-minX)/2,halfZ:(maxZ-minZ)/2};
-    for(const [id,t]of world.tiles.entries())assert.ok(!rectanglesOverlap(bounds,{...t,halfX:.89,halfZ:.89}),`${o.id}侵占路格${id}`);
+    for(const [id,t]of world.tiles.entries()){
+      assert.ok(!rectanglesOverlap(bounds,{...t,halfX:.89,halfZ:.89}),`${o.id}侵占路格${id}`);
+      const next=world.tiles[(id+1)%world.tiles.length],dx=next.x-t.x,dz=next.z-t.z;
+      assert.ok(!rectanglesOverlap(bounds,{x:(t.x+next.x)/2,z:(t.z+next.z)/2,rotation:Math.atan2(dx,dz),halfX:.91,halfZ:Math.hypot(dx,dz)/2}),`${o.id}侵占连续步行街${id}`);
+    }
   }
 });
 
