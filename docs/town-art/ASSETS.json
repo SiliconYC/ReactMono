@@ -31,10 +31,10 @@
   ],
   "budget": {
     "policy": "继承既有构建测试门槛，无放宽",
-    "productionBytes": 1505335,
+    "productionBytes": 1505667,
     "mainBundle": {
-      "path": "dist/assets/main-BVpa3dd6.js",
-      "bytes": 1041704
+      "path": "dist/assets/main-BCR1mZ81.js",
+      "bytes": 1042036
     },
     "physicalMobileVerified": false
   },
@@ -80,8 +80,8 @@
       "bytes": 324106
     },
     {
-      "path": "dist/assets/main-BVpa3dd6.js",
-      "bytes": 1041704
+      "path": "dist/assets/main-BCR1mZ81.js",
+      "bytes": 1042036
     },
     {
       "path": "dist/assets/main-D3keK-f5.css",
@@ -159,5 +159,6 @@
       "path": "dist/visual-tokens.css",
       "bytes": 2171
     }
-  ]
+  ],
+  "measurementSource": "a9cabe5 source build (runtime files generated locally, bundled paths checked)"
 }
