@@ -1,7 +1,7 @@
 # P010：从可玩 Demo 到正式游戏的子系统与任务级开发计划
 
-> 状态：开发规划，尚未执行本文任务。目标分支：`dev`。核查日期：2026-10-21。  
-> 源码基线：[`bd9891b530fea63b11f299a73a64bcda923b408e`](https://github.com/SiliconYC/ReactMono/tree/bd9891b530fea63b11f299a73a64bcda923b408e)。  
+> 状态：开发规划，尚未执行本文任务。目标分支：`dev`。核查日期：2026-10-21。
+> 源码基线：[`bd9891b530fea63b11f299a73a64bcda923b408e`](https://github.com/SiliconYC/ReactMono/tree/bd9891b530fea63b11f299a73a64bcda923b408e)。
 > 本轮阅读当前代码、现有研究及验收记录，不冒充重新运行了游戏、重做了九仓研究或完成了真人试玩。后续 Agent 开工时必须重新核对 `dev`、开放 Issue 和已合入成果。
 
 ## 一、结论：保留参考文章的方向，重做执行层
