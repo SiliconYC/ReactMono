@@ -275,7 +275,7 @@ function Scene(props: WorldCanvasProps & {shadowSize:number;nav:MutableRefObject
         const tileId=tileIdForHit(event);
         if(tileId!==null){event.stopPropagation();props.onSelectTile?.(tileId);}
       }}>
-      <ContinuousGround view={view} map={props.game.map}/>
+      <ContinuousGround view={view} map={props.game.map} actor={trackedPosition}/>
       <MiniatureTown selectedTileId={props.selectedTileId} game={props.game} view={view} nav={props.nav} onSelectTile={props.onSelectTile}/>
       </group>
       {props.game.players.map((player, seat) => (

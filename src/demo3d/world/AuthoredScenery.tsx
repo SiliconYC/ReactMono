@@ -5,6 +5,8 @@ import { Instances } from './Instances.js';
 import { GROUND_TOP } from './layout.js';
 import type { WorldView } from './world-view.js';
 import { BankBuilding, ClockTower, FacilityBuilding, Block } from './SceneryModels.js';
+import { UrbanScenery, isUrbanObject } from './UrbanScenery.js';
+import type { Vector3 } from 'three';
 
 function Landmark({o}:{o:SceneObject}):React.JSX.Element{
   switch(o.kind){
@@ -39,7 +41,7 @@ function Landmark({o}:{o:SceneObject}):React.JSX.Element{
   }
 }
 /** Culling selects existing records. It never creates or moves a plant. */
-export function AuthoredScenery({world,view}:{world:WorldDefinition;view:WorldView}):React.JSX.Element{
+export function AuthoredScenery({world,view,actor}:{world:WorldDefinition;view:WorldView;actor?:Vector3}):React.JSX.Element{
   const objectTileIds=useMemo(()=>{
     const lots=new Map(world.tiles.map((p,id)=>[`${p.lotX},${p.lotZ}`,id]));
     return new Map(world.objects.map(o=>[o.id,lots.get(`${o.x},${o.z}`)]));
@@ -63,6 +65,7 @@ export function AuthoredScenery({world,view}:{world:WorldDefinition;view:WorldVi
     <Instances items={petals}><sphereGeometry args={[.17,6,4]}/><meshStandardMaterial roughness={1}/></Instances>
     <Instances items={items('flower',.35)}><sphereGeometry args={[.1,6,4]}/><meshStandardMaterial color="#e6bd68" roughness={1}/></Instances>
     <Instances items={stationSilhouettes}><boxGeometry args={[1.1,.84,1.1]}/><meshStandardMaterial roughness={1}/></Instances>
-    {objects.filter(o=>!['tree','pine','rock','flower'].includes(o.kind)&&detailed(o)).map(o=><group key={o.id} name={o.id} userData={{tileId:objectTileIds.get(o.id)}} position={[o.x,GROUND_TOP,o.z]} rotation={[0,o.rotation,0]} scale={o.scale}><Landmark o={o}/></group>)}
+    {objects.some(isUrbanObject)&&<UrbanScenery objects={objects} actor={actor}/>}
+    {objects.filter(o=>!isUrbanObject(o)&&!['tree','pine','rock','flower'].includes(o.kind)&&detailed(o)).map(o=><group key={o.id} name={o.id} userData={{tileId:objectTileIds.get(o.id)}} position={[o.x,GROUND_TOP,o.z]} rotation={[0,o.rotation,0]} scale={o.scale}><Landmark o={o}/></group>)}
   </StaticBlocks></group>;
 }

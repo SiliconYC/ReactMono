@@ -1,7 +1,8 @@
 /** Author-specified scene data. Geometry helpers never invent scene objects. */
 export type ScenePoint = Readonly<{x:number;z:number}>;
 export type SceneSurface = Readonly<{id:string;kind:'grass'|'sand'|'water'|'plaza';color:string;points:readonly ScenePoint[];holes:readonly (readonly ScenePoint[])[]}>;
-export const SCENERY_KINDS=['tree','pine','flower','rock','bench','lamp','tower','bank','clinic','shop','prison','gazebo','boat','dock'] as const;
+export const URBAN_SCENERY_KINDS=['corner-cafe','hotel','bookshop','bakery','apartment','greenhouse','market-hall','workshop','cypress','birch','willow','jacaranda','umbrella','cafe-table','market-cart','bus-stop','car','van','fountain','hydrant','bicycle','planter','bollard','street-lamp','crosswalk','road-dash','kerb'] as const;
+export const SCENERY_KINDS=['tree','pine','flower','rock','bench','lamp','tower','bank','clinic','shop','prison','gazebo','boat','dock',...URBAN_SCENERY_KINDS] as const;
 export type SceneObject=ScenePoint&Readonly<{id:string;kind:typeof SCENERY_KINDS[number];rotation:number;scale:number;color:string}>;
 export type WorldDefinition=Readonly<{
   version:1;background:string;base:Readonly<{kind:'grass'|'water';color:string}>;

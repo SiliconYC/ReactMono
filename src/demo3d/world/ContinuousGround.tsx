@@ -26,7 +26,7 @@ function waterFinish(program:THREE.WebGLProgramParametersWithUniforms):void {
   `);
 }
 /** The base material is explicitly chosen by the author; every shoreline comes from JSON. */
-export function ContinuousGround({view,map}:{view:WorldView;map:GameMap}):React.JSX.Element{
+export function ContinuousGround({view,map,actor}:{view:WorldView;map:GameMap;actor?:THREE.Vector3}):React.JSX.Element{
   const world=worldForMap(map);
   const surfaces=world?.surfaces??[];
   const geometry=useMemo(()=>{
@@ -46,6 +46,6 @@ export function ContinuousGround({view,map}:{view:WorldView;map:GameMap}):React.
     {terrain.map(({surface:s,geometry:g})=><mesh key={s.id} name={s.id} geometry={g} position={[0,GROUND_TOP+(s.kind==='water'?-.07:s.kind==='grass'?0.002:.004),0]}>
       <meshStandardMaterial color={s.color} roughness={s.kind==='water'?.48:1} metalness={s.kind==='water'?.06:0} onBeforeCompile={s.kind==='water'?waterFinish:undefined} customProgramCacheKey={()=>s.kind==='water'?'town-water-ripples-v1':'town-terrain'}/>
     </mesh>)}
-    {world&&<AuthoredScenery world={world} view={view}/>}
+    {world&&<AuthoredScenery world={world} view={view} actor={actor}/>}
   </group>;
 }

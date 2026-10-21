@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef } from 'react';
 import { useThree } from '@react-three/fiber';
 import * as THREE from 'three';
-export type Instance = Readonly<{x:number;y:number;z:number;sx?:number;sy?:number;sz?:number;rotation?:number;color?:string;tileId?:number}>;
+export type Instance = Readonly<{x:number;y:number;z:number;sx?:number;sy?:number;sz?:number;rotation?:number;rx?:number;rz?:number;color?:string;tileId?:number}>;
 /** One geometry/material per batch. Bounds include every instance for correct frustum/shadows. */
 export function Instances({items,children,onSelect,mapTiles=false}:{items:readonly Instance[];children:React.ReactNode;onSelect?:(id:number)=>void;mapTiles?:boolean}):React.JSX.Element {
   const mesh=useRef<THREE.InstancedMesh>(null);
@@ -11,7 +11,7 @@ export function Instances({items,children,onSelect,mapTiles=false}:{items:readon
     const transform=new THREE.Object3D(),color=new THREE.Color();
     items.forEach((p,i)=>{
       transform.position.set(p.x,p.y,p.z);transform.scale.set(p.sx??1,p.sy??1,p.sz??1);
-      transform.rotation.set(0,p.rotation??0,0);transform.updateMatrix();
+      transform.rotation.set(p.rx??0,p.rotation??0,p.rz??0,'YXZ');transform.updateMatrix();
       mesh.current!.setMatrixAt(i,transform.matrix);
       if(p.color)mesh.current!.setColorAt(i,color.set(p.color));
     });
