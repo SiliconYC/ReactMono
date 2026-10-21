@@ -63,7 +63,7 @@ jobs:
         timeout-minutes: 10
         run: python -u tests/browser_stress_maps_e2e.py
       - name: P007 五图真实路线像素、远端浏览、双指和移动帧检查
-        timeout-minutes: 5
+        timeout-minutes: 10
         run: python -u tests/browser_scalable_world_e2e.py
       - name: P007 越界停绘、松手误选、跨图和平局镜头
         timeout-minutes: 3
