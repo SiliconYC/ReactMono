@@ -14,6 +14,17 @@ export function surfaceGeometry(points:readonly ScenePoint[],holes:readonly (rea
   const shape=new THREE.Shape(path(points).getPoints());shape.holes=holes.map(path);
   const geometry=thickness?new THREE.ExtrudeGeometry(shape,{depth:thickness,bevelEnabled:false}):new THREE.ShapeGeometry(shape);geometry.rotateX(-Math.PI/2);if(thickness)geometry.translate(0,-thickness,0);return geometry;
 }
+function waterFinish(program:THREE.WebGLProgramParametersWithUniforms):void {
+  program.vertexShader='varying vec2 townSurface;\n'+program.vertexShader;
+  program.vertexShader=program.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\n townSurface=position.xz;');
+  program.fragmentShader='varying vec2 townSurface;\n'+program.fragmentShader;
+  program.fragmentShader=program.fragmentShader.replace('#include <color_fragment>',`#include <color_fragment>
+    float ripple=sin(townSurface.x*2.8+townSurface.y*5.0+sin(townSurface.y*2.0)*0.5);
+    float glint=smoothstep(0.96,1.0,ripple);
+    diffuseColor.rgb *= 0.98+0.035*sin(townSurface.x*0.8+townSurface.y*1.2);
+    diffuseColor.rgb += vec3(0.045,0.052,0.043)*glint;
+  `);
+}
 /** The base material is explicitly chosen by the author; every shoreline comes from JSON. */
 export function ContinuousGround({view,map}:{view:WorldView;map:GameMap}):React.JSX.Element{
   const world=worldForMap(map);
@@ -33,7 +44,7 @@ export function ContinuousGround({view,map}:{view:WorldView;map:GameMap}):React.
     <mesh geometry={geometry} position={[0,GROUND_TOP-(world?.base.kind==='water'?.07:0),0]}><meshStandardMaterial color={world?.base.color??'#b7cd9a'} roughness={1}/></mesh>
     {islandCaps.map((g,i)=><mesh key={`base-island-${i}`} geometry={g} position={[0,GROUND_TOP,0]}><meshStandardMaterial color={world?.base.color} roughness={1}/></mesh>)}
     {terrain.map(({surface:s,geometry:g})=><mesh key={s.id} name={s.id} geometry={g} position={[0,GROUND_TOP+(s.kind==='water'?-.07:s.kind==='grass'?0.002:.004),0]}>
-      <meshStandardMaterial color={s.color} roughness={s.kind==='water'?.48:1} metalness={s.kind==='water'?.06:0}/>
+      <meshStandardMaterial color={s.color} roughness={s.kind==='water'?.48:1} metalness={s.kind==='water'?.06:0} onBeforeCompile={s.kind==='water'?waterFinish:undefined} customProgramCacheKey={()=>s.kind==='water'?'town-water-ripples-v1':'town-terrain'}/>
     </mesh>)}
     {world&&<AuthoredScenery world={world} view={view}/>}
   </group>;

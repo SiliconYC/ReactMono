@@ -71,12 +71,12 @@ class 地图交互验收_类:
         return 横坐标, 纵坐标
 
     def _验证数字(self) -> None:
-        相机 = self._读取相机()
-        数据 = self.页面.locator(".canvas-shell").evaluate("e=>({yaw:+e.dataset.labelYaw,scale:+e.dataset.labelScaleZ,count:+e.dataset.visibleRoadLabels})")
+        # 在同一帧读取相机与已上传矩阵，避免两次 evaluate 跨过旋转插值帧。
+        数据 = self.页面.locator(".canvas-shell").evaluate("e=>({cameraYaw:+e.dataset.cameraYaw,elevation:+e.dataset.cameraElevation,yaw:+e.dataset.labelYaw,scale:+e.dataset.labelScaleZ,count:+e.dataset.visibleRoadLabels})")
         assert 数据["count"] > 0
-        差值 = math.atan2(math.sin(数据["yaw"] - 相机["yaw"]), math.cos(数据["yaw"] - 相机["yaw"]))
+        差值 = math.atan2(math.sin(数据["yaw"] - 数据["cameraYaw"]), math.cos(数据["yaw"] - 数据["cameraYaw"]))
         assert abs(差值) < .0002
-        assert abs(数据["scale"] * math.sin(相机["elevation"]) - math.sin(math.atan2(12.2, math.hypot(10.2, 10.2)))) < .0002
+        assert abs(数据["scale"] * math.sin(数据["elevation"]) - math.sin(math.atan2(12.2, math.hypot(10.2, 10.2)))) < .0002
 
     def _右键地块(self) -> None:
         横坐标, 纵坐标 = self._地块屏幕位置(1)
@@ -216,7 +216,11 @@ class 地图交互验收_类:
             assert self.页面.locator(".map-context-summary strong").inner_text().startswith("2 ·")
             assert "2 级" in self.页面.locator(".map-context-summary").inner_text()
             self.页面.screenshot(path=str(self.输出目录 / "built-roof-menu.png"))
-            self.结果.append({"builtRoofTile": 1, "level": 2, "correctContext": True})
+            self.页面.keyboard.press("Escape")
+            self.页面.mouse.click(横坐标, 纵坐标)
+            self.页面.locator(".board-inspector").wait_for()
+            assert self.页面.locator(".board-inspector strong").inner_text().startswith("2 ·")
+            self.结果.append({"leftClickRoof": True, "builtRoofTile": 1, "level": 2, "correctContext": True})
             print("[完成] 已建房屋屋顶右键识别所属地产", flush=True)
         finally:
             上下文.close()

@@ -39,3 +39,8 @@ test('山墙屋顶三角面向外，真实背面剔除不能漏掉斜屋面', as
     assert.ok(n.reduce((sum,x,j)=>sum+x*(a[j]+b[j]+c[j])/3,0)>0,'屋顶存在内向面');
   }
 });
+test('背窗玻璃必须在后墙之外，旋转到建筑背后仍可读',()=>{
+  const t={...createGame(17).tiles[1],ownerId:'p1',level:2};
+  const p=residentialParts(t,'#ff715b',0);
+  assert.ok(p.some(x=>x.color==='#416b68'&&x.z<-.59));
+});

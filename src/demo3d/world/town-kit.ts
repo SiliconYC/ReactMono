@@ -39,11 +39,12 @@ export function residentialParts(tile:Tile,owner:string|null,seat:number):TownPa
     add(.075,.3,.355,.025,.025,.022,'#e4ba6e');
     add(0,.11,.48,.43,.07,.27,TOWN.stone);
     add(0,.16,.37,.33,.04,.2,TOWN.trim);
-    const window=(x:number,y:number,z:number,side=false)=>{
-      add(x,y,z,side?.04:.26,.32,side?.26:.04,TOWN.trim);
-      add(x+(side?.026:0),y,z+(side?0:.027),side?.025:.19,.24,side?.19:.025,TOWN.glass);
-      add(x+(side?.042:0),y,z+(side?0:.045),side?.025:.025,.25,side?.025:.025,TOWN.trim);
-      add(x,y-.19,z,side?.12:.33,.055,side?.33:.12,TOWN.trim);
+    const window=(x:number,y:number,z:number)=>{
+      const facing=z<0?-1:1;
+      add(x,y,z,.26,.32,.04,TOWN.trim);
+      add(x,y,z+facing*.027,.19,.24,.025,TOWN.glass);
+      add(x,y,z+facing*.045,.025,.25,.025,TOWN.trim);
+      add(x,y-.19,z,.33,.055,.12,TOWN.trim);
     };
     for(const x of [-.33,.33])window(x,.65,.331);
     for(const side of [-1,1]) {

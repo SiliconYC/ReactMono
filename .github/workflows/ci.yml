@@ -59,6 +59,12 @@ jobs:
       - name: 主程序两图四人完整对局、规则功能、动画与离线存档
         timeout-minutes: 10
         run: python -u tests/browser_main_game_acceptance.py
+      - name: 晴湾花园固定存档双视口美术与镜头一致性
+        timeout-minutes: 3
+        run: python -u tests/browser_town_art_e2e.py
+      - name: 地图旋转、编号、房顶与地块菜单回归
+        timeout-minutes: 5
+        run: python -u tests/browser_map_camera_ux.py
       - name: 数据关卡五图选择、压力地图移动、存档及离线回归
         timeout-minutes: 10
         run: python -u tests/browser_stress_maps_e2e.py
@@ -85,6 +91,8 @@ jobs:
             artifacts/issue63/
             artifacts/stress-maps/
             artifacts/scalable-world/
+            artifacts/map-camera-ux/
+            docs/town-art/evidence/
           if-no-files-found: warn
           retention-days: 30
       - name: 确认产物不含第三方运行时引用

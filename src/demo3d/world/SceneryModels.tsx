@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { useEffect, useMemo } from 'react';
+import { Instances } from './Instances.js';
 import { TOWN } from './town-kit.js';
 
 type BlockProps={at:[number,number,number];size:[number,number,number];color?:string};
@@ -82,10 +83,14 @@ export function ClockTower():React.JSX.Element {
       {[-.53,.53].map(x=><Block key={x} at={[x,1.38,.59]} size={[.1,1.98,.065]} color={TOWN.trim}/>)}
       <mesh position={[0,2.03,.59]} rotation={[Math.PI/2,0,0]}><cylinderGeometry args={[.39,.39,.05,24]}/><meshStandardMaterial color="#8b805f" roughness={.8}/></mesh>
       <mesh position={[0,2.03,.622]}><circleGeometry args={[.335,24]}/><meshStandardMaterial color="#fff3cf" roughness={.9}/></mesh>
-      {[0,1,2,3,4,5,6,7,8,9,10,11].map(i=><mesh key={i} position={[Math.sin(i*Math.PI/6)*.276,2.03+Math.cos(i*Math.PI/6)*.276,.628]} rotation={[0,0,-i*Math.PI/6]}><boxGeometry args={[.028,.055,.016]}/><meshStandardMaterial color="#796d50"/></mesh>)}
+
       <Block at={[0,2.12,.642]} size={[.035,.2,.023]} color="#526d62"/>
       <mesh position={[-.075,1.99,.642]} rotation={[0,0,-1.05]}><boxGeometry args={[.03,.2,.026]}/><meshStandardMaterial color="#526d62"/></mesh>
     </group>)}
+    <Instances items={[0,Math.PI/2,Math.PI,-Math.PI/2].flatMap(angle=>Array.from({length:12},(_,i)=>{
+      const x=Math.sin(i*Math.PI/6)*.276,z=.628;
+      return {x:Math.cos(angle)*x+Math.sin(angle)*z,y:2.03+Math.cos(i*Math.PI/6)*.276,z:-Math.sin(angle)*x+Math.cos(angle)*z};
+    }))}><sphereGeometry args={[.021,5,3]}/><meshStandardMaterial color="#796d50" roughness={1}/></Instances>
     <Block at={[0,1.49,0]} size={[1.24,.09,1.24]} color={TOWN.trim}/>
     <Block at={[0,2.66,0]} size={[1.45,.15,1.45]} color={TOWN.trim}/>
     <mesh position={[0,3.04,0]} rotation={[0,Math.PI/4,0]}><coneGeometry args={[1.1,.68,4]}/><meshStandardMaterial color={TOWN.roof} roughness={.9}/></mesh>

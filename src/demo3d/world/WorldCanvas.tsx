@@ -17,6 +17,7 @@ import { worldView, CAMERA_ELEVATION, clampWorldZoom, type WorldView } from './w
 import { useWorldNavigation, initialNavigation, type ContextRequest, type Navigation } from './world-navigation.js';
 import { mapProjectionBounds, screenToGround } from './camera-math.js';
 import { WorldNavigation } from './WorldNavigation.js';
+import { tileIdForHit } from './map-picking.js';
 import { MapContextMenu } from './MapContextMenu.js';
 import './world-navigation.css';
 
@@ -191,8 +192,13 @@ function Scene(props: WorldCanvasProps & {nav:MutableRefObject<Navigation>;chang
       <fog attach="fog" args={[worldForMap(props.game.map)?.background??'#b7cd9a',100,200]} />
       <WorldLighting nav={props.nav}/>
       <CameraRig target={trackedPosition} reducedMotion={props.reducedMotion} insets={props.viewportInsets} map={props.game.map} nav={props.nav} onView={setView} changed={props.changed} onContext={props.onContext}/>
+      <group onClick={event=>{
+        const tileId=tileIdForHit(event);
+        if(tileId!==null){event.stopPropagation();props.onSelectTile?.(tileId);}
+      }}>
       <ContinuousGround view={view} map={props.game.map}/>
       <MiniatureTown selectedTileId={props.selectedTileId} game={props.game} view={view} nav={props.nav} onSelectTile={props.onSelectTile}/>
+      </group>
       {props.game.players.map((player, seat) => (
         <Mascot
           key={player.id}

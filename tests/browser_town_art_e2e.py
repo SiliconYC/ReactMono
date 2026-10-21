@@ -54,12 +54,8 @@ class 小镇验收_类:
                         if 阶段 == 'after':
                             基线 = json.loads((输出 / 'before.json').read_text())
                             目标 = next(r for r in 基线['results'] if r['phone'] == 手机 and r['mode'] == 模式)['camera']
-                            当前 = float(页面.locator('.canvas-shell').get_attribute('data-camera-zoom'))
-                            页面.mouse.move(页面.viewport_size['width']*.55, 页面.viewport_size['height']*.45)
-                            页面.mouse.wheel(0, -math.log(float(目标['cameraZoom'])/当前)/.0018)
-                            页面.wait_for_timeout(1200)
-                            for 键 in ['cameraYaw','cameraElevation','cameraCenter']:
-                                assert 页面.locator('.canvas-shell').evaluate('(e,k)=>e.dataset[k]', 键) == 目标[键]
+                            for 键 in ['cameraYaw','cameraElevation','cameraCenter','cameraInsets','cameraMode']:
+                                assert 页面.locator('.canvas-shell').evaluate('(e,k)=>e.dataset[k]', 键) == 目标[键], 键
                             assert abs(float(页面.locator('.canvas-shell').get_attribute('data-camera-zoom'))-float(目标['cameraZoom'])) < .025
                         页面.screenshot(path=str(输出 / f'{阶段}-{"phone" if 手机 else "desktop"}-{模式}.png'))
                         记录.append({'phone':手机,'mode':模式,'camera':页面.locator('.canvas-shell').evaluate('(e)=>({...e.dataset})')})
@@ -71,6 +67,26 @@ class 小镇验收_类:
                         页面.mouse.up(button='middle')
                         页面.wait_for_timeout(1800)
                         页面.screenshot(path=str(输出 / f'{阶段}-desktop-rotated.png'))
+                    if 阶段 == 'after':
+                        for 目标地块 in ([11] if 手机 else [7,11]):
+                            局面 = json.loads(样本)
+                            局面['game']['players'][0]['position'] = 目标地块
+                            load_fixture(页面, 地址, json.dumps(局面,ensure_ascii=False).encode(), '产权细节'+str(目标地块))
+                            页面.get_by_role('button',name='定位当前玩家',exact=True).click()
+                            页面.wait_for_timeout(1300)
+                            if 目标地块 == 11:
+                                地块 = json.loads(Path('src/data/levels.json').read_text())['levels'][0]['world']['tiles'][11]
+                                相机 = 页面.locator('.canvas-shell').evaluate('(e)=>({...e.dataset})')
+                                边距 = json.loads(相机['cameraInsets'])
+                                横中,纵中 = map(float,相机['cameraCenter'].split(','))
+                                方位,俯仰,缩放 = map(float,[相机['cameraYaw'],相机['cameraElevation'],相机['cameraZoom']])
+                                横差,纵差 = 地块['lotX']-横中,地块['lotZ']-纵中
+                                横坐标 = (边距['left']+页面.viewport_size['width']-边距['right'])/2+(横差*math.cos(方位)-纵差*math.sin(方位))*缩放
+                                纵坐标 = (边距['top']+页面.viewport_size['height']-边距['bottom'])/2+(横差*math.sin(方位)+纵差*math.cos(方位))*math.sin(俯仰)*缩放+(.3-1.05)*math.cos(俯仰)*缩放
+                                页面.mouse.click(横坐标,纵坐标)
+                                页面.locator('.board-inspector').wait_for()
+                                assert 页面.locator('.board-inspector strong').inner_text().startswith('12 ·')
+                            页面.screenshot(path=str(输出 / f'after-{"phone" if 手机 else "desktop"}-state-{目标地块}.png'))
                     上下文.close()
                 浏览器.close()
             assert not 错误, 错误

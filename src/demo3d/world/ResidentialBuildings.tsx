@@ -22,15 +22,24 @@ export function ResidentialBuildings({game,view}:{game:GameState;view:WorldView}
       if(!visible(id)||!canJoinLots(aId,id,game.map))continue;
       const a=anchors.lots[aId],b=anchors.lots[id],length=Math.hypot(b.x-a.x,b.z-a.z)-.75;
       const rotation=Math.atan2(b.x-a.x,b.z-a.z),c=Math.cos(rotation),s=Math.sin(rotation);
-      const add=(x:number,y:number,z:number,sx:number,sy:number,sz:number,color:string)=>all.push({shape:'box',x:(a.x+b.x)/2+c*x+s*z,z:(a.z+b.z)/2-s*x+c*z,y:GROUND_TOP+y,sx,sy,sz,rotation,color,tileId:id});
+      const add=(x:number,y:number,z:number,sx:number,sy:number,sz:number,color:string,shape:TownPart['shape']='box')=>all.push({shape,x:(a.x+b.x)/2+c*x+s*z,z:(a.z+b.z)/2-s*x+c*z,y:GROUND_TOP+y,sx,sy,sz,rotation,color,tileId:id});
       add(0,.04,0,.76,.08,length,TOWN.stone);
       add(0,.45,0,.54,.75,length,TOWN.wall);
-      add(0,.86,0,.76,.1,length+.08,TOWN.greenRoof);
+      const seat=game.players.findIndex(p=>p.id===row.ownerId),roof=seat%2===0?TOWN.roof:TOWN.greenRoof;
+      add(0,.85,0,.76,.08,length+.08,TOWN.trim);
+      add(0,1.03,0,.81,.28,length+.14,roof,'roof');
       const bays=Math.max(1,Math.floor(length/.48));
       for(let j=0;j<bays;j++)for(const side of [-1,1]) {
         const z=(j+.5)*length/bays-length/2;
         add(side*.282,.48,z,.026,.42,length/bays-.12,TOWN.glass);
         add(side*.304,.48,z,.035,.44,.032,TOWN.trim);
+        add(side*.31,.43,z-length/bays/2,.07,.75,.08,TOWN.trim);
+        add(side*.31,.25,z,.09,.055,length/bays-.08,TOWN.trim);
+        if(j%2===0){
+          add(side*.27,1.06,z,.26,.24,.3,TOWN.wall);
+          add(side*.27,1.25,z,.34,.15,.38,roof,'roof');
+          add(side*.413,1.08,z,.025,.12,.17,TOWN.glass);
+        }
       }
     }
     return all;
