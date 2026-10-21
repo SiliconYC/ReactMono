@@ -256,7 +256,7 @@
       "id": "A121_CHROMIUM",
       "level": "A",
       "claim": "固定 SHA 的上游网页已独立在 Chromium 155 SwiftShader 启动并保存 1440x900/390x844 两张真实 WebGL 对局截图；node test/smoke.mjs 2 退出 0。",
-      "source_url": "https://github.com/SiliconYC/ReactMono/blob/dev/docs/research/verification-issue-121/RESULTS.md",
+      "source_url": "https://github.com/SiliconYC/ReactMono/blob/6b87e4aed02e30235573bc0e12d8d6e215a6b603/docs/research/verification-issue-121/RESULTS.md",
       "locator": "docs/research/verification-issue-121/evidence/run.json; run.log; richman3d-*.png",
       "verification": "Independent CI source pin, executable stdout/screenshot and retained artifacts; see RESULTS.md and logs",
       "limitations": [

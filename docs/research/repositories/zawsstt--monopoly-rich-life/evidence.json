@@ -195,7 +195,7 @@
       "id": "A121_CHROMIUM",
       "level": "A",
       "claim": "固定 SHA 的上游网页已独立进入首回合并截图桌面与模拟手机 WebGL；桌面为立体书桌和边缘小楼，中央主体为平面插画，手机采用横屏旋转界面。",
-      "source_url": "https://github.com/SiliconYC/ReactMono/blob/dev/docs/research/verification-issue-121/RESULTS.md",
+      "source_url": "https://github.com/SiliconYC/ReactMono/blob/6b87e4aed02e30235573bc0e12d8d6e215a6b603/docs/research/verification-issue-121/RESULTS.md",
       "locator": "docs/research/verification-issue-121/evidence/run.json; run.log; richlife-*.png",
       "verification": "Independent CI source pin, executable stdout/screenshot and retained artifacts; see RESULTS.md and logs",
       "limitations": [

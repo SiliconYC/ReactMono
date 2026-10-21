@@ -232,7 +232,7 @@
       "id": "A121_ECONOMY",
       "level": "A",
       "claim": "固定 SHA 的 C++ 重建版在 Ubuntu 原生编译并执行四项新增边界：同名街区租金 1200、连锁 12000、挂单覆盖 400、七槽满额与撤单复用。",
-      "source_url": "https://github.com/SiliconYC/ReactMono/blob/dev/docs/research/verification-issue-121/RESULTS.md",
+      "source_url": "https://github.com/SiliconYC/ReactMono/blob/6b87e4aed02e30235573bc0e12d8d6e215a6b603/docs/research/verification-issue-121/RESULTS.md",
       "locator": "docs/research/verification-issue-121/evidence/economy-run.json; economy-run.log",
       "verification": "Independent CI source pin, executable stdout/screenshot and retained artifacts; see RESULTS.md and logs",
       "limitations": [
