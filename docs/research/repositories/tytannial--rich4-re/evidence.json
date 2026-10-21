@@ -34,12 +34,27 @@
         "result": "not_run: 需要上游可执行文件和合法原版MKF"
       }
     ],
-    "result": "B级静态源码审计已完成；A独立构建/运行/截图/测试为零",
+    "result": "2026-10-19 初查仅 B 静态；2026-10-21 #121 在 Linux 独立编译执行四项 C++ 经济边界，修正两处仅测试用例的越界访问后 126 断言、0 失败、3 资源测试跳过；不涉及原作二进制差分或 SDL 完整 UI。",
     "limitations": [
-      "没有可分发的原版资源",
+      "【初查历史条件，已由 #121 部分补证】没有可分发的原版资源",
       "不能以README宣称或workflow配置代替独立测试",
-      "画质/操作/声音/跨平台真实性未独立验收"
-    ]
+      "【初查历史条件，已由 #121 部分补证】画质/操作/声音/跨平台真实性未独立验收",
+      "#121 的 A 证据仅扩展新增单项，不能扩展为原商业游戏差分或全套画面/性能验收"
+    ],
+    "baseline_before_issue121": {
+      "result": "B级静态源码审计已完成；A独立构建/运行/截图/测试为零",
+      "limitations": [
+        "没有可分发的原版资源",
+        "不能以README宣称或workflow配置代替独立测试",
+        "画质/操作/声音/跨平台真实性未独立验收"
+      ]
+    },
+    "issue121_followup": {
+      "evidence_id": "A121_ECONOMY",
+      "results_path": "docs/research/verification-issue-121/RESULTS.md",
+      "run_log": "docs/research/verification-issue-121/evidence/economy-run.log",
+      "constraints": "Only C++ reconstructed rules, 3 commercial samples skipped"
+    }
   },
   "evidence": [
     {
