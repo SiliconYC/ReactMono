@@ -57,6 +57,7 @@ export function Mascot({
   const rightPaw = useRef<THREE.Group>(null);
   const completed = useRef(false);
   const reportedStep = useRef(-1);
+  const completionFrame = useRef<number | null>(null);
   const isMoving = motion?.actorId === id && motion.path.length > 0;
   const seatLayout = mascotSeatLayout(seat);
   const {x: offsetX, z: offsetZ} = seatLayout;
@@ -81,6 +82,8 @@ export function Mascot({
 
   useEffect(() => {
     if (!isMoving) return;
+    if (completionFrame.current !== null) cancelAnimationFrame(completionFrame.current);
+    completionFrame.current = null;
     startedAt.current = performance.now() / 1000;
     completed.current = false;
     reportedStep.current = -1;
@@ -91,6 +94,10 @@ export function Mascot({
       onStep(finalTile);
       queueMicrotask(onMotionComplete);
     }
+    return () => {
+      if (completionFrame.current !== null) cancelAnimationFrame(completionFrame.current);
+      completionFrame.current = null;
+    };
   }, [isMoving, motion?.nonce, motion?.path, motion?.fromTileId, map, offsetX, offsetZ, onMotionComplete, onStep, reducedMotion]);
 
   useFrame(({ clock }, delta) => {
@@ -162,7 +169,11 @@ export function Mascot({
       const final = positionForTile(motion.path[motion.path.length - 1], map);
       group.position.set(final.x + offsetX, ACTOR_ANCHOR_Y, final.z + offsetZ);
       onStep(motion.path[motion.path.length - 1]);
-      onMotionComplete();
+      // 完成回调会清除 visualCue；延到下一帧让最后到达格的 step 先提交到 React。
+      completionFrame.current = requestAnimationFrame(() => {
+        completionFrame.current = null;
+        onMotionComplete();
+      });
     }
   });
 

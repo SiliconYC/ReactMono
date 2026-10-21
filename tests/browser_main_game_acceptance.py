@@ -93,14 +93,21 @@ def main():
    for die,seed in seeds.items():
     raw=fixture(f"game=act(createGame({seed},cfg),'start_game');")
     load_fixture(page,url,raw,'骰点'+die)
+    page.evaluate("""() => {
+     window.__sceneStepSamples = [];
+     const main = document.querySelector('main.app-shell');
+     new MutationObserver(() => window.__sceneStepSamples.push(Number(main.dataset.sceneStep)))
+      .observe(main, {attributes:true, attributeFilter:['data-scene-step']});
+    }""")
     page.get_by_role('button',name='掷骰前进').click()
     page.wait_for_timeout(180)
     assert page.locator('main').get_attribute('data-presenting')=='true'
     assert not page.locator('.action-buttons .primary-btn').count()
     before_frame=page.locator('canvas').screenshot()
-    steps=[];start=time.monotonic()
+    start=time.monotonic()
     while page.locator('main').get_attribute('data-presenting')=='true' and time.monotonic()-start<9:
-     steps.append(int(page.locator('main').get_attribute('data-scene-step')));page.wait_for_timeout(60)
+     page.wait_for_timeout(60)
+    steps=page.evaluate('window.__sceneStepSamples')
     assert not page.locator('main[data-presenting=true]').count()
     assert max(steps,default=0)>0,(die,steps)
     assert before_frame!=page.locator('canvas').screenshot(), '3D must actually render different frames'
