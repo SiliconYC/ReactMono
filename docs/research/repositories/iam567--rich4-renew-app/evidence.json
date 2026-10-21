@@ -264,7 +264,7 @@
   "features": [
     {
       "feature": "new_game_turns",
-      "status": "verified",
+      "status": "partial",
       "evidence_ids": [
         "E01",
         "E02"
@@ -282,7 +282,7 @@
     },
     {
       "feature": "property_and_rent",
-      "status": "verified",
+      "status": "partial",
       "evidence_ids": [
         "E03"
       ],
@@ -290,7 +290,7 @@
     },
     {
       "feature": "bank_and_loans",
-      "status": "verified",
+      "status": "partial",
       "evidence_ids": [
         "E03",
         "E15"
@@ -299,7 +299,7 @@
     },
     {
       "feature": "stocks_and_company",
-      "status": "verified",
+      "status": "partial",
       "evidence_ids": [
         "E04",
         "E15",
@@ -309,7 +309,7 @@
     },
     {
       "feature": "cards",
-      "status": "verified",
+      "status": "partial",
       "evidence_ids": [
         "E05",
         "E15"
@@ -318,7 +318,7 @@
     },
     {
       "feature": "items_and_gods",
-      "status": "verified",
+      "status": "partial",
       "evidence_ids": [
         "E06"
       ],
@@ -344,7 +344,7 @@
     },
     {
       "feature": "normal_save",
-      "status": "verified",
+      "status": "partial",
       "evidence_ids": [
         "E10",
         "E13",
@@ -515,5 +515,19 @@
     "reactmono": "React + TypeScript + Three.js + PWA + GitHub Pages + local saves",
     "upstream": "Vite + TypeScript + Canvas 2D/DOM + Capacitor iOS/Android; separate proprietary assets",
     "transfer_policy": "patterns_only_no_GPL_code_or_assets"
+  },
+  "audit_104": {
+    "reason": "原功能状态 verified 无 A 独立执行证据，改为 partial（代码功能存在，实际游戏/设备运行待证）；不代表代码失效。",
+    "changed_features": [
+      "new_game_turns",
+      "property_and_rent",
+      "bank_and_loans",
+      "stocks_and_company",
+      "cards",
+      "items_and_gods",
+      "normal_save"
+    ],
+    "source_evidence_level": "B only",
+    "checked_at_utc": "2026-10-21T01:30:00Z"
   }
 }

@@ -9,7 +9,7 @@
 3. 为 ReactMono 提供可验证的**借鉴建议**，不默认移植任何外部代码或原版商业素材；保留 React + TypeScript + Three.js、静态 GitHub Pages、PWA、本地存档、简体中文界面和原创现代视觉方向。
 4. 明确区分「代码可见」「开发者声称可用」「自动化验证」「研究者独立运行与截图」「真人完整对局」等不同证据级别。
 
-## 初步候选清单（截至 2026-10-19，尚非深入验收结论）
+## 历史候选清单（立项时的假设，不等于 2026-10-21 的验收状态）
 
 | 上游仓库 | 主要研究问题 | 方向 / 优先级 |
 | --- | --- | --- |
@@ -25,20 +25,20 @@
 
 边界项目 [Infinicken/Richman4L](https://github.com/Infinicken/Richman4L) 与其他 forks 可作为历史背景、代码血缘材料；如果初查发现独立研究价值，再另建非重复 Issue，不要机械拆单。
 
-**上述描述只是候选研究假设**。GitHub 仓库存在、README 声称功能齐全，不代表已由本项目安装、运行或审美验收。禁止以候选表作为完成度排名。
+**以上表格为 2026-10-19 立项时研究方向/优先级历史快照，不是当前候选进度，更不是研究后评分。** 2026-10-21 九项均已交付并合并；仅 #121 涉及范围的两个 3D 上游截图和一项 C++ 原生经济小样例有独立 A 补证。没有合法原版程序实测。实际状态见下述验收导航。
 
 ## 组织结构与产物
 
 - 规范：[`RESEARCH_STANDARD.md`](RESEARCH_STANDARD.md)，包含证据分级、九章研究报告、可追溯 JSON、评分和验收。
 - 一仓库一子目录：`docs/research/repositories/<owner>--<repo>/`，例如 `repositories/mytbk--rich4/`（保留大小写），**只有开始正式研究并提交真实文件时才创建**。
 - 每个研究子目录至少交付 `README.md`（九章深度报告）、`evidence.json`（结构化证据与判断）、`source-index.md`（代码路径、行号/符号/提交与运行命令）；如有合法截图或测试报告按需添加，杜绝空目录与占位文件。
-- 汇总研究完成后交付 `comparative-review.md`（跨仓库综合研究）、`verification-matrix.md`（证据与争议矩阵）及 `summary.json`（机器可读的比较结果），**现在不提前写空报告**。
+- 跨仓库已交付 [综合研究](comparative-review.md)（原版机制源码交叉判断与产品路线）、[99 格核验矩阵](verification-matrix.md)（逐功能等级和抽样日志）、[机器可读九仓证据](summary.json)（固定版本/关系/评分/限制），而非各自报告简单拼接。
 - 文件索引与规则见 [`repositories/README.md`](repositories/README.md)，待真实研究合并时更新。
 - 原版商业素材、未获公开许可的游戏程序、各仓库完整镜像与大型生成文件一律不提交本仓库。
 
-## 已创建研究任务（2026-10-19）
+## 已合并的九项单仓库研究（2026-10-21 核对）
 
-以下九项是研究任务索引，创建 Issue 不代表完成；已交付研究请核对报告及证据分级。
+以下九项 **全部已关闭并以 PR 合入 `dev`**；「单仓库研究已合并」不表示原版游戏、完整玩家体验或合法商业资源已获 A 级验证。
 
 | Issue | 上游 | 预期目录 |
 | --- | --- | --- |
@@ -50,9 +50,9 @@
 | [#100](https://github.com/SiliconYC/ReactMono/issues/100) | [oama1111/rich4-remake-public](https://github.com/oama1111/rich4-remake-public) | `repositories/oama1111--rich4-remake-public/` |
 | [#101](https://github.com/SiliconYC/ReactMono/issues/101) | [JCRJPZB/Rich4](https://github.com/JCRJPZB/Rich4) | `repositories/JCRJPZB--Rich4/` |
 | [#102](https://github.com/SiliconYC/ReactMono/issues/102) | [Yakamozli/richman-3d](https://github.com/Yakamozli/richman-3d) | `repositories/Yakamozli--richman-3d/` |
-| [#103](https://github.com/SiliconYC/ReactMono/issues/103) | [九章源码研究](repositories/zawsstt--monopoly-rich-life/README.md) | B/C 级证据；A 级浏览器实测未完成 |
+| [#103](https://github.com/SiliconYC/ReactMono/issues/103) | [zawsstt/monopoly-rich-life](https://github.com/zawsstt/monopoly-rich-life) | `repositories/zawsstt--monopoly-rich-life/` |
 
-[综合综述 #104](https://github.com/SiliconYC/ReactMono/issues/104) 依赖这些研究真实合并成果，届时才创建 `comparative-review.md`、`verification-matrix.md` 与 `summary.json`。
+[综合综述 #104](https://github.com/SiliconYC/ReactMono/issues/104) 已据上述九份原始成果和独立 [#121](verification-issue-121/RESULTS.md) 完成跨源审查；九仓详细差异参见 [统一矩阵](verification-matrix.md)。
 
 ## 落地步骤（在既有仓库上补做八步 SOP）
 
@@ -65,9 +65,18 @@
 7. **跨仓库证据汇总**：待子研究合并后，交叉核查作者/代码来源、矛盾、许可证、视觉与游戏完成度，形成综述。
 8. **提交和验收**：细粒度提交、必要检查、通过 PR 合并到 `dev`；有障碍保留可续接提交并说明。
 
-## 执行状态
+## 当前验收分层与后续入口
 
-初始化阶段只建立规范与 Issue；随后各项研究已逐步交付。#103 的 B/C 级九章源码审计、锚点和 JSON 已提交，未能独立运行浏览器和联机，视觉、复现性评分留空；其他 Issue 状态以实际已合并报告为准。参见[研究成果索引](repositories/README.md)。
+| 分类 | 当前状态 | 证据边界与阅读入口 |
+| --- | --- | --- |
+| 历史候选 | 九项已经从候选完成研究；边界项目 `Infinicken/Richman4L` 没有单独立项 | 上文候选表只供回看，不可当最新排名 |
+| 在研单仓库 | **本轮九项中 0 项**（#95～#103 已关） | 后续新增必须按去重准入再开 Issue |
+| 已合并单仓库 | **九项全部合并，含 B/C/D 源码结论和局部原有 A 数据级检查** | [报告索引](repositories/README.md) 与各自固定 SHA |
+| 已验收的独立运行补证 | **#121 已完成，PR #122 已合并至 `dev@6b87e4a`** | [六张浏览器原始截图及经济 126 条断言](verification-issue-121/RESULTS.md)；3 个商业资源测试跳过 |
+| 综述 | **#104 综合分析交付** | [综述](comparative-review.md) / [99 格机制矩阵](verification-matrix.md) / [JSON](summary.json) |
+| 尚未独立证明 | 原版 1998 程序逐字节差分、全项目连续玩家对局与手机实体设备/硬件性能 | 不把历史静态审查升级为成功，也不据这些未验证项否定独立的源码研究价值 |
+
+实际开发建议先复核是否与 [#73](https://github.com/SiliconYC/ReactMono/issues/73) 正式版综合验收或既有 P4 美术任务重复，再按 [定向进化池](../EVOLUTION_POOL.md) 评审、立单、独立验收；#104 不改游戏代码。
 
 ## 2026-10-21 独立实验补证
 
