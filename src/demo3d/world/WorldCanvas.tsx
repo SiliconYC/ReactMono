@@ -22,6 +22,7 @@ import './world-navigation.css';
 
 type WorldCanvasProps = Readonly<{
   game: GameState;
+  selectedTileId?: number | null;
   motion: MotionCue | null;
   dieValue: number | null;
   dieNonce: number;
@@ -128,10 +129,10 @@ function WorldLighting({nav}:{nav:MutableRefObject<Navigation>}):React.JSX.Eleme
     scene.traverse(object=>{if(object instanceof THREE.Mesh){object.castShadow=true;object.receiveShadow=true;}});
   },-1);
   return <>
-    <ambientLight intensity={.95} color="#f3f4dc"/>
-    <hemisphereLight args={['#f8fae9','#779566',.85]}/>
+    <ambientLight intensity={.7} color="#f3f4dc"/>
+    <hemisphereLight args={['#f8fae9','#779566',.8]}/>
     <primitive object={target}/>
-    <directionalLight ref={light} target={target} intensity={2.35} color="#fff0d0" castShadow shadow-mapSize-width={2048} shadow-mapSize-height={2048} shadow-intensity={.48} shadow-radius={2}/>
+    <directionalLight ref={light} target={target} intensity={2.15} color="#fff0d0" castShadow shadow-mapSize-width={2048} shadow-mapSize-height={2048} shadow-intensity={.48} shadow-radius={2}/>
   </>;
 }
 
@@ -191,7 +192,7 @@ function Scene(props: WorldCanvasProps & {nav:MutableRefObject<Navigation>;chang
       <WorldLighting nav={props.nav}/>
       <CameraRig target={trackedPosition} reducedMotion={props.reducedMotion} insets={props.viewportInsets} map={props.game.map} nav={props.nav} onView={setView} changed={props.changed} onContext={props.onContext}/>
       <ContinuousGround view={view} map={props.game.map}/>
-      <MiniatureTown game={props.game} view={view} nav={props.nav} onSelectTile={props.onSelectTile}/>
+      <MiniatureTown selectedTileId={props.selectedTileId} game={props.game} view={view} nav={props.nav} onSelectTile={props.onSelectTile}/>
       {props.game.players.map((player, seat) => (
         <Mascot
           key={player.id}

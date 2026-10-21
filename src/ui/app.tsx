@@ -2823,6 +2823,7 @@ class App extends React.Component<object, UiState> {
             onMotionComplete={this.finishSceneMotion}
             onActorStep={this.onActorStep}
             onSelectTile={this.onSceneTileSelect}
+            selectedTileId={this.state.selectedTileId}
           />
         </section>
         <header className="game-top">
