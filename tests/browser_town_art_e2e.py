@@ -9,6 +9,7 @@ import json
 import os
 import math
 from playwright.sync_api import sync_playwright
+import browser_live_e2e
 from browser_live_e2e import Handler
 from browser_main_game_acceptance import fixture, load_fixture
 
@@ -22,10 +23,12 @@ class 小镇验收_类:
 
     def api_执行(self) -> None:
         阶段 = os.environ.get('TOWN_PHASE', 'after')
-        输出 = Path('docs/town-art/evidence')
+        输出 = Path(os.environ.get('TOWN_EVIDENCE_DIR', 'docs/town-art/evidence'))
+        if os.environ.get('TOWN_BASELINE_ROOT'):
+            browser_live_e2e.ROOT = Path(os.environ['TOWN_BASELINE_ROOT'])
         输出.mkdir(parents=True, exist_ok=True)
         样本路径 = 输出 / 'town-state.json'
-        if 阶段 == 'before':
+        if 阶段 == 'before' and not 样本路径.exists():
             样本 = fixture("""
             cfg.players=[0,1,2,3].map((i)=>({id:'p'+(i+1),name:['珊瑚','晴蓝','薄荷','金橘'][i],kind:'human'}));
             game=act(createGame(17,cfg),'start_game');
@@ -69,7 +72,7 @@ class 小镇验收_类:
                         页面.screenshot(path=str(输出 / f'{阶段}-desktop-rotated.png'))
                     if 阶段 == 'after':
                         for 目标地块 in ([11] if 手机 else [7,11]):
-                            局面 = fixture(f"const {{readFileSync}}=await import('node:fs');game=JSON.parse(readFileSync('docs/town-art/evidence/town-state.json','utf8')).game;game={{...game,players:game.players.map((p,i)=>i===0?{{...p,position:{目标地块}}}:p)}};")
+                            局面 = fixture(f"const {{readFileSync}}=await import('node:fs');game=JSON.parse(readFileSync({json.dumps(str(样本路径))},'utf8')).game;game={{...game,players:game.players.map((p,i)=>i===0?{{...p,position:{目标地块}}}:p)}};")
                             load_fixture(页面, 地址, 局面, '产权细节'+str(目标地块))
                             页面.get_by_role('button',name='定位当前玩家',exact=True).click()
                             页面.wait_for_timeout(1300)

@@ -40,7 +40,7 @@
 
 补充：[旋转改前](evidence/before-desktop-rotated.png)、[旋转改后](evidence/after-desktop-rotated.png)、[零级与一级产权近景](evidence/after-desktop-state-7.png)、[选中和抵押住宅](evidence/after-desktop-state-11.png)、[手机抵押与选中](evidence/after-phone-state-11.png)。
 
-`before.json` / `after.json` 记录实际相机。复拍直接核对模式、安全区、中心、方位、俯仰与缩放；不通过改成自由镜头来伪装同镜头。独立审查已逐项核验，手机概览居中且不裁切。
+`before.json` / `after.json` 记录实际相机。跨平台首次CI因HUD边距不同而在精确相机断言失败，见[失败与修复](evidence/checks/ci-first-failure.txt)。CI在同一runner上构建原始`56d5aef`并复拍改前/改后，输出到`artifacts/town-art`；不能把Linux字体下的HUD边距与Mac基线直接混比。复拍直接核对模式、安全区、中心、方位、俯仰与缩放；不通过改成自由镜头来伪装同镜头。独立审查已逐项核验，手机概览居中且不裁切。
 
 ## 验证与资源
 
