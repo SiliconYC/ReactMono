@@ -21,7 +21,7 @@
         "labelScaleZ": "0.999999982885729",
         "renderStats": "{\"calls\":0,\"triangles\":0,\"geometries\":0,\"textures\":0,\"programs\":0,\"pixelRatio\":1,\"shadowType\":1,\"shadowSize\":2048}",
         "cutawayBuildings": "",
-        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.699999999999932,\"samplesMs\":[16.600000000000023,16.700000000000045,16.699999999999932,16.600000000000023,16.700000000000045]}"
+        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.699999999999932,\"samplesMs\":[16.699999999999932,16.700000000000045,16.700000000000045,16.699999999999932,16.600000000000023]}"
       }
     },
     {
@@ -43,9 +43,9 @@
         "cameraProjection": "{\"zoom\":37.85488614986569,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
         "labelYaw": "0.7853981633974483",
         "labelScaleZ": "0.999999982885729",
-        "renderStats": "{\"calls\":345,\"triangles\":91704,\"geometries\":205,\"textures\":10,\"programs\":17,\"pixelRatio\":1,\"shadowType\":1,\"shadowSize\":2048}",
+        "renderStats": "{\"calls\":347,\"triangles\":91196,\"geometries\":206,\"textures\":10,\"programs\":17,\"pixelRatio\":1,\"shadowType\":1,\"shadowSize\":2048}",
         "cutawayBuildings": "",
-        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.699999999999932,\"samplesMs\":[16.600000000000023,16.700000000000045,16.699999999999932,16.600000000000023,16.700000000000045]}"
+        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.699999999999932,\"samplesMs\":[16.699999999999932,16.700000000000045,16.700000000000045,16.699999999999932,16.600000000000023]}"
       }
     },
     {
@@ -68,8 +68,8 @@
         "labelYaw": "0.7853981633974483",
         "labelScaleZ": "0.999999982885729",
         "renderStats": "{\"calls\":0,\"triangles\":0,\"geometries\":0,\"textures\":0,\"programs\":0,\"pixelRatio\":1,\"shadowType\":1,\"shadowSize\":2048}",
-        "cutawayBuildings": "转角咖啡馆",
-        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.69999999999999,\"samplesMs\":[16.700000000000045,16.599999999999966,16.69999999999999,16.600000000000023,16.80000000000001]}"
+        "cutawayBuildings": "",
+        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.600000000000023,\"samplesMs\":[16.599999999999966,16.700000000000045,16.599999999999966,16.80000000000001,16.600000000000023]}"
       }
     },
     {
@@ -91,9 +91,9 @@
         "cameraProjection": "{\"zoom\":37.85488614986569,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
         "labelYaw": "0.7853981633974483",
         "labelScaleZ": "0.999999982885729",
-        "renderStats": "{\"calls\":359,\"triangles\":111836,\"geometries\":205,\"textures\":10,\"programs\":17,\"pixelRatio\":1,\"shadowType\":1,\"shadowSize\":2048}",
-        "cutawayBuildings": "转角咖啡馆",
-        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.69999999999999,\"samplesMs\":[16.700000000000045,16.599999999999966,16.69999999999999,16.600000000000023,16.80000000000001]}"
+        "renderStats": "{\"calls\":351,\"triangles\":111328,\"geometries\":206,\"textures\":10,\"programs\":17,\"pixelRatio\":1,\"shadowType\":1,\"shadowSize\":2048}",
+        "cutawayBuildings": "",
+        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.600000000000023,\"samplesMs\":[16.599999999999966,16.700000000000045,16.599999999999966,16.80000000000001,16.600000000000023]}"
       }
     },
     {
@@ -115,9 +115,9 @@
         "cameraProjection": "{\"zoom\":8.804842433323248,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
         "labelYaw": "0.7853981633974483",
         "labelScaleZ": "0.999999982885729",
-        "renderStats": "{\"calls\":0,\"triangles\":0,\"geometries\":0,\"textures\":0,\"programs\":0,\"pixelRatio\":1,\"shadowType\":1,\"shadowSize\":2048}",
+        "renderStats": "{\"calls\":345,\"triangles\":91100,\"geometries\":205,\"textures\":10,\"programs\":15,\"pixelRatio\":1,\"shadowType\":1,\"shadowSize\":2048}",
         "cutawayBuildings": "",
-        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.600000000000023,\"samplesMs\":[16.699999999999932,16.600000000000023,16.600000000000023,16.699999999999932,16.600000000000023]}"
+        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.69999999999999,\"samplesMs\":[33.30000000000001,16.69999999999999,16.700000000000045,16.600000000000023,16.699999999999932]}"
       }
     },
     {
@@ -139,9 +139,9 @@
         "cameraProjection": "{\"zoom\":25.14751047381453,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
         "labelYaw": "0.7853981633974483",
         "labelScaleZ": "0.999999982885729",
-        "renderStats": "{\"calls\":343,\"triangles\":91608,\"geometries\":204,\"textures\":10,\"programs\":15,\"pixelRatio\":1,\"shadowType\":1,\"shadowSize\":2048}",
+        "renderStats": "{\"calls\":310,\"triangles\":90058,\"geometries\":205,\"textures\":10,\"programs\":15,\"pixelRatio\":1,\"shadowType\":1,\"shadowSize\":2048}",
         "cutawayBuildings": "",
-        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.600000000000023,\"samplesMs\":[16.699999999999932,16.600000000000023,16.600000000000023,16.699999999999932,16.600000000000023]}"
+        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.69999999999999,\"samplesMs\":[33.30000000000001,16.69999999999999,16.700000000000045,16.600000000000023,16.699999999999932]}"
       }
     },
     {
@@ -164,8 +164,8 @@
         "labelYaw": "0.7853981633974483",
         "labelScaleZ": "0.999999982885729",
         "renderStats": "{\"calls\":0,\"triangles\":0,\"geometries\":0,\"textures\":0,\"programs\":0,\"pixelRatio\":1,\"shadowType\":1,\"shadowSize\":2048}",
-        "cutawayBuildings": "转角咖啡馆",
-        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.69999999999999,\"samplesMs\":[16.599999999999966,16.69999999999999,16.700000000000045,16.599999999999966,16.69999999999999]}"
+        "cutawayBuildings": "",
+        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.69999999999999,\"samplesMs\":[16.600000000000023,16.69999999999999,16.69999999999999,16.700000000000045,16.69999999999999]}"
       }
     },
     {
@@ -187,9 +187,9 @@
         "cameraProjection": "{\"zoom\":25.14751047381453,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
         "labelYaw": "0.7853981633974483",
         "labelScaleZ": "0.999999982885729",
-        "renderStats": "{\"calls\":357,\"triangles\":111740,\"geometries\":204,\"textures\":10,\"programs\":15,\"pixelRatio\":1,\"shadowType\":1,\"shadowSize\":2048}",
-        "cutawayBuildings": "转角咖啡馆",
-        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.69999999999999,\"samplesMs\":[16.599999999999966,16.69999999999999,16.700000000000045,16.599999999999966,16.69999999999999]}"
+        "renderStats": "{\"calls\":349,\"triangles\":111232,\"geometries\":205,\"textures\":10,\"programs\":15,\"pixelRatio\":1,\"shadowType\":1,\"shadowSize\":2048}",
+        "cutawayBuildings": "",
+        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.69999999999999,\"samplesMs\":[16.600000000000023,16.69999999999999,16.69999999999999,16.700000000000045,16.69999999999999]}"
       }
     }
   ],

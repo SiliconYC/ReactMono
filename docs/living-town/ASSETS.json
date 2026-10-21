@@ -36,9 +36,9 @@
       "role": "只重新编排classic-24.world，其余五图不变"
     }
   ],
-  "productionBytes": 1537583,
+  "productionBytes": 1537549,
   "mainBundle": {
-    "path": "dist/assets/main-CrpVxjRE.js",
+    "path": "dist/assets/main-DmlACebZ.js",
     "bytes": 1066749
   },
   "filesBuilt": [
@@ -49,6 +49,10 @@
     {
       "path": "dist/action-layout.css",
       "bytes": 6795
+    },
+    {
+      "path": "dist/art-manifest.json",
+      "bytes": 1744
     },
     {
       "path": "dist/art/character-bear.svg",
@@ -75,27 +79,23 @@
       "bytes": 365
     },
     {
-      "path": "dist/art-manifest.json",
-      "bytes": 1744
-    },
-    {
-      "path": "dist/assets/game-y_zXWu0_.js",
-      "bytes": 331309
-    },
-    {
-      "path": "dist/assets/main-CrpVxjRE.js",
-      "bytes": 1066749
+      "path": "dist/assets/game-BsFSkJtS.js",
+      "bytes": 331275
     },
     {
       "path": "dist/assets/main-D3keK-f5.css",
       "bytes": 35664
     },
     {
+      "path": "dist/assets/main-DmlACebZ.js",
+      "bytes": 1066749
+    },
+    {
       "path": "dist/assets/manifest-C-zx9ihZ.webmanifest",
       "bytes": 597
     },
     {
-      "path": "dist/assets/visualLab-CTC30xlz.js",
+      "path": "dist/assets/visualLab-A5Al7yH5.js",
       "bytes": 7643
     },
     {
@@ -164,7 +164,7 @@
     }
   ],
   "measurement": {
-    "cycles": "最终常驻批次：正常动画跟随镜头各6轮，205 geometries / 10 textures / 17 programs稳定；桌面303、手机281次绘制。此前197/11/23为修前历史值",
+    "cycles": "最终常驻批次与书屋铺地：正常动画跟随镜头各6轮，206 geometries / 10 textures / 17 programs稳定；桌面294、手机272次绘制。随后仅小车平移1单位，未改部件或批次；完整同头CI再检查。",
     "fixedReducedMotionTelemetry": "可能为零或前一镜头数值，不作为近景性能改善证据",
     "physicalPhones": 0,
     "slowDevice": "沿用既有启动实际帧预算，超过50ms选择1024阴影与近景0.65DPR，远景细路恢复设备DPR"

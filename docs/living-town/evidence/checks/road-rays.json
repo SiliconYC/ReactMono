@@ -1,0 +1,206 @@
+{
+  "method": "Three.js CPU raycasting; exact 8 primitive meshes; default yaw/elevation; 24 centers, 5 label samples each, 9x9 grid over 1.5-square road patch; background urban buildings only, excludes props/actors",
+  "worstVisibleFraction": 0.9012345679012346,
+  "roads": [
+    {
+      "id": 0,
+      "center": [],
+      "labelHits": [],
+      "patchOccluded": 4,
+      "patchSamples": 81,
+      "patchBuildings": [
+        "转角咖啡馆"
+      ]
+    },
+    {
+      "id": 1,
+      "center": [],
+      "labelHits": [],
+      "patchOccluded": 0,
+      "patchSamples": 81,
+      "patchBuildings": []
+    },
+    {
+      "id": 2,
+      "center": [],
+      "labelHits": [],
+      "patchOccluded": 0,
+      "patchSamples": 81,
+      "patchBuildings": []
+    },
+    {
+      "id": 3,
+      "center": [],
+      "labelHits": [],
+      "patchOccluded": 0,
+      "patchSamples": 81,
+      "patchBuildings": []
+    },
+    {
+      "id": 4,
+      "center": [],
+      "labelHits": [],
+      "patchOccluded": 8,
+      "patchSamples": 81,
+      "patchBuildings": [
+        "晴湾公寓甲"
+      ]
+    },
+    {
+      "id": 5,
+      "center": [],
+      "labelHits": [],
+      "patchOccluded": 2,
+      "patchSamples": 81,
+      "patchBuildings": [
+        "晴湾公寓甲"
+      ]
+    },
+    {
+      "id": 6,
+      "center": [],
+      "labelHits": [],
+      "patchOccluded": 8,
+      "patchSamples": 81,
+      "patchBuildings": [
+        "晴湾公寓乙"
+      ]
+    },
+    {
+      "id": 7,
+      "center": [],
+      "labelHits": [],
+      "patchOccluded": 0,
+      "patchSamples": 81,
+      "patchBuildings": []
+    },
+    {
+      "id": 8,
+      "center": [],
+      "labelHits": [],
+      "patchOccluded": 0,
+      "patchSamples": 81,
+      "patchBuildings": []
+    },
+    {
+      "id": 9,
+      "center": [],
+      "labelHits": [],
+      "patchOccluded": 0,
+      "patchSamples": 81,
+      "patchBuildings": []
+    },
+    {
+      "id": 10,
+      "center": [],
+      "labelHits": [],
+      "patchOccluded": 0,
+      "patchSamples": 81,
+      "patchBuildings": []
+    },
+    {
+      "id": 11,
+      "center": [],
+      "labelHits": [],
+      "patchOccluded": 0,
+      "patchSamples": 81,
+      "patchBuildings": []
+    },
+    {
+      "id": 12,
+      "center": [],
+      "labelHits": [],
+      "patchOccluded": 0,
+      "patchSamples": 81,
+      "patchBuildings": []
+    },
+    {
+      "id": 13,
+      "center": [],
+      "labelHits": [],
+      "patchOccluded": 0,
+      "patchSamples": 81,
+      "patchBuildings": []
+    },
+    {
+      "id": 14,
+      "center": [],
+      "labelHits": [],
+      "patchOccluded": 0,
+      "patchSamples": 81,
+      "patchBuildings": []
+    },
+    {
+      "id": 15,
+      "center": [],
+      "labelHits": [],
+      "patchOccluded": 0,
+      "patchSamples": 81,
+      "patchBuildings": []
+    },
+    {
+      "id": 16,
+      "center": [],
+      "labelHits": [],
+      "patchOccluded": 0,
+      "patchSamples": 81,
+      "patchBuildings": []
+    },
+    {
+      "id": 17,
+      "center": [],
+      "labelHits": [],
+      "patchOccluded": 0,
+      "patchSamples": 81,
+      "patchBuildings": []
+    },
+    {
+      "id": 18,
+      "center": [],
+      "labelHits": [],
+      "patchOccluded": 0,
+      "patchSamples": 81,
+      "patchBuildings": []
+    },
+    {
+      "id": 19,
+      "center": [],
+      "labelHits": [],
+      "patchOccluded": 0,
+      "patchSamples": 81,
+      "patchBuildings": []
+    },
+    {
+      "id": 20,
+      "center": [],
+      "labelHits": [],
+      "patchOccluded": 0,
+      "patchSamples": 81,
+      "patchBuildings": []
+    },
+    {
+      "id": 21,
+      "center": [],
+      "labelHits": [],
+      "patchOccluded": 0,
+      "patchSamples": 81,
+      "patchBuildings": []
+    },
+    {
+      "id": 22,
+      "center": [],
+      "labelHits": [],
+      "patchOccluded": 0,
+      "patchSamples": 81,
+      "patchBuildings": []
+    },
+    {
+      "id": 23,
+      "center": [],
+      "labelHits": [],
+      "patchOccluded": 0,
+      "patchSamples": 81,
+      "patchBuildings": []
+    }
+  ]
+}
