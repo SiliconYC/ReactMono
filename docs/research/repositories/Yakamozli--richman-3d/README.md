@@ -1,5 +1,7 @@
 # Yakamozli/richman-3d 深度研究：程序化三维棋盘的实际边界
 
+> **2026-10-21 后续补证**：原研究截至 10-19 的 “A=0／未运行” 是当时实验历史，不再代表最新研究总状态。Issue [#121](../../verification-issue-121/RESULTS.md) 已在固定同一 SHA 下独立运行、取得 [桌面](../../verification-issue-121/evidence/richman3d-desktop.png) / [手机模拟视口](../../verification-issue-121/evidence/richman3d-mobile.png) WebGL 画面与 `node test/smoke.mjs 2` 成功记录（只属对应运行的 A）。桌面镜头显著左偏、手机画面棋盘裁剪/遮挡；没有完整对局或真机 FPS。以下历史静态研究过程保留原貌。
+
 > **任务**：[ReactMono Issue #102](https://github.com/SiliconYC/ReactMono/issues/102) · 研究对象：[Yakamozli/richman-3d](https://github.com/Yakamozli/richman-3d) · 独立分析，不导入上游源码及素材。  
 > **核心结论**：这是以 **Monopoly 式 52 格外环平面棋盘为底、角色/房屋/骰子为 3D 几何**的原创网页作品，不是 1998 年《大富翁4》严格复刻；“程序化绘图”不等于“全场景三维建模”。对 ReactMono 最有价值的是代码生成的 **卡牌/地契/纸币美术管线**与少量交互点子，而非替换现有真正 3D 地块街区。[B01][B02][B03][B07][B17]
 

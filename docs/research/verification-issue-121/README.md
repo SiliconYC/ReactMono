@@ -1,6 +1,6 @@
 # Issue #121：上游画面与经济机制独立验证
 
-> 状态：实验中；仅当 `evidence/run.json` 与浏览器、编译原始日志显示成功，才将单项证据提升为 A。当前文档不是验收完成证明。
+> 状态：已取得双视口 Chromium 及独立原生经济运行证据，最终分类与限制以 [RESULTS.md](RESULTS.md) 为准。
 
 ## 方法与研究基线
 
@@ -23,7 +23,7 @@ python -m pip install playwright
 python -u docs/research/verification-issue-121/run.py
 ```
 
-GitHub 上另有本 Issue 专用验收工作流：[`.github/workflows/issue121-research.yml`](../../../.github/workflows/issue121-research.yml)，**只对隔离任务分支的实验脚本或工作流变化自动触发**。不得当成后续所有 PR 的常规 CI。
+原先一次性 GitHub Actions 实验与恢复工作流已完成职责、在收口时移除；原始实验运行历史仍可通过 [Actions 运行 39471057645](https://github.com/SiliconYC/ReactMono/actions/runs/39471057645) 和 [39473338522](https://github.com/SiliconYC/ReactMono/actions/runs/39473338522) 查询。复验本地可直接执行本页脚本（经济复验：`python -u docs/research/verification-issue-121/run_economy.py`，需 SDL3/FreeType 构建依赖）。
 
 原始证据输出 `evidence/run.json`、`evidence/run.log`、`evidence/<项目>-<桌面/手机>.png`；失败仍保存日志，截图失败时另存 `-failed.png`。脚本使用固定 Git SHA，不下载或提交未授权游戏商业资源，不登录上游 Supabase，也不向上游服务写入任何数据。截图只用作非商业技术评述，不授权素材在 ReactMono 中复制。
 
@@ -36,3 +36,7 @@ GitHub 上另有本 Issue 专用验收工作流：[`.github/workflows/issue121-r
 - [综合研究任务 #104](https://github.com/SiliconYC/ReactMono/issues/104) 应引用本次独立实测与所有失败证据，而不是把 B/C 结论合并升为 A。
 
 每条试验的 A 等级必须有命令、固定 SHA、退出状态、测试 stdout 或截图哈希。B=固定源码，C=作者声明，D=未验证；无法运行或渲染则继续标 D（阻碍）而非声称 A。
+
+## 补证审计
+
+六幅 PNG 的内容与真实 WebGL 游戏画面由验收者逐张复查；`run.json` 与 `economy-run.json` 不能仅因退出码为零就代表游戏全部可玩。新增测试与上游原测试均曾读取第八个（不存在）交易槽，现由测试层的合法索引断言修复；历史结果保留，详见 [RESULTS.md](RESULTS.md) 和 [failures.md](failures.md)。三个资源依赖项虽显示 `OK`，实际为 `SKIP`。

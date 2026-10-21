@@ -1,0 +1,440 @@
+{
+  "repository": "lhr0909/richman4-remastered",
+  "url": "https://github.com/lhr0909/richman4-remastered",
+  "checked_at_utc": "2026-10-19T01:20:00Z",
+  "upstream_sha": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "upstream_default_branch": "main",
+  "upstream_commit_at_utc": "2026-10-06T02:20:39Z",
+  "original_relation": "faithful",
+  "original_relation_qualification": "试图忠实迁移 1998 年原版；不表示已经独立验证全游戏保真",
+  "origin": {
+    "github_fork": false,
+    "reverse_engineering_lineage": "mytbk/rich4",
+    "documented_source_sha": "ec7d70e693059d1e781d9d1cc2ad7f36d360d39e",
+    "lineage_evidence_ids": [
+      "E01",
+      "E17"
+    ]
+  },
+  "license": {
+    "spdx": "GPL-3.0-or-later",
+    "source_url": "https://github.com/lhr0909/richman4-remastered/blob/3f4209a7dfb5b2f20799bf54e6c03c5faa11c557/LICENSE",
+    "risks": [
+      "LICENSE 为 GPLv3 正文，源码 SPDX 与 NOTICE 表示 or-later；复用代码需审查整合许可",
+      "已转录原版对白、股票名称/提示仍为商业权利，项目许可不覆盖",
+      "原版游戏 MKF/音视频/程序、从原版 EXE 提取的图标不允许凭 GPL 公开分发",
+      "上游引擎/依赖有多个许可，二进制分发需逐项完成相应义务",
+      "ReactMono 本次只作静态分析，不移植代码或素材"
+    ]
+  },
+  "execution": {
+    "attempted": false,
+    "environment": "GitHub 已连接 API：固定 SHA 远端文本源码/测试定义静态核查；当前工作容器无法下载上游克隆，也没有用户自有原版 MKF/EXE、Mac/Xcode/Android SDK/设备",
+    "commands": [],
+    "result": "not_run: 上游构建、CTest、20 场 runner、原版对照、Android/iOS 真机均未运行；没有 A 类证据",
+    "limitations": [
+      "上游资源和部分测试金标仅存在研究者本人忽略目录",
+      "本会话没有合法原版游戏输入与私有 APK/Xcode 报告",
+      "当前容器不是 Apple Silicon macOS/Xcode 及真机测试环境",
+      "47/47 与 20/20 依据 2026-10-06 作者状态说明，不是可由本研究复算的公开日志"
+    ]
+  },
+  "evidence": [
+    {
+      "id": "E01",
+      "level": "B",
+      "claim": "锁定上游 main 的最新 Git 提交；GitHub 标记非 fork，具体技术来源需单独辨认",
+      "source_url": "https://github.com/lhr0909/richman4-remastered/commit/3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+      "locator": "commit/HEAD + repository metadata",
+      "verification": "read_source_metadata",
+      "limitations": "非 fork 是平台属性，不代表未受先前逆向成果启发或代码独立"
+    },
+    {
+      "id": "E02",
+      "level": "B",
+      "claim": "C++ 原生核心、SDL 游戏、CTest 子测试随功能与资源有条件构建",
+      "source_url": "https://github.com/lhr0909/richman4-remastered/blob/3f4209a7dfb5b2f20799bf54e6c03c5faa11c557/CMakeLists.txt#L1-L106",
+      "locator": "CMakeLists.txt:1-106",
+      "verification": "read_build_definitions",
+      "limitations": "没有实际 cmake 编译，也没有使用原始 MKF 金标"
+    },
+    {
+      "id": "E03",
+      "level": "C",
+      "claim": "作者统计约 157977 行原汇编转换为约 32000 行 C++",
+      "source_url": "https://github.com/lhr0909/richman4-remastered/blob/3f4209a7dfb5b2f20799bf54e6c03c5faa11c557/README.md#L48-L71",
+      "locator": "README.md:48-71",
+      "verification": "author_statement_only",
+      "limitations": "未在本次抓取并按同口径计算两个项目的所有源码"
+    },
+    {
+      "id": "E04",
+      "level": "B",
+      "claim": "新局入口从原资源解码地图，安装世界/规则会话及棋盘 Renderer",
+      "source_url": "https://github.com/lhr0909/richman4-remastered/blob/3f4209a7dfb5b2f20799bf54e6c03c5faa11c557/tools/native_game.cpp#L913-L1014",
+      "locator": "tools/native_game.cpp:new_game/install_session；src/world.cpp:590-714",
+      "verification": "cross_file_static_trace",
+      "limitations": "输入资源为私有游戏数据；未经实机生成地图"
+    },
+    {
+      "id": "E05",
+      "level": "B",
+      "claim": "人类掷骰、AI 轮次、阶段式步进及掷骰/移动状态由 GameSession 驱动",
+      "source_url": "https://github.com/lhr0909/richman4-remastered/blob/3f4209a7dfb5b2f20799bf54e6c03c5faa11c557/src/game.cpp#L513-L756",
+      "locator": "src/game.cpp:Impl::start_turn/begin_ai_turn；GameSession::roll_dice:3743-3747；tick:4052-4117",
+      "verification": "cross_file_static_trace",
+      "limitations": "未实测一局时序与原版逻辑的整体等价性"
+    },
+    {
+      "id": "E06",
+      "level": "B",
+      "claim": "当前主界面源码有工具栏/资金分页/小地图/日历/GO 绘制入口",
+      "source_url": "https://github.com/lhr0909/richman4-remastered/blob/3f4209a7dfb5b2f20799bf54e6c03c5faa11c557/tools/screens/main_screen.cpp#L275-L303",
+      "locator": "tools/screens/main_screen.cpp:draw_toolbar,draw_info_panel,draw_minimap,draw_calendar,draw_go:275-552",
+      "verification": "read_current_fixed_sha_code",
+      "limitations": "静态入口存在不代表 UI 已经完成原版视觉对照"
+    },
+    {
+      "id": "E07",
+      "level": "B",
+      "claim": "事件和效果按索引排序入队，播放队列等待当前展现完毕再推进；消息调用音效/语音",
+      "source_url": "https://github.com/lhr0909/richman4-remastered/blob/3f4209a7dfb5b2f20799bf54e6c03c5faa11c557/tools/native_game.cpp#L1062-L1149",
+      "locator": "tools/native_game.cpp:pump_presentation/present/observe",
+      "verification": "cross_file_static_trace",
+      "limitations": "没有量化 UI 动画延迟、掉帧与真实听感"
+    },
+    {
+      "id": "E08",
+      "level": "B",
+      "claim": "卡片/道具动作在核心校验状态、持有及目标而非直接修改 UI 模型",
+      "source_url": "https://github.com/lhr0909/richman4-remastered/blob/3f4209a7dfb5b2f20799bf54e6c03c5faa11c557/src/game.cpp#L3749-L3818",
+      "locator": "tools/screens/items.cpp:310-355；src/cards.cpp:196-287；src/game.cpp:use_card/use_tool",
+      "verification": "cross_file_static_trace",
+      "limitations": "实际全部 26 张主动卡/13 种道具执行属于未重跑的覆盖声明"
+    },
+    {
+      "id": "E09",
+      "level": "B",
+      "claim": "股市界面触发买卖回调并通过交易限制/行情规则执行；AI 也会自动买卖",
+      "source_url": "https://github.com/lhr0909/richman4-remastered/blob/3f4209a7dfb5b2f20799bf54e6c03c5faa11c557/src/game.cpp#L3825-L3858",
+      "locator": "tools/screens/stocks.cpp:143-195；tools/native_game.cpp:790-799,1763-1775；src/stocks.cpp:160-245；src/game.cpp:601-645",
+      "verification": "cross_file_static_trace",
+      "limitations": "没有原作同随机数、同存档的长期股市/AI 比较"
+    },
+    {
+      "id": "E10",
+      "level": "B",
+      "claim": "DAT 解码、World 映射与语义准入独立；原生随机状态另存 .rng，两个文件并非一个事务",
+      "source_url": "https://github.com/lhr0909/richman4-remastered/blob/3f4209a7dfb5b2f20799bf54e6c03c5faa11c557/tools/native_game.cpp#L1015-L1053",
+      "locator": "src/save.cpp:SaveFile::decode:86-106；src/world.cpp:World::from_save:174-200；src/world_validation.cpp:70-228",
+      "verification": "cross_file_static_trace",
+      "limitations": "未触发模拟断电；风险来自两次分离持久化逻辑"
+    },
+    {
+      "id": "E11",
+      "level": "B",
+      "claim": "小游戏入口切换互动与自动点券，三种玩法有可定位的输入、随机数和结果返写",
+      "source_url": "https://github.com/lhr0909/richman4-remastered/blob/3f4209a7dfb5b2f20799bf54e6c03c5faa11c557/src/game.cpp#L3342-L3359",
+      "locator": "tools/screens/minigames.cpp:139-190,270-315；src/game.cpp:submit_mini_game:4038-4050",
+      "verification": "cross_file_static_trace",
+      "limitations": "当前未手动操作真实游戏界面，无画面保真证据"
+    },
+    {
+      "id": "E12",
+      "level": "B",
+      "claim": "公开的原作 UI/审计文档列出像素布局、原机行为与历史缺口，但部分 B gap 已被后续源码覆盖",
+      "source_url": "https://github.com/lhr0909/richman4-remastered/blob/3f4209a7dfb5b2f20799bf54e6c03c5faa11c557/docs/ui/main-screen.md#L25-L70",
+      "locator": "docs/ui/main-screen.md;docs/audit/{audio-map,panel-jump-help,rules-text-hover}.md",
+      "verification": "compare_archived_gaps_with_current_code",
+      "limitations": "审计是特定时间快照，不能按旧 B gap 断言 10/6 缺口仍在"
+    },
+    {
+      "id": "E13",
+      "level": "B",
+      "claim": "Android 打包脚本需要用户游戏文件，JNI 首启将 APK 内文件解出并维护私有存档目录",
+      "source_url": "https://github.com/lhr0909/richman4-remastered/blob/3f4209a7dfb5b2f20799bf54e6c03c5faa11c557/scripts/build_android.sh#L62-L80",
+      "locator": "android/app/src/main/cpp/rich4_android.cpp:101-161",
+      "verification": "cross_file_static_trace",
+      "limitations": "未执行 SDK/Gradle/adb 或真机音频测试"
+    },
+    {
+      "id": "E14",
+      "level": "B",
+      "claim": "iOS Xcode 打包需原版文件及可选签名团队；仓库有菜单到 GO 的 XCUITest 测试源码",
+      "source_url": "https://github.com/lhr0909/richman4-remastered/blob/3f4209a7dfb5b2f20799bf54e6c03c5faa11c557/ios/uitests/Rich4TouchTests.m#L31-L63",
+      "locator": "scripts/build_ios.sh:84-108；ios/rich4_ios.mm:39-77",
+      "verification": "cross_file_static_trace",
+      "limitations": "仅测试代码存在，iOS 模拟器运行结果作者声称；iOS 真机明确未测"
+    },
+    {
+      "id": "E15",
+      "level": "B",
+      "claim": "原生 20 场 runner 定义八图自然开局和合成动作，并在覆盖率/恢复/终局门槛失效时使整批失败",
+      "source_url": "https://github.com/lhr0909/richman4-remastered/blob/3f4209a7dfb5b2f20799bf54e6c03c5faa11c557/scripts/run_native_acceptance.py#L23-L65",
+      "locator": "scripts/run_native_acceptance.py:matrix:49-65,coverage:236-261,run:264-330",
+      "verification": "read_runner_and_assertions",
+      "limitations": "无原版商业输入与真实执行报告；编排 unit tests 多采用 mock"
+    },
+    {
+      "id": "E16",
+      "level": "C",
+      "claim": "10/6 作者称 47/47 ctest、20/20 原生验收、Android OnePlus 8 真机与 iOS 模拟器；同时自列未完成选项/过场/平台缺口",
+      "source_url": "https://github.com/lhr0909/richman4-remastered/blob/3f4209a7dfb5b2f20799bf54e6c03c5faa11c557/docs/STATUS.md#L1-L28",
+      "locator": "docs/STATUS.md:1-28;历史段 10/5",
+      "verification": "author_statement_only",
+      "limitations": "公开 Git 仓库没有 10/6 对应完整原始日志供本研究重算"
+    },
+    {
+      "id": "E17",
+      "level": "B",
+      "claim": "引擎源码按 GPL-3.0-or-later 声明，直接指出承袭 mytbk/rich4 逆向研究且依赖若干第三方库",
+      "source_url": "https://github.com/lhr0909/richman4-remastered/blob/3f4209a7dfb5b2f20799bf54e6c03c5faa11c557/THIRD_PARTY_NOTICES.md#L1-L33",
+      "locator": "THIRD_PARTY_NOTICES.md:3-32;NOTICE.md;LICENSE;源码 SPDX",
+      "verification": "read_license_and_attribution",
+      "limitations": "不等于所有复制内容、转录文本或商业游戏资产均在 GPL 授权范围"
+    },
+    {
+      "id": "E18",
+      "level": "B",
+      "claim": "原版游戏的资源、人物与文字版权未获项目 GPL 授权；源代码仍含原作对白/公司名；含商业素材的 APK/IPA 不可公开发布",
+      "source_url": "https://github.com/lhr0909/richman4-remastered/blob/3f4209a7dfb5b2f20799bf54e6c03c5faa11c557/NOTICE.md#L1-L75",
+      "locator": "NOTICE.md:2-4;game-assets/README.md:1-56",
+      "verification": "read_legal_notice_and_asset_prereqs",
+      "limitations": "不是法律意见；需权利人授权的复用范围不能由引擎许可推出"
+    },
+    {
+      "id": "E19",
+      "level": "D",
+      "claim": "在没有同状态原版与原生截图/真人验收的情况下，整体画面保真和完成度无法定量判断",
+      "source_url": "https://github.com/lhr0909/richman4-remastered/blob/3f4209a7dfb5b2f20799bf54e6c03c5faa11c557/docs/ui/effects.md#L1-L58",
+      "locator": "docs/ui/effects.md;docs/ui/main-screen.md;公开结果文件缺失",
+      "verification": "inference_about_evidence_sufficiency",
+      "limitations": "未知不是证实差，也不是证实商业级；评分使用 null"
+    },
+    {
+      "id": "E20",
+      "level": "B",
+      "claim": "10/5 记录显示 19 场单例通过而总表失败、扩大到 20 场时中断；代码可检验其严格门槛，10/6 新成功原日志仍不可直接公开读取",
+      "source_url": "https://github.com/lhr0909/richman4-remastered/blob/3f4209a7dfb5b2f20799bf54e6c03c5faa11c557/docs/migrations/031-native-acceptance.md#L137-L160",
+      "locator": "docs/migrations/031-native-acceptance.md:137-160;tests/native_acceptance_tests.py:3-12,143-185",
+      "verification": "read_historical_report_and_runner",
+      "limitations": "旧记录是作者给出的状态历史不是本研究 A；后续 10/6 声称不能被旧状态自动否定"
+    },
+    {
+      "id": "E21",
+      "level": "B",
+      "claim": "ReactMono 现有架构是 React/TypeScript/Three.js 静态网站 + PWA、本机 IndexedDB 和原创现代 3D 美术，非原生 C++ 移植",
+      "source_url": "https://github.com/SiliconYC/ReactMono/blob/be88f92936e553bd369fe3c142394cd612659f5f/docs/PROJECT_CHARTER.md",
+      "locator": "ReactMono:AGENTS.md,docs/PROJECT_CHARTER.md,src/core,src/ui,src/demo3d",
+      "verification": "read_target_product_docs_and_tree",
+      "limitations": "项目已有功能缺陷必须另经浏览器实测，不能据外部项目直接认定"
+    }
+  ],
+  "features": [
+    {
+      "feature": "new_game_turns_maps_property",
+      "status": "partial",
+      "evidence_ids": [
+        "E04",
+        "E05",
+        "E15"
+      ]
+    },
+    {
+      "feature": "original_style_toolbar_minimap_ui",
+      "status": "partial",
+      "evidence_ids": [
+        "E06",
+        "E12",
+        "E16"
+      ]
+    },
+    {
+      "feature": "character_anim_flc_voice_music",
+      "status": "partial",
+      "evidence_ids": [
+        "E07",
+        "E12",
+        "E16"
+      ]
+    },
+    {
+      "feature": "cards_tools_shops_gods",
+      "status": "partial",
+      "evidence_ids": [
+        "E08",
+        "E15",
+        "E16"
+      ]
+    },
+    {
+      "feature": "stocks_bank_financing_auctions",
+      "status": "partial",
+      "evidence_ids": [
+        "E09",
+        "E16"
+      ]
+    },
+    {
+      "feature": "interactive_three_minigames",
+      "status": "partial",
+      "evidence_ids": [
+        "E11",
+        "E16"
+      ]
+    },
+    {
+      "feature": "saves_slots_autosave",
+      "status": "partial",
+      "evidence_ids": [
+        "E10",
+        "E16"
+      ]
+    },
+    {
+      "feature": "computer_ai_managed_mode",
+      "status": "partial",
+      "evidence_ids": [
+        "E05",
+        "E09",
+        "E16"
+      ]
+    },
+    {
+      "feature": "android_real_device_install",
+      "status": "claimed",
+      "evidence_ids": [
+        "E13",
+        "E16"
+      ]
+    },
+    {
+      "feature": "ios_simulator_touch_test_pass",
+      "status": "claimed",
+      "evidence_ids": [
+        "E14",
+        "E16"
+      ]
+    },
+    {
+      "feature": "ios_physical_device",
+      "status": "unknown",
+      "evidence_ids": [
+        "E14",
+        "E16"
+      ]
+    },
+    {
+      "feature": "full_original_game_equivalence",
+      "status": "unknown",
+      "evidence_ids": [
+        "E03",
+        "E15",
+        "E19",
+        "E20"
+      ]
+    },
+    {
+      "feature": "modern_react_3d_graphics",
+      "status": "absent",
+      "evidence_ids": [
+        "E02",
+        "E19",
+        "E21"
+      ]
+    },
+    {
+      "feature": "original_avi_cinematics",
+      "status": "partial",
+      "evidence_ids": [
+        "E16",
+        "E18"
+      ]
+    },
+    {
+      "feature": "47_of_47_ctest_pass",
+      "status": "claimed",
+      "evidence_ids": [
+        "E02",
+        "E16"
+      ]
+    },
+    {
+      "feature": "20_of_20_native_acceptance_pass",
+      "status": "claimed",
+      "evidence_ids": [
+        "E15",
+        "E16",
+        "E20"
+      ]
+    },
+    {
+      "feature": "source_license_attribution",
+      "status": "verified",
+      "evidence_ids": [
+        "E17",
+        "E18"
+      ]
+    }
+  ],
+  "scores": {
+    "rules": 3,
+    "maintainability": 3,
+    "reproducibility": 1,
+    "presentation": null,
+    "reactmono_value": 3
+  },
+  "score_evidence": {
+    "rules": [
+      "E04",
+      "E05",
+      "E08",
+      "E09",
+      "E11",
+      "E16"
+    ],
+    "maintainability": [
+      "E02",
+      "E04",
+      "E07",
+      "E13",
+      "E14"
+    ],
+    "reproducibility": [
+      "E15",
+      "E16",
+      "E18",
+      "E20"
+    ],
+    "presentation": [
+      "E06",
+      "E12",
+      "E16",
+      "E19"
+    ],
+    "reactmono_value": [
+      "E07",
+      "E10",
+      "E15",
+      "E17",
+      "E21"
+    ]
+  },
+  "score_confidence": {
+    "rules": "medium/B+author claims",
+    "maintainability": "medium/B",
+    "reproducibility": "medium/B+C",
+    "presentation": "insufficient/no A visual comparison",
+    "reactmono_value": "medium/B"
+  },
+  "recommendation": "read_only_reference",
+  "open_questions": [
+    "可否提供去商业数据化的 2026-10-06 47/47 CTest 完整日志和配置以及同一批次 20/20 summary.json？",
+    "原版 v3.11 与 Steam 版 MKF/字体/过场差异如何？",
+    "哪些 UI 画面/输入序列经原版与原生相同存档的帧级独立对照？",
+    "23 个 AVI 占位资源是否有合法可分发替代？",
+    "iOS 真机侧载、后台保存、音频和完整结局是否已独立完成验收？",
+    "GPL 代码技术血缘、第三方音色来源和原作抄录文字是否满足未来分发的独立许可审查？",
+    "能否在完全不移植 GPL 实现和受保护资产的情况下独立实现 ReactMono 事件演出策略？"
+  ]
+}

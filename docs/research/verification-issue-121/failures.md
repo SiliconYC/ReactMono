@@ -10,3 +10,11 @@
 | 4 | [39469127907](https://github.com/SiliconYC/ReactMono/actions/runs/39469127907) | 后续实验完整度以该次作业最终状态、`evidence/run.json`、`evidence/run.log` 和截图文件为准；**不可仅以此表声称已成功**。 | 待真实结果审查。 |
 
 不要用 Actions 工作流自身状态替代实际功能验证：即使脚本 0 退出，也须逐张核实 Canvas/WebGL 对应真实游戏画面，以及 CMake、CTest 的独立退出状态。
+
+## 收口阶段补充记录
+
+| 轮次 | Actions 运行 | 实际现象 | 处理 |
+| --- | --- | --- | --- |
+| 后续截图收集 | [39471057645](https://github.com/SiliconYC/ReactMono/actions/runs/39471057645) | 所有六张截图、run.json 已真实生成；原工作流因 CMake/SDL 控制台配置未完成经济构建，不能当经济绿灯。 | 后来由独立经济复验和恢复作业保存并提交。 |
+| 原生经济首次完整复验 | [39473338522](https://github.com/SiliconYC/ReactMono/actions/runs/39473338522) | 已独立编译及显示 `114 checks, 0 fails`，但三项商业资源缺失跳过；新增及上游旧挂单满额测试各有一处第八槽越界读取编译警告，原绿灯并不充分。 | 临时克隆中只修两处**测试断言**，不改上游经济业务逻辑；复验记录保留在 evidence 下。 |
+| 测试补丁复验 | [39522311357](https://github.com/SiliconYC/ReactMono/actions/runs/39522311357) | 新版 `run_economy.py` 要求解析断言检查数、跳过案例、四个指定成功案例和零越界警告；复验成功：126 checks、0 fails、4 项指定用例通过、0 越界警告、3 项资源用例仍跳过，详见 `economy-run.json`。 | 采用一次性工作流，只重新执行受越界断言影响的原生测试；画面不重跑。 |

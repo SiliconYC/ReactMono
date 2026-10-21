@@ -1,40 +1,44 @@
-# Issue #121：第一手验证结果及收口门槛
+# Issue #121：独立实验验收与同视口比较
 
-> **研究进行中／不可据此关闭 Issue。** 本文件仅记录已经观察的独立执行结果；最新完整机器记录仍须以 `evidence/run.json` / `evidence/run.log` 和最终 Actions 任务为准。链接与证据级别以逐条材料为单位，不给整个仓库一概升级。
+核验范围：本页是对 2026-10-20/21 已存档实验的**独立复核**，不是重新制作的画面。原始输出与每张 PNG、校验值、命令、失败历史位于 [evidence/](evidence/)、[run.py](run.py)、[run_economy.py](run_economy.py)、[failures.md](failures.md)。所有结论限定固定 SHA 和本轮观测。
 
-## 第一手 Chromium 画面：Yakamozli/richman-3d
+## A：三个项目、六张真实 Chromium 画面
 
-- 固定 SHA：`32e7f01f9888a28b8fd1267f5488c455e15abe4a`。使用临时 git checkout、仓库根静态服务器、真实 Chromium（无头、WebGL 软件渲染）；不是作者 README 宣传图。
-- 统一视口：桌面 **1440×900**、手机 **390×844**（手机是有触控模拟的 Chromium 视口，不是实机）。
-- 可靠运行证据：[`39468181596` 原始桌面/手机 PNG](https://github.com/SiliconYC/ReactMono/actions/runs/39468181596/artifacts/12285243710)，两页脚本日志均显示 `render True error None`；[`39470642742` 补装简体中文字体的二次截图](https://github.com/SiliconYC/ReactMono/actions/runs/39470642742/artifacts/12286503535)，两页同样 `render True error None`。
-- **A 级可见事实**：桌面棋盘呈明显左偏，视窗右侧大范围缺少游戏场景，整体镜头未有效利用屏幕。手机棋盘的左端超出视窗，上排顶栏按钮从右端被裁断，底部操作卡与日志区域相互遮挡；虽然角色/建筑三维网格和掷骰 HUD 真的出现，但此手机布局不能判定正常适配。
-- **B 级结构解释**：`js/scene.js` 与 `js/draw.js` 中完整棋盘主要是一张 CanvasTexture 贴到盒几何体的顶面；棋盘中心楼宇和棋子为程序构造的几何体。A 级像素证据只支持画面中的具体表现，不自动证明每个模型有独立建筑等级或所有作者功能声明已经运行。
-- `node test/smoke.mjs 2` 独立执行退出码 0（A，仅该上游的有限烟测）；这不意味着《大富翁4》原作规则已验证。
-- **注意**：首轮未安装中文字形的截图存在方框字，不能拿它评价中文字体可读性。已另行在安装中文字形后的 Chromium 重新截图，仍可观察到手机溢出和棋盘裁切。
+| 项目（固定上游 SHA） | 1440×900 桌面 | 390×844 模拟手机 | 实测和不能推断的事实 |
+| --- | --- | --- | --- |
+| Yakamozli/richman-3d `32e7f01f9888a28b8fd1267f5488c455e15abe4a` | [原始 PNG](evidence/richman3d-desktop.png) | [原始 PNG](evidence/richman3d-mobile.png) | Chromium 检测到 WebGL，进入游戏、出现角色/骰子/楼房/控制条；`node test/smoke.mjs 2` 退出 0；不是完整对局证明 |
+| zawsstt/monopoly-rich-life `307c1761b150a7179fb0353618a95bc6effe3fee` | [原始 PNG](evidence/richlife-desktop.png) | [原始 PNG](evidence/richlife-mobile.png) | 静态入口 `?auto=1&nofly=1&cdn=0` 真正进入对局且能看到书桌、棋盘、角色及界面；性能样本在 6 秒内超时，未测得可信帧间隔 |
+| ReactMono `dev@4494a16d017b0697fa7e74f9d450154e0c228ede` | [原始 PNG](evidence/reactmono-desktop.png) | [原始 PNG](evidence/reactmono-mobile.png) | 本次真实主程序开局，而非此前静态概念图；`dev` 后续提交不自动包含在这一画面基线 |
 
-## 第二个 3D 上游：zawsstt/monopoly-rich-life
+**链式证据：** [run.json](evidence/run.json) 六条 `views` 均有 HTTP 200、WebGL/Canvas 检测、统一视口、PNG 文件名与 SHA-256；对应 [run.log](evidence/run.log) 的 Git 克隆、固定 SHA 检出、依赖/浏览器记录；[首次完整截图作业](https://github.com/SiliconYC/ReactMono/actions/runs/39471057645) 的原始产物由 [恢复作业](https://github.com/SiliconYC/ReactMono/actions/runs/39473338522)归档入 Git。六张仓库内文件均经独立打开目视核查。Chromium 155、Linux CI、SwiftShader 软件 WebGL；触屏只是模拟视口。
 
-- 固定 SHA：`307c1761b150a7179fb0353618a95bc6effe3fee`。
-- 已在独立运行容器成功克隆、稀疏读取所需源码和本地图形素材，入口尝试 `?auto=1&nofly=1&cdn=0&allmax=1` 以及回退的**普通开局** `?auto=1&nofly=1&cdn=0`。
-- 压力场景由于 Chromium 长时间卡住而未获得可验收原始截图；普通开局第 5 次工作流在桌面视口出现 `Page.screenshot: Timeout 30000ms exceeded`，不能因页面可以访问、源码有四级模型、程序检测到 Canvas 就声明截图实测成功。**画面结果目前 D（未证实），源码的四级模型为 B，作者“60FPS”仍为 C。**
-- 许可仅允许学习且禁止商业使用；只评价通用设计原则，不能移植模型、图、音频和短片。
+### 同视口画面比较（A：截图可见；其他一律另标）
 
-## 经济机制：源码实质核查与独立测试
+- **Yakamozli**：地契路径主要像印在一块薄棋盘上的图案，局部人物/高楼为简单三维几何；桌面镜头严重左偏，右侧大片纯色空白，画面中心和棋盘区域利用差；手机画面左缘棋盘被截断、顶栏溢出，卡片与日志遮挡。视觉层级不足，存在明确的狭屏布局缺陷。
+- **zawsstt**：桌面书桌、木纹、地球仪、台灯、棋盘边框、人物肖像的整体彩绘与装饰明显更丰富；但中部大面积是**平面人物插画**，画面中的地产楼宇体量小，不得当成全部楼宇的 3D 建模验收。390×844 截图采用**旋转横屏界面**，直立查看时文字和棋盘横向旋转，不能据此认定竖屏易用。四级建筑模型存在属 B 源码，截图只显示首回合小模型，**未实测升级的四层演变**。
+- **ReactMono**：两视口都保持正向可读的玩家卡、动作按钮和棋盘；竖屏控件相对完整。但桌面/手机主地图均以稀疏浅色低模及小体量建筑为主，地块辨识、街道层次、模型丰富度、主题场景细节明显不足；仅凭这些静态样张不能判断动态建筑升级、长期可玩性。
 
-固定 `tytannial/rich4-re@b7b76570f445ad07c0788314062b8500e77259e7`：
+**相对结论：** zawsstt 的桌面书桌主题包装与绘制密度优于另两项；ReactMono 的手机竖屏信息排布比 Yakamozli 和 zawsstt 的本轮竖屏采样更直接；三者都不能由本轮首回合截图证明商业级成熟画面。以上为相同窗口下的定性观察，不是归一化 FPS 或玩家满意度排名。
 
-1. `src/app/game/turn_system.cpp` 的 `estateRouteRent`：同名、同类型、同业主的普通地产累加各自对应 `fees[level]`，同业主连锁地产每处加 2,000，结果再乘 `moneyMul`。**B 级**，本实验边界期望包含普通用地 1,200、连锁 12,000。
-2. `src/app/game/trade_market.cpp` 的 `queueTradeOrder`、`removeTradeOrder`：同类型/对象覆盖报价、七个合法交易槽满额拒绝、撤单后压紧队列。**B 级**，本实验期望相同挂单价格更新至 400 且撤单后第七槽可复用。
+**交互/性能边界：** 已观测进入开局、可见按钮和界面状态；没有完整购地、升级、回合操作录屏或手机实机触控测试。run.json 中 requestAnimationFrame 的中位数：Y 桌面约 248ms / 手机 80ms、ReactMono 桌面 122ms / 手机 36ms；zawsstt 两视口均超时。样本短、系统软件渲染并受工作负载影响，**不可据此推断真实 GPU FPS、真机 60FPS 或跨项目严谨性能排序**。
 
-真正将两个机制升级为 **A** 的必要条件是实际构建 `rich4_tests`，独立运行固定上游源码与这轮新增边界测试并获得 `ctest` 通过，记录真实 stdout、退出码及构建环境。无论单测结论如何，都不能把逆向重建程序的结果外推为原始商业二进制的差分验证。本轮没有原版商业数据或原版二进制。
+## A：原生重建版经济规则——有限边界样例
 
-## 同视口 ReactMono 主程序与比较
+上游固定 `tytannial/rich4-re@b7b76570f445ad07c0788314062b8500e77259e7`，独立在 Linux GitHub Actions 编译 C++ `rich4_tests` 并运行 `ctest` 及二进制 stdout；原始 [economy-run.json](evidence/economy-run.json)、[economy-run.log](evidence/economy-run.log)。`SDL_UNIX_CONSOLE_BUILD=ON` 是无图形控制台构建参数。
 
-最新研究基线为 `dev@4494a16d017b0697fa7e74f9d450154e0c228ede`；必须拿研究脚本当天打开的**主程序**截图来评判，不能用 `docs/main-game-ui-redesign/` 历史预览图假冒本次新实测。如果最终 ReactMono 截图缺失，保持该项 D，不生成伪比较结论。
+| 运行的额外边界样例 | 期望和实际 |
+| --- | --- |
+| 同名街区、同业主筛选、二倍价格 | `(200+400)×2=1200`；排除其他业主 |
+| 连锁地产仅本业主两处、三倍价格 | `2×2000×3=12000`；排除其他业主 |
+| 相同对象再次挂单覆盖报价 | 同一槽价由 250 改为 `400`，不新增槽 |
+| 七个交易槽满额、拒绝第八笔、撤单再加入 | 原七条保持，拒绝第八条；撤单后新对象 `8` 出现在第七槽（下标 6） |
 
-## 证据与工作边界
+**重要质量审计：** 之前报告的 `114 checks, 0 fails` 指**断言检查数**，非 114 个独立测试用例；三个依赖商业资源（`Data.mkf`、`SAVE0.DAT` 两项）的用例输出 `SKIP`，但上游微型测试库仍标记 `[ OK ]`，不得算为真正资源验证。旧编译日志中**上游旧测试和本轮新增测试各有一次 `tradeSlots[0][7]` 越界读取警告**，因为合法下标仅为 0..6；旧的绿灯不能替越界断言背书。
 
-- 机器产物统一收于 `evidence/`；失败台账在 [failures.md](failures.md)，方法与 SHA 在 [README.md](README.md)，关联权威上游研究目录在 [repositories/](../repositories/)。
-- **A**：固定环境、命令与退出码支持的运行或原始浏览器截图，只在成功样例的范围内成立；**B**：固定版本源码能证实的实现；**C**：作者或文档声称；**D**：运行失败或尚未验证。
-- 画面截图包含上游可识别的游戏内容，限本次技术研究评述，不能把其中素材当作 ReactMono 的商业素材资源。
-- 未修改 `src/`、`demo3d/` 或 `main`。
+已在**临时克隆的测试文件**中把这两处非法断言替换为“前七槽在超额写入后保持不变”，未改租金/交易业务逻辑。复验 [Actions #39522311357](https://github.com/SiliconYC/ReactMono/actions/runs/39522311357) 成功：**126 项断言检查、0 失败、0 数组越界警告、4 项指定边界样例全部通过、3 项原版资源依赖案例跳过**；`ctest` 与二进制均退出 0。测试数量增加来自修正断言中对七个合法槽位的逐一检查，不代表新增了十二个独立测试。另有仅修正 `Application::init` 默认实参兼容性的 [临时补丁](evidence/compiler-compatibility.patch)，以及 [测试越界补丁说明](evidence/test-bounds-compatibility.patch)；原版资源没有被获取或提交。
+
+**原版对应关系：** 这是逆向**重建版生产逻辑**的样例 A 级运行证据；函数位置 `src/app/game/turn_system.cpp::estateRouteRent`、`src/app/game/trade_market.cpp::queueTradeOrder/removeTradeOrder` 是 B 级源码锚点。没有对 1998 年商业版二进制/素材做逐输入差分验证，不能声称“原版一致”。许可证和素材只用于研究取证，未移植。
+
+## 验收界限
+
+本 Issue 的核心要求是两上游+本项目的真实双视口采样，以及**至少两项重建版机制**的有限独立规则验证；已有材料能证明以上限定事实。不能泛化为完整游戏、四级楼宇过渡、联网、人类操作体验或原版商业程序准确性。研究权威原文仍见 [Yakamozli](../repositories/Yakamozli--richman-3d/README.md)、[zawsstt](../repositories/zawsstt--monopoly-rich-life/README.md)、[tytannial](../repositories/tytannial--rich4-re/README.md)，历史 B/C/D 范围保留，仅在本次有对应 A 证据的细项升级。

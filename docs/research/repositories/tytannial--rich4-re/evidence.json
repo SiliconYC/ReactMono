@@ -212,6 +212,19 @@
       "locator": "docs/reverse/README.md:1-40",
       "verification": "对照GitHub元数据、目录树和仓库文本搜索",
       "limitations": "未做逐函数代码相似度及原作者授权核验"
+    },
+    {
+      "id": "A121_ECONOMY",
+      "level": "A",
+      "claim": "固定 SHA 的 C++ 重建版在 Ubuntu 原生编译并执行四项新增边界：同名街区租金 1200、连锁 12000、挂单覆盖 400、七槽满额与撤单复用。",
+      "source_url": "https://github.com/SiliconYC/ReactMono/blob/dev/docs/research/verification-issue-121/RESULTS.md",
+      "locator": "docs/research/verification-issue-121/evidence/economy-run.json; economy-run.log",
+      "verification": "Independent CI source pin, executable stdout/screenshot and retained artifacts; see RESULTS.md and logs",
+      "limitations": [
+        "原版商业 1998 二进制未执行差分，结果仅限重建版",
+        "资源依赖用例三项跳过；在临时克隆中修正上游旧测试的第八槽越界断言",
+        "仅改变头文件声明的编译兼容补丁，不改经济规则逻辑"
+      ]
     }
   ],
   "features": [
@@ -232,7 +245,8 @@
         "B04",
         "B05",
         "B10",
-        "B12"
+        "B12",
+        "A121_ECONOMY"
       ]
     },
     {
@@ -311,6 +325,13 @@
         "D02",
         "D01"
       ]
+    },
+    {
+      "feature": "issue121_rent_and_trade_native_tests",
+      "status": "verified",
+      "evidence_ids": [
+        "A121_ECONOMY"
+      ]
     }
   ],
   "scores": {
@@ -327,5 +348,12 @@
     "合法原版资源支持下L0/L1的实际通过率、截图及声画是否符合原作？",
     "哪些99个场景有精确业务断言，哪些仅trace/通用错误检查？",
     "是否有可公开分发的最小无版权资产测试fixtures以支持独立L0验证？"
-  ]
+  ],
+  "follow_up_verification": {
+    "issue": 121,
+    "report": "../../verification-issue-121/RESULTS.md",
+    "status": "independent A for limited screenshot/test cases only; initial execution is historical 2026-10-19 static audit",
+    "baseline": "2026-10-20/21",
+    "original_binary_diff_tested": false
+  }
 }
