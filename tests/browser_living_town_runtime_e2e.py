@@ -24,7 +24,7 @@ class 街区资源验收_类:
         横 = 宽 * 0.48
         arg_页面.mouse.move(横, 430)
         arg_页面.mouse.down(button='middle')
-        arg_页面.mouse.move(横 + min(180, 宽 * 0.45), 450, steps=12)
+        arg_页面.mouse.move(横 + 80, 340, steps=12)
         arg_页面.mouse.up(button='middle')
         arg_页面.wait_for_timeout(650)
 

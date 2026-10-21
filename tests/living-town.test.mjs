@@ -1,8 +1,33 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import * as THREE from 'three';
 import { createGame } from '../.test-dist/core/game.js';
 import { LEVELS } from '../.test-dist/core/level-data.js';
 import { rectanglesOverlap, pointInPolygon, URBAN_SCENERY_KINDS } from '../.test-dist/core/level-world.js';
+import { GROUND_TOP, ROAD_TILE_CENTER_Y, ROAD_TILE_THICKNESS } from '../.test-dist/demo3d/world/layout.js';
+
+test('默认全景下，建筑墙体与屋顶设备不挡住24个道路中心',async()=>{
+  const {urbanParts}=await import('../.test-dist/demo3d/world/urban-kit.js');
+  const world=LEVELS.find(l=>l.map.id==='classic-24').world;
+  const buildings=world.objects.filter(o=>['corner-cafe','hotel','bookshop','bakery','apartment','workshop','market-hall','greenhouse'].includes(o.kind));
+  const direction=new THREE.Vector3(10.2,12.2,10.2).normalize();
+  const unitBox=new THREE.Box3(new THREE.Vector3(-.5,-.5,-.5),new THREE.Vector3(.5,.5,.5));
+  const matrix=new THREE.Matrix4(),inverse=new THREE.Matrix4(),quaternion=new THREE.Quaternion();
+  const blocked=[];
+  for(const [id,tile]of world.tiles.entries())for(const object of buildings){
+    const c=Math.cos(object.rotation),s=Math.sin(object.rotation);
+    const obstruction=urbanParts(object.kind,object.color).filter(p=>p.shape==='box').some(p=>{
+      const position=new THREE.Vector3(object.x+(c*p.x+s*p.z)*object.scale,GROUND_TOP+p.y*object.scale,object.z+(-s*p.x+c*p.z)*object.scale);
+      const rotation=new THREE.Euler(p.rx??0,object.rotation+(p.rotation??0),p.rz??0,'YXZ');
+      matrix.compose(position,quaternion.setFromEuler(rotation),new THREE.Vector3(p.sx*object.scale,p.sy*object.scale,p.sz*object.scale));
+      inverse.copy(matrix).invert();
+      const origin=new THREE.Vector3(tile.x,ROAD_TILE_CENTER_Y+ROAD_TILE_THICKNESS/2+.001,tile.z);
+      return new THREE.Ray(origin,direction.clone()).applyMatrix4(inverse).intersectBox(unitBox,new THREE.Vector3())!==null;
+    });
+    if(obstruction)blocked.push({tile:id,building:object.id});
+  }
+  assert.deepEqual(blocked,[],'地面占地不重叠仍可能在全景投影中挡路');
+});
 
 test('街区部件确定且贴地；不同功能建筑和街边小物保持可读的尺度层级',async()=>{
   const kit=await import('../.test-dist/demo3d/world/urban-kit.js').catch(()=>null);

@@ -15,7 +15,7 @@ export function MiniatureTown({game,view,nav,selectedTileId,onSelectTile}:TownPr
   const anchors=anchorsForMap(game.map);
   const detail=view.zoom>=17||game.map.id==='classic-24';
   const ownerColor=(id:string)=>PLAYER_COLORS[game.players.findIndex(p=>p.id===id)]??'#f8c95d';
-  const roads=useMemo(()=>anchors.tiles.map((p,id)=>({...p,y:ROAD_TILE_CENTER_Y,rotation:worldForMap(game.map)?.tiles[id].rotation??0,color:id===0?'#e7bd64':game.tiles[id].kind==='property'?(game.map.id==='classic-24'?'#d6cbb6':'#e6dfc9'):'#b6cfc3'})),[anchors,game.map]);
+  const roads=useMemo(()=>anchors.tiles.map((p,id)=>({...p,y:ROAD_TILE_CENTER_Y,rotation:worldForMap(game.map)?.tiles[id].rotation??0,color:id===0?'#e7bd64':game.tiles[id].kind==='property'?'#e6dfc9':game.map.id==='classic-24'?'#b6cfe0':'#b6cfc3'})),[anchors,game.map]);
   const edges=useMemo(()=>game.map.route.map((id,i)=>{
     const a=anchors.tiles[id],b=anchors.tiles[game.map.route[(i+1)%game.map.route.length]];
     return {x:(a.x+b.x)/2,y:ROAD_CONNECTOR_CENTER_Y,z:(a.z+b.z)/2,sx:game.map.id==='classic-24'?1.82:1.2,sz:Math.hypot(a.x-b.x,a.z-b.z),rotation:Math.atan2(b.x-a.x,b.z-a.z)};
