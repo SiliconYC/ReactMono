@@ -40,12 +40,19 @@
   ],
   "budget": {
     "policy": "继承既有构建测试门槛，无放宽",
-    "productionBytes": 1508827,
+    "productionBytes": 1510253,
     "mainBundle": {
-      "path": "dist/assets/main-DQRTrwes.js",
-      "bytes": 1045196
+      "path": "dist/assets/main-B94-L7Za.js",
+      "bytes": 1046622
     },
-    "physicalMobileVerified": false
+    "physicalMobileVerified": false,
+    "slowDevice": {
+      "sampling": "five actually drawn rAF intervals after two initial draws; median >50ms; can include cold upload",
+      "shadow": 1024,
+      "nearPixelRatio": 0.65,
+      "farRoadMinimumCssPixels": 4,
+      "nativeDeviceUnchanged": true
+    }
   },
   "filesBuilt": [
     {
@@ -89,12 +96,12 @@
       "bytes": 324106
     },
     {
-      "path": "dist/assets/main-D3keK-f5.css",
-      "bytes": 35664
+      "path": "dist/assets/main-B94-L7Za.js",
+      "bytes": 1046622
     },
     {
-      "path": "dist/assets/main-DQRTrwes.js",
-      "bytes": 1045196
+      "path": "dist/assets/main-D3keK-f5.css",
+      "bytes": 35664
     },
     {
       "path": "dist/assets/manifest-C-zx9ihZ.webmanifest",
@@ -169,5 +176,5 @@
       "bytes": 2171
     }
   ],
-  "measurementSource": "Final camera projection telemetry source build; bundled paths and bytes checked locally"
+  "measurementSource": "Adaptive rendering budget final source build; native full and CPU8 SwiftShader efficient captures verified"
 }

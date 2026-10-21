@@ -4,28 +4,28 @@
 
 vite v8.3.4 building client environment for production...
 transforming...
-✓ 83 modules transformed.
+✓ 84 modules transformed.
 rendering chunks...
 computing gzip size...
 dist-3d-demo/index.html                     0.59 kB │ gzip:   0.43 kB
 dist-3d-demo/assets/index-USzPsZlP.css     29.35 kB │ gzip:   7.00 kB
-dist-3d-demo/assets/index-B86Yu2Sn.js   1,291.99 kB │ gzip: 353.78 kB
+dist-3d-demo/assets/index-CjNspmr8.js   1,293.50 kB │ gzip: 354.35 kB
 
-✓ built in 246ms
+✓ built in 236ms
 [plugin builtin:vite-reporter] 
 (!) Some chunks are larger than 1200 kB after minification. Consider:
 - Using dynamic import() to code-split the application
 - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
-test_complete_game_and_row_houses_reduced_motion (__main__.Demo3DBrowserTest) ... Reduced-motion idle: {'drawCalls': 2736, 'renderer': 'ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)', 'delta': 0}
+test_complete_game_and_row_houses_reduced_motion (__main__.Demo3DBrowserTest) ... Reduced-motion idle: {'drawCalls': 4572, 'renderer': 'ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)', 'delta': 0}
 ok
-test_desktop_full_turn (__main__.Demo3DBrowserTest) ... Finance background 1280: {'drawCalls': 8933, 'renderer': 'ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)', 'delta': 0}
+test_desktop_full_turn (__main__.Demo3DBrowserTest) ... Finance background 1280: {'drawCalls': 15279, 'renderer': 'ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)', 'delta': 0}
 ok
 test_desktop_rent_animation_after_arrival (__main__.Demo3DBrowserTest) ... ok
-test_dynamic_reduced_motion_finishes_current_and_future_rolls (__main__.Demo3DBrowserTest) ... Current roll reduce latency: {'duration': 6.299999997019768, 'busyAtStart': 'true'}
-Next reduced roll latency: {'duration': 42.100000001490116, 'busyAtStart': 'false'}
+test_dynamic_reduced_motion_finishes_current_and_future_rolls (__main__.Demo3DBrowserTest) ... Current roll reduce latency: {'duration': 6.399999998509884, 'busyAtStart': 'true'}
+Next reduced roll latency: {'duration': 16.099999997764826, 'busyAtStart': 'false'}
 ok
-test_mobile_full_turn (__main__.Demo3DBrowserTest) ... Finance background 390: {'drawCalls': 10811, 'renderer': 'ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)', 'delta': 0}
+test_mobile_full_turn (__main__.Demo3DBrowserTest) ... Finance background 390: {'drawCalls': 17720, 'renderer': 'ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)', 'delta': 0}
 ok
 test_mobile_rent_animation_after_arrival (__main__.Demo3DBrowserTest) ... ok
 test_no_webgl_fallback_keeps_turn_controls (__main__.Demo3DBrowserTest) ... ok
@@ -33,6 +33,6 @@ test_real_bankruptcy_then_victory_sequence (__main__.Demo3DBrowserTest) ... ok
 test_short_viewport_controls_stay_reachable (__main__.Demo3DBrowserTest) ... ok
 
 ----------------------------------------------------------------------
-Ran 9 tests in 175.507s
+Ran 9 tests in 144.538s
 
 OK

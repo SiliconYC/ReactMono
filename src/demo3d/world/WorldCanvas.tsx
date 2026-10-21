@@ -19,6 +19,7 @@ import { mapProjectionBounds, screenToGround } from './camera-math.js';
 import { WorldNavigation } from './WorldNavigation.js';
 import { tileIdForHit } from './map-picking.js';
 import { MapContextMenu } from './MapContextMenu.js';
+import { chooseRenderBudget, renderPixelRatio, type RenderBudget } from './render-budget.js';
 import './world-navigation.css';
 
 type WorldCanvasProps = Readonly<{
@@ -41,19 +42,47 @@ type WorldCanvasProps = Readonly<{
   onReadyChange?: (ready: boolean) => void;
 }>;
 
-function SceneReadiness({onReady}:{onReady:()=>void}):null {
-  const {gl,invalidate}=useThree();
+function SceneReadiness({onReady,onBudget,nativeDpr,nav}:{onReady:()=>void;onBudget:(budget:RenderBudget)=>RenderBudget;nativeDpr:number;nav:MutableRefObject<Navigation>}):null {
+  const {gl,invalidate,scene,camera}=useThree();
+  const complete=useRef(false);
+  // R3F decides whether to keep its demand loop before after-effects execute.
+  // Request warm-up frames inside useFrame so reduced motion cannot stall it.
+  useFrame(()=>{if(!complete.current)invalidate();});
   useEffect(()=>{
-    const firstFrame=gl.info.render.frame;
-    // Camera-aligned visibility updates can mount geometry after the first draw.
-    // Complete that upload before a host starts the existing wall-clock motion.
-    const unsubscribe=addAfterEffect(()=>{
-      if(gl.info.render.frame<firstFrame+2)return;
-      unsubscribe();onReady();
+    complete.current=false;
+    let previousFrame=gl.info.render.frame,previousAt:number|null=null,draws=0,settled=0;
+    let decision:RenderBudget|null=null;
+    const samples:number[]=[];
+    const unsubscribe=addAfterEffect(timestamp=>{
+      if(gl.info.render.frame===previousFrame)return;
+      previousFrame=gl.info.render.frame;draws++;
+      const elapsed=previousAt===null?0:timestamp-previousAt;previousAt=timestamp;
+      if(!decision){
+        // Initial camera-aligned uploads are cold frames, not steady rendering.
+        if(draws>2)samples.push(elapsed);
+        const candidate=chooseRenderBudget(samples);
+        if(candidate)decision=onBudget(candidate);
+        invalidate(2);return;
+      }
+      const light=scene.children.find(object=>object instanceof THREE.DirectionalLight) as THREE.DirectionalLight|undefined;
+      const ratio=renderPixelRatio(decision.mode,(camera as THREE.OrthographicCamera).zoom,nav.current.actualElevation,nativeDpr);
+      if(light?.shadow.map?.width!==decision.shadowSize||Math.abs(gl.getPixelRatio()-ratio)>.001){settled=0;invalidate(2);return;}
+      if(++settled<2){invalidate(2);return;}
+      complete.current=true;unsubscribe();onReady();
     });
     invalidate(2);
     return unsubscribe;
-  },[gl,invalidate,onReady]);
+  },[gl,invalidate,scene,camera,onReady,onBudget,nativeDpr,nav]);
+  return null;
+}
+
+function SceneResolution({mode,nativeDpr,onChange,nav}:{mode:RenderBudget['mode'];nativeDpr:number;onChange:(ratio:number)=>void;nav:MutableRefObject<Navigation>}):null {
+  const {camera}=useThree();
+  const last=useRef(0);
+  useFrame(()=>{
+    const ratio=renderPixelRatio(mode,(camera as THREE.OrthographicCamera).zoom,nav.current.actualElevation,nativeDpr);
+    if(ratio!==last.current){last.current=ratio;onChange(ratio);}
+  },-2.5);
   return null;
 }
 
@@ -151,7 +180,7 @@ function CameraRig({target,reducedMotion,insets,map,nav,onView,changed,onContext
   return null;
 }
 
-function WorldLighting({nav}:{nav:MutableRefObject<Navigation>}):React.JSX.Element{
+function WorldLighting({nav,shadowSize}:{nav:MutableRefObject<Navigation>;shadowSize:number}):React.JSX.Element{
   const light=useRef<THREE.DirectionalLight>(null);
   const target=useMemo(()=>new THREE.Object3D(),[]);
   const {scene,size,camera,gl,clock}=useThree();
@@ -162,7 +191,7 @@ function WorldLighting({nav}:{nav:MutableRefObject<Navigation>}):React.JSX.Eleme
     const n=nav.current;
     const center=camera.position.clone().addScaledVector(direction,worldView(n.actualCenter,camera.zoom,size,n.actualYaw,n.actualElevation).distance);
     const view=worldView({x:center.x,z:center.z},camera.zoom,size,n.actualYaw,n.actualElevation);
-    const radius=view.shadowRadius,texel=radius*2/2048;
+    const radius=view.shadowRadius,texel=radius*2/light.current.shadow.mapSize.width;
     center.x=Math.round(center.x/texel)*texel;center.z=Math.round(center.z/texel)*texel;center.y=0;
     target.position.copy(center);target.updateMatrixWorld();
     light.current.position.copy(center).add(new THREE.Vector3(-.43,.8,.4).normalize().multiplyScalar(radius*2.5+20));
@@ -173,7 +202,7 @@ function WorldLighting({nav}:{nav:MutableRefObject<Navigation>}):React.JSX.Eleme
     if(scene.fog instanceof THREE.Fog){scene.fog.near=view.fogNear;scene.fog.far=view.fogFar;}
     if(clock.elapsedTime-lastStats.current>.5){
       const element=gl.domElement.closest<HTMLElement>('.canvas-shell');
-      if(element)element.dataset.renderStats=JSON.stringify({calls:gl.info.render.calls,triangles:gl.info.render.triangles,geometries:gl.info.memory.geometries,textures:gl.info.memory.textures,programs:gl.info.programs?.length,pixelRatio:gl.getPixelRatio(),shadowType:gl.shadowMap.type});
+      if(element)element.dataset.renderStats=JSON.stringify({calls:gl.info.render.calls,triangles:gl.info.render.triangles,geometries:gl.info.memory.geometries,textures:gl.info.memory.textures,programs:gl.info.programs?.length,pixelRatio:gl.getPixelRatio(),shadowType:gl.shadowMap.type,shadowSize:light.current.shadow.mapSize.width});
       lastStats.current=clock.elapsedTime;
     }
     // Central policy also covers meshes mounted later by chunks/LOD/outcomes.
@@ -183,11 +212,11 @@ function WorldLighting({nav}:{nav:MutableRefObject<Navigation>}):React.JSX.Eleme
     <ambientLight intensity={.7} color="#f3f4dc"/>
     <hemisphereLight args={['#f8fae9','#779566',.8]}/>
     <primitive object={target}/>
-    <directionalLight ref={light} target={target} intensity={2.15} color="#fff0d0" castShadow shadow-mapSize-width={2048} shadow-mapSize-height={2048} shadow-intensity={.48} shadow-radius={2}/>
+    <directionalLight ref={light} target={target} intensity={2.15} color="#fff0d0" castShadow shadow-mapSize-width={shadowSize} shadow-mapSize-height={shadowSize} shadow-intensity={.48} shadow-radius={2}/>
   </>;
 }
 
-function Scene(props: WorldCanvasProps & {nav:MutableRefObject<Navigation>;changed:()=>void;navigationRevision:number;onContext:(request:ContextRequest)=>void}): React.JSX.Element {
+function Scene(props: WorldCanvasProps & {shadowSize:number;nav:MutableRefObject<Navigation>;changed:()=>void;navigationRevision:number;onContext:(request:ContextRequest)=>void}): React.JSX.Element {
   const [view,setView]=useState(()=>worldView({x:0,z:0},32,{width:1280,height:720}));
   const invalidate = useThree((state) => state.invalidate);
   const scene = useThree((state) => state.scene);
@@ -240,7 +269,7 @@ function Scene(props: WorldCanvasProps & {nav:MutableRefObject<Navigation>;chang
     <>
       <color attach="background" args={[worldForMap(props.game.map)?.background??'#b7cd9a']} />
       <fog attach="fog" args={[worldForMap(props.game.map)?.background??'#b7cd9a',100,200]} />
-      <WorldLighting nav={props.nav}/>
+      <WorldLighting nav={props.nav} shadowSize={props.shadowSize}/>
       <CameraRig target={trackedPosition} reducedMotion={props.reducedMotion} insets={props.viewportInsets} map={props.game.map} nav={props.nav} onView={setView} changed={props.changed} onContext={props.onContext}/>
       <group onClick={event=>{
         const tileId=tileIdForHit(event);
@@ -290,6 +319,14 @@ function Scene(props: WorldCanvasProps & {nav:MutableRefObject<Navigation>;chang
 
 export function WorldCanvas(props: WorldCanvasProps): React.JSX.Element {
   const [ready, setReady] = useState(false);
+  const nativeDpr=Math.max(1,Math.min(2,window.devicePixelRatio));
+  const [pixelRatio,setPixelRatio]=useState(nativeDpr);
+  const [budget,setBudget]=useState<RenderBudget|null>(null);
+  const chosenBudget=useRef<RenderBudget|null>(null);
+  const applyBudget=useCallback((candidate:RenderBudget):RenderBudget=>{
+    const chosen=chosenBudget.current?.mode==='efficient'?chosenBudget.current:candidate;
+    chosenBudget.current=chosen;setBudget(chosen);return chosen;
+  },[]);
   const markReady=useCallback(()=>setReady(true),[]);
   useLayoutEffect(()=>{setReady(false);},[props.game.map.id,props.game.map.version]);
   useLayoutEffect(()=>{props.onReadyChange?.(ready);},[ready,props.onReadyChange]);
@@ -331,6 +368,7 @@ export function WorldCanvas(props: WorldCanvasProps): React.JSX.Element {
       style={{'--world-safe-top':`${props.viewportInsets?.top??80}px`,'--world-safe-right':`${props.viewportInsets?.right??20}px` } as CSSProperties}
       onClickCapture={event=>{if(event.target instanceof HTMLCanvasElement&&performance.now()<nav.current.draggedUntil){event.preventDefault();event.stopPropagation();}}}
       data-ready={String(ready)}
+      data-render-budget={budget?JSON.stringify(budget):undefined}
       data-frameloop={frameLoop}
       data-show-numbers={String(nav.current.showNumbers)}
       data-safe-insets={
@@ -350,7 +388,7 @@ export function WorldCanvas(props: WorldCanvasProps): React.JSX.Element {
         orthographic
         frameloop={frameLoop}
         shadows={{type:THREE.PCFShadowMap}}
-        dpr={[1, 2]}
+        dpr={pixelRatio}
         camera={{ position: [10.2, 12.5, 10.2], zoom: 48, near: 0.1, far: 80 }}
         gl={canvas=>{
           try{return new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'high-performance'});}
@@ -359,8 +397,9 @@ export function WorldCanvas(props: WorldCanvasProps): React.JSX.Element {
         fallback={<FallbackContent game={props.game} onSelectTile={props.onSelectTile}/>}
       >
         <Suspense fallback={null}>
-          <Scene {...props} nav={nav} changed={changed} navigationRevision={navigationRevision} onContext={openContext}/>
-          <SceneReadiness key={`${props.game.map.id}/${props.game.map.version}`} onReady={markReady}/>
+          <Scene {...props} shadowSize={budget?.shadowSize??2048} nav={nav} changed={changed} navigationRevision={navigationRevision} onContext={openContext}/>
+          <SceneResolution mode={budget?.mode??'full'} nativeDpr={nativeDpr} onChange={setPixelRatio} nav={nav}/>
+          <SceneReadiness key={`${props.game.map.id}/${props.game.map.version}`} onReady={markReady} onBudget={applyBudget} nativeDpr={nativeDpr} nav={nav}/>
         </Suspense>
       </Canvas>
       </RendererBoundary>

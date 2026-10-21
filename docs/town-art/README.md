@@ -46,7 +46,7 @@
 
 | 检查 | 本地真实结果 |
 | --- | --- |
-| 构建与 Node 回归 | `npm test` 190/190；含规则摘要、存档、100种子与既有完整模拟，新增占地/成长/屋面绕序/后窗方向检查；[日志](evidence/checks/node.log) |
+| 构建与 Node 回归 | `npm test` 191/191；含规则摘要、存档、100种子与既有完整模拟，新增占地/成长/屋面绕序/后窗方向及绘制预算检查；[日志](evidence/checks/node.log) |
 | 关卡与迁移 demo | `maps:validate` 六张校验通过；`demo:build` 通过，既有大包提示保留；[关卡](evidence/checks/maps.log)、[构建](evidence/checks/demo-build.log) |
 | 软件渲染 demo | 显式 SwiftShader 完整 9/9 通过（含新增无WebGL闭环）；软件渲染加四倍CPU限速的三个桌面首回合也通过；角色/移动及原断言未改；[日志](evidence/checks/demo-sw.log) |
 | 实际经营闭环 | 买地、到访建设/升级、出售、抵押借还、租金、设施、两图四人完整局及正常/快速最终状态等价通过；[日志](evidence/checks/main-game.log) |
@@ -79,6 +79,14 @@
 无WebGL降级另以真实主程序复验：正式读档、真人投骰买地、电脑首行动及交接真人回合通过，见[主程序降级续局](evidence/checks/main-no-webgl.log)。这只处理画布不可用时的界面到达解锁，规则和演员实现不变。
 
 完整远端CI继续推进后，手机360格旧像素检测报338/360。独立审查未见实际断路；检测使用跨帧相机值、两位缩放和偏离像素中心的取整。在[同一稳定截图](evidence/checks/road-projection.png)中，原取样338格，使用实际投影与包含该点的像素后358格；[原始坐标/颜色](evidence/checks/road-projection.json)、[核查记录](evidence/checks/ci-road-pixels.txt)保留。现等待真实镜头稳定并记录每图采样，原颜色条件和94%门槛不变，没有改材质或关阴影来规避。
+
+最新远端慢帧再次漏过中间格，说明初始化门控不能解决持续渲染成本。现以实际已绘制帧的五个间隔中位数选择全场景预算（前两帧不采样，超过50ms时使用统一1024阴影及近景0.65像素比例）；默认仍为2048与设备像素比例。原PCF、统一投影/受影和动态texel对齐保留，角色、骰子与动作时间未修改。远景路砖投影不足4个CSS像素时恢复原设备像素比例，避免大地图细路继续降采样。这是保守的启动预算，采样仍可能含上传成本，不是纯GPU基准；本次Canvas生命周期选低后不反复升档。
+
+同一CPU八倍限速的SwiftShader桌面动作片段，原预算和仅降阴影时帧间隔中位/95分位均约83.3ms；当前预算约50/50ms。保留[原预算](evidence/checks/render-budget-before.log)、[仅降阴影](evidence/checks/render-budget-shadow-only.log)、[当前动作轨迹](evidence/checks/render-budget-cpu8.log)。仅代表本机软件渲染对照，不能外推真机；低档实际画面会更软：中文小招牌、产权点数与窗框变糊；手机抵押封条需结合详情文字确认，不宣称图形信息无损。另以原固定存档完成[低档全组截图](evidence/efficient/after.json)，例如[桌面近景](evidence/efficient/after-desktop-near.png)和[手机抵押](evidence/efficient/after-phone-state-11.png)。正常设备复拍仍选full，原精修截图逐字节不变。
+
+预算准备阶段的减少动画检查曾因R3F在after-effect之前决定停绘而卡住；已在useFrame内请求预热帧，准备完成后停止。真实主程序双视口、原相机断言、191项Node及显式SwiftShader完整9项复验通过，未以延长等待隐藏卡住。
+
+低档360格另以同样SwiftShader加八倍CPU限速执行完整原路线/导航/双指/移动帧检查，两视口均通过，错误为空；远景实际恢复桌面DPR1、手机DPR2，道路命中359/360和358/360，原94%门槛不变，见[原始结果](evidence/efficient/ridges/acceptance.json)、[日志](evidence/checks/render-budget-ridges.log)。极端限速下全景帧间隔中位数仍约116.7ms，不能称流畅或把24格近景提速外推为大图全景性能。
 
 ## 重跑、集成与回滚
 

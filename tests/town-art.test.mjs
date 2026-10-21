@@ -44,3 +44,14 @@ test('背窗玻璃必须在后墙之外，旋转到建筑背后仍可读',()=>{
   const p=residentialParts(t,'#ff715b',0);
   assert.ok(p.some(x=>x.color==='#416b68'&&x.z<-.59));
 });
+test('场景预算忽略孤立冷帧，慢设备统一降档而大图细路保留像素密度',async()=>{
+  const budget=await import('../.test-dist/demo3d/world/render-budget.js').catch(()=>null);
+  assert.ok(budget,'缺少实际绘制预算策略');
+  assert.equal(budget.chooseRenderBudget([16,17,16,18]),null);
+  assert.equal(budget.chooseRenderBudget([16,17,1500,18,16]).mode,'full');
+  const slow=budget.chooseRenderBudget([180,167,183,170,180]);
+  assert.equal(slow.mode,'efficient');assert.equal(slow.shadowSize,1024);
+  assert.equal(budget.renderPixelRatio('full',30,.7,2),2);
+  assert.equal(budget.renderPixelRatio('efficient',1,.7,2),2);
+  assert.equal(budget.renderPixelRatio('efficient',30,.7,2),.65);
+});
