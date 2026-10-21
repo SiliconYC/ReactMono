@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import type { SceneObject } from '../../core/level-world.js';
@@ -15,8 +15,7 @@ function Material({ghost}:{ghost:boolean}):React.JSX.Element {
   return <meshStandardMaterial transparent={ghost} opacity={ghost?.13:1} depthWrite={!ghost} roughness={.89}/>;
 }
 
-function SignBatch({parts,ghost}:{parts:readonly UrbanPart[];ghost:boolean}):React.JSX.Element {
-  const texture=useMemo(()=>{
+function createSignTexture():THREE.CanvasTexture {
     const canvas=document.createElement('canvas');canvas.width=256;canvas.height=96*URBAN_LABELS.length;
     const context=canvas.getContext('2d')!;
     for(const [i,label]of URBAN_LABELS.entries()) {
@@ -26,19 +25,28 @@ function SignBatch({parts,ghost}:{parts:readonly UrbanPart[];ghost:boolean}):Rea
       context.textAlign='center';context.textBaseline='middle';context.fillText(label,128,i*96+50,234);
     }
     const result=new THREE.CanvasTexture(canvas);result.colorSpace=THREE.SRGBColorSpace;return result;
-  },[]);
+}
+
+function SignBatch({parts,ghost,capacity,texture}:{parts:readonly UrbanPart[];ghost:boolean;capacity:number;texture:THREE.CanvasTexture}):React.JSX.Element {
   const geometry=useMemo(()=>{
     const result=new THREE.PlaneGeometry(1,1);
-    result.setAttribute('signRow',new THREE.InstancedBufferAttribute(new Float32Array(parts.map(p=>URBAN_LABELS.indexOf(p.label as typeof URBAN_LABELS[number]))),1));return result;
-  },[parts]);
-  useEffect(()=>()=>texture.dispose(),[texture]);useEffect(()=>()=>geometry.dispose(),[geometry]);
-  return <Instances items={parts}><primitive attach="geometry" object={geometry}/><meshStandardMaterial transparent={ghost} opacity={ghost?.13:1} depthWrite={!ghost} map={texture} roughness={.9} customProgramCacheKey={()=>'urban-chinese-atlas-v1'} onBeforeCompile={program=>{
+    result.setAttribute('signRow',new THREE.InstancedBufferAttribute(new Float32Array(capacity),1));return result;
+  },[capacity]);
+  useLayoutEffect(()=>{
+    const rows=geometry.getAttribute('signRow') as THREE.InstancedBufferAttribute;
+    parts.forEach((p,i)=>rows.setX(i,URBAN_LABELS.indexOf(p.label as typeof URBAN_LABELS[number])));rows.needsUpdate=true;
+  },[geometry,parts]);
+  useEffect(()=>()=>geometry.dispose(),[geometry]);
+  return <Instances items={parts} capacity={capacity}><primitive attach="geometry" object={geometry}/><meshStandardMaterial transparent={ghost} opacity={ghost?.13:1} depthWrite={!ghost} map={texture} roughness={.9} customProgramCacheKey={()=>'urban-chinese-atlas-v1'} onBeforeCompile={program=>{
     program.vertexShader='attribute float signRow;\n'+program.vertexShader;
     program.vertexShader=program.vertexShader.replace('#include <uv_vertex>',`#include <uv_vertex>\n vMapUv.y=(vMapUv.y+${URBAN_LABELS.length-1}.0-signRow)/${URBAN_LABELS.length}.0;`);
   }}/></Instances>;
 }
 
-function PartLayer({parts,ghost=false}:{parts:readonly UrbanPart[];ghost?:boolean}):React.JSX.Element {
+const SHAPES=['box','roof','arch','cylinder','cone','leaf','sphere','sign'] as const;
+type Capacities=Readonly<Record<typeof SHAPES[number],number>>;
+
+function PartLayer({parts,ghost=false,capacities,texture}:{parts:readonly UrbanPart[];ghost?:boolean;capacities:Capacities;texture:THREE.CanvasTexture}):React.JSX.Element {
   const roof=useMemo(()=>{
     const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(GABLE_ROOF_VERTICES,3));g.computeVertexNormals();return g;
   },[]);
@@ -47,23 +55,31 @@ function PartLayer({parts,ghost=false}:{parts:readonly UrbanPart[];ghost?:boolea
     const g=new THREE.ExtrudeGeometry(s,{depth:1,bevelEnabled:false,curveSegments:8});g.translate(0,0,-.5);return g;
   },[]);
   useEffect(()=>()=>{roof.dispose();arch.dispose();},[roof,arch]);
-  const byShape=useMemo(()=>Object.fromEntries(['box','roof','arch','cylinder','cone','leaf','sphere','sign'].map(shape=>[shape,parts.filter(p=>p.shape===shape)])),[parts]);
+  const byShape=useMemo(()=>Object.fromEntries(SHAPES.map(shape=>[shape,parts.filter(p=>p.shape===shape)])),[parts]);
   return <group name="合批的生活街区模型">
-    <Instances items={byShape.box}><boxGeometry/><Material ghost={ghost}/></Instances>
-    <Instances items={byShape.roof}><primitive attach="geometry" object={roof}/><Material ghost={ghost}/></Instances>
-    <Instances items={byShape.arch}><primitive attach="geometry" object={arch}/><Material ghost={ghost}/></Instances>
-    <Instances items={byShape.cylinder}><cylinderGeometry args={[.5,.5,1,12]}/><Material ghost={ghost}/></Instances>
-    <Instances items={byShape.cone}><coneGeometry args={[.5,1,8]}/><Material ghost={ghost}/></Instances>
-    <Instances items={byShape.leaf}><dodecahedronGeometry args={[.5,0]}/><Material ghost={ghost}/></Instances>
-    <Instances items={byShape.sphere}><sphereGeometry args={[.5,10,6]}/><Material ghost={ghost}/></Instances>
-    <SignBatch parts={byShape.sign} ghost={ghost}/>
+    <Instances items={byShape.box} capacity={capacities.box}><boxGeometry/><Material ghost={ghost}/></Instances>
+    <Instances items={byShape.roof} capacity={capacities.roof}><primitive attach="geometry" object={roof}/><Material ghost={ghost}/></Instances>
+    <Instances items={byShape.arch} capacity={capacities.arch}><primitive attach="geometry" object={arch}/><Material ghost={ghost}/></Instances>
+    <Instances items={byShape.cylinder} capacity={capacities.cylinder}><cylinderGeometry args={[.5,.5,1,12]}/><Material ghost={ghost}/></Instances>
+    <Instances items={byShape.cone} capacity={capacities.cone}><coneGeometry args={[.5,1,8]}/><Material ghost={ghost}/></Instances>
+    <Instances items={byShape.leaf} capacity={capacities.leaf}><dodecahedronGeometry args={[.5,0]}/><Material ghost={ghost}/></Instances>
+    <Instances items={byShape.sphere} capacity={capacities.sphere}><sphereGeometry args={[.5,10,6]}/><Material ghost={ghost}/></Instances>
+    <SignBatch parts={byShape.sign} ghost={ghost} capacity={capacities.sign} texture={texture}/>
   </group>;
 }
 
 export function UrbanParts({parts}:{parts:readonly UrbanPart[]}):React.JSX.Element {
+  const group=useRef<THREE.Group>(null),warm=useRef(false);
+  const {gl,camera,scene}=useThree();
+  const texture=useMemo(createSignTexture,[]);
+  useEffect(()=>()=>texture.dispose(),[texture]);
+  const capacities=useMemo(()=>Object.fromEntries(SHAPES.map(shape=>[shape,Math.max(1,parts.filter(p=>p.shape===shape).length)])) as Capacities,[parts]);
+  // Within one visible set, a cutaway only changes counts/buffers. Keep both
+  // layers resident so their cold shaders do not stall the actor's timeline.
+  useFrame(()=>{if(!warm.current&&group.current){gl.initTexture(texture);gl.compile(group.current,camera,scene);warm.current=true;}},-.5);
   const opaque=useMemo(()=>parts.filter(p=>(p.alpha??1)===1),[parts]);
   const ghost=useMemo(()=>parts.filter(p=>(p.alpha??1)<1),[parts]);
-  return <><PartLayer parts={opaque}/>{ghost.length>0&&<PartLayer parts={ghost} ghost/>}</>;
+  return <group ref={group}><PartLayer parts={opaque} capacities={capacities} texture={texture}/><PartLayer parts={ghost} ghost capacities={capacities} texture={texture}/></group>;
 }
 
 export function UrbanScenery({objects,actor}:{objects:readonly SceneObject[];actor?:THREE.Vector3}):React.JSX.Element {

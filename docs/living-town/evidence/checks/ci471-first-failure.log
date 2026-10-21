@@ -1,0 +1,44 @@
+2026-10-21T16:28:39.9093580Z Traceback (most recent call last):
+2026-10-21T16:28:39.9094803Z   File "/home/runner/work/ReactMono/ReactMono/tests/browser_main_game_acceptance.py", line 255, in <module>
+2026-10-21T16:28:39.9106115Z     if __name__=='__main__':main()
+2026-10-21T16:28:39.9108157Z                             ^^^^^^
+2026-10-21T16:28:39.9109240Z   File "/home/runner/work/ReactMono/ReactMono/tests/browser_main_game_acceptance.py", line 118, in main
+2026-10-21T16:28:39.9110548Z     page.get_by_role('button',name='掷骰前进').click();page.get_by_role('button',name='跳过演出').click()
+2026-10-21T16:28:39.9111352Z                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-21T16:28:39.9112887Z   File "/home/runner/.local/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 11021, in click
+2026-10-21T16:28:39.9113798Z     self._sync(
+2026-10-21T16:28:39.9114505Z   File "/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 111, in _sync
+2026-10-21T16:28:39.9115531Z     return task.result()
+2026-10-21T16:28:39.9116014Z            ^^^^^^^^^^^^^
+2026-10-21T16:28:39.9116977Z   File "/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_locator.py", line 174, in click
+2026-10-21T16:28:39.9118272Z     return await self._frame._click(self._selector, strict=True, **params)
+2026-10-21T16:28:39.9119182Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-21T16:28:39.9120303Z   File "/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 598, in _click
+2026-10-21T16:28:39.9121648Z     await self._channel.send("click", self._timeout, locals_to_params(locals()))
+2026-10-21T16:28:39.9122990Z   File "/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 78, in send
+2026-10-21T16:28:39.9124712Z     return await self._connection.wrap_api_call(
+2026-10-21T16:28:39.9125745Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-21T16:28:39.9126956Z   File "/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 636, in wrap_api_call
+2026-10-21T16:28:39.9128352Z     raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+2026-10-21T16:28:39.9129611Z playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
+2026-10-21T16:28:39.9130418Z Call log:
+2026-10-21T16:28:39.9131265Z   - waiting for get_by_role("button", name="跳过演出")
+2026-10-21T16:28:39.9132342Z     - locator resolved to <button class="secondary-btn motion-skip">跳过演出</button>
+2026-10-21T16:28:39.9133176Z   - attempting click action
+2026-10-21T16:28:39.9133851Z     - waiting for element to be visible, enabled and stable
+2026-10-21T16:28:39.9134604Z     - element is visible, enabled and stable
+2026-10-21T16:28:39.9135516Z     - scrolling into view if needed
+2026-10-21T16:28:39.9136047Z     - done scrolling
+2026-10-21T16:28:39.9136589Z   - element was detached from the DOM, retrying
+2026-10-21T16:28:39.9136997Z 
+2026-10-21T16:28:39.9410630Z ##[error]Process completed with exit code 1.
+2026-10-21T16:28:39.9498025Z ##[group]Run actions/upload-artifact@v4
+2026-10-21T16:28:39.9498339Z with:
+2026-10-21T16:28:39.9498562Z   name: main-game-3d-ui-acceptance
+2026-10-21T16:28:39.9499542Z   path: artifacts/ui-rebuild/
+2026-10-21T16:28:39.9500520Z   if-no-files-found: warn
+2026-10-21T16:28:39.9500765Z   retention-days: 30
+2026-10-21T16:28:39.9500989Z   compression-level: 6
+2026-10-21T16:28:39.9501217Z   overwrite: false
+2026-10-21T16:28:39.9501448Z   include-hidden-files: false
+2026-10-21T16:28:39.9501705Z ##[endgroup]

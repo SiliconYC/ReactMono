@@ -46,6 +46,9 @@ class 生活街区验收_类:
             game=act(createGame(17,cfg),'start_game');
             """))
         样本 = {'fresh': 新局路径.read_bytes(), 'built': (输出 / 'town-state.json').read_bytes()}
+        if 阶段 == 'after':
+            哈希基线 = json.loads((输出 / 'living-before.json').read_text())['fixtureSha256']
+            assert {k: hashlib.sha256(v).hexdigest() for k, v in 样本.items()} == 哈希基线
         服务 = ThreadingHTTPServer(('127.0.0.1', 0), Handler)
         线程 = Thread(target=服务.serve_forever, daemon=True)
         线程.start()
