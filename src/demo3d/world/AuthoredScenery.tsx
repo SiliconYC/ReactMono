@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { visibleDecorations, type WorldDefinition, type SceneObject } from '../../core/level-world.js';
+import { StaticBlocks } from './StaticBlocks.js';
 import { Instances } from './Instances.js';
 import { GROUND_TOP } from './layout.js';
 import type { WorldView } from './world-view.js';
@@ -51,7 +52,7 @@ export function AuthoredScenery({world,view}:{world:WorldDefinition;view:WorldVi
   const foliage=items('tree',1.1);
   const flowers=objects.filter(o=>o.kind==='flower');
   const petals=flowers.flatMap(o=>[0,1,2,3,4].map(i=>({x:o.x+Math.cos(i*Math.PI*.4)*.19*o.scale,z:o.z+Math.sin(i*Math.PI*.4)*.19*o.scale,y:GROUND_TOP+.34*o.scale,sx:o.scale,sy:o.scale*.4,sz:o.scale,color:o.color})));
-  return <group name="逐个指定的景物">
+  return <group name="逐个指定的景物"><StaticBlocks revision={world}>
     <Instances items={trunks}><cylinderGeometry args={[.07,.11,.8,6]}/><meshStandardMaterial roughness={1}/></Instances>
     <Instances items={foliage}><dodecahedronGeometry args={[.72,1]}/><meshStandardMaterial roughness={1}/></Instances>
     <Instances items={foliage.map(o=>({...o,x:o.x-.27*o.sx,z:o.z+.19*o.sx,y:o.y-.18*o.sx,sx:o.sx*.65,sy:o.sy*.7,sz:o.sz*.65}))}><dodecahedronGeometry args={[.72,0]}/><meshStandardMaterial roughness={1}/></Instances>
@@ -63,5 +64,5 @@ export function AuthoredScenery({world,view}:{world:WorldDefinition;view:WorldVi
     <Instances items={items('flower',.35)}><sphereGeometry args={[.1,6,4]}/><meshStandardMaterial color="#e6bd68" roughness={1}/></Instances>
     <Instances items={stationSilhouettes}><boxGeometry args={[1.1,.84,1.1]}/><meshStandardMaterial roughness={1}/></Instances>
     {objects.filter(o=>!['tree','pine','rock','flower'].includes(o.kind)&&detailed(o)).map(o=><group key={o.id} name={o.id} userData={{tileId:objectTileIds.get(o.id)}} position={[o.x,GROUND_TOP,o.z]} rotation={[0,o.rotation,0]} scale={o.scale}><Landmark o={o}/></group>)}
-  </group>;
+  </StaticBlocks></group>;
 }

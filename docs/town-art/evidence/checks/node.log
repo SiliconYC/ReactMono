@@ -8,7 +8,7 @@
 
 vite v8.3.4 building client environment for production...
 transforming...
-✓ 87 modules transformed.
+✓ 88 modules transformed.
 rendering chunks...
 computing gzip size...
 dist/visual-lab.html                           0.59 kB │ gzip:   0.42 kB
@@ -18,1155 +18,1155 @@ dist/assets/visualLab-rR3xiTWP.css             7.76 kB │ gzip:   2.37 kB
 dist/assets/main-D3keK-f5.css                 35.66 kB │ gzip:   8.26 kB
 dist/assets/visualLab-CY_HOp1C.js              7.64 kB │ gzip:   3.02 kB
 dist/assets/game-BM5Y5p5j.js                 324.10 kB │ gzip:  94.04 kB
-dist/assets/main-BCR1mZ81.js               1,042.03 kB │ gzip: 281.50 kB
+dist/assets/main-BaSOBSgz.js               1,043.45 kB │ gzip: 281.94 kB
 
-✓ built in 251ms
+✓ built in 242ms
 静态构建成功：dist/（React/Three/R3F 同源 bundle；无运行时 CDN）
 TAP version 13
 # Subtest: 仅轮到电脑时会执行合法指令，人类仍由用户操作
 ok 1 - 仅轮到电脑时会执行合法指令，人类仍由用户操作
   ---
-  duration_ms: 2.062167
+  duration_ms: 3.114333
   type: 'test'
   ...
 # Subtest: 预留现金200的决策边界，可配置阈值，不改动余额或棋盘
 ok 2 - 预留现金200的决策边界，可配置阈值，不改动余额或棋盘
   ---
-  duration_ms: 0.648584
+  duration_ms: 1.279916
   type: 'test'
   ...
 # Subtest: 版本2世界为关卡必需数据，每个道路和地产有明确坐标，所有景物有独立标识
 ok 3 - 版本2世界为关卡必需数据，每个道路和地产有明确坐标，所有景物有独立标识
   ---
-  duration_ms: 2.111875
+  duration_ms: 2.08275
   type: 'test'
   ...
 # Subtest: 世界加载拒绝缺失、非有限值、未知景物、重复标识、自交地形和道路缺格
 ok 4 - 世界加载拒绝缺失、非有限值、未知景物、重复标识、自交地形和道路缺格
   ---
-  duration_ms: 29.038541
+  duration_ms: 27.146333
   type: 'test'
   ...
 # Subtest: 旧版规则草稿仍能读取，场景对象不进入对局和存档
 ok 5 - 旧版规则草稿仍能读取，场景对象不进入对局和存档
   ---
-  duration_ms: 33.53125
+  duration_ms: 2.850459
   type: 'test'
   ...
 # Subtest: 场景改版不修改任何既有规则拓扑或经济数据
 ok 6 - 场景改版不修改任何既有规则拓扑或经济数据
   ---
-  duration_ms: 2.416792
+  duration_ms: 2.693541
   type: 'test'
   ...
 # Subtest: 景物不侵占道路或地产，亭台落在明确陆地上
 ok 7 - 景物不侵占道路或地产，亭台落在明确陆地上
   ---
-  duration_ms: 118.081875
+  duration_ms: 108.084833
   type: 'test'
   ...
-# (node:41773) [THREE_CJS_DEPRECATED] DeprecationWarning: `require("three")` is deprecated and will be removed.
+# (node:51796) [THREE_CJS_DEPRECATED] DeprecationWarning: `require("three")` is deprecated and will be removed.
 # Replace `const THREE = require("three")` with `import * as THREE from "three"`.
 # (Use `node --trace-deprecation ...` to show where the warning was created)
 # Subtest: 旋转角度限幅，鼠标手势互不重叠
 ok 8 - 旋转角度限幅，鼠标手势互不重叠
   ---
-  duration_ms: 2.024708
+  duration_ms: 0.526459
   type: 'test'
   ...
 # Subtest: 任意方位和俯仰下平移与屏幕拖动一致
 ok 9 - 任意方位和俯仰下平移与屏幕拖动一致
   ---
-  duration_ms: 1.376791
+  duration_ms: 0.611
   type: 'test'
   ...
 # Subtest: 各朝向的全图投影边界覆盖全部显式场景
 ok 10 - 各朝向的全图投影边界覆盖全部显式场景
   ---
-  duration_ms: 14.740917
+  duration_ms: 21.775583
   type: 'test'
   ...
 # Subtest: 数字跟随视角正向，俯仰补偿后仍在旋转路砖内
 ok 11 - 数字跟随视角正向，俯仰补偿后仍在旋转路砖内
   ---
-  duration_ms: 0.346
+  duration_ms: 0.316292
   type: 'test'
   ...
 # Subtest: 多圈旋转后回正走最短角度，不反向连转数圈
 ok 12 - 多圈旋转后回正走最短角度，不反向连转数圈
   ---
-  duration_ms: 126.152
+  duration_ms: 63.291167
   type: 'test'
   ...
 # Subtest: 全景相机把地图投影完整放入 HUD 实际安全区
 ok 13 - 全景相机把地图投影完整放入 HUD 实际安全区
   ---
-  duration_ms: 0.984416
+  duration_ms: 0.555209
   type: 'test'
   ...
 # Subtest: 没有 HUD 参数时仍可供独立 demo 使用
 ok 14 - 没有 HUD 参数时仍可供独立 demo 使用
   ---
-  duration_ms: 0.230542
+  duration_ms: 0.156416
   type: 'test'
   ...
 # Subtest: 曲线地图按实际投影轮廓取景，手机不为轴对齐包围盒留下大块空白
 ok 15 - 曲线地图按实际投影轮廓取景，手机不为轴对齐包围盒留下大块空白
   ---
-  duration_ms: 7.17475
+  duration_ms: 6.424541
   type: 'test'
   ...
 # Subtest: 奖励卡合法使用一次、库存归零、现金收益；非法阶段、目标和重复用卡不能修改状态
 ok 16 - 奖励卡合法使用一次、库存归零、现金收益；非法阶段、目标和重复用卡不能修改状态
   ---
-  duration_ms: 1.648541
+  duration_ms: 1.6555
   type: 'test'
   ...
 # Subtest: 步数卡修正下一次掷骰而非跳过地块结算，单回合不能叠加
 ok 17 - 步数卡修正下一次掷骰而非跳过地块结算，单回合不能叠加
   ---
-  duration_ms: 8.319875
+  duration_ms: 12.435
   type: 'test'
   ...
 # Subtest: 卡片站按随机种子稳定发卡，库存上限有效
 ok 18 - 卡片站按随机种子稳定发卡，库存上限有效
   ---
-  duration_ms: 1.089625
+  duration_ms: 0.394875
   type: 'test'
   ...
 # Subtest: 电脑先用合法卡片再掷骰，固定种子整局无无限用卡
 ok 19 - 电脑先用合法卡片再掷骰，固定种子整局无无限用卡
   ---
-  duration_ms: 74.142208
+  duration_ms: 73.552541
   type: 'test'
   ...
 # Subtest: 初始化两名玩家、24 格地图及版本化状态
 ok 20 - 初始化两名玩家、24 格地图及版本化状态
   ---
-  duration_ms: 1.559334
+  duration_ms: 1.601667
   type: 'test'
   ...
 # Subtest: 开始动作通过纯函数切换状态并提供可观察事件
 ok 21 - 开始动作通过纯函数切换状态并提供可观察事件
   ---
-  duration_ms: 0.227417
+  duration_ms: 0.238791
   type: 'test'
   ...
 # Subtest: 非法动作与错误行动者明确拒绝，绝不篡改状态
 ok 22 - 非法动作与错误行动者明确拒绝，绝不篡改状态
   ---
-  duration_ms: 0.301667
+  duration_ms: 0.308333
   type: 'test'
   ...
 # Subtest: 开始游戏不能重复，地产购买需要正确阶段
 ok 23 - 开始游戏不能重复，地产购买需要正确阶段
   ---
-  duration_ms: 0.534416
+  duration_ms: 0.719208
   type: 'test'
   ...
 # Subtest: 固定种子骰子可复现且只产生 1 至 6；零种子也可以运行
 ok 24 - 固定种子骰子可复现且只产生 1 至 6；零种子也可以运行
   ---
-  duration_ms: 1.698875
+  duration_ms: 0.504208
   type: 'test'
   ...
 # Subtest: 拒绝非法地图、重复玩家和非有限种子
 ok 25 - 拒绝非法地图、重复玩家和非有限种子
   ---
-  duration_ms: 0.675
+  duration_ms: 0.380458
   type: 'test'
   ...
 # Subtest: JSON 压力地图精确格数、凹形无重叠闭环，任意起格跨圈不截断
 ok 26 - JSON 压力地图精确格数、凹形无重叠闭环，任意起格跨圈不截断
   ---
-  duration_ms: 1.10675
+  duration_ms: 2.980542
   type: 'test'
   ...
 # Subtest: 通用 JSON 加载接受额外关卡，无需修改 TS 注册名单；内置数据冻结
 ok 27 - 通用 JSON 加载接受额外关卡，无需修改 TS 注册名单；内置数据冻结
   ---
-  duration_ms: 15.819584
+  duration_ms: 15.007959
   type: 'test'
   ...
 # Subtest: 目录拒绝重复标识、断路、重复格、越界、非有限值、错误站点及未知字段
 ok 28 - 目录拒绝重复标识、断路、重复格、越界、非有限值、错误站点及未知字段
   ---
-  duration_ms: 52.909417
+  duration_ms: 59.997209
   type: 'test'
   ...
 # Subtest: 三张大图真实规则开局、完整圈移动、存读档隔离与篡改拒绝
 ok 29 - 三张大图真实规则开局、完整圈移动、存读档隔离与篡改拒绝
   ---
-  duration_ms: 14.066667
+  duration_ms: 15.120209
   type: 'test'
   ...
 # Subtest: 60/120/360 格各 30 种子、2/3/4 人真实完整模拟，无非法动作且存档不丢格
 ok 30 - 60/120/360 格各 30 种子、2/3/4 人真实完整模拟，无非法动作且存档不丢格
   ---
-  duration_ms: 624.186
+  duration_ms: 641.363625
   type: 'test'
   ...
 # Subtest: JSON 轮廓通过通用生成命令形成完整容器；拒绝斜边和自交重叠
 ok 31 - JSON 轮廓通过通用生成命令形成完整容器；拒绝斜边和自交重叠
   ---
-  duration_ms: 318.859375
+  duration_ms: 265.010542
   type: 'test'
   ...
 # Subtest: JSON 设施地点可迁移，非法设施引用和参数提前拒绝
 ok 32 - JSON 设施地点可迁移，非法设施引用和参数提前拒绝
   ---
-  duration_ms: 20.331542
+  duration_ms: 19.713625
   type: 'test'
   ...
 # Subtest: demo启用分离的现金存款、贷款股市和每次停留单次地产规则
 ok 33 - demo启用分离的现金存款、贷款股市和每次停留单次地产规则
   ---
-  duration_ms: 1.298333
+  duration_ms: 1.328292
   type: 'test'
   ...
 # Subtest: 买地后不能同步建房，远程建设和同次停留重复升级都由核心拒绝
 ok 34 - 买地后不能同步建房，远程建设和同次停留重复升级都由核心拒绝
   ---
-  duration_ms: 0.976584
+  duration_ms: 1.000375
   type: 'test'
   ...
 # Subtest: 存款不能买地或建房；股票仅用存款且卖出回存款，现金不变
 ok 35 - 存款不能买地或建房；股票仅用存款且卖出回存款，现金不变
   ---
-  duration_ms: 0.634708
+  duration_ms: 2.514542
   type: 'test'
   ...
 # Subtest: 银行存取守恒；抵押取得真实额度，贷款还款和利息正确
 ok 36 - 银行存取守恒；抵押取得真实额度，贷款还款和利息正确
   ---
-  duration_ms: 0.817459
+  duration_ms: 1.714125
   type: 'test'
   ...
 # Subtest: 新规则/账户随存档往返，旧游戏继续允许现金股票和远程升级
 ok 37 - 新规则/账户随存档往返，旧游戏继续允许现金股票和远程升级
   ---
-  duration_ms: 9.169584
+  duration_ms: 7.56175
   type: 'test'
   ...
 # Subtest: demo种子链接只选择真实随机序列，非法参数安全回到默认种子
 ok 38 - demo种子链接只选择真实随机序列，非法参数安全回到默认种子
   ---
-  duration_ms: 0.326292
+  duration_ms: 0.352291
   type: 'test'
   ...
 # Subtest: 可复现对局链接允许真实轮数配置，不改变初始账户与掷骰
 ok 39 - 可复现对局链接允许真实轮数配置，不改变初始账户与掷骰
   ---
-  duration_ms: 0.562208
+  duration_ms: 0.570917
   type: 'test'
   ...
 # Subtest: 开发入口先进入 Vite 根目录内模块，避免父目录脚本被回退为 HTML
 ok 40 - 开发入口先进入 Vite 根目录内模块，避免父目录脚本被回退为 HTML
   ---
-  duration_ms: 13.817958
+  duration_ms: 7.150583
   type: 'test'
   ...
 # Subtest: 16 个行走锚点唯一且完整
 ok 41 - 16 个行走锚点唯一且完整
   ---
-  duration_ms: 3.406583
+  duration_ms: 0.521417
   type: 'test'
   ...
 # Subtest: 2～4 名玩家在同一格有独立颜色和站位
 ok 42 - 2～4 名玩家在同一格有独立颜色和站位
   ---
-  duration_ms: 0.754
+  duration_ms: 0.134667
   type: 'test'
   ...
 # Subtest: 所有相邻格保持两单位连续距离，包括尾格回到起点
 ok 43 - 所有相邻格保持两单位连续距离，包括尾格回到起点
   ---
-  duration_ms: 0.26825
+  duration_ms: 0.078708
   type: 'test'
   ...
 # Subtest: 每个地产锚点都位于道路外侧而不是角色行走线上
 ok 44 - 每个地产锚点都位于道路外侧而不是角色行走线上
   ---
-  duration_ms: 0.327416
+  duration_ms: 0.192125
   type: 'test'
   ...
 # Subtest: 正式地图使用关卡指定的世界坐标，规则方格不再限制道路形状
 ok 45 - 正式地图使用关卡指定的世界坐标，规则方格不再限制道路形状
   ---
-  duration_ms: 0.986125
+  duration_ms: 0.815167
   type: 'test'
   ...
 # Subtest: 真实租金破产事件先退场，再为真实赢家庆祝；序号稳定且不改变输入
 ok 46 - 真实租金破产事件先退场，再为真实赢家庆祝；序号稳定且不改变输入
   ---
-  duration_ms: 3.053416
+  duration_ms: 2.19
   type: 'test'
   ...
 # Subtest: 多人对局中单个玩家破产只退场，不提前庆祝
 ok 47 - 多人对局中单个玩家破产只退场，不提前庆祝
   ---
-  duration_ms: 0.303166
+  duration_ms: 0.292833
   type: 'test'
   ...
 # Subtest: 真实轮限结算按净资产赢家庆祝，不虚构破产
 ok 48 - 真实轮限结算按净资产赢家庆祝，不虚构破产
   ---
-  duration_ms: 0.399583
+  duration_ms: 0.378917
   type: 'test'
   ...
 # Subtest: 真实轮限同分产生中性平局，不将当前玩家当作赢家
 ok 49 - 真实轮限同分产生中性平局，不将当前玩家当作赢家
   ---
-  duration_ms: 0.158
+  duration_ms: 0.150208
   type: 'test'
   ...
 # Subtest: 无新结束事件时，即使状态已结束也不会重播结果
 ok 50 - 无新结束事件时，即使状态已结束也不会重播结果
   ---
-  duration_ms: 0.321875
+  duration_ms: 0.293375
   type: 'test'
   ...
 # Subtest: 一批多个破产事件按事件顺序全部退场，结束庆祝最后播放
 ok 51 - 一批多个破产事件按事件顺序全部退场，结束庆祝最后播放
   ---
-  duration_ms: 0.228833
+  duration_ms: 0.2105
   type: 'test'
   ...
 # Subtest: 三次真实停留分别买地、建房、升级，最高两级且拒绝无钱与他人地产
 ok 52 - 三次真实停留分别买地、建房、升级，最高两级且拒绝无钱与他人地产
   ---
-  duration_ms: 3.624916
+  duration_ms: 3.625834
   type: 'test'
   ...
 # Subtest: 同街区连续建好的同业主房屋组成联排，允许不同等级
 ok 53 - 同街区连续建好的同业主房屋组成联排，允许不同等级
   ---
-  duration_ms: 0.633375
+  duration_ms: 0.660458
   type: 'test'
   ...
 # Subtest: 主程序24格地图按规则地图边界识别联排街区，不沿用16格demo索引
 ok 54 - 主程序24格地图按规则地图边界识别联排街区，不沿用16格demo索引
   ---
-  duration_ms: 0.505291
+  duration_ms: 0.505708
   type: 'test'
   ...
 # Subtest: 空地、未买地、其他业主及街区边界都会截断联排
 ok 55 - 空地、未买地、其他业主及街区边界都会截断联排
   ---
-  duration_ms: 0.957042
+  duration_ms: 0.274666
   type: 'test'
   ...
 # Subtest: 租金演出使用真实支付事件的双方与金额，不把应付金额当实付
 ok 56 - 租金演出使用真实支付事件的双方与金额，不把应付金额当实付
   ---
-  duration_ms: 1.592834
+  duration_ms: 4.706333
   type: 'test'
   ...
 # Subtest: 3D 演示以固定种子启动两人 16 格真实规则对局
 ok 57 - 3D 演示以固定种子启动两人 16 格真实规则对局
   ---
-  duration_ms: 1.542125
+  duration_ms: 4.299333
   type: 'test'
   ...
 # Subtest: 3D 演示投骰只调用规则结果并返回逐格路径
 ok 58 - 3D 演示投骰只调用规则结果并返回逐格路径
   ---
-  duration_ms: 0.622042
+  duration_ms: 0.70825
   type: 'test'
   ...
 # Subtest: 逐格路径跨越起点时保持正向且不重复原点
 ok 59 - 逐格路径跨越起点时保持正向且不重复原点
   ---
-  duration_ms: 0.080334
+  duration_ms: 0.082083
   type: 'test'
   ...
 # Subtest: 购买未归属地产：扣买方现金、赋权且生成准确交易事件，原始状态不变
 ok 60 - 购买未归属地产：扣买方现金、赋权且生成准确交易事件，原始状态不变
   ---
-  duration_ms: 2.125208
+  duration_ms: 4.531209
   type: 'test'
   ...
 # Subtest: 放弃购买不扣钱；余额不足拒绝且允许随后放弃
 ok 61 - 放弃购买不扣钱；余额不足拒绝且允许随后放弃
   ---
-  duration_ms: 0.300083
+  duration_ms: 0.34225
   type: 'test'
   ...
 # Subtest: 到达自己拥有的地产不会重复付款或再次触发购买
 ok 62 - 到达自己拥有的地产不会重复付款或再次触发购买
   ---
-  duration_ms: 0.170125
+  duration_ms: 0.178167
   type: 'test'
   ...
 # Subtest: 到达对手地产自动结算租金且仅执行一次：买方扣款、产权方收款
 ok 63 - 到达对手地产自动结算租金且仅执行一次：买方扣款、产权方收款
   ---
-  duration_ms: 0.476792
+  duration_ms: 0.680125
   type: 'test'
   ...
 # Subtest: 租金不足时即时破产：有限额转移余额、不记负债、不出现负钱、直接判另一方获胜
 ok 64 - 租金不足时即时破产：有限额转移余额、不记负债、不出现负钱、直接判另一方获胜
   ---
-  duration_ms: 0.308959
+  duration_ms: 0.332959
   type: 'test'
   ...
 # Subtest: 第 60 轮结束按净资产（现金+地价）判赢家；双方同分判平局
 ok 65 - 第 60 轮结束按净资产（现金+地价）判赢家；双方同分判平局
   ---
-  duration_ms: 0.267
+  duration_ms: 0.272125
   type: 'test'
   ...
 # Subtest: 资产计算使用可配置价格，且不替其他人的资产计价
 ok 66 - 资产计算使用可配置价格，且不替其他人的资产计价
   ---
-  duration_ms: 0.109459
+  duration_ms: 0.112584
   type: 'test'
   ...
 # Subtest: 100 种固定种子自动对局均能结束，动作合法、余额与产权有效，重复运行完全一致
 ok 67 - 100 种固定种子自动对局均能结束，动作合法、余额与产权有效，重复运行完全一致
   ---
-  duration_ms: 463.895167
+  duration_ms: 467.463375
   type: 'test'
   ...
 # Subtest: 机会格恰好触发一次收益或费用，读档和重复运行仍确定
 ok 68 - 机会格恰好触发一次收益或费用，读档和重复运行仍确定
   ---
-  duration_ms: 39.651
+  duration_ms: 31.851584
   type: 'test'
   ...
 # Subtest: 系统费用不足采用封顶扣款，不产生负数或伪造破产
 ok 69 - 系统费用不足采用封顶扣款，不产生负数或伪造破产
   ---
-  duration_ms: 1.772083
+  duration_ms: 1.319917
   type: 'test'
   ...
 # Subtest: 100 固定种子含机会格完整模拟仍确定，事件顺序复现
 ok 70 - 100 固定种子含机会格完整模拟仍确定，事件顺序复现
   ---
-  duration_ms: 236.947667
+  duration_ms: 266.969709
   type: 'test'
   ...
 # Subtest: 主程序页面使用单一同源 React/R3F bundle 并预缓存实际入口
 ok 71 - 主程序页面使用单一同源 React/R3F bundle 并预缓存实际入口
   ---
-  duration_ms: 15.822125
+  duration_ms: 14.081166
   type: 'test'
   ...
 # Subtest: 主程序规则入口保留 demo 已验证的到访建造与存款股市分账规则
 ok 72 - 主程序规则入口保留 demo 已验证的到访建造与存款股市分账规则
   ---
-  duration_ms: 9.329
+  duration_ms: 2.77425
   type: 'test'
   ...
 # Subtest: Vite 开发预览不会注册占位 Service Worker 覆盖热更新资源
 ok 73 - Vite 开发预览不会注册占位 Service Worker 覆盖热更新资源
   ---
-  duration_ms: 5.863417
+  duration_ms: 3.691417
   type: 'test'
   ...
 # Subtest: 右键命中详细屋顶时沿父组识别所属地产，不穿透选择后方道路
 ok 74 - 右键命中详细屋顶时沿父组识别所属地产，不穿透选择后方道路
   ---
-  duration_ms: 1.985
+  duration_ms: 1.073875
   type: 'test'
   ...
 # Subtest: 简化房屋实例使用显式地产编号，不把筛选后的实例下标当作格号
 ok 75 - 简化房屋实例使用显式地产编号，不把筛选后的实例下标当作格号
   ---
-  duration_ms: 0.722
+  duration_ms: 0.191333
   type: 'test'
   ...
 # Subtest: 真实旧 v1 字段结构无损升级到 v3，净资产不变且导出后仍可再次读取
 ok 76 - 真实旧 v1 字段结构无损升级到 v3，净资产不变且导出后仍可再次读取
   ---
-  duration_ms: 11.220542
+  duration_ms: 34.635833
   type: 'test'
   ...
 # Subtest: P2 独立验收：100 固定种子经济、产权、卡牌与事件重放不变量
 ok 77 - P2 独立验收：100 固定种子经济、产权、卡牌与事件重放不变量
   ---
-  duration_ms: 413.421625
+  duration_ms: 380.889125
   type: 'test'
   ...
 # Subtest: P3-07: deposits/withdrawals conserve money, require legal amounts and phase
 ok 78 - P3-07: deposits/withdrawals conserve money, require legal amounts and phase
   ---
-  duration_ms: 3.209375
+  duration_ms: 2.234542
   type: 'test'
   ...
 # Subtest: P3-07: one interest event per complete round; 3/4 accounts isolated and deterministic
 ok 79 - P3-07: one interest event per complete round; 3/4 accounts isolated and deterministic
   ---
-  duration_ms: 18.659917
+  duration_ms: 22.829958
   type: 'test'
   ...
 # Subtest: P3-07: bank assets fund rent before land liquidation; bankruptcy never leaves stranded deposits
 ok 80 - P3-07: bank assets fund rent before land liquidation; bankruptcy never leaves stranded deposits
   ---
-  duration_ms: 0.864625
+  duration_ms: 0.894208
   type: 'test'
   ...
 # Subtest: P3-07: optional bank never changes legacy P2 default game and rejects tampered bank states
 ok 81 - P3-07: optional bank never changes legacy P2 default game and rejects tampered bank states
   ---
-  duration_ms: 0.6445
+  duration_ms: 0.606792
   type: 'test'
   ...
 # Subtest: P3-07: migrated v1/v2 records initialize zero balance without retroactive interest
 ok 82 - P3-07: migrated v1/v2 records initialize zero balance without retroactive interest
   ---
-  duration_ms: 1.571833
+  duration_ms: 1.626667
   type: 'test'
   ...
 # Subtest: P3-07: 100 seeded games across 3/4 seats conserve transfers, replay and interest bounds
 ok 83 - P3-07: 100 seeded games across 3/4 seats conserve transfers, replay and interest bounds
   ---
-  duration_ms: 943.609292
+  duration_ms: 1148.273375
   type: 'test'
   ...
 # Subtest: P3-07: computer has a legal bank action without touching P2 agent semantics
 ok 84 - P3-07: computer has a legal bank action without touching P2 agent semantics
   ---
-  duration_ms: 1.566292
+  duration_ms: 2.680583
   type: 'test'
   ...
 # Subtest: P3-01: P2 compatibility reference: 100 seeds, all intermediate states and events
 ok 85 - P3-01: P2 compatibility reference: 100 seeds, all intermediate states and events
   ---
-  duration_ms: 3008.038917
+  duration_ms: 3299.721542
   type: 'test'
   ...
 # Subtest: P3-01: reject semantics and random generator remain identical
 ok 86 - P3-01: reject semantics and random generator remain identical
   ---
-  duration_ms: 3.431125
+  duration_ms: 2.8795
   type: 'test'
   ...
 # Subtest: P3 自主改进：被拘留跳过的回合也计入真实回合数
 ok 87 - P3 自主改进：被拘留跳过的回合也计入真实回合数
   ---
-  duration_ms: 214.687583
+  duration_ms: 133.538084
   type: 'test'
   ...
 # Subtest: 2 maps hospital/prison/shop recognized; opt-in legacy map retains P2 opportunity and card station
 ok 88 - 2 maps hospital/prison/shop recognized; opt-in legacy map retains P2 opportunity and card station
   ---
-  duration_ms: 14.982292
+  duration_ms: 5.744416
   type: 'test'
   ...
 # Subtest: hospital skip countdown, multi-player switching, release and ability to roll only afterwards
 ok 89 - hospital skip countdown, multi-player switching, release and ability to roll only afterwards
   ---
-  duration_ms: 4.953791
+  duration_ms: 4.713625
   type: 'test'
   ...
 # Subtest: prison has own turns and entry fee and keeps multiplayer money valid
 ok 90 - prison has own turns and entry fee and keeps multiplayer money valid
   ---
-  duration_ms: 1.062958
+  duration_ms: 1.635833
   type: 'test'
   ...
 # Subtest: shop purchase obeys stock, hand limit, funds; return to end turn; illegal remains unchanged
 ok 91 - shop purchase obeys stock, hand limit, funds; return to end turn; illegal remains unchanged
   ---
-  duration_ms: 0.924625
+  duration_ms: 0.963583
   type: 'test'
   ...
 # Subtest: invalid facility config and forged shop/phase/detention save are rejected
 ok 92 - invalid facility config and forged shop/phase/detention save are rejected
   ---
-  duration_ms: 1.052375
+  duration_ms: 1.079208
   type: 'test'
   ...
 # Subtest: 100 seeded complete multiplayer facility games on both maps
 ok 93 - 100 seeded complete multiplayer facility games on both maps
   ---
-  duration_ms: 338.146333
+  duration_ms: 354.057917
   type: 'test'
   ...
 # P3-16 INDEPENDENT ACCEPTANCE {"games":1000,"actions":241239,"rejections":0,"detentions":17221,"bankruptcies":162,"roundLimits":972,"wins":996,"totalRounds":32572,"totalTurns":96088,"byMap":{"classic-24":500,"harbor-20":500},"byPlayers":{"2":334,"3":334,"4":332},"byStyle":{"conservative":{"seats":1002,"wins":251,"bankruptcies":59},"balanced":{"seats":1000,"wins":342,"bankruptcies":46},"aggressive":{"seats":996,"wins":403,"bankruptcies":57}},"averageRounds":32.572,"averageTurns":96.088,"raw":"artifacts/issue45/p3-1000-raw.json"}
 # Subtest: P3 最终独立验收：1000 固定种子、2–4 人、双地图、三风格、资金与存档逐步校验
 ok 94 - P3 最终独立验收：1000 固定种子、2–4 人、双地图、三风格、资金与存档逐步校验
   ---
-  duration_ms: 9525.809416
+  duration_ms: 9647.125708
   type: 'test'
   ...
 # Subtest: P3-06: selling upgraded property uses transparent floor(75% land+50% upgrades)
 ok 95 - P3-06: selling upgraded property uses transparent floor(75% land+50% upgrades)
   ---
-  duration_ms: 3.8015
+  duration_ms: 5.885334
   type: 'test'
   ...
 # Subtest: P3-06: configured resale rates are validated and persisted without changing old defaults
 ok 96 - P3-06: configured resale rates are validated and persisted without changing old defaults
   ---
-  duration_ms: 1.601375
+  duration_ms: 1.768125
   type: 'test'
   ...
 # Subtest: P3-06: sale rejects phases, other owners, invalid IDs without state changes
 ok 97 - P3-06: sale rejects phases, other owners, invalid IDs without state changes
   ---
-  duration_ms: 0.266667
+  duration_ms: 0.271416
   type: 'test'
   ...
 # Subtest: P3-06: rent liquidation sells owned assets before bankruptcy, no double rent
 ok 98 - P3-06: rent liquidation sells owned assets before bankruptcy, no double rent
   ---
-  duration_ms: 0.574041
+  duration_ms: 2.047709
   type: 'test'
   ...
 # Subtest: P3-06: insufficient sale proceeds still bankrupt; remaining multiplayer keeps playing
 ok 99 - P3-06: insufficient sale proceeds still bankrupt; remaining multiplayer keeps playing
   ---
-  duration_ms: 0.355416
+  duration_ms: 1.069916
   type: 'test'
   ...
 # Subtest: P3-06: old two-player simulations and 3/4 player runs remain terminating
 ok 100 - P3-06: old two-player simulations and 3/4 player runs remain terminating
   ---
-  duration_ms: 362.610458
+  duration_ms: 428.695917
   type: 'test'
   ...
 # Subtest: P3-08: lien is owner-only, unique, credit-capped, debt contributes negative net worth
 ok 101 - P3-08: lien is owner-only, unique, credit-capped, debt contributes negative net worth
   ---
-  duration_ms: 1.95725
+  duration_ms: 1.896667
   type: 'test'
   ...
 # Subtest: P3-08: debtor isolation, one deterministic interest per complete round, save/restore
 ok 102 - P3-08: debtor isolation, one deterministic interest per complete round, save/restore
   ---
-  duration_ms: 8.986833
+  duration_ms: 5.090625
   type: 'test'
   ...
 # Subtest: P3-08: over-limit interest causes seizure; no orphan lien or unpaid debt, legacy unaffected
 ok 103 - P3-08: over-limit interest causes seizure; no orphan lien or unpaid debt, legacy unaffected
   ---
-  duration_ms: 1.075209
+  duration_ms: 2.558459
   type: 'test'
   ...
 # Subtest: P3-08: strict finance save rejects negative debt, lien without loan feature or unowned lien
 ok 104 - P3-08: strict finance save rejects negative debt, lien without loan feature or unowned lien
   ---
-  duration_ms: 0.569916
+  duration_ms: 0.498375
   type: 'test'
   ...
 # Subtest: P3-08: 100 deterministic seeded secured accounts across three local players
 ok 105 - P3-08: 100 deterministic seeded secured accounts across three local players
   ---
-  duration_ms: 64.046334
+  duration_ms: 63.921166
   type: 'test'
   ...
 # Subtest: P3-08: pledged land yields zero rent to the lender without losing ownership
 ok 106 - P3-08: pledged land yields zero rent to the lender without losing ownership
   ---
-  duration_ms: 1.1915
+  duration_ms: 1.037333
   type: 'test'
   ...
 # Subtest: P3-04: 24-cell map exactly reproduces the P2 ring, 5x5 internal map differs
 ok 107 - P3-04: 24-cell map exactly reproduces the P2 ring, 5x5 internal map differs
   ---
-  duration_ms: 1.220125
+  duration_ms: 1.274083
   type: 'test'
   ...
 # Subtest: P3-04: internal 16-cell path wraps start correctly and preserves deterministic RNG
 ok 108 - P3-04: internal 16-cell path wraps start correctly and preserves deterministic RNG
   ---
-  duration_ms: 5.839916
+  duration_ms: 4.720208
   type: 'test'
   ...
 # Subtest: P3-04: invalid layout, overlapping cells, disconnected path and unsupported map reject
 ok 109 - P3-04: invalid layout, overlapping cells, disconnected path and unsupported map reject
   ---
-  duration_ms: 1.163375
+  duration_ms: 0.477584
   type: 'test'
   ...
 # Subtest: P3-04: old v3 save migrates map metadata, player state, RNG and action reproducibly
 ok 110 - P3-04: old v3 save migrates map metadata, player state, RNG and action reproducibly
   ---
-  duration_ms: 2.062042
+  duration_ms: 1.738375
   type: 'test'
   ...
 # Subtest: P3-09: 5 invented stocks, finite quotes and independent PRNG
 ok 111 - P3-09: 5 invented stocks, finite quotes and independent PRNG
   ---
-  duration_ms: 2.677834
+  duration_ms: 1.167542
   type: 'test'
   ...
 # Subtest: P3-09: equal seed and round trajectories reproduce, versioned JSON save retains future quotes
 ok 112 - P3-09: equal seed and round trajectories reproduce, versioned JSON save retains future quotes
   ---
-  duration_ms: 101.341958
+  duration_ms: 100.323667
   type: 'test'
   ...
 # Subtest: P3-09: market rejects repeated round settlement, skip, negatives, corruption
 ok 113 - P3-09: market rejects repeated round settlement, skip, negatives, corruption
   ---
-  duration_ms: 0.454375
+  duration_ms: 0.736875
   type: 'test'
   ...
 # Subtest: P3-09: 500 seeds × 200 complete rounds prices bounded and never overflow
 ok 114 - P3-09: 500 seeds × 200 complete rounds prices bounded and never overflow
   ---
-  duration_ms: 517.523959
+  duration_ms: 714.174667
   type: 'test'
   ...
 # Subtest: P3-09: optional quotes settle precisely once per turn cycle, never consume dice RNG
 ok 115 - P3-09: optional quotes settle precisely once per turn cycle, never consume dice RNG
   ---
-  duration_ms: 46.183042
+  duration_ms: 121.420208
   type: 'test'
   ...
 # Subtest: P3-02: 2 to 4 configurable player kinds and illegal configs
 ok 116 - P3-02: 2 to 4 configurable player kinds and illegal configs
   ---
-  duration_ms: 2.097208
+  duration_ms: 1.909584
   type: 'test'
   ...
 # Subtest: P3-02: three-player bankruptcy removes one participant without ending the game
 ok 117 - P3-02: three-player bankruptcy removes one participant without ending the game
   ---
-  duration_ms: 2.121958
+  duration_ms: 1.062042
   type: 'test'
   ...
 # Subtest: P3-02: 100 deterministic complete games for each of 2/3/4 players
 ok 118 - P3-02: 100 deterministic complete games for each of 2/3/4 players
   ---
-  duration_ms: 712.029916
+  duration_ms: 855.147791
   type: 'test'
   ...
 # Subtest: P3-02: legacy v2 two-player save upgrades to v3 without lost property, events or PRNG state
 ok 119 - P3-02: legacy v2 two-player save upgrades to v3 without lost property, events or PRNG state
   ---
-  duration_ms: 14.238292
+  duration_ms: 8.184667
   type: 'test'
   ...
 # Subtest: P3-04: PWA precaches ALL same-origin runtime modules for offline fresh load
 ok 120 - P3-04: PWA precaches ALL same-origin runtime modules for offline fresh load
   ---
-  duration_ms: 13.541041
+  duration_ms: 15.423792
   type: 'test'
   ...
 # Subtest: P3-05: 原创海港 20 格地图有独立布局、价格、事件和卡片站
 ok 121 - P3-05: 原创海港 20 格地图有独立布局、价格、事件和卡片站
   ---
-  duration_ms: 1.065208
+  duration_ms: 1.013375
   type: 'test'
   ...
 # Subtest: P3-05: 两图 2/3/4 人各 100 个种子完整结束、合法产权、价格及步进
 ok 122 - P3-05: 两图 2/3/4 人各 100 个种子完整结束、合法产权、价格及步进
   ---
-  duration_ms: 496.447583
+  duration_ms: 680.594833
   type: 'test'
   ...
 # Subtest: P3-05: 海港地图存档恢复保留原地图及随机进度，篡改地图拒绝
 ok 123 - P3-05: 海港地图存档恢复保留原地图及随机进度，篡改地图拒绝
   ---
-  duration_ms: 4.753042
+  duration_ms: 52.123208
   type: 'test'
   ...
 # Subtest: P3-10: buy/sell cash, fees, fractional cost allocation, stock market value, no free trades
 ok 124 - P3-10: buy/sell cash, fees, fractional cost allocation, stock market value, no free trades
   ---
-  duration_ms: 5.425916
+  duration_ms: 2.005708
   type: 'test'
   ...
 # Subtest: P3-10: reject illegal quantities, fake stock codes, other player, no market, insolvency
 ok 125 - P3-10: reject illegal quantities, fake stock codes, other player, no market, insolvency
   ---
-  duration_ms: 0.810917
+  duration_ms: 0.465125
   type: 'test'
   ...
 # Subtest: P3-10: multiplayer accounts + deposits + secured loans + saved deterministic quotes
 ok 126 - P3-10: multiplayer accounts + deposits + secured loans + saved deterministic quotes
   ---
-  duration_ms: 12.513333
+  duration_ms: 5.782583
   type: 'test'
   ...
 # Subtest: P3-10: tampered positions rejected; old \#38 market save remains valid without holdings
 ok 127 - P3-10: tampered positions rejected; old \#38 market save remains valid without holdings
   ---
-  duration_ms: 1.1765
+  duration_ms: 6.682458
   type: 'test'
   ...
 # Subtest: P3-10: 100 seed round reproducibility and save resumption with holdings
 ok 128 - P3-10: 100 seed round reproducibility and save resumption with holdings
   ---
-  duration_ms: 86.876542
+  duration_ms: 73.185
   type: 'test'
   ...
 # P3-13 TOURNAMENT RESULTS {"games":1000,"totalActions":240783,"illegalActions":0,"totalRounds":32749,"averageRounds":32.749,"totalTurns":96445,"averageTurns":96.445,"byStyle":{"conservative":{"games":1000,"wins":238,"bankruptcies":59,"actionSelection":{"borrow_loan":69,"buy_property":1620,"buy_shop_card":527,"buy_stock":402,"decline_property":8616,"deposit_bank":1056,"end_turn":26231,"leave_shop":1321,"mortgage_property":69,"roll":26290,"sell_stock":17,"skip_turn":5832,"upgrade_property":2360,"use_card":2953,"withdraw_bank":338},"winRate":0.238,"bankruptcyRate":0.059},"balanced":{"games":1000,"wins":340,"bankruptcies":48,"actionSelection":{"borrow_loan":94,"buy_property":1992,"buy_shop_card":601,"buy_stock":664,"decline_property":8232,"deposit_bank":1157,"end_turn":26253,"leave_shop":1277,"mortgage_property":94,"roll":26301,"sell_stock":71,"skip_turn":5969,"upgrade_property":3015,"use_card":3145,"withdraw_bank":685},"winRate":0.34,"bankruptcyRate":0.048},"aggressive":{"games":999,"wins":420,"bankruptcies":55,"actionSelection":{"borrow_loan":1178,"buy_property":2981,"buy_shop_card":636,"buy_stock":1227,"decline_property":7269,"deposit_bank":1143,"end_turn":26024,"leave_shop":1245,"mortgage_property":576,"repay_loan":173,"roll":26079,"sell_stock":554,"skip_turn":5974,"upgrade_property":3975,"use_card":3162,"withdraw_bank":1336},"winRate":0.42042042042042044,"bankruptcyRate":0.055055055055055056}},"byPlayerCount":{"2":334,"3":333,"4":333},"byMap":{"classic-24":500,"harbor-20":500}}
 # Subtest: 风格字段严格校验；旧电脑存档不受影响
 ok 129 - 风格字段严格校验；旧电脑存档不受影响
   ---
-  duration_ms: 11.903625
+  duration_ms: 11.467375
   type: 'test'
   ...
 # Subtest: 不同策略在相同棋盘产生不同买地产决策
 ok 130 - 不同策略在相同棋盘产生不同买地产决策
   ---
-  duration_ms: 0.38275
+  duration_ms: 0.429875
   type: 'test'
   ...
 # Subtest: 相同输入、相同种子跨地图可以复现，且始终经引擎合法命令
 ok 131 - 相同输入、相同种子跨地图可以复现，且始终经引擎合法命令
   ---
-  duration_ms: 32.785
+  duration_ms: 20.896917
   type: 'test'
   ...
 # Subtest: 1000 局真实无界面对战：多人数、多地图、多风格、零拒绝、决策分布可追溯
 ok 132 - 1000 局真实无界面对战：多人数、多地图、多风格、零拒绝、决策分布可追溯
   ---
-  duration_ms: 2488.962333
+  duration_ms: 2751.12675
   type: 'test'
   ...
 # Subtest: 到访建设规则下电脑不会升级本回合未停留的地产或重复建设
 ok 133 - 到访建设规则下电脑不会升级本回合未停留的地产或重复建设
   ---
-  duration_ms: 2.3855
+  duration_ms: 1.06425
   type: 'test'
   ...
 # Subtest: 股票以银行存款结算时电脑按存款余额估算，不按现金余额误判
 ok 134 - 股票以银行存款结算时电脑按存款余额估算，不按现金余额误判
   ---
-  duration_ms: 0.465167
+  duration_ms: 0.335541
   type: 'test'
   ...
 # Subtest: 遥控骰点可选 1–6，固定种子确定性、一次消耗、不复用；错误输入保持原状态
 ok 135 - 遥控骰点可选 1–6，固定种子确定性、一次消耗、不复用；错误输入保持原状态
   ---
-  duration_ms: 5.583833
+  duration_ms: 6.854667
   type: 'test'
   ...
 # Subtest: 路障目标验证、只拦对手、触发后清除并结算落点
 ok 136 - 路障目标验证、只拦对手、触发后清除并结算落点
   ---
-  duration_ms: 3.755709
+  duration_ms: 1.361416
   type: 'test'
   ...
 # Subtest: 免租仅保护本次落地，银行、地主租金与多人余额不重复改变
 ok 137 - 免租仅保护本次落地，银行、地主租金与多人余额不重复改变
   ---
-  duration_ms: 3.411083
+  duration_ms: 1.058209
   type: 'test'
   ...
 # Subtest: 旧版 v4 手里只有两张经典卡及未启用策略模式的存档继续可用
 ok 138 - 旧版 v4 手里只有两张经典卡及未启用策略模式的存档继续可用
   ---
-  duration_ms: 0.716625
+  duration_ms: 0.66575
   type: 'test'
   ...
 # Subtest: 100 固定种子完整策略对局、多玩家事件、经济与存档回归
 ok 139 - 100 固定种子完整策略对局、多玩家事件、经济与存档回归
   ---
-  duration_ms: 421.135125
+  duration_ms: 544.911291
   type: 'test'
   ...
 # Subtest: \#66 action-first UI remains self-contained with PWA offline CSS
 ok 140 - \#66 action-first UI remains self-contained with PWA offline CSS
   ---
-  duration_ms: 8.2485
+  duration_ms: 10.8935
   type: 'test'
   ...
 # Subtest: \#68 seven distinguishable event families without downloaded audio
 ok 141 - \#68 seven distinguishable event families without downloaded audio
   ---
-  duration_ms: 0.604833
+  duration_ms: 0.579625
   type: 'test'
   ...
 # Subtest: \#68 all audio is procedural, same-origin, offline
 ok 142 - \#68 all audio is procedural, same-origin, offline
   ---
-  duration_ms: 10.906167
+  duration_ms: 9.640667
   type: 'test'
   ...
 # Subtest: 主程序使用真实 3D 世界组件并预缓存其静态资源
 ok 143 - 主程序使用真实 3D 世界组件并预缓存其静态资源
   ---
-  duration_ms: 17.794084
+  duration_ms: 6.571333
   type: 'test'
   ...
 # Subtest: \#65 ships four distinct licensed original characters and no network assets
 ok 144 - \#65 ships four distinct licensed original characters and no network assets
   ---
-  duration_ms: 45.851917
+  duration_ms: 13.736917
   type: 'test'
   ...
 # Subtest: \#70 delay presets reduce wait but NEVER modify legal decisions
 ok 145 - \#70 delay presets reduce wait but NEVER modify legal decisions
   ---
-  duration_ms: 0.602083
+  duration_ms: 0.571208
   type: 'test'
   ...
 # Subtest: \#70 cross-mode game determinism: 72 matched seeds, dual boards and 2–4 seats
 ok 146 - \#70 cross-mode game determinism: 72 matched seeds, dual boards and 2–4 seats
   ---
-  duration_ms: 129.982584
+  duration_ms: 205.37725
   type: 'test'
   ...
 # Subtest: \#69 guide is short, accessible Chinese, read-only
 ok 147 - \#69 guide is short, accessible Chinese, read-only
   ---
-  duration_ms: 1.32925
+  duration_ms: 1.437
   type: 'test'
   ...
 # Subtest: \#69 offline static tutorial matches same-origin React bundle
 ok 148 - \#69 offline static tutorial matches same-origin React bundle
   ---
-  duration_ms: 13.459417
+  duration_ms: 8.308
   type: 'test'
   ...
 # Subtest: \#67 pure visuals never mutate engine dice or finances
 ok 149 - \#67 pure visuals never mutate engine dice or finances
   ---
-  duration_ms: 2.084458
+  duration_ms: 3.524875
   type: 'test'
   ...
 # Subtest: \#67 PWA caches animation CSS
 ok 150 - \#67 PWA caches animation CSS
   ---
-  duration_ms: 6.39325
+  duration_ms: 4.093
   type: 'test'
   ...
 # Subtest: 终局发生在落地时，移动演出仍绑定实际走路的玩家
 ok 151 - 终局发生在落地时，移动演出仍绑定实际走路的玩家
   ---
-  duration_ms: 1.266417
+  duration_ms: 1.25175
   type: 'test'
   ...
 # Subtest: 两位真人之间经过电脑回合，仍需确认设备交接
 ok 152 - 两位真人之间经过电脑回合，仍需确认设备交接
   ---
-  duration_ms: 1.439417
+  duration_ms: 1.212875
   type: 'test'
   ...
-# P4/11 RELEASE BUDGET {"total":1505667,"js":1376427,"css":116692,"art":3555,"runtimeModules":3,"files":29}
+# P4/11 RELEASE BUDGET {"total":1507087,"js":1377847,"css":116692,"art":3555,"runtimeModules":3,"files":29}
 # Subtest: \#72 build footprint, CDN-free original art, and exact service-worker cache budget
 ok 153 - \#72 build footprint, CDN-free original art, and exact service-worker cache budget
   ---
-  duration_ms: 6.031334
+  duration_ms: 5.370167
   type: 'test'
   ...
 # Subtest: P4 \#63 visual slice is real React and local and licensed
 ok 154 - P4 \#63 visual slice is real React and local and licensed
   ---
-  duration_ms: 14.677042
+  duration_ms: 32.835417
   type: 'test'
   ...
 # Subtest: PWA Manifest 安装作用域及双尺寸原创 PNG 图标
 ok 155 - PWA Manifest 安装作用域及双尺寸原创 PNG 图标
   ---
-  duration_ms: 7.982209
+  duration_ms: 8.365792
   type: 'test'
   ...
 # Subtest: Service Worker 同源预缓存完整运行依赖，不使用 CDN 或缓存私人存档
 ok 156 - Service Worker 同源预缓存完整运行依赖，不使用 CDN 或缓存私人存档
   ---
-  duration_ms: 4.153542
+  duration_ms: 3.410166
   type: 'test'
   ...
 # Subtest: v1 固定种子游戏无损往返，随机数进度及后续行动完全相同
 ok 157 - v1 固定种子游戏无损往返，随机数进度及后续行动完全相同
   ---
-  duration_ms: 10.467792
+  duration_ms: 8.631083
   type: 'test'
   ...
 # Subtest: 拒绝 JSON 损坏、缺失、未来版本、过大文件
 ok 158 - 拒绝 JSON 损坏、缺失、未来版本、过大文件
   ---
-  duration_ms: 5.194042
+  duration_ms: 4.633
   type: 'test'
   ...
 # Subtest: 篡改合法范围内随机数亦被拒绝，原游戏不变
 ok 159 - 篡改合法范围内随机数亦被拒绝，原游戏不变
   ---
-  duration_ms: 0.460542
+  duration_ms: 0.481959
   type: 'test'
   ...
 # Subtest: 多存档相互隔离，校验不依赖浏览器环境
 ok 160 - 多存档相互隔离，校验不依赖浏览器环境
   ---
-  duration_ms: 0.872542
+  duration_ms: 2.488042
   type: 'test'
   ...
 # Subtest: 竖屏远景四角在真实光源投影内，不能只覆盖世界包围盒半宽
 ok 161 - 竖屏远景四角在真实光源投影内，不能只覆盖世界包围盒半宽
   ---
-  duration_ms: 3.962708
+  duration_ms: 1.685333
   type: 'test'
   ...
 # Subtest: 镜头缩放有可读细节上限，拖动在正交地面上与屏幕位移一致
 ok 162 - 镜头缩放有可读细节上限，拖动在正交地面上与屏幕位移一致
   ---
-  duration_ms: 0.292417
+  duration_ms: 0.210667
   type: 'test'
   ...
 # Subtest: 连续地表覆盖缩放、HUD偏移和远端浏览；裁切与雾不吞掉大图
 ok 163 - 连续地表覆盖缩放、HUD偏移和远端浏览；裁切与雾不吞掉大图
   ---
-  duration_ms: 5.727375
+  duration_ms: 0.344166
   type: 'test'
   ...
 # Subtest: 景物完全来自关卡记录，改变视域只裁切而不改变位置/数量
 ok 164 - 景物完全来自关卡记录，改变视域只裁切而不改变位置/数量
   ---
-  duration_ms: 1.087667
+  duration_ms: 0.896958
   type: 'test'
   ...
 # Subtest: 任意朝向的道路与地产按真实旋转足迹检查，无碰撞且门口朝向所属道路
 ok 165 - 任意朝向的道路与地产按真实旋转足迹检查，无碰撞且门口朝向所属道路
   ---
-  duration_ms: 285.741834
+  duration_ms: 260.256875
   type: 'test'
   ...
 # Subtest: 地产布局跟随真实 route 邻接关系，反向路线仍无占用冲突
 ok 166 - 地产布局跟随真实 route 邻接关系，反向路线仍无占用冲突
   ---
-  duration_ms: 5.382958
+  duration_ms: 3.14775
   type: 'test'
   ...
 # Subtest: 320格狭长双排路线的地产不占用相邻平行道路，联排不跨路
 ok 167 - 320格狭长双排路线的地产不占用相邻平行道路，联排不跨路
   ---
-  duration_ms: 39.101
+  duration_ms: 32.791792
   type: 'test'
   ...
 # Subtest: 320格密集蛇形路线仍在本格旁分配地产，不把内部地产甩到地图远端
 ok 168 - 320格密集蛇形路线仍在本格旁分配地产，不把内部地产甩到地图远端
   ---
-  duration_ms: 22.873167
+  duration_ms: 23.449209
   type: 'test'
   ...
 # Subtest: 连续地面包围盒覆盖视域，并完整容纳离屏水域洞口
 ok 169 - 连续地面包围盒覆盖视域，并完整容纳离屏水域洞口
   ---
-  duration_ms: 0.444417
+  duration_ms: 1.164458
   type: 'test'
   ...
 # Subtest: 道路旋转后数字仍完整落在路砖内
 ok 170 - 道路旋转后数字仍完整落在路砖内
   ---
-  duration_ms: 1.618333
+  duration_ms: 5.541416
   type: 'test'
   ...
 # Subtest: 正式曲线地图仍能把同一街区的相邻房屋连接为联排，连接体不跨过道路
 ok 171 - 正式曲线地图仍能把同一街区的相邻房屋连接为联排，连接体不跨过道路
   ---
-  duration_ms: 213.926417
+  duration_ms: 261.659834
   type: 'test'
   ...
 # Subtest: 种子0到99的整局均结束，无违规指令、死锁、资金和产权错误
 ok 172 - 种子0到99的整局均结束，无违规指令、死锁、资金和产权错误
   ---
-  duration_ms: 84.775083
+  duration_ms: 72.78825
   type: 'test'
   ...
 # Subtest: 相同种子和策略生成完全一致的历史与结局
 ok 173 - 相同种子和策略生成完全一致的历史与结局
   ---
-  duration_ms: 6.0565
+  duration_ms: 1.838209
   type: 'test'
   ...
 # Subtest: 回合上限导致结束，净资产相同正确平局
 ok 174 - 回合上限导致结束，净资产相同正确平局
   ---
-  duration_ms: 0.527834
+  duration_ms: 0.290459
   type: 'test'
   ...
 # Subtest: 高租金两格地图可以通过完整合法行动链触发破产
 ok 175 - 高租金两格地图可以通过完整合法行动链触发破产
   ---
-  duration_ms: 6.994375
+  duration_ms: 7.68275
   type: 'test'
   ...
 # Subtest: 超限和错误输入不能假装完成对局
 ok 176 - 超限和错误输入不能假装完成对局
   ---
-  duration_ms: 0.4925
+  duration_ms: 0.890292
   type: 'test'
   ...
 # Subtest: 页面只启动同源 Vite 模块 bundle，React 18 由本地依赖一起打包
 ok 177 - 页面只启动同源 Vite 模块 bundle，React 18 由本地依赖一起打包
   ---
-  duration_ms: 9.540792
+  duration_ms: 8.94475
   type: 'test'
   ...
 # Subtest: 住宅细节保持地块身份和占地，四种产权不把整栋墙面染成玩家色
 ok 178 - 住宅细节保持地块身份和占地，四种产权不把整栋墙面染成玩家色
   ---
-  duration_ms: 2.010042
+  duration_ms: 1.945333
   type: 'test'
   ...
 # Subtest: 升级改变形体与层次，抵押增加独立封条，不能靠整栋换色
 ok 179 - 升级改变形体与层次，抵押增加独立封条，不能靠整栋换色
   ---
-  duration_ms: 0.562209
+  duration_ms: 0.559209
   type: 'test'
   ...
 # Subtest: 山墙屋顶三角面向外，真实背面剔除不能漏掉斜屋面
 ok 180 - 山墙屋顶三角面向外，真实背面剔除不能漏掉斜屋面
   ---
-  duration_ms: 0.2505
+  duration_ms: 0.245167
   type: 'test'
   ...
 # Subtest: 背窗玻璃必须在后墙之外，旋转到建筑背后仍可读
 ok 181 - 背窗玻璃必须在后墙之外，旋转到建筑背后仍可读
   ---
-  duration_ms: 0.135125
+  duration_ms: 0.135667
   type: 'test'
   ...
 # Subtest: 掷骰将当前玩家推进 1 到 6 格，输出有序的三类事件
 ok 182 - 掷骰将当前玩家推进 1 到 6 格，输出有序的三类事件
   ---
-  duration_ms: 2.130041
+  duration_ms: 2.008791
   type: 'test'
   ...
 # Subtest: 跨越棋盘尾格时环绕起点，不越界，格子来自可配置地图
 ok 183 - 跨越棋盘尾格时环绕起点，不越界，格子来自可配置地图
   ---
-  duration_ms: 0.386833
+  duration_ms: 1.150083
   type: 'test'
   ...
 # Subtest: 每轮必须完成到达后的决策，不能重复掷骰或跳过对手
 ok 184 - 每轮必须完成到达后的决策，不能重复掷骰或跳过对手
   ---
-  duration_ms: 0.486417
+  duration_ms: 1.433917
   type: 'test'
   ...
 # Subtest: 落普通格可以直接结束回合，落可购地必须明确跳过购买
 ok 185 - 落普通格可以直接结束回合，落可购地必须明确跳过购买
   ---
-  duration_ms: 0.239166
+  duration_ms: 0.776542
   type: 'test'
   ...
 # Subtest: 固定种子与相同操作产生相同骰子、状态和事件
 ok 186 - 固定种子与相同操作产生相同骰子、状态和事件
   ---
-  duration_ms: 1.294291
+  duration_ms: 3.549667
   type: 'test'
   ...
 # Subtest: 多轮无界面运行能够推进到第 60 轮边界并完成退出
 ok 187 - 多轮无界面运行能够推进到第 60 轮边界并完成退出
   ---
-  duration_ms: 3.283584
+  duration_ms: 5.089292
   type: 'test'
   ...
 # Subtest: 地产升级逐级扣款、分级收租、净资产，并且输入保持不可变
 ok 188 - 地产升级逐级扣款、分级收租、净资产，并且输入保持不可变
   ---
-  duration_ms: 2.170208
+  duration_ms: 2.930416
   type: 'test'
   ...
 # Subtest: 无主、对手、满级、错误阶段、缺钱一律拒绝且不可变
 ok 189 - 无主、对手、满级、错误阶段、缺钱一律拒绝且不可变
   ---
-  duration_ms: 1.533459
+  duration_ms: 0.555209
   type: 'test'
   ...
 # Subtest: 电脑在现金保留阈值以内选择确定升级，存档往返保留所有级别和价格
 ok 190 - 电脑在现金保留阈值以内选择确定升级，存档往返保留所有级别和价格
   ---
-  duration_ms: 10.987125
+  duration_ms: 12.37325
   type: 'test'
   ...
 1..190
@@ -1177,4 +1177,4 @@ ok 190 - 电脑在现金保留阈值以内选择确定升级，存档往返保�
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 10411.303541
+# duration_ms 10429.446208

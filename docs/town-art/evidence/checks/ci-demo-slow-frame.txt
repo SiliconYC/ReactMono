@@ -1,0 +1,17 @@
+CI run 39591519552, head 25ba24f7ed42c4173d21821b334e9dcf57a548bb053
+https://github.com/SiliconYC/ReactMono/actions/runs/39591519552
+
+固定存档双视口对比和完整镜头套件均通过。随后 demo 的 8 项中 7 项通过，
+桌面首回合在 tests/browser_demo3d_e2e.py:177 失败：
+  self.assertTrue(intermediates)
+  AssertionError: [] is not true
+Ran 8 tests in 313.925s
+
+该断言由浏览器内 MutationObserver 记录真实中间格，不是 RPC 读取顺序问题。
+既有移动按墙钟推进，软件渲染慢帧可能跳过短暂中间格。本任务保持角色、
+移动代码和验收断言不变，通过设施静态盒体合批降低场景提交成本。
+固定桌面近景绘制调用 725→373，几何资源 367→191；纹理仍为 8。
+本机首次并行软件渲染复查也出现漏格及等待超时，不能当作通过。
+停止并行 GPU 测试后，隔离的三个软件渲染桌面首回合均通过；
+完整 SwiftShader 软件渲染套件 8/8 通过，用时 165.353s，见 demo-sw.log。
+最终是否修复以最新提交的完整 CI 为准，不能只凭该优化或单独重跑宣布通过。

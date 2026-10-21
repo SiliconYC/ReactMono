@@ -2,11 +2,9 @@ import * as THREE from 'three';
 import { useEffect, useMemo } from 'react';
 import { Instances } from './Instances.js';
 import { TOWN } from './town-kit.js';
+import { Block } from './StaticBlocks.js';
+export { Block } from './StaticBlocks.js';
 
-type BlockProps={at:[number,number,number];size:[number,number,number];color?:string};
-export function Block({at,size,color=TOWN.trim}:BlockProps):React.JSX.Element {
-  return <mesh position={at}><boxGeometry args={size}/><meshStandardMaterial color={color} roughness={.86}/></mesh>;
-}
 function Sign({text,color,width=1,y=1.12,z=.59}:{text:string;color:string;width?:number;y?:number;z?:number}):React.JSX.Element {
   const texture=useMemo(()=>{
     const canvas=document.createElement('canvas');canvas.width=512;canvas.height=128;
