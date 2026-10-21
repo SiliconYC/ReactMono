@@ -65,10 +65,10 @@ try:
             raise RuntimeError("Pinned upstream test_trade.cpp changed: bounds assertion mismatch")
         trade_test.write_text(original.replace(invalid, bounded, 1), encoding="utf-8")
         (OUT/"test-bounds-compatibility.patch").write_text(
-            "Pinned upstream: b7b76570f445ad07c0788314062b8500e77259e7\\n"
-            "TEMPORARY UNIT TEST ONLY (tests/unit/test_trade.cpp); no business-code edits.\\n"
-            "- " + invalid + "\\n+ " + bounded + "\\n"
-            "Also corrected Issue #121 custom test to assert unchanged slots 0..6.\\n",
+            "Pinned upstream: b7b76570f445ad07c0788314062b8500e77259e7\n"
+            "TEMPORARY UNIT TEST ONLY (tests/unit/test_trade.cpp); no business-code edits.\n"
+            "- " + invalid + "\n+ " + bounded + "\n"
+            "Also corrected Issue #121 custom test to assert unchanged slots 0..6.\n",
             encoding="utf-8")
         context["log"].append("EPHEMERAL TEST PATCH: avoid original upstream test_trade.cpp illegal slot [7] access; assert seven legal slots unchanged")
         economy(upstream)
@@ -90,9 +90,9 @@ finally:
     pass_compile=any(d["label"]=="cmake build unit" and d["exit"]==0 for d in steps)
     pass_ctest=any(d["label"]=="ctest rent/trade" and d["exit"]==0 for d in steps)
     pass_direct=any(d["label"]=="native unit stdout" and d["exit"]==0 for d in steps)
-    stdout="\\n\\n".join(context["log"])
-    match=re.search(r"UNIT checks=(\\d+) fails=(\\d+) -> (PASS|FAIL)", stdout)
-    skiplines=[line.strip() for line in stdout.splitlines() if re.search(r"^\\s*SKIP \\(",line)]
+    stdout="\n\n".join(context["log"])
+    match=re.search(r"UNIT checks=(\d+) fails=(\d+) -> (PASS|FAIL)", stdout)
+    skiplines=[line.strip() for line in stdout.splitlines() if re.search(r"^\s*SKIP \(",line)]
     targeted=[label for label in ("issue121_rent_owner_and_multiplier",
                                 "issue121_chain_multiplier",
                                 "issue121_same_trade_overwrite",
@@ -100,7 +100,7 @@ finally:
               if "[  OK  ] "+label in stdout]
     # "checks" is assertions, NOT independent test cases. SKIP-marked resource
     # tests are reported as OK by the upstream microtest wrapper without assets.
-    array_warnings=len(re.findall(r"warning: array subscript \\d+ is above array bounds",stdout))
+    array_warnings=len(re.findall(r"warning: array subscript \d+ is above array bounds",stdout))
     report["acceptance"]={"compile":pass_compile,"ctest":pass_ctest,"native_unit_stdout":pass_direct,
                           "checks":int(match.group(1)) if match else None,
                           "failed_checks":int(match.group(2)) if match else None,
