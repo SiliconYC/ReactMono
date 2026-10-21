@@ -48,13 +48,28 @@
         "result": "无法访问交互式 WebGL 浏览器；禁止假截图"
       }
     ],
-    "result": "SOURCE_AUDIT_ONLY; no independently executed upstream game/test; no independent screenshots.",
+    "result": "2026-10-19 初查仅 B/C 静态；2026-10-21 #121 在 Chromium 155 Linux SwiftShader 获得 1440×900/390×844 首回合真实截图 A，仍未验证完整局、真机及升级动画/性能。",
     "limitations": [
       "外部站点无法在当前工具中交互打开，不能核对真实帧率、画面观感、移动端或真机。",
       "已提交截图仅存在于上游 docs/screenshots，属于上游提供材料；未复制到 ReactMono。",
-      "声称构建、测试与功能来自源码 B 或 README C，A 类上游运行证据为空。"
+      "声称构建、测试与功能来自源码 B 或 README C，A 类上游运行证据为空。",
+      "#121 的 A 证据仅扩展新增单项，不能扩展为原商业游戏差分或全套画面/性能验收"
     ],
-    "screenshots": []
+    "screenshots": [],
+    "baseline_before_issue121": {
+      "result": "SOURCE_AUDIT_ONLY; no independently executed upstream game/test; no independent screenshots.",
+      "limitations": [
+        "外部站点无法在当前工具中交互打开，不能核对真实帧率、画面观感、移动端或真机。",
+        "已提交截图仅存在于上游 docs/screenshots，属于上游提供材料；未复制到 ReactMono。",
+        "声称构建、测试与功能来自源码 B 或 README C，A 类上游运行证据为空。"
+      ]
+    },
+    "issue121_followup": {
+      "evidence_id": "A121_CHROMIUM",
+      "results_path": "docs/research/verification-issue-121/RESULTS.md",
+      "run_log": "docs/research/verification-issue-121/evidence/run.log",
+      "constraints": "Two screenshots of first-turn Chromium software renderer only"
+    }
   },
   "evidence": [
     {
