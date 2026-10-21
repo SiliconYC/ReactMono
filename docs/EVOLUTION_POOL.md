@@ -27,6 +27,7 @@
 | [P007](proposals/P007-scalable-world-maps.md) | 连续地表艺术与数据驱动压力地图 | P4 | **#94 数据关卡；#107 连续地表、局部布局与大图清晰浏览已通过本地验收** | [数据入口](maps/README.md) / [渲染画面、性能和独立复核](maps/RENDERING_ACCEPTANCE.md)；正式版与真机验收仍由 #73 收口 |
 | [P008](proposals/P008-authored-level-worlds.md) | 显式关卡场景与手工路线构图 | P4 | **已晋升 #118，五图实现、独立审查和浏览器验收通过，集成本地dev** | [场景格式](maps/README.md) / [验收记录](maps/AUTHORED_WORLD_ACCEPTANCE.md)；取代 P007 自动背景方向 |
 | [P009](proposals/P009-map-camera-ux.md) | 地图操作与旋转可读性 | P4 | **已晋升 #120，鼠标旋转、地图菜单与编号朝向通过本地及独立验收** | [交互、截图与验收](maps/CAMERA_UX_ACCEPTANCE.md)；集成 `dev`，不发布正式服务 |
+| [P010](proposals/P010-full-game-development-plan.md) | 从 demo 到正式游戏：子系统边界与单 Agent 任务包 | P4 | **所有者指定的规划审核已形成；实施任务尚未批量晋升** | 按计划逐项核对最新代码、依赖和证据，仅晋升少量可独立验收任务；#73 保留最终综合验收职责 |
 
 **状态词表**：待评估、研究中、延期、已否决、已晋升（注明 Issue）、已归档；已确定阶段基线/已实施治理属于事实备注，不代表代码已完成。已经确定的产品硬约束不是“待决定”；提案状态只指尚未解决的实施选择。每次改变状态须记录证据/原因和日期，防止越审越乱。
 
