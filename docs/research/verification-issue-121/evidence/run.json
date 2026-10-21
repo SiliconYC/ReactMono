@@ -1,0 +1,433 @@
+{
+  "utc": "2026-10-20T18:02:26.451797+00:00",
+  "os": "7.0.0-1017-azure",
+  "reactmono_base_sha": "4494a16d017b0697fa7e74f9d450154e0c228ede",
+  "pins": {
+    "richman3d": "32e7f01f9888a28b8fd1267f5488c455e15abe4a",
+    "richlife": "307c1761b150a7179fb0353618a95bc6effe3fee",
+    "rich4re": "b7b76570f445ad07c0788314062b8500e77259e7"
+  },
+  "commands": [
+    {
+      "label": "clone richman3d",
+      "args": [
+        "git",
+        "clone",
+        "--depth",
+        "1",
+        "https://github.com/Yakamozli/richman-3d.git",
+        "/tmp/reactmono-121-m6ynl4np/richman3d"
+      ],
+      "cwd": "/home/runner/work/ReactMono/ReactMono",
+      "exit": 0,
+      "seconds": 0.8
+    },
+    {
+      "label": "pin richman3d",
+      "args": [
+        "git",
+        "checkout",
+        "--detach",
+        "32e7f01f9888a28b8fd1267f5488c455e15abe4a"
+      ],
+      "cwd": "/tmp/reactmono-121-m6ynl4np/richman3d",
+      "exit": 0,
+      "seconds": 0.0
+    },
+    {
+      "label": "clone richlife",
+      "args": [
+        "git",
+        "clone",
+        "--depth",
+        "1",
+        "--filter=blob:none",
+        "--sparse",
+        "https://github.com/zawsstt/monopoly-rich-life.git",
+        "/tmp/reactmono-121-m6ynl4np/richlife"
+      ],
+      "cwd": "/home/runner/work/ReactMono/ReactMono",
+      "exit": 0,
+      "seconds": 0.6
+    },
+    {
+      "label": "sparse assets",
+      "args": [
+        "git",
+        "sparse-checkout",
+        "set",
+        "css",
+        "js",
+        "src",
+        "assets/models",
+        "assets/img"
+      ],
+      "cwd": "/tmp/reactmono-121-m6ynl4np/richlife",
+      "exit": 0,
+      "seconds": 0.8
+    },
+    {
+      "label": "pin richlife",
+      "args": [
+        "git",
+        "checkout",
+        "--detach",
+        "307c1761b150a7179fb0353618a95bc6effe3fee"
+      ],
+      "cwd": "/tmp/reactmono-121-m6ynl4np/richlife",
+      "exit": 0,
+      "seconds": 0.0
+    },
+    {
+      "label": "clone rich4re",
+      "args": [
+        "git",
+        "clone",
+        "--depth",
+        "1",
+        "https://github.com/tytannial/rich4-re.git",
+        "/tmp/reactmono-121-m6ynl4np/rich4re"
+      ],
+      "cwd": "/home/runner/work/ReactMono/ReactMono",
+      "exit": 0,
+      "seconds": 0.9
+    },
+    {
+      "label": "pin rich4re",
+      "args": [
+        "git",
+        "checkout",
+        "--detach",
+        "b7b76570f445ad07c0788314062b8500e77259e7"
+      ],
+      "cwd": "/tmp/reactmono-121-m6ynl4np/rich4re",
+      "exit": 0,
+      "seconds": 0.0
+    },
+    {
+      "label": "richman3d smoke",
+      "args": [
+        "node",
+        "test/smoke.mjs",
+        "2"
+      ],
+      "cwd": "/tmp/reactmono-121-m6ynl4np/richman3d",
+      "exit": 0,
+      "seconds": 6.1
+    },
+    {
+      "label": "cmake configure",
+      "args": [
+        "cmake",
+        "-S",
+        "/tmp/reactmono-121-m6ynl4np/rich4re",
+        "-B",
+        "/tmp/reactmono-121-m6ynl4np/rich4re/build-issue121",
+        "-DCMAKE_BUILD_TYPE=Release"
+      ],
+      "cwd": "/home/runner/work/ReactMono/ReactMono",
+      "exit": 1,
+      "seconds": 21.9
+    },
+    {
+      "label": "CJK font setup",
+      "args": [
+        "bash",
+        "-lc",
+        "if ! fc-list :lang=zh family | grep -q .; then sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends fonts-wqy-microhei; fi"
+      ],
+      "cwd": "/home/runner/work/ReactMono/ReactMono",
+      "exit": 0,
+      "seconds": 7.8
+    },
+    {
+      "label": "ReactMono npm ci",
+      "args": [
+        "npm",
+        "ci",
+        "--ignore-scripts"
+      ],
+      "cwd": "/home/runner/work/ReactMono/ReactMono",
+      "exit": 0,
+      "seconds": 2.1
+    }
+  ],
+  "views": [
+    {
+      "name": "richman3d",
+      "viewport": "desktop",
+      "size": [
+        1440,
+        900
+      ],
+      "url": "http://127.0.0.1:8121/",
+      "http": 200,
+      "clicked": "setup start",
+      "scene": {
+        "canvas": [
+          {
+            "width": 1440,
+            "height": 900,
+            "clientWidth": 1440
+          }
+        ],
+        "webgl": 1,
+        "body": "🎲 大富翁3D\n小美\n准备行动\n🎥 跟随\n🎵\n📖 规则\n🔊\n🔄 新游戏\n小美\n15,000\n🅿0\n阿土\n15,000\n🅿0\n● 🎲 游戏开始！每人资金 ¥15,000，途经起点领取 ¥3,000！\n● —— 小美 的回合 ——\n遥控骰子\n1\n加速卡\n0\n免租金牌\n1\n出狱卡\n0\n路障\n0\n劫富卡\n0\n🏠 盖房\n🎲 掷骰子",
+        "controls": [
+          "🎥 跟随",
+          "🎵",
+          "📖 规则",
+          "🔊",
+          "🔄 新游戏",
+          "遥控骰子\n1",
+          "加速卡\n0",
+          "免租金牌\n1",
+          "出狱卡\n0",
+          "路障\n0",
+          "劫富卡\n0",
+          "🏠 盖房"
+        ]
+      },
+      "raf_ms": {
+        "n": 12,
+        "median": 247.6999999999971,
+        "p95": 511.5
+      },
+      "screenshot": "richman3d-desktop.png",
+      "sha256": "75d62038630de4289f47a10adf9354164ecdb389d58a3e4c5ca2f79a8391bc0c",
+      "render_confirmed": true,
+      "page_errors": []
+    },
+    {
+      "name": "richman3d",
+      "viewport": "mobile",
+      "size": [
+        390,
+        844
+      ],
+      "url": "http://127.0.0.1:8121/",
+      "http": 200,
+      "clicked": "setup start",
+      "scene": {
+        "canvas": [
+          {
+            "width": 390,
+            "height": 844,
+            "clientWidth": 390
+          }
+        ],
+        "webgl": 1,
+        "body": "🎲 大富翁3D\n小美\n准备行动\n🎥 跟随\n🎵\n📖 规则\n🔊\n🔄 新游戏\n小美\n15,000\n🅿0\n阿土\n15,000\n🅿0\n● 🎲 游戏开始！每人资金 ¥15,000，途经起点领取 ¥3,000！\n● —— 小美 的回合 ——\n遥控骰子\n1\n加速卡\n0\n免租金牌\n1\n出狱卡\n0\n路障\n0\n劫富卡\n0\n🏠 盖房\n🎲 掷骰子",
+        "controls": [
+          "🎥 跟随",
+          "🎵",
+          "📖 规则",
+          "🔊",
+          "🔄 新游戏",
+          "遥控骰子\n1",
+          "加速卡\n0",
+          "免租金牌\n1",
+          "出狱卡\n0",
+          "路障\n0",
+          "劫富卡\n0",
+          "🏠 盖房"
+        ]
+      },
+      "raf_ms": {
+        "n": 12,
+        "median": 79.60000000000582,
+        "p95": 130.60000000000582
+      },
+      "screenshot": "richman3d-mobile.png",
+      "sha256": "f7aaff4e88f842fa8ae8fb73bc313df7cba485afd6df6c7bd4583debb714c509",
+      "render_confirmed": true,
+      "page_errors": []
+    },
+    {
+      "name": "richlife",
+      "viewport": "desktop",
+      "size": [
+        1440,
+        900
+      ],
+      "url": "http://127.0.0.1:8122/?auto=1&nofly=1&cdn=0",
+      "http": 200,
+      "scene": {
+        "canvas": [
+          {
+            "width": 300,
+            "height": 150,
+            "clientWidth": 0
+          },
+          {
+            "width": 1106,
+            "height": 832,
+            "clientWidth": 1106
+          }
+        ],
+        "webgl": 2,
+        "body": "🎯 点击棋盘上的目标格子\n取消\n第 1 / 6 回合\n🏗️ 建设周\n快报\n✨ 本回合幸运格：沙面大街，踩中即得 $5,000！\n1×\n🔊\n🎵\n📖 规则\n🔄 重开\n🏠 主菜单\n✨\n✨ 幸运格降临：沙面大街（踩中 +$5,000）\n🏗️\n🏗️ 本期事件：建设周 — 本期建筑升级费用 4 折\n富老板，轮到你了！可先用道具\n掷 骰 子\n按 空格键 也可以\n🎥 全局视角\n富老板\n你\n$9,000\n暂无道具 · 踩「道具商店」可购买\n0\n处产业\n👑 资产 $9,000\n糖糖\nAI\n$9,000\n暂无道具 · 踩「道具商店」可购买\n0\n处产业\n资",
+        "controls": [
+          "取消",
+          "1×",
+          "🔊",
+          "🎵",
+          "📖 规则",
+          "🔄 重开",
+          "🏠 主菜单",
+          "掷 骰 子\n按 空格键 也可以",
+          "🎥 全局视角"
+        ]
+      },
+      "raf_ms": {
+        "timeout": true,
+        "n": 0
+      },
+      "screenshot": "richlife-desktop.png",
+      "sha256": "c5100d77d5586dea6c2e5cb15dc588a073d0e9d680393555de15adc8c6cd499d",
+      "render_confirmed": true,
+      "page_errors": []
+    },
+    {
+      "name": "richlife",
+      "viewport": "mobile",
+      "size": [
+        390,
+        844
+      ],
+      "url": "http://127.0.0.1:8122/?auto=1&nofly=1&cdn=0",
+      "http": 200,
+      "scene": {
+        "canvas": [
+          {
+            "width": 300,
+            "height": 150,
+            "clientWidth": 0
+          },
+          {
+            "width": 828,
+            "height": 343,
+            "clientWidth": 828
+          }
+        ],
+        "webgl": 2,
+        "body": "🎯 点击棋盘上的目标格子\n取消\n第 1 / 6 回合\n1×\n🔊\n🎵\n📖 规则\n🔄 重开\n🏠 主菜单\n👥\n富老板，轮到你了！可先用道具\n掷 骰 子\n🎥 全局视角",
+        "controls": [
+          "取消",
+          "1×",
+          "🔊",
+          "🎵",
+          "📖 规则",
+          "🔄 重开",
+          "🏠 主菜单",
+          "👥",
+          "掷 骰 子",
+          "🎥 全局视角"
+        ]
+      },
+      "raf_ms": {
+        "timeout": true,
+        "n": 0
+      },
+      "screenshot": "richlife-mobile.png",
+      "sha256": "a113b0b97844f31c391f3557728e2a8907bca692385d2c70f47ad8bc9ca0478c",
+      "render_confirmed": true,
+      "page_errors": []
+    },
+    {
+      "name": "reactmono",
+      "viewport": "desktop",
+      "size": [
+        1440,
+        900
+      ],
+      "url": "http://127.0.0.1:4173/",
+      "http": 200,
+      "clicked": "start game",
+      "scene": {
+        "canvas": [
+          {
+            "width": 1440,
+            "height": 900,
+            "clientWidth": 1440
+          }
+        ],
+        "webgl": 1,
+        "body": "路线导览\n24 格\n全图概览\n＋\n−\n全图\n定位\n↑ 回正\n？\n富\n晴湾花园\n大富翁 · 本机对局\n第 1 / 60 轮\n全景\n菜单 ☰\n1\n玩家\n行动中\n现金\n1,500\n2\n电脑\n电脑\n现金\n1,500\n手牌\n地产\n银行\n股票\n玩家的回合\n准备出发\n\n起点 · 掷骰，看看下一站的机会。\n\n掷骰前进 →",
+        "controls": [
+          "＋",
+          "−",
+          "全图",
+          "定位",
+          "↑ 回正",
+          "？",
+          "全景",
+          "菜单 ☰",
+          "1\n玩家\n行动中\n现金\n1,500",
+          "2\n电脑\n电脑\n现金\n1,500",
+          "手牌",
+          "地产"
+        ]
+      },
+      "raf_ms": {
+        "n": 12,
+        "median": 121.69999999998254,
+        "p95": 130.60000000000582
+      },
+      "screenshot": "reactmono-desktop.png",
+      "sha256": "0cab44745d18c4a194aa87236d1ecd248a325b860765dc370acf8f1b7c2586a5",
+      "render_confirmed": true,
+      "page_errors": []
+    },
+    {
+      "name": "reactmono",
+      "viewport": "mobile",
+      "size": [
+        390,
+        844
+      ],
+      "url": "http://127.0.0.1:4173/",
+      "http": 200,
+      "clicked": "start game",
+      "scene": {
+        "canvas": [
+          {
+            "width": 390,
+            "height": 844,
+            "clientWidth": 390
+          }
+        ],
+        "webgl": 1,
+        "body": "＋\n−\n全图\n定位\n↑ 回正\n？\n富\n晴湾花园\n第\n1\n/ 60 轮\n全景\n菜单\n1\n玩家\n行动中\n现金\n1,500\n2\n电脑\n电脑\n现金\n1,500\n手牌\n地产\n银行\n股票\n玩家的回合\n准备出发\n\n起点 · 掷骰，看看下一站的机会。\n\n掷骰前进 →",
+        "controls": [
+          "＋",
+          "−",
+          "全图",
+          "定位",
+          "↑ 回正",
+          "？",
+          "全景",
+          "菜单",
+          "1\n玩家\n行动中\n现金\n1,500",
+          "2\n电脑\n电脑\n现金\n1,500",
+          "手牌",
+          "地产"
+        ]
+      },
+      "raf_ms": {
+        "n": 12,
+        "median": 35.69999999998254,
+        "p95": 80
+      },
+      "screenshot": "reactmono-mobile.png",
+      "sha256": "bbcbe4457abe89d2bd43932e66caba79f0bb2d1e4a8175ab6646e83273db63bb",
+      "render_confirmed": true,
+      "page_errors": []
+    }
+  ],
+  "caveats": [
+    "Headless Chromium software rendering; simulated viewport is not a physical phone",
+    "Executable tests of a reconstruction do not prove original Richman 4 parity"
+  ],
+  "chromium_version": "155.0.8059.84"
+}

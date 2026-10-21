@@ -1,5 +1,7 @@
 # tytannial/rich4-re：原版机制重建与 SDL3 测试审计
 
+> **2026-10-21 后续补证**：Issue [#121](../../verification-issue-121/RESULTS.md) 在固定同一上游 SHA 下补做原生 `rich4_tests` 测试，额外验证联合收租/倍率与交易挂单覆盖/满额撤单（限定环境和输入 A）。旧的 114 断言统计曾包含三个需商业 MKF/SAVE 而跳过的用例，以及两处测试代码 `tradeSlots[0][7]` 越界访问；收口时已在临时测试克隆纠正并再次复验。商业原版二进制、资源与原版差分**仍未验证**。以下初版 B/C/D 记录仍为原审计历史。
+
 > Issue [#96](https://github.com/SiliconYC/ReactMono/issues/96)｜审计基线 [`b7b76570f445](https://github.com/tytannial/rich4-re/tree/b7b76570f445ad07c0788314062b8500e77259e7)｜证据等级：B=固定版本源码核查，C=作者陈述，D=待验证；**没有将上游作者的“测试通过”计为 A 级独立复现**。代码锚点详见 [source-index.md](source-index.md)，逐项证据见 [evidence.json](evidence.json)。
 
 ## 1. 研究身份与复现基线

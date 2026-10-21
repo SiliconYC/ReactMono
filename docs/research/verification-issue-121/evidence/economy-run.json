@@ -1,0 +1,117 @@
+{
+  "utc": "2026-10-21T00:37:59.382300+00:00",
+  "os": "6.17.0-1022-azure",
+  "reactmono_base_sha": "4494a16d017b0697fa7e74f9d450154e0c228ede",
+  "pins": {
+    "richman3d": "32e7f01f9888a28b8fd1267f5488c455e15abe4a",
+    "richlife": "307c1761b150a7179fb0353618a95bc6effe3fee",
+    "rich4re": "b7b76570f445ad07c0788314062b8500e77259e7"
+  },
+  "commands": [
+    {
+      "label": "clone rich4re",
+      "args": [
+        "git",
+        "clone",
+        "--depth",
+        "1",
+        "https://github.com/tytannial/rich4-re.git",
+        "/tmp/issue121-economy-wbosmoyv/rich4re"
+      ],
+      "cwd": "/home/runner/work/ReactMono/ReactMono",
+      "exit": 0,
+      "seconds": 0.4
+    },
+    {
+      "label": "pin rich4re",
+      "args": [
+        "git",
+        "checkout",
+        "--detach",
+        "b7b76570f445ad07c0788314062b8500e77259e7"
+      ],
+      "cwd": "/tmp/issue121-economy-wbosmoyv/rich4re",
+      "exit": 0,
+      "seconds": 0.0
+    },
+    {
+      "label": "cmake configure",
+      "args": [
+        "cmake",
+        "-S",
+        "/tmp/issue121-economy-wbosmoyv/rich4re",
+        "-B",
+        "/tmp/issue121-economy-wbosmoyv/rich4re/build-issue121",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DSDL_UNIX_CONSOLE_BUILD=ON"
+      ],
+      "cwd": "/home/runner/work/ReactMono/ReactMono",
+      "exit": 0,
+      "seconds": 25.2
+    },
+    {
+      "label": "cmake build unit",
+      "args": [
+        "cmake",
+        "--build",
+        "/tmp/issue121-economy-wbosmoyv/rich4re/build-issue121",
+        "--target",
+        "rich4_tests",
+        "-j",
+        "3"
+      ],
+      "cwd": "/home/runner/work/ReactMono/ReactMono",
+      "exit": 0,
+      "seconds": 57.5
+    },
+    {
+      "label": "ctest rent/trade",
+      "args": [
+        "ctest",
+        "--test-dir",
+        "/tmp/issue121-economy-wbosmoyv/rich4re/build-issue121",
+        "--output-on-failure"
+      ],
+      "cwd": "/home/runner/work/ReactMono/ReactMono",
+      "exit": 0,
+      "seconds": 0.1
+    },
+    {
+      "label": "native unit stdout",
+      "args": [
+        "/tmp/issue121-economy-wbosmoyv/rich4re/build-issue121/rich4_tests"
+      ],
+      "cwd": "/tmp/issue121-economy-wbosmoyv/rich4re",
+      "exit": 0,
+      "seconds": 0.0
+    }
+  ],
+  "views": [],
+  "caveats": [
+    "Headless Chromium software rendering; simulated viewport is not a physical phone",
+    "Executable tests of a reconstruction do not prove original Richman 4 parity"
+  ],
+  "source": "Independent native Ubuntu CMake test of pinned tytannial/rich4-re; no proprietary game assets used",
+  "build_flag": "SDL_UNIX_CONSOLE_BUILD=ON (no X11/Wayland, dummy-only unit test)",
+  "error": null,
+  "acceptance": {
+    "compile": true,
+    "ctest": true,
+    "native_unit_stdout": true,
+    "checks": 126,
+    "failed_checks": 0,
+    "skipped_resource_cases": [
+      "SKIP (no ../resources/MultiverseJourney/Data.mkf)",
+      "SKIP (no ../resources/MultiverseJourney/SAVE0.DAT)",
+      "SKIP (no ../resources/MultiverseJourney/SAVE0.DAT)"
+    ],
+    "targeted_cases_ok": [
+      "issue121_rent_owner_and_multiplier",
+      "issue121_chain_multiplier",
+      "issue121_same_trade_overwrite",
+      "issue121_trade_capacity_reuse"
+    ],
+    "array_bounds_warnings": 0,
+    "passed": true
+  }
+}

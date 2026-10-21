@@ -175,6 +175,18 @@
       "locator": "README 海报与性能宣称",
       "verification": "明确不可证状态",
       "limitations": "待相同视口 Chromium 截图和性能测量"
+    },
+    {
+      "id": "A121_CHROMIUM",
+      "level": "A",
+      "claim": "固定 SHA 的上游网页已独立进入首回合并截图桌面与模拟手机 WebGL；桌面为立体书桌和边缘小楼，中央主体为平面插画，手机采用横屏旋转界面。",
+      "source_url": "https://github.com/SiliconYC/ReactMono/blob/dev/docs/research/verification-issue-121/RESULTS.md",
+      "locator": "docs/research/verification-issue-121/evidence/run.json; run.log; richlife-*.png",
+      "verification": "Independent CI source pin, executable stdout/screenshot and retained artifacts; see RESULTS.md and logs",
+      "limitations": [
+        "请求动画帧时间采集两次超时，不能声明真实 FPS",
+        "未实测 4 级建筑升级、联机或物理手机触屏"
+      ]
     }
   ],
   "features": [
@@ -296,6 +308,13 @@
         "E13",
         "E16"
       ]
+    },
+    {
+      "feature": "独立 Chromium 游戏首回合截图",
+      "status": "verified",
+      "evidence_ids": [
+        "A121_CHROMIUM"
+      ]
     }
   ],
   "scores": {
@@ -319,5 +338,12 @@
     "Supabase 房间创建/加入/断线恢复、排行榜 RPC 防刷与 Storage CDN 在自建实例能否独立复现？",
     "经典与现代主题切换时个性化模型缺失、阴影设置、内存与绘制调用开销如何？",
     "四级升级的结算、房主快照、断线恢复与玩家实际整局体验能否通过独立回归？"
-  ]
+  ],
+  "follow_up_verification": {
+    "issue": 121,
+    "report": "../../verification-issue-121/RESULTS.md",
+    "status": "independent A for limited screenshot/test cases only; initial execution is historical 2026-10-19 static audit",
+    "baseline": "2026-10-20/21",
+    "original_binary_diff_tested": false
+  }
 }

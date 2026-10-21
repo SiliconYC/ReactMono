@@ -1,5 +1,7 @@
 # zawsstt/monopoly-rich-life 深度研究（Issue #103）
 
+> **2026-10-21 后续补证**：Issue [#121](../../verification-issue-121/RESULTS.md) 已在本报告相同上游 SHA 下获得独立 [桌面](../../verification-issue-121/evidence/richlife-desktop.png) / [模拟手机](../../verification-issue-121/evidence/richlife-mobile.png) 游戏中 WebGL PNG（A）。桌面书桌包装明显丰富，中心仍有大面积 2D 插画；手机画面横向旋转显示，性能测量超时，未实测完整四级升楼/联机/真机 FPS。本文初查 “无 A” 是截至 10-19 的历史状态，不能直接作为最新状态。
+
 > **定位：原创的 Monopoly 类 / 同类地产经营游戏，不是 1998 年《大富翁4》的忠实复刻。** 本报告是对指定提交的源码审计，非浏览器实测报告；**不能把作者海报、模型注释、60FPS 声称或静态代码审阅当成玩家体验的 A 级证据**。条目编号在 [evidence.json](evidence.json)，五组可复核源码锚点在 [source-index.md](source-index.md)。
 
 ## 1. 研究身份与复现基线

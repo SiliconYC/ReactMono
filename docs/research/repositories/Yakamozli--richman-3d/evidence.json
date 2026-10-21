@@ -236,6 +236,18 @@
       "locator": "无独立运行/截图证据",
       "verification": "标注未验证；列入后续浏览器测试",
       "limitations": "不能据此判断实景像素质量"
+    },
+    {
+      "id": "A121_CHROMIUM",
+      "level": "A",
+      "claim": "固定 SHA 的上游网页已独立在 Chromium 155 SwiftShader 启动并保存 1440x900/390x844 两张真实 WebGL 对局截图；node test/smoke.mjs 2 退出 0。",
+      "source_url": "https://github.com/SiliconYC/ReactMono/blob/dev/docs/research/verification-issue-121/RESULTS.md",
+      "locator": "docs/research/verification-issue-121/evidence/run.json; run.log; richman3d-*.png",
+      "verification": "Independent CI source pin, executable stdout/screenshot and retained artifacts; see RESULTS.md and logs",
+      "limitations": [
+        "只有开局两视口；非手机真机、完整对局或正式 GPU FPS",
+        "手机 HUD/棋盘裁切"
+      ]
     }
   ],
   "features": [
@@ -387,17 +399,19 @@
     },
     {
       "feature": "自动化无头冒烟测试",
-      "status": "partial",
+      "status": "verified",
       "evidence_ids": [
-        "B11"
+        "B11",
+        "A121_CHROMIUM"
       ]
     },
     {
       "feature": "独立真实截图",
-      "status": "unknown",
+      "status": "verified",
       "evidence_ids": [
         "C02",
-        "D01"
+        "D01",
+        "A121_CHROMIUM"
       ]
     }
   ],
@@ -445,5 +459,12 @@
     "实际 GPU 纹理占用（2940×2940 棋盘）、draw calls、CPU/GPU 帧时间及手机低端设备性能是多少？",
     "是否存在独立存读档/银行股市等本次所读文件未暴露的实现？",
     "第三方 vendor 版本/原始许可通知、原版风格角色相似度及运营商标风险需进一步确认。"
-  ]
+  ],
+  "follow_up_verification": {
+    "issue": 121,
+    "report": "../../verification-issue-121/RESULTS.md",
+    "status": "independent A for limited screenshot/test cases only; initial execution is historical 2026-10-19 static audit",
+    "baseline": "2026-10-20/21",
+    "original_binary_diff_tested": false
+  }
 }

@@ -1,0 +1,5 @@
+Pinned upstream: b7b76570f445ad07c0788314062b8500e77259e7
+TEMPORARY UNIT TEST ONLY (tests/unit/test_trade.cpp); no business-code edits.
+-     MT_EQ(static_cast<int>(st.tradeSlots[0][7].type), 0);  // 第 8 筆被拒（槽 0..6 已滿）
++     for (int i = 0; i < 7; ++i) MT_EQ(static_cast<int>(st.tradeSlots[0][i].objId), i + 1);  // 七槽未被第八筆覆蓋
+Also corrected Issue #121 custom test to assert unchanged slots 0..6.
