@@ -34,7 +34,7 @@
 | mytbk/rich4 | 画面和交互 | 图形音效/交互 | `unknown` | [`B01`](repositories/mytbk--rich4/evidence.json)·B [`B08`](repositories/mytbk--rich4/evidence.json)·B [`D01`](repositories/mytbk--rich4/evidence.json)·D | 未知/未获足量证据 |
 | mytbk/rich4 | 跨平台/离线 | 浏览器/PWA/现代原生平台 | `unknown` | [`B01`](repositories/mytbk--rich4/evidence.json)·B [`C01`](repositories/mytbk--rich4/evidence.json)·C [`D01`](repositories/mytbk--rich4/evidence.json)·D | 未知/未获足量证据 |
 | tytannial/rich4-re | 开局与回合 | new_game_turn_ai | `partial` | [`B02`](repositories/tytannial--rich4-re/evidence.json)·B [`B03`](repositories/tytannial--rich4-re/evidence.json)·B [`B04`](repositories/tytannial--rich4-re/evidence.json)·B [`B11`](repositories/tytannial--rich4-re/evidence.json)·B | 仅部分源码/限定功能 |
-| tytannial/rich4-re | 地图与路径 | new_game_turn_ai | `partial` | [`B02`](repositories/tytannial--rich4-re/evidence.json)·B [`B03`](repositories/tytannial--rich4-re/evidence.json)·B [`B04`](repositories/tytannial--rich4-re/evidence.json)·B [`B11`](repositories/tytannial--rich4-re/evidence.json)·B | 仅部分源码/限定功能 |
+| tytannial/rich4-re | 地图与路径 | 地图数据资源载入（无单独全路径 A） | `partial` | [`B03`](repositories/tytannial--rich4-re/evidence.json)·B | 仅部分源码/限定功能 |
 | tytannial/rich4-re | 地产与租金 | residential_property_rent_alliance | `partial` | [`B04`](repositories/tytannial--rich4-re/evidence.json)·B [`B05`](repositories/tytannial--rich4-re/evidence.json)·B [`B10`](repositories/tytannial--rich4-re/evidence.json)·B [`B12`](repositories/tytannial--rich4-re/evidence.json)·B [`A121_ECONOMY`](repositories/tytannial--rich4-re/evidence.json)·A | 仅部分源码/限定功能 |
 | tytannial/rich4-re | 银行与贷款 | bank_loans_dividends | `partial` | [`B05`](repositories/tytannial--rich4-re/evidence.json)·B [`B06`](repositories/tytannial--rich4-re/evidence.json)·B [`B12`](repositories/tytannial--rich4-re/evidence.json)·B | 仅部分源码/限定功能 |
 | tytannial/rich4-re | 股票与市场 | stock_market | `partial` | [`B06`](repositories/tytannial--rich4-re/evidence.json)·B [`B12`](repositories/tytannial--rich4-re/evidence.json)·B | 仅部分源码/限定功能 |
@@ -64,7 +64,7 @@
 | iam567/rich4-renew-app | 神明与事件 | events_npc | `partial` | [`E01`](repositories/iam567--rich4-renew-app/evidence.json)·B [`E06`](repositories/iam567--rich4-renew-app/evidence.json)·B | 仅部分源码/限定功能 |
 | iam567/rich4-renew-app | 电脑对手 | computer_ai | `partial` | [`E02`](repositories/iam567--rich4-renew-app/evidence.json)·B [`E15`](repositories/iam567--rich4-renew-app/evidence.json)·B | 仅部分源码/限定功能 |
 | iam567/rich4-renew-app | 存档恢复 | normal_save | `partial` | [`E10`](repositories/iam567--rich4-renew-app/evidence.json)·B [`E13`](repositories/iam567--rich4-renew-app/evidence.json)·B [`E15`](repositories/iam567--rich4-renew-app/evidence.json)·B | 仅部分源码/限定功能 |
-| iam567/rich4-renew-app | 画面和交互 | original_rule_fidelity | `unknown` | [`E17`](repositories/iam567--rich4-renew-app/evidence.json)·C [`E18`](repositories/iam567--rich4-renew-app/evidence.json)·C [`E19`](repositories/iam567--rich4-renew-app/evidence.json)·B | 未知/未获足量证据 |
+| iam567/rich4-renew-app | 画面和交互 | visual_audio_quality | `unknown` | [`E11`](repositories/iam567--rich4-renew-app/evidence.json)·B [`E12`](repositories/iam567--rich4-renew-app/evidence.json)·B | 未知/未获足量证据 |
 | iam567/rich4-renew-app | 跨平台/离线 | mobile_native_packaging | `claimed` | [`E14`](repositories/iam567--rich4-renew-app/evidence.json)·B [`E20`](repositories/iam567--rich4-renew-app/evidence.json)·C [`E21`](repositories/iam567--rich4-renew-app/evidence.json)·C [`E23`](repositories/iam567--rich4-renew-app/evidence.json)·B | 仅原作者陈述/配置 |
 | nurockplayer/richman4-remake | 开局与回合 | 2–4人开局/人机回合 | `partial` | [`B04`](repositories/nurockplayer--richman4-remake/evidence.json)·B [`C01`](repositories/nurockplayer--richman4-remake/evidence.json)·C | 仅部分源码/限定功能 |
 | nurockplayer/richman4-remake | 地图与路径 | 原版4+8地图数据 | `claimed` | [`B01`](repositories/nurockplayer--richman4-remake/evidence.json)·B [`B03`](repositories/nurockplayer--richman4-remake/evidence.json)·B [`C03`](repositories/nurockplayer--richman4-remake/evidence.json)·C | 仅原作者陈述/配置 |
@@ -88,13 +88,13 @@
 | oama1111/rich4-remake-public | 存档恢复 | 本地存读档及原版导入 | `partial` | [`E08`](repositories/oama1111--rich4-remake-public/evidence.json)·B [`E12`](repositories/oama1111--rich4-remake-public/evidence.json)·B | 仅部分源码/限定功能 |
 | oama1111/rich4-remake-public | 画面和交互 | 浏览器交互/动画/配乐 | `claimed` | [`E08`](repositories/oama1111--rich4-remake-public/evidence.json)·B [`E20`](repositories/oama1111--rich4-remake-public/evidence.json)·C | 仅原作者陈述/配置 |
 | oama1111/rich4-remake-public | 跨平台/离线 | Tauri 原生桌面/外部素材目录 | `partial` | [`E09`](repositories/oama1111--rich4-remake-public/evidence.json)·B [`E20`](repositories/oama1111--rich4-remake-public/evidence.json)·C | 仅部分源码/限定功能 |
-| JCRJPZB/Rich4 | 开局与回合 | new_game | `partial` | [`R05`](repositories/JCRJPZB--Rich4/evidence.json)·B | 仅部分源码/限定功能 |
+| JCRJPZB/Rich4 | 开局与回合 | turn_dice_movement | `partial` | [`R07`](repositories/JCRJPZB--Rich4/evidence.json)·B [`R08`](repositories/JCRJPZB--Rich4/evidence.json)·B | 仅部分源码/限定功能 |
 | JCRJPZB/Rich4 | 地图与路径 | map_and_routes | `partial` | [`R04`](repositories/JCRJPZB--Rich4/evidence.json)·A [`R06`](repositories/JCRJPZB--Rich4/evidence.json)·B [`R07`](repositories/JCRJPZB--Rich4/evidence.json)·B | 仅部分源码/限定功能 |
 | JCRJPZB/Rich4 | 地产与租金 | property_purchase_rent_upgrade | `partial` | [`R09`](repositories/JCRJPZB--Rich4/evidence.json)·B | 仅部分源码/限定功能 |
 | JCRJPZB/Rich4 | 银行与贷款 | bank_deposits | `partial` | [`R10`](repositories/JCRJPZB--Rich4/evidence.json)·B | 仅部分源码/限定功能 |
 | JCRJPZB/Rich4 | 股票与市场 | stock_market | `partial` | [`R10`](repositories/JCRJPZB--Rich4/evidence.json)·B | 仅部分源码/限定功能 |
 | JCRJPZB/Rich4 | 卡片和道具 | cards | `partial` | [`R11`](repositories/JCRJPZB--Rich4/evidence.json)·B | 仅部分源码/限定功能 |
-| JCRJPZB/Rich4 | 神明与事件 | items | `partial` | [`R11`](repositories/JCRJPZB--Rich4/evidence.json)·B | 仅部分源码/限定功能 |
+| JCRJPZB/Rich4 | 神明与事件 | special_events_magic | `partial` | [`R11`](repositories/JCRJPZB--Rich4/evidence.json)·B | 仅部分源码/限定功能 |
 | JCRJPZB/Rich4 | 电脑对手 | computer_ai | `partial` | [`R08`](repositories/JCRJPZB--Rich4/evidence.json)·B [`R13`](repositories/JCRJPZB--Rich4/evidence.json)·B | 仅部分源码/限定功能 |
 | JCRJPZB/Rich4 | 存档恢复 | save_load | `unknown` | [`R12`](repositories/JCRJPZB--Rich4/evidence.json)·B | 未知/未获足量证据 |
 | JCRJPZB/Rich4 | 画面和交互 | presentation_animation | `partial` | [`R02`](repositories/JCRJPZB--Rich4/evidence.json)·B [`R03`](repositories/JCRJPZB--Rich4/evidence.json)·B | 仅部分源码/限定功能 |
@@ -103,9 +103,9 @@
 | Yakamozli/richman-3d | 地图与路径 | 52格/16色组地图 | `partial` | [`B01`](repositories/Yakamozli--richman-3d/evidence.json)·B [`B02`](repositories/Yakamozli--richman-3d/evidence.json)·B | 仅部分源码/限定功能 |
 | Yakamozli/richman-3d | 地产与租金 | 地产买卖/收租/房屋/酒店 | `partial` | [`B05`](repositories/Yakamozli--richman-3d/evidence.json)·B [`B09`](repositories/Yakamozli--richman-3d/evidence.json)·B | 仅部分源码/限定功能 |
 | Yakamozli/richman-3d | 银行与贷款 | 银行与独立账户 | `unknown` | [`B09`](repositories/Yakamozli--richman-3d/evidence.json)·B | 未知/未获足量证据 |
-| Yakamozli/richman-3d | 股票与市场 | 银行与独立账户 | `unknown` | [`B09`](repositories/Yakamozli--richman-3d/evidence.json)·B | 未知/未获足量证据 |
-| Yakamozli/richman-3d | 卡片和道具 | 机会/事件与翻牌盲选 | `partial` | [`B07`](repositories/Yakamozli--richman-3d/evidence.json)·B [`B08`](repositories/Yakamozli--richman-3d/evidence.json)·B [`B09`](repositories/Yakamozli--richman-3d/evidence.json)·B | 仅部分源码/限定功能 |
-| Yakamozli/richman-3d | 神明与事件 | 机会/事件与翻牌盲选 | `partial` | [`B07`](repositories/Yakamozli--richman-3d/evidence.json)·B [`B08`](repositories/Yakamozli--richman-3d/evidence.json)·B [`B09`](repositories/Yakamozli--richman-3d/evidence.json)·B | 仅部分源码/限定功能 |
+| Yakamozli/richman-3d | 股票与市场 | 股票 | `unknown` | [`B09`](repositories/Yakamozli--richman-3d/evidence.json)·B | 未知/未获足量证据 |
+| Yakamozli/richman-3d | 卡片和道具 | 道具/路障 | `partial` | [`B09`](repositories/Yakamozli--richman-3d/evidence.json)·B [`B10`](repositories/Yakamozli--richman-3d/evidence.json)·B | 仅部分源码/限定功能 |
+| Yakamozli/richman-3d | 神明与事件 | 神明/复杂原版事件 | `unknown` | [`B01`](repositories/Yakamozli--richman-3d/evidence.json)·B [`B09`](repositories/Yakamozli--richman-3d/evidence.json)·B | 未知/未获足量证据 |
 | Yakamozli/richman-3d | 电脑对手 | AI决策 | `partial` | [`B10`](repositories/Yakamozli--richman-3d/evidence.json)·B [`B11`](repositories/Yakamozli--richman-3d/evidence.json)·B | 仅部分源码/限定功能 |
 | Yakamozli/richman-3d | 存档恢复 | 保存与读取存档 | `unknown` | [`B09`](repositories/Yakamozli--richman-3d/evidence.json)·B [`B16`](repositories/Yakamozli--richman-3d/evidence.json)·B | 未知/未获足量证据 |
 | Yakamozli/richman-3d | 画面和交互 | 独立真实截图 | `verified` | [`C02`](repositories/Yakamozli--richman-3d/evidence.json)·C [`D01`](repositories/Yakamozli--richman-3d/evidence.json)·D [`A121_CHROMIUM`](repositories/Yakamozli--richman-3d/evidence.json)·A | 独立限项可验，不代表整局 |
