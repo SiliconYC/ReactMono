@@ -144,7 +144,7 @@ MT_TEST(issue121_same_trade_overwrite){
 MT_TEST(issue121_trade_capacity_reuse){
  rich4::GameState s;s.playerCount=2;
  for(int i=1;i<=8;i++)rich4::queueTradeOrder(s,0,3,i,100+i,1);
- MT_EQ(static_cast<int>(s.tradeSlots[0][7].type),0);
+ for(int i=0;i<7;i++) MT_EQ(static_cast<int>(s.tradeSlots[0][i].objId),i+1);
  rich4::removeTradeOrder(s,0,0);
  rich4::queueTradeOrder(s,0,3,8,108,1);
  MT_EQ(static_cast<int>(s.tradeSlots[0][6].objId),8);
