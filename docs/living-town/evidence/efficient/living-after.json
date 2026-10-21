@@ -19,9 +19,9 @@
         "cameraProjection": "{\"zoom\":22.399340917080288,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
         "labelYaw": "0.7853981633974483",
         "labelScaleZ": "0.999999982885729",
-        "renderStats": "{\"calls\":345,\"triangles\":91704,\"geometries\":189,\"textures\":10,\"programs\":20,\"pixelRatio\":0.65,\"shadowType\":1,\"shadowSize\":1024}",
+        "renderStats": "{\"calls\":345,\"triangles\":91704,\"geometries\":205,\"textures\":10,\"programs\":17,\"pixelRatio\":0.65,\"shadowType\":1,\"shadowSize\":1024}",
         "cutawayBuildings": "",
-        "renderBudget": "{\"mode\":\"efficient\",\"shadowSize\":1024,\"medianMs\":250,\"samplesMs\":[649.8999999999996,16.700000000000728,33.29999999999927,766.7000000000007,250]}"
+        "renderBudget": "{\"mode\":\"efficient\",\"shadowSize\":1024,\"medianMs\":149.90000000000146,\"samplesMs\":[66.69999999999891,566.6000000000004,16.700000000000728,416.6999999999989,149.90000000000146]}"
       }
     },
     {
@@ -43,9 +43,9 @@
         "cameraProjection": "{\"zoom\":37.85488614986569,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
         "labelYaw": "0.7853981633974483",
         "labelScaleZ": "0.999999982885729",
-        "renderStats": "{\"calls\":345,\"triangles\":91704,\"geometries\":189,\"textures\":10,\"programs\":20,\"pixelRatio\":0.65,\"shadowType\":1,\"shadowSize\":1024}",
+        "renderStats": "{\"calls\":345,\"triangles\":91704,\"geometries\":205,\"textures\":10,\"programs\":17,\"pixelRatio\":0.65,\"shadowType\":1,\"shadowSize\":1024}",
         "cutawayBuildings": "",
-        "renderBudget": "{\"mode\":\"efficient\",\"shadowSize\":1024,\"medianMs\":250,\"samplesMs\":[649.8999999999996,16.700000000000728,33.29999999999927,766.7000000000007,250]}"
+        "renderBudget": "{\"mode\":\"efficient\",\"shadowSize\":1024,\"medianMs\":149.90000000000146,\"samplesMs\":[66.69999999999891,566.6000000000004,16.700000000000728,416.6999999999989,149.90000000000146]}"
       }
     },
     {
@@ -67,9 +67,9 @@
         "cameraProjection": "{\"zoom\":22.399340917080288,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
         "labelYaw": "0.7853981633974483",
         "labelScaleZ": "0.999999982885729",
-        "renderStats": "{\"calls\":359,\"triangles\":111836,\"geometries\":197,\"textures\":11,\"programs\":23,\"pixelRatio\":0.65,\"shadowType\":1,\"shadowSize\":1024}",
+        "renderStats": "{\"calls\":359,\"triangles\":111836,\"geometries\":205,\"textures\":10,\"programs\":17,\"pixelRatio\":0.65,\"shadowType\":1,\"shadowSize\":1024}",
         "cutawayBuildings": "转角咖啡馆",
-        "renderBudget": "{\"mode\":\"efficient\",\"shadowSize\":1024,\"medianMs\":216.69999999999982,\"samplesMs\":[1033.2999999999997,16.699999999999818,33.20000000000073,1366.6999999999998,216.69999999999982]}"
+        "renderBudget": "{\"mode\":\"efficient\",\"shadowSize\":1024,\"medianMs\":183.30000000000018,\"samplesMs\":[50,16.699999999999818,450,916.5999999999999,183.30000000000018]}"
       }
     },
     {
@@ -91,9 +91,9 @@
         "cameraProjection": "{\"zoom\":37.85488614986569,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
         "labelYaw": "0.7853981633974483",
         "labelScaleZ": "0.999999982885729",
-        "renderStats": "{\"calls\":359,\"triangles\":111836,\"geometries\":197,\"textures\":11,\"programs\":23,\"pixelRatio\":0.65,\"shadowType\":1,\"shadowSize\":1024}",
+        "renderStats": "{\"calls\":359,\"triangles\":111836,\"geometries\":205,\"textures\":10,\"programs\":17,\"pixelRatio\":0.65,\"shadowType\":1,\"shadowSize\":1024}",
         "cutawayBuildings": "转角咖啡馆",
-        "renderBudget": "{\"mode\":\"efficient\",\"shadowSize\":1024,\"medianMs\":216.69999999999982,\"samplesMs\":[1033.2999999999997,16.699999999999818,33.20000000000073,1366.6999999999998,216.69999999999982]}"
+        "renderBudget": "{\"mode\":\"efficient\",\"shadowSize\":1024,\"medianMs\":183.30000000000018,\"samplesMs\":[50,16.699999999999818,450,916.5999999999999,183.30000000000018]}"
       }
     },
     {
@@ -115,9 +115,9 @@
         "cameraProjection": "{\"zoom\":8.804842433323248,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
         "labelYaw": "0.7853981633974483",
         "labelScaleZ": "0.999999982885729",
-        "renderStats": "{\"calls\":343,\"triangles\":91608,\"geometries\":188,\"textures\":10,\"programs\":18,\"pixelRatio\":0.65,\"shadowType\":1,\"shadowSize\":1024}",
+        "renderStats": "{\"calls\":343,\"triangles\":91608,\"geometries\":204,\"textures\":10,\"programs\":15,\"pixelRatio\":0.65,\"shadowType\":1,\"shadowSize\":1024}",
         "cutawayBuildings": "",
-        "renderBudget": "{\"mode\":\"efficient\",\"shadowSize\":1024,\"medianMs\":133.20000000000073,\"samplesMs\":[600,16.59999999999991,16.699999999999818,766.6999999999998,133.20000000000073]}"
+        "renderBudget": "{\"mode\":\"efficient\",\"shadowSize\":1024,\"medianMs\":233.39999999999964,\"samplesMs\":[50,16.699999999999818,433.3000000000002,533.3000000000002,233.39999999999964]}"
       }
     },
     {
@@ -139,9 +139,9 @@
         "cameraProjection": "{\"zoom\":25.14751047381453,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
         "labelYaw": "0.7853981633974483",
         "labelScaleZ": "0.999999982885729",
-        "renderStats": "{\"calls\":278,\"triangles\":88866,\"geometries\":189,\"textures\":10,\"programs\":20,\"pixelRatio\":0.65,\"shadowType\":1,\"shadowSize\":1024}",
+        "renderStats": "{\"calls\":278,\"triangles\":88866,\"geometries\":203,\"textures\":10,\"programs\":17,\"pixelRatio\":0.65,\"shadowType\":1,\"shadowSize\":1024}",
         "cutawayBuildings": "",
-        "renderBudget": "{\"mode\":\"efficient\",\"shadowSize\":1024,\"medianMs\":133.20000000000073,\"samplesMs\":[600,16.59999999999991,16.699999999999818,766.6999999999998,133.20000000000073]}"
+        "renderBudget": "{\"mode\":\"efficient\",\"shadowSize\":1024,\"medianMs\":233.39999999999964,\"samplesMs\":[50,16.699999999999818,433.3000000000002,533.3000000000002,233.39999999999964]}"
       }
     },
     {
@@ -163,9 +163,9 @@
         "cameraProjection": "{\"zoom\":8.804842433323248,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
         "labelYaw": "0.7853981633974483",
         "labelScaleZ": "0.999999982885729",
-        "renderStats": "{\"calls\":357,\"triangles\":111740,\"geometries\":196,\"textures\":11,\"programs\":21,\"pixelRatio\":0.65,\"shadowType\":1,\"shadowSize\":1024}",
+        "renderStats": "{\"calls\":357,\"triangles\":111740,\"geometries\":204,\"textures\":10,\"programs\":15,\"pixelRatio\":0.65,\"shadowType\":1,\"shadowSize\":1024}",
         "cutawayBuildings": "转角咖啡馆",
-        "renderBudget": "{\"mode\":\"efficient\",\"shadowSize\":1024,\"medianMs\":216.59999999999945,\"samplesMs\":[750.0999999999999,16.59999999999991,16.59999999999991,950.0000000000005,216.59999999999945]}"
+        "renderBudget": "{\"mode\":\"efficient\",\"shadowSize\":1024,\"medianMs\":233.39999999999964,\"samplesMs\":[50,16.59999999999991,516.7000000000003,966.5999999999999,233.39999999999964]}"
       }
     },
     {
@@ -187,9 +187,9 @@
         "cameraProjection": "{\"zoom\":25.14751047381453,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
         "labelYaw": "0.7853981633974483",
         "labelScaleZ": "0.999999982885729",
-        "renderStats": "{\"calls\":294,\"triangles\":109024,\"geometries\":197,\"textures\":11,\"programs\":23,\"pixelRatio\":0.65,\"shadowType\":1,\"shadowSize\":1024}",
+        "renderStats": "{\"calls\":292,\"triangles\":108998,\"geometries\":203,\"textures\":10,\"programs\":17,\"pixelRatio\":0.65,\"shadowType\":1,\"shadowSize\":1024}",
         "cutawayBuildings": "转角咖啡馆",
-        "renderBudget": "{\"mode\":\"efficient\",\"shadowSize\":1024,\"medianMs\":216.59999999999945,\"samplesMs\":[750.0999999999999,16.59999999999991,16.59999999999991,950.0000000000005,216.59999999999945]}"
+        "renderBudget": "{\"mode\":\"efficient\",\"shadowSize\":1024,\"medianMs\":233.39999999999964,\"samplesMs\":[50,16.59999999999991,516.7000000000003,966.5999999999999,233.39999999999964]}"
       }
     }
   ],

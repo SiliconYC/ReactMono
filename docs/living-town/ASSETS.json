@@ -15,7 +15,7 @@
     },
     {
       "source": "src/demo3d/world/UrbanScenery.tsx",
-      "role": "形状合批、相机裁切、遮挡淡出与可释放中文图集",
+      "role": "固定可见集内形状合批容量常驻、共享图集、就绪前预热、相机裁切及遮挡淡出；跨分块仍可重建",
       "atlas": {
         "width": 256,
         "height": 1152,
@@ -36,10 +36,10 @@
       "role": "只重新编排classic-24.world，其余五图不变"
     }
   ],
-  "productionBytes": 1536752,
+  "productionBytes": 1537583,
   "mainBundle": {
-    "path": "dist/assets/main-DtQgqZf8.js",
-    "bytes": 1065918
+    "path": "dist/assets/main-CrpVxjRE.js",
+    "bytes": 1066749
   },
   "filesBuilt": [
     {
@@ -83,12 +83,12 @@
       "bytes": 331309
     },
     {
-      "path": "dist/assets/main-D3keK-f5.css",
-      "bytes": 35664
+      "path": "dist/assets/main-CrpVxjRE.js",
+      "bytes": 1066749
     },
     {
-      "path": "dist/assets/main-DtQgqZf8.js",
-      "bytes": 1065918
+      "path": "dist/assets/main-D3keK-f5.css",
+      "bytes": 35664
     },
     {
       "path": "dist/assets/manifest-C-zx9ihZ.webmanifest",
@@ -164,7 +164,7 @@
     }
   ],
   "measurement": {
-    "cycles": "正常动画跟随镜头各6轮，197 geometries / 11 textures稳定；桌面303、手机281次绘制",
+    "cycles": "最终常驻批次：正常动画跟随镜头各6轮，205 geometries / 10 textures / 17 programs稳定；桌面303、手机281次绘制。此前197/11/23为修前历史值",
     "fixedReducedMotionTelemetry": "可能为零或前一镜头数值，不作为近景性能改善证据",
     "physicalPhones": 0,
     "slowDevice": "沿用既有启动实际帧预算，超过50ms选择1024阴影与近景0.65DPR，远景细路恢复设备DPR"
