@@ -89,6 +89,7 @@ interface UiState {
   readonly roundsInput: string;
   readonly selectedMapId: string;
   readonly selectedTileId: number | null;
+  readonly sceneReady: boolean;
   readonly lastMotion: {
     playerId: string;
     tileId: number;
@@ -143,6 +144,7 @@ class App extends React.Component<object, UiState> {
       roundsInput: "60",
       selectedMapId: "classic-24",
       selectedTileId: null,
+      sceneReady: false,
       lastMotion: null,
       visualCue: null,
       queuedRent: null,
@@ -1000,6 +1002,7 @@ class App extends React.Component<object, UiState> {
       this.scheduleAutosave(this.state.game);
     if (
       this.state.storageBusy ||
+      !this.state.sceneReady ||
       this.state.confirmText ||
       this.state.overlay ||
       this.state.cpuPaused ||
@@ -1030,6 +1033,7 @@ class App extends React.Component<object, UiState> {
       if (
         this.state.game !== snapshot ||
         this.state.storageBusy ||
+        !this.state.sceneReady ||
         this.state.cpuPaused ||
         this.state.confirmText ||
         this.state.overlay ||
@@ -1123,6 +1127,10 @@ class App extends React.Component<object, UiState> {
       );
     }, scheduledDelay);
   }
+
+  private onSceneReadyChange=(sceneReady:boolean):void=>{
+    if(this.state.sceneReady!==sceneReady)this.setState({sceneReady});
+  };
 
   dispatch = async (
     type: GameAction["type"],
@@ -2823,6 +2831,8 @@ class App extends React.Component<object, UiState> {
             onMotionComplete={this.finishSceneMotion}
             onActorStep={this.onActorStep}
             onSelectTile={this.onSceneTileSelect}
+            selectedTileId={this.state.selectedTileId}
+            onReadyChange={this.onSceneReadyChange}
           />
         </section>
         <header className="game-top">
@@ -2983,6 +2993,7 @@ class App extends React.Component<object, UiState> {
                 <button
                   className="primary-btn"
                   key="roll"
+                  disabled={!this.state.sceneReady}
                   onClick={() =>
                     this.dispatch(current.detention ? "skip_turn" : "roll")
                   }
@@ -3123,6 +3134,8 @@ class App extends React.Component<object, UiState> {
               {game.tiles[this.state.selectedTileId].kind === "property"
                 ? `地价 ${game.tiles[this.state.selectedTileId].price} · ${game.tiles[this.state.selectedTileId].ownerId ? game.players.find((p) => p.id === game.tiles[this.state.selectedTileId!].ownerId)?.name + "所有" : "尚无地主"}`
                 : "公共地块"}
+              {game.tiles[this.state.selectedTileId].kind === "property" &&
+                ` · ${game.tiles[this.state.selectedTileId].level ?? 0} 级${game.tiles[this.state.selectedTileId].mortgaged ? " · 抵押中" : ""}`}
             </span>
           </aside>
         )}

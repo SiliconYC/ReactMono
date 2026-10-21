@@ -1,0 +1,223 @@
+{
+  "baseline": {
+    "games": 1000,
+    "roundLimitShare": 0.972,
+    "bankruptcyFinish": 28,
+    "averageRounds": 32.572,
+    "averageTurns": 96.088,
+    "averageActions": 241.239,
+    "illegalActions": 0,
+    "bankruptPlayers": 162,
+    "averageAssetTopShare": 0.514689016900408,
+    "averageAssetGap": 608.952,
+    "firstBankruptcyEventMean": 715.1754385964912,
+    "meanModeledNormalWaitMs": 25881.035,
+    "meanModeledFastWaitMs": 1929.912,
+    "stocks": 2918,
+    "bank": 54559,
+    "loans": 7107,
+    "cards": 18604,
+    "facilities": 28412,
+    "byMap": {
+      "classic-24": 500,
+      "harbor-20": 500
+    },
+    "byCount": {
+      "2": 334,
+      "3": 334,
+      "4": 332
+    },
+    "byStyle": {
+      "conservative": {
+        "seats": 1002,
+        "wins": 251,
+        "bankruptcies": 59
+      },
+      "balanced": {
+        "seats": 1000,
+        "wins": 342,
+        "bankruptcies": 46
+      },
+      "aggressive": {
+        "seats": 996,
+        "wins": 403,
+        "bankruptcies": 57
+      }
+    },
+    "actionCounts": {
+      "roll": 78867,
+      "decline_property": 25017,
+      "end_turn": 78705,
+      "buy_shop_card": 1809,
+      "leave_shop": 3870,
+      "use_card": 9045,
+      "buy_property": 6594,
+      "upgrade_property": 9377,
+      "skip_turn": 17221,
+      "buy_stock": 2230,
+      "sell_stock": 654,
+      "mortgage_property": 751,
+      "borrow_loan": 1453,
+      "repay_loan": 210,
+      "deposit_bank": 3141,
+      "withdraw_bank": 2295
+    },
+    "eventCounts": {
+      "game_started": 1000,
+      "die_rolled": 78867,
+      "player_moved": 78867,
+      "tile_landed": 78867,
+      "property_declined": 25017,
+      "turn_ended": 95926,
+      "card_received": 7750,
+      "facility_entered": 11191,
+      "shop_purchased": 1809,
+      "shop_left": 3870,
+      "card_used": 9045,
+      "event_fee": 2486,
+      "property_bought": 6594,
+      "property_upgraded": 9377,
+      "detention_skipped": 17221,
+      "game_finished": 1000,
+      "stock_bought": 2230,
+      "detention_released": 6820,
+      "rent_waived": 321,
+      "rent_paid": 14058,
+      "stock_sold": 654,
+      "card_expired": 1295,
+      "event_bonus": 2639,
+      "roadblock_triggered": 1284,
+      "property_mortgaged": 751,
+      "loan_borrowed": 1453,
+      "loan_interest": 5249,
+      "loan_repaid": 210,
+      "loan_default": 195,
+      "player_bankrupt": 162,
+      "property_liquidated": 64,
+      "stock_liquidated": 34,
+      "bank_deposited": 3141,
+      "bank_interest": 48667,
+      "bank_withdrawn": 2751
+    }
+  },
+  "candidate": {
+    "games": 1000,
+    "roundLimitShare": 0.994,
+    "bankruptcyFinish": 6,
+    "averageRounds": 24.597,
+    "averageTurns": 73.293,
+    "averageActions": 187.525,
+    "illegalActions": 0,
+    "bankruptPlayers": 65,
+    "averageAssetTopShare": 0.4744444626480928,
+    "averageAssetGap": 435.156,
+    "firstBankruptcyEventMean": 661.074074074074,
+    "meanModeledNormalWaitMs": 20076.56,
+    "meanModeledFastWaitMs": 1500.2,
+    "stocks": 2674,
+    "bank": 42525,
+    "loans": 4206,
+    "cards": 14737,
+    "facilities": 21843,
+    "byMap": {
+      "classic-24": 500,
+      "harbor-20": 500
+    },
+    "byCount": {
+      "2": 334,
+      "3": 334,
+      "4": 332
+    },
+    "byStyle": {
+      "conservative": {
+        "seats": 1002,
+        "wins": 267,
+        "bankruptcies": 20
+      },
+      "balanced": {
+        "seats": 1000,
+        "wins": 340,
+        "bankruptcies": 17
+      },
+      "aggressive": {
+        "seats": 996,
+        "wins": 393,
+        "bankruptcies": 28
+      }
+    },
+    "actionCounts": {
+      "roll": 60089,
+      "decline_property": 19029,
+      "end_turn": 60024,
+      "buy_shop_card": 1556,
+      "leave_shop": 2938,
+      "use_card": 7161,
+      "buy_stock": 2128,
+      "buy_property": 6121,
+      "skip_turn": 13204,
+      "upgrade_property": 8483,
+      "mortgage_property": 491,
+      "borrow_loan": 924,
+      "sell_stock": 518,
+      "repay_loan": 132,
+      "deposit_bank": 3103,
+      "withdraw_bank": 1624
+    },
+    "eventCounts": {
+      "game_started": 1000,
+      "die_rolled": 60089,
+      "player_moved": 60089,
+      "tile_landed": 60089,
+      "property_declined": 19029,
+      "turn_ended": 73228,
+      "card_received": 6020,
+      "facility_entered": 8639,
+      "shop_purchased": 1556,
+      "shop_left": 2938,
+      "card_used": 7161,
+      "event_fee": 1841,
+      "game_finished": 1000,
+      "stock_bought": 2128,
+      "property_bought": 6121,
+      "detention_skipped": 13204,
+      "detention_released": 5195,
+      "rent_waived": 251,
+      "rent_paid": 10073,
+      "property_upgraded": 8483,
+      "card_expired": 1067,
+      "event_bonus": 1995,
+      "roadblock_triggered": 982,
+      "property_mortgaged": 491,
+      "loan_borrowed": 924,
+      "loan_interest": 3055,
+      "stock_sold": 518,
+      "loan_repaid": 132,
+      "loan_default": 95,
+      "stock_liquidated": 28,
+      "player_bankrupt": 65,
+      "property_liquidated": 33,
+      "bank_deposited": 3103,
+      "bank_interest": 37441,
+      "bank_withdrawn": 1981
+    }
+  },
+  "paired": {
+    "games": 1000,
+    "changedWinners": 159,
+    "changedWinnerShare": 0.159,
+    "failedPrefix": 0,
+    "meanActionReduction": 0.22265885698415264,
+    "bankruptcySignalReduction": 0.5987654320987654,
+    "nominalWaitReduction": 0.22427522701468464
+  },
+  "decision": {
+    "defaultChange": "REJECT",
+    "machineGate": "REJECT",
+    "reasons": [
+      "over 10% winner changes",
+      "over 20% lost bankruptcy signal"
+    ],
+    "realPlayerParticipants": 0,
+    "rulesOrAgentCodeModified": false
+  }
+}

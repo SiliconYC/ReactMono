@@ -1,0 +1,27 @@
+
+> reactmono@0.2.0 demo:build
+> tsc -p tsconfig.demo.json && vite build --config vite.demo.config.ts
+
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 83 modules transformed.
+rendering chunks...
+computing gzip size...
+dist-3d-demo/index.html                     0.59 kB │ gzip:   0.43 kB
+dist-3d-demo/assets/index-USzPsZlP.css     29.35 kB │ gzip:   7.00 kB
+dist-3d-demo/assets/index-CIXbFBS8.js   1,292.08 kB │ gzip: 353.81 kB
+
+✓ built in 250ms
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 1200 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+test_desktop_full_turn (__main__.时序验收_类) ... TRACE {"frames": [[18.7, 6.6000000022351735], [985.4, 966.6999999999999], [1118.7, 133.30000000000007], [4318.6, 3199.9000000000005], [6651.8, 2333.2], [7201.9, 550.0999999999995], [7235.1, 33.20000000000073], [7651.8, 416.6999999999998], [8135.2, 483.39999999999964], [8151.8, 16.600000000000364], [8218.4, 66.59999999999945], [8335.1, 116.70000000000073], [8418.4, 83.29999999999927], [8501.7, 83.30000000000109], [8568.4, 66.69999999999891], [8651.8, 83.39999999999964], [8735.1, 83.30000000000109], [8818.4, 83.29999999999927], [8901.7, 83.30000000000109], [8968.5, 66.79999999999927], [9051.7, 83.20000000000073], [9135, 83.29999999999927], [9218.4, 83.39999999999964], [9301.8, 83.39999999999964], [9385.1, 83.30000000000109], [9468.4, 83.29999999999927], [9551.7, 83.30000000000109], [9651.7, 100], [9735.1, 83.39999999999964], [9818.4, 83.29999999999927], [9918.4, 100], [10001.7, 83.30000000000109], [10085, 83.29999999999927], [10235, 150], [10251.7, 16.700000000000728], [10435, 183.29999999999927], [10651.7, 216.70000000000073], [10818.4, 166.6999999999989]], "states": [[276.8999999985099, "false", "0", "false"], [7217.39999999851, "false", "0", "true"], [7354, "true", "0", "true"], [8605.199999999255, "true", "1", "true"], [8851.199999999255, "true", "2", "true"], [9086.800000000745, "true", "3", "true"], [9497.300000000745, "false", "3", "true"]]}
+Finance background 1280: {'drawCalls': 7465, 'renderer': 'ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)', 'delta': 0}
+ok
+
+----------------------------------------------------------------------
+Ran 1 test in 17.397s
+
+OK

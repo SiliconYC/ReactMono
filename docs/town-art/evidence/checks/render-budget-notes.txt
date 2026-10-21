@@ -1,0 +1,17 @@
+持续慢帧与预算修复，2026-10-21
+
+最终前置CI469：https://github.com/SiliconYC/ReactMono/actions/runs/39605858534
+实际绘制就绪断言已通过，但demo桌面首回合仍未观察到中间格（其余8项通过），证明冷启动门控不足以解决持续慢帧。
+
+顺序本机对照：显式SwiftShader，CDP CPU throttling=8，同一desktop_full_turn动作片段（busy开始后1050ms，至首个busy=false）。rAF间隔中位数/95分位：
+- 原2048/native DPR：约83.3/83.3ms（render-budget-before.log）
+- 仅全局1024阴影：约83.3/83.3ms（render-budget-shadow-only.log）
+- 当前采样选择1024、近景0.65 DPR：约50/50ms（render-budget-cpu8.log）
+
+这些是软件渲染的观察值，不是物理手机或纯GPU基准。采样前两帧排除，后五个实际绘制帧rAF间隔取中位数；仍可能保留上传成本，允许保守降档。场景级统一PCF与所有mesh投影/受影保留，未修改Mascot、Dice和移动时钟。
+
+减少动画首次原画质截图测试：等待.canvas-shell[data-ready=true]超过20000ms。R3F在after-effect前计算repeat，单靠after-effect中的invalidate无法维持demand循环。加入准备期间useFrame invalidate后，同一主程序双视口/相机断言通过；原精修PNG逐字节不变。after.json桌面、手机均full，median约16.6/16.7ms。
+
+低档CPU8固定存档八张真实图见../efficient/：同样相机断言通过。独立审查未发现道路断裂/等级轮廓丢失；小招牌、产权点数、窗框模糊，手机抵押应依赖详情文字确认。不是视觉无损档。
+
+最终完整显式SwiftShader demo 9/9通过，见demo-sw.log；360格与远端完整CI另留实际结果，未把孤立通过等同全CI。

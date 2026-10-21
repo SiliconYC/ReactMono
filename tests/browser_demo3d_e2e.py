@@ -7,6 +7,7 @@ from subprocess import run
 from threading import Thread
 import unittest
 import json
+import os
 import re
 
 from playwright.sync_api import sync_playwright
@@ -34,7 +35,9 @@ class Demo3DBrowserTest(unittest.TestCase):
         cls.browser = cls.playwright.chromium.launch(
             channel="chrome",
             headless=True,
-            args=["--no-sandbox", "--disable-dev-shm-usage"],
+            args=["--no-sandbox", "--disable-dev-shm-usage"] +
+            (["--use-angle=swiftshader", "--enable-unsafe-swiftshader"]
+             if os.environ.get("DEMO_SWIFTSHADER") == "1" else []),
         )
 
     @classmethod
@@ -48,6 +51,10 @@ class Demo3DBrowserTest(unittest.TestCase):
         context = self.browser.new_context(**options)
         # A failed assertion must not leave another live WebGL scene rendering.
         self.addCleanup(context.close)
+        限速 = float(os.environ.get("DEMO_CPU_THROTTLE", "1"))
+        if 限速 > 1:
+            context.on("page", lambda 页面: context.new_cdp_session(页面).send(
+                "Emulation.setCPUThrottlingRate", {"rate": 限速}))
         context.add_init_script("""(() => {
             window.__demoRenderMetrics = {drawCalls: 0, renderer: null};
             for (const name of ['drawElements', 'drawArrays']) {
@@ -73,6 +80,21 @@ class Demo3DBrowserTest(unittest.TestCase):
             return {...window.__demoRenderMetrics, delta: window.__demoRenderMetrics.drawCalls - before};
         }""")
 
+    def test_no_webgl_fallback_keeps_turn_controls(self):
+        context = self.new_context(viewport={"width": 1280, "height": 800})
+        context.add_init_script("""const original = HTMLCanvasElement.prototype.getContext;
+            HTMLCanvasElement.prototype.getContext = function(kind, ...args) {
+                return /webgl/.test(kind) ? null : original.call(this, kind, ...args);
+            };""")
+        page = context.new_page()
+        page.goto(f"http://127.0.0.1:{self.server.server_port}/")
+        page.get_by_text("当前浏览器无法建立 3D 场景", exact=True).wait_for(timeout=5000)
+        page.get_by_role("button", name="投骰前进").click(timeout=5000)
+        page.get_by_role("button", name="买下此地 · ¥136").click(timeout=5000)
+        self.assertIn("已买下河畔公园", page.get_by_role("status").last.inner_text())
+        self.assertEqual(page.locator("main").get_attribute("data-busy"), "false")
+        context.close()
+
     def observe_action(self, page, start_event=None, expected_tile=None):
         # Record transient UI states in the browser, before input. Reading the
         # immutable trace later cannot mix two animation frames across RPCs.
@@ -95,6 +117,8 @@ class Demo3DBrowserTest(unittest.TestCase):
                 const rect = receipt?.getBoundingClientRect();
                 const snapshot = {
                     busy: main.dataset.busy,
+                    sceneReady: document.querySelector('.canvas-shell')?.dataset.ready,
+                    drawCalls: window.__demoRenderMetrics.drawCalls,
                     outcome: main.dataset.outcome,
                     outcomeText: outcome?.textContent ?? '',
                     outcomeVisible: !!outcome && outcome.checkVisibility({visibilityProperty: true}) && Number(getComputedStyle(outcome).opacity) >= 0.9 && outcomeRect.width > 0 && outcomeRect.height > 0,
@@ -172,6 +196,8 @@ class Demo3DBrowserTest(unittest.TestCase):
         roll.click()
         locked = page.wait_for_function("window.__demoTrace.find(s => s.busy === 'true')").json_value()
         self.assertEqual(locked["rollButtons"], 0)
+        self.assertEqual(locked["sceneReady"], "true", "首回合必须等待场景准备完成")
+        self.assertGreater(locked["drawCalls"], 0, "首回合必须已有实际画布绘制")
         page.wait_for_function("document.querySelector('main')?.dataset.busy === 'false'", timeout=5000)
         intermediates = page.evaluate("window.__demoTrace.filter(s => ['1', '2'].includes(s.tile))")
         self.assertTrue(intermediates)

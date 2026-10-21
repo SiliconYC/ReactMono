@@ -1,0 +1,180 @@
+{
+  "date": "2026-10-21",
+  "source": "本仓库原创程序几何与显式关卡数据，无第三方美术资源",
+  "license": "未新增第三方许可；仓库整体尚无LICENSE，本任务不擅自赋予新许可",
+  "rebuild": "npm run build; npm run demo:build",
+  "runtime": "同源主程序bundle；无独立模型/图片/远端纹理",
+  "files": [
+    {
+      "source": "src/demo3d/world/town-kit.ts",
+      "role": "住宅局部几何、暖墙/石基/彩顶色板、产权点数与抵押牌",
+      "triangles": "实例盒体/封闭三角屋面/低面数庭院灌木，按镜头合批",
+      "materials": "3批共享粗糙材质，不随业主新增材质"
+    },
+    {
+      "source": "src/demo3d/world/ResidentialBuildings.tsx",
+      "role": "住宅世界变换、坡顶联排、按可视范围裁切"
+    },
+    {
+      "source": "src/demo3d/world/SceneryModels.tsx",
+      "role": "银行/商店/医院/监狱/四面钟楼及Canvas中文招牌",
+      "textures": "每个设施可释放的512x128中文标牌；钟楼刻度统一实例批次"
+    },
+    {
+      "source": "src/demo3d/world/StaticBlocks.tsx",
+      "role": "静态设施盒体共享实例，保留父级变换、地块拾取与全局阴影",
+      "capacity": 4096,
+      "observedNearCalls": {
+        "desktop": 373,
+        "phone": 371
+      }
+    },
+    {
+      "source": "src/data/levels.json",
+      "role": "仅classic-24.world景观与步道构图"
+    },
+    {
+      "source": "src/demo3d/world/ContinuousGround.tsx",
+      "role": "沿用显式地形；水面静态细纹，无新增外部纹理"
+    }
+  ],
+  "budget": {
+    "policy": "继承既有构建测试门槛，无放宽",
+    "productionBytes": 1510253,
+    "mainBundle": {
+      "path": "dist/assets/main-B94-L7Za.js",
+      "bytes": 1046622
+    },
+    "physicalMobileVerified": false,
+    "slowDevice": {
+      "sampling": "five actually drawn rAF intervals after two initial draws; median >50ms; can include cold upload",
+      "shadow": 1024,
+      "nearPixelRatio": 0.65,
+      "farRoadMinimumCssPixels": 4,
+      "nativeDeviceUnchanged": true
+    }
+  },
+  "filesBuilt": [
+    {
+      "path": "dist/.nojekyll",
+      "bytes": 0
+    },
+    {
+      "path": "dist/action-layout.css",
+      "bytes": 6795
+    },
+    {
+      "path": "dist/art-manifest.json",
+      "bytes": 1744
+    },
+    {
+      "path": "dist/art/character-bear.svg",
+      "bytes": 773
+    },
+    {
+      "path": "dist/art/character-bird.svg",
+      "bytes": 690
+    },
+    {
+      "path": "dist/art/character-fox.svg",
+      "bytes": 661
+    },
+    {
+      "path": "dist/art/character-rabbit.svg",
+      "bytes": 730
+    },
+    {
+      "path": "dist/art/coin.svg",
+      "bytes": 336
+    },
+    {
+      "path": "dist/art/house.svg",
+      "bytes": 365
+    },
+    {
+      "path": "dist/assets/game-BM5Y5p5j.js",
+      "bytes": 324106
+    },
+    {
+      "path": "dist/assets/main-B94-L7Za.js",
+      "bytes": 1046622
+    },
+    {
+      "path": "dist/assets/main-D3keK-f5.css",
+      "bytes": 35664
+    },
+    {
+      "path": "dist/assets/manifest-C-zx9ihZ.webmanifest",
+      "bytes": 597
+    },
+    {
+      "path": "dist/assets/visualLab-CY_HOp1C.js",
+      "bytes": 7643
+    },
+    {
+      "path": "dist/assets/visualLab-rR3xiTWP.css",
+      "bytes": 7762
+    },
+    {
+      "path": "dist/audio.css",
+      "bytes": 1027
+    },
+    {
+      "path": "dist/board-3d.css",
+      "bytes": 18595
+    },
+    {
+      "path": "dist/board-art.css",
+      "bytes": 13910
+    },
+    {
+      "path": "dist/characters.css",
+      "bytes": 4822
+    },
+    {
+      "path": "dist/guide.css",
+      "bytes": 2449
+    },
+    {
+      "path": "dist/icons/icon-192.png",
+      "bytes": 736
+    },
+    {
+      "path": "dist/icons/icon-512.png",
+      "bytes": 3940
+    },
+    {
+      "path": "dist/index.html",
+      "bytes": 788
+    },
+    {
+      "path": "dist/manifest.webmanifest",
+      "bytes": 597
+    },
+    {
+      "path": "dist/motion.css",
+      "bytes": 2043
+    },
+    {
+      "path": "dist/style.css",
+      "bytes": 15283
+    },
+    {
+      "path": "dist/sw.js",
+      "bytes": 2642
+    },
+    {
+      "path": "dist/visual-lab.css",
+      "bytes": 6171
+    },
+    {
+      "path": "dist/visual-lab.html",
+      "bytes": 591
+    },
+    {
+      "path": "dist/visual-tokens.css",
+      "bytes": 2171
+    }
+  ],
+  "measurementSource": "Adaptive rendering budget final source build; native full and CPU8 SwiftShader efficient captures verified"
+}

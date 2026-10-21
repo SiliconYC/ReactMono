@@ -1,0 +1,8 @@
+PR #128 / Actions run 39588268399 / commit 740ec36
+https://github.com/SiliconYC/ReactMono/actions/runs/39588268399
+
+此前步骤全部通过：190项Node、2000局、demo八项、原创美术样例、七视口、两图四人完整局/经营/旧档/离线。
+新增美术脚本失败于 cameraInsets 精确断言：Linux实际HUD边距不等于已提交的Mac基线。
+
+修复：CI同一runner构建固定原始SHA 56d5aefaed9ac40e2cced3b6f91d7225e155aeef，分别运行真实原版与改后主程序，在同一浏览器/字体环境下拍摄before/after。保留存档哈希、模式、边距、中心、角度、缩放断言，不放宽容差。Mac本机原始对比图保持不变。
+本地以真实基线archive和改后bundle演练此新流程，before/after与全部产权近景通过。脚本输出目录可指定，CI证据在artifacts/town-art。

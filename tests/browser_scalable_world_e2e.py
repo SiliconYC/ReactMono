@@ -29,11 +29,20 @@ for(const name of ['drawElementsInstanced','drawArraysInstanced']){const old=Web
      pg.on('console',lambda m:errors.append(m.text) if m.type=='error' else None)
      pg.goto(url);open_new_game_setup(pg);select_map(pg,mid)
      pg.get_by_role('button',name='开始游戏',exact=True).click();shell=pg.locator('.canvas-shell[data-ready=true]');shell.wait_for();pg.wait_for_timeout(700)
-     pg.get_by_role('button',name='查看全图',exact=True).click();pg.wait_for_timeout(1700)
+     pg.get_by_role('button',name='查看全图',exact=True).click()
+     pg.wait_for_function("""()=>{
+      const shell=document.querySelector('.canvas-shell'),current=JSON.parse(shell.dataset.cameraProjection);
+      current.insets=shell.dataset.cameraInsets;
+      const previous=window.__roadProjection;window.__roadProjection=current;
+      const stable=previous&&previous.insets===current.insets&&['zoom','x','z','yaw','elevation'].every(k=>Math.abs(previous[k]-current[k])<1e-7);
+      window.__roadStableFrames=stable?(window.__roadStableFrames??0)+1:0;
+      return window.__roadStableFrames>=3;
+     }""",timeout=20000)
      assert shell.get_attribute('data-camera-mode')=='overview'
      frame=base64.b64encode(pg.locator('canvas').screenshot()).decode()
+     projection=json.loads(shell.get_attribute('data-camera-projection'))
      insets=json.loads(shell.get_attribute('data-camera-insets'))
-     zoom=float(shell.get_attribute('data-camera-zoom'));cx,cz=map(float,shell.get_attribute('data-camera-center').split(','))
+     zoom=projection['zoom'];cx,cz=projection['x'],projection['z']
      sx=(insets['left']+width-insets['right'])/2;sy=(insets['top']+height-insets['bottom'])/2
      hits=0;coords=[]
      for cell in level['world']['tiles']:
@@ -43,9 +52,11 @@ for(const name of ['drawElementsInstanced','drawArraysInstanced']){const old=Web
       assert insets['left']-2<px<width-insets['right']+2,(mid,phone,px)
       assert insets['top']-2<py<height-insets['bottom']+2,(mid,phone,py)
       coords.append([px,py])
-     colors=pg.evaluate("""async ({frame,coords,width})=>{const response=await fetch('data:image/png;base64,'+frame);const bitmap=await createImageBitmap(await response.blob());const c=document.createElement('canvas');c.width=bitmap.width;c.height=bitmap.height;const ctx=c.getContext('2d');ctx.drawImage(bitmap,0,0);return coords.map(([x,y])=>Array.from(ctx.getImageData(Math.round(x*bitmap.width/width),Math.round(y*bitmap.width/width),1,1).data).slice(0,3));}""",{'frame':frame,'coords':coords,'width':width})
+     # Continuous image coordinates select the containing pixel; its center is i+.5.
+     colors=pg.evaluate("""async ({frame,coords,width})=>{const response=await fetch('data:image/png;base64,'+frame);const bitmap=await createImageBitmap(await response.blob());const c=document.createElement('canvas');c.width=bitmap.width;c.height=bitmap.height;const ctx=c.getContext('2d');ctx.drawImage(bitmap,0,0);return coords.map(([x,y])=>Array.from(ctx.getImageData(Math.floor(x*bitmap.width/width),Math.floor(y*bitmap.width/width),1,1).data).slice(0,3));}""",{'frame':frame,'coords':coords,'width':width})
      hits=sum(b>=g-26 for r,g,b in colors)
      pg.screenshot(path=str(OUT/f"{mid}-{'phone' if phone else 'desktop'}-overview.png"))
+     (OUT/f"{mid}-{'phone' if phone else 'desktop'}-road-pixels.json").write_text(json.dumps({'projection':projection,'insets':insets,'coords':coords,'colors':colors,'hits':hits,'cells':len(coords)},indent=2))
      assert hits/len(coords)>.94,(mid,phone,'rendered road missing',hits,len(coords))
      label='phone' if phone else 'desktop';pg.screenshot(path=str(OUT/f'{mid}-{label}-overview.png'))
      pg.evaluate('window.__metrics.frames=[];window.__metrics.draws=0');pg.wait_for_timeout(1000)

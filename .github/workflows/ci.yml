@@ -39,6 +39,19 @@ jobs:
           fi
       - name: 准备 Playwright（供 P4 与旧回归共用）
         run: python -m pip install playwright
+      - name: 晴湾花园固定存档双视口美术与镜头一致性
+        timeout-minutes: 5
+        run: |
+          town_baseline_dir="$(mktemp -d)"
+          git fetch --no-tags origin 56d5aefaed9ac40e2cced3b6f91d7225e155aeef
+          git archive 56d5aefaed9ac40e2cced3b6f91d7225e155aeef | tar -x -C "$town_baseline_dir"
+          ln -s "$GITHUB_WORKSPACE/node_modules" "$town_baseline_dir/node_modules"
+          (cd "$town_baseline_dir" && npm run build)
+          TOWN_PHASE=before TOWN_EVIDENCE_DIR=artifacts/town-art TOWN_BASELINE_ROOT="$town_baseline_dir" python -u tests/browser_town_art_e2e.py
+          TOWN_PHASE=after TOWN_EVIDENCE_DIR=artifacts/town-art python -u tests/browser_town_art_e2e.py
+      - name: 地图旋转、编号、房顶与地块菜单回归
+        timeout-minutes: 8
+        run: python -u tests/browser_map_camera_ux.py
       - name: 3D demo 地产、金融、租金与胜负完整对局 Chromium 回归
         timeout-minutes: 10
         run: python -u tests/browser_demo3d_e2e.py -v
@@ -85,6 +98,9 @@ jobs:
             artifacts/issue63/
             artifacts/stress-maps/
             artifacts/scalable-world/
+            artifacts/map-camera-ux/
+            artifacts/town-art/
+            docs/town-art/evidence/
           if-no-files-found: warn
           retention-days: 30
       - name: 确认产物不含第三方运行时引用

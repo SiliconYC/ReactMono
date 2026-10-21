@@ -1,0 +1,96 @@
+{
+  "fixtureSha256": "dad4529677c09f1faede43c9ee5b77fb130ec5ed49b4c69679e896e5e1daad0d",
+  "results": [
+    {
+      "phone": false,
+      "mode": "overview",
+      "camera": {
+        "ready": "true",
+        "frameloop": "demand",
+        "showNumbers": "true",
+        "safeInsets": "{\"top\":80,\"right\":24,\"bottom\":212,\"left\":256}",
+        "visibleRoadLabels": "24",
+        "cameraInsets": "{\"top\":80,\"right\":202,\"bottom\":212,\"left\":256}",
+        "cameraMode": "overview",
+        "cameraZoom": "22.40",
+        "cameraCenter": "0.00,0.00",
+        "cameraYaw": "0.785398",
+        "cameraElevation": "0.702025",
+        "cameraProjection": "{\"zoom\":22.399340917080288,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
+        "labelYaw": "0.7853981633974483",
+        "labelScaleZ": "0.999999982885729",
+        "renderStats": "{\"calls\":0,\"triangles\":0,\"geometries\":0,\"textures\":0,\"programs\":0,\"pixelRatio\":1,\"shadowType\":1,\"shadowSize\":2048}",
+        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.600000000000023,\"samplesMs\":[16.799999999999955,16.600000000000023,16.600000000000023,16.799999999999955,16.600000000000023]}"
+      }
+    },
+    {
+      "phone": false,
+      "mode": "near",
+      "camera": {
+        "ready": "true",
+        "frameloop": "demand",
+        "showNumbers": "true",
+        "safeInsets": "{\"top\":80,\"right\":24,\"bottom\":212,\"left\":256}",
+        "visibleRoadLabels": "24",
+        "cameraInsets": "{\"top\":80,\"right\":202,\"bottom\":212,\"left\":256}",
+        "cameraMode": "follow",
+        "cameraZoom": "51.17",
+        "cameraCenter": "-9.87,-10.15",
+        "cameraYaw": "0.785398",
+        "cameraElevation": "0.702025",
+        "cameraProjection": "{\"zoom\":51.17317564982077,\"x\":-9.8703,\"z\":-10.147,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
+        "labelYaw": "0.7853981633974483",
+        "labelScaleZ": "0.999999982885729",
+        "renderStats": "{\"calls\":373,\"triangles\":70148,\"geometries\":191,\"textures\":8,\"programs\":17,\"pixelRatio\":1,\"shadowType\":1,\"shadowSize\":2048}",
+        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.600000000000023,\"samplesMs\":[16.799999999999955,16.600000000000023,16.600000000000023,16.799999999999955,16.600000000000023]}"
+      }
+    },
+    {
+      "phone": true,
+      "mode": "overview",
+      "camera": {
+        "ready": "true",
+        "frameloop": "demand",
+        "showNumbers": "true",
+        "safeInsets": "{\"top\":210,\"right\":24,\"bottom\":250,\"left\":24}",
+        "visibleRoadLabels": "0",
+        "cameraInsets": "{\"top\":294,\"right\":24,\"bottom\":250,\"left\":24}",
+        "cameraMode": "overview",
+        "cameraZoom": "8.80",
+        "cameraCenter": "0.00,0.00",
+        "cameraYaw": "0.785398",
+        "cameraElevation": "0.702025",
+        "cameraProjection": "{\"zoom\":8.804842433323248,\"x\":0,\"z\":0,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
+        "labelYaw": "0.7853981633974483",
+        "labelScaleZ": "0.999999982885729",
+        "renderStats": "{\"calls\":0,\"triangles\":0,\"geometries\":0,\"textures\":0,\"programs\":0,\"pixelRatio\":1,\"shadowType\":1,\"shadowSize\":2048}",
+        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.699999999999932,\"samplesMs\":[16.700000000000045,16.600000000000023,16.699999999999932,16.700000000000045,16.600000000000023]}"
+      }
+    },
+    {
+      "phone": true,
+      "mode": "near",
+      "camera": {
+        "ready": "true",
+        "frameloop": "demand",
+        "showNumbers": "true",
+        "safeInsets": "{\"top\":210,\"right\":24,\"bottom\":250,\"left\":24}",
+        "visibleRoadLabels": "24",
+        "cameraInsets": "{\"top\":210,\"right\":132,\"bottom\":250,\"left\":24}",
+        "cameraMode": "follow",
+        "cameraZoom": "27.58",
+        "cameraCenter": "-9.87,-10.15",
+        "cameraYaw": "0.785398",
+        "cameraElevation": "0.702025",
+        "cameraProjection": "{\"zoom\":27.577164466275356,\"x\":-9.8703,\"z\":-10.147,\"yaw\":0.7853981633974483,\"elevation\":0.7020245536634557}",
+        "labelYaw": "0.7853981633974483",
+        "labelScaleZ": "0.999999982885729",
+        "renderStats": "{\"calls\":371,\"triangles\":70052,\"geometries\":190,\"textures\":8,\"programs\":15,\"pixelRatio\":1,\"shadowType\":1,\"shadowSize\":2048}",
+        "renderBudget": "{\"mode\":\"full\",\"shadowSize\":2048,\"medianMs\":16.699999999999932,\"samplesMs\":[16.700000000000045,16.600000000000023,16.699999999999932,16.700000000000045,16.600000000000023]}"
+      }
+    }
+  ],
+  "errors": [],
+  "physicalPhones": 0,
+  "fixtureNote": "正式序列化并导入的受控视觉样本，非自然养成对局"
+}

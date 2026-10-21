@@ -1,0 +1,88 @@
+{
+  "fixtureSha256": "dad4529677c09f1faede43c9ee5b77fb130ec5ed49b4c69679e896e5e1daad0d",
+  "results": [
+    {
+      "phone": false,
+      "mode": "overview",
+      "camera": {
+        "ready": "true",
+        "frameloop": "demand",
+        "showNumbers": "true",
+        "safeInsets": "{\"top\":80,\"right\":24,\"bottom\":212,\"left\":256}",
+        "visibleRoadLabels": "24",
+        "cameraInsets": "{\"top\":80,\"right\":202,\"bottom\":212,\"left\":256}",
+        "cameraMode": "overview",
+        "cameraZoom": "22.40",
+        "cameraCenter": "0.00,0.00",
+        "cameraYaw": "0.785398",
+        "cameraElevation": "0.702025",
+        "labelYaw": "0.7853981633974483",
+        "labelScaleZ": "0.999999982885729",
+        "renderStats": "{\"calls\":0,\"triangles\":0,\"geometries\":0,\"textures\":0,\"programs\":0,\"pixelRatio\":1,\"shadowType\":1}"
+      }
+    },
+    {
+      "phone": false,
+      "mode": "near",
+      "camera": {
+        "ready": "true",
+        "frameloop": "demand",
+        "showNumbers": "true",
+        "safeInsets": "{\"top\":80,\"right\":24,\"bottom\":212,\"left\":256}",
+        "visibleRoadLabels": "24",
+        "cameraInsets": "{\"top\":80,\"right\":202,\"bottom\":212,\"left\":256}",
+        "cameraMode": "follow",
+        "cameraZoom": "51.17",
+        "cameraCenter": "-9.87,-10.15",
+        "cameraYaw": "0.785398",
+        "cameraElevation": "0.702025",
+        "labelYaw": "0.7853981633974483",
+        "labelScaleZ": "0.999999982885729",
+        "renderStats": "{\"calls\":483,\"triangles\":24252,\"geometries\":244,\"textures\":4,\"programs\":14,\"pixelRatio\":1,\"shadowType\":1}"
+      }
+    },
+    {
+      "phone": true,
+      "mode": "overview",
+      "camera": {
+        "ready": "true",
+        "frameloop": "demand",
+        "showNumbers": "true",
+        "safeInsets": "{\"top\":210,\"right\":24,\"bottom\":250,\"left\":24}",
+        "visibleRoadLabels": "0",
+        "cameraInsets": "{\"top\":294,\"right\":24,\"bottom\":250,\"left\":24}",
+        "cameraMode": "overview",
+        "cameraZoom": "8.80",
+        "cameraCenter": "0.00,0.00",
+        "cameraYaw": "0.785398",
+        "cameraElevation": "0.702025",
+        "labelYaw": "0.7853981633974483",
+        "labelScaleZ": "0.999999982885729",
+        "renderStats": "{\"calls\":0,\"triangles\":0,\"geometries\":0,\"textures\":0,\"programs\":0,\"pixelRatio\":1,\"shadowType\":1}"
+      }
+    },
+    {
+      "phone": true,
+      "mode": "near",
+      "camera": {
+        "ready": "true",
+        "frameloop": "demand",
+        "showNumbers": "true",
+        "safeInsets": "{\"top\":210,\"right\":24,\"bottom\":250,\"left\":24}",
+        "visibleRoadLabels": "24",
+        "cameraInsets": "{\"top\":210,\"right\":132,\"bottom\":250,\"left\":24}",
+        "cameraMode": "follow",
+        "cameraZoom": "27.58",
+        "cameraCenter": "-9.87,-10.15",
+        "cameraYaw": "0.785398",
+        "cameraElevation": "0.702025",
+        "labelYaw": "0.7853981633974483",
+        "labelScaleZ": "0.999999982885729",
+        "renderStats": "{\"calls\":187,\"triangles\":18268,\"geometries\":95,\"textures\":4,\"programs\":12,\"pixelRatio\":1,\"shadowType\":1}"
+      }
+    }
+  ],
+  "errors": [],
+  "physicalPhones": 0,
+  "fixtureNote": "正式序列化并导入的受控视觉样本，非自然养成对局"
+}
