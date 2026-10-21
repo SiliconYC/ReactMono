@@ -142,6 +142,7 @@ function CameraRig({target,reducedMotion,insets,map,nav,onView,changed,onContext
       element.querySelector('[data-world-viewport]')?.setAttribute('points',points);
       element.dataset.cameraInsets=JSON.stringify(safe??{top:0,right:0,bottom:0,left:0});element.dataset.cameraMode=n.mode;element.dataset.cameraZoom=camera.zoom.toFixed(2);element.dataset.cameraCenter=`${logical.x.toFixed(2)},${logical.z.toFixed(2)}`;
       element.dataset.cameraYaw=yaw.toFixed(6);element.dataset.cameraElevation=elevation.toFixed(6);
+      element.dataset.cameraProjection=JSON.stringify({zoom:camera.zoom,x:logical.x,z:logical.z,yaw,elevation});
       const arrow=element.querySelector<HTMLElement>('[data-compass-arrow]');if(arrow)arrow.style.transform=`rotate(${yaw}rad)`;
     }
     if(Math.abs(camera.zoom-zoom)>.01||Math.hypot(logical.x-targetX,logical.z-targetZ)>.01||Math.abs(n.actualYaw-n.yaw)>.0001||Math.abs(n.actualElevation-n.elevation)>.0001)invalidate();

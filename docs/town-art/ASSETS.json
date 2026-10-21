@@ -40,10 +40,10 @@
   ],
   "budget": {
     "policy": "继承既有构建测试门槛，无放宽",
-    "productionBytes": 1508739,
+    "productionBytes": 1508827,
     "mainBundle": {
-      "path": "dist/assets/main-CyYpD6Eb.js",
-      "bytes": 1045108
+      "path": "dist/assets/main-DQRTrwes.js",
+      "bytes": 1045196
     },
     "physicalMobileVerified": false
   },
@@ -89,12 +89,12 @@
       "bytes": 324106
     },
     {
-      "path": "dist/assets/main-CyYpD6Eb.js",
-      "bytes": 1045108
-    },
-    {
       "path": "dist/assets/main-D3keK-f5.css",
       "bytes": 35664
+    },
+    {
+      "path": "dist/assets/main-DQRTrwes.js",
+      "bytes": 1045196
     },
     {
       "path": "dist/assets/manifest-C-zx9ihZ.webmanifest",
@@ -169,5 +169,5 @@
       "bytes": 2171
     }
   ],
-  "measurementSource": "Final scene readiness/renderer fallback source build; bundled paths and bytes checked locally"
+  "measurementSource": "Final camera projection telemetry source build; bundled paths and bytes checked locally"
 }

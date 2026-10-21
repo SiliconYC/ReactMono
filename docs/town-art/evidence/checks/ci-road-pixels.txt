@@ -1,0 +1,20 @@
+CI 468 / faac96f: https://github.com/SiliconYC/ReactMono/actions/runs/39599353415
+demo9、七视口、两图四人完整经营/旧档/离线、五图存档均通过。
+五图浏览最后的手机360格像素检查失败：338/360，原门槛 > .94。
+原始完整截图见该运行main-game-3d-ui-acceptance制品，未见可辨识的断路。
+
+检测问题核查：
+1. 截图与多次RPC取得的相机值不一定同帧；固定1700ms不保证慢设备完成插值。
+2. cameraZoom仅两位小数，不适合亚像素道路投影；增加只读原始投影数据。
+3. getImageData的像素中心为i+.5，连续坐标应floor，round系统性向右下偏移。
+
+同一稳定SwiftShader截图逐点比较（360格）：
+rounded projection + round: 338
+precise projection + round: 340
+rounded projection + floor: 358
+precise projection + floor: 358
+原始相机、坐标、颜色见road-projection.json。
+
+修正等待真实投影连续三帧稳定、读取未舍入参数、选择包含投影点的像素。
+颜色条件 b>=g-26 和 >.94 完全保留；没有改变道路颜色、几何或阴影来过关。
+各图像素坐标/颜色现于断言前输出，便于定位真实道路回归。

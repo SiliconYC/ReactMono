@@ -78,6 +78,8 @@
 
 无WebGL降级另以真实主程序复验：正式读档、真人投骰买地、电脑首行动及交接真人回合通过，见[主程序降级续局](evidence/checks/main-no-webgl.log)。这只处理画布不可用时的界面到达解锁，规则和演员实现不变。
 
+完整远端CI继续推进后，手机360格旧像素检测报338/360。独立审查未见实际断路；检测使用跨帧相机值、两位缩放和偏离像素中心的取整。在[同一稳定截图](evidence/checks/road-projection.png)中，原取样338格，使用实际投影与包含该点的像素后358格；[原始坐标/颜色](evidence/checks/road-projection.json)、[核查记录](evidence/checks/ci-road-pixels.txt)保留。现等待真实镜头稳定并记录每图采样，原颜色条件和94%门槛不变，没有改材质或关阴影来规避。
+
 ## 重跑、集成与回滚
 
 先执行`npm test`，再运行`TOWN_PHASE=after python3 tests/browser_town_art_e2e.py`；不要在改后代码上运行`before`覆盖历史样本。其他入口为表中的既有脚本，主程序`npm run main:dev`在`127.0.0.1:4174`，迁移demo`npm run demo:dev`在`127.0.0.1:4173`。
