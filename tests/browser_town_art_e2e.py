@@ -69,9 +69,8 @@ class 小镇验收_类:
                         页面.screenshot(path=str(输出 / f'{阶段}-desktop-rotated.png'))
                     if 阶段 == 'after':
                         for 目标地块 in ([11] if 手机 else [7,11]):
-                            局面 = json.loads(样本)
-                            局面['game']['players'][0]['position'] = 目标地块
-                            load_fixture(页面, 地址, json.dumps(局面,ensure_ascii=False).encode(), '产权细节'+str(目标地块))
+                            局面 = fixture(f"const {{readFileSync}}=await import('node:fs');game=JSON.parse(readFileSync('docs/town-art/evidence/town-state.json','utf8')).game;game={{...game,players:game.players.map((p,i)=>i===0?{{...p,position:{目标地块}}}:p)}};")
+                            load_fixture(页面, 地址, 局面, '产权细节'+str(目标地块))
                             页面.get_by_role('button',name='定位当前玩家',exact=True).click()
                             页面.wait_for_timeout(1300)
                             if 目标地块 == 11:
