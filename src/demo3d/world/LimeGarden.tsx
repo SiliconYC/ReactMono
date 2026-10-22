@@ -1,6 +1,7 @@
 import { useEffect, useMemo, type MutableRefObject } from 'react';
 import * as THREE from 'three';
-import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { GardenTrees, BluePavilion } from './GardenLandmarks.js';
+import { GardenHouses } from './GardenHouses.js';
 import type { GameState } from '../../core/game.js';
 import { LEVELS, worldForMap } from '../../core/level-data.js';
 import type { WorldDefinition } from '../../core/level-world.js';
@@ -45,43 +46,6 @@ function RoundBatch({items,geometry,onSelect}:{items:readonly Instance[];geometr
   return <Instances items={items} mapTiles={items.every(p=>p.tileId!==undefined)} onSelect={onSelect}>
     <primitive object={geometry} attach="geometry"/><meshStandardMaterial roughness={.65}/>
   </Instances>;
-}
-
-function GardenTrees({world}:{world:WorldDefinition}):React.JSX.Element {
-  const trees=world.objects.filter(o=>o.kind==='tree');
-  return <>
-    <Instances items={trees.map(o=>({x:o.x,y:GROUND_TOP+.36*o.scale,z:o.z,sx:o.scale,sy:o.scale,sz:o.scale,color:'#d6ac65'}))}>
-      <cylinderGeometry args={[.12,.16,.72,12]}/><meshStandardMaterial roughness={.9}/>
-    </Instances>
-    <Instances items={trees.map(o=>({x:o.x,y:GROUND_TOP+1.15*o.scale,z:o.z,sx:o.scale*.7,sy:o.scale*.95,sz:o.scale*.67,color:o.color}))}>
-      <sphereGeometry args={[1,20,16]}/><meshStandardMaterial roughness={.65}/>
-    </Instances>
-    <Instances items={trees.flatMap(o=>[0,1].map(i=>({x:o.x-.28*o.scale,y:GROUND_TOP+(.83+i*.23)*o.scale,z:o.z+.43*o.scale,sx:o.scale*.12,sy:o.scale*.07,sz:o.scale*.05,color:'#dfec87'})))}>
-      <sphereGeometry args={[1,12,8]}/><meshStandardMaterial roughness={.7}/>
-    </Instances>
-  </>;
-}
-
-function BluePavilion({x,z,scale}:{x:number;z:number;scale:number}):React.JSX.Element {
-  const roof=useMemo(()=>new THREE.LatheGeometry([new THREE.Vector2(.08,.64),new THREE.Vector2(.3,.42),new THREE.Vector2(.52,.22),new THREE.Vector2(.76,.07),new THREE.Vector2(1,.01),new THREE.Vector2(1.03,.065)].reverse(),48),[]);
-  useEffect(()=>()=>roof.dispose(),[roof]);
-  return <group position={[x,GROUND_TOP,z]} scale={scale} name="蓝瓷圆亭">
-    <mesh position={[0,.045,0]}><cylinderGeometry args={[1.22,1.26,.09,48]}/><meshStandardMaterial color="#8fcdf0" roughness={.7}/></mesh>
-    <mesh position={[0,.1,0]}><cylinderGeometry args={[1.1,1.16,.025,48]}/><meshStandardMaterial color="#c6e7ed" roughness={.8}/></mesh>
-    <mesh position={[0,.3,0]}><cylinderGeometry args={[.67,.73,.38,32]}/><meshStandardMaterial color="#f4aa8d" roughness={.75}/></mesh>
-    {[0,1,2,3,4,5,6,7].map(i=><group key={i} rotation={[0,i*Math.PI/4,0]}>
-      <mesh position={[0,.51,.62]}><cylinderGeometry args={[.035,.04,.72,8]}/><meshStandardMaterial color="#fff5cc"/></mesh>
-      <mesh position={[0,.3,.707]}><boxGeometry args={[.12,.22,.035]}/><meshStandardMaterial color="#e56755"/></mesh>
-    </group>)}
-    {[{y:.65,s:1},{y:1.13,s:.79},{y:1.55,s:.56}].map(({y,s},i)=><group key={y} position={[0,y,0]} scale={[s,s,s]}>
-      <mesh geometry={roof}><meshStandardMaterial color={['#4999ee','#438ee7','#5aa8f3'][i]} roughness={.52}/></mesh>
-      <mesh position={[0,.045,0]} rotation={[Math.PI/2,0,0]}><torusGeometry args={[1.015,.022,6,48]}/><meshStandardMaterial color="#8acbfc"/></mesh>
-      <Instances items={Array.from({length:16},(_,k)=>({x:Math.sin(k*Math.PI/8)*.61,y:.28,z:Math.cos(k*Math.PI/8)*.61,rotation:k*Math.PI/8,rx:-.68}))}>
-        <cylinderGeometry args={[.012,.018,.85,5]}/><meshStandardMaterial color="#85bdf4" roughness={.6}/>
-      </Instances>
-    </group>)}
-    <mesh position={[0,1.99,0]}><sphereGeometry args={[.13,20,12]}/><meshStandardMaterial color="#ffdab9" roughness={.55}/></mesh>
-  </group>;
 }
 
 function GardenGate({x,z,scale}:{x:number;z:number;scale:number}):React.JSX.Element {
@@ -151,8 +115,7 @@ function GardenSymbols({game,world}:{game:GameState;world:WorldDefinition}):Reac
   </Instances>;
 }
 
-function GardenProperties({game,world,slab}:{game:GameState;world:WorldDefinition;slab:THREE.BufferGeometry}):React.JSX.Element {
-  const round=useMemo(()=>new RoundedBoxGeometry(1,1,1,3,.12),[]);useEffect(()=>()=>round.dispose(),[round]);
+function GardenProperties({game,world,slab,reducedMotion}:{game:GameState;world:WorldDefinition;slab:THREE.BufferGeometry;reducedMotion:boolean}):React.JSX.Element {
   const color=(owner:string|null|undefined)=>MASCOT_SEAT_COLORS[game.players.findIndex(p=>p.id===owner)]??'#f5df9e';
   const properties=game.tiles.filter(t=>t.kind==='property');
   const owned=properties.filter(t=>t.ownerId);
@@ -164,21 +127,12 @@ function GardenProperties({game,world,slab}:{game:GameState;world:WorldDefinitio
     <Instances items={properties.filter(t=>!t.ownerId).map(t=>({x:world.tiles[t.id].lotX,y:GROUND_TOP+.1,z:world.tiles[t.id].lotZ,tileId:t.id,color:'#a2bf58'}))} mapTiles>
       <sphereGeometry args={[.15,12,8]}/><meshStandardMaterial roughness={.8}/>
     </Instances>
-    <RoundBatch geometry={round} items={owned.filter(t=>(t.level??0)>0).map(t=>({x:world.tiles[t.id].lotX,y:GROUND_TOP+.31+(t.level??1)*.07,z:world.tiles[t.id].lotZ,sx:.85,sy:.5+(t.level??1)*.14,sz:.8,color:'#fff0cb',tileId:t.id}))}/>
-    {owned.filter(t=>(t.level??0)>0).map(t=>{
-      const p=world.tiles[t.id],height=.5+(t.level??1)*.14;
-      return <group key={t.id} position={[p.lotX,GROUND_TOP,p.lotZ]} rotation={[0,Math.atan2(p.x-p.lotX,p.z-p.lotZ),0]} userData={{tileId:t.id}}>
-        <mesh position={[0,height+.23,0]} rotation={[0,Math.PI/4,0]}><coneGeometry args={[.77,.45,4]}/><meshStandardMaterial color={color(t.ownerId)} roughness={.65}/></mesh>
-        <mesh position={[0,.3,.409]}><boxGeometry args={[.2,.38,.025]}/><meshStandardMaterial color="#d8ae77"/></mesh>
-        {[-.27,.27].map(x=><mesh key={x} position={[x,height*.65,.41]}><boxGeometry args={[.14,.17,.025]}/><meshStandardMaterial color="#86c9df"/></mesh>)}
-        {(t.level??0)>=2&&<mesh position={[.27,height+.38,-.18]}><boxGeometry args={[.14,.35,.15]}/><meshStandardMaterial color="#fff0cb"/></mesh>}
-      </group>;
-    })}
+    <GardenHouses game={game} world={world} reducedMotion={reducedMotion}/>
   </>;
 }
 
 /** 探索关卡使用独立表现分支，避免试验材质、模型和路线铺装影响既有关卡。 */
-export function LimeGarden({game,view,nav,selectedTileId,onSelectTile}:{game:GameState;view:WorldView;nav:MutableRefObject<Navigation>;selectedTileId?:number|null;onSelectTile?:(id:number)=>void}):React.JSX.Element {
+export function LimeGarden({game,view,nav,selectedTileId,onSelectTile,reducedMotion}:{game:GameState;view:WorldView;nav:MutableRefObject<Navigation>;selectedTileId?:number|null;onSelectTile?:(id:number)=>void;reducedMotion:boolean}):React.JSX.Element {
   const world=worldForMap(game.map)!;
   const slab=useMemo(()=>slabGeometry(1.74,1.74,.24,.06),[]);useEffect(()=>()=>slab.dispose(),[slab]);
   const pavilion=world.objects.find(o=>o.kind==='gazebo')!,gate=world.objects.find(o=>o.kind==='tower')!;
@@ -187,7 +141,7 @@ export function LimeGarden({game,view,nav,selectedTileId,onSelectTile}:{game:Gam
     <GardenGround/>
     <RoundBatch geometry={slab} onSelect={onSelectTile} items={world.tiles.map((p,id)=>({x:p.x,y:GROUND_TOP,z:p.z,tileId:id,color:id===selectedTileId?'#fff3b8':game.tiles[id].kind==='property'?'#fff0ce':id===0?'#ffe1a7':'#e8efce'}))}/>
     <GardenSymbols game={game} world={world}/>
-    <GardenProperties game={game} world={world} slab={slab}/>
+    <GardenProperties game={game} world={world} slab={slab} reducedMotion={reducedMotion}/>
     <GardenTrees world={world}/>
     <BluePavilion x={pavilion.x} z={pavilion.z} scale={pavilion.scale}/>
     <GardenGate x={gate.x} z={gate.z} scale={gate.scale}/>

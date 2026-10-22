@@ -85,6 +85,12 @@ jobs:
       - name: 青柠游园双视口选格、购地、建设、完整短局与存档
         timeout-minutes: 5
         run: python -u tests/browser_lime_garden_e2e.py
+      - name: 青柠游园真实建设动画、等级差异与减少动态
+        timeout-minutes: 5
+        run: python -u tests/browser_garden_construction_e2e.py
+      - name: 全地图现金调试、后台批量推进与离线Worker
+        timeout-minutes: 8
+        run: python -u tests/browser_debug_tools_e2e.py
       - name: 数据关卡选择、压力地图移动、存档及离线回归
         timeout-minutes: 10
         run: python -u tests/browser_stress_maps_e2e.py
@@ -111,6 +117,8 @@ jobs:
             artifacts/issue63/
             artifacts/stress-maps/
             artifacts/lime-garden/
+            artifacts/garden-depth/
+            artifacts/debug-tools/
             artifacts/scalable-world/
             artifacts/map-camera-ux/
             artifacts/town-art/

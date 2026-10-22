@@ -1,3 +1,7 @@
+import { DebugTools } from './DebugTools.js';
+import { setDebugCash, MAX_DEBUG_ROUNDS } from '../core/debug-tools.js';
+import { validateGameState } from '../core/save.js';
+import type { DebugSimulationReply } from './debug-simulation.worker.js';
 import { LevelPreview } from './LevelPreview.js';
 import * as React from "react";
 import { createRoot } from "react-dom/client";
@@ -61,8 +65,12 @@ import { rentCueFor, type RentCue } from "../demo3d/presentation.js";
 import { outcomeSequence, type OutcomeCue } from "../demo3d/outcomes.js";
 
 interface UiState {
+  readonly sceneEpoch: number;
+  readonly debugBusy: boolean;
+  readonly debugMessage: string;
   readonly confirmText: string | null;
   readonly overlay:
+    | "debug"
     | "menu"
     | "assets"
     | "bank"
@@ -127,6 +135,9 @@ class App extends React.Component<object, UiState> {
   constructor(props: object) {
     super(props);
     this.state = {
+      sceneEpoch: 0,
+      debugBusy: false,
+      debugMessage: "",
       confirmText: null,
       overlay: null,
       dieActorId: null,
@@ -181,6 +192,87 @@ class App extends React.Component<object, UiState> {
       message: "",
     };
   }
+
+  private debugWorker: Worker | null = null;
+  private debugRequestId = 0;
+  private debugTimeout: number | null = null;
+  private terminateDebugWorker = (): void => {
+    this.debugRequestId++;
+    this.debugWorker?.terminate();
+    this.debugWorker = null;
+    if (this.debugTimeout !== null) window.clearTimeout(this.debugTimeout);
+    this.debugTimeout = null;
+  };
+  private cancelDebugSimulation = (): void => {
+    this.terminateDebugWorker();
+    this.setState({ debugBusy: false, debugMessage: "已取消模拟，原对局保持不变。" });
+  };
+  private setPlayerDebugCash = (playerId: string, cash: number): void => {
+    if (this.debugWorker || this.state.debugBusy || this.state.storageBusy) return;
+    const game = setDebugCash(this.state.game, playerId, cash);
+    this.stopTimer();
+    this.cancelCue();
+    this.clearWorldTimer();
+    this.setState({
+      game, displayGame: game, lastMotion: null, visualCue: null,
+      queuedRent: null, queuedOutcomes: [], rentCue: null, outcomeCue: null, outcomeQueue: [],
+      dieValue: null, dieActorId: null,
+      debugMessage: (game.players.find(player => player.id === playerId)?.name ?? "玩家") + "现金已设置为 " + cash.toLocaleString("zh-CN") + "。",
+    });
+  };
+  private simulateDebugGame = (rounds: number): void => {
+    if (this.debugWorker || this.state.debugBusy || this.state.storageBusy) return;
+    if (!Number.isSafeInteger(rounds) || rounds < 1 || rounds > MAX_DEBUG_ROUNDS)
+      throw new Error("请输入有效的模拟轮数");
+    if (this.state.game.status !== "playing") throw new Error("仅进行中的对局可以模拟");
+    const snapshot = this.state.game;
+    this.stopTimer();
+    this.cancelCue();
+    this.clearWorldTimer();
+    const worker = new Worker(new URL('./debug-simulation.worker.ts', import.meta.url), { type: 'module' });
+    this.debugWorker = worker;
+    const requestId = ++this.debugRequestId;
+    const isCurrent = (): boolean => this.debugWorker === worker && this.debugRequestId === requestId && this.state.game === snapshot;
+    const fail = (error: string): void => {
+      if (!isCurrent()) return;
+      this.terminateDebugWorker();
+      this.setState({ debugBusy: false, debugMessage: "模拟失败：" + error + "。原对局未被修改。" });
+    };
+    worker.onmessage = (event: MessageEvent<DebugSimulationReply>) => {
+      if (!isCurrent() || event.data.requestId !== requestId) return;
+      const reply = event.data;
+      if (!reply.ok) { fail(reply.error); return; }
+      try { validateGameState(reply.result.state); }
+      catch (error) { fail(error instanceof Error ? error.message : String(error)); return; }
+      const game = reply.result.state;
+      this.terminateDebugWorker();
+      this.cpuTurnMark = "";
+      this.cpuTurnActions = 0;
+      this.lastCpuEvents = [];
+      this.lastCommittedAction = null;
+      // 批量快照重挂载整个场景，避免把模拟期间的产权和等级差异当作现场建设动画。
+      this.setState(state => ({
+        game, displayGame: game, sceneEpoch: state.sceneEpoch + 1, sceneReady: false,
+        debugBusy: false, lastMotion: null, visualCue: null, selectedTileId: null,
+        queuedRent: null, queuedOutcomes: [], rentCue: null, outcomeCue: null, outcomeQueue: [],
+        dieValue: null, dieActorId: null, financePanel: null,
+        awaitingHandoff: game.status === "playing" && game.players[game.currentPlayerIndex].kind === "human",
+        debugMessage: "模拟完成：第 " + snapshot.round + " 轮 → 第 " + game.round + " 轮，执行 " + reply.result.actions + " 个动作。" + (game.status === "finished" ? "对局已结束。" : ""),
+        message: game.status === "finished" ? "后台模拟完成，对局已结束。" : "后台模拟完成，请确认当前玩家后继续。",
+      }));
+    };
+    worker.onerror = event => { event.preventDefault(); fail("后台计算异常，请重试或减少轮数"); };
+    worker.onmessageerror = () => fail("后台结果无法读取");
+    this.debugTimeout = window.setTimeout(() => fail("后台计算超时，请减少轮数"), 30_000);
+    this.setState({
+      debugBusy: true, debugMessage: "正在后台模拟，原对局将在成功后一次性更新…",
+      displayGame: snapshot, lastMotion: null, visualCue: null,
+      queuedRent: null, queuedOutcomes: [], rentCue: null, outcomeCue: null, outcomeQueue: [],
+      dieValue: null, dieActorId: null,
+    });
+    try { worker.postMessage({ requestId, game: snapshot, rounds }); }
+    catch (error) { fail(error instanceof Error ? error.message : String(error)); }
+  };
 
   private computerTimer: number | null = null;
   private onSceneTileSelect = (tileId: number): void => {
@@ -704,6 +796,7 @@ class App extends React.Component<object, UiState> {
       ))
     )
       return;
+    this.terminateDebugWorker();
     this.saveEpoch++;
     this.stopTimer();
     this.cpuTurnMark = "";
@@ -719,6 +812,9 @@ class App extends React.Component<object, UiState> {
       this.cancelCue();
       this.clearWorldTimer();
       this.setState({
+        sceneEpoch: this.state.sceneEpoch + 1,
+        sceneReady: false,
+        debugBusy: false,
         game: saved.game,
         displayGame: saved.game,
         activeSeed: null,
@@ -776,6 +872,7 @@ class App extends React.Component<object, UiState> {
   };
 
   reset = (): void => {
+    this.terminateDebugWorker();
     this.saveEpoch++;
     this.stopTimer();
     this.cancelCue();
@@ -787,6 +884,9 @@ class App extends React.Component<object, UiState> {
       levelConfig(LEVELS.some(level => level.map.id === this.state.selectedMapId) ? this.state.selectedMapId : "classic-24");
     const fresh = createGame(20261015, base);
     this.setState({
+      sceneEpoch: this.state.sceneEpoch + 1,
+      sceneReady: false,
+      debugBusy: false,
       game: fresh,
       displayGame: fresh,
       activeSeed: null,
@@ -859,6 +959,7 @@ class App extends React.Component<object, UiState> {
     const level = PLAYABLE_LEVELS.find(level => level.map.id === id);
     if (!level) return;
     const base = levelConfig(id);
+    this.terminateDebugWorker();
     this.cancelCue();
     this.cpuTurnMark = "";
     this.cpuTurnActions = 0;
@@ -874,6 +975,9 @@ class App extends React.Component<object, UiState> {
       lastMotion: null,
       visualCue: null,
       financePanel: null,
+      sceneEpoch: this.state.sceneEpoch + 1,
+      sceneReady: false,
+      debugBusy: false,
       game: fresh,
       displayGame: fresh,
       message:
@@ -949,6 +1053,7 @@ class App extends React.Component<object, UiState> {
       });
       return;
     }
+    this.terminateDebugWorker();
     this.saveEpoch++;
     this.stopTimer();
     this.cancelCue();
@@ -964,6 +1069,9 @@ class App extends React.Component<object, UiState> {
       return;
     }
     this.setState({
+      sceneEpoch: this.state.sceneEpoch + 1,
+      sceneReady: false,
+      debugBusy: false,
       game: result.state,
       displayGame: result.state,
       activeSeed: seed,
@@ -980,6 +1088,7 @@ class App extends React.Component<object, UiState> {
     });
   };
   componentWillUnmount(): void {
+    this.terminateDebugWorker();
     this.sound.dispose();
     window.removeEventListener("online", this.updateOnline);
     document.removeEventListener("visibilitychange", this.onVisibility);
@@ -1001,6 +1110,8 @@ class App extends React.Component<object, UiState> {
     )
       this.scheduleAutosave(this.state.game);
     if (
+      this.state.debugBusy ||
+      this.debugWorker !== null ||
       this.state.storageBusy ||
       !this.state.sceneReady ||
       this.state.confirmText ||
@@ -1032,6 +1143,8 @@ class App extends React.Component<object, UiState> {
       this.computerTimer = null;
       if (
         this.state.game !== snapshot ||
+        this.state.debugBusy ||
+        this.debugWorker !== null ||
         this.state.storageBusy ||
         !this.state.sceneReady ||
         this.state.cpuPaused ||
@@ -1157,7 +1270,7 @@ class App extends React.Component<object, UiState> {
       return;
     }
     void this.sound.activate();
-    if (this.state.storageBusy || this.state.awaitingHandoff) return;
+    if (this.state.storageBusy || this.state.awaitingHandoff || this.state.debugBusy || this.debugWorker) return;
     const { game } = this.state;
     const actor = game.players[game.currentPlayerIndex];
     if (actor.kind === "computer") return;
@@ -1293,7 +1406,7 @@ class App extends React.Component<object, UiState> {
         return;
       }
     }
-    if (this.state.game !== game) return;
+    if (this.state.game !== game || this.state.debugBusy || this.debugWorker) return;
     const result = applyAction(game, action);
     if (!result.ok) {
       const bankAction =
@@ -1551,10 +1664,17 @@ class App extends React.Component<object, UiState> {
     this.confirmResolver = null;
     this.setState({ confirmText: null }, () => resolve?.(answer));
   };
-  private closeOverlay = (): void =>
+  private closeOverlay = (): void => {
+    if (this.debugWorker) this.cancelDebugSimulation();
     this.setState({ overlay: null, financePanel: null });
+  };
   private openOverlay = (overlay: NonNullable<UiState["overlay"]>): void => {
+    if (this.debugWorker) this.cancelDebugSimulation();
     this.stopTimer();
+    if (overlay === "debug") {
+      this.skipPresentation();
+      this.setState({ debugMessage: "" });
+    }
     this.setState({
       overlay,
       financePanel: ["property", "bank", "loan", "stock"].includes(overlay)
@@ -2336,6 +2456,7 @@ class App extends React.Component<object, UiState> {
     if (!overlay) return null;
     const game = this.state.game;
     const names = {
+      debug: "调试工具",
       menu: "游戏菜单",
       assets: "玩家资产",
       bank: "银行",
@@ -2361,6 +2482,7 @@ class App extends React.Component<object, UiState> {
                 { id: "help", label: "玩法说明", sub: "回合、交易与胜负规则" },
                 { id: "tiles", label: "地图与地块", sub: "查看每一块土地" },
                 { id: "events", label: "事件", sub: "回顾最近的行动" },
+                { id: "debug", label: "调试工具", sub: "设置现金、后台批量推进" },
               ] as const
             ).map((item) => (
               <button key={item.id} onClick={() => this.openOverlay(item.id)}>
@@ -2384,6 +2506,7 @@ class App extends React.Component<object, UiState> {
             </button>
           </nav>
         )}
+        {overlay === "debug" && <DebugTools game={game} busy={this.state.debugBusy} message={this.state.debugMessage} onCash={this.setPlayerDebugCash} onSimulate={this.simulateDebugGame} onCancel={this.cancelDebugSimulation} />}
         {overlay === "assets" && this.renderAssets()}
         {(["bank", "loan", "stock", "property"] as string[]).includes(
           overlay,
@@ -2810,6 +2933,7 @@ class App extends React.Component<object, UiState> {
           aria-label={`${game.tiles.length} 格游戏棋盘`}
         >
           <MeasuredWorld
+            key={this.state.sceneEpoch}
             game={game}
             motion={motion}
             dieValue={

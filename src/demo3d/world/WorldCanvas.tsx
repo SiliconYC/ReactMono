@@ -276,7 +276,7 @@ function Scene(props: WorldCanvasProps & {shadowSize:number;nav:MutableRefObject
         const tileId=tileIdForHit(event);
         if(tileId!==null){event.stopPropagation();props.onSelectTile?.(tileId);}
       }}>
-      {props.game.map.id==='lime-garden-30'?<LimeGarden selectedTileId={props.selectedTileId} game={props.game} view={view} nav={props.nav} onSelectTile={props.onSelectTile}/>:<>
+      {props.game.map.id==='lime-garden-30'?<LimeGarden reducedMotion={props.reducedMotion} selectedTileId={props.selectedTileId} game={props.game} view={view} nav={props.nav} onSelectTile={props.onSelectTile}/>:<>
       <ContinuousGround view={view} map={props.game.map} actor={trackedPosition}/>
       <MiniatureTown selectedTileId={props.selectedTileId} game={props.game} view={view} nav={props.nav} onSelectTile={props.onSelectTile}/>
       </>}
@@ -357,9 +357,10 @@ export function WorldCanvas(props: WorldCanvasProps): React.JSX.Element {
     Object.assign(nav.current,{mode:props.followCurrent?'follow':'overview',center:null,zoom:null});
     setNavigationRevision(n=>n+1);
   },[props.game.map.id,props.game.map.version]);
-  // A financial modal has no visible scene interaction. Reduced-motion idle
-  // scenes only need a fresh frame when React changes the game or camera.
-  const frameLoop = props.paused
+  // 弹窗可暂停已就绪的场景；批量模拟替换出的新场景仍须先完成上传与暖帧，避免永久卡在加载中。
+  const frameLoop = !ready
+    ? "demand"
+    : props.paused
     ? "never"
     : props.reducedMotion && !props.motion && !props.rent && !props.outcome
       ? "demand"

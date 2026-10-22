@@ -105,3 +105,7 @@
 ## 2026-10-22：P011 独立小地图风格探索
 
 所有者要求以约30格的新地图探索不同风格，并禁止改变既有关卡与网站设计。新增 [P011](proposals/P011-isolated-style-maps.md)，查重后晋升 [#131](https://github.com/SiliconYC/ReactMono/issues/131)，实现独立的「青柠游园」30格关卡。专用地表、踏石和景物只作用于新图；原六关数据完整保留。[实现与验收](maps/lime-garden/acceptance.md)记录可玩结果、截图、测试和剩余限制；不据此确定最终美术风格或推进 `#73` 的正式版结论。
+
+## 2026-10-22：P011 造型修订与 P012 通用调试
+
+所有者明确否定青柠游园首轮的单椭球树、稀疏圆亭和相似住宅，并要求建设动画；[P011](proposals/P011-isolated-style-maps.md) 晋升 [#132](https://github.com/SiliconYC/ReactMono/issues/132)，继续保持其他关卡美术隔离。另登记 [P012](proposals/P012-local-debug-tools.md) 并晋升 [#133](https://github.com/SiliconYC/ReactMono/issues/133)，为所有地图加入现金设置与本机后台批量推进。两项边界独立，规则可用性与风格认可分别记录。[修订与验收](maps/lime-garden/refinement-2026-10-22.md)保留真实效果、失败修正与剩余约束。

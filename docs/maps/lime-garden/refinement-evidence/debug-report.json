@@ -1,0 +1,232 @@
+{
+  "结果": [
+    {
+      "地图": "classic-24",
+      "手机视口": false,
+      "现金草稿保留": true,
+      "非法输入不变": true,
+      "实际Worker": true,
+      "完整GameState相等": true,
+      "轮数": 1,
+      "结束轮次": 2,
+      "关闭后掷骰交接": true,
+      "离线Worker": false,
+      "历史演出为空": true,
+      "最终状态SHA256": "e896f83a11ce19af2383df8e314d43849271cb85794c12be470e164f1d958a4d"
+    },
+    {
+      "地图": "harbor-20",
+      "手机视口": false,
+      "现金草稿保留": true,
+      "非法输入不变": true,
+      "实际Worker": true,
+      "完整GameState相等": true,
+      "轮数": 2,
+      "结束轮次": 3,
+      "关闭后掷骰交接": true,
+      "离线Worker": false,
+      "历史演出为空": true,
+      "最终状态SHA256": "2de515d9dd3cc16fcee30cd4e54161b0c45e3f28035796a6fd9bdf8a42541155"
+    },
+    {
+      "地图": "bend-60",
+      "手机视口": false,
+      "现金草稿保留": true,
+      "非法输入不变": true,
+      "实际Worker": true,
+      "完整GameState相等": true,
+      "轮数": 3,
+      "结束轮次": 4,
+      "关闭后掷骰交接": true,
+      "离线Worker": false,
+      "历史演出为空": true,
+      "最终状态SHA256": "82a6b1116aae193a9d1a3f9114e88031c5d0302ed02b312d4c3bf279a2d0fbcd"
+    },
+    {
+      "地图": "bays-120",
+      "手机视口": false,
+      "现金草稿保留": true,
+      "非法输入不变": true,
+      "实际Worker": true,
+      "完整GameState相等": true,
+      "轮数": 1,
+      "结束轮次": 2,
+      "关闭后掷骰交接": true,
+      "离线Worker": false,
+      "历史演出为空": true,
+      "最终状态SHA256": "38ca8f8de88f66f9e5322524659cf97e6c5717b80b8ea553f3d5430661c19d8d"
+    },
+    {
+      "地图": "ridges-360",
+      "手机视口": false,
+      "现金草稿保留": true,
+      "非法输入不变": true,
+      "实际Worker": true,
+      "完整GameState相等": true,
+      "轮数": 2,
+      "结束轮次": 3,
+      "关闭后掷骰交接": true,
+      "离线Worker": false,
+      "历史演出为空": true,
+      "最终状态SHA256": "86e800cc7d53012f4984ba3142a3d6f6d305a384b7f7deb6dc9b32003c67d255"
+    },
+    {
+      "地图": "lime-garden-30",
+      "手机视口": false,
+      "现金草稿保留": true,
+      "非法输入不变": true,
+      "实际Worker": true,
+      "完整GameState相等": true,
+      "轮数": 3,
+      "结束轮次": 4,
+      "关闭后掷骰交接": true,
+      "离线Worker": false,
+      "历史演出为空": true,
+      "最终状态SHA256": "a370245776fd426ef031702cc9c230decf4669e2927616a188f7a6df53324305"
+    },
+    {
+      "地图": "lime-garden-30",
+      "手机视口": true,
+      "现金草稿保留": true,
+      "非法输入不变": true,
+      "实际Worker": true,
+      "完整GameState相等": true,
+      "轮数": 2,
+      "结束轮次": 4,
+      "关闭后掷骰交接": true,
+      "离线Worker": true,
+      "历史演出为空": true,
+      "最终状态SHA256": "a370245776fd426ef031702cc9c230decf4669e2927616a188f7a6df53324305"
+    }
+  ],
+  "失败": [],
+  "错误": [],
+  "控制台": [
+    {
+      "场景": "classic-24-desktop",
+      "类型": "warning",
+      "消息": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+    },
+    {
+      "场景": "classic-24-desktop",
+      "类型": "warning",
+      "消息": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+    },
+    {
+      "场景": "classic-24-desktop",
+      "类型": "log",
+      "消息": "THREE.WebGLRenderer: Context Lost."
+    },
+    {
+      "场景": "harbor-20-desktop",
+      "类型": "warning",
+      "消息": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+    },
+    {
+      "场景": "harbor-20-desktop",
+      "类型": "warning",
+      "消息": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+    },
+    {
+      "场景": "harbor-20-desktop",
+      "类型": "log",
+      "消息": "THREE.WebGLRenderer: Context Lost."
+    },
+    {
+      "场景": "bend-60-desktop",
+      "类型": "warning",
+      "消息": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+    },
+    {
+      "场景": "bend-60-desktop",
+      "类型": "warning",
+      "消息": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+    },
+    {
+      "场景": "bend-60-desktop",
+      "类型": "log",
+      "消息": "THREE.WebGLRenderer: Context Lost."
+    },
+    {
+      "场景": "bays-120-desktop",
+      "类型": "warning",
+      "消息": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+    },
+    {
+      "场景": "bays-120-desktop",
+      "类型": "warning",
+      "消息": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+    },
+    {
+      "场景": "bays-120-desktop",
+      "类型": "log",
+      "消息": "THREE.WebGLRenderer: Context Lost."
+    },
+    {
+      "场景": "ridges-360-desktop",
+      "类型": "warning",
+      "消息": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+    },
+    {
+      "场景": "ridges-360-desktop",
+      "类型": "warning",
+      "消息": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+    },
+    {
+      "场景": "ridges-360-desktop",
+      "类型": "log",
+      "消息": "THREE.WebGLRenderer: Context Lost."
+    },
+    {
+      "场景": "lime-garden-30-desktop",
+      "类型": "warning",
+      "消息": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+    },
+    {
+      "场景": "lime-garden-30-desktop",
+      "类型": "warning",
+      "消息": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+    },
+    {
+      "场景": "lime-garden-30-desktop",
+      "类型": "log",
+      "消息": "THREE.WebGLRenderer: Context Lost."
+    },
+    {
+      "场景": "lime-garden-30-phone",
+      "类型": "warning",
+      "消息": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+    },
+    {
+      "场景": "lime-garden-30-phone",
+      "类型": "warning",
+      "消息": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+    },
+    {
+      "场景": "lime-garden-30-phone",
+      "类型": "log",
+      "消息": "THREE.WebGLRenderer: Context Lost."
+    },
+    {
+      "场景": "lime-garden-30-phone",
+      "类型": "warning",
+      "消息": "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+    },
+    {
+      "场景": "lime-garden-30-phone",
+      "类型": "log",
+      "消息": "THREE.WebGLRenderer: Context Lost."
+    }
+  ],
+  "Worker地址": [
+    "http://127.0.0.1:59808/ReactMono/assets/debug-simulation.worker-CAX-JNcn.js",
+    "http://127.0.0.1:59808/ReactMono/assets/debug-simulation.worker-CAX-JNcn.js",
+    "http://127.0.0.1:59808/ReactMono/assets/debug-simulation.worker-CAX-JNcn.js",
+    "http://127.0.0.1:59808/ReactMono/assets/debug-simulation.worker-CAX-JNcn.js",
+    "http://127.0.0.1:59808/ReactMono/assets/debug-simulation.worker-CAX-JNcn.js",
+    "http://127.0.0.1:59808/ReactMono/assets/debug-simulation.worker-CAX-JNcn.js",
+    "http://127.0.0.1:59808/ReactMono/assets/debug-simulation.worker-CAX-JNcn.js",
+    "http://127.0.0.1:59808/ReactMono/assets/debug-simulation.worker-CAX-JNcn.js"
+  ],
+  "物理手机": false
+}
