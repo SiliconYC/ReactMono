@@ -33,7 +33,7 @@ export function useWorldNavigation(nav:MutableRefObject<Navigation>,changed:()=>
     const startInspection=(id:number,x:number,y:number,target:InspectionTarget)=>{hold.begin(id,x,y,target,performance.now());holdTimer=setTimeout(()=>{holdTimer=null;inspectCallback.current(hold.read(performance.now()));},INSPECTION_DELAY);};
     let start:{x:number;y:number}|null=null,dragging=false,pinch=0,gestured=false;
     canvas.tabIndex=0;
-    canvas.setAttribute('aria-label','三维地图：左键拖动平移，Shift 加左键或中键拖动旋转，滚轮或双指缩放，右键地图菜单，R 回正，Home 全图');
+    canvas.setAttribute('aria-label','三维地图：左键拖动平移，Shift 加左键拖动旋转，滚轮或双指缩放，右键地图菜单，R 回正，Home 全图');
     const zoom=(factor:number)=>{
       const n=nav.current;if(n.mode==='overview'){n.mode='browse';n.center={...n.actualCenter};}
       n.zoom=clampWorldZoom((n.zoom??n.actualZoom)*factor,Math.min(n.overviewZoom,n.actualZoom));
@@ -41,7 +41,6 @@ export function useWorldNavigation(nav:MutableRefObject<Navigation>,changed:()=>
     };
     const down=(e:PointerEvent)=>{
       const action=pointerAction(e.button,e.shiftKey);if(!action)return;
-      if(e.button===1)e.preventDefault();
       canvas.focus({preventScroll:true});canvas.setPointerCapture(e.pointerId);
       if(pointers.size===0)gestured=false;
       pointers.set(e.pointerId,{x:e.clientX,y:e.clientY,action});
@@ -68,7 +67,7 @@ export function useWorldNavigation(nav:MutableRefObject<Navigation>,changed:()=>
       }else{
         n.mode='browse';n.center=panWorld(n.center??n.actualCenter,dx,dy,n.actualZoom,n.actualYaw,n.actualElevation);
       }
-      // 旋转冻结当前缩放；不能让全景的自动取景偷偷变成第二套中键缩放。
+      // 旋转冻结当前缩放；不能让全景的自动取景偷偷变成额外缩放。
       n.zoom=n.zoom??n.actualZoom;n.draggedUntil=performance.now()+400;
       dragging=true;gestured=true;invalidate();changed();
     };
@@ -103,10 +102,9 @@ export function useWorldNavigation(nav:MutableRefObject<Navigation>,changed:()=>
       else if(e.key.toLowerCase()==='r'){e.preventDefault();resetOrientation(nav.current);changed();invalidate();}
       else if(e.key==='ContextMenu'||e.key==='F10'&&e.shiftKey){e.preventDefault();context(new MouseEvent('contextmenu'));}
     };
-    const middle=(e:MouseEvent)=>{if(e.button===1)e.preventDefault();};
     const keyUp=(e:KeyboardEvent)=>{if(e.key.toLowerCase()==='i')endInspection();};
     canvas.addEventListener('pointerdown',down);canvas.addEventListener('pointermove',move);canvas.addEventListener('pointerup',up);canvas.addEventListener('pointercancel',up);canvas.addEventListener('lostpointercapture',up);
-    canvas.addEventListener('wheel',wheel,{passive:false});canvas.addEventListener('keydown',key);canvas.addEventListener('keyup',keyUp);canvas.addEventListener('contextmenu',context);canvas.addEventListener('mousedown',middle);canvas.addEventListener('auxclick',middle);window.addEventListener('blur',cancel);canvas.addEventListener('blur',endInspection);
-    return ()=>{cancel();canvas.removeEventListener('pointerdown',down);canvas.removeEventListener('pointermove',move);canvas.removeEventListener('pointerup',up);canvas.removeEventListener('pointercancel',up);canvas.removeEventListener('lostpointercapture',up);canvas.removeEventListener('wheel',wheel);canvas.removeEventListener('keydown',key);canvas.removeEventListener('keyup',keyUp);canvas.removeEventListener('contextmenu',context);canvas.removeEventListener('mousedown',middle);canvas.removeEventListener('auxclick',middle);window.removeEventListener('blur',cancel);canvas.removeEventListener('blur',endInspection);};
+    canvas.addEventListener('wheel',wheel,{passive:false});canvas.addEventListener('keydown',key);canvas.addEventListener('keyup',keyUp);canvas.addEventListener('contextmenu',context);window.addEventListener('blur',cancel);canvas.addEventListener('blur',endInspection);
+    return ()=>{cancel();canvas.removeEventListener('pointerdown',down);canvas.removeEventListener('pointermove',move);canvas.removeEventListener('pointerup',up);canvas.removeEventListener('pointercancel',up);canvas.removeEventListener('lostpointercapture',up);canvas.removeEventListener('wheel',wheel);canvas.removeEventListener('keydown',key);canvas.removeEventListener('keyup',keyUp);canvas.removeEventListener('contextmenu',context);window.removeEventListener('blur',cancel);canvas.removeEventListener('blur',endInspection);};
   },[gl,invalidate,camera,scene,nav,changed]);
 }

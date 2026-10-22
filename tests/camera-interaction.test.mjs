@@ -7,7 +7,8 @@ import { LEVELS } from '../.test-dist/core/level-data.js';
 test('旋转角度限幅，鼠标手势互不重叠',()=>{
   assert.equal(math.pointerAction(0,false),'pan');
   assert.equal(math.pointerAction(0,true),'rotate');
-  assert.equal(math.pointerAction(1,false),'rotate');
+  assert.equal(math.pointerAction(1,false),null);
+  assert.equal(math.pointerAction(1,true),null);
   assert.equal(math.pointerAction(2,false),null);
   assert.equal(math.clampElevation(-10),math.MIN_ELEVATION);
   assert.equal(math.clampElevation(10),math.MAX_ELEVATION);

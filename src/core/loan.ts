@@ -17,7 +17,7 @@ export function loanLimit(state:GameState,playerId:string,excludeId:number=-1):n
 }
 export function transferLoan(state:GameState,actor:Player,action:Extract<GameAction,
   {type:'mortgage_property'|'release_mortgage'|'borrow_loan'|'repay_loan'}>):ActionResult {
-  if(!state.loan||state.phase!=='await_end_turn'||actor.bankrupt)return reject(state,'INVALID_PHASE');
+  if(!state.loan||(state.phase!=='await_roll'&&state.phase!=='await_end_turn')||actor.bankrupt)return reject(state,'INVALID_PHASE');
   if(action.type==='mortgage_property'||action.type==='release_mortgage'){
     if(!Number.isSafeInteger(action.tileId))return reject(state,'INVALID_PHASE');
     const tile=state.tiles[action.tileId];

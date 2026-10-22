@@ -1,0 +1,137 @@
+TAP version 13
+# (node:86010) [THREE_CJS_DEPRECATED] DeprecationWarning: `require("three")` is deprecated and will be removed.
+# Replace `const THREE = require("three")` with `import * as THREE from "three"`.
+# (Use `node --trace-deprecation ...` to show where the warning was created)
+# Subtest: 旋转角度限幅，鼠标手势互不重叠
+not ok 1 - 旋转角度限幅，鼠标手势互不重叠
+  ---
+  duration_ms: 1.338458
+  type: 'test'
+  location: '/Users/laocao/Documents/coding/ReactMono/tests/camera-interaction.test.mjs:7:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+
+    'rotate' !== null
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: ~
+  actual: 'rotate'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/laocao/Documents/coding/ReactMono/tests/camera-interaction.test.mjs:10:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: 任意方位和俯仰下平移与屏幕拖动一致
+ok 2 - 任意方位和俯仰下平移与屏幕拖动一致
+  ---
+  duration_ms: 3.632
+  type: 'test'
+  ...
+# Subtest: 各朝向的全图投影边界覆盖全部显式场景
+ok 3 - 各朝向的全图投影边界覆盖全部显式场景
+  ---
+  duration_ms: 17.966625
+  type: 'test'
+  ...
+# Subtest: 数字跟随视角正向，俯仰补偿后仍在旋转路砖内
+ok 4 - 数字跟随视角正向，俯仰补偿后仍在旋转路砖内
+  ---
+  duration_ms: 1.309
+  type: 'test'
+  ...
+# Subtest: 多圈旋转后回正走最短角度，不反向连转数圈
+ok 5 - 多圈旋转后回正走最短角度，不反向连转数圈
+  ---
+  duration_ms: 158.904208
+  type: 'test'
+  ...
+# file:///Users/laocao/Documents/coding/ReactMono/tests/human-turn-flow.test.mjs:4
+# import { canAutoContinue, canCommitAutoContinue, HUMAN_CONTINUE_DELAY, canManageAssets } from '../.test-dist/ui/human-turn-flow.js';
+#                                                                        ^^^^^^^^^^^^^^^
+# SyntaxError: The requested module '../.test-dist/ui/human-turn-flow.js' does not provide an export named 'canManageAssets'
+#     at ModuleJob._instantiate (node:internal/modules/esm/module_job:228:21)
+#     at async ModuleJob.run (node:internal/modules/esm/module_job:337:5)
+#     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:665:26)
+#     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+# Node.js v22.20.0
+# Subtest: tests/human-turn-flow.test.mjs
+not ok 2 - tests/human-turn-flow.test.mjs
+  ---
+  duration_ms: 65.143166
+  type: 'test'
+  location: '/Users/laocao/Documents/coding/ReactMono/tests/human-turn-flow.test.mjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: 已购路砖轻染玩家座位色，空地和选中态仍然清楚
+ok 7 - 已购路砖轻染玩家座位色，空地和选中态仍然清楚
+  ---
+  duration_ms: 5.828042
+  type: 'test'
+  ...
+# Subtest: 业主座位按玩家数组映射，未知业主返回中性饰色
+ok 8 - 业主座位按玩家数组映射，未知业主返回中性饰色
+  ---
+  duration_ms: 1.91725
+  type: 'test'
+  ...
+# Subtest: 住宅底色低饱和且两级屋顶无阵营倾向，识别饰件完整承接四席颜色
+not ok 9 - 住宅底色低饱和且两级屋顶无阵营倾向，识别饰件完整承接四席颜色
+  ---
+  duration_ms: 74.672542
+  type: 'test'
+  location: '/Users/laocao/Documents/coding/ReactMono/tests/lime-garden-ownership.test.mjs:30:1'
+  failureType: 'testCodeFailure'
+  error: '主体/屋顶/窗户不应抢占业主色：0.9999999999999994'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///Users/laocao/Documents/coding/ReactMono/tests/lime-garden-ownership.test.mjs:36:10)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: 掷骰前可以完成存取款、股票、抵押借还与出售，决策中仍禁止交易
+not ok 10 - 掷骰前可以完成存取款、股票、抵押借还与出售，决策中仍禁止交易
+  ---
+  duration_ms: 5.086458
+  type: 'test'
+  location: '/Users/laocao/Documents/coding/ReactMono/tests/pre-roll-finance.test.mjs:6:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    deposit_bank: INVALID_PHASE
+
+    false !== true
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    act (file:///Users/laocao/Documents/coding/ReactMono/tests/pre-roll-finance.test.mjs:9:92)
+    TestContext.<anonymous> (file:///Users/laocao/Documents/coding/ReactMono/tests/pre-roll-finance.test.mjs:10:2)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 6
+# fail 4
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 295.579375

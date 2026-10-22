@@ -31,7 +31,8 @@ test('无主、对手、满级、错误阶段、缺钱一律拒绝且不可变',
   }
   const low={...purchased,players:purchased.players.map((p,i)=>i===0?{...p,cash:0}:p)};
   assert.equal(action(low,'upgrade_property',1).reason,'INSUFFICIENT_FUNDS');
-  assert.equal(action({...purchased,phase:'await_roll'},'upgrade_property',1).reason,'INVALID_PHASE');
+  assert.equal(action({...purchased,phase:'await_roll',propertyVisitOnly:true},'upgrade_property',1).reason,'INVALID_PHASE');
+  assert.equal(action({...purchased,phase:'await_roll'},'upgrade_property',1).ok,true,'旧不限到访规则在掷骰前继续可经营');
 });
 test('电脑在现金保留阈值以内选择确定升级，存档往返保留所有级别和价格',()=>{
   let s=buyFirst();

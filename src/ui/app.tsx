@@ -68,11 +68,9 @@ import {
 import type { MotionCue } from "../demo3d/world/Mascot.js";
 import { rentCueFor, type RentCue } from "../demo3d/presentation.js";
 import { outcomeSequence, type OutcomeCue } from "../demo3d/outcomes.js";
-import { canAutoContinue, canCommitAutoContinue, humanTurnKey, HUMAN_CONTINUE_DELAY, type HumanContinueContext } from "./human-turn-flow.js";
+import { canAutoContinue, canCommitAutoContinue, canManageAssets, HUMAN_CONTINUE_DELAY, type HumanContinueContext } from "./human-turn-flow.js";
 
 interface UiState {
-  readonly armedHumanTurn: string | null;
-  readonly managedHumanTurn: string | null;
   readonly constructionBusy: boolean;
   readonly inspectingWorld: boolean;
   readonly sceneEpoch: number;
@@ -147,8 +145,6 @@ class App extends React.Component<object, UiState> {
   constructor(props: object) {
     super(props);
     this.state = {
-      armedHumanTurn: null,
-      managedHumanTurn: null,
       constructionBusy: false,
       inspectingWorld: false,
       sceneEpoch: 0,
@@ -271,7 +267,7 @@ class App extends React.Component<object, UiState> {
       // 批量快照重挂载整个场景，避免把模拟期间的产权和等级差异当作现场建设动画。
       this.setState(state => ({
         game, displayGame: game, sceneEpoch: state.sceneEpoch + 1, sceneReady: false,
-        armedHumanTurn: null, managedHumanTurn: null, constructionBusy: false, inspectingWorld: false,
+        constructionBusy: false, inspectingWorld: false,
         overlay: game.status === "finished" ? null : state.overlay,
         debugBusy: false, lastMotion: null, visualCue: null, selectedTileId: null,
         queuedRent: null, queuedOutcomes: [], rentCue: null, outcomeCue: null, outcomeQueue: [],
@@ -305,8 +301,6 @@ class App extends React.Component<object, UiState> {
   };
   private get humanContinueContext(): HumanContinueContext {
     return {
-      armedTurn: this.state.armedHumanTurn,
-      managedTurn: this.state.managedHumanTurn,
       blocked: Boolean(this.state.debugBusy || this.debugWorker || this.state.storageBusy ||
         !this.state.sceneReady || this.state.confirmText || this.state.overlay ||
         this.state.cpuPaused || this.state.awaitingHandoff || document.hidden || this.presenting ||
@@ -334,10 +328,6 @@ class App extends React.Component<object, UiState> {
       if (canCommitAutoContinue(snapshot, this.state.game, this.humanContinueContext)) void this.dispatch("end_turn");
     }, HUMAN_CONTINUE_DELAY);
     this.humanContinueTimer = timer;
-  };
-  private manageCurrentTurn = (): void => {
-    this.stopHumanContinue();
-    this.setState({ managedHumanTurn: humanTurnKey(this.state.game) }, () => this.openOverlay("assets"));
   };
   private onSceneTileSelect = (tileId: number): void => {
     if (!this.state.overlay) this.setState({ selectedTileId: tileId });
@@ -878,7 +868,7 @@ class App extends React.Component<object, UiState> {
       this.clearWorldTimer();
       this.setState({
         sceneEpoch: this.state.sceneEpoch + 1,
-        armedHumanTurn: null, managedHumanTurn: null, constructionBusy: false, inspectingWorld: false,
+        constructionBusy: false, inspectingWorld: false,
         sceneReady: false,
         debugBusy: false,
         game: saved.game,
@@ -952,7 +942,7 @@ class App extends React.Component<object, UiState> {
     const fresh = createGame(20261015, base);
     this.setState({
       sceneEpoch: this.state.sceneEpoch + 1,
-      armedHumanTurn: null, managedHumanTurn: null, constructionBusy: false, inspectingWorld: false,
+      constructionBusy: false, inspectingWorld: false,
       sceneReady: false,
       debugBusy: false,
       game: fresh,
@@ -1045,7 +1035,7 @@ class App extends React.Component<object, UiState> {
       visualCue: null,
       financePanel: null,
       sceneEpoch: this.state.sceneEpoch + 1,
-      armedHumanTurn: null, managedHumanTurn: null, constructionBusy: false, inspectingWorld: false,
+      constructionBusy: false, inspectingWorld: false,
       sceneReady: false,
       debugBusy: false,
       game: fresh,
@@ -1141,7 +1131,7 @@ class App extends React.Component<object, UiState> {
     }
     this.setState({
       sceneEpoch: this.state.sceneEpoch + 1,
-      armedHumanTurn: null, managedHumanTurn: null, constructionBusy: false, inspectingWorld: false,
+      constructionBusy: false, inspectingWorld: false,
       sceneReady: false,
       debugBusy: false,
       game: result.state,
@@ -1524,10 +1514,6 @@ class App extends React.Component<object, UiState> {
       {
         game: result.state,
         displayGame: travels ? this.state.displayGame : result.state,
-        armedHumanTurn: result.state.players[result.state.currentPlayerIndex].id === actor.id
-          ? humanTurnKey(result.state) : null,
-        managedHumanTurn: result.state.players[result.state.currentPlayerIndex].id === actor.id
-          ? this.state.managedHumanTurn : null,
         awaitingHandoff: handoff,
         visualCue: cue,
         queuedRent: travels ? rent : null,
@@ -1622,7 +1608,7 @@ class App extends React.Component<object, UiState> {
       return `${actorName}出售了 ${sold.details?.tileId} 号地产，获得 ${sold.details?.amount} 游戏币。`;
     const rent = events.find((e) => e.type === "rent_paid");
     if (rent)
-      return `${actorName}落在对手地产，${events.some((e) => e.type === "property_liquidated") ? "已自动出售地产救急，" : ""}支付 ${rent.details?.amount} 游戏币租金。${state.status === "playing" ? "现在即将自动继续，可先管理资产。" : ""}`;
+      return `${actorName}落在对手地产，${events.some((e) => e.type === "property_liquidated") ? "已自动出售地产救急，" : ""}支付 ${rent.details?.amount} 游戏币租金。${state.status === "playing" ? "结算完成后自动继续。" : ""}`;
     const dice = events.find((e) => e.type === "die_rolled");
     if (dice) {
       const tile =
@@ -1630,7 +1616,7 @@ class App extends React.Component<object, UiState> {
       return `${actorName}掷出 ${dice.details?.value} 点，走到了「${tile.title}」。${state.phase === "await_decision" ? `可支付 ${tile.price} 游戏币买地，或选择放弃。` : state.phase === "await_shop" || (tile.ownerId===state.players[state.currentPlayerIndex].id && quotePropertyUpgrade(state,tile.id) && propertyVisitAvailable(state,state.players[state.currentPlayerIndex],tile.id)) ? "请在行动区选择下一步。" : "演出结束后将自动继续。"}`;
     }
     if (events.some((e) => e.type === "property_declined"))
-      return "本次放弃购买，没有扣除游戏币。即将自动继续，可先管理资产。";
+      return "本次放弃购买，没有扣除游戏币。结算完成后自动继续。";
     if (events.some((e) => e.type === "turn_ended"))
       return `轮到${state.players[state.currentPlayerIndex].name}行动，点击掷骰继续。`;
     return "操作完成。";
@@ -1757,10 +1743,6 @@ class App extends React.Component<object, UiState> {
     }
     this.setState({
       overlay,
-      managedHumanTurn: this.state.game.status === "playing" &&
-        this.state.game.phase === "await_end_turn" &&
-        this.state.game.players[this.state.game.currentPlayerIndex].kind === "human"
-        ? humanTurnKey(this.state.game) : this.state.managedHumanTurn,
       financePanel: ["property", "bank", "loan", "stock"].includes(overlay)
         ? (overlay as UiState["financePanel"])
         : null,
@@ -2006,7 +1988,7 @@ class App extends React.Component<object, UiState> {
           <li>
             <strong>回合衔接</strong>
             <p>
-              结算后将自动继续，可点“管理资产”暂停并经营银行、股票或手牌；完成后再继续。电脑自动行动；本机多人需交接设备。默认以破产决胜，最后一位未破产玩家获胜；可在对局设置中改为限轮后比较净资产。
+              掷骰前可办理银行、股票、地产和手牌；掷骰后只在落点需要选择时停下，结算和演出完成后自动继续。电脑自动行动；本机多人需交接设备。默认以破产决胜，最后一位未破产玩家获胜；可在对局设置中改为限轮后比较净资产。
             </p>
           </li>
         </ol>
@@ -2020,12 +2002,7 @@ class App extends React.Component<object, UiState> {
     const game = this.state.game,
       current = game.players[game.currentPlayerIndex],
       panel = this.state.overlay;
-    const canTrade =
-      game.status === "playing" &&
-      current.kind === "human" &&
-      !this.state.awaitingHandoff &&
-      !this.presenting &&
-      game.phase === "await_end_turn";
+    const canTrade = canManageAssets(game) && !this.state.awaitingHandoff && !this.presenting;
     const amount = Number(this.state.bankAmountInput),
       amountValid = /^[1-9][0-9]{0,12}$/.test(this.state.bankAmountInput);
     const quantity = Number(this.state.stockAmountInput),
@@ -2066,7 +2043,7 @@ class App extends React.Component<object, UiState> {
         </div>
         {!canTrade && (
           <p className="panel-note">
-            当前可查看资产；交易在本人处理完到访地块后开放。
+            当前可查看资产；交易请在本人掷骰前办理。
           </p>
         )}
         {canTrade && (
@@ -3003,8 +2980,7 @@ class App extends React.Component<object, UiState> {
       heading = `${current.detention.kind === "hospital" ? "医院休养" : "监狱停留"} · 剩余 ${current.detention.remaining} 回合`;
     else if (game.phase === "await_shop") heading = "小镇道具商店";
     else if (human && game.phase === "await_end_turn" && !visit)
-      heading = this.state.managedHumanTurn === humanTurnKey(game) || !this.state.armedHumanTurn
-        ? "资产管理时间" : "稍后交给下一位";
+      heading = "正在衔接下一回合…";
     const ownedCards = Object.values(current.cards ?? {}).reduce(
       (sum, n) => sum + (n ?? 0),
       0,
@@ -3127,7 +3103,7 @@ class App extends React.Component<object, UiState> {
           ))}
         </section>
         <div className="action-dock">
-          <nav className="hud-tools" aria-label="玩家工具">
+          {(game.status !== "playing" || game.phase === "await_roll") && <nav className="hud-tools" aria-label="玩家工具">
             <button onClick={() => this.openOverlay("cards")}>
               手牌{ownedCards > 0 && <b>{ownedCards}</b>}
             </button>
@@ -3138,7 +3114,7 @@ class App extends React.Component<object, UiState> {
             {game.market && (
               <button onClick={() => this.openOverlay("stock")}>股票</button>
             )}
-          </nav>
+          </nav>}
           {game.status === "finished" && !busy ? (
             <PostgameSummary
               game={game}
@@ -3206,9 +3182,7 @@ class App extends React.Component<object, UiState> {
                       : this.state.awaitingHandoff
                         ? "请把设备交给这位玩家。"
                         : human && game.phase === "await_end_turn" && !visit
-                          ? this.state.managedHumanTurn === humanTurnKey(game) || !this.state.armedHumanTurn
-                            ? `${this.state.message} 可使用银行、股票、地产或手牌，完成后继续。`
-                            : `${this.state.message} 4 秒后自动继续；可先点“管理资产”。`
+                          ? `${this.state.message} 结算完成后自动继续。`
                         : this.state.message}
                 </p>
               )}
@@ -3280,22 +3254,6 @@ class App extends React.Component<object, UiState> {
                     {terrace ? `联排${construction!.level===1?'建造':'升级'} ${construction!.upgrades.length} 户` : (target.level ?? 0) === 0 ? "建造住宅" : "升级房屋"} ·{" "}
                     {cost}
                   </button>
-                </>
-              )}
-              {human && game.phase === "await_end_turn" && !visit && (
-                <>
-                  <button className="secondary-btn" onClick={this.manageCurrentTurn}>
-                    管理资产
-                  </button>
-                  {this.state.managedHumanTurn === humanTurnKey(game) || !this.state.armedHumanTurn ? (
-                    <button className="primary-btn finish-turn" key="end" onClick={() => this.dispatch("end_turn")}>
-                      继续下一位 <span>→</span>
-                    </button>
-                  ) : (
-                    <button className="primary-btn finish-turn" key="auto" disabled aria-live="polite">
-                      {canAutoContinue(this.state.game, this.humanContinueContext) ? "即将自动继续…" : "等待查看结束…"}
-                    </button>
-                  )}
                 </>
               )}
               {human && game.phase === "await_shop" && (

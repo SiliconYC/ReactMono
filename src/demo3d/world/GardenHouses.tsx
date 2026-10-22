@@ -6,7 +6,7 @@ import type { WorldDefinition } from '../../core/level-world.js';
 import { GROUND_TOP } from './layout.js';
 import { constructionPose, gardenHouseAccentGeometry, gardenHouseGeometry } from './lime-garden-models.js';
 import { propertyRun } from '../../core/property-groups.js';
-import { gardenOwnerColor } from './lime-garden-ownership.js';
+import { gardenBuildingOwnerColor } from './lime-garden-ownership.js';
 
 type ConstructionCues=MutableRefObject<Map<number,number>>;
 
@@ -26,7 +26,7 @@ function HouseBatch({level,terraced,game,world,cues,reducedMotion}:{level:1|2;te
     const batch=accentMesh.current;if(!batch)return;
     batch.count=items.length;
     const color=new THREE.Color();
-    items.forEach((tile,index)=>batch.setColorAt(index,color.set(gardenOwnerColor(game,tile.ownerId))));
+    items.forEach((tile,index)=>batch.setColorAt(index,color.set(gardenBuildingOwnerColor(game,tile.ownerId))));
     if(batch.instanceColor)batch.instanceColor.needsUpdate=true;
   },[items,game]);
   useFrame(({clock})=>{

@@ -41,6 +41,6 @@ export function MapContextMenu({game,request,nav,changed,onSelect,onClose,canvas
     <button role="menuitem" onClick={()=>act(()=>Object.assign(nav.current,{mode:'overview',center:null,zoom:null}))}>查看全图 <kbd>Home</kbd></button>
     <button role="menuitem" onClick={()=>act(()=>resetOrientation(nav.current))}>视角回正 <kbd>R</kbd></button>
     <button role="menuitemcheckbox" aria-checked={nav.current.showNumbers} onClick={()=>act(()=>{nav.current.showNumbers=!nav.current.showNumbers;})}>{nav.current.showNumbers?'隐藏':'显示'}地块编号</button>
-    <p className="map-context-help">按住地块或角色查看详情，松开即收起<br/>左键平移 · Shift＋左键 / 中键旋转<br/>滚轮缩放 · Esc 关闭</p>
+    <p className="map-context-help">按住地块或角色查看详情，松开即收起<br/>左键平移 · Shift＋左键旋转<br/>滚轮缩放 · Esc 关闭</p>
   </div>,document.body);
 }

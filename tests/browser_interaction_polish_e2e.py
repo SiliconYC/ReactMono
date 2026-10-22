@@ -37,9 +37,12 @@ import {serializeGame} from './.test-dist/core/save.js';
 import {simulateDebugRounds} from './.test-dist/core/debug-tools.js';
 const mode=MODE;
 const cfg={...levelConfig('lime-garden-30'),initialCash:3000,players:[{id:'p1',name:'玩家',kind:'human'},{id:'p2',name:'对手',kind:'human'}],propertyVisitOnly:true,strategyEnabled:true,bankEnabled:true,loanEnabled:true,marketEnabled:true,stockAccount:'bank'};
+if(mode==='owners')cfg.players.push({id:'p3',name:'绿方',kind:'human'},{id:'p4',name:'紫方',kind:'human'});
 let game=applyAction(createGame(2,cfg),{type:'start_game',actorId:'p1'}).state;
 if(mode==='build')for(const id of [1,2,3]){game.tiles[id].ownerId='p1';game.tiles[id].level=0;}
 if(mode==='populated')for(const t of game.tiles)if(t.kind==='property'){t.ownerId=[1,2,3,9,10,11,17,18,19].includes(t.id)?'p1':'p2';t.level=t.id%2+1;}
+if(mode==='owners')for(const t of game.tiles)if(t.kind==='property'){t.ownerId=cfg.players[Math.floor(t.id/4)%4].id;t.level=t.id%2+1;}
+if(mode==='settled'){game=applyAction(game,{type:'roll',actorId:'p1'}).state;game=applyAction(game,{type:'decline_property',actorId:'p1'}).state;}
 if(mode==='pose'){game.players=game.players.map(p=>({...p,cash:1000000}));game=simulateDebugRounds(game,30).state;}
 console.log(serializeGame(game));
 """.replace('MODE', json.dumps(arg_场景))
@@ -92,35 +95,26 @@ console.log(serializeGame(game));
             arg_页面.get_by_role('button', name=re.compile('^掷骰前进')).click()
             按钮 = arg_页面.get_by_role('button', name=re.compile('^购买地产' if 场景 == 'buy' else '^联排建造'))
             按钮.wait_for(timeout=15000)
+            assert arg_页面.locator('.hud-tools').count() == 0
             按钮.click()
             arg_页面.get_by_role('button', name='我已就位，开始操作').wait_for(timeout=15000)
             assert arg_页面.locator('main').get_attribute('data-game-phase') == 'await_roll'
             assert arg_页面.get_by_role('button', name='结束当前回合', exact=True).count() == 0
             self._检查稳定(arg_页面)
-        load_fixture(arg_页面, arg_地址, self._样本('buy'), '经营暂停' + arg_后缀)
+        load_fixture(arg_页面, arg_地址, self._样本('settled'), '旧结算档自动继续' + arg_后缀)
+        arg_页面.get_by_role('button', name='我已就位，开始操作').wait_for(timeout=1500)
+        load_fixture(arg_页面, arg_地址, self._样本('buy'), '掷骰前管理' + arg_后缀)
+        open_panel(arg_页面, '银行')
+        arg_页面.get_by_label('银行交易金额').fill('100')
+        arg_页面.get_by_role('button', name='存入银行', exact=True).click()
+        assert '100' in arg_页面.locator('.account-summary').inner_text()
+        arg_页面.keyboard.press('Escape')
+        assert arg_页面.locator('main').get_attribute('data-game-phase') == 'await_roll'
         arg_页面.get_by_role('button', name=re.compile('^掷骰前进')).click()
         arg_页面.get_by_role('button', name=re.compile('^购买地产')).click()
-        arg_页面.get_by_role('button', name='管理资产', exact=True).click()
-        arg_页面.get_by_role('dialog').wait_for()
-        arg_页面.keyboard.press('Escape')
-        arg_页面.wait_for_timeout(4300)
-        assert arg_页面.locator('main').get_attribute('data-game-phase') == 'await_end_turn'
-        arg_页面.get_by_role('button', name=re.compile('^继续下一位')).click()
-        arg_页面.get_by_role('button', name='我已就位，开始操作').wait_for()
-
-    def _菜单等待(self, arg_页面: Page, arg_地址: str) -> None:
-        load_fixture(arg_页面, arg_地址, self._样本('buy'), '菜单暂停')
-        arg_页面.get_by_role('button', name=re.compile('^掷骰前进')).click()
-        arg_页面.get_by_role('button', name=re.compile('^购买地产')).click()
-        arg_页面.get_by_role('button', name='管理资产', exact=True).wait_for()
-        arg_页面.mouse.click(arg_页面.viewport_size['width'] * .55, arg_页面.viewport_size['height'] * .45, button='right')
-        arg_页面.get_by_role('menu', name='地图快捷菜单').wait_for()
-        arg_页面.wait_for_timeout(4300)
-        assert arg_页面.locator('main').get_attribute('data-game-phase') == 'await_end_turn'
-        assert arg_页面.get_by_role('menu', name='地图快捷菜单').is_visible()
-        arg_页面.keyboard.press('Escape')
-        arg_页面.get_by_role('button', name='我已就位，开始操作').wait_for(timeout=8000)
-        self.结果.append({'检查': '右键菜单暂停交接且关闭后自动恢复'})
+        arg_页面.get_by_role('button', name='我已就位，开始操作').wait_for(timeout=1500)
+        assert arg_页面.get_by_role('button', name='管理资产', exact=True).count() == 0
+        assert arg_页面.get_by_role('button', name=re.compile('^继续下一位')).count() == 0
 
     def _查看(
         self,
@@ -195,14 +189,30 @@ console.log(serializeGame(game));
         协议.detach()
         self.结果.append({'检查': '30轮模拟读档朝向/原生触屏长按/多指取消/触屏取消'})
 
+    def _四方配色(self, arg_页面: Page, arg_地址: str, arg_后缀: str) -> None:
+        load_fixture(arg_页面, arg_地址, self._样本('owners'), '四方中性住宅' + arg_后缀)
+        arg_页面.wait_for_timeout(800)
+        arg_页面.screenshot(path=str(self.输出 / ('neutral-owners-' + arg_后缀 + '.png')))
+        assert arg_页面.locator('.player-card').count() == 4
+        self.结果.append({'检查': '四方业主/两级/独栋联排中性底色真实画面', '视口': arg_后缀})
+
     def _视角(self, arg_页面: Page, arg_后缀: str) -> None:
+        assert arg_页面.locator('canvas').evaluate('''e => ['pointerdown','mousedown','auxclick'].every(type => {const C=type==='pointerdown'?PointerEvent:MouseEvent;const event=new C(type,{button:1,bubbles:true,cancelable:true});e.dispatchEvent(event);return !event.defaultPrevented;})''')
         原 = self._相机(arg_页面)
         横 = arg_页面.viewport_size['width'] * .52
         纵 = arg_页面.viewport_size['height'] * .45
         arg_页面.mouse.move(横, 纵)
         arg_页面.mouse.down(button='middle')
-        arg_页面.mouse.move(横 + 70, 纵 - 180, steps=15)
+        arg_页面.mouse.move(横 + 70, 纵 - 80, steps=10)
         arg_页面.mouse.up(button='middle')
+        arg_页面.wait_for_timeout(400)
+        assert abs(self._相机(arg_页面)['p']['yaw'] - 原['p']['yaw']) < .01
+        arg_页面.mouse.move(横, 纵)
+        arg_页面.keyboard.down('Shift')
+        arg_页面.mouse.down()
+        arg_页面.mouse.move(横 + 70, 纵 - 180, steps=15)
+        arg_页面.mouse.up()
+        arg_页面.keyboard.up('Shift')
         arg_页面.wait_for_timeout(900)
         后 = self._相机(arg_页面)
         assert abs(后['p']['yaw'] - 原['p']['yaw']) > .25
@@ -212,7 +222,7 @@ console.log(serializeGame(game));
         arg_页面.mouse.wheel(0, -100)
         arg_页面.wait_for_timeout(900)
         assert self._相机(arg_页面)['p']['zoom'] > 后['p']['zoom'] * 1.1
-        self.结果.append({'检查': '中键仅旋转/低角度/滚轮缩放', '视口': arg_后缀, '俯仰度': 后['p']['elevation'] * 180 / math.pi})
+        self.结果.append({'检查': '中键不接管/Shift旋转/低角度/滚轮缩放', '视口': arg_后缀, '俯仰度': 后['p']['elevation'] * 180 / math.pi})
 
     def api_执行(self) -> None:
         服务 = ThreadingHTTPServer(('127.0.0.1', 0), Handler)
@@ -234,10 +244,10 @@ console.log(serializeGame(game));
                     标题 = 页面.get_by_role('heading', name='大富翁 2026', exact=True)
                     标题.wait_for()
                     self._回合(页面, 地址, 后缀)
-                    self._菜单等待(页面, 地址)
                     self._查看(页面, 地址, 后缀)
                     if 后缀 == 'phone':
                         self._触屏与重载朝向(页面, 地址)
+                    self._四方配色(页面, 地址, 后缀)
                     self._视角(页面, 后缀)
                     上下文.close()
                 浏览器.close()

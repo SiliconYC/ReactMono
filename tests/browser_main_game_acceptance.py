@@ -66,12 +66,9 @@ def 等待演出结束(arg_页面: Page) -> None:
     expect(arg_页面.locator('main.app-shell')).to_have_attribute('data-presenting', 'false', timeout=20000)
 
 
-def 保留当前回合(arg_页面: Page) -> None:
+def 等待结算交接(arg_页面: Page) -> None:
     等待演出结束(arg_页面)
-    arg_页面.get_by_role('button', name='管理资产', exact=True).click()
-    arg_页面.keyboard.press('Escape')
-    arg_页面.get_by_role('button', name='继续下一位', exact=False).wait_for()
-
+    arg_页面.get_by_role('button', name='我已就位，开始操作', exact=True).wait_for(timeout=10000)
 
 def 设置地图视角(arg_页面: Page, arg_模式: str) -> None:
     壳 = arg_页面.locator('.canvas-shell')
@@ -236,7 +233,7 @@ def main():
    report.append('1–6 点实际中间帧/输入屏障/正常与跳过存档等价')
    print('PASS stage: '+report[-1],flush=True)
    # Cash, deposits, stocks, mortgages and loans use the real production commands.
-   raw=fixture("game=act(game,'roll');game=act(game,'buy_property');")
+   raw=fixture("game=act(game,'roll');game=act(game,'buy_property');game={...game,phase:'await_roll'};")
    load_fixture(page,url,raw,'交易样本')
    assert page.get_by_role('button',name=re.compile('建造住宅')).count()==0,'same visit cannot build immediately after buying'
    nonce=page.locator('main').get_attribute('data-die-nonce')
@@ -262,7 +259,7 @@ def main():
    report.append('现金/存款/股票买卖手续费/抵押借还/解除抵押/文件往返/不重掷')
    print('PASS stage: '+report[-1],flush=True)
    # Legacy stock accounts continue to use cash, preserving bank deposits.
-   raw=fixture("delete game.stockAccount;game=act(game,'roll');game=act(game,'decline_property');game={...game,players:game.players.map((p,i)=>i===0?{...p,bankBalance:100}:p)};")
+   raw=fixture("delete game.stockAccount;game=act(game,'roll');game=act(game,'decline_property');game={...game,phase:'await_roll',players:game.players.map((p,i)=>i===0?{...p,bankBalance:100}:p)};")
    load_fixture(page,url,raw,'旧现金股票');open_panel(page,'股票')
    page.get_by_role('button',name=re.compile('^买入 ')).first.click()
    old_stock,_=export_current(page);assert old_stock['players'][0]['cash']<1500 and old_stock['players'][0]['bankBalance']==100
@@ -278,7 +275,7 @@ def main():
     page.wait_for_timeout(370)
     assert page.get_by_role('button',name=re.compile('^(建造住宅|升级房屋)')).count()==0
     built,_=export_current(page);assert built['tiles'][1]['level']==level+1
-   raw=fixture("delete game.propertyVisitOnly;game={...game,tiles:game.tiles.map(t=>t.id===2?{...t,ownerId:'p1',level:0}:t)};game=act(game,'roll');game=act(game,'decline_property');")
+   raw=fixture("delete game.propertyVisitOnly;game={...game,tiles:game.tiles.map(t=>t.id===2?{...t,ownerId:'p1',level:0}:t)};game=act(game,'roll');game=act(game,'decline_property');game={...game,phase:'await_roll'};")
    load_fixture(page,url,raw,'旧规则建设');open_panel(page,'地产')
    page.get_by_role('button',name=re.compile('^建造住宅')).click()
    legacy,_=export_current(page);assert legacy['tiles'][2]['level']==1 and 'propertyVisitOnly' not in legacy

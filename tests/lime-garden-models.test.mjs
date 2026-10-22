@@ -87,7 +87,7 @@ test('窗格横竖饰条保持真实几何间距，转动镜头时不以近平�
   geometry.dispose();material.dispose();
 });
 
-test('业主染色限于少量立体饰件，独栋与联排主墙屋面保持原色',async()=>{
+test('业主染色限于少量立体饰件，独栋与联排主墙屋面保持中性色',async()=>{
   const {gardenHouseGeometry,gardenHouseAccentGeometry}=await import('../.test-dist/demo3d/world/lime-garden-models.js');
   assert.equal(typeof gardenHouseAccentGeometry,'function','提供可独立染色的饰件批次');
   for(const level of [1,2])for(const terraced of [false,true]){
@@ -98,7 +98,7 @@ test('业主染色限于少量立体饰件，独栋与联排主墙屋面保持�
     assert.ok(accent.boundingBox.max.z>.5,'正面必须有清楚可见的业主饰件');
     assert.ok(accent.boundingBox.min.x>=-1&&accent.boundingBox.max.x<=1,'饰件不得伸入邻户');
     assert.ok([...accent.getAttribute('color').array].every(value=>value===1),'白色饰件接受座位色而不乘上屋身颜色');
-    const colors=body.getAttribute('color'),wall=new THREE.Color(terraced||level===2?'#fff0d1':'#fff0cc');
+    const colors=body.getAttribute('color'),wall=new THREE.Color('#e9e6e0');
     assert.ok(Array.from({length:colors.count},(_,i)=>i).some(i=>Math.abs(colors.getX(i)-wall.r)<.00001&&Math.abs(colors.getY(i)-wall.g)<.00001&&Math.abs(colors.getZ(i)-wall.b)<.00001));
     body.dispose();accent.dispose();
   }

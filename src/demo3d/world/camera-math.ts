@@ -8,7 +8,7 @@ export const MIN_ELEVATION=Math.PI*12/180;
 export const MAX_ELEVATION=Math.PI*82/180;
 export const clampElevation=(angle:number):number=>Math.max(MIN_ELEVATION,Math.min(MAX_ELEVATION,angle));
 export function pointerAction(button:number,shift:boolean):'pan'|'rotate'|null{
-  return button===1||button===0&&shift?'rotate':button===0?'pan':null;
+  return button===0&&shift?'rotate':button===0?'pan':null;
 }
 export function groundToScreen(p:WorldPoint,yaw:number,elevation:number):{x:number;y:number}{
   return {x:p.x*Math.cos(yaw)-p.z*Math.sin(yaw),y:(p.x*Math.sin(yaw)+p.z*Math.cos(yaw))*Math.sin(elevation)};

@@ -49,7 +49,7 @@ export function liquidateForRent(state:GameState,actor:Player,due:number,credito
   return {cash,tiles,events};
 }
 export function sellProperty(state:GameState,actor:Player,action:Extract<GameAction,{type:'sell_property'}>):ActionResult{
-  if(state.phase!=='await_end_turn'||!Number.isInteger(action.tileId))return reject(state,'INVALID_PHASE');
+  if((state.phase!=='await_roll'&&state.phase!=='await_end_turn')||!Number.isInteger(action.tileId))return reject(state,'INVALID_PHASE');
   const tile=state.tiles[action.tileId];
   if(!tile||tile.kind!=='property'||tile.ownerId!==actor.id||tile.mortgaged===true)return reject(state,'INVALID_PHASE');
   const amount=resaleValue(tile,state.resaleRules);
@@ -87,7 +87,7 @@ export function declineProperty(state: GameState, actor: Player): ActionResult {
       });
 }
 export function upgradeProperty(state: GameState, actor: Player, action: Extract<GameAction,{type:'upgrade_property'}>): ActionResult {
-      if (state.phase !== 'await_end_turn' || !Number.isInteger(action.tileId))return reject(state,'INVALID_PHASE');
+      if ((state.phase !== 'await_end_turn' && !(state.phase === 'await_roll' && state.propertyVisitOnly !== true && state.terraceRulesVersion !== 1)) || !Number.isInteger(action.tileId))return reject(state,'INVALID_PHASE');
       const tile=state.tiles[action.tileId];
       if (!tile || tile.kind!=='property' || tile.ownerId!==actor.id || tile.mortgaged===true)return reject(state,'INVALID_PHASE');
       if(!propertyVisitAvailable(state,actor,tile.id))return reject(state,'INVALID_PHASE');

@@ -50,7 +50,7 @@ export function WorldNavigation({game,nav,changed,disabled}:{game:GameState;nav:
       <button type="button" aria-label="视角回正" title="视角回正（R）" onClick={()=>{resetOrientation(nav.current);changed();}}><span data-compass-arrow="" aria-hidden="true">↑</span> 回正</button>
       <button type="button" aria-label="地图操作说明" aria-expanded={help} onClick={()=>setHelp(!help)}>？</button>
     </div>
-    {help&&<div className="world-input-help" role="note"><strong>地图操作</strong><span>左键拖动：平移</span><span>Shift＋左键 / 按住中键拖动：旋转</span><span>滚轮 / 双指：缩放</span><span>按住地块、房屋或角色：查看</span><span>按住 I：当前角色信息</span><span>右键：地图菜单</span><span>方向键：移动 · R：回正 · Home：全图</span></div>}
+    {help&&<div className="world-input-help" role="note"><strong>地图操作</strong><span>左键拖动：平移</span><span>Shift＋左键拖动：旋转</span><span>滚轮 / 双指：缩放</span><span>按住地块、房屋或角色：查看</span><span>按住 I：当前角色信息</span><span>右键：地图菜单</span><span>方向键：移动 · R：回正 · Home：全图</span></div>}
     </div>}
   </div>;
 }

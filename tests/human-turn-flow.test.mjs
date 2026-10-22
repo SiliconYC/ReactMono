@@ -1,7 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createGame, applyAction, DEFAULT_CONFIG } from '../.test-dist/core/game.js';
-import { canAutoContinue, canCommitAutoContinue, humanTurnKey } from '../.test-dist/ui/human-turn-flow.js';
+import * as flow from '../.test-dist/ui/human-turn-flow.js';
+const {canAutoContinue,canCommitAutoContinue,HUMAN_CONTINUE_DELAY,canManageAssets}=flow;
 
 function settled() {
   const initial = createGame(11, { ...DEFAULT_CONFIG, propertyVisitOnly: true });
@@ -9,15 +10,15 @@ function settled() {
   return { ...started, phase: 'await_end_turn' };
 }
 function context(game, patch = {}) {
-  return { armedTurn: humanTurnKey(game), managedTurn: null, blocked: false, ...patch };
+  return { blocked: false, ...patch };
 }
 
 test('settled human turn continues automatically only after presentation and pause barriers clear', () => {
   const game = settled();
   assert.equal(canAutoContinue(game, context(game)), true);
   assert.equal(canAutoContinue(game, context(game, { blocked: true })), false);
-  assert.equal(canAutoContinue(game, context(game, { managedTurn: humanTurnKey(game) })), false);
-  assert.equal(canAutoContinue(game, context(game, { armedTurn: null })), false);
+  assert.equal(HUMAN_CONTINUE_DELAY, 0, 'presentation completion must not add a management countdown');
+  assert.equal(canAutoContinue({...game}, {blocked:false}), true, 'restored settled games continue without extra confirmation');
 });
 
 test('property purchase and shop choices cannot be skipped by automatic continuation', () => {
@@ -71,4 +72,12 @@ test('computer turns and finished games retain their own continuation rules', ()
   const game = settled();
   assert.equal(canAutoContinue({ ...game, status: 'finished' }, context(game)), false);
   assert.equal(canAutoContinue({ ...game, players: game.players.map(player => ({ ...player, kind: 'computer' })) }, context(game)), false);
+});
+
+test('human asset management is available before rolling, never as an extra landing decision', () => {
+ const game=settled();
+ assert.equal(typeof canManageAssets,'function');
+ assert.equal(canManageAssets({...game,phase:'await_roll'}),true);
+ for(const phase of ['await_decision','await_shop','await_end_turn'])assert.equal(canManageAssets({...game,phase}),false);
+ assert.equal(canManageAssets({...game,phase:'await_roll',players:game.players.map(p=>({...p,kind:'computer'}))}),false);
 });

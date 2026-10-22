@@ -13,7 +13,7 @@ export function stockFee(gross:number):number{
 export function tradeStock(state:GameState,actor:Player,
   action:Extract<GameAction,{type:'buy_stock'|'sell_stock'}>):ActionResult{
   const quantity=action.quantity;
-  if(!state.market||state.phase!=='await_end_turn'||actor.bankrupt||
+  if(!state.market||(state.phase!=='await_roll'&&state.phase!=='await_end_turn')||actor.bankrupt||
     !Number.isSafeInteger(quantity)||quantity<1||quantity>MAX_SHARES||
     !STOCKS.some(x=>x.id===action.stockId))return reject(state,'INVALID_PHASE');
   const price=quoteMarket(state.market,action.stockId);

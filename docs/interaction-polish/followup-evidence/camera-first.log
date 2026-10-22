@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/Users/laocao/Documents/coding/ReactMono/tests/browser_map_camera_ux.py", line 248, in <module>
+    验收.api_验证(关卡标识, 手机, 减少动态)
+  File "/Users/laocao/Documents/coding/ReactMono/tests/browser_map_camera_ux.py", line 131, in api_验证
+    assert self._读取相机()["yaw"] > 1.5
+AssertionError

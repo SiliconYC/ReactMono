@@ -26,3 +26,20 @@ test('业主座位按玩家数组映射，未知业主返回中性饰色',async(
   assert.equal(kit.gardenOwnerColor(game,null),'#f5df9e');
   assert.equal(kit.gardenOwnerColor(game,'missing'),'#f5df9e');
 });
+
+test('住宅底色低饱和且两级屋顶无阵营倾向，识别饰件完整承接四席颜色',async()=>{
+ const {gardenHouseGeometry,gardenHouseAccentGeometry}=await import('../.test-dist/demo3d/world/lime-garden-models.js');
+ const {gardenBuildingOwnerColor}=await import('../.test-dist/demo3d/world/lime-garden-ownership.js');
+ const game={players:['a','b','c','d'].map(id=>({id}))};
+ for(const level of [1,2])for(const row of [false,true]){
+  const body=gardenHouseGeometry(level,row),accent=gardenHouseAccentGeometry(level,row),colors=body.getAttribute('color');
+  const c=new THREE.Color(),hsl={};let maxSaturation=0;
+  for(let i=0;i<colors.count;i++){c.fromBufferAttribute(colors,i).getHSL(hsl,THREE.SRGBColorSpace);maxSaturation=Math.max(maxSaturation,hsl.s);}
+  assert.ok(maxSaturation<=.18, '主体/屋顶/窗户不应抢占业主色：'+maxSaturation);
+  const vertices=accent.getAttribute('position');let front=0,back=0;
+  for(let i=0;i<vertices.count;i++){if(vertices.getZ(i)>.38)front++;if(vertices.getZ(i)<-.44)back++;}
+  assert.ok(front>0&&back>0,'业主饰带应从建筑前后两侧均可见');
+  for(const id of ['a','b','c','d']){const owner=new THREE.Color(gardenBuildingOwnerColor(game,id));owner.getHSL(hsl,THREE.SRGBColorSpace);assert.ok(hsl.s>.55);}
+  body.dispose();accent.dispose();
+ }
+});

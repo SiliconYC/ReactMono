@@ -11,7 +11,7 @@ export function createBank(interestBps:number=DEFAULT_INTEREST_BPS):BankState {
 }
 export function transferBank(state:GameState,actor:Player,action:Extract<GameAction,{type:'deposit_bank'|'withdraw_bank'}>):ActionResult {
   const amount=action.amount, balance=actor.bankBalance;
-  if(!state.bank||state.phase!=='await_end_turn'||!Number.isSafeInteger(amount)||amount<1||
+  if(!state.bank||(state.phase!=='await_roll'&&state.phase!=='await_end_turn')||!Number.isSafeInteger(amount)||amount<1||
     amount>MAX_BANK_BALANCE||balance===undefined)return reject(state,'INVALID_PHASE');
   if(action.type==='deposit_bank' ? actor.cash<amount : balance<amount)return reject(state,'INSUFFICIENT_FUNDS');
   const nextCash=actor.cash+(action.type==='deposit_bank'?-amount:amount);

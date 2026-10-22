@@ -124,10 +124,10 @@ class 地图交互验收_类:
             assert not self.页面.locator("canvas").evaluate("e=>{const k=new KeyboardEvent('keydown',{key:'r',ctrlKey:true,cancelable:true});e.dispatchEvent(k);return k.defaultPrevented}")
             self._拖动("middle", -110, -22)
             中键后 = self._读取相机()
-            assert abs(中键后["yaw"] - 旋转后["yaw"]) > .3
+            assert abs(中键后["yaw"] - 旋转后["yaw"]) < .01
             assert abs(中键后["zoom"] - 旋转后["zoom"]) < .05
             self._验证数字()
-            self._拖动("middle", -155, 45)
+            self._拖动("left", -240, 45, True)
             assert self._读取相机()["yaw"] > 1.5
             self._验证数字()
             self._右键地块()

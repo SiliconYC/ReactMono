@@ -31,30 +31,30 @@ def main():
    visible_in_view(page,page.get_by_role('button',name='掷骰前进'))
    assert page.locator('.turn-card').evaluate('(e)=>e.scrollHeight<=e.clientHeight+2'), 'action bar must not scroll'
    page.screenshot(path=str(OUT/f'turn-{w}.png'))
-   page.get_by_role('button',name='掷骰前进').dblclick()
-   assert page.get_by_role('button',name=re.compile('购买地产')).count()==0
-   page.get_by_role('button',name=re.compile('购买地产')).wait_for(timeout=8000)
-   for name in ['购买地产','暂不购买']:
-    visible_in_view(page,page.get_by_role('button',name=re.compile(name)))
-   assert '1,390' in page.locator('.turn-card').inner_text(), 'purchase balance preview'
-   assert page.locator('.turn-card').evaluate('(e)=>e.scrollHeight<=e.clientHeight+2')
-   page.screenshot(path=str(OUT/f'arrival-{w}.png'))
-   page.get_by_role('button',name=re.compile('购买地产')).click()
    page.get_by_role('button',name='银行',exact=True).click()
    dialog=page.get_by_role('dialog');assert dialog.is_visible()
    assert page.evaluate('document.activeElement.closest("dialog")!==null'), 'focus inside modal'
    assert dialog.evaluate('(e)=>e.matches(":modal")'), 'dialog must make background inert'
    try:
-    page.locator('.finish-turn').click(timeout=250)
+    page.get_by_role('button',name='掷骰前进',exact=False).click(timeout=250)
     raise AssertionError('background turn action accepted through modal')
    except Exception as error:
     assert 'Timeout' in type(error).__name__, error
    page.get_by_label('银行交易金额',exact=True).fill('100')
    page.get_by_role('button',name='存入银行',exact=True).click()
-   assert '1,290' in dialog.inner_text()
+   assert '1,400' in dialog.inner_text()
    page.screenshot(path=str(OUT/f'bank-{w}.png'))
    page.keyboard.press('Escape');assert page.get_by_role('dialog').count()==0
    assert page.evaluate('document.activeElement.textContent')=='银行'
+   page.get_by_role('button',name='掷骰前进').dblclick()
+   assert page.get_by_role('button',name=re.compile('购买地产')).count()==0
+   page.get_by_role('button',name=re.compile('购买地产')).wait_for(timeout=8000)
+   for name in ['购买地产','暂不购买']:
+    visible_in_view(page,page.get_by_role('button',name=re.compile(name)))
+   assert '1,290' in page.locator('.turn-card').inner_text(), 'purchase balance preview'
+   assert page.locator('.turn-card').evaluate('(e)=>e.scrollHeight<=e.clientHeight+2')
+   page.screenshot(path=str(OUT/f'arrival-{w}.png'))
+   page.get_by_role('button',name=re.compile('购买地产')).click()
    page.get_by_role('button',name=re.compile('^菜单')).click()
    page.get_by_role('dialog').get_by_role('button',name=re.compile('^设置')).click()
    assert page.evaluate('document.activeElement.closest("dialog")!==null'), 'focus lost after modal content switch'

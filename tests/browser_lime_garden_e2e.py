@@ -12,7 +12,7 @@ import subprocess
 from playwright.sync_api import Page, sync_playwright
 from browser_live_e2e import Handler, open_new_game_setup, open_saved_games, select_map
 from browser_main_game_acceptance import (
-    load_fixture, open_panel, export_current, 保留当前回合, 设置地图视角, 展开地图工具,
+    load_fixture, open_panel, export_current, 等待结算交接, 设置地图视角, 展开地图工具,
 )
 
 
@@ -88,7 +88,7 @@ let game=applyAction(createGame(2,config),{type:'start_game',actorId:'p1'}).stat
         购买 = arg_页面.get_by_role('button', name=re.compile('^购买地产'))
         购买.wait_for(timeout=20000)
         购买.click()
-        保留当前回合(arg_页面)
+        等待结算交接(arg_页面)
         arg_页面.on('dialog', lambda arg_对话: arg_对话.accept('当前验收' if arg_对话.type == 'prompt' else None))
         对局, 原文 = export_current(arg_页面)
         assert 对局['map']['id'] == 'lime-garden-30'
