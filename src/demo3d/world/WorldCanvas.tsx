@@ -8,6 +8,7 @@ import { OutcomeCelebration } from "./OutcomeCelebration.js";
 import type { OutcomeCue } from "../outcomes.js";
 import type { RentCue } from "../presentation.js";
 import { Mascot, type MotionCue } from "./Mascot.js";
+import { LimeGarden } from "./LimeGarden.js";
 import { MiniatureTown } from "./MiniatureTown.js";
 import { cameraFrame, type ViewportInsets } from "./camera-layout.js";
 import { ACTOR_ANCHOR_Y, anchorsForMap, positionForTile } from "./layout.js";
@@ -275,8 +276,10 @@ function Scene(props: WorldCanvasProps & {shadowSize:number;nav:MutableRefObject
         const tileId=tileIdForHit(event);
         if(tileId!==null){event.stopPropagation();props.onSelectTile?.(tileId);}
       }}>
+      {props.game.map.id==='lime-garden-30'?<LimeGarden selectedTileId={props.selectedTileId} game={props.game} view={view} nav={props.nav} onSelectTile={props.onSelectTile}/>:<>
       <ContinuousGround view={view} map={props.game.map} actor={trackedPosition}/>
       <MiniatureTown selectedTileId={props.selectedTileId} game={props.game} view={view} nav={props.nav} onSelectTile={props.onSelectTile}/>
+      </>}
       </group>
       {props.game.players.map((player, seat) => (
         <Mascot

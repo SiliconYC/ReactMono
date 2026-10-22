@@ -82,7 +82,10 @@ jobs:
       - name: 主程序两图四人完整对局、规则功能、动画与离线存档
         timeout-minutes: 10
         run: python -u tests/browser_main_game_acceptance.py
-      - name: 数据关卡五图选择、压力地图移动、存档及离线回归
+      - name: 青柠游园双视口选格、购地、建设、完整短局与存档
+        timeout-minutes: 5
+        run: python -u tests/browser_lime_garden_e2e.py
+      - name: 数据关卡选择、压力地图移动、存档及离线回归
         timeout-minutes: 10
         run: python -u tests/browser_stress_maps_e2e.py
       - name: P007 五图真实路线像素、远端浏览、双指和移动帧检查
@@ -107,6 +110,7 @@ jobs:
             artifacts/main3d/
             artifacts/issue63/
             artifacts/stress-maps/
+            artifacts/lime-garden/
             artifacts/scalable-world/
             artifacts/map-camera-ux/
             artifacts/town-art/

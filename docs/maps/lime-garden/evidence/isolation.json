@@ -1,0 +1,37 @@
+{
+  "baseline": "49880a7",
+  "originalLevels": [
+    {
+      "id": "classic-24",
+      "equal": true,
+      "sha256": "cf6465e5f93e5309216145e70a1c0e75de883ccccf177e8e45fa4fbf05e84202"
+    },
+    {
+      "id": "harbor-20",
+      "equal": true,
+      "sha256": "854a550cec1d15e53e3a358ad4df2e15bd29ff54553966e806998a3d4fb65daa"
+    },
+    {
+      "id": "internal-square-16",
+      "equal": true,
+      "sha256": "60cea413afd06e028593add55db9fe735c4be206b9767605ea13f6f2dd30066e"
+    },
+    {
+      "id": "bend-60",
+      "equal": true,
+      "sha256": "bf64aa38f897915d87719785b67d4bc6e14ce086502aa32c9e1dd4f4c1019aa3"
+    },
+    {
+      "id": "bays-120",
+      "equal": true,
+      "sha256": "52c72cdf43765406239f8005d1f7f307c4d79183d3864d488a6a8b76d3904247"
+    },
+    {
+      "id": "ridges-360",
+      "equal": true,
+      "sha256": "1101e162e54efca4f0ab4c2e945e8a2c60d5181aa6f0248277efef38cb10490a"
+    }
+  ],
+  "newLevel": "lime-garden-30",
+  "addedLevels": 1
+}

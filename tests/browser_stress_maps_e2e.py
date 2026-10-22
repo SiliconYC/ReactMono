@@ -93,7 +93,7 @@ def main():
             browser=p.chromium.launch(channel='chrome',headless=True,args=['--no-sandbox','--disable-dev-shm-usage'])
             for level in levels:
                 exercise(browser,f'http://127.0.0.1:{server.server_port}/ReactMono/',level,False)
-            exercise(browser,f'http://127.0.0.1:{server.server_port}/ReactMono/',levels[-1],True)
+            exercise(browser,f'http://127.0.0.1:{server.server_port}/ReactMono/',next(level for level in levels if level['map']['id']=='ridges-360'),True)
             browser.close()
     finally:server.shutdown();thread.join()
 
