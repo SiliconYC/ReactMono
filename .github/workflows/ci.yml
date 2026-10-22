@@ -91,6 +91,11 @@ jobs:
       - name: 全地图现金调试、后台批量推进与离线Worker
         timeout-minutes: 8
         run: python -u tests/browser_debug_tools_e2e.py
+      - name: 后台策略公平对照与终局自由浏览
+        timeout-minutes: 5
+        run: |
+          node scripts/debug-simulation-fairness.mjs ci
+          python -u tests/browser_postgame_view_e2e.py
       - name: 数据关卡选择、压力地图移动、存档及离线回归
         timeout-minutes: 10
         run: python -u tests/browser_stress_maps_e2e.py
@@ -119,6 +124,8 @@ jobs:
             artifacts/lime-garden/
             artifacts/garden-depth/
             artifacts/debug-tools/
+            artifacts/postgame-view/
+            artifacts/simulation-fairness/
             artifacts/scalable-world/
             artifacts/map-camera-ux/
             artifacts/town-art/

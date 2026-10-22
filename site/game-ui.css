@@ -1377,16 +1377,6 @@ summary {
   padding: 9px 0;
   border-bottom: 1px solid #e1e6d2;
 }
-.result-layer {
-  position: absolute;
-  z-index: 6;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  background: #183c3480;
-  backdrop-filter: blur(4px);
-  padding: 20px;
-}
 .result-box {
   width: min(540px, 100%);
   max-height: calc(100dvh - 40px);

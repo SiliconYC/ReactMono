@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/laocao/Documents/coding/ReactMono/tests/browser_postgame_view_e2e.py", line 134, in <module>
+    终局观赏验收_类().api_执行()
+  File "/Users/laocao/Documents/coding/ReactMono/tests/browser_postgame_view_e2e.py", line 112, in api_执行
+    self._检查终局(页面)
+  File "/Users/laocao/Documents/coding/ReactMono/tests/browser_postgame_view_e2e.py", line 52, in _检查终局
+    assert arg_页面.locator('dialog[open]').count() == 0, '终局不应主动打开模态结算'
+AssertionError: 终局不应主动打开模态结算

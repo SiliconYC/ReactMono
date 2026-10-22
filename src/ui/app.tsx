@@ -1,3 +1,4 @@
+import { PostgameSummary, PostgameRanking } from './Postgame.js';
 import { DebugTools } from './DebugTools.js';
 import { setDebugCash, MAX_DEBUG_ROUNDS } from '../core/debug-tools.js';
 import { validateGameState } from '../core/save.js';
@@ -71,6 +72,7 @@ interface UiState {
   readonly confirmText: string | null;
   readonly overlay:
     | "debug"
+    | "results"
     | "menu"
     | "assets"
     | "bank"
@@ -253,6 +255,7 @@ class App extends React.Component<object, UiState> {
       // 批量快照重挂载整个场景，避免把模拟期间的产权和等级差异当作现场建设动画。
       this.setState(state => ({
         game, displayGame: game, sceneEpoch: state.sceneEpoch + 1, sceneReady: false,
+        overlay: game.status === "finished" ? null : state.overlay,
         debugBusy: false, lastMotion: null, visualCue: null, selectedTileId: null,
         queuedRent: null, queuedOutcomes: [], rentCue: null, outcomeCue: null, outcomeQueue: [],
         dieValue: null, dieActorId: null, financePanel: null,
@@ -2456,6 +2459,7 @@ class App extends React.Component<object, UiState> {
     if (!overlay) return null;
     const game = this.state.game;
     const names = {
+      results: "对局结算",
       debug: "调试工具",
       menu: "游戏菜单",
       assets: "玩家资产",
@@ -2474,6 +2478,9 @@ class App extends React.Component<object, UiState> {
       <Modal title={names[overlay]} onClose={this.closeOverlay}>
         {overlay === "menu" && (
           <nav className="menu-grid" aria-label="游戏菜单">
+            {game.status === "finished" && (
+              <button onClick={() => this.openOverlay("results")}><strong>对局结算</strong><small>最终排名与结束原因</small><span>→</span></button>
+            )}
             {(
               [
                 { id: "assets", label: "玩家资产", sub: "现金、地产与净资产" },
@@ -2506,6 +2513,7 @@ class App extends React.Component<object, UiState> {
             </button>
           </nav>
         )}
+        {overlay === "results" && game.status === "finished" && <PostgameRanking game={game}/>}
         {overlay === "debug" && <DebugTools game={game} busy={this.state.debugBusy} message={this.state.debugMessage} onCash={this.setPlayerDebugCash} onSimulate={this.simulateDebugGame} onCancel={this.cancelDebugSimulation} />}
         {overlay === "assets" && this.renderAssets()}
         {(["bank", "loan", "stock", "property"] as string[]).includes(
@@ -3010,6 +3018,8 @@ class App extends React.Component<object, UiState> {
                   <small>
                     {p.bankrupt
                       ? "破产"
+                      : game.status === "finished"
+                        ? (p.id === game.winnerId ? "获胜" : "已结束")
                       : p.id === current.id
                         ? "行动中"
                         : p.kind === "computer"
@@ -3037,6 +3047,14 @@ class App extends React.Component<object, UiState> {
               <button onClick={() => this.openOverlay("stock")}>股票</button>
             )}
           </nav>
+          {game.status === "finished" && !busy ? (
+            <PostgameSummary
+              game={game}
+              onDetails={() => this.openOverlay("results")}
+              onSave={() => this.openOverlay("saves")}
+              onRestart={this.reset}
+            />
+          ) : (<>
           <section
             className={`turn-card${(human && game.phase === "await_decision") || (human && visit) ? " decision-card" : ""}`}
             aria-label="当前行动"
@@ -3241,6 +3259,7 @@ class App extends React.Component<object, UiState> {
               })}
             </div>
           )}
+          </>)}
         </div>
         {this.state.selectedTileId !== null && !busy && (
           <aside className="board-inspector">
@@ -3267,47 +3286,6 @@ class App extends React.Component<object, UiState> {
           <div className="save-alert" role="alert">
             {this.state.saveStatus}
             <button onClick={() => this.openOverlay("saves")}>备份存档</button>
-          </div>
-        )}
-        {game.status === "finished" && !busy && (
-          <div className="result-layer">
-            <section className="result-box" aria-label="对局结果">
-              <p className="eyebrow">本局落幕 · 小镇财富榜</p>
-              <h1>
-                {game.winnerId
-                  ? game.players.find((p) => p.id === game.winnerId)?.name +
-                    "获胜！"
-                  : "净资产并列，平局！"}
-              </h1>
-              <p>
-                {[...game.events]
-                  .reverse()
-                  .find((e) => e.type === "game_finished")?.details?.reason ===
-                "bankruptcy"
-                  ? "其他玩家已破产"
-                  : "已完成 " + game.maxRounds + " 轮，按净资产结算"}
-              </p>
-              <ol>
-                {[...game.players]
-                  .sort((a, b) => netWorth(game, b.id) - netWorth(game, a.id))
-                  .map((p, i) => (
-                    <li key={p.id}>
-                      <span>{i + 1}</span>
-                      <SeatAvatar seat={game.players.indexOf(p)} small />
-                      <strong>{p.name}</strong>
-                      <b>{netWorth(game, p.id).toLocaleString("zh-CN")}</b>
-                    </li>
-                  ))}
-              </ol>
-              <div className="button-row">
-                <button onClick={() => this.openOverlay("saves")}>
-                  保存或导出
-                </button>
-                <button className="primary-btn" onClick={this.reset}>
-                  再来一局
-                </button>
-              </div>
-            </section>
           </div>
         )}
         {this.renderOverlay()}

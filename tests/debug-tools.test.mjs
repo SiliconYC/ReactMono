@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import { applyAction, createGame, DEFAULT_CONFIG } from '../.test-dist/core/game.js';
 import { LEVELS, levelConfig } from '../.test-dist/core/level-data.js';
 import { serializeGame, deserializeGame, validateGameState } from '../.test-dist/core/save.js';
-import { setDebugCash, simulateDebugRounds } from '../.test-dist/core/debug-tools.js';
+import { setDebugCash, simulateDebugRounds, chooseDebugSimulationAction } from '../.test-dist/core/debug-tools.js';
+import { chooseComputerAction } from '../.test-dist/core/agent.js';
 
 function started(mapId = 'classic-24', maxRounds = 60) {
   const game = createGame(261022, {
@@ -79,6 +80,103 @@ test('指定轮数不放宽原轮数上限，终局提前停止且再次运行�
   validateGameState(result.state);
 });
 
+test('后台代玩在真人与平衡电脑互换身份后保留逐轮动作、事件和最终经济结果', () => {
+  for (const mapId of ['classic-24', 'lime-garden-30']) for (const cash of [3000, 1000000]) {
+    const fresh = createGame(20261015, {
+      ...levelConfig(mapId), initialCash: cash, maxRounds: 40,
+      players: [
+        { id: 'p1', name: '甲', kind: 'computer', computerStyle: 'balanced' },
+        { id: 'p2', name: '乙', kind: 'computer', computerStyle: 'balanced' },
+      ],
+      automaticLiquidation: true, propertyVisitOnly: true, stockAccount: 'bank',
+      bankEnabled: true, loanEnabled: true, marketEnabled: true, strategyEnabled: true,
+      specialEnabled: !!levelConfig(mapId).facilityConfig,
+    });
+    const ready = applyAction(fresh, { type: 'start_game', actorId: 'p1' }).state;
+    const comparable = state => ({
+      ...state, players: state.players.map(({ kind, computerStyle, ...player }) => player),
+    });
+    for (const humanSeat of [0, 1]) {
+      let reference = ready;
+      let actual = {
+        ...ready,
+        players: ready.players.map((player, seat) => {
+          if (seat !== humanSeat) return player;
+          const { computerStyle, ...human } = player;
+          return { ...human, kind: 'human' };
+        }),
+      };
+      const initial = actual;
+      const snapshot = structuredClone(actual);
+      while (reference.status === 'playing') {
+        const expected = simulateDebugRounds(reference, 1);
+        const result = simulateDebugRounds(actual, 1);
+        assert.equal(result.actions, expected.actions, `${mapId}/${cash}/human-seat-${humanSeat}/round-${reference.round}`);
+        assert.deepEqual(comparable(result.state), comparable(expected.state));
+        reference = expected.state;
+        actual = result.state;
+      }
+      assert.equal(actual.status, 'finished');
+      assert.equal(actual.players[humanSeat].kind, 'human');
+      assert.equal(actual.players[humanSeat].computerStyle, undefined);
+      assert.deepEqual(initial, snapshot);
+      validateGameState(actual);
+      assert.deepEqual(deserializeGame(serializeGame(actual)).game, actual);
+    }
+  }
+});
+
+test('旧存档中未声明风格的电脑在后台也采用平衡策略且不补写存档字段', () => {
+  const initial = started();
+  const legacy = {
+    ...initial,
+    players: initial.players.map(player => {
+      if (player.id !== 'p2') return player;
+      const { computerStyle, ...unstyled } = player;
+      return unstyled;
+    }),
+  };
+  const result = simulateDebugRounds(legacy, 20);
+  const expected = simulateDebugRounds(initial, 20);
+  assert.equal(result.actions, expected.actions);
+  assert.deepEqual(result.state.events, expected.state.events);
+  assert.deepEqual(result.state.tiles, expected.state.tiles);
+  assert.deepEqual(result.state.players.map(({ computerStyle, ...player }) => player),
+    expected.state.players.map(({ computerStyle, ...player }) => player));
+  assert.equal(result.state.players[1].computerStyle, undefined);
+  assert.deepEqual(deserializeGame(serializeGame(result.state)).game, result.state);
+});
+
+test('调试逐动作仅借用平衡电脑决策视图，原电脑接口仍拒绝真人并保留显式电脑风格', () => {
+  let state = started('lime-garden-30', 40);
+  const initial = structuredClone(state);
+  const identity = state.players.map(({ id, kind, computerStyle }) => ({ id, kind, computerStyle }));
+  while (state.status === 'playing') {
+    const before = structuredClone(state);
+    const player = state.players[state.currentPlayerIndex];
+    const action = chooseDebugSimulationAction(state);
+    assert.deepEqual(state, before);
+    if (player.kind === 'human') {
+      assert.equal(chooseComputerAction(state), null);
+      const computerView = {
+        ...state,
+        players: state.players.map(entry => entry.id === player.id
+          ? { ...entry, kind: 'computer', computerStyle: 'balanced' } : entry),
+      };
+      assert.deepEqual(action, chooseComputerAction(computerView));
+    } else {
+      assert.deepEqual(action, chooseComputerAction(state));
+    }
+    assert.ok(action);
+    const result = applyAction(state, action);
+    assert.equal(result.ok, true);
+    state = result.state;
+  }
+  assert.deepEqual(state.players.map(({ id, kind, computerStyle }) => ({ id, kind, computerStyle })), identity);
+  assert.deepEqual(simulateDebugRounds(initial, 40).state, state);
+  assert.deepEqual(deserializeGame(serializeGame(state)).game, state);
+});
+
 test('轮数非法值、未开局与动作预算耗尽均不修改输入局面', () => {
   const game = started();
   const before = structuredClone(game);
@@ -142,5 +240,7 @@ test('Worker 接口返回独立最终快照，非法输入返回失败且可再�
   assert.equal(valid.ok, true);
   assert.equal(valid.result.state.round, 3);
   assert.deepEqual(valid.result, simulateDebugRounds(game, 2));
+  validateGameState(valid.result.state);
+  assert.deepEqual(deserializeGame(serializeGame(valid.result.state)).game, valid.result.state);
   assert.deepEqual(game, before);
 });

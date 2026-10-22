@@ -47,7 +47,8 @@ export function DebugTools({ game, busy, message, onCash, onSimulate, onCancel }
     </section>
     <section aria-labelledby="debug-rounds-title">
       <h3 id="debug-rounds-title">后台批量推进</h3>
-      <p className="debug-note">从当前阶段继续，真人暂按基础策略操作，玩家身份保持不变。推进到轮次增加指定数值时停止；到达原定 {game.maxRounds} 轮上限或提前分出胜负时结束。期间跳过掷骰、移动和建设演出。</p>
+      <p className="debug-note">从当前阶段推进指定轮数。默认统一采用平衡策略，已选电脑风格保留，玩家身份不变。到达原定 {game.maxRounds} 轮上限或分出胜负时停止，完成后直接显示结果。</p>
+      <p className="debug-note">相同局面重复模拟会得到相同结果。比较多局时，请在新局准备中使用不同的对局种子。</p>
       <form className="debug-rounds-form" onSubmit={event => { event.preventDefault(); if (!busy && playing) perform(() => onSimulate(parseInteger(rounds, MAX_DEBUG_ROUNDS, 1))); }}>
         <label htmlFor="debug-rounds">推进轮数</label>
         <input id="debug-rounds" type="text" inputMode="numeric" value={rounds} disabled={busy || !playing} onChange={event => setRounds(event.target.value)} />

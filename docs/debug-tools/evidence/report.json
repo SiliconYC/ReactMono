@@ -1,0 +1,86 @@
+{
+  "results": [
+    {
+      "mode": "rounds",
+      "phone": false,
+      "unobstructed": true,
+      "navigation": true,
+      "readOnly": true,
+      "saveUnchanged": true
+    },
+    {
+      "mode": "bankruptcy",
+      "phone": false,
+      "unobstructed": true,
+      "navigation": true,
+      "readOnly": true,
+      "saveUnchanged": true
+    },
+    {
+      "mode": "draw",
+      "phone": false,
+      "unobstructed": true,
+      "navigation": true,
+      "readOnly": true,
+      "saveUnchanged": true
+    },
+    {
+      "mode": "live",
+      "phone": false,
+      "unobstructed": true,
+      "navigation": true,
+      "readOnly": true,
+      "saveUnchanged": true
+    },
+    {
+      "mode": "worker",
+      "phone": false,
+      "unobstructed": true,
+      "navigation": true,
+      "readOnly": true,
+      "saveUnchanged": true
+    },
+    {
+      "mode": "rounds",
+      "phone": true,
+      "unobstructed": true,
+      "navigation": true,
+      "readOnly": true,
+      "saveUnchanged": true
+    },
+    {
+      "mode": "bankruptcy",
+      "phone": true,
+      "unobstructed": true,
+      "navigation": true,
+      "readOnly": true,
+      "saveUnchanged": true
+    },
+    {
+      "mode": "draw",
+      "phone": true,
+      "unobstructed": true,
+      "navigation": true,
+      "readOnly": true,
+      "saveUnchanged": true
+    },
+    {
+      "mode": "live",
+      "phone": true,
+      "unobstructed": true,
+      "navigation": true,
+      "readOnly": true,
+      "saveUnchanged": true
+    },
+    {
+      "mode": "worker",
+      "phone": true,
+      "unobstructed": true,
+      "navigation": true,
+      "readOnly": true,
+      "saveUnchanged": true
+    }
+  ],
+  "errors": [],
+  "physicalPhone": false
+}

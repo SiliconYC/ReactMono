@@ -1,0 +1,14 @@
+{
+  "baselineCommit": "9e12a7312d6541af482e5f4c9adffbbaf5254a1e",
+  "source": "artifacts/simulation-fairness",
+  "hashes": {
+    "baseline": {
+      "sha256": "c3ab169b74bdeda90190238a3ea5d6dda6b05ce17e22b411084730aff9e59148",
+      "bytes": 2256402
+    },
+    "fixed": {
+      "sha256": "f477bdaebfbc2d431ecd8cda8e038614b112cbd9f3a1c1fe92b314495cce2b7b",
+      "bytes": 2512397
+    }
+  }
+}

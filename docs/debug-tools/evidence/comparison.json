@@ -1,0 +1,373 @@
+{
+  "baseline": "baseline.json",
+  "fixed": "fixed.json",
+  "labeledGames": 3240,
+  "beforeMatchesFrozenLegacy": 324,
+  "afterMatchesSameBalancedStrategyAndActionDigest": 324,
+  "allReasons": [
+    "round_limit"
+  ],
+  "uiDefault": [
+    {
+      "map": "classic-24",
+      "cash": 3000,
+      "family": "ui-default",
+      "mode": "legacy-human-first",
+      "games": 1,
+      "p1Wins": 0,
+      "p2Wins": 1,
+      "draws": 0,
+      "bankruptcy": 0,
+      "roundLimit": 1,
+      "meanNetWorth": [
+        2380,
+        3399
+      ],
+      "meanActions": 188,
+      "totalDeposits": [
+        0,
+        2
+      ]
+    },
+    {
+      "map": "classic-24",
+      "cash": 3000,
+      "family": "ui-default",
+      "mode": "actual-debug",
+      "games": 1,
+      "p1Wins": 0,
+      "p2Wins": 1,
+      "draws": 0,
+      "bankruptcy": 0,
+      "roundLimit": 1,
+      "meanNetWorth": [
+        2824,
+        3402
+      ],
+      "meanActions": 198,
+      "totalDeposits": [
+        3,
+        2
+      ]
+    },
+    {
+      "map": "classic-24",
+      "cash": 1000000,
+      "family": "ui-default",
+      "mode": "legacy-human-first",
+      "games": 1,
+      "p1Wins": 1,
+      "p2Wins": 0,
+      "draws": 0,
+      "bankruptcy": 0,
+      "roundLimit": 1,
+      "meanNetWorth": [
+        1471795,
+        1006500
+      ],
+      "meanActions": 1221,
+      "totalDeposits": [
+        997,
+        31
+      ]
+    },
+    {
+      "map": "classic-24",
+      "cash": 1000000,
+      "family": "ui-default",
+      "mode": "actual-debug",
+      "games": 1,
+      "p1Wins": 1,
+      "p2Wins": 0,
+      "draws": 0,
+      "bankruptcy": 0,
+      "roundLimit": 1,
+      "meanNetWorth": [
+        1006706,
+        1006612
+      ],
+      "meanActions": 283,
+      "totalDeposits": [
+        35,
+        35
+      ]
+    },
+    {
+      "map": "lime-garden-30",
+      "cash": 3000,
+      "family": "ui-default",
+      "mode": "legacy-human-first",
+      "games": 1,
+      "p1Wins": 0,
+      "p2Wins": 1,
+      "draws": 0,
+      "bankruptcy": 0,
+      "roundLimit": 1,
+      "meanNetWorth": [
+        2641,
+        4293
+      ],
+      "meanActions": 213,
+      "totalDeposits": [
+        0,
+        3
+      ]
+    },
+    {
+      "map": "lime-garden-30",
+      "cash": 3000,
+      "family": "ui-default",
+      "mode": "actual-debug",
+      "games": 1,
+      "p1Wins": 0,
+      "p2Wins": 1,
+      "draws": 0,
+      "bankruptcy": 0,
+      "roundLimit": 1,
+      "meanNetWorth": [
+        3600,
+        4590
+      ],
+      "meanActions": 212,
+      "totalDeposits": [
+        3,
+        3
+      ]
+    },
+    {
+      "map": "lime-garden-30",
+      "cash": 1000000,
+      "family": "ui-default",
+      "mode": "legacy-human-first",
+      "games": 1,
+      "p1Wins": 1,
+      "p2Wins": 0,
+      "draws": 0,
+      "bankruptcy": 0,
+      "roundLimit": 1,
+      "meanNetWorth": [
+        1471631,
+        1009044
+      ],
+      "meanActions": 1255,
+      "totalDeposits": [
+        997,
+        39
+      ]
+    },
+    {
+      "map": "lime-garden-30",
+      "cash": 1000000,
+      "family": "ui-default",
+      "mode": "actual-debug",
+      "games": 1,
+      "p1Wins": 0,
+      "p2Wins": 1,
+      "draws": 0,
+      "bankruptcy": 0,
+      "roundLimit": 1,
+      "meanNetWorth": [
+        1005909,
+        1009031
+      ],
+      "meanActions": 293,
+      "totalDeposits": [
+        35,
+        38
+      ]
+    }
+  ],
+  "dispersedComparison": [
+    {
+      "map": "classic-24",
+      "cash": 3000,
+      "family": "sha256-dispersed",
+      "mode": "legacy-human-first",
+      "games": 64,
+      "p1Wins": 18,
+      "p2Wins": 46,
+      "draws": 0,
+      "bankruptcy": 0,
+      "roundLimit": 64,
+      "meanNetWorth": [
+        2622.671875,
+        3093.34375
+      ],
+      "meanActions": 198.234375,
+      "totalDeposits": [
+        1,
+        176
+      ]
+    },
+    {
+      "map": "classic-24",
+      "cash": 3000,
+      "family": "sha256-dispersed",
+      "mode": "actual-debug",
+      "games": 64,
+      "p1Wins": 32,
+      "p2Wins": 32,
+      "draws": 0,
+      "bankruptcy": 0,
+      "roundLimit": 64,
+      "meanNetWorth": [
+        3392.9375,
+        3375.109375
+      ],
+      "meanActions": 201.65625,
+      "totalDeposits": [
+        174,
+        176
+      ]
+    },
+    {
+      "map": "classic-24",
+      "cash": 1000000,
+      "family": "sha256-dispersed",
+      "mode": "legacy-human-first",
+      "games": 64,
+      "p1Wins": 64,
+      "p2Wins": 0,
+      "draws": 0,
+      "bankruptcy": 0,
+      "roundLimit": 64,
+      "meanNetWorth": [
+        1471923.421875,
+        1006635
+      ],
+      "meanActions": 1230.09375,
+      "totalDeposits": [
+        63810,
+        2100
+      ]
+    },
+    {
+      "map": "classic-24",
+      "cash": 1000000,
+      "family": "sha256-dispersed",
+      "mode": "actual-debug",
+      "games": 64,
+      "p1Wins": 27,
+      "p2Wins": 37,
+      "draws": 0,
+      "bankruptcy": 0,
+      "roundLimit": 64,
+      "meanNetWorth": [
+        1006431.96875,
+        1006425.96875
+      ],
+      "meanActions": 269.78125,
+      "totalDeposits": [
+        2096,
+        2112
+      ]
+    },
+    {
+      "map": "lime-garden-30",
+      "cash": 3000,
+      "family": "sha256-dispersed",
+      "mode": "legacy-human-first",
+      "games": 64,
+      "p1Wins": 16,
+      "p2Wins": 48,
+      "draws": 0,
+      "bankruptcy": 0,
+      "roundLimit": 64,
+      "meanNetWorth": [
+        2760.5,
+        3340.09375
+      ],
+      "meanActions": 205.921875,
+      "totalDeposits": [
+        9,
+        190
+      ]
+    },
+    {
+      "map": "lime-garden-30",
+      "cash": 3000,
+      "family": "sha256-dispersed",
+      "mode": "actual-debug",
+      "games": 64,
+      "p1Wins": 37,
+      "p2Wins": 27,
+      "draws": 0,
+      "bankruptcy": 0,
+      "roundLimit": 64,
+      "meanNetWorth": [
+        3663.3125,
+        3543.46875
+      ],
+      "meanActions": 210.421875,
+      "totalDeposits": [
+        189,
+        191
+      ]
+    },
+    {
+      "map": "lime-garden-30",
+      "cash": 1000000,
+      "family": "sha256-dispersed",
+      "mode": "legacy-human-first",
+      "games": 64,
+      "p1Wins": 64,
+      "p2Wins": 0,
+      "draws": 0,
+      "bankruptcy": 0,
+      "roundLimit": 64,
+      "meanNetWorth": [
+        1472210.09375,
+        1007047.609375
+      ],
+      "meanActions": 1241.8125,
+      "totalDeposits": [
+        63817,
+        2212
+      ]
+    },
+    {
+      "map": "lime-garden-30",
+      "cash": 1000000,
+      "family": "sha256-dispersed",
+      "mode": "actual-debug",
+      "games": 64,
+      "p1Wins": 38,
+      "p2Wins": 26,
+      "draws": 0,
+      "bankruptcy": 0,
+      "roundLimit": 64,
+      "meanNetWorth": [
+        1007258.53125,
+        1006922.0625
+      ],
+      "meanActions": 284.828125,
+      "totalDeposits": [
+        2249,
+        2206
+      ]
+    }
+  ],
+  "findings": [
+    "初始现金3000时旧后台策略偏向平衡电脑，身份交换不消除偏向；同策略控制接近均衡。",
+    "双方现金100万时旧基础策略大量存款复利反而使真人全胜，未复现同资金电脑总赢。",
+    "本样本全部40轮按净资产结算，没有破产终局。",
+    "修复仅统一后台默认策略，不修改价格、租金、利率、棋盘、随机数或正常对局电脑接口。"
+  ],
+  "limitations": [
+    "有限种子样本不构成所有种子胜率50%的证明。",
+    "未复现用户原局存档，无法判断原局双方实际资产及历史策略。",
+    "baseline原始actual-debug行未记录动作分类；分类应使用已验证经济和动作总数完全相等的legacy-human-first行，其groups.totalDeposits的0为未采集值，不能当真实0。"
+  ],
+  "validation": {
+    "command": "npx tsc -p tsconfig.json && node --test tests/debug-tools.test.mjs tests/agent.test.mjs tests/p3-strategic-agent.test.mjs tests/save.test.mjs",
+    "passedTests": 22,
+    "failedTests": 0,
+    "red": "角色换位首轮8!=10；旧无风格电脑20轮202!=190",
+    "workerSaveRoundTrip": true
+  },
+  "files": [
+    "src/core/debug-tools.ts",
+    "tests/debug-tools.test.mjs",
+    "scripts/debug-simulation-fairness.mjs"
+  ]
+}

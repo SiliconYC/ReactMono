@@ -109,3 +109,7 @@
 ## 2026-10-22：P011 造型修订与 P012 通用调试
 
 所有者明确否定青柠游园首轮的单椭球树、稀疏圆亭和相似住宅，并要求建设动画；[P011](proposals/P011-isolated-style-maps.md) 晋升 [#132](https://github.com/SiliconYC/ReactMono/issues/132)，继续保持其他关卡美术隔离。另登记 [P012](proposals/P012-local-debug-tools.md) 并晋升 [#133](https://github.com/SiliconYC/ReactMono/issues/133)，为所有地图加入现金设置与本机后台批量推进。两项边界独立，规则可用性与风格认可分别记录。[修订与验收](maps/lime-garden/refinement-2026-10-22.md)保留真实效果、失败修正与剩余约束。
+
+## 2026-10-22：P012 代玩公平与终局浏览修正
+
+所有者反馈几十轮模拟偏向电脑与终局遮挡，查重晋升 [#134](https://github.com/SiliconYC/ReactMono/issues/134)。多种子控制确认旧调试工具按真人/电脑使用不同策略，现统一后台默认平衡策略，保留显式电脑风格；终局改为普通底部结果栏，详细结算按需打开，后台终局自动收起调试窗口。[证据与验收](debug-tools/fairness-and-postgame-2026-10-22.md)区分策略偏差、轮数上限与经济平衡，不将有限样本提升为全局平衡结论。其他关卡设计和全部经济参数不变。

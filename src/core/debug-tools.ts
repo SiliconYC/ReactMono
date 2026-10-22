@@ -1,7 +1,7 @@
 import { applyAction } from './game.js';
-import { chooseComputerAction, choosePhaseAction } from './agent.js';
+import { chooseComputerAction } from './agent.js';
 import { validateGameState } from './save.js';
-import type { GameState } from './types.js';
+import type { GameAction, GameState } from './types.js';
 
 export const MAX_DEBUG_CASH = 1_000_000_000_000;
 export const MAX_DEBUG_ROUNDS = 100_000;
@@ -18,6 +18,18 @@ export function setDebugCash(state: GameState, playerId: string, cash: number): 
 }
 
 export interface DebugSimulationResult { readonly state: GameState; readonly actions: number; }
+export function chooseDebugSimulationAction(state: GameState): GameAction | null {
+  const player = state.players[state.currentPlayerIndex];
+  if (!player || (player.kind === 'computer' && player.computerStyle))
+    return chooseComputerAction(state, { reserveCash: 200 });
+  // 后台代玩默认共用平衡策略，兼容未声明风格的旧电脑；只替换决策视图，保留真实身份和存档。
+  const decisionView: GameState = {
+    ...state,
+    players: state.players.map((entry, index) => index === state.currentPlayerIndex
+      ? { ...entry, kind: 'computer', computerStyle: 'balanced' } : entry),
+  };
+  return chooseComputerAction(decisionView, { reserveCash: 200 });
+}
 export function simulateDebugRounds(state: GameState, rounds: number, maxActions = 100_000): DebugSimulationResult {
   if (!Number.isSafeInteger(rounds) || rounds < 1 || rounds > MAX_DEBUG_ROUNDS)
     throw new Error('模拟轮数必须是 1 至 100000 的整数');
@@ -30,10 +42,7 @@ export function simulateDebugRounds(state: GameState, rounds: number, maxActions
   const targetRound = state.round + rounds;
   while (current.status === 'playing' && current.round < targetRound) {
     if (actions >= maxActions) throw new Error('模拟动作达到安全上限，原对局保持不变；请减少轮数');
-    const player = current.players[current.currentPlayerIndex];
-    const action = player.kind === 'computer'
-      ? chooseComputerAction(current, { reserveCash: 200 })
-      : choosePhaseAction(current, 200);
+    const action = chooseDebugSimulationAction(current);
     if (!action) throw new Error('当前阶段没有可执行动作，原对局保持不变');
     const result = applyAction(current, action);
     if (!result.ok) throw new Error(`模拟操作被规则拒绝（${result.reason}），原对局保持不变`);
