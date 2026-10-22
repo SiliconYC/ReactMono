@@ -3,6 +3,7 @@ import type { TileConfig, Tile, GameConfig, GameState, PlayerId, Player, GameAct
 import { quoteMarket } from './market.js';
 import { DEFAULT_UPGRADES, DEFAULT_RESALE_RULES } from './config.js';
 import { accept, reject } from './transitions.js';
+import { propertyRun, quotePropertyUpgrade } from './property-groups.js';
 export function makePropertyTile(t: TileConfig, upgrades: GameConfig['upgrades']=DEFAULT_UPGRADES): Tile {
   if(t.kind!=='property')throw new Error('只能升级地产');
   const up=upgrades??DEFAULT_UPGRADES;
@@ -61,8 +62,8 @@ export function sellProperty(state:GameState,actor:Player,action:Extract<GameAct
 
 /** The roll event scopes a visit; bank or stock actions cannot reopen a construction choice. */
 export function propertyVisitAvailable(state: GameState, actor: Player, tileId: number): boolean {
-  if (state.propertyVisitOnly !== true) return true;
-  if (actor.position !== tileId) return false;
+  if (state.propertyVisitOnly !== true && state.terraceRulesVersion !== 1) return true;
+  if (actor.position !== tileId && !(state.terraceRulesVersion===1&&propertyRun(state,actor.position).some(tile=>tile.id===tileId))) return false;
   let rolled = -1;
   for (let index = state.events.length - 1; index >= 0; index--) {
     const event = state.events[index];
@@ -88,14 +89,14 @@ export function declineProperty(state: GameState, actor: Player): ActionResult {
 export function upgradeProperty(state: GameState, actor: Player, action: Extract<GameAction,{type:'upgrade_property'}>): ActionResult {
       if (state.phase !== 'await_end_turn' || !Number.isInteger(action.tileId))return reject(state,'INVALID_PHASE');
       const tile=state.tiles[action.tileId];
-      if (!tile || tile.kind!=='property' || tile.ownerId!==actor.id || tile.mortgaged===true || (tile.level??0)>=2)return reject(state,'INVALID_PHASE');
+      if (!tile || tile.kind!=='property' || tile.ownerId!==actor.id || tile.mortgaged===true)return reject(state,'INVALID_PHASE');
       if(!propertyVisitAvailable(state,actor,tile.id))return reject(state,'INVALID_PHASE');
-      const level=tile.level??0;
-      const cost=tile.upgradeCosts?.[level];
-      if(cost===undefined)return reject(state,'INVALID_PHASE');
+      const quote=quotePropertyUpgrade(state,tile.id);
+      if(!quote)return reject(state,'INVALID_PHASE');
+      const {cost,level}=quote;
       if(actor.cash<cost)return reject(state,'INSUFFICIENT_FUNDS');
-      return accept(state,[{type:'property_upgraded',actorId:actor.id,details:{tileId:tile.id,level:level+1,amount:cost}}],{
-        tiles:state.tiles.map(t=>t.id===tile.id?{...t,level:level+1}:t),
+      return accept(state,quote.upgrades.map(t=>({type:'property_upgraded',actorId:actor.id,details:{tileId:t.id,level,amount:t.upgradeCosts![level-1]}})),{
+        tiles:state.tiles.map(t=>quote.upgrades.some(u=>u.id===t.id)?{...t,level}:t),
         players:state.players.map(p=>p.id===actor.id?{...p,cash:p.cash-cost}:p)
       });
 }

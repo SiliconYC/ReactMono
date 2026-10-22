@@ -3,6 +3,7 @@ import type { GameState, Player, ActionResult, GameEvent, CardKind, Phase } from
 import { nextDie } from './random.js';
 import { advancePosition } from './maps.js';
 import { netWorth, liquidateForRent } from './property.js';
+import { propertyRent } from './property-groups.js';
 import { advanceMarket } from './market.js';
 import { liquidateStocksForRent } from './stocks.js';
 import { foreclose, settleLoanRound } from './loan.js';
@@ -46,7 +47,7 @@ export function rollTurn(state: GameState, actor: Player): ActionResult {
       if (landed.kind === 'property' && landed.ownerId && landed.ownerId !== actor.id) {
         const landlord = state.players.find(p => p.id === landed.ownerId);
         if (!landlord) return reject(state,'INVALID_PHASE');
-        const baseDue = landed.mortgaged===true ? 0 : (landed.level??0)===0 ? (landed.rent??0) : (landed.levelRents?.[landed.level??0]??0);
+        const baseDue = propertyRent(state,landed.id);
         const due = state.pendingRentWaiver===true?0:baseDue;
         if(baseDue>0&&state.pendingRentWaiver===true)events.push({type:'rent_waived',actorId:actor.id,details:{tileId:landed.id,amount:baseDue}});
         const funds=coverRentFromBank(state,actor,due);

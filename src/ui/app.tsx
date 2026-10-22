@@ -24,6 +24,10 @@ import {
   quoteMarket,
   type StockId,
   propertyVisitAvailable,
+  propertyBlock,
+  propertyRun,
+  propertyRent,
+  quotePropertyUpgrade,
 } from "../core/game.js";
 import { LEVELS, PLAYABLE_LEVELS, levelConfig } from "../core/level-data.js";
 import { chooseComputerAction } from "../core/agent.js";
@@ -1376,8 +1380,7 @@ class App extends React.Component<object, UiState> {
         (game.tiles[actor.position].price ?? 0) >= 400) ||
       (type === "upgrade_property" &&
         tileId !== undefined &&
-        (game.tiles[tileId]?.upgradeCosts?.[game.tiles[tileId].level ?? 0] ??
-          0) >= 400) ||
+        (quotePropertyUpgrade(game,tileId)?.cost ?? 0) >= 400) ||
       ((type === "buy_stock" || type === "sell_stock") &&
         Number.isFinite(stockAmount) &&
         (stockAmount >= 50 || quoted * stockAmount >= 300));
@@ -1526,7 +1529,9 @@ class App extends React.Component<object, UiState> {
     const interest = events.filter((e) => e.type === "bank_interest");
     if (interest.length)
       return `本轮银行结息 ${interest.length} 笔，总计 ${interest.reduce((sum, e) => sum + Number(e.details?.amount ?? 0), 0)} 游戏币。`;
-    const upgraded = events.find((e) => e.type === "property_upgraded");
+    const upgrades = events.filter((e) => e.type === "property_upgraded");
+    if(upgrades.length>1)return `${actorName}联排建设 ${upgrades.length} 户至 ${upgrades[0].details?.level} 级，共花费 ${upgrades.reduce((sum,event)=>sum+Number(event.details?.amount??0),0)} 游戏币。`;
+    const upgraded = upgrades[0];
     if (upgraded)
       return `${actorName}升级了 ${upgraded.details?.tileId} 号地产至 ${upgraded.details?.level} 级，花费 ${upgraded.details?.amount} 游戏币。`;
     const used = events.find((e) => e.type === "card_used");
@@ -1918,6 +1923,9 @@ class App extends React.Component<object, UiState> {
             <p>
               到达无主地产可购买或放弃。以后再次到访自己的土地，可以建房、升级；每次到访限一次操作。停在对手地产会自动支付租金。
             </p>
+            {this.state.game.map.id==='lime-garden-30'&&<p>{this.state.game.terraceRulesVersion===1
+              ? '青柠游园：同街区连续的同主土地组成联排。到访其中任意一格，可一次补建整排最低等级房屋，费用合计扣除；对手到访支付整排当前通行费。空地也参与，抵押、出售或他人土地会断开联排。'
+              : '本局为旧版单地块规则。新建青柠游园对局可体验街区联排建设与合计通行费。'}</p>}
           </li>
           <li>
             <strong>安排资产</strong>
@@ -2062,7 +2070,8 @@ class App extends React.Component<object, UiState> {
               .filter((t) => t.ownerId === current.id)
               .map((tile) => {
                 const level = tile.level ?? 0,
-                  cost = tile.upgradeCosts?.[level] ?? Infinity,
+                  quote = quotePropertyUpgrade(game,tile.id),
+                  cost = quote?.cost ?? Infinity,
                   visit = propertyVisitAvailable(game, current, tile.id);
                 return (
                   <article className="property-entry" key={tile.id}>
@@ -2078,11 +2087,12 @@ class App extends React.Component<object, UiState> {
                         ·{" "}
                         {tile.mortgaged
                           ? "已抵押，暂停收租"
-                          : "租金 " + (tile.levelRents?.[level] ?? tile.rent)}
+                          : "通行费 " + propertyRent(game,tile.id)}
+                        {game.terraceRulesVersion===1 && ` · ${propertyBlock(game,tile.id)?.title} · ${propertyRun(game,tile.id).length} 块连地`}
                       </small>
                     </div>
                     <div className="button-row">
-                      {level < 2 && !tile.mortgaged && (
+                      {quote && !tile.mortgaged && (
                         <button
                           disabled={!canTrade || !visit || current.cash < cost}
                           onClick={() =>
@@ -2090,7 +2100,7 @@ class App extends React.Component<object, UiState> {
                           }
                         >
                           {visit
-                            ? (level === 0 ? "建造住宅" : "升级房屋") +
+                            ? (quote.tileIds.length>1 ? `联排建设 ${quote.upgrades.length} 户` : level === 0 ? "建造住宅" : "升级房屋") +
                               " · " +
                               cost
                             : "再次到访后可建设"}
@@ -2877,13 +2887,15 @@ class App extends React.Component<object, UiState> {
       !this.state.awaitingHandoff &&
       !busy &&
       game.status === "playing";
+    const construction = quotePropertyUpgrade(game,target.id);
     const visit =
       game.phase === "await_end_turn" &&
       target.ownerId === current.id &&
       !target.mortgaged &&
-      (target.level ?? 0) < 2 &&
+      construction !== null &&
       propertyVisitAvailable(game, current, target.id);
-    const cost = target.upgradeCosts?.[target.level ?? 0] ?? Infinity;
+    const cost = construction?.cost ?? Infinity;
+    const terrace = game.terraceRulesVersion===1 && (construction?.tileIds.length??0)>1;
     const move = this.state.visualCue;
     const motion: MotionCue | null =
       move?.actorId && move.path.length
@@ -2906,7 +2918,7 @@ class App extends React.Component<object, UiState> {
         : game.phase === "await_decision"
           ? "这块土地，值得投资吗？"
           : visit
-            ? "为你的小镇添一栋房"
+            ? terrace ? "一起建设这一排街坊" : "为你的小镇添一栋房"
             : "这一步，已经办妥";
     if (busy)
       heading = motion
@@ -3079,7 +3091,7 @@ class App extends React.Component<object, UiState> {
               <h2>{heading}</h2>
               {human && game.phase === "await_decision" ? (
                 <div className="arrival-details">
-                  <strong>{target.title}</strong>
+                  <strong>{target.title}{game.terraceRulesVersion===1?` · ${propertyBlock(game,target.id)?.title}`:''}</strong>
                   <span>
                     地价 <b>{target.price}</b>
                   </span>
@@ -3097,14 +3109,15 @@ class App extends React.Component<object, UiState> {
                 </div>
               ) : human && visit ? (
                 <div className="arrival-details">
-                  <strong>{target.title}</strong>
+                  <strong>{terrace?`${propertyBlock(game,target.id)?.title} · ${construction!.tileIds.length} 块联排`:target.title}</strong>
                   <span>
                     费用 <b>{cost}</b>
                   </span>
                   <span>
-                    租金 {target.levelRents?.[target.level ?? 0] ?? target.rent}{" "}
-                    → <b>{target.levelRents?.[(target.level ?? 0) + 1]}</b>
+                    {terrace?'整排通行费':'通行费'} {construction!.rentBefore}{" "}
+                    → <b>{construction!.rentAfter}</b>
                   </span>
+                  {terrace&&<span>补建 {construction!.upgrades.length} 户至 {construction!.level} 级 · 高等级房屋保留</span>}
                 </div>
               ) : (
                 <p className="action-status">
@@ -3190,7 +3203,7 @@ class App extends React.Component<object, UiState> {
                     disabled={current.cash < cost}
                     onClick={() => this.dispatch("upgrade_property", target.id)}
                   >
-                    {(target.level ?? 0) === 0 ? "建造住宅" : "升级房屋"} ·{" "}
+                    {terrace ? `联排${construction!.level===1?'建造':'升级'} ${construction!.upgrades.length} 户` : (target.level ?? 0) === 0 ? "建造住宅" : "升级房屋"} ·{" "}
                     {cost}
                   </button>
                 </>
@@ -3292,6 +3305,11 @@ class App extends React.Component<object, UiState> {
               {game.tiles[this.state.selectedTileId].kind === "property" &&
                 ` · ${game.tiles[this.state.selectedTileId].level ?? 0} 级${game.tiles[this.state.selectedTileId].mortgaged ? " · 抵押中" : ""}`}
             </span>
+            {game.tiles[this.state.selectedTileId].kind==='property' && game.map.id==='lime-garden-30' && <span>
+              {propertyBlock(game,this.state.selectedTileId)?.title} · {game.terraceRulesVersion===1
+                ? `${propertyRun(game,this.state.selectedTileId).length} 块连地 · 整排通行费 ${propertyRent(game,this.state.selectedTileId)}`
+                : '旧版单地块规则'}
+            </span>}
           </aside>
         )}
         {this.state.saveStatus.startsWith("自动保存失败") && (

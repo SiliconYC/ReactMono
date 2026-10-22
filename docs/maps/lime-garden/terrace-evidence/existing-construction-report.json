@@ -1,0 +1,42 @@
+{
+  "results": [
+    {
+      "viewport": "desktop",
+      "level": 1,
+      "reducedMotion": false,
+      "settled": true
+    },
+    {
+      "viewport": "desktop",
+      "level": 2,
+      "reducedMotion": false,
+      "settled": true
+    },
+    {
+      "viewport": "phone",
+      "level": 1,
+      "reducedMotion": false,
+      "settled": true
+    },
+    {
+      "viewport": "phone",
+      "level": 2,
+      "reducedMotion": false,
+      "settled": true
+    },
+    {
+      "viewport": "reduced",
+      "level": 1,
+      "reducedMotion": true,
+      "settled": true
+    },
+    {
+      "viewport": "reduced",
+      "level": 2,
+      "reducedMotion": true,
+      "settled": true
+    }
+  ],
+  "errors": [],
+  "physicalPhone": false
+}

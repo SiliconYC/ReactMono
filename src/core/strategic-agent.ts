@@ -6,6 +6,7 @@ import {netWorth, propertyVisitAvailable} from './property.js';
 import {handSize} from './cards.js';
 import {STOCKS, quoteMarket} from './market.js';
 import {MAX_BANK_BALANCE} from './money.js';
+import {propertyRent, quotePropertyUpgrade} from './property-groups.js';
 
 const POLICIES = {
   conservative: {reserve:650, invest:0.07, mortgageAt:0.20, stockLimit:2},
@@ -24,7 +25,7 @@ function legalBlock(state:GameState,p:Player,t:Tile):boolean {
 function scoreLanding(state:GameState,p:Player,t:Tile,style:ComputerStyle):number {
   const danger=t.facility==='prison'||t.facility==='hospital'?150:0;
   if(t.kind==='property'&&t.ownerId!==null&&t.ownerId!==p.id) {
-    const rent=t.mortgaged?0:(t.levelRents?.[t.level??0]??t.rent??0);
+    const rent=propertyRent(state,t.id);
     return -rent*(style==='conservative'?4:style==='balanced'?2:1)-danger;
   }
   if(t.kind==='property'&&t.ownerId===null) {
@@ -120,10 +121,10 @@ export function chooseStyledAction(state:GameState,style:ComputerStyle):GameActi
       const balance=p.bankBalance??0,debt=p.loanBalance??0;
       const available=p.cash+(state.bank?balance:0);
       const purchaseReserve=style==='aggressive'?Math.min(35,reserve):reserve;
-      const upgrade=!did('property_upgraded')?firstOwned(state,p,t=>!t.mortgaged&&(t.level??0)<2&&
-        available-(t.upgradeCosts?.[t.level??0]??Infinity)>=reserve&&
-        (!state.propertyVisitOnly||propertyVisitAvailable(state,p,t.id))):undefined;
-      const upgradeCost=upgrade?(upgrade.upgradeCosts?.[upgrade.level??0]??0):0;
+      const upgrade=!did('property_upgraded')?firstOwned(state,p,t=>!t.mortgaged&&
+        available-(quotePropertyUpgrade(state,t.id)?.cost??Infinity)>=reserve&&
+        propertyVisitAvailable(state,p,t.id)):undefined;
+      const upgradeCost=upgrade?(quotePropertyUpgrade(state,upgrade.id)?.cost??0):0;
       // 购地阶段不能转账；提前保留一次可承担的购地预算，覆盖遥控骰与加步卡的落点。
       const purchaseCash=state.tiles.reduce((target,t)=>{
         const price=t.price??0,required=price+purchaseReserve;
@@ -153,9 +154,9 @@ export function chooseStyledAction(state:GameState,style:ComputerStyle):GameActi
         return {type:'borrow_loan',actorId:p.id,amount:Math.min(credit,Math.ceil(reserve-p.cash))};
       }
       if(!did('property_upgraded')){
-        const tile=firstOwned(state,p,t=>!t.mortgaged&&(t.level??0)<2&&
-          p.cash-(t.upgradeCosts?.[t.level??0]??Infinity)>=reserve&&
-          (!state.propertyVisitOnly||propertyVisitAvailable(state,p,t.id)));
+        const tile=firstOwned(state,p,t=>!t.mortgaged&&
+          p.cash-(quotePropertyUpgrade(state,t.id)?.cost??Infinity)>=reserve&&
+          propertyVisitAvailable(state,p,t.id));
         if(tile)return {type:'upgrade_property',actorId:p.id,tileId:tile.id};
       }
       const stockFunds=state.stockAccount==='bank'?balance:p.cash;

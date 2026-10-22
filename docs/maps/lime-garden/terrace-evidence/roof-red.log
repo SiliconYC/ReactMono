@@ -1,0 +1,52 @@
+TAP version 13
+# Subtest: 折瓦圆顶同一圈存在真实瓦垄高差且法线向外
+ok 1 - 折瓦圆顶同一圈存在真实瓦垄高差且法线向外
+  ---
+  duration_ms: 64.225583
+  type: 'test'
+  ...
+# Subtest: 建造动画从地面展开、短时落定，减少动态直接完成
+ok 2 - 建造动画从地面展开、短时落定，减少动态直接完成
+  ---
+  duration_ms: 2.670708
+  type: 'test'
+  ...
+# Subtest: 两级住宅几何贴地、未侵占邻格，二级体量和轮廓明显增长
+ok 3 - 两级住宅几何贴地、未侵占邻格，二级体量和轮廓明显增长
+  ---
+  duration_ms: 19.113666
+  type: 'test'
+  ...
+# Subtest: 联排住宅以两米共墙单元相接，屋面不越过地界且两级保留高度差
+ok 4 - 联排住宅以两米共墙单元相接，屋面不越过地界且两级保留高度差
+  ---
+  duration_ms: 10.080584
+  type: 'test'
+  ...
+# Subtest: 联排瓦垄贴合两侧屋面，不从檐口向上翘成尖刺
+not ok 5 - 联排瓦垄贴合两侧屋面，不从檐口向上翘成尖刺
+  ---
+  duration_ms: 3.568833
+  type: 'test'
+  location: '/Users/laocao/Documents/coding/ReactMono/tests/lime-garden-models.test.mjs:53:1'
+  failureType: 'testCodeFailure'
+  error: '屋面越界 1/1.01052987575531/0.49503687024116516'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///Users/laocao/Documents/coding/ReactMono/tests/lime-garden-models.test.mjs:60:31)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 4
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 157.872542

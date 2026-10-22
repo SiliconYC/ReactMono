@@ -1,0 +1,4224 @@
+{
+  "summary": {
+    "games": 200,
+    "actions": 160882,
+    "groupBuilds": 482,
+    "groupRents": 2967,
+    "finished": 139,
+    "capped": 61,
+    "allActionsLegal": true,
+    "allCashFlowsExact": true,
+    "saveRoundTrips": true,
+    "unchangedMaps": [
+      "classic-24",
+      "harbor-20",
+      "internal-square-16",
+      "bend-60",
+      "bays-120",
+      "ridges-360"
+    ],
+    "limits": "固定50种子、2/4人、新旧规则各一组，150轮观察上限；不作为成熟经济平衡或真人趣味性结论。"
+  },
+  "rows": [
+    {
+      "seats": 2,
+      "seed": 20261022,
+      "legacy": false,
+      "actions": 345,
+      "round": 65,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 5,
+      "groupRents": 11,
+      "cash": [
+        0,
+        594
+      ],
+      "netWorth": [
+        0,
+        4849
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261022,
+      "legacy": true,
+      "actions": 645,
+      "round": 119,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        445,
+        0
+      ],
+      "netWorth": [
+        3909,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261023,
+      "legacy": false,
+      "actions": 466,
+      "round": 88,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 3,
+      "groupRents": 13,
+      "cash": [
+        573,
+        0
+      ],
+      "netWorth": [
+        4585,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261023,
+      "legacy": true,
+      "actions": 455,
+      "round": 81,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        548,
+        0
+      ],
+      "netWorth": [
+        4383,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261024,
+      "legacy": false,
+      "actions": 375,
+      "round": 68,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 4,
+      "groupRents": 18,
+      "cash": [
+        732,
+        0
+      ],
+      "netWorth": [
+        4986,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261024,
+      "legacy": true,
+      "actions": 700,
+      "round": 138,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        863,
+        0
+      ],
+      "netWorth": [
+        6185,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261025,
+      "legacy": false,
+      "actions": 413,
+      "round": 81,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 6,
+      "groupRents": 18,
+      "cash": [
+        0,
+        663
+      ],
+      "netWorth": [
+        0,
+        5501
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261025,
+      "legacy": true,
+      "actions": 591,
+      "round": 117,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        225
+      ],
+      "netWorth": [
+        0,
+        5484
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261026,
+      "legacy": false,
+      "actions": 432,
+      "round": 80,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 3,
+      "groupRents": 16,
+      "cash": [
+        643,
+        0
+      ],
+      "netWorth": [
+        4385,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261026,
+      "legacy": true,
+      "actions": 576,
+      "round": 109,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        334,
+        0
+      ],
+      "netWorth": [
+        4550,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261027,
+      "legacy": false,
+      "actions": 443,
+      "round": 84,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 2,
+      "groupRents": 19,
+      "cash": [
+        0,
+        284
+      ],
+      "netWorth": [
+        0,
+        3781
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261027,
+      "legacy": true,
+      "actions": 549,
+      "round": 105,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        118
+      ],
+      "netWorth": [
+        0,
+        3672
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261028,
+      "legacy": false,
+      "actions": 364,
+      "round": 68,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 6,
+      "groupRents": 15,
+      "cash": [
+        0,
+        286
+      ],
+      "netWorth": [
+        0,
+        5350
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261028,
+      "legacy": true,
+      "actions": 649,
+      "round": 129,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        700
+      ],
+      "netWorth": [
+        0,
+        5305
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261029,
+      "legacy": false,
+      "actions": 416,
+      "round": 76,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 5,
+      "groupRents": 17,
+      "cash": [
+        0,
+        685
+      ],
+      "netWorth": [
+        0,
+        5048
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261029,
+      "legacy": true,
+      "actions": 625,
+      "round": 117,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        357,
+        0
+      ],
+      "netWorth": [
+        5562,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261030,
+      "legacy": false,
+      "actions": 460,
+      "round": 83,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 4,
+      "groupRents": 15,
+      "cash": [
+        673,
+        0
+      ],
+      "netWorth": [
+        5279,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261030,
+      "legacy": true,
+      "actions": 621,
+      "round": 116,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        374,
+        0
+      ],
+      "netWorth": [
+        5478,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261031,
+      "legacy": false,
+      "actions": 269,
+      "round": 48,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 4,
+      "groupRents": 17,
+      "cash": [
+        1044,
+        0
+      ],
+      "netWorth": [
+        4517,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261031,
+      "legacy": true,
+      "actions": 514,
+      "round": 96,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        512,
+        0
+      ],
+      "netWorth": [
+        4654,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261032,
+      "legacy": false,
+      "actions": 313,
+      "round": 54,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 3,
+      "groupRents": 10,
+      "cash": [
+        0,
+        432
+      ],
+      "netWorth": [
+        0,
+        4341
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261032,
+      "legacy": true,
+      "actions": 408,
+      "round": 76,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        548
+      ],
+      "netWorth": [
+        0,
+        4399
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261033,
+      "legacy": false,
+      "actions": 328,
+      "round": 56,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 6,
+      "groupRents": 13,
+      "cash": [
+        448,
+        0
+      ],
+      "netWorth": [
+        3925,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261033,
+      "legacy": true,
+      "actions": 454,
+      "round": 83,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        399,
+        0
+      ],
+      "netWorth": [
+        4167,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261034,
+      "legacy": false,
+      "actions": 521,
+      "round": 95,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 2,
+      "groupRents": 10,
+      "cash": [
+        1142,
+        0
+      ],
+      "netWorth": [
+        5401,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261034,
+      "legacy": true,
+      "actions": 783,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        373,
+        50
+      ],
+      "netWorth": [
+        5107,
+        492
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261035,
+      "legacy": false,
+      "actions": 432,
+      "round": 82,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 2,
+      "groupRents": 17,
+      "cash": [
+        0,
+        141
+      ],
+      "netWorth": [
+        0,
+        4393
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261035,
+      "legacy": true,
+      "actions": 444,
+      "round": 85,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        149
+      ],
+      "netWorth": [
+        0,
+        4315
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261036,
+      "legacy": false,
+      "actions": 488,
+      "round": 88,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 3,
+      "groupRents": 16,
+      "cash": [
+        991,
+        0
+      ],
+      "netWorth": [
+        4410,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261036,
+      "legacy": true,
+      "actions": 632,
+      "round": 121,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        355,
+        0
+      ],
+      "netWorth": [
+        4923,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261037,
+      "legacy": false,
+      "actions": 258,
+      "round": 46,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 7,
+      "groupRents": 14,
+      "cash": [
+        0,
+        321
+      ],
+      "netWorth": [
+        0,
+        4796
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261037,
+      "legacy": true,
+      "actions": 380,
+      "round": 72,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        312
+      ],
+      "netWorth": [
+        0,
+        4699
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261038,
+      "legacy": false,
+      "actions": 442,
+      "round": 82,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 2,
+      "groupRents": 13,
+      "cash": [
+        892,
+        0
+      ],
+      "netWorth": [
+        5089,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261038,
+      "legacy": true,
+      "actions": 734,
+      "round": 141,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        354,
+        0
+      ],
+      "netWorth": [
+        4264,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261039,
+      "legacy": false,
+      "actions": 329,
+      "round": 60,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 5,
+      "groupRents": 15,
+      "cash": [
+        770,
+        0
+      ],
+      "netWorth": [
+        4372,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261039,
+      "legacy": true,
+      "actions": 604,
+      "round": 115,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        147
+      ],
+      "netWorth": [
+        0,
+        5695
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261040,
+      "legacy": false,
+      "actions": 422,
+      "round": 79,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 7,
+      "groupRents": 25,
+      "cash": [
+        361,
+        0
+      ],
+      "netWorth": [
+        5065,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261040,
+      "legacy": true,
+      "actions": 594,
+      "round": 111,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        424
+      ],
+      "netWorth": [
+        0,
+        4849
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261041,
+      "legacy": false,
+      "actions": 683,
+      "round": 137,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 3,
+      "groupRents": 41,
+      "cash": [
+        0,
+        764
+      ],
+      "netWorth": [
+        0,
+        5211
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261041,
+      "legacy": true,
+      "actions": 645,
+      "round": 129,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        252
+      ],
+      "netWorth": [
+        0,
+        5143
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261042,
+      "legacy": false,
+      "actions": 288,
+      "round": 49,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 5,
+      "groupRents": 13,
+      "cash": [
+        940,
+        0
+      ],
+      "netWorth": [
+        5214,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261042,
+      "legacy": true,
+      "actions": 728,
+      "round": 140,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        856,
+        0
+      ],
+      "netWorth": [
+        5028,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261043,
+      "legacy": false,
+      "actions": 678,
+      "round": 132,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 3,
+      "groupRents": 13,
+      "cash": [
+        0,
+        253
+      ],
+      "netWorth": [
+        0,
+        5460
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261043,
+      "legacy": true,
+      "actions": 702,
+      "round": 137,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        124
+      ],
+      "netWorth": [
+        0,
+        5329
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261044,
+      "legacy": false,
+      "actions": 404,
+      "round": 75,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 4,
+      "groupRents": 25,
+      "cash": [
+        878,
+        0
+      ],
+      "netWorth": [
+        5414,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261044,
+      "legacy": true,
+      "actions": 660,
+      "round": 132,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        549
+      ],
+      "netWorth": [
+        0,
+        5455
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261045,
+      "legacy": false,
+      "actions": 365,
+      "round": 64,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 4,
+      "groupRents": 13,
+      "cash": [
+        757,
+        0
+      ],
+      "netWorth": [
+        4632,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261045,
+      "legacy": true,
+      "actions": 497,
+      "round": 92,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        419,
+        0
+      ],
+      "netWorth": [
+        4773,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261046,
+      "legacy": false,
+      "actions": 422,
+      "round": 79,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 6,
+      "groupRents": 26,
+      "cash": [
+        0,
+        694
+      ],
+      "netWorth": [
+        0,
+        5410
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261046,
+      "legacy": true,
+      "actions": 656,
+      "round": 131,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        547
+      ],
+      "netWorth": [
+        0,
+        5913
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261047,
+      "legacy": false,
+      "actions": 270,
+      "round": 48,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 5,
+      "groupRents": 11,
+      "cash": [
+        0,
+        726
+      ],
+      "netWorth": [
+        0,
+        4526
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261047,
+      "legacy": true,
+      "actions": 487,
+      "round": 93,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        73
+      ],
+      "netWorth": [
+        0,
+        4819
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261048,
+      "legacy": false,
+      "actions": 446,
+      "round": 83,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 4,
+      "groupRents": 19,
+      "cash": [
+        457,
+        0
+      ],
+      "netWorth": [
+        3704,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261048,
+      "legacy": true,
+      "actions": 598,
+      "round": 112,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        438,
+        0
+      ],
+      "netWorth": [
+        3819,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261049,
+      "legacy": false,
+      "actions": 522,
+      "round": 94,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 7,
+      "groupRents": 21,
+      "cash": [
+        800,
+        0
+      ],
+      "netWorth": [
+        4512,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261049,
+      "legacy": true,
+      "actions": 769,
+      "round": 144,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        150
+      ],
+      "netWorth": [
+        0,
+        4794
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261050,
+      "legacy": false,
+      "actions": 365,
+      "round": 65,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 3,
+      "groupRents": 10,
+      "cash": [
+        466,
+        0
+      ],
+      "netWorth": [
+        4431,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261050,
+      "legacy": true,
+      "actions": 420,
+      "round": 75,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        465,
+        0
+      ],
+      "netWorth": [
+        4290,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261051,
+      "legacy": false,
+      "actions": 383,
+      "round": 69,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 6,
+      "groupRents": 16,
+      "cash": [
+        0,
+        456
+      ],
+      "netWorth": [
+        0,
+        4721
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261051,
+      "legacy": true,
+      "actions": 622,
+      "round": 122,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        175
+      ],
+      "netWorth": [
+        0,
+        4828
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261052,
+      "legacy": false,
+      "actions": 337,
+      "round": 57,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 4,
+      "groupRents": 12,
+      "cash": [
+        421,
+        0
+      ],
+      "netWorth": [
+        4737,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261052,
+      "legacy": true,
+      "actions": 485,
+      "round": 86,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        391,
+        0
+      ],
+      "netWorth": [
+        4561,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261053,
+      "legacy": false,
+      "actions": 725,
+      "round": 133,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 4,
+      "groupRents": 22,
+      "cash": [
+        858,
+        0
+      ],
+      "netWorth": [
+        5306,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261053,
+      "legacy": true,
+      "actions": 682,
+      "round": 128,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        527,
+        0
+      ],
+      "netWorth": [
+        4865,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261054,
+      "legacy": false,
+      "actions": 488,
+      "round": 86,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 1,
+      "groupRents": 23,
+      "cash": [
+        688,
+        0
+      ],
+      "netWorth": [
+        4265,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261054,
+      "legacy": true,
+      "actions": 475,
+      "round": 86,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        353,
+        0
+      ],
+      "netWorth": [
+        4247,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261055,
+      "legacy": false,
+      "actions": 314,
+      "round": 58,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 5,
+      "groupRents": 15,
+      "cash": [
+        0,
+        236
+      ],
+      "netWorth": [
+        0,
+        4245
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261055,
+      "legacy": true,
+      "actions": 577,
+      "round": 111,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        96
+      ],
+      "netWorth": [
+        0,
+        5094
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261056,
+      "legacy": false,
+      "actions": 341,
+      "round": 60,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 5,
+      "groupRents": 17,
+      "cash": [
+        868,
+        0
+      ],
+      "netWorth": [
+        4835,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261056,
+      "legacy": true,
+      "actions": 539,
+      "round": 102,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        540,
+        0
+      ],
+      "netWorth": [
+        4513,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261057,
+      "legacy": false,
+      "actions": 327,
+      "round": 58,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 3,
+      "groupRents": 14,
+      "cash": [
+        0,
+        244
+      ],
+      "netWorth": [
+        0,
+        5091
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261057,
+      "legacy": true,
+      "actions": 555,
+      "round": 105,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        352
+      ],
+      "netWorth": [
+        0,
+        5907
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261058,
+      "legacy": false,
+      "actions": 291,
+      "round": 51,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 4,
+      "groupRents": 15,
+      "cash": [
+        355,
+        0
+      ],
+      "netWorth": [
+        4626,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261058,
+      "legacy": true,
+      "actions": 586,
+      "round": 111,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        448
+      ],
+      "netWorth": [
+        0,
+        5036
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261059,
+      "legacy": false,
+      "actions": 625,
+      "round": 121,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 4,
+      "groupRents": 13,
+      "cash": [
+        0,
+        255
+      ],
+      "netWorth": [
+        0,
+        4576
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261059,
+      "legacy": true,
+      "actions": 690,
+      "round": 133,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        443,
+        0
+      ],
+      "netWorth": [
+        4387,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261060,
+      "legacy": false,
+      "actions": 356,
+      "round": 65,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 5,
+      "groupRents": 18,
+      "cash": [
+        670,
+        0
+      ],
+      "netWorth": [
+        4642,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261060,
+      "legacy": true,
+      "actions": 520,
+      "round": 97,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        485,
+        0
+      ],
+      "netWorth": [
+        4064,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261061,
+      "legacy": false,
+      "actions": 744,
+      "round": 129,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 7,
+      "groupRents": 25,
+      "cash": [
+        320,
+        0
+      ],
+      "netWorth": [
+        3341,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261061,
+      "legacy": true,
+      "actions": 569,
+      "round": 109,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        166
+      ],
+      "netWorth": [
+        0,
+        4868
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261062,
+      "legacy": false,
+      "actions": 449,
+      "round": 84,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 2,
+      "groupRents": 18,
+      "cash": [
+        0,
+        564
+      ],
+      "netWorth": [
+        0,
+        4218
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261062,
+      "legacy": true,
+      "actions": 724,
+      "round": 143,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        190
+      ],
+      "netWorth": [
+        0,
+        4756
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261063,
+      "legacy": false,
+      "actions": 304,
+      "round": 52,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 5,
+      "groupRents": 9,
+      "cash": [
+        0,
+        732
+      ],
+      "netWorth": [
+        0,
+        4764
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261063,
+      "legacy": true,
+      "actions": 453,
+      "round": 83,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        539
+      ],
+      "netWorth": [
+        0,
+        5326
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261064,
+      "legacy": false,
+      "actions": 342,
+      "round": 64,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 3,
+      "groupRents": 12,
+      "cash": [
+        0,
+        641
+      ],
+      "netWorth": [
+        0,
+        5180
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261064,
+      "legacy": true,
+      "actions": 598,
+      "round": 115,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        598,
+        0
+      ],
+      "netWorth": [
+        5267,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261065,
+      "legacy": false,
+      "actions": 716,
+      "round": 131,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 2,
+      "groupRents": 5,
+      "cash": [
+        510,
+        0
+      ],
+      "netWorth": [
+        5721,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261065,
+      "legacy": true,
+      "actions": 544,
+      "round": 101,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        394,
+        0
+      ],
+      "netWorth": [
+        5046,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261066,
+      "legacy": false,
+      "actions": 333,
+      "round": 59,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 1,
+      "groupRents": 12,
+      "cash": [
+        479,
+        0
+      ],
+      "netWorth": [
+        3751,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261066,
+      "legacy": true,
+      "actions": 620,
+      "round": 118,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        692,
+        0
+      ],
+      "netWorth": [
+        4648,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261067,
+      "legacy": false,
+      "actions": 377,
+      "round": 67,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 5,
+      "groupRents": 12,
+      "cash": [
+        506,
+        0
+      ],
+      "netWorth": [
+        4273,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261067,
+      "legacy": true,
+      "actions": 747,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        271,
+        333
+      ],
+      "netWorth": [
+        2667,
+        3854
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261068,
+      "legacy": false,
+      "actions": 333,
+      "round": 57,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 4,
+      "groupRents": 13,
+      "cash": [
+        523,
+        0
+      ],
+      "netWorth": [
+        3985,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261068,
+      "legacy": true,
+      "actions": 515,
+      "round": 91,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        820,
+        0
+      ],
+      "netWorth": [
+        4812,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261069,
+      "legacy": false,
+      "actions": 633,
+      "round": 114,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 3,
+      "groupRents": 22,
+      "cash": [
+        650,
+        0
+      ],
+      "netWorth": [
+        3860,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261069,
+      "legacy": true,
+      "actions": 712,
+      "round": 138,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        472
+      ],
+      "netWorth": [
+        0,
+        5543
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261070,
+      "legacy": false,
+      "actions": 380,
+      "round": 68,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 5,
+      "groupRents": 18,
+      "cash": [
+        436,
+        0
+      ],
+      "netWorth": [
+        4314,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261070,
+      "legacy": true,
+      "actions": 629,
+      "round": 118,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        320,
+        0
+      ],
+      "netWorth": [
+        5044,
+        0
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261071,
+      "legacy": false,
+      "actions": 801,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 5,
+      "groupRents": 32,
+      "cash": [
+        645,
+        138
+      ],
+      "netWorth": [
+        3585,
+        2984
+      ]
+    },
+    {
+      "seats": 2,
+      "seed": 20261071,
+      "legacy": true,
+      "actions": 638,
+      "round": 118,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        424,
+        0
+      ],
+      "netWorth": [
+        5377,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261022,
+      "legacy": false,
+      "actions": 1187,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 2,
+      "groupRents": 32,
+      "cash": [
+        342,
+        0,
+        0,
+        915
+      ],
+      "netWorth": [
+        3166,
+        0,
+        0,
+        10370
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261022,
+      "legacy": true,
+      "actions": 1352,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        962,
+        652,
+        20,
+        0
+      ],
+      "netWorth": [
+        12141,
+        652,
+        1383,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261023,
+      "legacy": false,
+      "actions": 945,
+      "round": 118,
+      "status": "finished",
+      "winnerId": "p4",
+      "groupBuilds": 8,
+      "groupRents": 40,
+      "cash": [
+        0,
+        0,
+        0,
+        1100
+      ],
+      "netWorth": [
+        0,
+        0,
+        0,
+        9497
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261023,
+      "legacy": true,
+      "actions": 1246,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        653,
+        0,
+        0,
+        888
+      ],
+      "netWorth": [
+        10517,
+        0,
+        0,
+        4693
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261024,
+      "legacy": false,
+      "actions": 656,
+      "round": 66,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 3,
+      "groupRents": 38,
+      "cash": [
+        0,
+        770,
+        0,
+        0
+      ],
+      "netWorth": [
+        0,
+        10525,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261024,
+      "legacy": true,
+      "actions": 1044,
+      "round": 133,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        698,
+        0,
+        0
+      ],
+      "netWorth": [
+        0,
+        15579,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261025,
+      "legacy": false,
+      "actions": 1249,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 5,
+      "groupRents": 27,
+      "cash": [
+        844,
+        409,
+        0,
+        0
+      ],
+      "netWorth": [
+        7845,
+        10606,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261025,
+      "legacy": true,
+      "actions": 1355,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        1448,
+        348,
+        0,
+        0
+      ],
+      "netWorth": [
+        5966,
+        12559,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261026,
+      "legacy": false,
+      "actions": 946,
+      "round": 100,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 2,
+      "groupRents": 17,
+      "cash": [
+        772,
+        0,
+        0,
+        0
+      ],
+      "netWorth": [
+        11388,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261026,
+      "legacy": true,
+      "actions": 1252,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        808,
+        602,
+        0,
+        0
+      ],
+      "netWorth": [
+        13348,
+        917,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261027,
+      "legacy": false,
+      "actions": 616,
+      "round": 64,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 7,
+      "groupRents": 41,
+      "cash": [
+        856,
+        0,
+        0,
+        0
+      ],
+      "netWorth": [
+        10438,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261027,
+      "legacy": true,
+      "actions": 1177,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        207,
+        0,
+        0,
+        595
+      ],
+      "netWorth": [
+        12108,
+        0,
+        0,
+        3387
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261028,
+      "legacy": false,
+      "actions": 956,
+      "round": 117,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 7,
+      "groupRents": 52,
+      "cash": [
+        652,
+        0,
+        0,
+        0
+      ],
+      "netWorth": [
+        13032,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261028,
+      "legacy": true,
+      "actions": 1321,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        614,
+        1247,
+        252,
+        0
+      ],
+      "netWorth": [
+        13366,
+        6434,
+        252,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261029,
+      "legacy": false,
+      "actions": 1006,
+      "round": 120,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 5,
+      "groupRents": 42,
+      "cash": [
+        853,
+        0,
+        0,
+        0
+      ],
+      "netWorth": [
+        8968,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261029,
+      "legacy": true,
+      "actions": 1147,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        769,
+        484,
+        0,
+        0
+      ],
+      "netWorth": [
+        8518,
+        5374,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261030,
+      "legacy": false,
+      "actions": 956,
+      "round": 107,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 4,
+      "groupRents": 39,
+      "cash": [
+        0,
+        504,
+        0,
+        0
+      ],
+      "netWorth": [
+        0,
+        13853,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261030,
+      "legacy": true,
+      "actions": 1304,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        678,
+        753,
+        791
+      ],
+      "netWorth": [
+        0,
+        12295,
+        2882,
+        3735
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261031,
+      "legacy": false,
+      "actions": 818,
+      "round": 84,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 3,
+      "groupRents": 29,
+      "cash": [
+        985,
+        0,
+        0,
+        0
+      ],
+      "netWorth": [
+        13135,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261031,
+      "legacy": true,
+      "actions": 1002,
+      "round": 116,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        734,
+        0,
+        0,
+        0
+      ],
+      "netWorth": [
+        12404,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261032,
+      "legacy": false,
+      "actions": 869,
+      "round": 106,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 3,
+      "groupRents": 48,
+      "cash": [
+        841,
+        0,
+        0,
+        0
+      ],
+      "netWorth": [
+        12476,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261032,
+      "legacy": true,
+      "actions": 1030,
+      "round": 111,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        666,
+        0,
+        0,
+        0
+      ],
+      "netWorth": [
+        13770,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261033,
+      "legacy": false,
+      "actions": 894,
+      "round": 111,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 10,
+      "groupRents": 64,
+      "cash": [
+        801,
+        0,
+        0,
+        0
+      ],
+      "netWorth": [
+        9893,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261033,
+      "legacy": true,
+      "actions": 1137,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        686,
+        554,
+        0
+      ],
+      "netWorth": [
+        0,
+        12703,
+        554,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261034,
+      "legacy": false,
+      "actions": 1101,
+      "round": 128,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 6,
+      "groupRents": 43,
+      "cash": [
+        0,
+        425,
+        0,
+        0
+      ],
+      "netWorth": [
+        0,
+        13313,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261034,
+      "legacy": true,
+      "actions": 1196,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        558,
+        110,
+        0
+      ],
+      "netWorth": [
+        0,
+        16179,
+        110,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261035,
+      "legacy": false,
+      "actions": 960,
+      "round": 123,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 7,
+      "groupRents": 46,
+      "cash": [
+        771,
+        0,
+        0,
+        0
+      ],
+      "netWorth": [
+        16178,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261035,
+      "legacy": true,
+      "actions": 1238,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        886,
+        509,
+        0,
+        0
+      ],
+      "netWorth": [
+        14035,
+        6028,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261036,
+      "legacy": false,
+      "actions": 1065,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 7,
+      "groupRents": 76,
+      "cash": [
+        771,
+        0,
+        0,
+        928
+      ],
+      "netWorth": [
+        771,
+        0,
+        0,
+        14515
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261036,
+      "legacy": true,
+      "actions": 1247,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        1072,
+        0,
+        0,
+        466
+      ],
+      "netWorth": [
+        7782,
+        0,
+        0,
+        10935
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261037,
+      "legacy": false,
+      "actions": 735,
+      "round": 77,
+      "status": "finished",
+      "winnerId": "p3",
+      "groupBuilds": 5,
+      "groupRents": 34,
+      "cash": [
+        0,
+        0,
+        1545,
+        0
+      ],
+      "netWorth": [
+        0,
+        0,
+        10982,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261037,
+      "legacy": true,
+      "actions": 1096,
+      "round": 127,
+      "status": "finished",
+      "winnerId": "p3",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        0,
+        1213,
+        0
+      ],
+      "netWorth": [
+        0,
+        0,
+        13263,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261038,
+      "legacy": false,
+      "actions": 890,
+      "round": 109,
+      "status": "finished",
+      "winnerId": "p3",
+      "groupBuilds": 2,
+      "groupRents": 25,
+      "cash": [
+        0,
+        0,
+        1488,
+        0
+      ],
+      "netWorth": [
+        0,
+        0,
+        12316,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261038,
+      "legacy": true,
+      "actions": 1150,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        590,
+        0,
+        919,
+        0
+      ],
+      "netWorth": [
+        590,
+        0,
+        11787,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261039,
+      "legacy": false,
+      "actions": 645,
+      "round": 71,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 9,
+      "groupRents": 49,
+      "cash": [
+        672,
+        0,
+        0,
+        0
+      ],
+      "netWorth": [
+        10451,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261039,
+      "legacy": true,
+      "actions": 1279,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        524,
+        553,
+        0,
+        0
+      ],
+      "netWorth": [
+        9222,
+        7025,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261040,
+      "legacy": false,
+      "actions": 832,
+      "round": 102,
+      "status": "finished",
+      "winnerId": "p4",
+      "groupBuilds": 10,
+      "groupRents": 53,
+      "cash": [
+        0,
+        0,
+        0,
+        1247
+      ],
+      "netWorth": [
+        0,
+        0,
+        0,
+        12503
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261040,
+      "legacy": true,
+      "actions": 1272,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        410,
+        0,
+        828
+      ],
+      "netWorth": [
+        0,
+        2649,
+        0,
+        15639
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261041,
+      "legacy": false,
+      "actions": 823,
+      "round": 104,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 4,
+      "groupRents": 38,
+      "cash": [
+        0,
+        594,
+        0,
+        0
+      ],
+      "netWorth": [
+        0,
+        12411,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261041,
+      "legacy": true,
+      "actions": 1335,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        626,
+        865,
+        420
+      ],
+      "netWorth": [
+        0,
+        4641,
+        5666,
+        5504
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261042,
+      "legacy": false,
+      "actions": 786,
+      "round": 96,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 9,
+      "groupRents": 56,
+      "cash": [
+        1139,
+        0,
+        0,
+        0
+      ],
+      "netWorth": [
+        10787,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261042,
+      "legacy": true,
+      "actions": 1227,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        725,
+        538,
+        0,
+        0
+      ],
+      "netWorth": [
+        10577,
+        5764,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261043,
+      "legacy": false,
+      "actions": 800,
+      "round": 87,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 8,
+      "groupRents": 44,
+      "cash": [
+        648,
+        0,
+        0,
+        0
+      ],
+      "netWorth": [
+        12806,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261043,
+      "legacy": true,
+      "actions": 1181,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        808,
+        585,
+        0,
+        0
+      ],
+      "netWorth": [
+        12357,
+        6326,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261044,
+      "legacy": false,
+      "actions": 1097,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 4,
+      "groupRents": 47,
+      "cash": [
+        868,
+        70,
+        0,
+        0
+      ],
+      "netWorth": [
+        14536,
+        145,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261044,
+      "legacy": true,
+      "actions": 1166,
+      "round": 146,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        533,
+        0,
+        0
+      ],
+      "netWorth": [
+        0,
+        16288,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261045,
+      "legacy": false,
+      "actions": 960,
+      "round": 119,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 6,
+      "groupRents": 46,
+      "cash": [
+        0,
+        694,
+        0,
+        0
+      ],
+      "netWorth": [
+        0,
+        15594,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261045,
+      "legacy": true,
+      "actions": 1324,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        643,
+        661,
+        728
+      ],
+      "netWorth": [
+        0,
+        5882,
+        5522,
+        6364
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261046,
+      "legacy": false,
+      "actions": 763,
+      "round": 90,
+      "status": "finished",
+      "winnerId": "p3",
+      "groupBuilds": 6,
+      "groupRents": 41,
+      "cash": [
+        0,
+        0,
+        1080,
+        0
+      ],
+      "netWorth": [
+        0,
+        0,
+        11545,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261046,
+      "legacy": true,
+      "actions": 1279,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        0,
+        1188,
+        443
+      ],
+      "netWorth": [
+        0,
+        0,
+        11230,
+        4533
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261047,
+      "legacy": false,
+      "actions": 1089,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 9,
+      "groupRents": 74,
+      "cash": [
+        1215,
+        0,
+        0,
+        158
+      ],
+      "netWorth": [
+        7436,
+        0,
+        0,
+        7180
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261047,
+      "legacy": true,
+      "actions": 1143,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        1125,
+        0,
+        0,
+        356
+      ],
+      "netWorth": [
+        5601,
+        0,
+        0,
+        8039
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261048,
+      "legacy": false,
+      "actions": 966,
+      "round": 111,
+      "status": "finished",
+      "winnerId": "p3",
+      "groupBuilds": 2,
+      "groupRents": 23,
+      "cash": [
+        0,
+        0,
+        1513,
+        0
+      ],
+      "netWorth": [
+        0,
+        0,
+        10010,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261048,
+      "legacy": true,
+      "actions": 1332,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        654,
+        0,
+        139,
+        723
+      ],
+      "netWorth": [
+        6385,
+        0,
+        139,
+        5555
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261049,
+      "legacy": false,
+      "actions": 1408,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 4,
+      "cash": [
+        791,
+        334,
+        0,
+        1227
+      ],
+      "netWorth": [
+        5173,
+        8293,
+        0,
+        4999
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261049,
+      "legacy": true,
+      "actions": 1413,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        863,
+        349,
+        17,
+        1357
+      ],
+      "netWorth": [
+        5448,
+        8433,
+        17,
+        4563
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261050,
+      "legacy": false,
+      "actions": 855,
+      "round": 95,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 2,
+      "groupRents": 19,
+      "cash": [
+        0,
+        463,
+        0,
+        0
+      ],
+      "netWorth": [
+        0,
+        13881,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261050,
+      "legacy": true,
+      "actions": 1299,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        306,
+        700,
+        0,
+        444
+      ],
+      "netWorth": [
+        3074,
+        8714,
+        0,
+        5006
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261051,
+      "legacy": false,
+      "actions": 899,
+      "round": 106,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 4,
+      "groupRents": 38,
+      "cash": [
+        945,
+        0,
+        0,
+        0
+      ],
+      "netWorth": [
+        13611,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261051,
+      "legacy": true,
+      "actions": 1115,
+      "round": 133,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        680,
+        0,
+        0,
+        0
+      ],
+      "netWorth": [
+        14744,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261052,
+      "legacy": false,
+      "actions": 1083,
+      "round": 139,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 6,
+      "groupRents": 50,
+      "cash": [
+        590,
+        0,
+        0,
+        0
+      ],
+      "netWorth": [
+        16926,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261052,
+      "legacy": true,
+      "actions": 1265,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        993,
+        845,
+        0,
+        359
+      ],
+      "netWorth": [
+        7151,
+        4254,
+        0,
+        9484
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261053,
+      "legacy": false,
+      "actions": 986,
+      "round": 124,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 6,
+      "groupRents": 42,
+      "cash": [
+        0,
+        797,
+        0,
+        0
+      ],
+      "netWorth": [
+        0,
+        13418,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261053,
+      "legacy": true,
+      "actions": 1296,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        900,
+        0,
+        0,
+        591
+      ],
+      "netWorth": [
+        12981,
+        0,
+        0,
+        591
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261054,
+      "legacy": false,
+      "actions": 971,
+      "round": 112,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 4,
+      "groupRents": 28,
+      "cash": [
+        0,
+        520,
+        0,
+        0
+      ],
+      "netWorth": [
+        0,
+        12833,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261054,
+      "legacy": true,
+      "actions": 1170,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        330,
+        322,
+        0
+      ],
+      "netWorth": [
+        0,
+        11617,
+        3510,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261055,
+      "legacy": false,
+      "actions": 819,
+      "round": 93,
+      "status": "finished",
+      "winnerId": "p4",
+      "groupBuilds": 9,
+      "groupRents": 46,
+      "cash": [
+        0,
+        0,
+        0,
+        628
+      ],
+      "netWorth": [
+        0,
+        0,
+        0,
+        10866
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261055,
+      "legacy": true,
+      "actions": 1180,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        0,
+        1354,
+        384
+      ],
+      "netWorth": [
+        0,
+        0,
+        5358,
+        10219
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261056,
+      "legacy": false,
+      "actions": 1132,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 4,
+      "groupRents": 56,
+      "cash": [
+        0,
+        8,
+        0,
+        806
+      ],
+      "netWorth": [
+        0,
+        1726,
+        0,
+        8482
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261056,
+      "legacy": true,
+      "actions": 1164,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        1146,
+        0,
+        0,
+        204
+      ],
+      "netWorth": [
+        5880,
+        0,
+        0,
+        8000
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261057,
+      "legacy": false,
+      "actions": 926,
+      "round": 110,
+      "status": "finished",
+      "winnerId": "p3",
+      "groupBuilds": 6,
+      "groupRents": 34,
+      "cash": [
+        0,
+        0,
+        1127,
+        0
+      ],
+      "netWorth": [
+        0,
+        0,
+        13311,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261057,
+      "legacy": true,
+      "actions": 1317,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        507,
+        0,
+        895,
+        1211
+      ],
+      "netWorth": [
+        507,
+        0,
+        9675,
+        5832
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261058,
+      "legacy": false,
+      "actions": 1282,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 1,
+      "groupRents": 13,
+      "cash": [
+        317,
+        0,
+        0,
+        877
+      ],
+      "netWorth": [
+        2757,
+        0,
+        0,
+        11112
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261058,
+      "legacy": true,
+      "actions": 1286,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        924,
+        0,
+        0,
+        734
+      ],
+      "netWorth": [
+        4616,
+        0,
+        0,
+        8978
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261059,
+      "legacy": false,
+      "actions": 908,
+      "round": 117,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 9,
+      "groupRents": 67,
+      "cash": [
+        848,
+        0,
+        0,
+        0
+      ],
+      "netWorth": [
+        12605,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261059,
+      "legacy": true,
+      "actions": 1191,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        902,
+        270,
+        0,
+        0
+      ],
+      "netWorth": [
+        8838,
+        7467,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261060,
+      "legacy": false,
+      "actions": 1138,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 10,
+      "groupRents": 77,
+      "cash": [
+        0,
+        0,
+        1169,
+        647
+      ],
+      "netWorth": [
+        0,
+        0,
+        7910,
+        3883
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261060,
+      "legacy": true,
+      "actions": 1223,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        363,
+        0,
+        1164,
+        524
+      ],
+      "netWorth": [
+        3673,
+        0,
+        5686,
+        4764
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261061,
+      "legacy": false,
+      "actions": 745,
+      "round": 85,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 5,
+      "groupRents": 34,
+      "cash": [
+        990,
+        0,
+        0,
+        0
+      ],
+      "netWorth": [
+        11901,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261061,
+      "legacy": true,
+      "actions": 1121,
+      "round": 144,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        957,
+        0,
+        0,
+        0
+      ],
+      "netWorth": [
+        12794,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261062,
+      "legacy": false,
+      "actions": 1181,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 4,
+      "groupRents": 38,
+      "cash": [
+        1172,
+        85,
+        0,
+        0
+      ],
+      "netWorth": [
+        5549,
+        8975,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261062,
+      "legacy": true,
+      "actions": 1160,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        924,
+        343,
+        0,
+        0
+      ],
+      "netWorth": [
+        15785,
+        525,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261063,
+      "legacy": false,
+      "actions": 1113,
+      "round": 131,
+      "status": "finished",
+      "winnerId": "p1",
+      "groupBuilds": 4,
+      "groupRents": 32,
+      "cash": [
+        1114,
+        0,
+        0,
+        0
+      ],
+      "netWorth": [
+        18211,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261063,
+      "legacy": true,
+      "actions": 1391,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        540,
+        547,
+        0,
+        1452
+      ],
+      "netWorth": [
+        14367,
+        654,
+        0,
+        3897
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261064,
+      "legacy": false,
+      "actions": 1317,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 3,
+      "groupRents": 39,
+      "cash": [
+        0,
+        627,
+        0,
+        638
+      ],
+      "netWorth": [
+        0,
+        4519,
+        0,
+        10360
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261064,
+      "legacy": true,
+      "actions": 1405,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        1266,
+        132,
+        1144,
+        846
+      ],
+      "netWorth": [
+        3223,
+        5354,
+        3098,
+        5910
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261065,
+      "legacy": false,
+      "actions": 677,
+      "round": 76,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 9,
+      "groupRents": 36,
+      "cash": [
+        0,
+        1110,
+        0,
+        0
+      ],
+      "netWorth": [
+        0,
+        12029,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261065,
+      "legacy": true,
+      "actions": 1165,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        331,
+        1089,
+        0
+      ],
+      "netWorth": [
+        0,
+        13537,
+        3949,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261066,
+      "legacy": false,
+      "actions": 687,
+      "round": 77,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 5,
+      "groupRents": 30,
+      "cash": [
+        0,
+        492,
+        0,
+        0
+      ],
+      "netWorth": [
+        0,
+        11028,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261066,
+      "legacy": true,
+      "actions": 1014,
+      "round": 124,
+      "status": "finished",
+      "winnerId": "p2",
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        496,
+        0,
+        0
+      ],
+      "netWorth": [
+        0,
+        12885,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261067,
+      "legacy": false,
+      "actions": 1066,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 8,
+      "groupRents": 62,
+      "cash": [
+        819,
+        255,
+        0,
+        0
+      ],
+      "netWorth": [
+        819,
+        12463,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261067,
+      "legacy": true,
+      "actions": 1096,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        673,
+        442,
+        0,
+        0
+      ],
+      "netWorth": [
+        7889,
+        8521,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261068,
+      "legacy": false,
+      "actions": 1298,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 5,
+      "groupRents": 63,
+      "cash": [
+        526,
+        0,
+        0,
+        1003
+      ],
+      "netWorth": [
+        10485,
+        0,
+        0,
+        4565
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261068,
+      "legacy": true,
+      "actions": 1386,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        1403,
+        784,
+        0,
+        268
+      ],
+      "netWorth": [
+        5555,
+        11431,
+        0,
+        268
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261069,
+      "legacy": false,
+      "actions": 1243,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 2,
+      "groupRents": 17,
+      "cash": [
+        761,
+        867,
+        0,
+        127
+      ],
+      "netWorth": [
+        10807,
+        4875,
+        0,
+        127
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261069,
+      "legacy": true,
+      "actions": 1236,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        760,
+        596,
+        0,
+        828
+      ],
+      "netWorth": [
+        9022,
+        4860,
+        0,
+        2681
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261070,
+      "legacy": false,
+      "actions": 1151,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 10,
+      "groupRents": 90,
+      "cash": [
+        0,
+        410,
+        1138,
+        0
+      ],
+      "netWorth": [
+        0,
+        5475,
+        9366,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261070,
+      "legacy": true,
+      "actions": 1097,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        486,
+        569,
+        0,
+        0
+      ],
+      "netWorth": [
+        2698,
+        9693,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261071,
+      "legacy": false,
+      "actions": 1178,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 7,
+      "groupRents": 61,
+      "cash": [
+        861,
+        226,
+        0,
+        0
+      ],
+      "netWorth": [
+        4467,
+        8907,
+        0,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "seed": 20261071,
+      "legacy": true,
+      "actions": 1229,
+      "round": 151,
+      "status": "playing",
+      "winnerId": null,
+      "groupBuilds": 0,
+      "groupRents": 0,
+      "cash": [
+        0,
+        363,
+        0,
+        358
+      ],
+      "netWorth": [
+        0,
+        14456,
+        0,
+        358
+      ]
+    }
+  ]
+}

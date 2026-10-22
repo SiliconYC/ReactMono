@@ -42,6 +42,7 @@ export function validateConfig(config: GameConfig): void {
       config.tiles.filter(t => t.kind === 'start').length !== 1 ||
       config.tiles.some((t, i) => t.id !== i || !t.title.trim())) throw new Error('地图配置无效');
   validateMap(config.map??inferMap(config.tiles.length),config.tiles.length);
+  if(config.terraceRulesVersion!==undefined&&(config.terraceRulesVersion!==1||config.map?.id!=='lime-garden-30'))throw new Error('联排规则只适用于青柠游园');
   if(config.specialEnabled===true){
     const f=config.facilityConfig??DEFAULT_FACILITIES;
     const ids=[...f.hospitalTiles,...f.prisonTiles,...f.shopTiles];

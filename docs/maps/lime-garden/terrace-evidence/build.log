@@ -1,0 +1,21 @@
+
+> reactmono@0.2.0 build
+> tsc -p tsconfig.json && node scripts/build.mjs
+
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 106 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/visual-lab.html                                 0.59 kB │ gzip:   0.42 kB
+dist/assets/manifest-C-zx9ihZ.webmanifest            0.59 kB
+dist/index.html                                      0.79 kB │ gzip:   0.50 kB
+dist/assets/debug-simulation.worker-CjXVEf-7.js    216.11 kB
+dist/assets/visualLab-rR3xiTWP.css                   7.76 kB │ gzip:   2.37 kB
+dist/assets/main-DqmDUXU7.css                       38.19 kB │ gzip:   8.71 kB
+dist/assets/visualLab-C5czc-dD.js                    7.64 kB │ gzip:   3.03 kB
+dist/assets/client-DSNB0KY7.js                     340.09 kB │ gzip:  98.19 kB
+dist/assets/main-Tltya0ub.js                     1,107.09 kB │ gzip: 300.95 kB
+
+✓ built in 302ms
+静态构建成功：dist/（React/Three/R3F 同源 bundle；无运行时 CDN）

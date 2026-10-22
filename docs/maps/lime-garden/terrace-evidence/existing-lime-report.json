@@ -1,0 +1,24 @@
+{
+  "results": [
+    {
+      "viewport": "desktop",
+      "newGame": true,
+      "purchase": true,
+      "construction": true,
+      "completedMatch": true,
+      "saveRoundTrip": true,
+      "navigation": true
+    },
+    {
+      "viewport": "phone",
+      "newGame": true,
+      "purchase": true,
+      "construction": true,
+      "completedMatch": true,
+      "saveRoundTrip": true,
+      "navigation": true
+    }
+  ],
+  "errors": [],
+  "physicalPhone": false
+}

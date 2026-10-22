@@ -43,6 +43,7 @@ export interface ResaleRules { readonly landPercent:number; readonly upgradePerc
 export interface LoanState { readonly version:1; readonly interestBps:number; readonly lastInterestRound:number; }
 export interface BankState { readonly version:1; readonly interestBps:number; readonly lastInterestRound:number; }
 export interface GameConfig {
+  readonly terraceRulesVersion?: 1;
   /** Absent in historic games: retain their agreed round-limit settlement. */
   readonly endCondition?: 'bankruptcy';
   /** Optional classic-style construction: one buy/build/upgrade at the landed tile per visit. */
@@ -107,6 +108,7 @@ export interface GameEvent {
   readonly details?: Readonly<Record<string, string | number>>;
 }
 export interface GameState {
+  readonly terraceRulesVersion?: 1;
   readonly endCondition?: 'bankruptcy';
   readonly propertyVisitOnly?: true;
   readonly stockAccount?: 'bank';

@@ -116,6 +116,7 @@ export function levelConfig(id: string): GameConfig {
   return {
     players: [{id:'p1',name:'玩家'}, {id:'p2',name:'电脑'}],
     map: level.map, tiles: level.tiles, initialCash: level.initialCash, maxRounds: level.maxRounds,
+    ...(id==='lime-garden-30'?{terraceRulesVersion:1 as const}:{}),
     eventRules: level.eventRules, cardRules: level.cardRules,
     ...(level.facilityConfig ? {facilityConfig:level.facilityConfig} : {})
   };

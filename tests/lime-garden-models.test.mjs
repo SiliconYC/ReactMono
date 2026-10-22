@@ -35,3 +35,30 @@ test('两级住宅几何贴地、未侵占邻格，二级体量和轮廓明显�
   assert.ok(b.getAttribute('position').count>a.getAttribute('position').count*1.3);
   a.dispose();b.dispose();
 });
+
+test('联排住宅以两米共墙单元相接，屋面不越过地界且两级保留高度差', async()=>{
+  const {gardenHouseGeometry}=await import('../.test-dist/demo3d/world/lime-garden-models.js');
+  const geometries=[gardenHouseGeometry(1,true),gardenHouseGeometry(2,true)];
+  for(const geometry of geometries){
+    geometry.computeBoundingBox();const box=geometry.boundingBox;
+    assert.ok(Math.abs(box.min.x+1)<.001&&Math.abs(box.max.x-1)<.001);
+    assert.ok(Math.abs(box.min.y)<.001);
+    assert.ok(box.max.z<.8&&box.min.z>-.8);
+    const normals=geometry.getAttribute('normal');
+    assert.ok([...normals.array].every(Number.isFinite));
+    geometry.dispose();
+  }
+});
+
+test('联排瓦垄贴合两侧屋面，不从檐口向上翘成尖刺',async()=>{
+  const {gardenHouseGeometry}=await import('../.test-dist/demo3d/world/lime-garden-models.js');
+  for(const level of [1,2]){
+    const geometry=gardenHouseGeometry(level,true),height=level===1?.68:1.3;
+    const positions=geometry.getAttribute('position');
+    for(let i=0;i<positions.count;i++){
+      const y=positions.getY(i),z=positions.getZ(i);
+      if(y>height+.055)assert.ok(y<=height+.36-Math.abs(z+.04)*.32/.54,`屋面越界 ${level}/${y}/${z}`);
+    }
+    geometry.dispose();
+  }
+});
