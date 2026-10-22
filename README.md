@@ -57,7 +57,7 @@ P0 目标与治理 → P1 第一局能玩到底 → P2 可靠的准本地游戏�
 ## 当前版本试玩与验收
 
 - [GitHub Pages 在线游玩](https://siliconyc.github.io/ReactMono/)：P2 人机对局、存档、多种卡片/机会事件以及离线启动。
-- **主程序 3D 棋盘**：执行 `npm install` 后运行 `npm run main:dev`，固定打开 [http://127.0.0.1:4174/](http://127.0.0.1:4174/)；原有 4173 demo 保持单独运行，并在界面中标记为“待删除迁移参考”。主程序保留两张地图、2–4 人与电脑对局、规则、存档及离线入口；3D 场景直接使用实际地图数据布置棋盘。地产可在到访时购买、建房和升级，同行同主地产可联排；银行支持存取款，股票交易使用银行存款。`npm test` 运行规则和构建回归，`npm run demo:build` 单独检查仍保留的迁移参考 demo。临时验收端口和生产构建分别为 4174 与 `dist/`。
+- **主程序 3D 棋盘**：执行 `npm install` 后运行 `npm run main:dev`，固定打开 [http://127.0.0.1:23010/](http://127.0.0.1:23010/)；原有 4173 demo 保持单独运行，并在界面中标记为“待删除迁移参考”。主程序保留两张地图、2–4 人与电脑对局、规则、存档及离线入口；3D 场景直接使用实际地图数据布置棋盘。地产可在到访时购买、建房和升级，同行同主地产可联排；银行支持存取款，股票交易使用银行存款。`npm test` 运行规则和构建回归，`npm run demo:build` 单独检查仍保留的迁移参考 demo。临时验收端口和生产构建分别为 23010 与 `dist/`。
 - [P2 总验收 Issue #20](https://github.com/SiliconYC/ReactMono/issues/20) / [PR #29](https://github.com/SiliconYC/ReactMono/pull/29)：规则/百种子、离线、自动存档、JSON 往返及 Chromium 公网交互证据。
 - [P3 16 项任务 #30–#45](https://github.com/SiliconYC/ReactMono/issues/30)：规则模块化 → 2–4 人/多地图 → 经济及股市 → 特殊格/AI → 综合验收。
 - [历史 P2 执行队列](docs/P2_QUEUE.md) 与 [实际开发实验日志](docs/EVOLUTION_LOG.md)。

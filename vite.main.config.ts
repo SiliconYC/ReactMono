@@ -5,7 +5,7 @@ export default defineConfig({
   root: resolve('site'),
   base: './',
   publicDir: false,
-  server: { host: '127.0.0.1', port: 4174, strictPort: true },
+  server: { host: '127.0.0.1', port: 23010, strictPort: true },
   build: {
     outDir: resolve('dist'),
     emptyOutDir: false,
