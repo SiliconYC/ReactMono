@@ -11,7 +11,7 @@ export function runSimulation(seed: number, options: SimulationOptions = {}): Si
   const reserveCash = options.reserveCash ?? 200;
   const humanReserveCash = options.humanReserveCash ?? 100;
   if (![reserveCash, humanReserveCash].every(x => Number.isFinite(x) && x >= 0)) throw new Error('保留资金必须为非负有限数字');
-  const maxActions = options.maxActions ?? config.maxRounds * config.players.length * 6;
+  const maxActions = options.maxActions ?? (config.endCondition==='bankruptcy'?100_000:config.maxRounds * config.players.length * 6);
   if (!Number.isInteger(maxActions) || maxActions < 1) throw new Error('动作上限必须为正整数');
   const start = createGame(seed, config);
   const ready = applyAction(start, { type: 'start_game', actorId: start.players[0].id });
@@ -37,7 +37,7 @@ export function runSimulation(seed: number, options: SimulationOptions = {}): Si
     // This metric feeds the P3 strategy benchmark; do not undercount skipped turns.
     if (action.type === 'roll' || action.type === 'skip_turn') playerTurns++;
   }
-  if (playerTurns > config.maxRounds * state.players.length) throw new Error('seed=' + seed + ' 回合上限被突破');
+  if (config.endCondition!=='bankruptcy' && playerTurns > config.maxRounds * state.players.length) throw new Error('seed=' + seed + ' 回合上限被突破');
   const finished = [...state.events].reverse().find(e => e.type === 'game_finished');
   if (!finished) throw new Error('seed=' + seed + ' 没有终局事件');
   return { seed, finalState: state, playerTurns, actions, rejections: 0,

@@ -1,6 +1,6 @@
 import { PostgameSummary, PostgameRanking } from './Postgame.js';
 import { DebugTools } from './DebugTools.js';
-import { setDebugCash, MAX_DEBUG_ROUNDS } from '../core/debug-tools.js';
+import { setDebugCash, prepareDebugSimulation, MAX_DEBUG_ROUNDS, type DebugSimulationSetup } from '../core/debug-tools.js';
 import { validateGameState } from '../core/save.js';
 import type { DebugSimulationReply } from './debug-simulation.worker.js';
 import { LevelPreview } from './LevelPreview.js';
@@ -97,6 +97,7 @@ interface UiState {
   readonly roadblockTileInput: string;
   readonly playerSetup: readonly PlayerConfig[];
   readonly roundsInput: string;
+  readonly endCondition: 'bankruptcy' | 'round_limit';
   readonly selectedMapId: string;
   readonly selectedTileId: number | null;
   readonly sceneReady: boolean;
@@ -155,6 +156,7 @@ class App extends React.Component<object, UiState> {
         { id: "p2", name: "电脑", kind: "computer", computerStyle: "balanced" },
       ],
       roundsInput: "60",
+      endCondition: "bankruptcy",
       selectedMapId: "classic-24",
       selectedTileId: null,
       sceneReady: false,
@@ -222,12 +224,13 @@ class App extends React.Component<object, UiState> {
       debugMessage: (game.players.find(player => player.id === playerId)?.name ?? "玩家") + "现金已设置为 " + cash.toLocaleString("zh-CN") + "。",
     });
   };
-  private simulateDebugGame = (rounds: number): void => {
+  private simulateDebugGame = (rounds: number, setup:DebugSimulationSetup = {}): void => {
     if (this.debugWorker || this.state.debugBusy || this.state.storageBusy) return;
     if (!Number.isSafeInteger(rounds) || rounds < 1 || rounds > MAX_DEBUG_ROUNDS)
       throw new Error("请输入有效的模拟轮数");
     if (this.state.game.status !== "playing") throw new Error("仅进行中的对局可以模拟");
     const snapshot = this.state.game;
+    const input = prepareDebugSimulation(snapshot,setup);
     this.stopTimer();
     this.cancelCue();
     this.clearWorldTimer();
@@ -273,7 +276,7 @@ class App extends React.Component<object, UiState> {
       queuedRent: null, queuedOutcomes: [], rentCue: null, outcomeCue: null, outcomeQueue: [],
       dieValue: null, dieActorId: null,
     });
-    try { worker.postMessage({ requestId, game: snapshot, rounds }); }
+    try { worker.postMessage({ requestId, game: input, rounds }); }
     catch (error) { fail(error instanceof Error ? error.message : String(error)); }
   };
 
@@ -835,6 +838,7 @@ class App extends React.Component<object, UiState> {
         dieActorId: null,
         setupScreen: "title",
         roundsInput: String(saved.game.maxRounds),
+        endCondition: saved.game.endCondition??"round_limit",
         selectedMapId: saved.game.map.id,
         selectedTileId: null,
         lastMotion: null,
@@ -893,6 +897,7 @@ class App extends React.Component<object, UiState> {
       game: fresh,
       displayGame: fresh,
       activeSeed: null,
+      endCondition: "bankruptcy",
       selectedTileId: null,
       lastMotion: null,
       visualCue: null,
@@ -1010,12 +1015,12 @@ class App extends React.Component<object, UiState> {
     const rawRounds = this.state.roundsInput.trim();
     const rounds = Number(rawRounds);
     if (
-      !/^[0-9]{1,3}$/.test(rawRounds) ||
+      !/^[0-9]{1,5}$/.test(rawRounds) ||
       !Number.isSafeInteger(rounds) ||
       rounds < 1 ||
-      rounds > 200
+      rounds > 10000
     ) {
-      this.setState({ message: "最大轮数必须是 1 至 200 的整数。" });
+      this.setState({ message: "最大轮数必须是 1 至 10000 的整数。" });
       return;
     }
     const roster = this.state.playerSetup.map((p) => ({
@@ -1040,6 +1045,7 @@ class App extends React.Component<object, UiState> {
         ...levelConfig(this.state.selectedMapId),
         players: roster,
         maxRounds: rounds,
+        ...(this.state.endCondition==='bankruptcy'?{endCondition:'bankruptcy' as const}:{}),
         automaticLiquidation: true,
         propertyVisitOnly: true,
         stockAccount: "bank",
@@ -1922,7 +1928,7 @@ class App extends React.Component<object, UiState> {
           <li>
             <strong>结束回合</strong>
             <p>
-              电脑自动行动；本机多人需交接设备。达到设定轮数后比较净资产；其他玩家全部破产也会结束对局。
+              电脑自动行动；本机多人需交接设备。默认以破产决胜，最后一位未破产玩家获胜；可在对局设置中改为限轮后比较净资产。
             </p>
           </li>
         </ol>
@@ -2775,21 +2781,27 @@ class App extends React.Component<object, UiState> {
                 <summary>
                   对局设置{" "}
                   <span>
-                    {this.state.roundsInput} 轮 ·{" "}
+                    {this.state.endCondition==='bankruptcy'?'破产决胜':this.state.roundsInput+' 轮结算'} ·{" "}
                     {this.state.specialEnabled ? "含特殊设施" : "标准设施"} ·
                     更多设置
                   </span>
                 </summary>
                 <div className="setup-setting-grid">
+                  <label>对局结束方式
+                    <select aria-label="对局结束方式" value={this.state.endCondition} onChange={e=>this.setState({endCondition:e.target.value as 'bankruptcy'|'round_limit'})}>
+                      <option value="bankruptcy">破产决胜 · 不限轮数</option>
+                      <option value="round_limit">限轮结算 · 比较净资产</option>
+                    </select>
+                  </label>
                   <label>
-                    最多轮数
+                    限轮模式最多轮数
                     <input
                       aria-label="最多轮数"
                       inputMode="numeric"
                       value={this.state.roundsInput}
-                      maxLength={3}
+                      maxLength={5}
                       onChange={(e) =>
-                        this.setState({ roundsInput: e.target.value })
+                        this.setState({ roundsInput: e.target.value, endCondition: 'round_limit' })
                       }
                     />
                   </label>
@@ -2835,7 +2847,7 @@ class App extends React.Component<object, UiState> {
               </p>
             </div>
             <footer className="setup-footer">
-              <span>每人 1,500 现金 · 按净资产决胜</span>
+              <span>每人 {levelConfig(this.state.selectedMapId).initialCash.toLocaleString('zh-CN')} 现金 · {this.state.endCondition==='bankruptcy'?'破产决胜':`最多 ${this.state.roundsInput} 轮`}</span>
               <button
                 className="title-primary"
                 aria-label="开始游戏"
@@ -2978,7 +2990,7 @@ class App extends React.Component<object, UiState> {
             </div>
           </div>
           <div className="round-indicator">
-            第 <b>{game.round}</b> / {game.maxRounds} 轮
+            第 <b>{game.round}</b>{game.endCondition==='bankruptcy'?' 轮 · 破产决胜':` / ${game.maxRounds} 轮`}
           </div>
           <nav>
             <button

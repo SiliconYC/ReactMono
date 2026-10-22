@@ -10,8 +10,10 @@ import { coverRentFromBank, settleBankRound } from './bank.js';
 import { DEFAULT_CARD_RULES } from './config.js';
 import { handSize } from './cards.js';
 import { accept, reject } from './transitions.js';
+import { assertMoneyState, checkedMoneyAdd } from './money.js';
 export function rollTurn(state: GameState, actor: Player): ActionResult {
       if (state.phase !== 'await_roll'||actor.detention!==undefined) return reject(state,'INVALID_PHASE');
+      assertMoneyState(state);
       const draw = nextDie(state.randomState);
       const value = state.strategyEnabled===true && (state.pendingDie??0)>0 ? state.pendingDie! : draw.value;
       const nextState=draw.nextState; // consume RNG even for remote dice so replay is stable
@@ -62,7 +64,7 @@ export function rollTurn(state: GameState, actor: Player): ActionResult {
         // of the secured loan may pay the landlord. No bank debt survives foreclosure.
         if(rescue.cash<due && state.loan && loanBalance>0){
           const seized=foreclose(state,{...actor,cash:0},rescue.tiles);
-          rescue={...rescue,cash:rescue.cash+seized.player.cash,tiles:seized.tiles};
+          rescue={...rescue,cash:checkedMoneyAdd(rescue.cash,seized.player.cash),tiles:seized.tiles};
           loanBalance=0;
           events.push(...seized.events);
         }
@@ -70,7 +72,7 @@ export function rollTurn(state: GameState, actor: Player): ActionResult {
         const insolvent = paid < due;
         const players = movingPlayers.map(p => p.id === actor.id
           ? { ...p, cash: rescue.cash - paid, ...(funds.amount>0?{bankBalance:funds.bankBalance}:{}), bankrupt: insolvent, ...(state.loan?{loanBalance}:{} ), ...(stockRescue.holdings!==undefined?{holdings:stockRescue.holdings}:{}) }
-          : p.id === landlord.id ? { ...p, cash: p.cash + paid } : p);
+          : p.id === landlord.id ? { ...p, cash: checkedMoneyAdd(p.cash,paid) } : p);
         events.push({ type: 'rent_paid', actorId: actor.id, details: {
           tileId: landed.id, fromId: actor.id, toId: landlord.id, due, amount: paid
         } });
@@ -78,9 +80,9 @@ export function rollTurn(state: GameState, actor: Player): ActionResult {
         const alive=players.filter(p=>!p.bankrupt);
         const next=insolvent && alive.length>1 ? nextActiveIndex(players,state.currentPlayerIndex) : state.currentPlayerIndex;
         const wrapped=insolvent && next<=state.currentPlayerIndex;
-        const roundLimit=insolvent && alive.length>1 && wrapped && state.round>=state.maxRounds;
+        const roundLimit=state.endCondition!=='bankruptcy' && insolvent && alive.length>1 && wrapped && state.round>=state.maxRounds;
         const finished=insolvent && (alive.length===1 || roundLimit);
-        const winnerId=alive.length===1 ? alive[0].id : roundLimit ? leadingPlayer(state,players) : null;
+        const winnerId=alive.length===1 ? alive[0].id : roundLimit ? leadingPlayer({...state,tiles:rescue.tiles},players) : null;
         if (insolvent) {
           events.push({ type: 'player_bankrupt', actorId: actor.id, details: { creditorId: landlord.id } });
           if(finished)events.push({type:'game_finished',details:roundLimit
@@ -168,6 +170,7 @@ export function nextActiveIndex(players: readonly Player[], current: number): nu
   throw new Error('无存活玩家，回合状态无效');
 }
 function leadingPlayer(state: GameState, players: readonly Player[]): string | null {
+  assertMoneyState({...state,players});
   const live=players.filter(p=>!p.bankrupt);
   const scores=live.map(p=>({id:p.id,value:netWorth({...state,players},p.id)}));
   const high=Math.max(...scores.map(x=>x.value));
@@ -176,9 +179,10 @@ function leadingPlayer(state: GameState, players: readonly Player[]): string | n
 }
 export function endTurn(state: GameState, actor: Player): ActionResult {
   if(state.phase!=='await_end_turn')return reject(state,'INVALID_PHASE');
+  assertMoneyState(state);
   const next=nextActiveIndex(state.players,state.currentPlayerIndex);
   const wrapped=next<=state.currentPlayerIndex;
-  const finished=wrapped && state.round>=state.maxRounds;
+  const finished=state.endCondition!=='bankruptcy' && wrapped && state.round>=state.maxRounds;
   const assets=state.players.map(p=>netWorth(state,p.id));
   const winnerId=finished?leadingPlayer(state,state.players):null;
   const events: GameEvent[]=[{type:'turn_ended',actorId:actor.id}];

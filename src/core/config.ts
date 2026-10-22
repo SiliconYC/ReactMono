@@ -19,6 +19,7 @@ export const DEFAULT_CONFIG: GameConfig = classicConfig;
 export const HARBOR_CONFIG: GameConfig = levelConfig('harbor-20');
 
 export function validateConfig(config: GameConfig): void {
+  if(config.endCondition!==undefined && config.endCondition!=='bankruptcy')throw new Error('结束条件无效');
   if(config.propertyVisitOnly!==undefined && typeof config.propertyVisitOnly!=='boolean')throw new Error('地产到访规则无效');
   if(config.stockAccount!==undefined && !['cash','bank'].includes(config.stockAccount))throw new Error('股票结算账户无效');
   if(config.stockAccount==='bank' && (config.bankEnabled!==true || config.marketEnabled!==true))throw new Error('存款股票交易需要银行和股市');

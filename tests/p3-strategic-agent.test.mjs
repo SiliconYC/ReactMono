@@ -85,8 +85,11 @@ test('股票以银行存款结算时电脑按存款余额估算，不按现金�
   stockAccount:'bank',propertyVisitOnly:true};
   const started=applyAction(createGame(17,stockConfig),{type:'start_game',actorId:'p1'}).state;
   const wealthyInBank={...started,phase:'await_end_turn',players:started.players.map((p,i)=>i===0
-    ?{...p,cash:200,bankBalance:1000}:p)};
+    ?{...p,cash:2000,bankBalance:1000}:p)};
   const action=chooseComputerAction(wealthyInBank);
   assert.equal(action?.type,'buy_stock');
   assert.equal(applyAction(wealthyInBank,action).ok,true);
+  const noStockFunds={...wealthyInBank,players:wealthyInBank.players.map((p,i)=>i===0
+    ?{...p,bankBalance:0}:p)};
+  assert.notEqual(chooseComputerAction(noStockFunds)?.type,'buy_stock');
 });

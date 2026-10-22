@@ -18,6 +18,23 @@ export function setDebugCash(state: GameState, playerId: string, cash: number): 
 }
 
 export interface DebugSimulationResult { readonly state: GameState; readonly actions: number; }
+export interface DebugSimulationSetup {
+  readonly cashById?: Readonly<Record<string,number>>;
+  readonly endCondition?: 'bankruptcy' | 'round_limit';
+}
+export function prepareDebugSimulation(state:GameState,setup:DebugSimulationSetup):GameState {
+  if(state.status!=='playing')throw new Error('仅进行中的对局可以模拟');
+  if(setup.endCondition!==undefined && !['bankruptcy','round_limit'].includes(setup.endCondition))throw new Error('结束条件无效');
+  let next=state;
+  for(const [id,cash] of Object.entries(setup.cashById??{}))next=setDebugCash(next,id,cash);
+  if(setup.endCondition==='bankruptcy')next={...next,endCondition:'bankruptcy'};
+  else if(setup.endCondition==='round_limit'){
+    const {endCondition:_previous,...limited}=next;
+    next=limited;
+  }
+  validateGameState(next);
+  return next;
+}
 export function chooseDebugSimulationAction(state: GameState): GameAction | null {
   const player = state.players[state.currentPlayerIndex];
   if (!player || (player.kind === 'computer' && player.computerStyle))

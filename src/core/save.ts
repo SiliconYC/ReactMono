@@ -3,6 +3,7 @@ import { SCHEMA_VERSION, UPGRADE_RULES_VERSION, makePropertyTile, type GameState
 import { inferMap, validateMap } from './maps.js';
 import { STOCKS } from './market.js';
 import { validateMarket } from './market.js';
+import { assertMoneyState } from './money.js';
 
 export const SAVE_FORMAT_VERSION = 1 as const;
 export const MAX_SAVE_CHARS = 4_000_000;
@@ -41,7 +42,8 @@ export function validateGameState(value: unknown, expectedVersion: number = SCHE
   if (!record(value)) throw new SaveError('INVALID_STATE','存档数据无效：游戏状态必须为对象');
   keys(value,['schemaVersion','status','phase','revision','round','currentPlayerIndex','randomState',
     'maxRounds','players','tiles','winnerId','events','upgradeRulesVersion',
-    ...(expectedVersion>=4?['map']:[])],['cardRules','pendingMoveBonus',...(expectedVersion>=4?['propertyVisitOnly','stockAccount','automaticLiquidation','resaleRules','market','bank','loan','strategyEnabled','pendingDie','pendingRentWaiver','roadblocks','specialEnabled','facilityRules','shops']:[])]);
+    ...(expectedVersion>=4?['map']:[])],['cardRules','pendingMoveBonus',...(expectedVersion>=4?['endCondition','propertyVisitOnly','stockAccount','automaticLiquidation','resaleRules','market','bank','loan','strategyEnabled','pendingDie','pendingRentWaiver','roadblocks','specialEnabled','facilityRules','shops']:[])]);
+  if(value.endCondition!==undefined && value.endCondition!=='bankruptcy')throw new SaveError('INVALID_STATE','结束条件无效');
   if(value.propertyVisitOnly!==undefined && value.propertyVisitOnly!==true)throw new SaveError('INVALID_STATE','地产到访规则无效');
   if(value.stockAccount!==undefined && (value.stockAccount!=='bank' || value.bank===undefined || value.market===undefined))throw new SaveError('INVALID_STATE','股票结算账户无效');
   if(value.strategyEnabled!==undefined&&value.strategyEnabled!==true)
@@ -108,7 +110,7 @@ export function validateGameState(value: unknown, expectedVersion: number = SCHE
   if ((value.status==='setup') !== (value.phase==='setup') ||
       (value.status==='finished') !== (value.phase==='finished')) throw new SaveError('INVALID_STATE','存档数据无效：状态与阶段不匹配');
   if (!finite(value.revision,0,100000) || !finite(value.maxRounds,1,100000) ||
-      !finite(value.round,1,value.maxRounds as number) || !finite(value.currentPlayerIndex,0,3) ||
+      !finite(value.round,1,value.endCondition==='bankruptcy'?100000:value.maxRounds as number) || !finite(value.currentPlayerIndex,0,3) ||
       !finite(value.randomState,1,0xffffffff)) throw new SaveError('INVALID_STATE','存档数据无效：回合、修订或随机数状态非法');
   if (!Array.isArray(value.players) || value.players.length<2 || value.players.length>4 ||
       (expectedVersion===2 && value.players.length!==2) ||
@@ -163,7 +165,7 @@ export function validateGameState(value: unknown, expectedVersion: number = SCHE
     if (!string(p.id,64) || !string(p.name,80) || ids.includes(p.id) ||
         (p.kind!=='human'&&p.kind!=='computer') ||
         (expectedVersion===2 && p.kind!==(i===0?'human':'computer')) || typeof p.bankrupt!=='boolean' ||
-        !finite(p.cash,0,1_000_000_000_000)) throw new SaveError('INVALID_STATE','存档数据无效：玩家身份、现金或状态非法');
+        !finite(p.cash)) throw new SaveError('INVALID_STATE','存档数据无效：玩家身份、现金或状态非法');
     ids.push(p.id);
   }
   if (!Array.isArray(value.tiles) || value.tiles.length<2 || value.tiles.length>512) throw new SaveError('INVALID_STATE','存档数据无效：地图长度非法');
@@ -237,7 +239,7 @@ export function validateGameState(value: unknown, expectedVersion: number = SCHE
       keys(b,['tileId','ownerId','expiresRound']);
       if(!finite(b.tileId,1,value.tiles.length-1)||used.has(b.tileId)||
          !ids.includes(String(b.ownerId))||value.players.some((p:Dict)=>p.id===b.ownerId&&p.bankrupt===true)||
-         !finite(b.expiresRound,1,(value.maxRounds as number)+2))
+         !finite(b.expiresRound,1,(value.endCondition==='bankruptcy'?value.round as number:value.maxRounds as number)+2))
         throw new SaveError('INVALID_STATE','路障目标、期限或归属非法');
       used.add(b.tileId);
     }
@@ -297,6 +299,10 @@ export function validateGameState(value: unknown, expectedVersion: number = SCHE
     }
   }
   if (value.status==='finished' && value.events.at(-1)?.type!=='game_finished') throw new SaveError('INVALID_STATE','存档数据无效：结束标记缺失');
+  try { assertMoneyState(value as unknown as GameState); }
+  catch (error) {
+    throw new SaveError('INVALID_STATE',error instanceof Error?error.message:'资产金额超出安全整数范围');
+  }
 }
 /** FNV-1a 用于检测意外编辑或位损坏；本地公开文件无法提供抗恶意伪造的签名。 */
 function checksum(data: string): string {

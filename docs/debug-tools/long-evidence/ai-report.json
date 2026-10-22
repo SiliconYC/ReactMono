@@ -1,0 +1,326 @@
+{
+  "generatedAt": "2026-10-22T02:59:18.408Z",
+  "scope": "AI经营资金可用性修复归档；仅写本报告并复制已有日志，未修改生产代码或测试，未重新构建或重跑大套件。",
+  "implementation": {
+    "files": [
+      "src/core/strategic-agent.ts",
+      "tests/strategic-operating-cash.test.mjs",
+      "tests/p3-strategic-agent.test.mjs"
+    ],
+    "behavior": "按现有现金和银行存款，为当前合法到访升级及后续可承担的最高购地成本一次筹备经营现金；保留风格储备、合法阶段及单回合存取互斥；存款与现金账户买股保留经营预算。银行容量边界由根代理独立审查补充。",
+    "unchanged": [
+      "地产价格",
+      "租金",
+      "投资比例",
+      "股票持仓上限",
+      "存档结构"
+    ]
+  },
+  "evidence": {
+    "copiedOriginalLogs": [
+      {
+        "source": "tests-first.log",
+        "file": "ai-original-six-green-suite.log",
+        "bytes": 60678,
+        "sha256": "a58cceb297afb1dea9c55021f57112025b14800230471937465b0a74c273c83d",
+        "copiedVerbatim": true
+      },
+      {
+        "source": "tests-final.log",
+        "file": "ai-final-seven-green-suite.log",
+        "bytes": 62150,
+        "sha256": "2d16230487538813dd1746d1094b7cac483229697b945c101e4db3b5e2a7f3e6",
+        "copiedVerbatim": true
+      },
+      {
+        "source": "ai-capacity-red.log",
+        "file": "ai-bank-capacity-original-red.log",
+        "bytes": 1126,
+        "sha256": "8cb2d9e9bbdc2a456023458e1648fcff79b56f0c7729616ff5373d2d97b99107",
+        "copiedVerbatim": true
+      }
+    ],
+    "originalSixRed": {
+      "rawLogFile": null,
+      "status": "缺失",
+      "source": "此前子代理通过exec_command观察到的Node TAP标准输出保留在聊天记录，未写入原始日志文件，本次不重造TAP。",
+      "observed": [
+        {
+          "command": "node --test tests/strategic-operating-cash.test.mjs",
+          "tests": 4,
+          "pass": 0,
+          "fail": 4
+        },
+        {
+          "command": "node --test --test-name-pattern='现金股票账户' tests/strategic-operating-cash.test.mjs",
+          "tests": 1,
+          "pass": 0,
+          "fail": 1
+        },
+        {
+          "command": "node --test --test-name-pattern='同一次取款' tests/strategic-operating-cash.test.mjs",
+          "tests": 1,
+          "pass": 0,
+          "fail": 1
+        }
+      ],
+      "failures": [
+        "现金350/银行1000时结束回合而非筹备购地资金",
+        "到访自有地产且可承担升级时未从银行筹资",
+        "保守策略只补回650储备，未覆盖245地价",
+        "同回合存款后又触发低现金取款",
+        "现金账户股票交易花掉经营预算",
+        "当前升级会耗用下一次购地预算，未一次覆盖两项开支"
+      ]
+    },
+    "originalSixGreen": {
+      "independentCommand": "node --test tests/strategic-operating-cash.test.mjs tests/p3-strategic-agent.test.mjs",
+      "tests": 12,
+      "pass": 12,
+      "fail": 0,
+      "newOperatingTests": 6,
+      "independentRawLogFile": null,
+      "rawLogStatus": "独立运行的原始stdout未保存为文件；同版本完整259项套件原始日志已复制，包含六项经营测试及旧股票账户测试。",
+      "preservedSuite": {
+        "log": "ai-original-six-green-suite.log",
+        "tests": 259,
+        "pass": 259,
+        "fail": 0
+      }
+    },
+    "finalSevenGreen": {
+      "log": "ai-final-seven-green-suite.log",
+      "tests": 266,
+      "pass": 266,
+      "fail": 0,
+      "operatingTests": 7,
+      "capacityRegression": "ai-bank-capacity-original-red.log",
+      "note": "容量min修复和第7项回归由根代理完成；本子代理本次仅核对并复制已有原始日志。"
+    },
+    "styleBenchmark": {
+      "games": 1000,
+      "totalActions": 248036,
+      "illegalActions": 0,
+      "source": "此前独立12项绿测stdout；相同基准完整输出也随259项套件日志保存。"
+    }
+  },
+  "fixedSeedComparison": {
+    "source": "此前子代理真实运行的exec_command标准输出，逐项数值摘录；原始数值stdout未保存为文件，不是本次重跑。",
+    "rawLogFile": null,
+    "config": {
+      "map": "lime-garden-30",
+      "seed": 20261015,
+      "initialCash": 2200,
+      "players": [
+        {
+          "id": "p1",
+          "kind": "human",
+          "backgroundPolicy": "balanced"
+        },
+        {
+          "id": "p2",
+          "kind": "computer",
+          "computerStyle": "balanced"
+        }
+      ],
+      "strategyEnabled": true,
+      "bankEnabled": true,
+      "loanEnabled": true,
+      "marketEnabled": true,
+      "propertyVisitOnly": true,
+      "automaticLiquidation": true,
+      "specialEnabled": false,
+      "stockAccount": "bank",
+      "terminalMode": "既有轮数上限规则；破产可提前结束"
+    },
+    "samples": [
+      {
+        "maxRounds": 36,
+        "before": {
+          "actualRound": 36,
+          "status": "finished",
+          "actions": 191,
+          "purchases": 11,
+          "upgrades": 1,
+          "withdrawals": 0,
+          "players": [
+            {
+              "id": "p1",
+              "cash": 263,
+              "bankBalance": 1038,
+              "loanBalance": 0,
+              "levels": [
+                3,
+                1,
+                0
+              ]
+            },
+            {
+              "id": "p2",
+              "cash": 409,
+              "bankBalance": 1011,
+              "loanBalance": 0,
+              "levels": [
+                7,
+                0,
+                0
+              ]
+            }
+          ]
+        },
+        "after": {
+          "actualRound": 36,
+          "status": "finished",
+          "actions": 210,
+          "purchases": 16,
+          "upgrades": 9,
+          "withdrawals": 20,
+          "players": [
+            {
+              "id": "p1",
+              "cash": 335,
+              "bankBalance": 12,
+              "loanBalance": 0,
+              "levels": [
+                2,
+                3,
+                1
+              ]
+            },
+            {
+              "id": "p2",
+              "cash": 403,
+              "bankBalance": 2,
+              "loanBalance": 0,
+              "levels": [
+                7,
+                2,
+                1
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "maxRounds": 200,
+        "before": {
+          "actualRound": 172,
+          "status": "finished",
+          "actions": 869,
+          "purchases": 22,
+          "upgrades": 18,
+          "withdrawals": 11,
+          "players": [
+            {
+              "id": "p1",
+              "cash": 0,
+              "bankBalance": 0,
+              "loanBalance": 0,
+              "levels": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "id": "p2",
+              "cash": 872,
+              "bankBalance": 3402,
+              "loanBalance": 0,
+              "levels": [
+                7,
+                5,
+                6
+              ]
+            }
+          ]
+        },
+        "after": {
+          "actualRound": 117,
+          "status": "finished",
+          "actions": 611,
+          "purchases": 21,
+          "upgrades": 22,
+          "withdrawals": 27,
+          "players": [
+            {
+              "id": "p1",
+              "cash": 0,
+              "bankBalance": 0,
+              "loanBalance": 0,
+              "levels": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "id": "p2",
+              "cash": 740,
+              "bankBalance": 1,
+              "loanBalance": 0,
+              "levels": [
+                6,
+                2,
+                7
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "levelsOrder": [
+      0,
+      1,
+      2
+    ],
+    "interpretation": "同一36轮种子的闲置存款转为更多购地及建设；200轮上限样本均因破产提前结束，不能声称跑满200轮，也不能用其胜者或局长推断整体平衡。"
+  },
+  "longGameCheck": {
+    "source": "此前子代理真实exec_command标准输出；原始stdout日志文件缺失，本次不补造。",
+    "rawLogFile": null,
+    "configuration": {
+      "map": "lime-garden-30",
+      "maxRounds": 200,
+      "seeds": [
+        1,
+        17,
+        20261015,
+        20261022
+      ],
+      "p1": "真人由后台平衡策略代玩",
+      "p2Styles": [
+        "conservative",
+        "balanced",
+        "aggressive"
+      ],
+      "stockAccounts": [
+        "bank",
+        "cash"
+      ],
+      "actionSafetyLimit": 10000,
+      "otherOptions": "同fixedSeedComparison.config"
+    },
+    "games": 24,
+    "totalActions": 16154,
+    "rejections": 0,
+    "actionLoops": 0,
+    "terminalCashRange": {
+      "min": 0,
+      "max": 765
+    }
+  },
+  "limitations": [
+    "最初六项红测、独立12项绿测以及36/200轮和24局模拟的原始stdout未写入文件；本报告仅如实摘录聊天中真实运行结果。",
+    "已保存的259和266全套原始日志为根代理运行日志，复制件无内容改写；不能将其误称为子代理最初的独立12项日志。",
+    "量化结果检验资金可用性与操作合法性，不构成全局经济平衡、胜率公平、趣味性或商业品质结论。"
+  ],
+  "archiveStorage": {
+    "note": "归档保持原始字节，以下原始日志以gzip保存；报告内SHA256针对解压后的原始字节。",
+    "compressed": {
+      "ai-original-six-green-suite.log": "ai-original-six-green-suite.log.gz",
+      "ai-final-seven-green-suite.log": "ai-final-seven-green-suite.log.gz",
+      "ai-bank-capacity-original-red.log": "ai-bank-capacity-original-red.log.gz"
+    }
+  }
+}

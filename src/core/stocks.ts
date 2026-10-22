@@ -3,6 +3,7 @@ import type {GameState,Player,GameAction,ActionResult,GameEvent,StockHoldings} f
 import {quoteMarket,STOCKS} from './market.js';
 import {accept,reject} from './transitions.js';
 import {MAX_BANK_BALANCE} from './bank.js';
+import {checkedMoneyAdd} from './money.js';
 export const STOCK_FEE_BPS=50; // 0.5% each trade, rounded up to one game coin.
 export const MAX_SHARES=1_000_000;
 export function stockFee(gross:number):number{
@@ -36,9 +37,10 @@ export function tradeStock(state:GameState,actor:Player,
   }else{
     if(!lot||lot.quantity<quantity)return reject(state,'INSUFFICIENT_FUNDS');
     const proceeds=gross-fee;
-    if(!Number.isSafeInteger(cash+proceeds)||cash+proceeds>MAX_BANK_BALANCE)
+    if(!Number.isSafeInteger(cash+proceeds)||(account==='bankBalance'&&cash+proceeds>MAX_BANK_BALANCE))
       return reject(state,'INVALID_PHASE');
-    const allocated=quantity===lot.quantity?lot.costBasis:Math.floor(lot.costBasis*quantity/lot.quantity);
+    const allocated=quantity===lot.quantity?lot.costBasis:
+      Math.floor(lot.costBasis/lot.quantity)*quantity+Math.floor((lot.costBasis%lot.quantity)*quantity/lot.quantity);
     const { [action.stockId]:_sold,...others}=positions;
     next=quantity===lot.quantity?others:{...positions,[action.stockId]:{
       quantity:lot.quantity-quantity,costBasis:lot.costBasis-allocated}};
@@ -64,8 +66,7 @@ export function liquidateStocksForRent(state:GameState,actor:Player,due:number):
     const gross=lot.quantity*quoteMarket(state.market,symbol.id);
     const fee=stockFee(gross);
     const amount=gross-fee;
-    if(!Number.isSafeInteger(cash+amount)||cash+amount>MAX_BANK_BALANCE)throw new Error('股票清算超出安全范围');
-    cash+=amount;
+    cash=checkedMoneyAdd(cash,amount);
     const {[symbol.id]:_sold,...others}=holdings!;
     holdings=others;
     events.push({type:'stock_liquidated',actorId:actor.id,details:{stockId:symbol.id,

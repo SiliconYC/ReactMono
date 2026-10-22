@@ -1,0 +1,312 @@
+TAP version 13
+# Subtest: 租金120：现金0，实付0，破产=true
+ok 1 - 租金120：现金0，实付0，破产=true
+  ---
+  duration_ms: 6.939583
+  type: 'test'
+  ...
+# Subtest: 租金120：现金119，实付119，破产=true
+ok 2 - 租金120：现金119，实付119，破产=true
+  ---
+  duration_ms: 0.873375
+  type: 'test'
+  ...
+# Subtest: 租金120：现金120，实付120，破产=false
+ok 3 - 租金120：现金120，实付120，破产=false
+  ---
+  duration_ms: 0.678583
+  type: 'test'
+  ...
+# Subtest: 租金120：现金121，实付120，破产=false
+ok 4 - 租金120：现金121，实付120，破产=false
+  ---
+  duration_ms: 0.405125
+  type: 'test'
+  ...
+# Subtest: 现金10与存款109的精确补款边界
+ok 5 - 现金10与存款109的精确补款边界
+  ---
+  duration_ms: 0.537333
+  type: 'test'
+  ...
+# Subtest: 现金10与存款110的精确补款边界
+ok 6 - 现金10与存款110的精确补款边界
+  ---
+  duration_ms: 0.41775
+  type: 'test'
+  ...
+# Subtest: 现金10与存款111的精确补款边界
+ok 7 - 现金10与存款111的精确补款边界
+  ---
+  duration_ms: 0.356708
+  type: 'test'
+  ...
+# Subtest: 现金足够时不提存款、不卖股票和地产
+ok 8 - 现金足够时不提存款、不卖股票和地产
+  ---
+  duration_ms: 0.632875
+  type: 'test'
+  ...
+# Subtest: 股票清算计入手续费：80减1而非凭空补足租金
+ok 9 - 股票清算计入手续费：80减1而非凭空补足租金
+  ---
+  duration_ms: 0.974833
+  type: 'test'
+  ...
+# Subtest: 股票清算恰好支付后为零但不破产
+ok 10 - 股票清算恰好支付后为零但不破产
+  ---
+  duration_ms: 0.7515
+  type: 'test'
+  ...
+# Subtest: 多股票按固定顺序清算，顺序不受持仓对象顺序影响
+ok 11 - 多股票按固定顺序清算，顺序不受持仓对象顺序影响
+  ---
+  duration_ms: 0.75275
+  type: 'test'
+  ...
+# Subtest: 银行结算股票在紧急清算时用于支付租金且不重复入账
+ok 12 - 银行结算股票在紧急清算时用于支付租金且不重复入账
+  ---
+  duration_ms: 0.933458
+  type: 'test'
+  ...
+# Subtest: 价值1的股票扣最小手续费后净额0，仍正确清仓并破产
+ok 13 - 价值1的股票扣最小手续费后净额0，仍正确清仓并破产
+  ---
+  duration_ms: 0.40425
+  type: 'test'
+  ...
+# Subtest: 依次现金、存款、股票、土地，只出售足够的资产
+ok 14 - 依次现金、存款、股票、土地，只出售足够的资产
+  ---
+  duration_ms: 0.4585
+  type: 'test'
+  ...
+# Subtest: 升级地产回售75%地价与50%已付升级费后恰好支付
+ok 15 - 升级地产回售75%地价与50%已付升级费后恰好支付
+  ---
+  duration_ms: 0.34675
+  type: 'test'
+  ...
+# Subtest: 抵押清算先还银行30，剩45支付租金205
+ok 16 - 抵押清算先还银行30，剩45支付租金205
+  ---
+  duration_ms: 0.489708
+  type: 'test'
+  ...
+# Subtest: 抵押清算先还银行30，剩45支付租金206
+ok 17 - 抵押清算先还银行30，剩45支付租金206
+  ---
+  duration_ms: 0.329167
+  type: 'test'
+  ...
+# Subtest: 零债务的抵押地产可直接清算，不遗留抵押标记
+ok 18 - 零债务的抵押地产可直接清算，不遗留抵押标记
+  ---
+  duration_ms: 0.288458
+  type: 'test'
+  ...
+# Subtest: 零租金不会把零现金玩家错误破产或强制出售资产
+ok 19 - 零租金不会把零现金玩家错误破产或强制出售资产
+  ---
+  duration_ms: 0.307
+  type: 'test'
+  ...
+# Subtest: 免租卡不会把零现金玩家错误破产或强制出售资产
+ok 20 - 免租卡不会把零现金玩家错误破产或强制出售资产
+  ---
+  duration_ms: 0.276666
+  type: 'test'
+  ...
+# Subtest: 抵押免租不会把零现金玩家错误破产或强制出售资产
+ok 21 - 抵押免租不会把零现金玩家错误破产或强制出售资产
+  ---
+  duration_ms: 0.304666
+  type: 'test'
+  ...
+# Subtest: 2人支付不足后立即破产并推进到有效后继状态
+ok 22 - 2人支付不足后立即破产并推进到有效后继状态
+  ---
+  duration_ms: 0.342542
+  type: 'test'
+  ...
+# Subtest: 3人支付不足后立即破产并推进到有效后继状态
+ok 23 - 3人支付不足后立即破产并推进到有效后继状态
+  ---
+  duration_ms: 0.302167
+  type: 'test'
+  ...
+# Subtest: 4人支付不足后立即破产并推进到有效后继状态
+ok 24 - 4人支付不足后立即破产并推进到有效后继状态
+  ---
+  duration_ms: 0.316041
+  type: 'test'
+  ...
+# Subtest: 四人局破产自动跳过既有破产席位
+ok 25 - 四人局破产自动跳过既有破产席位
+  ---
+  duration_ms: 0.364792
+  type: 'test'
+  ...
+# Subtest: 跨轮破产只结一次存款利息、贷款利息和行情
+ok 26 - 跨轮破产只结一次存款利息、贷款利息和行情
+  ---
+  duration_ms: 0.786792
+  type: 'test'
+  ...
+# Subtest: 到回合上限的跨轮破产直接结束，不额外结息
+ok 27 - 到回合上限的跨轮破产直接结束，不额外结息
+  ---
+  duration_ms: 0.35575
+  type: 'test'
+  ...
+# Subtest: 合法大额现金的租金转账仍可保存
+not ok 28 - 合法大额现金的租金转账仍可保存
+  ---
+  duration_ms: 0.574375
+  type: 'test'
+  location: '/Users/laocao/Documents/coding/ReactMono/tests/rent-accounting-audit.test.mjs:232:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Got unwanted exception.
+    Actual message: "存档数据无效：玩家身份、现金或状态非法"
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  actual:
+  error: '存档数据无效：玩家身份、现金或状态非法'
+  stack: |-
+    validateGameState (file:///Users/laocao/Documents/coding/ReactMono/.test-dist/core/save.js:189:19)
+    serializeGame (file:///Users/laocao/Documents/coding/ReactMono/.test-dist/core/save.js:362:5)
+    file:///Users/laocao/Documents/coding/ReactMono/tests/rent-accounting-audit.test.mjs:239:29
+    getActual (node:assert:609:5)
+    Function.doesNotThrow (node:assert:777:32)
+    TestContext.<anonymous> (file:///Users/laocao/Documents/coding/ReactMono/tests/rent-accounting-audit.test.mjs:239:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+  operator: 'doesNotThrow'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/laocao/Documents/coding/ReactMono/tests/rent-accounting-audit.test.mjs:239:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: 合法最大银行存款不应阻止其他玩家跨轮破产
+not ok 29 - 合法最大银行存款不应阻止其他玩家跨轮破产
+  ---
+  duration_ms: 0.284584
+  type: 'test'
+  location: '/Users/laocao/Documents/coding/ReactMono/tests/rent-accounting-audit.test.mjs:242:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Got unwanted exception.
+    Actual message: "银行余额超过安全范围"
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  actual:
+  error: '银行余额超过安全范围'
+  stack: |-
+    file:///Users/laocao/Documents/coding/ReactMono/.test-dist/core/bank.js:43:19
+    Array.map (<anonymous>)
+    settleBankRound (file:///Users/laocao/Documents/coding/ReactMono/.test-dist/core/bank.js:37:29)
+    rollTurn (file:///Users/laocao/Documents/coding/ReactMono/.test-dist/core/turns.js:96:63)
+    applyAction (file:///Users/laocao/Documents/coding/ReactMono/.test-dist/core/game.js:98:29)
+    file:///Users/laocao/Documents/coding/ReactMono/tests/rent-accounting-audit.test.mjs:247:40
+    getActual (node:assert:609:5)
+    Function.doesNotThrow (node:assert:777:32)
+    TestContext.<anonymous> (file:///Users/laocao/Documents/coding/ReactMono/tests/rent-accounting-audit.test.mjs:247:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+  operator: 'doesNotThrow'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/laocao/Documents/coding/ReactMono/tests/rent-accounting-audit.test.mjs:247:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: 银行距离上限仅1时只实际发息1并记录真实金额
+not ok 30 - 银行距离上限仅1时只实际发息1并记录真实金额
+  ---
+  duration_ms: 0.308041
+  type: 'test'
+  location: '/Users/laocao/Documents/coding/ReactMono/tests/rent-accounting-audit.test.mjs:256:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Got unwanted exception.
+    Actual message: "银行余额超过安全范围"
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  actual:
+  error: '银行余额超过安全范围'
+  stack: |-
+    file:///Users/laocao/Documents/coding/ReactMono/.test-dist/core/bank.js:43:19
+    Array.map (<anonymous>)
+    settleBankRound (file:///Users/laocao/Documents/coding/ReactMono/.test-dist/core/bank.js:37:29)
+    rollTurn (file:///Users/laocao/Documents/coding/ReactMono/.test-dist/core/turns.js:96:63)
+    applyAction (file:///Users/laocao/Documents/coding/ReactMono/.test-dist/core/game.js:98:29)
+    file:///Users/laocao/Documents/coding/ReactMono/tests/rent-accounting-audit.test.mjs:261:40
+    getActual (node:assert:609:5)
+    Function.doesNotThrow (node:assert:777:32)
+    TestContext.<anonymous> (file:///Users/laocao/Documents/coding/ReactMono/tests/rent-accounting-audit.test.mjs:261:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+  operator: 'doesNotThrow'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/laocao/Documents/coding/ReactMono/tests/rent-accounting-audit.test.mjs:261:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: 大额租金差1时股票清算不应因为临时现金超过银行上限而失败
+not ok 31 - 大额租金差1时股票清算不应因为临时现金超过银行上限而失败
+  ---
+  duration_ms: 0.265584
+  type: 'test'
+  location: '/Users/laocao/Documents/coding/ReactMono/tests/rent-accounting-audit.test.mjs:268:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Got unwanted exception.
+    Actual message: "股票清算超出安全范围"
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  actual:
+  error: '股票清算超出安全范围'
+  stack: |-
+    liquidateStocksForRent (file:///Users/laocao/Documents/coding/ReactMono/.test-dist/core/stocks.js:74:19)
+    rollTurn (file:///Users/laocao/Documents/coding/ReactMono/.test-dist/core/turns.js:58:15)
+    applyAction (file:///Users/laocao/Documents/coding/ReactMono/.test-dist/core/game.js:98:29)
+    file:///Users/laocao/Documents/coding/ReactMono/tests/rent-accounting-audit.test.mjs:273:40
+    getActual (node:assert:609:5)
+    Function.doesNotThrow (node:assert:777:32)
+    TestContext.<anonymous> (file:///Users/laocao/Documents/coding/ReactMono/tests/rent-accounting-audit.test.mjs:273:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+  operator: 'doesNotThrow'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/laocao/Documents/coding/ReactMono/tests/rent-accounting-audit.test.mjs:273:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..31
+# tests 31
+# suites 0
+# pass 27
+# fail 4
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 81.207542

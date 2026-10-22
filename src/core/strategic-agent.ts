@@ -5,6 +5,7 @@ import {loanLimit} from './loan.js';
 import {netWorth, propertyVisitAvailable} from './property.js';
 import {handSize} from './cards.js';
 import {STOCKS, quoteMarket} from './market.js';
+import {MAX_BANK_BALANCE} from './money.js';
 
 const POLICIES = {
   conservative: {reserve:650, invest:0.07, mortgageAt:0.20, stockLimit:2},
@@ -117,11 +118,26 @@ export function chooseStyledAction(state:GameState,style:ComputerStyle):GameActi
       const seen=thisTurnEvents(state,p);
       const did=(...k:string[])=>seen.some(e=>k.includes(e.type));
       const balance=p.bankBalance??0,debt=p.loanBalance??0;
+      const available=p.cash+(state.bank?balance:0);
+      const purchaseReserve=style==='aggressive'?Math.min(35,reserve):reserve;
+      const upgrade=!did('property_upgraded')?firstOwned(state,p,t=>!t.mortgaged&&(t.level??0)<2&&
+        available-(t.upgradeCosts?.[t.level??0]??Infinity)>=reserve&&
+        (!state.propertyVisitOnly||propertyVisitAvailable(state,p,t.id))):undefined;
+      const upgradeCost=upgrade?(upgrade.upgradeCosts?.[upgrade.level??0]??0):0;
+      // 购地阶段不能转账；提前保留一次可承担的购地预算，覆盖遥控骰与加步卡的落点。
+      const purchaseCash=state.tiles.reduce((target,t)=>{
+        const price=t.price??0,required=price+purchaseReserve;
+        return t.kind==='property'&&t.ownerId===null&&available-upgradeCost>=required&&
+          (style!=='conservative'||(t.rent??0)/Math.max(1,price)>=0.15)
+          ?Math.max(target,required):target;
+      },0);
+      const operatingCash=upgradeCost+Math.max(purchaseCash,upgrade?reserve:0);
       if(state.loan&&debt>0&&!did('loan_repaid')&&p.cash>reserve+80){
         return {type:'repay_loan',actorId:p.id,amount:Math.min(debt,p.cash-reserve)};
       }
-      if(state.bank&&p.cash<reserve/2&&balance>0&&!did('bank_withdrawn')){
-        return {type:'withdraw_bank',actorId:p.id,amount:Math.min(balance,Math.ceil(reserve-p.cash))};
+      const withdrawalTarget=Math.max(operatingCash,p.cash<reserve/2?reserve:0);
+      if(state.bank&&p.cash<withdrawalTarget&&balance>0&&!did('bank_withdrawn','bank_deposited')){
+        return {type:'withdraw_bank',actorId:p.id,amount:Math.min(balance,Math.ceil(withdrawalTarget-p.cash))};
       }
       if(state.market&&p.cash<reserve/2&&!did('stock_sold','stock_liquidated')){
         const holding=STOCKS.find(s=>(p.holdings?.[s.id]?.quantity??0)>0);
@@ -143,7 +159,8 @@ export function chooseStyledAction(state:GameState,style:ComputerStyle):GameActi
         if(tile)return {type:'upgrade_property',actorId:p.id,tileId:tile.id};
       }
       const stockFunds=state.stockAccount==='bank'?balance:p.cash;
-      if(state.market&&!did('stock_bought')&&stockFunds>reserve+150){
+      const stockReserve=state.stockAccount==='bank'?reserve+150:Math.max(reserve+150,operatingCash);
+      if(state.market&&!did('stock_bought')&&stockFunds>stockReserve){
         const holdings=STOCKS.reduce((sum,s)=>sum+(p.holdings?.[s.id]?.quantity??0),0);
         if(holdings<cfg.stockLimit){
           const choice=STOCKS.map(s=>({s,price:quoteMarket(state.market!,s.id),
@@ -151,12 +168,13 @@ export function chooseStyledAction(state:GameState,style:ComputerStyle):GameActi
             .sort((a,b)=>a.ratio-b.ratio||a.s.id.localeCompare(b.s.id))[0];
           const perShare=choice.price+Math.max(1,Math.ceil(choice.price*0.005));
           const quantity=Math.min(cfg.stockLimit-holdings,
-            Math.floor((stockFunds-reserve-150)*cfg.invest/perShare));
+            Math.floor((stockFunds-stockReserve)*cfg.invest/perShare));
           if(quantity>0)return {type:'buy_stock',actorId:p.id,stockId:choice.s.id,quantity};
         }
       }
       if(state.bank&&p.cash>reserve+650&&!did('bank_deposited','bank_withdrawn')){
-        return {type:'deposit_bank',actorId:p.id,amount:Math.min(1000,Math.floor((p.cash-reserve-300)/2))};
+        const amount=Math.min(1000,MAX_BANK_BALANCE-balance,Math.floor((p.cash-Math.max(reserve+300,operatingCash))/2));
+        if(amount>0)return {type:'deposit_bank',actorId:p.id,amount};
       }
       return action('end_turn');
     }

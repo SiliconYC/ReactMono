@@ -1,0 +1,18 @@
+{
+  "source": "子代理只读审查报告，由根代理归档",
+  "findings": [
+    {
+      "file": "src/core/save.ts",
+      "issue": "破产模式路障期限仍使用旧maxRounds",
+      "status": "fixed",
+      "regression": "tests/long-games.test.mjs"
+    },
+    {
+      "file": "src/core/strategic-agent.ts",
+      "issue": "银行饱和时仍生成越容量存款",
+      "status": "fixed",
+      "regression": "tests/strategic-operating-cash.test.mjs"
+    }
+  ],
+  "verification": "审查者定向2/2通过；根代理最终266项及生产浏览器复验通过；不代替真人或全局平衡认可。"
+}

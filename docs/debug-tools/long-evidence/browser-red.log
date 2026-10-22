@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/laocao/Documents/coding/ReactMono/tests/browser_long_economy_e2e.py", line 132, in <module>
+    长局经营验收_类().api_执行()
+  File "/Users/laocao/Documents/coding/ReactMono/tests/browser_long_economy_e2e.py", line 119, in api_执行
+    self._百万长局(页面)
+  File "/Users/laocao/Documents/coding/ReactMono/tests/browser_long_economy_e2e.py", line 42, in _百万长局
+    assert arg_页面.get_by_label('对局结束方式', exact=True).count() == 1, '新局缺少明确的破产决胜选择'
+AssertionError: 新局缺少明确的破产决胜选择

@@ -1,0 +1,36 @@
+TAP version 13
+# Subtest: 银行接近或达到存款上限时，电脑只存剩余容量且不生成被拒绝动作
+not ok 1 - 银行接近或达到存款上限时，电脑只存剩余容量且不生成被拒绝动作
+  ---
+  duration_ms: 3.192791
+  type: 'test'
+  location: '/Users/laocao/Documents/coding/ReactMono/tests/strategic-operating-cash.test.mjs:129:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+
+    + 'deposit_bank'
+    - 'end_turn'
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'end_turn'
+  actual: 'deposit_bank'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/laocao/Documents/coding/ReactMono/tests/strategic-operating-cash.test.mjs:133:12)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 62.02125

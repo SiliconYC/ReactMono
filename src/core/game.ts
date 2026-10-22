@@ -31,6 +31,7 @@ export function createGame(seed: number, config: GameConfig = DEFAULT_CONFIG): G
   const facilities=config.facilityConfig??DEFAULT_FACILITIES;
   return {
     schemaVersion: SCHEMA_VERSION,
+    ...(config.endCondition==='bankruptcy'?{endCondition:'bankruptcy' as const}:{}),
     ...(config.propertyVisitOnly===true?{propertyVisitOnly:true as const}:{}),
     ...(config.stockAccount==='bank'?{stockAccount:'bank' as const}:{}),
     upgradeRulesVersion: UPGRADE_RULES_VERSION,

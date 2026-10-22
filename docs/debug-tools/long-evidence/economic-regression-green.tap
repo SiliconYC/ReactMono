@@ -1,0 +1,154 @@
+TAP version 13
+# Subtest: P3-07: deposits/withdrawals conserve money, require legal amounts and phase
+ok 1 - P3-07: deposits/withdrawals conserve money, require legal amounts and phase
+  ---
+  duration_ms: 2.366125
+  type: 'test'
+  ...
+# Subtest: P3-07: one interest event per complete round; 3/4 accounts isolated and deterministic
+ok 2 - P3-07: one interest event per complete round; 3/4 accounts isolated and deterministic
+  ---
+  duration_ms: 11.365708
+  type: 'test'
+  ...
+# Subtest: P3-07: bank assets fund rent before land liquidation; bankruptcy never leaves stranded deposits
+ok 3 - P3-07: bank assets fund rent before land liquidation; bankruptcy never leaves stranded deposits
+  ---
+  duration_ms: 0.898583
+  type: 'test'
+  ...
+# Subtest: P3-07: optional bank never changes legacy P2 default game and rejects tampered bank states
+ok 4 - P3-07: optional bank never changes legacy P2 default game and rejects tampered bank states
+  ---
+  duration_ms: 0.640167
+  type: 'test'
+  ...
+# Subtest: P3-07: migrated v1/v2 records initialize zero balance without retroactive interest
+ok 5 - P3-07: migrated v1/v2 records initialize zero balance without retroactive interest
+  ---
+  duration_ms: 2.186791
+  type: 'test'
+  ...
+# Subtest: P3-07: 100 seeded games across 3/4 seats conserve transfers, replay and interest bounds
+ok 6 - P3-07: 100 seeded games across 3/4 seats conserve transfers, replay and interest bounds
+  ---
+  duration_ms: 400.418167
+  type: 'test'
+  ...
+# Subtest: P3-07: computer has a legal bank action without touching P2 agent semantics
+ok 7 - P3-07: computer has a legal bank action without touching P2 agent semantics
+  ---
+  duration_ms: 1.512417
+  type: 'test'
+  ...
+# Subtest: P3-06: selling upgraded property uses transparent floor(75% land+50% upgrades)
+ok 8 - P3-06: selling upgraded property uses transparent floor(75% land+50% upgrades)
+  ---
+  duration_ms: 3.448667
+  type: 'test'
+  ...
+# Subtest: P3-06: configured resale rates are validated and persisted without changing old defaults
+ok 9 - P3-06: configured resale rates are validated and persisted without changing old defaults
+  ---
+  duration_ms: 2.762
+  type: 'test'
+  ...
+# Subtest: P3-06: sale rejects phases, other owners, invalid IDs without state changes
+ok 10 - P3-06: sale rejects phases, other owners, invalid IDs without state changes
+  ---
+  duration_ms: 0.253459
+  type: 'test'
+  ...
+# Subtest: P3-06: rent liquidation sells owned assets before bankruptcy, no double rent
+ok 11 - P3-06: rent liquidation sells owned assets before bankruptcy, no double rent
+  ---
+  duration_ms: 0.699333
+  type: 'test'
+  ...
+# Subtest: P3-06: insufficient sale proceeds still bankrupt; remaining multiplayer keeps playing
+ok 12 - P3-06: insufficient sale proceeds still bankrupt; remaining multiplayer keeps playing
+  ---
+  duration_ms: 0.35125
+  type: 'test'
+  ...
+# Subtest: P3-06: old two-player simulations and 3/4 player runs remain terminating
+ok 13 - P3-06: old two-player simulations and 3/4 player runs remain terminating
+  ---
+  duration_ms: 234.363375
+  type: 'test'
+  ...
+# Subtest: P3-08: lien is owner-only, unique, credit-capped, debt contributes negative net worth
+ok 14 - P3-08: lien is owner-only, unique, credit-capped, debt contributes negative net worth
+  ---
+  duration_ms: 2.073208
+  type: 'test'
+  ...
+# Subtest: P3-08: debtor isolation, one deterministic interest per complete round, save/restore
+ok 15 - P3-08: debtor isolation, one deterministic interest per complete round, save/restore
+  ---
+  duration_ms: 6.862583
+  type: 'test'
+  ...
+# Subtest: P3-08: over-limit interest causes seizure; no orphan lien or unpaid debt, legacy unaffected
+ok 16 - P3-08: over-limit interest causes seizure; no orphan lien or unpaid debt, legacy unaffected
+  ---
+  duration_ms: 0.917292
+  type: 'test'
+  ...
+# Subtest: P3-08: strict finance save rejects negative debt, lien without loan feature or unowned lien
+ok 17 - P3-08: strict finance save rejects negative debt, lien without loan feature or unowned lien
+  ---
+  duration_ms: 0.484209
+  type: 'test'
+  ...
+# Subtest: P3-08: 100 deterministic seeded secured accounts across three local players
+ok 18 - P3-08: 100 deterministic seeded secured accounts across three local players
+  ---
+  duration_ms: 45.101916
+  type: 'test'
+  ...
+# Subtest: P3-08: pledged land yields zero rent to the lender without losing ownership
+ok 19 - P3-08: pledged land yields zero rent to the lender without losing ownership
+  ---
+  duration_ms: 0.990667
+  type: 'test'
+  ...
+# Subtest: P3-10: buy/sell cash, fees, fractional cost allocation, stock market value, no free trades
+ok 20 - P3-10: buy/sell cash, fees, fractional cost allocation, stock market value, no free trades
+  ---
+  duration_ms: 2.162125
+  type: 'test'
+  ...
+# Subtest: P3-10: reject illegal quantities, fake stock codes, other player, no market, insolvency
+ok 21 - P3-10: reject illegal quantities, fake stock codes, other player, no market, insolvency
+  ---
+  duration_ms: 0.45575
+  type: 'test'
+  ...
+# Subtest: P3-10: multiplayer accounts + deposits + secured loans + saved deterministic quotes
+ok 22 - P3-10: multiplayer accounts + deposits + secured loans + saved deterministic quotes
+  ---
+  duration_ms: 4.288625
+  type: 'test'
+  ...
+# Subtest: P3-10: tampered positions rejected; old \#38 market save remains valid without holdings
+ok 23 - P3-10: tampered positions rejected; old \#38 market save remains valid without holdings
+  ---
+  duration_ms: 1.100625
+  type: 'test'
+  ...
+# Subtest: P3-10: 100 seed round reproducibility and save resumption with holdings
+ok 24 - P3-10: 100 seed round reproducibility and save resumption with holdings
+  ---
+  duration_ms: 76.783125
+  type: 'test'
+  ...
+1..24
+# tests 24
+# suites 0
+# pass 24
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 515.767792

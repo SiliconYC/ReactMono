@@ -1,0 +1,22 @@
+{
+  "baselineCommit": "e1ec9aef2c188c64a9ae430b06ce73a47b151fb9",
+  "finalReplayRowsEqualFirst": true,
+  "files": {
+    "before.json.gz": {
+      "uncompressedSha256": "baf215fb9d7a7c91021d05dc33127625c003981fd9ec16e2cb619b804f8834f0",
+      "uncompressedBytes": 893412
+    },
+    "audit.json.gz": {
+      "uncompressedSha256": "166ef23a8bf94ccc47be89aac82b2fd6acca9c027f67a2a66d5217eef84af7e6",
+      "uncompressedBytes": 309662
+    },
+    "long-desktop.json.gz": {
+      "uncompressedSha256": "5e3445e8e2b1f2069d24a91c2ed193d62ce747908ff7c99b9b116e044884cbe0",
+      "uncompressedBytes": 399074
+    },
+    "long-phone.json.gz": {
+      "uncompressedSha256": "21d3f0cadf02d7f00d574a4bf9ca4ae3f9e6f93047d924c87fda310508096307",
+      "uncompressedBytes": 399074
+    }
+  }
+}

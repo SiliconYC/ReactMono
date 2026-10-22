@@ -1,0 +1,81 @@
+{
+  "generatedAt": "2026-10-22T02:44:09.776Z",
+  "scope": "过路费、资产清算、破产与大额自愿交易独立回归；本次未修改生产代码、未构建。",
+  "testsFile": "tests/rent-accounting-audit.test.mjs",
+  "evidence": {
+    "originalRed": {
+      "log": "rent-accounting-original-red.tap",
+      "tests": 31,
+      "pass": 27,
+      "fail": 4
+    },
+    "expandedRed": {
+      "log": "rent-accounting-expanded-red.tap",
+      "tests": 35,
+      "pass": 27,
+      "fail": 8
+    },
+    "finalAudit": {
+      "command": "node --test --test-reporter=tap tests/rent-accounting-audit.test.mjs",
+      "log": "rent-accounting-green.tap",
+      "tests": 40,
+      "pass": 40,
+      "fail": 0
+    },
+    "economicRegression": {
+      "command": "node --test --test-reporter=tap tests/p3-liquidation.test.mjs tests/p3-loans.test.mjs tests/p3-bank.test.mjs tests/p3-stocks.test.mjs",
+      "log": "economic-regression-green.tap",
+      "tests": 24,
+      "pass": 24,
+      "fail": 0
+    }
+  },
+  "permanentVoluntaryBoundaries": [
+    {
+      "case": "现金1e12提存款1",
+      "expected": {
+        "accepted": true,
+        "cash": 1000000000001,
+        "bankBalance": 0
+      }
+    },
+    {
+      "case": "现金1e12借款1",
+      "expected": {
+        "accepted": true,
+        "cash": 1000000000001,
+        "loanBalance": 1,
+        "bankBalance": 1
+      }
+    },
+    {
+      "case": "现金1e12卖SEA一股",
+      "expected": {
+        "accepted": true,
+        "cash": 1000000000079,
+        "bankBalance": 1,
+        "holdings": {},
+        "fee": 1
+      }
+    },
+    {
+      "case": "现金1000000000002存款1",
+      "expected": {
+        "accepted": true,
+        "cash": 1000000000001,
+        "bankBalance": 2
+      }
+    },
+    {
+      "case": "银行满1e12卖股入银行",
+      "expected": {
+        "accepted": false,
+        "reason": "INVALID_PHASE",
+        "sameStateReference": true,
+        "events": []
+      }
+    }
+  ],
+  "invariants": "成功操作原输入不变且结果可存档往返；拒绝操作返回原状态及空事件。总毛资产限Number.MAX_SAFE_INTEGER，银行仍限1e12，超范围明确失败、不截本金或租金。",
+  "knownVerificationLimits": "本报告仅包含无界面金额回归；浏览器及长局验证由根代理另行归档。"
+}

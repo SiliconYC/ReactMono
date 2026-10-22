@@ -1,0 +1,30 @@
+{
+  "results": [
+    {
+      "viewport": "desktop",
+      "round": 201,
+      "properties": 22,
+      "houses": 22,
+      "draftApplied": true,
+      "cancelUnchanged": true,
+      "workerFailureUnchanged": true,
+      "invalidAtomic": true,
+      "offlineRestored": true,
+      "legacyModeSwitched": true
+    },
+    {
+      "viewport": "phone",
+      "round": 201,
+      "properties": 22,
+      "houses": 22,
+      "draftApplied": true,
+      "cancelUnchanged": true,
+      "workerFailureUnchanged": true,
+      "invalidAtomic": true,
+      "offlineRestored": true,
+      "legacyModeSwitched": true
+    }
+  ],
+  "errors": [],
+  "physicalPhone": false
+}

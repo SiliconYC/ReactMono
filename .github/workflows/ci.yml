@@ -96,6 +96,11 @@ jobs:
         run: |
           node scripts/debug-simulation-fairness.mjs ci
           python -u tests/browser_postgame_view_e2e.py
+      - name: 破产长局资金守恒与百万资金双视口
+        timeout-minutes: 6
+        run: |
+          node scripts/long-economy-audit.mjs ci
+          python -u tests/browser_long_economy_e2e.py
       - name: 数据关卡选择、压力地图移动、存档及离线回归
         timeout-minutes: 10
         run: python -u tests/browser_stress_maps_e2e.py
@@ -126,6 +131,7 @@ jobs:
             artifacts/debug-tools/
             artifacts/postgame-view/
             artifacts/simulation-fairness/
+            artifacts/long-economy/
             artifacts/scalable-world/
             artifacts/map-camera-ux/
             artifacts/town-art/

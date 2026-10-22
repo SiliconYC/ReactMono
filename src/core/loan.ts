@@ -3,6 +3,7 @@ import type { GameState, Player, Tile, GameAction, ActionResult, GameEvent, Loan
 import { resaleValue } from './property.js';
 import { accept, reject } from './transitions.js';
 import { MAX_BANK_BALANCE } from './bank.js';
+import { checkedMoneyAdd } from './money.js';
 
 export const DEFAULT_LOAN_INTEREST_BPS=200; // 2% per complete game round
 export function createLoan(interestBps=DEFAULT_LOAN_INTEREST_BPS):LoanState {
@@ -38,7 +39,7 @@ export function transferLoan(state:GameState,actor:Player,action:Extract<GameAct
   if(!Number.isSafeInteger(amount)||amount<1||amount>MAX_BANK_BALANCE)
     return reject(state,'INVALID_PHASE');
   if(action.type==='borrow_loan'){
-    if(amount>loanLimit(state,actor.id)-old||actor.cash+amount>MAX_BANK_BALANCE)
+    if(amount>loanLimit(state,actor.id)-old||!Number.isSafeInteger(actor.cash+amount))
       return reject(state,'INSUFFICIENT_FUNDS');
     return accept(state,[{type:'loan_borrowed',actorId:actor.id,details:{amount}}],{
       players:state.players.map(p=>p.id===actor.id?{...p,cash:p.cash+amount,loanBalance:old+amount}:p)
@@ -63,7 +64,7 @@ export function foreclose(state:GameState,player:Player,tiles:readonly Tile[]):{
     debt,recovered:Math.min(recovered,debt),writtenOff:Math.max(0,debt-recovered),
     collateral:pledged.length
   }}]:[];
-  return {player:{...player,cash:player.cash+Math.max(0,recovered-debt),loanBalance:0},
+  return {player:{...player,cash:checkedMoneyAdd(player.cash,Math.max(0,recovered-debt)),loanBalance:0},
     tiles:tiles.map(t=>pledged.some(x=>x.id===t.id)?(({mortgaged:_unused,...rest})=>({...rest,ownerId:null,level:0}))(t):t),
     events};
 }
