@@ -9,7 +9,7 @@ import type { WorldDefinition } from '../../core/level-world.js';
 import { GROUND_TOP, ROAD_TILE_TOP } from './layout.js';
 import { Instances, type Instance } from './Instances.js';
 import { RoadLabels } from './RoadLabels.js';
-import { MASCOT_SEAT_COLORS } from './seats.js';
+import { gardenOwnerColor, gardenRoadColor } from './lime-garden-ownership.js';
 import type { Navigation } from './world-navigation.js';
 import type { WorldView } from './world-view.js';
 
@@ -116,8 +116,8 @@ function GardenSymbols({game,world}:{game:GameState;world:WorldDefinition}):Reac
   </Instances>;
 }
 
-function GardenProperties({game,world,reducedMotion}:{game:GameState;world:WorldDefinition;reducedMotion:boolean}):React.JSX.Element {
-  const color=(owner:string|null|undefined)=>MASCOT_SEAT_COLORS[game.players.findIndex(p=>p.id===owner)]??'#f5df9e';
+function GardenProperties({game,world,reducedMotion,onConstructionBusyChange}:{game:GameState;world:WorldDefinition;reducedMotion:boolean;onConstructionBusyChange?:(busy:boolean)=>void}):React.JSX.Element {
+  const color=(owner:string|null|undefined)=>gardenOwnerColor(game,owner);
   const properties=game.tiles.filter(t=>t.kind==='property');
   const owned=properties.filter(t=>t.ownerId);
   const paving=LIME_PROPERTY_BLOCKS.flatMap((block,index)=>block.tileIds.map(id=>({x:world.tiles[id].lotX,y:GROUND_TOP+.02,z:world.tiles[id].lotZ,tileId:id,color:['#f3e8bf','#f3d6ba','#e6e7ba','#f1dfb9','#dce6bf','#ecd4bc','#dbe5c6','#f3e8bf'][index]})));
@@ -134,15 +134,12 @@ function GardenProperties({game,world,reducedMotion}:{game:GameState;world:World
     <Instances items={properties.map(t=>{const p=world.tiles[t.id];return {x:(p.x+p.lotX)/2,y:GROUND_TOP+.015,z:(p.z+p.lotZ)/2,sx:p.x===p.lotX?.5:.44,sz:p.x===p.lotX?.44:.5,color:t.ownerId?color(t.ownerId):'#e4d8ad',tileId:t.id};})} mapTiles>
       <boxGeometry args={[1,.03,1]}/><meshStandardMaterial roughness={.85}/>
     </Instances>
-    <Instances items={owned.map(t=>({x:world.tiles[t.id].x,y:ROAD_TILE_TOP+.007,z:world.tiles[t.id].z,sx:.75,sz:.75,rx:-Math.PI/2,color:color(t.ownerId),tileId:t.id}))} mapTiles>
-      <torusGeometry args={[.68,.025,6,40]}/><meshStandardMaterial roughness={.7}/>
-    </Instances>
-    <GardenHouses game={game} world={world} reducedMotion={reducedMotion}/>
+    <GardenHouses game={game} world={world} reducedMotion={reducedMotion} onConstructionBusyChange={onConstructionBusyChange}/>
   </>;
 }
 
 /** 探索关卡使用独立表现分支，避免试验材质、模型和路线铺装影响既有关卡。 */
-export function LimeGarden({game,view,nav,selectedTileId,onSelectTile,reducedMotion}:{game:GameState;view:WorldView;nav:MutableRefObject<Navigation>;selectedTileId?:number|null;onSelectTile?:(id:number)=>void;reducedMotion:boolean}):React.JSX.Element {
+export function LimeGarden({game,view,nav,selectedTileId,onSelectTile,reducedMotion,onConstructionBusyChange}:{game:GameState;view:WorldView;nav:MutableRefObject<Navigation>;selectedTileId?:number|null;onSelectTile?:(id:number)=>void;reducedMotion:boolean;onConstructionBusyChange?:(busy:boolean)=>void}):React.JSX.Element {
   const world=worldForMap(game.map)!;
   const slab=useMemo(()=>slabGeometry(1.74,1.74,.24,.06),[]);useEffect(()=>()=>slab.dispose(),[slab]);
   const pavilion=world.objects.find(o=>o.kind==='gazebo')!,gate=world.objects.find(o=>o.kind==='tower')!;
@@ -150,9 +147,9 @@ export function LimeGarden({game,view,nav,selectedTileId,onSelectTile,reducedMot
   const selectedRun=selectedTileId==null?[]:propertyRun(game,selectedTileId);
   return <group name="青柠游园独立风格">
     <GardenGround/>
-    <RoundBatch geometry={slab} onSelect={onSelectTile} items={world.tiles.map((p,id)=>({x:p.x,y:GROUND_TOP,z:p.z,tileId:id,color:id===selectedTileId?'#fff3b8':game.tiles[id].kind==='property'?'#fff0ce':id===0?'#ffe1a7':'#e8efce'}))}/>
+    <RoundBatch geometry={slab} onSelect={onSelectTile} items={world.tiles.map((p,id)=>({x:p.x,y:GROUND_TOP,z:p.z,tileId:id,color:gardenRoadColor(game,id,id===selectedTileId)}))}/>
     <GardenSymbols game={game} world={world}/>
-    <GardenProperties game={game} world={world} reducedMotion={reducedMotion}/>
+    <GardenProperties game={game} world={world} reducedMotion={reducedMotion} onConstructionBusyChange={onConstructionBusyChange}/>
     {selectedRun.length>0&&<Instances items={selectedRun.map(t=>({x:world.tiles[t.id].lotX,y:GROUND_TOP+.06,z:world.tiles[t.id].lotZ,rx:-Math.PI/2,color:'#ffe88d',tileId:t.id}))} mapTiles><ringGeometry args={[.86,.9,4,1,Math.PI/4]}/><meshStandardMaterial roughness={.8}/></Instances>}
     <GardenTrees world={world}/>
     <BluePavilion x={pavilion.x} z={pavilion.z} scale={pavilion.scale}/>

@@ -1,0 +1,47 @@
+{
+  "results": [
+    {
+      "map": "classic-24",
+      "phoneViewport": false,
+      "reducedMotion": false,
+      "rotationZoomStable": true,
+      "contextTile": 1,
+      "labelsUpright": true,
+      "edgeMenu": true
+    },
+    {
+      "map": "ridges-360",
+      "phoneViewport": false,
+      "reducedMotion": true,
+      "rotationZoomStable": true,
+      "contextTile": 1,
+      "labelsUpright": true,
+      "edgeMenu": true
+    },
+    {
+      "map": "classic-24",
+      "phoneViewport": true,
+      "reducedMotion": false,
+      "rotationZoomStable": true,
+      "contextTile": 1,
+      "labelsUpright": true,
+      "edgeMenu": true
+    },
+    {
+      "map": "ridges-360",
+      "phoneViewport": true,
+      "reducedMotion": true,
+      "rotationZoomStable": true,
+      "contextTile": 1,
+      "labelsUpright": true,
+      "edgeMenu": true
+    },
+    {
+      "holdRoof": true,
+      "builtRoofTile": 1,
+      "level": 2,
+      "correctContext": true
+    }
+  ],
+  "errors": []
+}

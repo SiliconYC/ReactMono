@@ -10,7 +10,9 @@ import subprocess
 
 from playwright.sync_api import Page, sync_playwright
 from browser_live_e2e import Handler
-from browser_main_game_acceptance import export_current, load_fixture, open_panel
+from browser_main_game_acceptance import (
+    export_current, load_fixture, open_panel, 设置地图视角, 展开地图工具, finish_human_turn,
+)
 
 
 # ◕ 功能
@@ -58,7 +60,7 @@ console.log(serializeGame(game));
 
     def _浏览(self, arg_页面: Page) -> None:
         壳 = arg_页面.locator('.canvas-shell')
-        arg_页面.get_by_role('button', name='查看全图', exact=True).click()
+        设置地图视角(arg_页面, 'overview')
         arg_页面.wait_for_timeout(700)
         旋角 = float(壳.get_attribute('data-camera-yaw'))
         横 = arg_页面.viewport_size['width'] * .5
@@ -69,6 +71,7 @@ console.log(serializeGame(game));
         arg_页面.mouse.up(button='middle')
         arg_页面.wait_for_timeout(700)
         assert abs(float(壳.get_attribute('data-camera-yaw')) - 旋角) > .05
+        展开地图工具(arg_页面)
         缩放 = float(壳.get_attribute('data-camera-zoom'))
         arg_页面.get_by_role('button', name='放大地图', exact=True).click()
         arg_页面.wait_for_timeout(700)
@@ -101,7 +104,7 @@ console.log(serializeGame(game));
                         原文 = self._样本(模式)
                         load_fixture(页面, 地址, 原文, f'观赏-{模式}')
                         if 模式 == 'live':
-                            页面.get_by_role('button', name='结束当前回合', exact=False).click()
+                            finish_human_turn(页面)
                             页面.locator('.result-box').wait_for(timeout=10000)
                         if 模式 == 'worker':
                             open_panel(页面, '调试工具')

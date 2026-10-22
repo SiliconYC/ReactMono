@@ -11,7 +11,9 @@ import math
 from playwright.sync_api import sync_playwright
 import browser_live_e2e
 from browser_live_e2e import Handler
-from browser_main_game_acceptance import fixture, load_fixture
+from browser_main_game_acceptance import (
+    fixture, load_fixture, 设置地图视角, 长按显示详情, 松开详情, 验证固定取景预算,
+)
 
 # ◕ 功能
 class 小镇验收_类:
@@ -37,6 +39,9 @@ class 小镇验收_类:
             """)
             样本路径.write_bytes(样本)
         样本 = 样本路径.read_bytes()
+        地图标识 = json.loads(样本)['game']['map']['id']
+        关卡 = next(项 for 项 in json.loads(Path('src/data/levels.json').read_text())['levels'] if 项['map']['id'] == 地图标识)
+        格位 = [(格['x'], 格['z']) for 格 in 关卡['world']['tiles']]
         服务 = ThreadingHTTPServer(('127.0.0.1', 0), Handler)
         线程 = Thread(target=服务.serve_forever, daemon=True)
         线程.start()
@@ -51,15 +56,18 @@ class 小镇验收_类:
                     页面 = 上下文.new_page()
                     页面.on('pageerror', lambda arg_错误: 错误.append(str(arg_错误)))
                     load_fixture(页面, 地址, 样本, '晴湾美术固定局面')
-                    for 模式, 按钮 in [('overview','查看全图'),('near','定位当前玩家')]:
-                        页面.get_by_role('button', name=按钮, exact=True).click()
+                    for 模式 in ['overview', 'near']:
+                        设置地图视角(页面, 'overview' if 模式 == 'overview' else 'follow')
                         页面.wait_for_timeout(1800)
                         if 阶段 == 'after':
                             基线 = json.loads((输出 / 'before.json').read_text())
                             目标 = next(r for r in 基线['results'] if r['phone'] == 手机 and r['mode'] == 模式)['camera']
-                            for 键 in ['cameraYaw','cameraElevation','cameraCenter','cameraInsets','cameraMode']:
+                            for 键 in ['cameraYaw','cameraElevation','cameraCenter','cameraMode']:
                                 assert 页面.locator('.canvas-shell').evaluate('(e,k)=>e.dataset[k]', 键) == 目标[键], 键
-                            assert abs(float(页面.locator('.canvas-shell').get_attribute('data-camera-zoom'))-float(目标['cameraZoom'])) < .025
+                            验证固定取景预算(页面, 格位)
+                            if 模式 == 'near':
+                                当前全图 = next(项 for 项 in 记录 if 项['phone'] == 手机 and 项['mode'] == 'overview')['camera']
+                                assert float(页面.locator('.canvas-shell').get_attribute('data-camera-zoom')) > float(当前全图['cameraZoom'])
                         页面.screenshot(path=str(输出 / f'{阶段}-{"phone" if 手机 else "desktop"}-{模式}.png'))
                         记录.append({'phone':手机,'mode':模式,'camera':页面.locator('.canvas-shell').evaluate('(e)=>({...e.dataset})')})
                     if not 手机:
@@ -74,7 +82,7 @@ class 小镇验收_类:
                         for 目标地块 in ([11] if 手机 else [7,11]):
                             局面 = fixture(f"const {{readFileSync}}=await import('node:fs');game=JSON.parse(readFileSync({json.dumps(str(样本路径))},'utf8')).game;game={{...game,players:game.players.map((p,i)=>i===0?{{...p,position:{目标地块}}}:p)}};")
                             load_fixture(页面, 地址, 局面, '产权细节'+str(目标地块))
-                            页面.get_by_role('button',name='定位当前玩家',exact=True).click()
+                            设置地图视角(页面, 'follow')
                             页面.wait_for_timeout(1300)
                             if 目标地块 == 11:
                                 地块 = json.loads(Path('src/data/levels.json').read_text())['levels'][0]['world']['tiles'][11]
@@ -85,10 +93,11 @@ class 小镇验收_类:
                                 横差,纵差 = 地块['lotX']-横中,地块['lotZ']-纵中
                                 横坐标 = (边距['left']+页面.viewport_size['width']-边距['right'])/2+(横差*math.cos(方位)-纵差*math.sin(方位))*缩放
                                 纵坐标 = (边距['top']+页面.viewport_size['height']-边距['bottom'])/2+(横差*math.sin(方位)+纵差*math.cos(方位))*math.sin(俯仰)*缩放+(.3-1.05)*math.cos(俯仰)*缩放
-                                页面.mouse.click(横坐标,纵坐标)
-                                页面.locator('.board-inspector').wait_for()
-                                assert 页面.locator('.board-inspector strong').inner_text().startswith('12 ·')
+                                长按显示详情(页面, 横坐标, 纵坐标)
+                                assert 页面.get_by_role('tooltip').locator('strong').inner_text().startswith('12 ·')
                             页面.screenshot(path=str(输出 / f'after-{"phone" if 手机 else "desktop"}-state-{目标地块}.png'))
+                            if 目标地块 == 11:
+                                松开详情(页面)
                     上下文.close()
                 浏览器.close()
             assert not 错误, 错误

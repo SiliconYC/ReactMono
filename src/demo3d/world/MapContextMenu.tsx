@@ -34,7 +34,6 @@ export function MapContextMenu({game,request,nav,changed,onSelect,onClose,canvas
       <small>{tile?.kind==='property'?`${tile.ownerId?game.players.find(p=>p.id===tile.ownerId)?.name+'所有':'尚无地主'} · 地价 ${tile.price} · ${tile.level??0} 级` : tile?'公共地块':'在这里浏览你的小镇'}</small>
     </div>
     {tile&&<>
-      {onSelect&&<button role="menuitem" onClick={()=>act(()=>onSelect(tile.id))}>查看地块详情</button>}
       <button role="menuitem" onClick={()=>act(()=>Object.assign(nav.current,{mode:'browse',center:positionForTile(tile.id,game.map),zoom:Math.max(24,nav.current.actualZoom)}))}>移到此地</button>
       <div role="separator"/>
     </>}
@@ -42,6 +41,6 @@ export function MapContextMenu({game,request,nav,changed,onSelect,onClose,canvas
     <button role="menuitem" onClick={()=>act(()=>Object.assign(nav.current,{mode:'overview',center:null,zoom:null}))}>查看全图 <kbd>Home</kbd></button>
     <button role="menuitem" onClick={()=>act(()=>resetOrientation(nav.current))}>视角回正 <kbd>R</kbd></button>
     <button role="menuitemcheckbox" aria-checked={nav.current.showNumbers} onClick={()=>act(()=>{nav.current.showNumbers=!nav.current.showNumbers;})}>{nav.current.showNumbers?'隐藏':'显示'}地块编号</button>
-    <p className="map-context-help">左键平移 · Shift＋左键 / 中键旋转<br/>滚轮缩放 · Esc 关闭</p>
+    <p className="map-context-help">按住地块或角色查看详情，松开即收起<br/>左键平移 · Shift＋左键 / 中键旋转<br/>滚轮缩放 · Esc 关闭</p>
   </div>,document.body);
 }

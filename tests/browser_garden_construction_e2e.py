@@ -10,7 +10,9 @@ import subprocess
 
 from playwright.sync_api import Page, sync_playwright
 from browser_live_e2e import Handler
-from browser_main_game_acceptance import load_fixture, export_current
+from browser_main_game_acceptance import (
+    load_fixture, export_current, 保留当前回合, 设置地图视角,
+)
 
 
 # ◕ 功能
@@ -51,7 +53,7 @@ console.log(serializeGame(game));
         load_fixture(arg_页面, arg_地址, self._样本(arg_等级), f'建设{arg_等级}-{arg_后缀}')
         壳 = arg_页面.locator('.canvas-shell')
         assert 壳.get_attribute('data-construction-tiles') == ''
-        arg_页面.get_by_role('button', name='定位当前玩家', exact=True).click()
+        设置地图视角(arg_页面, 'follow')
         arg_页面.wait_for_timeout(800)
         arg_页面.screenshot(path=str(self.输出 / f'before-level{arg_等级 + 1}-{arg_后缀}.png'))
         arg_页面.get_by_role('button', name=re.compile('^建造住宅' if arg_等级 == 0 else '^升级房屋')).click()
@@ -62,6 +64,7 @@ console.log(serializeGame(game));
             arg_页面.wait_for_function("document.querySelector('.canvas-shell')?.dataset.constructionTiles === '1'", timeout=5000, polling=10)
             arg_页面.screenshot(path=str(self.输出 / f'animating-level{arg_等级 + 1}-{arg_后缀}.png'))
             arg_页面.wait_for_function("document.querySelector('.canvas-shell')?.dataset.constructionTiles === ''", timeout=5000)
+        保留当前回合(arg_页面)
         arg_页面.screenshot(path=str(self.输出 / f'completed-level{arg_等级 + 1}-{arg_后缀}.png'))
         对局, _ = export_current(arg_页面)
         assert 对局['tiles'][1]['level'] == arg_等级 + 1

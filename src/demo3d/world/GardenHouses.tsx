@@ -4,13 +4,15 @@ import * as THREE from 'three';
 import type { GameState } from '../../core/game.js';
 import type { WorldDefinition } from '../../core/level-world.js';
 import { GROUND_TOP } from './layout.js';
-import { constructionPose, gardenHouseGeometry } from './lime-garden-models.js';
+import { constructionPose, gardenHouseAccentGeometry, gardenHouseGeometry } from './lime-garden-models.js';
 import { propertyRun } from '../../core/property-groups.js';
+import { gardenOwnerColor } from './lime-garden-ownership.js';
 
 type ConstructionCues=MutableRefObject<Map<number,number>>;
 
 function HouseBatch({level,terraced,game,world,cues,reducedMotion}:{level:1|2;terraced:boolean;game:GameState;world:WorldDefinition;cues:ConstructionCues;reducedMotion:boolean}):React.JSX.Element {
   const geometry=useMemo(()=>gardenHouseGeometry(level,terraced),[level,terraced]),mesh=useRef<THREE.InstancedMesh>(null);
+  const accents=useMemo(()=>gardenHouseAccentGeometry(level,terraced),[level,terraced]),accentMesh=useRef<THREE.InstancedMesh>(null);
   const transform=useMemo(()=>new THREE.Object3D(),[]);
   const items=game.tiles.filter(t=>{
     if(!t.ownerId||t.level!==level)return false;
@@ -18,22 +20,32 @@ function HouseBatch({level,terraced,game,world,cues,reducedMotion}:{level:1|2;te
     const connected=!!((run[index-1]?.level??0)>0||(run[index+1]?.level??0)>0);
     return connected===terraced;
   });
-  useEffect(()=>()=>geometry.dispose(),[geometry]);
-  useLayoutEffect(()=>{if(mesh.current)mesh.current.count=items.length;},[items.length]);
+  useEffect(()=>()=>{geometry.dispose();accents.dispose();},[geometry,accents]);
+  useLayoutEffect(()=>{
+    if(mesh.current)mesh.current.count=items.length;
+    const batch=accentMesh.current;if(!batch)return;
+    batch.count=items.length;
+    const color=new THREE.Color();
+    items.forEach((tile,index)=>batch.setColorAt(index,color.set(gardenOwnerColor(game,tile.ownerId))));
+    if(batch.instanceColor)batch.instanceColor.needsUpdate=true;
+  },[items,game]);
   useFrame(({clock})=>{
-    const batch=mesh.current;if(!batch)return;
+    const batch=mesh.current,trim=accentMesh.current;if(!batch||!trim)return;
     items.forEach((tile,i)=>{
       const p=world.tiles[tile.id],start=cues.current.get(tile.id);
       const pose=constructionPose(start===undefined?1:clock.elapsedTime-start,reducedMotion);
       transform.position.set(p.lotX,GROUND_TOP+.052,p.lotZ);
       transform.rotation.set(0,Math.atan2(p.x-p.lotX,p.z-p.lotZ),0);
-      transform.scale.set(1,pose.scaleY,1);transform.updateMatrix();batch.setMatrixAt(i,transform.matrix);
+      transform.scale.set(1,pose.scaleY,1);transform.updateMatrix();batch.setMatrixAt(i,transform.matrix);trim.setMatrixAt(i,transform.matrix);
     });
-    batch.count=items.length;batch.instanceMatrix.needsUpdate=true;batch.computeBoundingBox();batch.computeBoundingSphere();
+    for(const target of [batch,trim]){target.count=items.length;target.instanceMatrix.needsUpdate=true;target.computeBoundingBox();target.computeBoundingSphere();}
   });
-  return <instancedMesh ref={mesh} args={[geometry,undefined,game.tiles.length]} userData={{mapTiles:true,tileIds:items.map(t=>t.id)}} name={terraced?`${level}级共墙联排住宅`:level===1?'一级庭院小屋':'二级阳台住宅'}>
+  return <><instancedMesh ref={mesh} args={[geometry,undefined,game.tiles.length]} userData={{mapTiles:true,tileIds:items.map(t=>t.id)}} name={terraced?`${level}级共墙联排住宅`:level===1?'一级庭院小屋':'二级阳台住宅'}>
     <meshStandardMaterial vertexColors roughness={.82}/>
-  </instancedMesh>;
+  </instancedMesh>
+    <instancedMesh ref={accentMesh} args={[accents,undefined,game.tiles.length]} userData={{mapTiles:true,tileIds:items.map(t=>t.id)}} name={`${level}级住宅业主门楣与饰带`}>
+      <meshStandardMaterial vertexColors roughness={.82}/>
+    </instancedMesh></>;
 }
 
 function ConstructionDust({world,cues,reducedMotion}:{world:WorldDefinition;cues:ConstructionCues;reducedMotion:boolean}):React.JSX.Element {
@@ -58,8 +70,14 @@ function ConstructionDust({world,cues,reducedMotion}:{world:WorldDefinition;cues
   </instancedMesh>;
 }
 
-export function GardenHouses({game,world,reducedMotion}:{game:GameState;world:WorldDefinition;reducedMotion:boolean}):React.JSX.Element {
+export function GardenHouses({game,world,reducedMotion,onConstructionBusyChange}:{game:GameState;world:WorldDefinition;reducedMotion:boolean;onConstructionBusyChange?:(busy:boolean)=>void}):React.JSX.Element {
   const previous=useRef(game),cues=useRef(new Map<number,number>());
+  const busyCallback=useRef(onConstructionBusyChange),lastBusy=useRef<boolean>();
+  busyCallback.current=onConstructionBusyChange;
+  const publishBusy=()=>{
+    const busy=cues.current.size>0;
+    if(lastBusy.current!==busy){lastBusy.current=busy;busyCallback.current?.(busy);}
+  };
   const {clock,invalidate,gl}=useThree();
   useLayoutEffect(()=>{
     const before=previous.current;
@@ -70,10 +88,11 @@ export function GardenHouses({game,world,reducedMotion}:{game:GameState;world:Wo
         if(event.type==='property_upgraded'&&typeof id==='number'&&(game.tiles[id]?.level??0)>(before.tiles[id]?.level??0))cues.current.set(id,clock.elapsedTime);
       }
     }else cues.current.clear();
-    previous.current=game;invalidate();
+    previous.current=game;publishBusy();invalidate();
   },[game,reducedMotion,clock,invalidate]);
   useFrame(()=>{
     for(const [id,start] of cues.current)if(constructionPose(clock.elapsedTime-start,reducedMotion).finished)cues.current.delete(id);
+    publishBusy();
     const shell=gl.domElement.closest<HTMLElement>('.canvas-shell');
     if(shell)shell.dataset.constructionTiles=[...cues.current.keys()].join(',');
     if(cues.current.size)invalidate();

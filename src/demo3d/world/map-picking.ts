@@ -1,4 +1,12 @@
 import type { Intersection } from 'three';
+export type InspectionTarget={kind:'tile';tileId:number}|{kind:'player';playerId:string};
+export type InspectionRequest=InspectionTarget&{x:number;y:number};
+export function inspectionForHit(hit:Pick<Intersection,'object'|'instanceId'>):InspectionTarget|null{
+  let object:typeof hit.object|null=hit.object;
+  while(object){if(typeof object.userData.playerId==='string')return {kind:'player',playerId:object.userData.playerId};object=object.parent;}
+  const tileId=tileIdForHit(hit);
+  return tileId===null?null:{kind:'tile',tileId};
+}
 export function tileIdForHit(hit:Pick<Intersection,'object'|'instanceId'>):number|null{
   const data=hit.object.userData;
   if(hit.instanceId!==undefined){

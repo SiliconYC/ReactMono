@@ -4,7 +4,9 @@ import { anchorsForMap, type WorldPoint } from './layout.js';
 
 export const DEFAULT_YAW=Math.PI/4;
 export const DEFAULT_ELEVATION=Math.atan2(12.2,Math.hypot(10.2,10.2));
-export const clampElevation=(angle:number):number=>Math.max(Math.PI/6,Math.min(Math.PI*70/180,angle));
+export const MIN_ELEVATION=Math.PI*12/180;
+export const MAX_ELEVATION=Math.PI*82/180;
+export const clampElevation=(angle:number):number=>Math.max(MIN_ELEVATION,Math.min(MAX_ELEVATION,angle));
 export function pointerAction(button:number,shift:boolean):'pan'|'rotate'|null{
   return button===1||button===0&&shift?'rotate':button===0?'pan':null;
 }
@@ -30,5 +32,5 @@ export function mapProjectionBounds(map:GameMap,yaw:number):{width:number;depth:
 export function labelPose(yaw:number,elevation:number):WorldPoint&{rotation:number;scaleZ:number}{
   // 地面数字需保持正向且抵消俯仰压缩；足迹仍须留在任意朝向路砖的内切圆内。
   const offset=Math.hypot(.36,.36);
-  return {x:Math.sin(yaw)*offset,z:Math.cos(yaw)*offset,rotation:yaw,scaleZ:Math.sin(DEFAULT_ELEVATION)/Math.sin(elevation)};
+  return {x:Math.sin(yaw)*offset,z:Math.cos(yaw)*offset,rotation:yaw,scaleZ:Math.min(1.55,Math.sin(DEFAULT_ELEVATION)/Math.sin(elevation))};
 }

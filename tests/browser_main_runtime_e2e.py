@@ -37,7 +37,7 @@ def main():
    page.get_by_role('button',name='掷骰前进').click();assert page.locator('main').get_attribute('data-presenting')=='false'
    page.wait_for_function('window.__metrics.audioStarts>0')
    page.wait_for_timeout(650)
-   assert page.evaluate('window.__metrics.audioStarts===window.__metrics.audioEnds')
+   assert page.evaluate('window.__metrics.audioStarts===window.__metrics.audioEnds'), page.evaluate('({starts:window.__metrics.audioStarts,ends:window.__metrics.audioEnds,notes:window.__metrics.notes,hidden:document.hidden})')
    state,backup=export_current(page)
    open_panel(page,'银行');page.wait_for_timeout(200);draws=page.evaluate('window.__metrics.draws');page.wait_for_timeout(250);assert page.evaluate('window.__metrics.draws')==draws
    page.keyboard.press('Escape');page.wait_for_timeout(250);draws=page.evaluate('window.__metrics.draws');page.wait_for_timeout(250);assert page.evaluate('window.__metrics.draws')==draws

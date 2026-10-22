@@ -10,7 +10,9 @@ import subprocess
 
 from playwright.sync_api import Page, sync_playwright
 from browser_live_e2e import Handler
-from browser_main_game_acceptance import load_fixture, export_current, open_panel
+from browser_main_game_acceptance import (
+    load_fixture, export_current, open_panel, 保留当前回合, 设置地图视角,
+)
 
 
 # ◕ 功能
@@ -66,7 +68,7 @@ console.log(serializeGame(game));
             if arg_后缀 != 'reduced':
                 预期 = '2,3' if 场景 == 'mixed' else '1,2,3'
                 arg_页面.wait_for_function('(expected)=>document.querySelector(".canvas-shell")?.dataset.constructionTiles===expected', arg=预期, timeout=5000, polling=10)
-            arg_页面.get_by_role('button', name=re.compile('^结束当前回合')).wait_for()
+            保留当前回合(arg_页面)
             self._画面(arg_页面, 场景 + '-after-' + arg_后缀)
             对局, 存档 = export_current(arg_页面)
             assert [对局['tiles'][编号]['level'] for 编号 in [1, 2, 3]] == 等级
@@ -86,7 +88,7 @@ console.log(serializeGame(game));
     ) -> None:
         load_fixture(arg_页面, arg_地址, self._样本('rent'), '整排租金-' + arg_后缀)
         arg_页面.get_by_role('button', name=re.compile('^掷骰前进')).click()
-        arg_页面.get_by_role('button', name=re.compile('^结束当前回合')).wait_for(timeout=20000)
+        保留当前回合(arg_页面)
         对局, _ = export_current(arg_页面)
         assert [玩家['cash'] for 玩家 in 对局['players']] == [3288, 2712]
         租金 = [事件 for 事件 in 对局['events'] if 事件['type'] == 'rent_paid']
@@ -118,9 +120,9 @@ console.log(serializeGame(game));
                     assert '旧版单地块规则' in 页面.get_by_role('dialog').inner_text()
                     页面.keyboard.press('Escape')
                     load_fixture(页面, 地址, self._样本('populated'), '满建-' + 后缀)
-                    页面.get_by_role('button', name='查看全图', exact=True).click()
+                    设置地图视角(页面, 'overview')
                     self._画面(页面, 'populated-' + 后缀)
-                    页面.get_by_role('button', name='定位当前玩家', exact=True).click()
+                    设置地图视角(页面, 'follow')
                     self._画面(页面, 'closeup-' + 后缀)
                     上下文.close()
                 浏览器.close()

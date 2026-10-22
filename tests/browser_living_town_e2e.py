@@ -11,7 +11,9 @@ import os
 from playwright.sync_api import Page, sync_playwright
 import browser_live_e2e
 from browser_live_e2e import Handler
-from browser_main_game_acceptance import fixture, load_fixture
+from browser_main_game_acceptance import (
+    fixture, load_fixture, 设置地图视角, 展开地图工具, 验证固定取景预算,
+)
 
 
 # ◕ 功能
@@ -65,9 +67,11 @@ class 生活街区验收_类:
                     页面.on('pageerror', lambda arg_错误: 错误.append(str(arg_错误)))
                     for 名称, 存档 in 样本.items():
                         load_fixture(页面, 地址, 存档, '生活街区' + 名称)
-                        页面.get_by_role('button', name='查看全图', exact=True).click()
+                        设置地图视角(页面, 'overview')
                         for 模式 in ['overview', 'district']:
                             if 模式 == 'district':
+                                if 阶段 == 'after':
+                                    展开地图工具(页面)
                                 for _ in range(4 if 手机 else 2):
                                     页面.get_by_role('button', name='放大地图', exact=True).click()
                             self._等待镜头(页面)
@@ -75,8 +79,17 @@ class 生活街区验收_类:
                             if 阶段 == 'after':
                                 基线 = json.loads((输出 / 'living-before.json').read_text())
                                 旧 = next(r for r in 基线['results'] if r['phone'] == 手机 and r['state'] == 名称 and r['mode'] == 模式)['camera']
-                                for 键 in ['cameraMode', 'cameraInsets', 'cameraCenter', 'cameraYaw', 'cameraElevation', 'cameraZoom']:
+                                for 键 in ['cameraMode', 'cameraCenter', 'cameraYaw', 'cameraElevation']:
                                     assert 相机[键] == 旧[键], (名称, 手机, 模式, 键)
+                                地图标识 = json.loads(存档)['game']['map']['id']
+                                关卡 = next(项 for 项 in json.loads(Path('src/data/levels.json').read_text())['levels'] if 项['map']['id'] == 地图标识)
+                                验证固定取景预算(页面, [(格['x'], 格['z']) for 格 in 关卡['world']['tiles']])
+                                if 模式 == 'district':
+                                    旧全图 = next(项 for 项 in 基线['results'] if 项['phone'] == 手机 and 项['state'] == 名称 and 项['mode'] == 'overview')['camera']
+                                    新全图 = next(项 for 项 in 记录 if 项['phone'] == 手机 and 项['state'] == 名称 and 项['mode'] == 'overview')['camera']
+                                    旧倍率 = float(旧['cameraZoom']) / float(旧全图['cameraZoom'])
+                                    新倍率 = float(相机['cameraZoom']) / float(新全图['cameraZoom'])
+                                    assert abs(新倍率 - 旧倍率) < .01, (名称, 手机, 新倍率, 旧倍率)
                             页面.screenshot(path=str(输出 / f'{阶段}-{名称}-{"phone" if 手机 else "desktop"}-{模式}.png'))
                             记录.append({'phone': 手机, 'state': 名称, 'mode': 模式, 'camera': 相机})
                         if not 手机:

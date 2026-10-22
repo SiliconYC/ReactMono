@@ -11,7 +11,9 @@ import subprocess
 
 from playwright.sync_api import Page, sync_playwright
 from browser_live_e2e import Handler, open_new_game_setup, open_saved_games, select_map
-from browser_main_game_acceptance import load_fixture, open_panel, export_current
+from browser_main_game_acceptance import (
+    load_fixture, open_panel, export_current, 保留当前回合, 设置地图视角, 展开地图工具,
+)
 
 
 # ◕ 功能
@@ -52,8 +54,9 @@ let game=applyAction(createGame(2,config),{type:'start_game',actorId:'p1'}).stat
         arg_页面.mouse.up(button='middle')
         arg_页面.wait_for_timeout(700)
         assert abs(float(壳.get_attribute('data-camera-yaw')) - 原值) > .05
+        展开地图工具(arg_页面)
         arg_页面.get_by_role('button', name='视角回正', exact=True).click()
-        arg_页面.get_by_role('button', name='查看全图', exact=True).click()
+        设置地图视角(arg_页面, 'overview')
         arg_页面.wait_for_timeout(700)
         缩放 = float(壳.get_attribute('data-camera-zoom'))
         arg_页面.get_by_role('button', name='放大地图', exact=True).click()
@@ -72,17 +75,20 @@ let game=applyAction(createGame(2,config),{type:'start_game',actorId:'p1'}).stat
         俯角 = 投影['elevation']
         屏横 = 宽 / 2 + (边距['left'] - 边距['right']) / 2 + (横 * math.cos(角) - 纵 * math.sin(角)) * 投影['zoom']
         屏纵 = 高 / 2 - (边距['bottom'] - 边距['top']) / 2 + ((横 * math.sin(角) + 纵 * math.cos(角)) * math.sin(俯角) + .53 * math.cos(俯角)) * 投影['zoom']
-        arg_页面.mouse.click(屏横, 屏纵)
-        arg_页面.get_by_role('button', name='关闭地块详情', exact=True).wait_for()
-        assert '蜜桃庭院' in arg_页面.locator('.board-inspector').inner_text()
-        arg_页面.get_by_role('button', name='关闭地块详情', exact=True).click()
+        arg_页面.mouse.move(屏横, 屏纵)
+        arg_页面.mouse.down()
+        arg_页面.get_by_role('tooltip').wait_for()
+        assert '蜜桃庭院' in arg_页面.get_by_role('tooltip').inner_text()
+        arg_页面.mouse.up()
+        arg_页面.get_by_role('tooltip').wait_for(state='hidden')
+        assert arg_页面.locator('.board-inspector').count() == 0
 
     def _购地(self, arg_页面: Page) -> None:
         arg_页面.get_by_role('button', name=re.compile('^掷骰前进')).click()
         购买 = arg_页面.get_by_role('button', name=re.compile('^购买地产'))
         购买.wait_for(timeout=20000)
         购买.click()
-        arg_页面.get_by_role('button', name=re.compile('^结束当前回合')).wait_for()
+        保留当前回合(arg_页面)
         arg_页面.on('dialog', lambda arg_对话: arg_对话.accept('当前验收' if arg_对话.type == 'prompt' else None))
         对局, 原文 = export_current(arg_页面)
         assert 对局['map']['id'] == 'lime-garden-30'
@@ -91,10 +97,10 @@ let game=applyAction(createGame(2,config),{type:'start_game',actorId:'p1'}).stat
         (self.输出 / 'purchased-state.json').write_bytes(原文)
 
     def _终局(self, arg_页面: Page) -> None:
-        for _ in range(120):
+        for _ in range(600):
             if arg_页面.locator('main[data-game-status="finished"]').count():
                 return
-            for 名称 in ['掷骰前进', '购买地产', '暂不购买', '暂不建设', '结束当前回合', '离开商店', '跳过当前停留回合', '我已就位，开始操作', '开始回合', '确认操作']:
+            for 名称 in ['掷骰前进', '购买地产', '暂不购买', '暂不建设', '继续下一位', '离开商店', '跳过当前停留回合', '我已就位，开始操作', '开始回合', '确认操作']:
                 按钮 = arg_页面.get_by_role('button', name=re.compile('^' + 名称))
                 if 按钮.count() and 按钮.first.is_enabled():
                     按钮.first.click()
@@ -127,7 +133,7 @@ let game=applyAction(createGame(2,config),{type:'start_game',actorId:'p1'}).stat
                     页面.get_by_role('button', name='开始游戏', exact=True).click()
                     页面.locator('.canvas-shell[data-ready="true"]').wait_for(timeout=60000)
                     assert 页面.locator('main').get_attribute('data-map-id') == 'lime-garden-30'
-                    页面.get_by_role('button', name='查看全图', exact=True).click()
+                    设置地图视角(页面, 'overview')
                     后缀 = 'phone' if 手机 else 'desktop'
                     self._截图(页面, 'overview-' + 后缀)
                     self._选格(页面)
@@ -150,7 +156,7 @@ game=applyAction(game,{type:'roll',actorId:'p1'}).state;
 game.tiles=game.tiles.map(t=>t.kind==='property'?{...t,ownerId:t.id%2?'p1':'p2',level:t.id%3}:t);
 """)
                     load_fixture(页面, 地址, 满建, '游园满建-' + 后缀)
-                    页面.get_by_role('button', name='查看全图', exact=True).click()
+                    设置地图视角(页面, 'overview')
                     self._截图(页面, 'populated-' + 后缀)
                     self._导航(页面)
                     self._截图(页面, 'populated-detail-' + 后缀)

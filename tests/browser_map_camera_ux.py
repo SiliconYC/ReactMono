@@ -10,7 +10,9 @@ import math
 from playwright.sync_api import Browser, Page, sync_playwright
 from browser_live_e2e import Handler, open_new_game_setup, select_map
 from browser_main_runtime_e2e import METRICS
-from browser_main_game_acceptance import fixture, load_fixture
+from browser_main_game_acceptance import (
+    fixture, load_fixture, 设置地图视角, 展开地图工具, 收起地图工具, 长按显示详情, 松开详情,
+)
 
 # ◕ 功能
 class 地图交互验收_类:
@@ -109,7 +111,7 @@ class 地图交互验收_类:
             select_map(self.页面, arg_关卡标识)
             self.页面.get_by_role("button", name="开始游戏", exact=True).click()
             self.页面.locator(".canvas-shell[data-ready=true]").wait_for()
-            self.页面.get_by_role("button", name="定位当前玩家", exact=True).click()
+            设置地图视角(self.页面, 'follow')
             self.页面.wait_for_timeout(1000)
             self.页面.evaluate("document.addEventListener('contextmenu',e=>window.__右键已拦截=e.defaultPrevented)")
             原始相机 = self._读取相机()
@@ -133,9 +135,10 @@ class 地图交互验收_类:
             self.页面.keyboard.press("Escape")
             assert self.页面.get_by_role("menu").count() == 0
             self._右键地块()
-            self.页面.get_by_role("menuitem", name="查看地块详情", exact=True).click()
-            assert self.页面.locator(".board-inspector strong").inner_text().startswith("2 ·")
-            self.页面.get_by_role("button", name="关闭地块详情", exact=True).click()
+            self.页面.keyboard.press("Escape")
+            长按显示详情(self.页面, *self._地块屏幕位置(1))
+            assert self.页面.get_by_role("tooltip").locator("strong").inner_text().startswith("2 ·")
+            松开详情(self.页面)
             self._右键地块()
             self.页面.get_by_role("menuitemcheckbox", name="隐藏地块编号").click()
             assert self.页面.locator(".canvas-shell").get_attribute("data-show-numbers") == "false"
@@ -158,12 +161,14 @@ class 地图交互验收_类:
             self.页面.mouse.wheel(0, -120)
             self.页面.wait_for_timeout(600)
             assert self._读取相机()["zoom"] > 平移后["zoom"]
+            展开地图工具(self.页面)
             self.页面.get_by_role("button", name="视角回正", exact=True).click()
             self.页面.wait_for_function("e=>Math.abs(+document.querySelector('.canvas-shell').dataset.cameraYaw-Math.PI/4)<.002&&Math.abs(+document.querySelector('.canvas-shell').dataset.cameraElevation-e)<.002", arg=math.atan2(12.2, math.hypot(10.2, 10.2)))
+            收起地图工具(self.页面)
             回正后 = self._读取相机()
             assert abs(回正后["yaw"] - math.pi / 4) < .002
             assert abs(回正后["elevation"] - math.atan2(12.2, math.hypot(10.2, 10.2))) < .002
-            self.页面.get_by_role("button", name="查看全图", exact=True).click()
+            设置地图视角(self.页面, 'overview')
             self.页面.wait_for_timeout(900)
             assert self.页面.locator(".canvas-shell").get_attribute("data-camera-mode") == "overview"
             边缘 = self.页面.evaluate("""()=>[[innerWidth-3,innerHeight-3],[3,innerHeight-3],[innerWidth-3,innerHeight/2]].find(([x,y])=>document.elementFromPoint(x,y)?.tagName==='CANVAS')""")
@@ -175,16 +180,17 @@ class 地图交互验收_类:
             assert 范围["x"] >= 0 and 范围["y"] >= 0
             assert 范围["x"] + 范围["width"] <= 宽度 and 范围["y"] + 范围["height"] <= 高度
             self.页面.keyboard.press("Escape")
-            self.页面.get_by_role("button", name="定位当前玩家", exact=True).click()
+            设置地图视角(self.页面, 'follow')
             self.页面.wait_for_timeout(600)
             if arg_手机:
                 相机 = self._读取相机()
+                触点元素 = self.页面.evaluate("([x,y])=>[document.elementFromPoint(x-20,y)?.tagName,document.elementFromPoint(x+20,y)?.tagName]", [相机["sx"], 相机["sy"]])
                 会话 = 上下文.new_cdp_session(self.页面)
                 会话.send("Input.dispatchTouchEvent", {"type": "touchStart", "touchPoints": [{"x": 相机["sx"] - 20, "y": 相机["sy"], "id": 1}, {"x": 相机["sx"] + 20, "y": 相机["sy"], "id": 2}]})
                 会话.send("Input.dispatchTouchEvent", {"type": "touchMove", "touchPoints": [{"x": 相机["sx"] - 35, "y": 相机["sy"], "id": 1}, {"x": 相机["sx"] + 35, "y": 相机["sy"], "id": 2}]})
                 会话.send("Input.dispatchTouchEvent", {"type": "touchEnd", "touchPoints": []})
                 self.页面.wait_for_timeout(500)
-                assert self._读取相机()["zoom"] > 相机["zoom"]
+                assert self._读取相机()["zoom"] > 相机["zoom"], (相机, self._读取相机(), 触点元素)
             if arg_减少动态:
                 self.页面.wait_for_timeout(500)
                 绘制前 = self.页面.evaluate("window.__metrics.draws")
@@ -204,7 +210,7 @@ class 地图交互验收_类:
         self.页面 = 上下文.new_page()
         try:
             load_fixture(self.页面, self.网址, 原始存档, "屋顶归属压力夹具")
-            self.页面.get_by_role("button", name="定位当前玩家", exact=True).click()
+            设置地图视角(self.页面, 'follow')
             self.页面.wait_for_timeout(800)
             相机 = self._读取相机()
             地块 = self.关卡["world"]["tiles"][1]
@@ -217,10 +223,10 @@ class 地图交互验收_类:
             assert "2 级" in self.页面.locator(".map-context-summary").inner_text()
             self.页面.screenshot(path=str(self.输出目录 / "built-roof-menu.png"))
             self.页面.keyboard.press("Escape")
-            self.页面.mouse.click(横坐标, 纵坐标)
-            self.页面.locator(".board-inspector").wait_for()
-            assert self.页面.locator(".board-inspector strong").inner_text().startswith("2 ·")
-            self.结果.append({"leftClickRoof": True, "builtRoofTile": 1, "level": 2, "correctContext": True})
+            长按显示详情(self.页面, 横坐标, 纵坐标)
+            assert self.页面.get_by_role("tooltip").locator("strong").inner_text().startswith("2 ·")
+            松开详情(self.页面)
+            self.结果.append({"holdRoof": True, "builtRoofTile": 1, "level": 2, "correctContext": True})
             print("[完成] 已建房屋屋顶右键识别所属地产", flush=True)
         finally:
             上下文.close()

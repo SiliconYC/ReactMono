@@ -6,6 +6,9 @@ import json,math,time,os,base64,faulthandler
 from playwright.sync_api import sync_playwright
 from browser_live_e2e import Handler,open_new_game_setup,select_map
 from browser_main_runtime_e2e import METRICS
+from browser_main_game_acceptance import (
+    设置地图视角, 展开地图工具, 收起地图工具, 长按显示详情, 松开详情,
+)
 
 OUT=Path(os.environ.get('WORLD_OUTPUT','artifacts/scalable-world'));OUT.mkdir(parents=True,exist_ok=True)
 LEVELS=[l for l in json.loads(Path('src/data/levels.json').read_text())['levels'] if not l['map']['id'].startswith('internal-')]
@@ -29,7 +32,7 @@ for(const name of ['drawElementsInstanced','drawArraysInstanced']){const old=Web
      pg.on('console',lambda m:errors.append(m.text) if m.type=='error' else None)
      pg.goto(url);open_new_game_setup(pg);select_map(pg,mid)
      pg.get_by_role('button',name='开始游戏',exact=True).click();shell=pg.locator('.canvas-shell[data-ready=true]');shell.wait_for();pg.wait_for_timeout(700)
-     pg.get_by_role('button',name='查看全图',exact=True).click()
+     设置地图视角(pg, 'overview')
      pg.wait_for_function("""()=>{
       const shell=document.querySelector('.canvas-shell'),current=JSON.parse(shell.dataset.cameraProjection);
       current.insets=shell.dataset.cameraInsets;
@@ -63,9 +66,9 @@ for(const name of ['drawElementsInstanced','drawArraysInstanced']){const old=Web
      metrics=pg.evaluate('window.__metrics');frames=sorted(metrics['frames']);stats=json.loads(shell.get_attribute('data-render-stats'))
      gpu=pg.locator('canvas').evaluate('(c)=>{const g=c.getContext("webgl2"),d=g.getExtension("WEBGL_debug_renderer_info");return g.getParameter(d.UNMASKED_RENDERER_WEBGL)}')
      overview={'zoom':zoom,'roadPixels':hits,'cells':len(coords),'p50':frames[len(frames)//2],'p95':frames[int(len(frames)*.95)],'allPassDrawsPerFrame':metrics['draws']/len(frames),'renderer':stats,'gpu':gpu}
-     pg.get_by_role('button',name='定位当前玩家',exact=True).click();pg.wait_for_timeout(1000)
+     设置地图视角(pg, 'follow');pg.wait_for_timeout(1000)
      followZoom=float(shell.get_attribute('data-camera-zoom'));assert followZoom>=20
-     assert pg.locator('.camera-toggle').get_attribute('aria-pressed')=='true'
+     assert shell.get_attribute('data-camera-mode')=='follow'
      pg.screenshot(path=str(OUT/f'{mid}-{label}-follow.png'))
      # Wheel changes actual projection; drag changes center but must not select a tile.
      canvas=pg.locator('canvas');pg.mouse.move(sx,sy);pg.mouse.wheel(0,-180);pg.wait_for_timeout(700)
@@ -80,6 +83,7 @@ for(const name of ['drawElementsInstanced','drawArraysInstanced']){const old=Web
      assert shell.get_attribute('data-camera-mode')=='browse' and shell.get_attribute('data-camera-center')!=old
      assert pg.locator('.board-inspector').count()==0
      canvas.focus();pg.keyboard.press('Home');pg.wait_for_timeout(1200);assert shell.get_attribute('data-camera-mode')=='overview'
+     展开地图工具(pg)
      if phone:pg.get_by_role('button',name='放大地图',exact=True).click();pg.wait_for_timeout(500)
      # Physical pointer clicks on minimap at a far corner, last tile and a concave section.
      for index in [len(level['map']['route'])//2,len(level['map']['route'])-1,len(level['map']['route'])//3]:
@@ -92,9 +96,10 @@ for(const name of ['drawElementsInstanced','drawArraysInstanced']){const old=Web
       tolerance=max(.15,1.6*max((max(t['x'] for t in level['world']['tiles'])-min(t['x'] for t in level['world']['tiles'])+8)/svgBox['width'],(max(t['z'] for t in level['world']['tiles'])-min(t['z'] for t in level['world']['tiles'])+8)/svgBox['height']))
       print('NAV',mid,label,index,[x,z],screen,'from',shell.get_attribute('data-camera-center'),flush=True)
       pg.mouse.click(screen['x'],screen['y']);pg.wait_for_function("([x,z,t])=>{const p=document.querySelector('.canvas-shell').dataset.cameraCenter.split(',').map(Number);return Math.hypot(p[0]-x,p[1]-z)<t}",arg=[x,z,tolerance],timeout=5000)
-      assert pg.locator('.camera-toggle').get_attribute('aria-pressed')=='false'
+      assert shell.get_attribute('data-camera-mode')=='browse'
       center=list(map(float,shell.get_attribute('data-camera-center').split(',')));assert math.hypot(center[0]-x,center[1]-z)<tolerance,(mid,index,center,[x,z])
       if index==len(level['map']['route'])//2:pg.screenshot(path=str(OUT/f'{mid}-{label}-far.png'))
+     收起地图工具(pg)
      # Raycast a rotated road in the real canvas using the same authored coordinates.
      tile_id=level['map']['route'][len(level['map']['route'])//3]
      target=level['world']['tiles'][tile_id]
@@ -102,11 +107,10 @@ for(const name of ['drawElementsInstanced','drawArraysInstanced']){const old=Web
      current_zoom=float(shell.get_attribute('data-camera-zoom'));ccx,ccz=map(float,shell.get_attribute('data-camera-center').split(','))
      px=(current['left']+width-current['right'])/2+((target['x']-ccx)-(target['z']-ccz))/math.sqrt(2)*current_zoom
      py=(current['top']+height-current['bottom'])/2+((target['x']-ccx)+(target['z']-ccz))/math.sqrt(2)*SIN*current_zoom+.53*math.sqrt(1-SIN*SIN)*current_zoom
-     pg.mouse.click(px,py)
-     pg.locator('.board-inspector').wait_for()
-     assert pg.locator('.board-inspector strong').inner_text().startswith(str(tile_id+1)+' ·')
-     pg.get_by_role('button',name='关闭地块详情',exact=True).click()
-     pg.get_by_role('button',name='定位当前玩家',exact=True).click();pg.wait_for_timeout(600)
+     长按显示详情(pg, px, py)
+     assert pg.get_by_role('tooltip').locator('strong').inner_text().startswith(str(tile_id+1)+' ·')
+     松开详情(pg)
+     设置地图视角(pg, 'follow');pg.wait_for_timeout(600)
      pg.evaluate('window.__metrics.frames=[]');pg.get_by_role('button',name='掷骰前进').click()
      pg.wait_for_function('document.querySelector("main").dataset.presenting==="false"',timeout=10000)
      moving=sorted(pg.evaluate('window.__metrics.frames'));assert len(moving)>10

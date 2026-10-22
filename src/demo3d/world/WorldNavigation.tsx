@@ -8,6 +8,7 @@ import { clampWorldZoom } from './world-view.js';
 import { MASCOT_SEAT_COLORS } from './seats.js';
 export function WorldNavigation({game,nav,changed,disabled}:{game:GameState;nav:MutableRefObject<Navigation>;changed:()=>void;disabled:boolean}):React.JSX.Element{
   const [help,setHelp]=useState(false);
+  const [expanded,setExpanded]=useState(false);
   const anchors=anchorsForMap(game.map);
   const bounds=useMemo(()=>{
     const xs=anchors.tiles.map(p=>p.x),zs=anchors.tiles.map(p=>p.z);
@@ -18,6 +19,11 @@ export function WorldNavigation({game,nav,changed,disabled}:{game:GameState;nav:
   const n=nav.current;
   const marker=Math.max(bounds.width,bounds.depth)/48;
   return <div className="world-navigation" aria-label="地图浏览" hidden={disabled}>
+    <div className="world-toolbar">
+      <button type="button" aria-label={n.mode==='overview'?'定位当前玩家':'查看全图'} title={n.mode==='overview'?'跟随当前玩家':'查看全图'} onClick={()=>reset(n.mode==='overview'?'follow':'overview')}>{n.mode==='overview'?'定位':'全图'}</button>
+      <button type="button" aria-label="地图工具" aria-expanded={expanded} aria-controls="world-controls-panel" onClick={()=>setExpanded(!expanded)}>⌖</button>
+    </div>
+    {expanded&&<div className="world-controls-panel" id="world-controls-panel">
     <div className="world-minimap">
       <div className="minimap-caption"><span>路线导览</span><small>{game.tiles.length} 格</small></div>
       <svg viewBox={`${bounds.x} ${bounds.z} ${bounds.width} ${bounds.depth}`} role="button" tabIndex={0} aria-label="路线小地图，点击街区放大定位" onKeyDown={e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();reset('follow');}}} onClick={e=>{
@@ -39,13 +45,12 @@ export function WorldNavigation({game,nav,changed,disabled}:{game:GameState;nav:
     <div className="world-camera-buttons">
       <button type="button" aria-label="放大地图" title="放大地图（+）" onClick={()=>zoom(1.3)}>＋</button>
       <button type="button" aria-label="缩小地图" title="缩小地图（−）" onClick={()=>zoom(1/1.3)}>−</button>
-      <button type="button" aria-label="查看全图" title="查看全图（Home）" onClick={()=>reset('overview')}>全图</button>
-      <button type="button" aria-label="定位当前玩家" title="定位并跟随当前玩家" onClick={()=>reset('follow')}>定位</button>
     </div>
     <div className="world-camera-extras">
       <button type="button" aria-label="视角回正" title="视角回正（R）" onClick={()=>{resetOrientation(nav.current);changed();}}><span data-compass-arrow="" aria-hidden="true">↑</span> 回正</button>
       <button type="button" aria-label="地图操作说明" aria-expanded={help} onClick={()=>setHelp(!help)}>？</button>
     </div>
-    {help&&<div className="world-input-help" role="note"><strong>地图操作</strong><span>左键拖动：平移</span><span>Shift＋左键 / 中键拖动：旋转</span><span>滚轮 / 双指：缩放</span><span>右键：地图菜单</span><span>方向键：移动 · R：回正</span><span>Home：全图 · 编号近景可见</span></div>}
+    {help&&<div className="world-input-help" role="note"><strong>地图操作</strong><span>左键拖动：平移</span><span>Shift＋左键 / 按住中键拖动：旋转</span><span>滚轮 / 双指：缩放</span><span>按住地块、房屋或角色：查看</span><span>按住 I：当前角色信息</span><span>右键：地图菜单</span><span>方向键：移动 · R：回正 · Home：全图</span></div>}
+    </div>}
   </div>;
 }

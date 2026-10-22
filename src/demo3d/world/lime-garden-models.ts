@@ -36,25 +36,35 @@ function gable(width:number,depth:number,height:number):THREE.BufferGeometry {
   g.setIndex([0,1,2,5,4,3,0,2,5,0,5,3,2,1,4,2,4,5,0,3,4,0,4,1]);g.computeVertexNormals();return g;
 }
 
-/** 两个独立轮廓共用地面锚点；烘焙顶点色后每级住宅仅需一个实例批次。 */
+/** 主体烘焙原色；仅少数门楣、遮棚和檐带进入业主色实例批次，避免整屋乘色。 */
 export function gardenHouseGeometry(level:1|2,terraced=false):THREE.BufferGeometry {
+  return houseGeometry(level,terraced,false);
+}
+
+export function gardenHouseAccentGeometry(level:1|2,terraced=false):THREE.BufferGeometry {
+  return houseGeometry(level,terraced,true);
+}
+
+function houseGeometry(level:1|2,terraced:boolean,ownershipAccents:boolean):THREE.BufferGeometry {
   const pieces:THREE.BufferGeometry[]=[];
-  const add=(geometry:THREE.BufferGeometry,x:number,y:number,z:number,color:string,rx=0,ry=0,rz=0)=>{
+  const add=(geometry:THREE.BufferGeometry,x:number,y:number,z:number,color:string,rx=0,ry=0,rz=0,accent=false)=>{
+    if(accent!==ownershipAccents){geometry.dispose();return;}
     geometry.rotateX(rx);geometry.rotateY(ry);geometry.rotateZ(rz);geometry.translate(x,y,z);
     const g=geometry.index?geometry.toNonIndexed():geometry;
     if(g!==geometry)geometry.dispose();
     g.deleteAttribute('uv');
-    const c=new THREE.Color(color),attribute=g.getAttribute('position');
+    const c=new THREE.Color(ownershipAccents?'#ffffff':color),attribute=g.getAttribute('position');
     g.setAttribute('color',new THREE.Float32BufferAttribute(Array.from({length:attribute.count},()=>[c.r,c.g,c.b]).flat(),3));pieces.push(g);
   };
-  const box=(x:number,y:number,z:number,w:number,h:number,d:number,c:string,rz=0)=>add(new THREE.BoxGeometry(w,h,d),x,y,z,c,0,0,rz);
+  const box=(x:number,y:number,z:number,w:number,h:number,d:number,c:string,rz=0,accent=false)=>add(new THREE.BoxGeometry(w,h,d),x,y,z,c,0,0,rz,accent);
   const flowerBox=(x:number,y:number,z:number)=>{
     box(x,y,z,.28,.075,.12,'#dda16c');
     for(const dx of [-.08,0,.08]){add(new THREE.IcosahedronGeometry(.055,0),x+dx,y+.06,z,'#86ac62');add(new THREE.IcosahedronGeometry(.027,1),x+dx,y+.105,z+.025,'#f3b99a');}
   };
   const frontWindow=(x:number,y:number,z:number,w=.25,h=.27)=>{
     box(x,y,z,w+.065,h+.065,.045,'#fff9df');box(x,y,z+(z<0?-.027:.027),w,h,.018,'#81c4d5');
-    box(x,y,z+(z<0?-.042:.042),.022,h,.015,'#fff4d3');box(x,y,z+(z<0?-.043:.043),w,.022,.015,'#fff4d3');
+    // 横竖窗格的交叉点留出真实深度差；统一阴影下不依赖材质偏移隐藏近平行面。
+    box(x,y,z+(z<0?-.042:.042),.022,h,.015,'#fff4d3');box(x,y,z+(z<0?-.046:.046),w,.022,.015,'#fff4d3');
   };
   if(terraced){
     const height=level===1?.68:1.3,roof=level===1?'#e98460':'#6da7a8';
@@ -63,8 +73,8 @@ export function gardenHouseGeometry(level:1|2,terraced=false):THREE.BufferGeomet
     // 连续横脊在地界处精确接合；不靠重叠屋檐或跨空地连接体掩盖分户边界。
     add(gable(1.08,2,.32),0,height,-.04,roof,0,Math.PI/2);
     box(0,height+.32,-.04,2,.035,.035,level===1?'#f7b280':'#acd1bf');
-    box(0,height+.015,.5,2,.05,.035,'#f4ddb7');
-    box(0,height+.015,-.58,2,.05,.035,'#f4ddb7');
+    box(0,height+.015,.5,2,.05,.035,'#f4ddb7',0,true);
+    box(0,height+.015,-.58,2,.05,.035,'#f4ddb7',0,true);
     for(const x of [-.82,-.55,-.28,0,.28,.55,.82]){
       add(new THREE.BoxGeometry(.016,.02,.63),x,height+.16,.23,roof,.54);
       add(new THREE.BoxGeometry(.016,.02,.63),x,height+.16,-.31,roof,-.54);
@@ -79,20 +89,14 @@ export function gardenHouseGeometry(level:1|2,terraced=false):THREE.BufferGeomet
       frontWindow(-.4,1.04,-.48,.36,.3);frontWindow(.4,1.04,-.48,.36,.3);
       box(0,.78,.48,1.52,.06,.29,'#fff6d9');
       for(const x of [-.73,-.49,-.25,0,.25,.49,.73])box(x,.935,.615,.025,.25,.025,'#faf2d2');
-      box(0,1.07,.615,1.52,.035,.035,'#faf2d2');
+      box(0,1.07,.615,1.52,.035,.035,'#faf2d2',0,true);
       for(const x of [-.73,.73])box(x,.95,.49,.025,.26,.25,'#faf2d2');
       flowerBox(.4,.87,.61);
     }else{
-      box(-.37,.57,.48,.62,.045,.25,'#85b9ad');
+      box(-.37,.57,.48,.62,.045,.25,'#85b9ad',0,true);
       for(const x of [-.65,-.1])box(x,.27,.56,.035,.54,.035,'#faf3d9');
     }
-    for(const x of [-.99,.99]){
-      box(x,height/2,-.04,.02,height,.86,'#ead4ab');
-      for(const y of level===1?[.36]:[.36,1.04]){
-        box(x,y,-.08,.02,.31,.32,'#fff9df');
-        box(Math.sign(x)*.995,y,-.08,.01,.24,.25,'#81c4d5');
-      }
-    }
+    // 分户边界用于真正共墙；此处加侧窗会与墙面共面，或突出到相邻户内。
   }else if(level===1){
     box(0,.34,-.035,.94,.68,.79,'#fff0cc');
     box(0,.065,-.035,.97,.13,.82,'#ead4ab');
@@ -102,7 +106,8 @@ export function gardenHouseGeometry(level:1|2,terraced=false):THREE.BufferGeomet
     box(-.16,.23,.373,.22,.46,.035,'#b8a16a');
     add(new THREE.SphereGeometry(.025,8,6),-.09,.23,.397,'#e8bf62');
     frontWindow(.235,.39,.377,.25,.28);
-    box(-.19,.57,.48,.51,.055,.26,'#85b9ad',-.05);
+    box(-.19,.57,.48,.51,.055,.26,'#85b9ad',-.05,true);
+    box(-.16,.49,.401,.29,.055,.045,'#85b9ad',0,true);
     for(const x of [-.42,.04])box(x,.27,.56,.035,.54,.035,'#faf3d9');
     box(-.19,.035,.5,.46,.07,.23,'#f2d9ae');
     box(-.49,.38,-.12,.025,.3,.29,'#fff9df');box(-.505,.38,-.12,.018,.23,.22,'#81c4d5');
@@ -120,7 +125,8 @@ export function gardenHouseGeometry(level:1|2,terraced=false):THREE.BufferGeomet
     frontWindow(-.23,1.045,.405,.22,.35);frontWindow(.23,1.045,.405,.22,.35);
     box(0,.78,.48,.98,.07,.29,'#fff6d9');
     for(const x of [-.46,-.3,-.15,0,.15,.3,.46])box(x,.935,.615,.026,.25,.026,'#faf2d2');
-    box(0,1.07,.615,1,.035,.035,'#faf2d2');box(0,.84,.615,1,.03,.03,'#faf2d2');
+    box(0,1.07,.615,1,.035,.035,'#faf2d2',0,true);box(0,.84,.615,1,.03,.03,'#faf2d2');
+    box(-.24,.53,.433,.3,.055,.045,'#85b9ad',0,true);
     for(const x of [-.48,.48])box(x,.95,.49,.026,.26,.25,'#faf2d2');
     for(const x of [-.46,.46])box(x,.38,.57,.035,.76,.035,'#fff5d7');
     box(.51,1.02,-.12,.024,.33,.32,'#fff9df');box(.528,1.02,-.12,.018,.26,.25,'#81c4d5');

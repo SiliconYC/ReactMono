@@ -10,6 +10,7 @@ import subprocess
 from playwright.sync_api import Page, expect, sync_playwright
 from browser_live_e2e import Handler, open_new_game_setup, select_map
 from browser_main_game_acceptance import (
+    设置地图视角,
     export_current,
     fixture,
     load_fixture,
@@ -104,7 +105,7 @@ console.log(JSON.stringify(simulateDebugRounds(prepared,200).state));
         assert all(事件['details']['amount'] <= 事件['details']['due'] for 事件 in 实际['events'] if 事件['type'] == 'rent_paid')
         标识 = 'phone' if arg_页面.viewport_size['width'] < 600 else 'desktop'
         (self.输出 / f'long-{标识}.json').write_bytes(原文)
-        arg_页面.get_by_role('button', name='查看全图', exact=True).click()
+        设置地图视角(arg_页面, 'overview')
         arg_页面.wait_for_timeout(700)
         arg_页面.screenshot(path=str(self.输出 / f'long-{标识}.png'))
         arg_页面.wait_for_function('navigator.serviceWorker.controller !== null')

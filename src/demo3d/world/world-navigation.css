@@ -22,3 +22,19 @@
 @media(max-height:520px){.world-camera-extras{flex-direction:column}.world-input-help{position:absolute;top:75px;right:0}}
 .world-camera-extras button{font-family:inherit;font-size:12px}.map-context-menu kbd{font-family:inherit;font-size:11px}
 @media(max-width:600px){.map-context-menu button{min-height:44px}}
+
+.world-navigation{right:16px;gap:8px;top:calc(var(--world-safe-top,80px) + 8px)}
+.world-toolbar{display:flex;flex-direction:column;gap:6px;pointer-events:auto}
+.world-toolbar button{width:44px;height:42px;padding:0;color:#355747;font:12px inherit;cursor:pointer;touch-action:manipulation}
+.world-toolbar button:last-child{font-size:24px}.world-toolbar button[aria-expanded=true]{background:#ead6a0}
+.world-toolbar button:focus-visible{outline:3px solid #cb943c;outline-offset:2px}
+.world-controls-panel{pointer-events:auto;position:absolute;right:52px;top:0;box-sizing:border-box;width:180px;max-height:calc(100vh - var(--world-safe-top,80px) - 32px);overflow:auto;padding:10px;border:1px solid #ffffffc0;border-radius:15px;background:#fffbedf5;box-shadow:0 6px 24px #254b3920;display:flex;flex-direction:column;gap:9px}
+.world-controls-panel .world-minimap{display:block!important;width:100%;padding:2px;border:0;border-radius:0;background:transparent;box-shadow:none}
+.world-controls-panel .world-minimap svg{height:94px}
+.world-controls-panel .world-camera-buttons{display:grid;grid-template-columns:repeat(2,1fr)!important;gap:6px}
+.world-controls-panel .world-camera-extras{display:flex;position:static!important;flex-direction:row;justify-content:space-between}
+.world-controls-panel .world-input-help{position:static;padding:0;background:none;border:0;box-shadow:none;max-width:none}
+.world-inspection{position:fixed;z-index:20;width:max-content;max-width:min(300px,calc(100vw - 24px));box-sizing:border-box;padding:13px 16px;border:1px solid #e5d6a7;border-radius:12px;background:#fffbeff5;color:#294b3e;box-shadow:0 8px 30px #173b3630;pointer-events:none;font:13px/1.7 "PingFang SC","Microsoft YaHei",sans-serif}
+.world-inspection strong,.world-inspection span,.world-inspection small{display:block}.world-inspection strong{font-size:14px}.world-inspection small{margin-top:5px;color:#7e876d;font-size:10px}
+@media(max-width:600px){.world-navigation{right:12px;top:calc(var(--world-safe-top,150px) + 8px)}.world-toolbar button{height:42px}.world-controls-panel{right:52px;width:175px}.world-inspection{font-size:12px}}
+@media(max-height:520px){.world-navigation{flex-direction:column;right:12px;top:76px}.world-controls-panel{max-height:calc(100vh - 92px)}}

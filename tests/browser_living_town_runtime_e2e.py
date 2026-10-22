@@ -8,7 +8,9 @@ import json
 
 from playwright.sync_api import Page, sync_playwright
 from browser_live_e2e import Handler
-from browser_main_game_acceptance import load_fixture
+from browser_main_game_acceptance import (
+    load_fixture, 设置地图视角, 展开地图工具, 收起地图工具,
+)
 
 
 # ◕ 功能
@@ -50,13 +52,15 @@ class 街区资源验收_类:
                     采样 = []
                     遮挡集合 = set()
                     for 次数 in range(6):
-                        页面.get_by_role('button', name='查看全图', exact=True).click()
+                        设置地图视角(页面, 'overview')
                         页面.wait_for_timeout(650)
                         self._旋转(页面)
                         遮挡集合.add(页面.locator('.canvas-shell').get_attribute('data-cutaway-buildings'))
                         print(f'[信息] 旋转后：phone={手机} yaw={页面.locator(".canvas-shell").get_attribute("data-camera-yaw")} cutaway={页面.locator(".canvas-shell").get_attribute("data-cutaway-buildings")}', flush=True)
+                        展开地图工具(页面)
                         页面.get_by_role('button', name='视角回正', exact=True).click()
-                        页面.get_by_role('button', name='定位当前玩家', exact=True).click()
+                        收起地图工具(页面)
+                        设置地图视角(页面, 'follow')
                         页面.wait_for_timeout(1100)
                         壳 = 页面.locator('.canvas-shell')
                         遮挡集合.add(壳.get_attribute('data-cutaway-buildings'))

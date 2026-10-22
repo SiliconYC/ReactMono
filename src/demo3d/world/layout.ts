@@ -94,6 +94,12 @@ export function positionForTile(tileId: number, map: GameMap = INTERNAL_TEST_MAP
   return point;
 }
 
+export function headingForTile(tileId:number,map:GameMap):number {
+  const index=map.route.indexOf(tileId),point=positionForTile(tileId,map);
+  const next=positionForTile(map.route[(index+1)%map.route.length],map);
+  return Math.atan2(next.x-point.x,next.z-point.z);
+}
+
 export function lotForTile(tileId: number, map: GameMap = INTERNAL_TEST_MAP): WorldPoint {
   const point = anchorsForMap(map).lots[tileId];
   if (point === undefined) throw new Error(`3D 场景不存在地产 ${tileId}`);

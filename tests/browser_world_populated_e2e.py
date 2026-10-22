@@ -6,7 +6,9 @@ import json
 import faulthandler
 from playwright.sync_api import sync_playwright
 from browser_live_e2e import Handler
-from browser_main_game_acceptance import fixture,load_fixture
+from browser_main_game_acceptance import (
+    fixture, load_fixture, 设置地图视角,
+)
 from browser_main_runtime_e2e import METRICS
 OUT=Path('artifacts/scalable-world');OUT.mkdir(parents=True,exist_ok=True)
 
@@ -26,7 +28,7 @@ def main():
     near=[]
     for cycle in range(4):
      for mode,button in [('follow','定位当前玩家'),('overview','查看全图')]:
-      pg.get_by_role('button',name=button,exact=True).click();pg.wait_for_timeout(1100)
+      设置地图视角(pg, mode);pg.wait_for_timeout(1100)
       print('navigation cycle',phone,cycle,mode,flush=True)
       stats=json.loads(shell.get_attribute('data-render-stats'))
       if mode=='follow':near.append(stats)

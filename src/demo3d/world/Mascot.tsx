@@ -1,9 +1,9 @@
 import { useEffect, useLayoutEffect, useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame,useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { Dice } from './Dice.js';
 import type { OutcomeCue } from '../outcomes.js';
-import { ACTOR_ANCHOR_Y, ROAD_TILE_TOP, positionForTile } from './layout.js';
+import { ACTOR_ANCHOR_Y, ROAD_TILE_TOP, positionForTile, headingForTile } from './layout.js';
 import type { GameMap } from '../../core/types.js';
 import { mascotSeatLayout } from './seats.js';
 
@@ -50,6 +50,7 @@ export function Mascot({
   outcome = null
 }: MascotProps): React.JSX.Element | null {
   const root = useRef<THREE.Group>(null);
+  const gl=useThree(state=>state.gl);
   const visual = useRef<THREE.Group>(null);
   const startedAt = useRef(0);
   const outcomeElapsed = useRef(0);
@@ -64,12 +65,14 @@ export function Mascot({
   const actorOutcome = outcome?.actorId === id ? outcome : null;
 
   useLayoutEffect(() => {
-    if (!reducedMotion || isMoving || !root.current) return;
-    const point = positionForTile(tileId, map);
+    if (!root.current) return;
+    const initialTile=isMoving&&motion?motion.fromTileId:tileId;
+    const point = positionForTile(initialTile, map);
     root.current.position.set(point.x + offsetX, ACTOR_ANCHOR_Y, point.z + offsetZ);
+    root.current.rotation.y=headingForTile(initialTile,map);
     // CameraRig must see the settled target before the single demand frame.
     if (active) trackedPosition.copy(root.current.position);
-  }, [reducedMotion, isMoving, tileId, map, offsetX, offsetZ, active, trackedPosition]);
+  }, [isMoving, motion?.nonce, tileId, map, offsetX, offsetZ, active, trackedPosition]);
 
   useLayoutEffect(() => {
     outcomeElapsed.current = 0;
@@ -91,6 +94,7 @@ export function Mascot({
       const finalTile = motion.path[motion.path.length - 1];
       const final = positionForTile(finalTile, map);
       root.current?.position.set(final.x + offsetX, ACTOR_ANCHOR_Y, final.z + offsetZ);
+      if(root.current)root.current.rotation.y=headingForTile(finalTile,map);
       onStep(finalTile);
       queueMicrotask(onMotionComplete);
     }
@@ -151,11 +155,12 @@ export function Mascot({
     const local = THREE.MathUtils.clamp((travelTime - segment * stepDuration) / stepDuration, 0, 1);
     const eased = local * local * (3 - 2 * local);
     group.position.set(
-      THREE.MathUtils.lerp(from.x, to.x, eased),
+      THREE.MathUtils.lerp(from.x, to.x, eased)+offsetX,
       ACTOR_ANCHOR_Y + Math.sin(local * Math.PI) * 0.24,
-      THREE.MathUtils.lerp(from.z, to.z, eased)
+      THREE.MathUtils.lerp(from.z, to.z, eased)+offsetZ
     );
-    group.rotation.y = THREE.MathUtils.lerp(group.rotation.y, Math.atan2(to.x - from.x, to.z - from.z), 0.2);
+    const angle=Math.atan2(to.x-from.x,to.z-from.z);
+    group.rotation.y+=Math.atan2(Math.sin(angle-group.rotation.y),Math.cos(angle-group.rotation.y))*.2;
 
     if (active) trackedPosition.copy(group.position);
 
@@ -177,12 +182,13 @@ export function Mascot({
     }
   });
 
+  useFrame(()=>{const shell=gl.domElement.closest<HTMLElement>('.canvas-shell'),group=root.current;if(shell&&group)shell.setAttribute(`data-actor-${seat}`,JSON.stringify({id,tileId,x:group.position.x,z:group.position.z,yaw:group.rotation.y}));});
   if (bankrupt && !awaitingExit) return null;
 
   const color = seatLayout.color;
   const isFox = seat === 0;
   return (
-    <group ref={root}>
+    <group ref={root} userData={{playerId:id}}>
       {active && !outcome && <Dice value={dieValue} nonce={dieNonce} reducedMotion={reducedMotion} />}
       <mesh position={[0, ROAD_TILE_TOP - ACTOR_ANCHOR_Y + 0.004, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <circleGeometry args={[0.43, 20]} />

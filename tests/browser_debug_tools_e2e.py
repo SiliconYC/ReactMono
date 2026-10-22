@@ -21,7 +21,9 @@ from playwright.sync_api import (
     sync_playwright,
 )
 from browser_live_e2e import Handler, open_new_game_setup, select_map
-from browser_main_game_acceptance import export_current, open_panel
+from browser_main_game_acceptance import (
+    export_current, open_panel, finish_human_turn,
+)
 
 
 # ◕ 功能
@@ -162,15 +164,7 @@ console.log(JSON.stringify(simulateDebugRounds(game,rounds).state));
         arg_页面.get_by_role('button', name=re.compile('^掷骰前进')).click()
         arg_页面.wait_for_function("document.querySelector('main').dataset.gamePhase !== 'await_roll'")
         self._等待画面(arg_页面)
-        if arg_页面.locator('main').get_attribute('data-game-phase') == 'await_decision':
-            arg_页面.get_by_role('button', name='暂不购买', exact=True).click()
-        if arg_页面.locator('main').get_attribute('data-game-phase') == 'await_shop':
-            arg_页面.get_by_role('button', name='离开商店', exact=True).click()
-        暂不建设 = arg_页面.get_by_role('button', name='暂不建设', exact=True)
-        if 暂不建设.count():
-            暂不建设.click()
-        else:
-            arg_页面.get_by_role('button', name=re.compile('^结束当前回合')).click()
+        finish_human_turn(arg_页面)
         arg_页面.get_by_role('button', name='我已就位，开始操作', exact=True).click()
         arg_页面.get_by_role('button', name=re.compile('^掷骰前进')).click()
         arg_页面.wait_for_function("document.querySelector('main').dataset.gamePhase !== 'await_roll'")

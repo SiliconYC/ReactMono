@@ -37,7 +37,7 @@ def exercise(browser,url,level,phone=False):
         page.screenshot(path=str(out/f'{level["map"]["id"]}-{"phone" if phone else "desktop"}.png'))
     page.get_by_role('button',name=re.compile('掷骰前进')).click()
     # Wait until the first real die/move and decision are resolved, without inspecting React internals.
-    page.wait_for_function("!document.querySelector('main')?.classList.contains('is-busy') && [...document.querySelectorAll('button')].some(b=>!b.disabled && /购买地产|放弃购买|结束当前回合|结束回合/.test(b.textContent))")
+    page.wait_for_function("document.querySelector('main')?.dataset.presenting==='false' && [...document.querySelectorAll('button')].some(b=>!b.disabled && /购买地产|暂不购买|暂不建设|管理资产|继续下一位|离开商店/.test(b.textContent))")
     save_name='压力图-'+level['map']['id']
     page.on('dialog',lambda d:d.accept(save_name if d.type=='prompt' else None))
     open_saved_games(page)
@@ -69,11 +69,11 @@ def exercise(browser,url,level,phone=False):
     # Finish a short game through real actions, exercising AI as well as the human turn.
     report=page.evaluate("""async()=>{
       const pause=()=>new Promise(r=>setTimeout(r,30));let rolls=0;
-      for(let i=0;i<1400;i++){
+      for(let i=0;i<6000;i++){
         if(document.querySelector('main')?.dataset.gameStatus==='finished')return {finished:true,rolls};
         const buttons=[...document.querySelectorAll('button')].filter(b=>!b.disabled&&b.getClientRects().length);
         const pick=patterns=>buttons.find(b=>patterns.some(p=>b.textContent.includes(p)));
-        const b=pick(['我已就位','掷骰前进','暂不购买','放弃购买','结束当前回合','结束回合','离开商店','确认操作']);
+        const b=pick(['我已就位','掷骰前进','暂不购买','放弃购买','继续下一位','暂不建设','离开商店','确认操作']);
         if(b){if(b.textContent.includes('掷骰前进'))rolls++;b.click();}
         await pause();
       }return {finished:false,rolls};

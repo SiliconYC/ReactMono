@@ -16,7 +16,7 @@ def main():
   for w,h in [(1440,900),(1280,720),(1920,1080),(2560,1440),(390,844),(360,640),(844,390)]:
    c=b.new_context(viewport={'width':w,'height':h},reduced_motion='no-preference');page=c.new_page();errors=[]
    page.on('pageerror',lambda e:errors.append(str(e)));page.on('dialog',lambda d:d.accept())
-   page.goto(URL);page.get_by_role('heading',name='大富翁',exact=True).wait_for()
+   page.goto(URL);page.get_by_role('heading',name='大富翁 2026',exact=True).wait_for()
    visible_in_view(page,page.get_by_role('button',name='开始游戏'))
    page.screenshot(path=str(OUT/f'title-{w}.png'))
    page.get_by_role('button',name='开始游戏').click()

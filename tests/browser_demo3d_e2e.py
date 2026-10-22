@@ -184,7 +184,7 @@ class Demo3DBrowserTest(unittest.TestCase):
         )
 
         self.assertEqual(page.locator('link[rel="stylesheet"]').count(), 1)
-        canvas = page.get_by_label("晴湾小镇 3D 棋盘")
+        canvas = page.get_by_label("大富翁 2026 3D 棋盘")
         self.assertTrue(canvas.is_visible())
         self.assertEqual(page.get_by_role("alert").count(), 0)
         self.assertTrue(page.get_by_text("桃桃的回合").is_visible())
@@ -361,7 +361,7 @@ class Demo3DBrowserTest(unittest.TestCase):
             panel = page.get_by_label("地产管理")
             if panel.count() and "联排 2 户" in panel.inner_text():
                 saw_row = True
-                canvas = page.get_by_label("晴湾小镇 3D 棋盘")
+                canvas = page.get_by_label("大富翁 2026 3D 棋盘")
                 followed = canvas.screenshot()
                 before_draws = page.evaluate("window.__demoRenderMetrics.drawCalls")
                 page.get_by_role("button", name="全景视角").click()

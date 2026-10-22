@@ -7,9 +7,9 @@ No game state is changed through React internals or a test-only app API.
 from pathlib import Path
 from http.server import ThreadingHTTPServer
 from threading import Thread
-from playwright.sync_api import sync_playwright, expect, TimeoutError as 浏览器超时
+from playwright.sync_api import Page, sync_playwright, expect, TimeoutError as 浏览器超时
 from browser_live_e2e import Handler, open_new_game_setup, select_map
-import json, re, subprocess, time, os
+import json, re, subprocess, time, os, math
 
 OUT=Path('artifacts/ui-rebuild');OUT.mkdir(parents=True,exist_ok=True)
 
@@ -50,6 +50,7 @@ def load_fixture(page,url,raw,name='验收样本'):
 
 
 def export_current(page):
+ 等待演出结束(page)
  open_panel(page,'存档')
  rows=page.locator('.save-list li').filter(has=page.get_by_text('当前验收',exact=True));count=rows.count()
  page.get_by_role('button',name='创建手动存档').click()
@@ -61,18 +62,118 @@ def export_current(page):
  return json.loads(raw)['game'],raw
 
 
-def finish_human_turn(page):
- for _ in range(15):
-  if page.get_by_role('button',name=re.compile('购买地产')).count():
-   b=page.get_by_role('button',name=re.compile('购买地产'))
-   if b.is_enabled():b.click()
-   else:page.get_by_role('button',name='暂不购买').click()
-  elif page.get_by_role('button',name='结束当前回合').count():page.get_by_role('button',name='结束当前回合').click();return
-  elif page.get_by_role('button',name='暂不建设').count():page.get_by_role('button',name='暂不建设').click();return
-  elif page.get_by_role('button',name='离开商店').count():page.get_by_role('button',name='离开商店').click()
-  else:page.wait_for_timeout(150)
-  page.wait_for_timeout(360)
- raise AssertionError('could not finish human turn')
+def 等待演出结束(arg_页面: Page) -> None:
+    expect(arg_页面.locator('main.app-shell')).to_have_attribute('data-presenting', 'false', timeout=20000)
+
+
+def 保留当前回合(arg_页面: Page) -> None:
+    等待演出结束(arg_页面)
+    arg_页面.get_by_role('button', name='管理资产', exact=True).click()
+    arg_页面.keyboard.press('Escape')
+    arg_页面.get_by_role('button', name='继续下一位', exact=False).wait_for()
+
+
+def 设置地图视角(arg_页面: Page, arg_模式: str) -> None:
+    壳 = arg_页面.locator('.canvas-shell')
+    if 壳.get_attribute('data-camera-mode') == arg_模式:
+        return
+    if arg_模式 == 'overview':
+        arg_页面.get_by_role('button', name='查看全图', exact=True).click()
+    elif arg_模式 == 'follow':
+        if not arg_页面.get_by_role('button', name='定位当前玩家', exact=True).count():
+            arg_页面.get_by_role('button', name='查看全图', exact=True).click()
+        arg_页面.get_by_role('button', name='定位当前玩家', exact=True).click()
+    else:
+        raise ValueError('验收仅支持全图或跟随视角：' + arg_模式)
+    expect(壳).to_have_attribute('data-camera-mode', arg_模式)
+
+
+def 展开地图工具(arg_页面: Page) -> None:
+    按钮 = arg_页面.get_by_role('button', name='地图工具', exact=True)
+    if 按钮.get_attribute('aria-expanded') == 'false':
+        按钮.click()
+
+
+def 收起地图工具(arg_页面: Page) -> None:
+    按钮 = arg_页面.get_by_role('button', name='地图工具', exact=True)
+    if 按钮.get_attribute('aria-expanded') == 'true':
+        按钮.click()
+
+
+def 长按显示详情(
+    arg_页面: Page,
+    arg_横: float,
+    arg_纵: float,
+) -> None:
+    arg_页面.mouse.move(arg_横, arg_纵)
+    arg_页面.mouse.down()
+    arg_页面.get_by_role('tooltip').wait_for()
+
+
+def 松开详情(arg_页面: Page) -> None:
+    arg_页面.mouse.up()
+    arg_页面.get_by_role('tooltip').wait_for(state='hidden')
+
+
+def 验证固定取景预算(
+    arg_页面: Page,
+    arg_格位: list[tuple[float, float]],
+) -> None:
+    壳 = arg_页面.locator('.canvas-shell')
+    安全区 = json.loads(壳.get_attribute('data-safe-insets'))
+    投影边距 = json.loads(壳.get_attribute('data-camera-insets'))
+    宽, 高 = arg_页面.viewport_size['width'], arg_页面.viewport_size['height']
+    短屏 = 高 <= 500 and 宽 >= 651
+    预期底部 = 20 if 短屏 else min(278 if 宽 <= 600 else 230, math.floor(高 * .36 + .5))
+    assert 安全区['bottom'] == 预期底部, 安全区
+    assert 投影边距['bottom'] == 安全区['bottom']
+    assert 宽 > 投影边距['left'] + 投影边距['right']
+    assert 高 > 投影边距['top'] + 投影边距['bottom']
+    if 壳.get_attribute('data-camera-mode') != 'overview':
+        return
+    投影 = json.loads(壳.get_attribute('data-camera-projection'))
+    屏中横 = (投影边距['left'] + 宽 - 投影边距['right']) / 2
+    屏中纵 = (投影边距['top'] + 高 - 投影边距['bottom']) / 2
+    方位, 俯仰, 缩放 = 投影['yaw'], 投影['elevation'], 投影['zoom']
+    for 横, 纵 in arg_格位:
+        横差, 纵差 = 横 - 投影['x'], 纵 - 投影['z']
+        屏横 = 屏中横 + (横差 * math.cos(方位) - 纵差 * math.sin(方位)) * 缩放
+        屏纵 = 屏中纵 + ((横差 * math.sin(方位) + 纵差 * math.cos(方位)) * math.sin(俯仰) + .53 * math.cos(俯仰)) * 缩放
+        assert 投影边距['left'] - 2 <= 屏横 <= 宽 - 投影边距['right'] + 2, (横, 纵, 屏横)
+        assert 投影边距['top'] - 2 <= 屏纵 <= 高 - 投影边距['bottom'] + 2, (横, 纵, 屏纵)
+
+
+def finish_human_turn(arg_页面: Page) -> None:
+    原玩家 = arg_页面.locator('.player-card.active').get_attribute('data-player-id')
+    原轮次 = arg_页面.locator('.round-indicator').inner_text()
+    截止 = time.monotonic() + 25
+    while time.monotonic() < 截止:
+        # 自动衔接会先于下一次轮询发生；必须在寻找决策按钮前确认仍是原玩家。
+        if arg_页面.locator('main[data-game-status="finished"]').count():
+            return
+        if (arg_页面.locator('.player-card.active').get_attribute('data-player-id') != 原玩家 or
+            arg_页面.locator('.round-indicator').inner_text() != 原轮次 or
+            arg_页面.get_by_role('button', name='我已就位，开始操作', exact=True).count()):
+            return
+        if arg_页面.locator('main.app-shell').get_attribute('data-presenting') == 'true':
+            arg_页面.wait_for_timeout(100)
+            continue
+        if arg_页面.get_by_role('heading', name='确认操作', exact=True).count():
+            arg_页面.get_by_role('button', name='确认操作', exact=True).click()
+        elif arg_页面.get_by_role('button', name=re.compile('^购买地产')).count():
+            购买 = arg_页面.get_by_role('button', name=re.compile('^购买地产'))
+            if 购买.is_enabled():
+                购买.click()
+            else:
+                arg_页面.get_by_role('button', name='暂不购买', exact=True).click()
+        else:
+            for 名称 in ['继续下一位', '暂不建设', '离开商店']:
+                按钮 = arg_页面.get_by_role('button', name=re.compile('^' + 名称))
+                if 按钮.count() and 按钮.is_enabled():
+                    按钮.click()
+                    break
+        arg_页面.wait_for_timeout(100)
+    raise AssertionError('原玩家回合未在演出、决策及自动衔接后完成：' + 原玩家)
 
 
 def main():

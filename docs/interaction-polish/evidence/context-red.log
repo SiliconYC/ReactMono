@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/laocao/Documents/coding/ReactMono/tests/browser_interaction_polish_e2e.py", line 220, in <module>
+    交互修整验收_类().api_执行()
+  File "/Users/laocao/Documents/coding/ReactMono/tests/browser_interaction_polish_e2e.py", line 204, in api_执行
+    self._菜单等待(页面, 地址)
+  File "/Users/laocao/Documents/coding/ReactMono/tests/browser_interaction_polish_e2e.py", line 117, in _菜单等待
+    assert arg_页面.locator('main').get_attribute('data-game-phase') == 'await_end_turn'
+AssertionError

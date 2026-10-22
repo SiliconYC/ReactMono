@@ -17,6 +17,8 @@ import { ContinuousGround } from './ContinuousGround.js';
 import { worldView, CAMERA_ELEVATION, clampWorldZoom, type WorldView } from './world-view.js';
 import { useWorldNavigation, initialNavigation, type ContextRequest, type Navigation } from './world-navigation.js';
 import { mapProjectionBounds, screenToGround } from './camera-math.js';
+import { WorldInspection } from './WorldInspection.js';
+import type { InspectionRequest } from './map-picking.js';
 import { WorldNavigation } from './WorldNavigation.js';
 import { tileIdForHit } from './map-picking.js';
 import { MapContextMenu } from './MapContextMenu.js';
@@ -37,6 +39,8 @@ type WorldCanvasProps = Readonly<{
   pendingBankruptIds?: readonly string[];
   paused?: boolean;
   viewportInsets?: ViewportInsets;
+  onConstructionBusyChange?: (busy:boolean)=>void;
+  onInspectingChange?: (busy:boolean)=>void;
   onMotionComplete: () => void;
   onActorStep: (tileId: number) => void;
   onSelectTile?: (tileId: number) => void;
@@ -119,10 +123,11 @@ function OperationalFallback({onReady,motion,onActorStep,onMotionComplete,childr
   return <>{children}</>;
 }
 
-function CameraRig({target,reducedMotion,insets,map,nav,onView,changed,onContext}:{
+function CameraRig({target,reducedMotion,insets,map,nav,onView,changed,onContext,onInspect,playerId}:{
   target:THREE.Vector3;reducedMotion:boolean;insets?:ViewportInsets;map:GameState['map'];
   nav:MutableRefObject<Navigation>;onView:(view:WorldView)=>void;changed:()=>void;
   onContext:(request:ContextRequest)=>void;
+  onInspect:(request:InspectionRequest|null)=>void;playerId:string;
 }):null {
   const {camera,size,invalidate}=useThree();
   const initialized=useRef(false),lastRegion=useRef('');
@@ -130,7 +135,7 @@ function CameraRig({target,reducedMotion,insets,map,nav,onView,changed,onContext
   const logical=useMemo(()=>new THREE.Vector3(),[]);
   const direction=useMemo(()=>new THREE.Vector3(Math.cos(CAMERA_ELEVATION)/Math.SQRT2,Math.sin(CAMERA_ELEVATION),Math.cos(CAMERA_ELEVATION)/Math.SQRT2),[]);
   const right=useMemo(()=>new THREE.Vector3(1,0,-1).normalize(),[]);
-  useWorldNavigation(nav,changed,onContext);
+  useWorldNavigation(nav,changed,onContext,onInspect,{kind:'player',playerId});
   useFrame((_,delta)=>{
     if(!(camera instanceof THREE.OrthographicCamera))return;
     const n=nav.current;
@@ -140,8 +145,7 @@ function CameraRig({target,reducedMotion,insets,map,nav,onView,changed,onContext
     const yaw=n.actualYaw,elevation=n.actualElevation,bounds=mapProjectionBounds(map,yaw);
     direction.set(Math.sin(yaw)*Math.cos(elevation),Math.sin(elevation),Math.cos(yaw)*Math.cos(elevation));
     right.set(Math.cos(yaw),0,-Math.sin(yaw));
-    const phoneOverview=size.width<=600&&n.mode==='overview';
-    const safe=insets?{...insets,top:insets.top+(phoneOverview?84:0),right:phoneOverview?insets.right:Math.max(insets.right,size.width<=600?132:202)}:undefined;
+    const safe=insets?{...insets,right:Math.max(insets.right,70)}:undefined;
     const overview=cameraFrame(size,safe,bounds,elevation);
     n.overviewZoom=Math.min(overview.zoom,64);
     const follow=cameraFrame(size,safe,size.width<=600?{width:7,depth:5}:{width:11,depth:9},elevation);
@@ -217,7 +221,7 @@ function WorldLighting({nav,shadowSize}:{nav:MutableRefObject<Navigation>;shadow
   </>;
 }
 
-function Scene(props: WorldCanvasProps & {shadowSize:number;nav:MutableRefObject<Navigation>;changed:()=>void;navigationRevision:number;onContext:(request:ContextRequest)=>void}): React.JSX.Element {
+function Scene(props: WorldCanvasProps & {shadowSize:number;nav:MutableRefObject<Navigation>;changed:()=>void;navigationRevision:number;onContext:(request:ContextRequest)=>void;onInspect:(request:InspectionRequest|null)=>void}): React.JSX.Element {
   const [view,setView]=useState(()=>worldView({x:0,z:0},32,{width:1280,height:720}));
   const invalidate = useThree((state) => state.invalidate);
   const scene = useThree((state) => state.scene);
@@ -246,11 +250,6 @@ function Scene(props: WorldCanvasProps & {shadowSize:number;nav:MutableRefObject
     props.viewportInsets,
     props.navigationRevision,
   ]);
-  useLayoutEffect(()=>{
-    if(!props.motion&&!props.rent&&!props.outcome)return;
-    Object.assign(props.nav.current,{mode:props.outcome?.stage==='draw'?'overview':'follow',center:null,zoom:null});
-    props.changed();
-  },[props.motion?.nonce,props.rent,props.outcome?.stage,props.outcome?.nonce,props.nav,props.changed]);
   const actor = props.game.players[props.game.currentPlayerIndex];
   const focusId =
     props.outcome?.stage === "draw"
@@ -271,14 +270,11 @@ function Scene(props: WorldCanvasProps & {shadowSize:number;nav:MutableRefObject
       <color attach="background" args={[worldForMap(props.game.map)?.background??'#b7cd9a']} />
       <fog attach="fog" args={[worldForMap(props.game.map)?.background??'#b7cd9a',100,200]} />
       <WorldLighting nav={props.nav} shadowSize={props.shadowSize}/>
-      <CameraRig target={trackedPosition} reducedMotion={props.reducedMotion} insets={props.viewportInsets} map={props.game.map} nav={props.nav} onView={setView} changed={props.changed} onContext={props.onContext}/>
-      <group onClick={event=>{
-        const tileId=tileIdForHit(event);
-        if(tileId!==null){event.stopPropagation();props.onSelectTile?.(tileId);}
-      }}>
-      {props.game.map.id==='lime-garden-30'?<LimeGarden reducedMotion={props.reducedMotion} selectedTileId={props.selectedTileId} game={props.game} view={view} nav={props.nav} onSelectTile={props.onSelectTile}/>:<>
+      <CameraRig target={trackedPosition} reducedMotion={props.reducedMotion} insets={props.viewportInsets} map={props.game.map} nav={props.nav} onView={setView} changed={props.changed} onContext={props.onContext} onInspect={props.onInspect} playerId={actor.id}/>
+      <group>
+      {props.game.map.id==='lime-garden-30'?<LimeGarden onConstructionBusyChange={props.onConstructionBusyChange} reducedMotion={props.reducedMotion} selectedTileId={props.selectedTileId} game={props.game} view={view} nav={props.nav}/>:<>
       <ContinuousGround view={view} map={props.game.map} actor={trackedPosition}/>
-      <MiniatureTown selectedTileId={props.selectedTileId} game={props.game} view={view} nav={props.nav} onSelectTile={props.onSelectTile}/>
+      <MiniatureTown selectedTileId={props.selectedTileId} game={props.game} view={view} nav={props.nav}/>
       </>}
       </group>
       {props.game.players.map((player, seat) => (
@@ -322,6 +318,10 @@ function Scene(props: WorldCanvasProps & {shadowSize:number;nav:MutableRefObject
 
 export function WorldCanvas(props: WorldCanvasProps): React.JSX.Element {
   const [ready, setReady] = useState(false);
+  const [inspection,setInspection]=useState<InspectionRequest|null>(null);
+  const inspectionCallback=useRef(props.onInspectingChange);inspectionCallback.current=props.onInspectingChange;
+  const inspect=useCallback((request:InspectionRequest|null)=>{if(request)inspectionCallback.current?.(true);setInspection(request);},[]);
+  useEffect(()=>{inspect(null);},[props.game.revision,props.game.map.id,props.paused,props.motion?.nonce,inspect]);
   const nativeDpr=Math.max(1,Math.min(2,window.devicePixelRatio));
   const [pixelRatio,setPixelRatio]=useState(nativeDpr);
   const [budget,setBudget]=useState<RenderBudget|null>(null);
@@ -336,9 +336,10 @@ export function WorldCanvas(props: WorldCanvasProps): React.JSX.Element {
   const [navigationRevision,setNavigationRevision]=useState(0);
   const nav=useRef<Navigation>(initialNavigation(props.followCurrent));
   const [context,setContext]=useState<ContextRequest|null>(null);
+  useEffect(()=>{inspectionCallback.current?.(inspection!==null||context!==null);},[inspection,context]);
   const shell=useRef<HTMLDivElement>(null);
   const canOpenContext=!props.paused&&!props.motion&&!props.rent&&!props.outcome;
-  const openContext=useCallback((request:ContextRequest)=>{if(canOpenContext)setContext(request);},[canOpenContext]);
+  const openContext=useCallback((request:ContextRequest)=>{if(canOpenContext){inspectionCallback.current?.(true);setContext(request);}},[canOpenContext]);
   useEffect(()=>{setContext(null);},[props.game.map.id,props.game.currentPlayerIndex,canOpenContext]);
   const appliedFollow=useRef(props.followCurrent);
   const onFollowChange=useRef(props.onFollowCurrentChange);onFollowChange.current=props.onFollowCurrentChange;
@@ -382,12 +383,12 @@ export function WorldCanvas(props: WorldCanvasProps): React.JSX.Element {
       {!ready && (
         <div className="scene-loading" role="status">
           <span />
-          正在搭建晴湾小镇…
+          正在搭建棋盘…
         </div>
       )}
       <RendererBoundary fallback={<OperationalFallback key={`${props.game.map.id}/${props.game.map.version}`} onReady={markReady} motion={props.motion} onActorStep={props.onActorStep} onMotionComplete={props.onMotionComplete}><FallbackContent game={props.game} onSelectTile={props.onSelectTile}/></OperationalFallback>}>
       <Canvas
-        aria-label="晴湾小镇 3D 棋盘"
+        aria-label="大富翁 2026 3D 棋盘"
         data-testid="world-canvas"
         orthographic
         frameloop={frameLoop}
@@ -401,13 +402,14 @@ export function WorldCanvas(props: WorldCanvasProps): React.JSX.Element {
         fallback={<FallbackContent game={props.game} onSelectTile={props.onSelectTile}/>}
       >
         <Suspense fallback={null}>
-          <Scene {...props} shadowSize={budget?.shadowSize??2048} nav={nav} changed={changed} navigationRevision={navigationRevision} onContext={openContext}/>
+          <Scene {...props} shadowSize={budget?.shadowSize??2048} nav={nav} changed={changed} navigationRevision={navigationRevision} onContext={openContext} onInspect={inspect}/>
           <SceneResolution mode={budget?.mode??'full'} nativeDpr={nativeDpr} onChange={setPixelRatio} nav={nav}/>
           <SceneReadiness key={`${props.game.map.id}/${props.game.map.version}`} onReady={markReady} onBudget={applyBudget} nativeDpr={nativeDpr} nav={nav}/>
         </Suspense>
       </Canvas>
       </RendererBoundary>
       <WorldNavigation game={props.game} nav={nav} changed={changed} disabled={props.paused??false}/>
+      {inspection&&!props.paused&&<WorldInspection game={props.game} request={inspection}/>}
       {context&&canOpenContext&&<MapContextMenu game={props.game} request={context} nav={nav} changed={changed} onSelect={props.onSelectTile} onClose={()=>setContext(null)} canvas={()=>shell.current?.querySelector('canvas')??null}/>}
     </div>
   );

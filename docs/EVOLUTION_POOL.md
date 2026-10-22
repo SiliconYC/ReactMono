@@ -26,7 +26,7 @@
 | [P006](proposals/P006-3d-art-renewal.md) | 真 3D 低多边形街区与前端表现重建 | P4 | **主程序 3D 入口与地产/银行/股票本地接入已实现；完整远程及 #73 验收仍未交付；原独立 demo 仅标记待删除** | 独立检查桌面/手机、完整对局、离线存档和远程 CI 后再更新阶段状态；不提前关闭 #73 |
 | [P007](proposals/P007-scalable-world-maps.md) | 连续地表艺术与数据驱动压力地图 | P4 | **#94 数据关卡；#107 连续地表、局部布局与大图清晰浏览已通过本地验收** | [数据入口](maps/README.md) / [渲染画面、性能和独立复核](maps/RENDERING_ACCEPTANCE.md)；正式版与真机验收仍由 #73 收口 |
 | [P008](proposals/P008-authored-level-worlds.md) | 显式关卡场景与手工路线构图 | P4 | **已晋升 #118，五图实现、独立审查和浏览器验收通过，集成本地dev** | [场景格式](maps/README.md) / [验收记录](maps/AUTHORED_WORLD_ACCEPTANCE.md)；取代 P007 自动背景方向 |
-| [P009](proposals/P009-map-camera-ux.md) | 地图操作与旋转可读性 | P4 | **已晋升 #120，鼠标旋转、地图菜单与编号朝向通过本地及独立验收** | [交互、截图与验收](maps/CAMERA_UX_ACCEPTANCE.md)；集成 `dev`，不发布正式服务 |
+| [P009](proposals/P009-map-camera-ux.md) | 地图操作与旋转可读性 | P4 | **#120 已实现；#137 进一步修正镜头跳切、按住查询、自动衔接及紧凑控件** | [原验收](maps/CAMERA_UX_ACCEPTANCE.md)、[系统修整验收](interaction-polish/acceptance.md)；集成 `dev`，不发布正式服务 |
 | [P010](proposals/P010-full-game-development-plan.md) | 从 demo 到正式游戏：子系统边界与单 Agent 任务包 | P4 | **所有者指定的规划审核已形成；实施任务尚未批量晋升** | 按计划逐项核对最新代码、依赖和证据，仅晋升少量可独立验收任务；#73 保留最终综合验收职责 |
 
 2026-10-21 所有者否定 `#127` 的整体画面结论：细节虽增加，但地图仍贫瘠、同树同屋重复，待售地像墓园。已去重晋升单图重做 [#129](https://github.com/SiliconYC/ReactMono/issues/129)，只集中改造 `classic-24`，以商业街、多种模型和真实生活街区关系为目标。[实施计划](town-art/living-town-plan.md)。上轮测试通过不作为此次视觉准入证据。
@@ -121,3 +121,7 @@
 ## 2026-10-22：P011 青柠联排经营
 
 所有者要求仅重做青柠地图的联排机制。已有视觉识别不承担核心建设与收租，问题证据明确；开放任务查重后定向晋升 [#136](https://github.com/SiliconYC/ReactMono/issues/136)。固定街区、整排最低层补建、累计收费、版本隔离已实现；[验收](maps/lime-garden/terraces-acceptance.md)记录 `281` 项测试、`200` 局逐动作审计、双视口和独立审查。其他六图数据不变，旧档继续原规则，体验新机制需新开青柠局；不把本轮结论提升为成熟经济平衡或正式发布。
+
+## 2026-10-22：P009 / P011 系统交互修整
+
+所有者十二项实机反馈经代码和真实浏览器定位后晋升 [#137](https://github.com/SiliconYC/ReactMono/issues/137)，复用既有相机及青柠提案，不新增重复方向。共享镜头、人物朝向、按住查询、自动衔接、控件和命名在系统层修复；业主饰件、产权路砖和共面修整限青柠。`295/295` 自动测试、双视口专项、既有完整主程序及相关画面回归通过，独立审查问题已修正。[验收与原始证据](interaction-polish/acceptance.md)记录未运行脚本和失败尝试；地图数据、规则和存档结构不变，`#73` 继续开放。

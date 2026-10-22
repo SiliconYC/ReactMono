@@ -9,11 +9,11 @@ test('旋转角度限幅，鼠标手势互不重叠',()=>{
   assert.equal(math.pointerAction(0,true),'rotate');
   assert.equal(math.pointerAction(1,false),'rotate');
   assert.equal(math.pointerAction(2,false),null);
-  assert.equal(math.clampElevation(-10),Math.PI/6);
-  assert.equal(math.clampElevation(10),Math.PI*70/180);
+  assert.equal(math.clampElevation(-10),math.MIN_ELEVATION);
+  assert.equal(math.clampElevation(10),math.MAX_ELEVATION);
 });
 test('任意方位和俯仰下平移与屏幕拖动一致',()=>{
-  for(const yaw of [0,Math.PI/4,Math.PI/2,Math.PI,Math.PI*1.7])for(const elevation of [Math.PI/6,math.DEFAULT_ELEVATION,Math.PI*70/180]){
+  for(const yaw of [0,Math.PI/4,Math.PI/2,Math.PI,Math.PI*1.7])for(const elevation of [math.MIN_ELEVATION,Math.PI/6,math.DEFAULT_ELEVATION,math.MAX_ELEVATION]){
     const p=panWorld({x:0,z:0},83,-41,37,yaw,elevation);
     const screen=math.groundToScreen(p,yaw,elevation);
     assert.ok(Math.abs(screen.x*37+83)<1e-8);
@@ -37,10 +37,10 @@ test('各朝向的全图投影边界覆盖全部显式场景',()=>{
   }
 });
 test('数字跟随视角正向，俯仰补偿后仍在旋转路砖内',()=>{
-  for(const yaw of [0,.8,2,3.5,5.8])for(const elevation of [Math.PI/6,math.DEFAULT_ELEVATION,Math.PI*70/180]){
+  for(const yaw of [0,.8,2,3.5,5.8])for(const elevation of [math.MIN_ELEVATION,Math.PI/6,math.DEFAULT_ELEVATION,math.MAX_ELEVATION]){
     const pose=math.labelPose(yaw,elevation);
     assert.equal(pose.rotation,yaw);
-    assert.ok(Math.abs(pose.scaleZ*Math.sin(elevation)-Math.sin(math.DEFAULT_ELEVATION))<1e-9);
+    assert.ok(Math.abs(pose.scaleZ-Math.min(1.55,Math.sin(math.DEFAULT_ELEVATION)/Math.sin(elevation)))<1e-9);
     for(const x of [-.22,.22])for(const z of [-.18,.18])assert.ok(Math.hypot(pose.x,pose.z)+Math.hypot(x,z*pose.scaleZ)<.89);
   }
 });

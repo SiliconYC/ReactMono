@@ -249,7 +249,7 @@ export function Modal({
     >
       <header className="dialog-heading">
         <div>
-          <span className="eyebrow">大富翁 · 小镇事务所</span>
+          <span className="eyebrow">大富翁 2026 · 本机对局</span>
           <h2 id="dialog-title">{title}</h2>
         </div>
         <button
@@ -298,11 +298,7 @@ export function MeasuredWorld(
               window.innerWidth - (dock?.left ?? window.innerWidth - 296) + 18,
             )
           : 24,
-        bottom: short
-          ? 20
-          : Math.ceil(
-              window.innerHeight - (dock?.top ?? window.innerHeight - 150) + 20,
-            ),
+        bottom: short ? 20 : Math.min(window.innerWidth<=600?278:230,Math.round(window.innerHeight*.36)),
         left: wide || short ? Math.ceil((roster?.right ?? 220) + 24) : 24,
       };
       setInsets((old) =>
