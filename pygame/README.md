@@ -1,6 +1,6 @@
 # Pygame《大富翁4》移植子项目
 
-状态：**移植进行中，尚不是完整可玩游戏**。现有入口是读取真实 MKF 的资源验收工具；当前进度与缺口见 [移植台账](../docs/porting/pygame/README.md)。原 React 游戏保持独立。
+状态：**移植进行中，尚不是完整可玩游戏**。现有资源/棋盘验收入口和可独立操作的三个原小游戏；当前进度与缺口见 [移植台账](../docs/porting/pygame/README.md)。原 React 游戏保持独立。
 
 ## 环境与运行
 
@@ -21,6 +21,16 @@ uv run --project pygame python pygame/tools/preview_board.py --assets /path/to/R
 ```
 
 方向键平移，`Q/E`旋转，`F`换人物帧，`Tab`换图，`Home`归位，`Esc`退出。`Space`是精灵帧采样，不是正式动画时序。黑色应用栏/侧栏尚无游戏UI，也没有可玩的回合；性能与真实桌面操作范围见 [棋盘说明](../docs/porting/pygame/BOARD.md)。
+
+三个原小游戏可独立操作：
+
+```sh
+uv run --project pygame python pygame/tools/preview_minigames.py --assets /path/to/Rich4 --game penguin
+uv run --project pygame python pygame/tools/preview_minigames.py --assets /path/to/Rich4 --game balloon
+uv run --project pygame python pygame/tools/preview_minigames.py --assets /path/to/Rich4 --game catcher --character 7
+```
+
+鼠标左键操作，天降按住跟随；原WAV/MIDI由外部素材载入，`--silent`静音，`Esc`退出。完成后关闭窗口并可通过`--log`保存结果/输入/随机状态/画布哈希。默认真实时钟，`--auto`、`--fixed-ms`只供开发验证。像素对照与音频/桌面验收边界见 [画面说明](../docs/porting/pygame/MINIGAME_PRESENTATION.md)。
 
 ## 测试
 

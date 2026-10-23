@@ -1,0 +1,110 @@
+{
+  "status": "passed",
+  "scope": "Pygame dummy video/audio configured; real logic, SDL_mixer WAV and MIDI load/play paths, no desktop input or audible waveform acceptance",
+  "pygame": "2.6.1",
+  "sdl": "2.28.4",
+  "episodes": [
+    {
+      "game": "penguin",
+      "configuration": {
+        "event": "ready",
+        "game": 0,
+        "seed": 42,
+        "character": 0,
+        "silent": false,
+        "bot": true,
+        "fixed_ms": 100,
+        "frame": 0,
+        "score": 0,
+        "draws": 28,
+        "random_state": 1726604670,
+        "sound_requests": 0,
+        "canvas_sha256": "8d44bd1267d2fd52a3910eacd9a25a988b27f63b035440daf886622a6e664676"
+      },
+      "result": {
+        "event": "result",
+        "score": 63,
+        "draws": 28,
+        "frame": 234,
+        "random_state": 1726604670,
+        "sound_requests": 36,
+        "canvas_sha256": "00ded1beed30b70f7a9ac3af39d20733c1c70bed628d79f943e4ab0134f79395"
+      },
+      "stages": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "game": "balloon",
+      "configuration": {
+        "event": "ready",
+        "game": 1,
+        "seed": 42,
+        "character": 0,
+        "silent": false,
+        "bot": true,
+        "fixed_ms": 100,
+        "frame": 0,
+        "score": 0,
+        "draws": 0,
+        "random_state": 42,
+        "sound_requests": 0,
+        "canvas_sha256": "14cdd9bcb8b0335dd7d552aaee931637565d609e22b88f429b8168587571523a"
+      },
+      "result": {
+        "event": "result",
+        "score": 73,
+        "draws": 1463,
+        "frame": 215,
+        "random_state": 3028819869,
+        "sound_requests": 199,
+        "canvas_sha256": "00145cde6bff9e5e995a9ced069c26ef29332a5d27d71f2576bbbf034b11acda"
+      },
+      "stages": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "game": "catcher",
+      "configuration": {
+        "event": "ready",
+        "game": 2,
+        "seed": 77,
+        "character": 7,
+        "silent": false,
+        "bot": true,
+        "fixed_ms": 100,
+        "frame": 0,
+        "score": 0,
+        "draws": 0,
+        "random_state": 77,
+        "sound_requests": 0,
+        "canvas_sha256": "36d9039f9a5836461c0b18150090731145e2954946707f9f881421007ce75a44"
+      },
+      "result": {
+        "event": "result",
+        "score": 55,
+        "draws": 174,
+        "frame": 240,
+        "random_state": 3662706119,
+        "sound_requests": 31,
+        "canvas_sha256": "0aeeacf9f119a7af731466b5e137dee51aac13c282449a6e608cf9d2f3a71ecf"
+      },
+      "stages": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+  ]
+}

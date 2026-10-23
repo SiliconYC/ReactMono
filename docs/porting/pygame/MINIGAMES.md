@@ -32,4 +32,4 @@ uv run --project pygame python pygame/tools/differential_minigames.py \
 
 ## 后续正式表现
 
-尚待移植`tools/screens/minigames.cpp`中的原背景、数字/大分数、企鹅命中图、洞盖章、原缩放/裁切、READY/GO与爆炸FLC、输入/音效/MIDI及实际窗口验收，并接回GameSession主随机流。资源只从外部素材目录读取，商业文件和截图不入GitHub。
+原背景、数字/大分数、企鹅命中图、洞盖章、缩放/裁切、READY/GO与爆炸FLC、输入和独立Pygame WAV/MIDI入口已在 [画面增量](MINIGAME_PRESENTATION.md) 实现并像素对照。实际桌面操作、完整音频一致性及GameSession主随机流接回仍待完成。资源只从外部素材目录读取，商业文件和截图不入GitHub。
