@@ -3590,5 +3590,324 @@
       "evidence/tools-differential.json",
       "TOOLS.md"
     ]
+  },
+  "src/cards.cpp:15": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片_类.api_使用/服务_类._整数"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:18": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片_类._成本/服务_类._整数"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:21": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片_类._同街/bytes.split"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:24": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片_类._地码"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:27": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片_类._设施码"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:30": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片_类._产权码"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:33": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片_类._脚下"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:42": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片产权_类"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:52": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片产权_类.业主"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:56": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片产权_类.等级"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:59": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片_类._成本"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:67": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片_类._要目标"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:71": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片_类._在场"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:76": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片_类._可见"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:85": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片_类._敌意"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:104": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片_类._低字"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:108": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片_类._地产敌意"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:113": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片_类._消费"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:116": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片_类._同街"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:126": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片_类._可请"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:130": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片_类._最近神"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:153": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片_类._梦游"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:171": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片_类._解盟"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:182": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片_类._说"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:187": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片结果_类"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:192": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片_类.api_主动"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:196": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片_类.api_合法目标"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "src/cards.cpp:250": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片_类.api_使用"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
+  },
+  "include/rich4/cards.hpp:28": {
+    "python": [
+      "pygame/src/rich4/cards.py::卡片结果_类.已使用"
+    ],
+    "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+    "evidence": [
+      "tests/test_cards.py",
+      "evidence/cards-differential.json",
+      "CARDS.md"
+    ]
   }
 }

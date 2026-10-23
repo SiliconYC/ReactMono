@@ -1825,9 +1825,15 @@
       "id": "include/rich4/cards.hpp:28",
       "declarator": "used() const noexcept",
       "end_line": 30,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片结果_类.已使用"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "include/rich4/flc.hpp:33",
@@ -3721,225 +3727,393 @@
       "id": "src/cards.cpp:15",
       "declarator": "add32(std::int32_t a, std::int32_t b)",
       "end_line": 17,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片_类.api_使用/服务_类._整数"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:18",
       "declarator": "mul32(std::int32_t a, std::int32_t b)",
       "end_line": 20,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片_类._成本/服务_类._整数"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:21",
       "declarator": "name(const std::string &value)",
       "end_line": 23,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片_类._同街/bytes.split"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:24",
       "declarator": "land_code(const World &w, std::uint16_t code)",
       "end_line": 26,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片_类._地码"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:27",
       "declarator": "facility_code(const World &w, std::uint16_t code)",
       "end_line": 29,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片_类._设施码"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:30",
       "declarator": "property_code(const World &w, std::uint16_t code)",
       "end_line": 32,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片_类._产权码"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:33",
       "declarator": "standing_property(const World &w, std::size_t actor)",
       "end_line": 36,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片_类._脚下"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:42",
       "declarator": "property(World &w, std::uint16_t code)",
       "end_line": 51,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片产权_类"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:52",
       "declarator": "owner(const World &w, std::uint16_t code)",
       "end_line": 55,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片产权_类.业主"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:56",
       "declarator": "level(const World &w, std::uint16_t code)",
       "end_line": 58,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片产权_类.等级"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:59",
       "declarator": "cost(const World &w, std::uint16_t code)",
       "end_line": 66,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片_类._成本"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:67",
       "declarator": "needs_target(std::uint8_t id)",
       "end_line": 70,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片_类._要目标"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:71",
       "declarator": "present(const World &w, std::size_t slot)",
       "end_line": 75,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片_类._在场"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:76",
       "declarator": "visible(const std::vector<std::uint16_t> &instances, CardTarget t)",
       "end_line": 84,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片_类._可见"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:85",
       "declarator": "hostility(World &w, const CardCallbacks &cb, std::size_t from, std::size_t to, std::int32_t amount)",
       "end_line": 103,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片_类._敌意"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:104",
       "declarator": "double_argument_low_word(double value)",
       "end_line": 107,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片_类._低字"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:108",
       "declarator": "property_hostility(std::int32_t indexed_base, std::uint8_t level)",
       "end_line": 112,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片_类._地产敌意"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:113",
       "declarator": "consume(World &w, std::size_t actor, std::uint8_t id)",
       "end_line": 115,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片_类._消费"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:116",
       "declarator": "same_street(const World &w, std::uint16_t code)",
       "end_line": 125,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片_类._同街"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:126",
       "declarator": "summonable(const MapObject &object)",
       "end_line": 129,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片_类._可请"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:130",
       "declarator": "nearest_god(const World &w, std::size_t actor, const CardCallbacks &cb)",
       "end_line": 152,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片_类._最近神"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:153",
       "declarator": "sleepwalk(World &w, std::size_t target, std::uint8_t days, bool add_total)",
       "end_line": 170,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片_类._梦游"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:171",
       "declarator": "break_ally(World &w, std::size_t target)",
       "end_line": 180,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片_类._解盟"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:182",
       "declarator": "say(const CardCallbacks &cb, std::size_t speaker, std::uint8_t row, std::uint8_t card,\n         std::uint8_t mood)",
       "end_line": 186,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片_类._说"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:187",
       "declarator": "result(CardUseStatus status, const char *message)",
       "end_line": 189,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片结果_类"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:192",
       "declarator": "active_card(std::uint8_t id) noexcept",
       "end_line": 194,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片_类.api_主动"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:196",
       "declarator": "legal_card_targets(const World &w, std::size_t actor, std::uint8_t id,\n                                           const CardCallbacks &cb)",
       "end_line": 248,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片_类.api_合法目标"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards.cpp:250",
       "declarator": "apply_card(World &w, Random &random, std::size_t actor, const CardUse &use,\n                      const CardCallbacks &cb)",
       "end_line": 686,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards.py::卡片_类.api_使用"
+      ],
+      "status": "已实现，八图模块差分；完整被动卡/真实嵌套会话/电脑策略另行接入",
+      "evidence": [
+        "tests/test_cards.py",
+        "evidence/cards-differential.json",
+        "CARDS.md"
+      ]
     },
     {
       "id": "src/cards_ai.cpp:17",
