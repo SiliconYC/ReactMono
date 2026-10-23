@@ -139,8 +139,30 @@ class 会话事务探针_类(会话表现_类, 会话事务_类):
                 e.原类型,
                 e.方向,
             ]
-            if e.转盘 is not None or e.月报 is not None:
-                raise ValueError("本探针范围不含月结/转盘")
+            if e.转盘 is not None:
+                raise ValueError("本探针范围不含转盘")
+            if e.月报 is not None:
+                m = e.月报
+                数 += [m.活跃, *m.人物, len(m.股利)]
+                for 行 in m.股利:
+                    数 += [行.股票, 行.盈余, *行.派发]
+                数 += [
+                    *m.票,
+                    m.奖池,
+                    m.号码,
+                    m.赢家,
+                    *m.现金,
+                    *m.存款,
+                    *m.利息,
+                    *m.余额,
+                    *m.总资产,
+                    m.贷款,
+                    *m.倒霉天,
+                    *m.收入,
+                    *m.支出,
+                    m.冠军,
+                    m.悲情,
+                ]
         d = self.待决策
         数.append(int(d is not None))
         if d:
@@ -288,6 +310,11 @@ class 会话事务差分_类:
     2026.10.24 - 测试适配器不进入正式Python运行依赖。
     """
 
+    探针 = 会话事务探针_类
+    工具名 = "game-transactions-oracle"
+    原生参数: tuple[str, ...] = ()
+    增量范围: str | None = None
+
     @staticmethod
     def _设置(arg_世: 世界_类) -> None:
         for i, 人 in enumerate(arg_世.玩家):
@@ -429,7 +456,7 @@ class 会话事务差分_类:
             check=True,
             capture_output=True,
         )
-        工具 = arg_构建.resolve() / "game-transactions-oracle"
+        工具 = arg_构建.resolve() / cls.工具名
         编 = subprocess.run(
             [
                 "c++",
@@ -461,6 +488,8 @@ class 会话事务差分_类:
             "episodes": [],
         }
         报告["identity_only"] = arg_仅引用
+        if cls.增量范围:
+            报告["scope"] = cls.增量范围
         if arg_仅引用:
             报告["scope"] = (
                 "escaped World/PlayerStatus/embedded-array references through original assignment; "
@@ -476,7 +505,7 @@ class 会话事务差分_类:
                     )
                     cls._设置(世)
                     原 = 世.api_导出()
-                    会 = 会话事务探针_类(原, 种)
+                    会 = cls.探针(原, 种)
                     命令 = (
                         ["r", "q 100 1 5 0 1", "a 25", "r", "S 0", "S 1"]
                         if arg_仅引用
@@ -491,7 +520,13 @@ class 会话事务差分_类:
                         路 = Path(临)
                         (路 / "input.dat").write_bytes(原)
                         cp = subprocess.run(
-                            [str(工具), str(路 / "input.dat"), str(路 / "out"), str(种)],
+                            [
+                                str(工具),
+                                str(路 / "input.dat"),
+                                str(路 / "out"),
+                                str(种),
+                                *cls.原生参数,
+                            ],
                             input="\n".join(命令) + "\n",
                             text=True,
                             capture_output=True,

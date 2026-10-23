@@ -296,7 +296,6 @@ class 股利行_类:
     2026.10.24 - 对应DividendRow。
     """
 
-    公司: int = 0
     股票: int = 0
     盈余: int = 0
     派发: list[int] = field(default_factory=lambda: [0] * 4)
