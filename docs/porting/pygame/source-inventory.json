@@ -4215,217 +4215,379 @@
       "id": "src/events.cpp:16",
       "declarator": "alive(const WorldPlayer &player)",
       "end_line": 18,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类._活"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/events.cpp:19",
       "declarator": "on_board(const WorldPlayer &player)",
       "end_line": 23,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类._在图"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/events.cpp:24",
       "declarator": "add(std::int32_t a, std::int32_t b)",
       "end_line": 26,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类._收入/服务_类._整数"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/events.cpp:27",
       "declarator": "multiply(std::int32_t a, std::int32_t b)",
       "end_line": 29,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类.api_新闻编号/服务_类._整数"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/events.cpp:32",
       "declarator": "fraction32(std::int32_t amount, std::uint32_t fraction_bits)",
       "end_line": 51,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类._比例"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/events.cpp:52",
       "declarator": "income(World &world, std::size_t slot, std::int32_t amount, bool cash = true)",
       "end_line": 59,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类._收入"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/events.cpp:60",
       "declarator": "voice(const EventCallbacks &callbacks, std::size_t actor, std::uint8_t category)",
       "end_line": 63,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类._语音"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/events.cpp:64",
       "declarator": "voice_money(const World &world, Random &random, std::int32_t amount, std::size_t actor,\n                 std::uint8_t base, const EventCallbacks &callbacks)",
       "end_line": 72,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类._钱语音"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/events.cpp:73",
       "declarator": "fortune_modifier(const WorldPlayer &player, Random &random, bool physical, bool adverse)",
       "end_line": 88,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类._运势"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/events.cpp:89",
       "declarator": "insurance(World &world, std::size_t actor, std::int32_t amount, const EventCallbacks &callbacks)",
       "end_line": 100,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类._保险"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/events.cpp:101",
       "declarator": "missing(std::uint8_t id, const char *feature)",
       "end_line": 103,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类._缺"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/events.cpp:104",
       "declarator": "done(std::uint8_t id, const char *description)",
       "end_line": 106,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类._成"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/events.cpp:107",
       "declarator": "done(std::uint8_t id, const char *description, std::int32_t value)",
       "end_line": 111,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类._成"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/events.cpp:118",
       "declarator": "properties(const World &world)",
       "end_line": 131,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类._地产"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/events.cpp:133",
       "declarator": "matching_properties(const World &world, Predicate predicate)",
       "end_line": 137,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类.api_新闻编号/候选推导式"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/events.cpp:138",
       "declarator": "&choose(const std::vector<Property> &candidates, Random &random)",
       "end_line": 142,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类._选"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/events.cpp:143",
       "declarator": "release_hotel_guests(World &world)",
       "end_line": 147,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类._释放酒店"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/events.cpp:148",
       "declarator": "destroy_property(World &world, std::uint16_t code, bool confiscate)",
       "end_line": 180,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类._损坏"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/events.cpp:181",
       "declarator": "update_price(World &world, const Property &property, bool increase)",
       "end_line": 202,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类._调地价"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/events.cpp:208",
       "declarator": "news_eligible(const World &world, std::uint8_t id)",
       "end_line": 266,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类.api_新闻可用"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/events.cpp:268",
       "declarator": "fortune_eligible(const World &world, std::size_t actor, std::uint8_t id)",
       "end_line": 320,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类.api_命运可用"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/events.cpp:322",
       "declarator": "select_news(const World &world)",
       "end_line": 333,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类.api_选新闻"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/events.cpp:334",
       "declarator": "select_fortune(const World &world, std::size_t actor)",
       "end_line": 345,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类.api_选命运"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/events.cpp:353",
       "declarator": "apply_news(World &world, Random &random, const EventCallbacks &callbacks)",
       "end_line": 363,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类.api_新闻"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/events.cpp:364",
       "declarator": "apply_fortune(World &world, Random &random, std::size_t actor, const EventCallbacks &callbacks)",
       "end_line": 374,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类.api_命运"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/events.cpp:376",
       "declarator": "apply_news_id(World &world, Random &random, std::uint8_t id, const EventCallbacks &callbacks)",
       "end_line": 667,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类.api_新闻编号"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/events.cpp:669",
       "declarator": "apply_fortune_id(World &world, Random &random, std::size_t actor, std::uint8_t id,\n                             const EventCallbacks &callbacks)",
       "end_line": 873,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/events.py::事件_类.api_命运编号"
+      ],
+      "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+      "evidence": [
+        "tests/test_events.py",
+        "evidence/events-differential.json",
+        "EVENTS.md"
+      ]
     },
     {
       "id": "src/flc.cpp:14",

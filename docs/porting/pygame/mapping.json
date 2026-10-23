@@ -3161,5 +3161,302 @@
       "evidence/gods-initial-failure.json",
       "GODS.md"
     ]
+  },
+  "src/events.cpp:16": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类._活"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
+  },
+  "src/events.cpp:19": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类._在图"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
+  },
+  "src/events.cpp:24": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类._收入/服务_类._整数"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
+  },
+  "src/events.cpp:27": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类.api_新闻编号/服务_类._整数"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
+  },
+  "src/events.cpp:32": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类._比例"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
+  },
+  "src/events.cpp:52": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类._收入"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
+  },
+  "src/events.cpp:60": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类._语音"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
+  },
+  "src/events.cpp:64": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类._钱语音"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
+  },
+  "src/events.cpp:73": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类._运势"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
+  },
+  "src/events.cpp:89": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类._保险"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
+  },
+  "src/events.cpp:101": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类._缺"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
+  },
+  "src/events.cpp:104": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类._成"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
+  },
+  "src/events.cpp:107": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类._成"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
+  },
+  "src/events.cpp:118": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类._地产"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
+  },
+  "src/events.cpp:133": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类.api_新闻编号/候选推导式"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
+  },
+  "src/events.cpp:138": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类._选"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
+  },
+  "src/events.cpp:143": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类._释放酒店"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
+  },
+  "src/events.cpp:148": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类._损坏"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
+  },
+  "src/events.cpp:181": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类._调地价"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
+  },
+  "src/events.cpp:208": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类.api_新闻可用"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
+  },
+  "src/events.cpp:268": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类.api_命运可用"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
+  },
+  "src/events.cpp:322": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类.api_选新闻"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
+  },
+  "src/events.cpp:334": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类.api_选命运"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
+  },
+  "src/events.cpp:353": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类.api_新闻"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
+  },
+  "src/events.cpp:364": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类.api_命运"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
+  },
+  "src/events.cpp:376": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类.api_新闻编号"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
+  },
+  "src/events.cpp:669": {
+    "python": [
+      "pygame/src/rich4/events.py::事件_类.api_命运编号"
+    ],
+    "status": "已实现，八图完整模块差分；真实嵌套回调/表现待接入",
+    "evidence": [
+      "tests/test_events.py",
+      "evidence/events-differential.json",
+      "EVENTS.md"
+    ]
   }
 }
