@@ -1,0 +1,9 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "scope": "pinned C++ software Extended model; not original EXE/x87 capture",
+  "cases": 40900,
+  "generator_seed": 2026102301,
+  "input_sha256": "1c0a67beda79831714443c33b503bd16e862996c49b6424ca41091140bb2e9a1",
+  "oracle_output_sha256": "b76e63335c53ec3ef0259d2cc1d32dff5d1c182e944f316280a812f49139ffa8",
+  "status": "passed"
+}
