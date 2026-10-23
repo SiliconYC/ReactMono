@@ -47,10 +47,16 @@ class 资源预览_类:
             raise ValueError(f"{self.名称}:{self.条目} 不是 SPR/SMP 或 640×480 原始画面")
         self.表面 = pygame.image.frombytes(self.图.api_RGBA(), (self.图.宽, self.图.高), "RGBA")
 
+    def api_画布(self) -> pygame.Surface:
+        画布 = pygame.Surface((640, 480))
+        画布.fill((0, 0, 0))
+        # 预览器把精灵完整置中；游戏场景仍用 graphics 模块的原锚点规则。
+        画布.blit(self.表面, ((640 - self.图.宽) // 2, (480 - self.图.高) // 2))
+        return 画布
+
     def api_执行(self, arg_截图: Path | None = None, arg_帧上限: int = 0) -> None:
         pygame.display.init()
         窗口 = pygame.display.set_mode((640, 480), pygame.RESIZABLE)
-        画布 = pygame.Surface((640, 480))
         时钟 = pygame.time.Clock()
         计数 = 0
         try:
@@ -75,8 +81,7 @@ class 资源预览_类:
                     f"Rich4 Pygame — Resource Preview — {self.名称}:{self.条目} "
                     f"frame {self.帧 + 1}/{self.帧数} — Left/Right, Esc"
                 )
-                画布.fill((0, 0, 0))
-                画布.blit(self.表面, (-self.图.原点x, -self.图.原点y))
+                画布 = self.api_画布()
                 窗口.fill((0, 0, 0))
                 左, 顶, 宽, 高 = 视口.矩形
                 窗口.blit(pygame.transform.scale(画布, (宽, 高)), (左, 顶))

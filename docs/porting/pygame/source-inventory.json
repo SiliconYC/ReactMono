@@ -2445,169 +2445,274 @@
       "id": "src/assets.cpp:22",
       "declarator": "require_range(std::size_t offset, std::size_t length, std::size_t total, const char *description)",
       "end_line": 26,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/assets.py::api_检查范围"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_assets.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/assets.cpp:28",
       "declarator": "read_u16(std::span<const std::uint8_t> bytes, std::size_t offset)",
       "end_line": 32,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/graphics.py::图像_类.api_解码/struct.unpack_from"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_assets.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/assets.cpp:34",
       "declarator": "read_u32(std::span<const std::uint8_t> bytes, std::size_t offset)",
       "end_line": 39,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/assets.py::__init__/struct.unpack_from"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_assets.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/assets.cpp:41",
       "declarator": "read_i16(std::span<const std::uint8_t> bytes, std::size_t offset)",
       "end_line": 43,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/graphics.py::图像_类.api_解码/struct.unpack_from"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_assets.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/assets.cpp:45",
       "declarator": "read_file(const std::filesystem::path &path)",
       "end_line": 64,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/assets.py::__init__/Path.read_bytes"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_assets.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/assets.cpp:70",
       "declarator": "BitReader(std::span<const std::uint8_t> source)",
       "end_line": 70,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/assets.py::位流_类.__init__"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_assets.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/assets.cpp:72",
       "declarator": "read(unsigned count)",
       "end_line": 85,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/assets.py::位流_类.api_读取"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_assets.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/assets.cpp:87",
       "declarator": "peek(unsigned count) const",
       "end_line": 90,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/assets.py::位流_类.api_窥视"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_assets.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/assets.cpp:108",
       "declarator": "AdaptiveTree()",
       "end_line": 124,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/assets.py::自适应树_类.__init__"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_assets.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/assets.cpp:126",
       "declarator": "decode(BitReader &bits)",
       "end_line": 137,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/assets.py::自适应树_类.api_解码"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_assets.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/assets.cpp:144",
       "declarator": "set_parent(std::size_t first_child, std::size_t node)",
       "end_line": 149,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/assets.py::自适应树_类._设置父节点"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_assets.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/assets.cpp:151",
       "declarator": "increment(std::size_t symbol)",
       "end_line": 170,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/assets.py::自适应树_类._递增"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_assets.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/assets.cpp:172",
       "declarator": "rescale()",
       "end_line": 183,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/assets.py::自适应树_类.api_解码"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_assets.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/assets.cpp:188",
       "declarator": "check_output_limit(std::size_t size, std::size_t maximum)",
       "end_line": 192,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/assets.py::解压器_类.api_解压"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_assets.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/assets.cpp:196",
       "declarator": "Archive::Archive(const std::filesystem::path &path)",
       "end_line": 198,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/assets.py::资源包_类.__init__"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_assets.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/assets.cpp:200",
       "declarator": "Archive::Archive(std::vector<std::uint8_t> bytes)",
       "end_line": 202,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/assets.py::资源包_类.__init__"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_assets.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/assets.cpp:204",
       "declarator": "Archive::read_index()",
       "end_line": 232,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/assets.py::资源包_类.__init__"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_assets.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/assets.cpp:234",
       "declarator": "&Archive::metadata(std::size_t index) const",
       "end_line": 239,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/assets.py::资源包_类.条目/api_解码"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_assets.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/assets.cpp:241",
       "declarator": "Archive::decode(std::size_t index, std::size_t max_output_bytes) const",
       "end_line": 258,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/assets.py::资源包_类.api_解码"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_assets.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/assets.cpp:260",
       "declarator": "decompress(std::span<const std::uint8_t> source, std::size_t decoded_size,\n                                     std::size_t max_output_bytes)",
       "end_line": 295,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/assets.py::解压器_类.api_解压"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_assets.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/assets.cpp:297",
       "declarator": "parse_graphics(std::span<const std::uint8_t> decoded)",
       "end_line": 334,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/graphics.py::图像_类.api_解码"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_assets.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/auction.cpp:16",
@@ -2981,89 +3086,144 @@
       "id": "src/calendar.cpp:13",
       "declarator": "days_before_year(std::int32_t year)",
       "end_line": 15,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/calendar.py::_年前天数"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_primitives.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/calendar.cpp:18",
       "declarator": "require_valid(Date date)",
       "end_line": 22,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/calendar.py::__post_init__"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_primitives.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/calendar.cpp:25",
       "declarator": "days_in_month(std::uint16_t year, std::uint8_t month)",
       "end_line": 33,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/calendar.py::api_月天数"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_primitives.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/calendar.cpp:35",
       "declarator": "is_valid(Date date) noexcept",
       "end_line": 42,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/calendar.py::__post_init__"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_primitives.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/calendar.cpp:44",
       "declarator": "days_from_1998(Date date)",
       "end_line": 51,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/calendar.py::api_天数"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_primitives.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/calendar.cpp:53",
       "declarator": "from_days(std::int32_t days)",
       "end_line": 76,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/calendar.py::api_从天数"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_primitives.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/calendar.cpp:78",
       "declarator": "weekday(Date date)",
       "end_line": 80,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/calendar.py::api_星期"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_primitives.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/calendar.cpp:82",
       "declarator": "next_day(Date date)",
       "end_line": 101,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/calendar.py::api_下一天"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_primitives.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/calendar.cpp:103",
       "declarator": "add_days(Date date, std::int32_t delta)",
       "end_line": 109,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/calendar.py::api_加天数"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_primitives.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/calendar.cpp:111",
       "declarator": "days_between(Date first, Date second)",
       "end_line": 113,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/calendar.py::api_日期差"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_primitives.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/calendar.cpp:115",
       "declarator": "add_packed_interval(std::uint32_t packed_date, std::uint32_t packed_interval) noexcept",
       "end_line": 121,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/calendar.py::api_打包间隔"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_primitives.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/cards.cpp:15",
@@ -3485,49 +3645,79 @@
       "id": "src/direction.cpp:12",
       "declarator": "magnitude(std::uint32_t bits)",
       "end_line": 14,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/direction.py::api_计算"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_primitives.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/direction.cpp:17",
       "declarator": "from_delta(std::int32_t dx, std::int32_t dy) noexcept",
       "end_line": 48,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/direction.py::api_计算"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_primitives.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/economy.cpp:12",
       "declarator": "nul_prefix(std::string_view bytes) noexcept",
       "end_line": 15,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/economy.py::经济_类.api_通行费"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_inventory_economy.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/economy.cpp:19",
       "declarator": "decode_land_economy_record(std::span<const std::uint8_t> bytes)",
       "end_line": 40,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/economy.py::地产经济_类.api_解码"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_inventory_economy.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/economy.cpp:42",
       "declarator": "chain_store_count(std::span<const LandEconomyRecord> lands, std::int32_t owner_code) noexcept",
       "end_line": 49,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/economy.py::经济_类.api_连锁数"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_inventory_economy.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/economy.cpp:51",
       "declarator": "land_toll(std::span<const LandEconomyRecord> lands, std::int32_t owner_code,\n                       std::int32_t price_index, std::optional<std::string_view> street)",
       "end_line": 69,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/economy.py::经济_类.api_通行费"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_inventory_economy.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/events.cpp:16",
@@ -3749,105 +3939,170 @@
       "id": "src/flc.cpp:14",
       "declarator": "u16(std::span<const std::uint8_t> data, std::size_t at)",
       "end_line": 18,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/flc.py::_整数"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_flc.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/flc.cpp:19",
       "declarator": "u32(std::span<const std::uint8_t> data, std::size_t at)",
       "end_line": 23,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/flc.py::_整数"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_flc.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/flc.cpp:24",
       "declarator": "u8(std::span<const std::uint8_t> data, std::size_t at)",
       "end_line": 28,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/flc.py::_整数"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_flc.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/flc.cpp:31",
       "declarator": "is_flc(std::span<const std::uint8_t> bytes) noexcept",
       "end_line": 33,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/flc.py::__init__"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_flc.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/flc.cpp:35",
       "declarator": "Decoder::Decoder(std::vector<std::uint8_t> bytes)",
       "end_line": 45,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/flc.py::__init__"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_flc.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/flc.cpp:47",
       "declarator": "Decoder::rewind()",
       "end_line": 52,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/flc.py::api_倒带"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_flc.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/flc.cpp:54",
       "declarator": "Decoder::next()",
       "end_line": 72,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/flc.py::api_下一帧"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_flc.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/flc.cpp:74",
       "declarator": "Decoder::apply_frame(std::size_t offset, std::size_t size)",
       "end_line": 107,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/flc.py::_应用帧"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_flc.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/flc.cpp:109",
       "declarator": "Decoder::color_256(std::span<const std::uint8_t> data)",
       "end_line": 125,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/flc.py::_调色"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_flc.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/flc.cpp:127",
       "declarator": "Decoder::byte_run(std::span<const std::uint8_t> data)",
       "end_line": 154,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/flc.py::_游程"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_flc.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/flc.cpp:156",
       "declarator": "Decoder::delta_flc(std::span<const std::uint8_t> data)",
       "end_line": 214,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/flc.py::_增量"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_flc.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/flc.cpp:216",
       "declarator": "Decoder::copy(std::span<const std::uint8_t> data)",
       "end_line": 220,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/flc.py::_应用帧"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_flc.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/flc.cpp:222",
       "declarator": "Decoder::image() const",
       "end_line": 231,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/flc.py::api_图像"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_flc.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:35",
@@ -5541,81 +5796,131 @@
       "id": "src/graphics.cpp:13",
       "declarator": "pixel_count(int width, int height)",
       "end_line": 20,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/graphics.py::__post_init__"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_graphics.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/graphics.cpp:21",
       "declarator": "validate(const Image &image)",
       "end_line": 26,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/graphics.py::__post_init__"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_graphics.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/graphics.cpp:27",
       "declarator": "word(std::span<const std::uint8_t> data, std::size_t offset)",
       "end_line": 31,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/graphics.py::api_解码/struct.unpack_from"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_graphics.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/graphics.cpp:34",
       "declarator": "make_canvas(int width, int height, std::uint16_t fill)",
       "end_line": 36,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/graphics.py::__init__"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_graphics.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/graphics.cpp:38",
       "declarator": "decode_frame(std::span<const std::uint8_t> resource, std::size_t frame)",
       "end_line": 61,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/graphics.py::api_解码"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_graphics.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/graphics.cpp:63",
       "declarator": "blit(Image &destination, const Image &source, int x, int y, Transparency transparency)",
       "end_line": 65,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/graphics.py::api_绘制"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_graphics.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/graphics.cpp:67",
       "declarator": "blit(Image &destination, const Image &source, int x, int y, Rect clip, Transparency transparency)",
       "end_line": 100,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/graphics.py::api_绘制"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_graphics.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/graphics.cpp:102",
       "declarator": "rgb555_to_rgb565(std::uint16_t color)",
       "end_line": 105,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/graphics.py::api_RGBA"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_graphics.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/graphics.cpp:107",
       "declarator": "to_argb8888(const Image &image)",
       "end_line": 119,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/graphics.py::api_RGBA"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_graphics.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/graphics.cpp:121",
       "declarator": "write_ppm(const Image &image, const std::filesystem::path &path)",
       "end_line": 134,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/graphics.py::api_PPM"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_graphics.py",
+        "evidence/assets-differential.json"
+      ]
     },
     {
       "id": "src/holidays.cpp:137",
@@ -5669,113 +5974,183 @@
       "id": "src/inventory.cpp:12",
       "declarator": "card_index(std::uint8_t id)",
       "end_line": 16,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/inventory.py::_编号"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_inventory_economy.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/inventory.cpp:18",
       "declarator": "tool_index(std::uint8_t id)",
       "end_line": 22,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/inventory.py::_编号"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_inventory_economy.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/inventory.cpp:24",
       "declarator": "validate_cards(const CardSlots &cards, bool require_packed = false)",
       "end_line": 36,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/inventory.py::_验证手牌"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_inventory_economy.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/inventory.cpp:38",
       "declarator": "increment_byte(std::uint8_t value) noexcept",
       "end_line": 40,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/inventory.py::api_收卡/api_用卡"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_inventory_economy.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/inventory.cpp:44",
       "declarator": "card_count(const CardSlots &cards) noexcept",
       "end_line": 47,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/inventory.py::api_卡数"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_inventory_economy.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/inventory.cpp:49",
       "declarator": "has_card(const CardSlots &cards, std::uint8_t card_id) noexcept",
       "end_line": 51,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/inventory.py::api_有卡"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_inventory_economy.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/inventory.cpp:53",
       "declarator": "cheapest_card(const CardSlots &cards, const CardPrices &prices)",
       "end_line": 64,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/inventory.py::api_最便宜卡"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_inventory_economy.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/inventory.cpp:66",
       "declarator": "consume_card(CardSlots &cards, CardSupply &supply, std::uint8_t card_id)",
       "end_line": 78,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/inventory.py::api_用卡"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_inventory_economy.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/inventory.cpp:80",
       "declarator": "receive_card(CardSlots &cards, CardSupply &supply, const CardPrices &prices, std::uint8_t card_id)",
       "end_line": 88,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/inventory.py::api_收卡"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_inventory_economy.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/inventory.cpp:90",
       "declarator": "drop_half_cards(CardSlots &cards, CardSupply &supply)",
       "end_line": 101,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/inventory.py::api_丢半手"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_inventory_economy.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/inventory.cpp:103",
       "declarator": "sell_all_cards(CardSlots &cards, CardSupply &supply, const CardPrices &prices)",
       "end_line": 115,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/inventory.py::api_卖卡"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_inventory_economy.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/inventory.cpp:117",
       "declarator": "receive_tool(ToolAmounts &amounts, ToolSupply &supply, std::uint8_t tool_id)",
       "end_line": 128,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/inventory.py::api_收道具"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_inventory_economy.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/inventory.cpp:130",
       "declarator": "consume_tool(ToolAmounts &amounts, ToolSupply &supply, std::uint8_t tool_id)",
       "end_line": 138,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/inventory.py::api_用道具"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_inventory_economy.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/inventory.cpp:140",
       "declarator": "sell_stored_tools(ToolAmounts &amounts, ToolSupply &supply, const ToolPrices &prices) noexcept",
       "end_line": 150,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/inventory.py::api_卖库存道具"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_inventory_economy.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/lottery.cpp:12",
@@ -6029,9 +6404,14 @@
       "id": "src/random.cpp:7",
       "declarator": "Random::next() noexcept",
       "end_line": 11,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/random.py::api_下一个"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_primitives.py",
+        "evidence/rules-differential.json"
+      ]
     },
     {
       "id": "src/save.cpp:22",

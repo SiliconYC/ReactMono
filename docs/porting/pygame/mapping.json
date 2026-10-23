@@ -1,0 +1,762 @@
+{
+  "src/assets.cpp:22": {
+    "python": [
+      "pygame/src/rich4/assets.py::api_检查范围"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_assets.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/assets.cpp:28": {
+    "python": [
+      "pygame/src/rich4/graphics.py::图像_类.api_解码/struct.unpack_from"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_assets.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/assets.cpp:34": {
+    "python": [
+      "pygame/src/rich4/assets.py::__init__/struct.unpack_from"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_assets.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/assets.cpp:41": {
+    "python": [
+      "pygame/src/rich4/graphics.py::图像_类.api_解码/struct.unpack_from"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_assets.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/assets.cpp:45": {
+    "python": [
+      "pygame/src/rich4/assets.py::__init__/Path.read_bytes"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_assets.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/assets.cpp:70": {
+    "python": [
+      "pygame/src/rich4/assets.py::位流_类.__init__"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_assets.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/assets.cpp:72": {
+    "python": [
+      "pygame/src/rich4/assets.py::位流_类.api_读取"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_assets.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/assets.cpp:87": {
+    "python": [
+      "pygame/src/rich4/assets.py::位流_类.api_窥视"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_assets.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/assets.cpp:108": {
+    "python": [
+      "pygame/src/rich4/assets.py::自适应树_类.__init__"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_assets.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/assets.cpp:126": {
+    "python": [
+      "pygame/src/rich4/assets.py::自适应树_类.api_解码"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_assets.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/assets.cpp:144": {
+    "python": [
+      "pygame/src/rich4/assets.py::自适应树_类._设置父节点"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_assets.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/assets.cpp:151": {
+    "python": [
+      "pygame/src/rich4/assets.py::自适应树_类._递增"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_assets.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/assets.cpp:172": {
+    "python": [
+      "pygame/src/rich4/assets.py::自适应树_类.api_解码"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_assets.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/assets.cpp:188": {
+    "python": [
+      "pygame/src/rich4/assets.py::解压器_类.api_解压"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_assets.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/assets.cpp:196": {
+    "python": [
+      "pygame/src/rich4/assets.py::资源包_类.__init__"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_assets.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/assets.cpp:200": {
+    "python": [
+      "pygame/src/rich4/assets.py::资源包_类.__init__"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_assets.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/assets.cpp:204": {
+    "python": [
+      "pygame/src/rich4/assets.py::资源包_类.__init__"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_assets.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/assets.cpp:234": {
+    "python": [
+      "pygame/src/rich4/assets.py::资源包_类.条目/api_解码"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_assets.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/assets.cpp:241": {
+    "python": [
+      "pygame/src/rich4/assets.py::资源包_类.api_解码"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_assets.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/assets.cpp:260": {
+    "python": [
+      "pygame/src/rich4/assets.py::解压器_类.api_解压"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_assets.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/assets.cpp:297": {
+    "python": [
+      "pygame/src/rich4/graphics.py::图像_类.api_解码"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_assets.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/graphics.cpp:13": {
+    "python": [
+      "pygame/src/rich4/graphics.py::__post_init__"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_graphics.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/graphics.cpp:21": {
+    "python": [
+      "pygame/src/rich4/graphics.py::__post_init__"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_graphics.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/graphics.cpp:27": {
+    "python": [
+      "pygame/src/rich4/graphics.py::api_解码/struct.unpack_from"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_graphics.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/graphics.cpp:34": {
+    "python": [
+      "pygame/src/rich4/graphics.py::__init__"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_graphics.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/graphics.cpp:38": {
+    "python": [
+      "pygame/src/rich4/graphics.py::api_解码"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_graphics.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/graphics.cpp:63": {
+    "python": [
+      "pygame/src/rich4/graphics.py::api_绘制"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_graphics.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/graphics.cpp:67": {
+    "python": [
+      "pygame/src/rich4/graphics.py::api_绘制"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_graphics.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/graphics.cpp:102": {
+    "python": [
+      "pygame/src/rich4/graphics.py::api_RGBA"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_graphics.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/graphics.cpp:107": {
+    "python": [
+      "pygame/src/rich4/graphics.py::api_RGBA"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_graphics.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/graphics.cpp:121": {
+    "python": [
+      "pygame/src/rich4/graphics.py::api_PPM"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_graphics.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/flc.cpp:14": {
+    "python": [
+      "pygame/src/rich4/flc.py::_整数"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_flc.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/flc.cpp:19": {
+    "python": [
+      "pygame/src/rich4/flc.py::_整数"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_flc.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/flc.cpp:24": {
+    "python": [
+      "pygame/src/rich4/flc.py::_整数"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_flc.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/flc.cpp:31": {
+    "python": [
+      "pygame/src/rich4/flc.py::__init__"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_flc.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/flc.cpp:35": {
+    "python": [
+      "pygame/src/rich4/flc.py::__init__"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_flc.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/flc.cpp:47": {
+    "python": [
+      "pygame/src/rich4/flc.py::api_倒带"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_flc.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/flc.cpp:54": {
+    "python": [
+      "pygame/src/rich4/flc.py::api_下一帧"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_flc.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/flc.cpp:74": {
+    "python": [
+      "pygame/src/rich4/flc.py::_应用帧"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_flc.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/flc.cpp:109": {
+    "python": [
+      "pygame/src/rich4/flc.py::_调色"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_flc.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/flc.cpp:127": {
+    "python": [
+      "pygame/src/rich4/flc.py::_游程"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_flc.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/flc.cpp:156": {
+    "python": [
+      "pygame/src/rich4/flc.py::_增量"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_flc.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/flc.cpp:216": {
+    "python": [
+      "pygame/src/rich4/flc.py::_应用帧"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_flc.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/flc.cpp:222": {
+    "python": [
+      "pygame/src/rich4/flc.py::api_图像"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_flc.py",
+      "evidence/assets-differential.json"
+    ]
+  },
+  "src/calendar.cpp:13": {
+    "python": [
+      "pygame/src/rich4/calendar.py::_年前天数"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_primitives.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/calendar.cpp:18": {
+    "python": [
+      "pygame/src/rich4/calendar.py::__post_init__"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_primitives.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/calendar.cpp:25": {
+    "python": [
+      "pygame/src/rich4/calendar.py::api_月天数"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_primitives.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/calendar.cpp:35": {
+    "python": [
+      "pygame/src/rich4/calendar.py::__post_init__"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_primitives.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/calendar.cpp:44": {
+    "python": [
+      "pygame/src/rich4/calendar.py::api_天数"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_primitives.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/calendar.cpp:53": {
+    "python": [
+      "pygame/src/rich4/calendar.py::api_从天数"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_primitives.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/calendar.cpp:78": {
+    "python": [
+      "pygame/src/rich4/calendar.py::api_星期"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_primitives.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/calendar.cpp:82": {
+    "python": [
+      "pygame/src/rich4/calendar.py::api_下一天"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_primitives.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/calendar.cpp:103": {
+    "python": [
+      "pygame/src/rich4/calendar.py::api_加天数"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_primitives.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/calendar.cpp:111": {
+    "python": [
+      "pygame/src/rich4/calendar.py::api_日期差"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_primitives.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/calendar.cpp:115": {
+    "python": [
+      "pygame/src/rich4/calendar.py::api_打包间隔"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_primitives.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/direction.cpp:12": {
+    "python": [
+      "pygame/src/rich4/direction.py::api_计算"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_primitives.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/direction.cpp:17": {
+    "python": [
+      "pygame/src/rich4/direction.py::api_计算"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_primitives.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/random.cpp:7": {
+    "python": [
+      "pygame/src/rich4/random.py::api_下一个"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_primitives.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/inventory.cpp:12": {
+    "python": [
+      "pygame/src/rich4/inventory.py::_编号"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_inventory_economy.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/inventory.cpp:18": {
+    "python": [
+      "pygame/src/rich4/inventory.py::_编号"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_inventory_economy.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/inventory.cpp:24": {
+    "python": [
+      "pygame/src/rich4/inventory.py::_验证手牌"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_inventory_economy.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/inventory.cpp:38": {
+    "python": [
+      "pygame/src/rich4/inventory.py::api_收卡/api_用卡"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_inventory_economy.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/inventory.cpp:44": {
+    "python": [
+      "pygame/src/rich4/inventory.py::api_卡数"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_inventory_economy.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/inventory.cpp:49": {
+    "python": [
+      "pygame/src/rich4/inventory.py::api_有卡"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_inventory_economy.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/inventory.cpp:53": {
+    "python": [
+      "pygame/src/rich4/inventory.py::api_最便宜卡"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_inventory_economy.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/inventory.cpp:66": {
+    "python": [
+      "pygame/src/rich4/inventory.py::api_用卡"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_inventory_economy.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/inventory.cpp:80": {
+    "python": [
+      "pygame/src/rich4/inventory.py::api_收卡"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_inventory_economy.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/inventory.cpp:90": {
+    "python": [
+      "pygame/src/rich4/inventory.py::api_丢半手"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_inventory_economy.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/inventory.cpp:103": {
+    "python": [
+      "pygame/src/rich4/inventory.py::api_卖卡"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_inventory_economy.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/inventory.cpp:117": {
+    "python": [
+      "pygame/src/rich4/inventory.py::api_收道具"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_inventory_economy.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/inventory.cpp:130": {
+    "python": [
+      "pygame/src/rich4/inventory.py::api_用道具"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_inventory_economy.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/inventory.cpp:140": {
+    "python": [
+      "pygame/src/rich4/inventory.py::api_卖库存道具"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_inventory_economy.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/economy.cpp:12": {
+    "python": [
+      "pygame/src/rich4/economy.py::经济_类.api_通行费"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_inventory_economy.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/economy.cpp:19": {
+    "python": [
+      "pygame/src/rich4/economy.py::地产经济_类.api_解码"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_inventory_economy.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/economy.cpp:42": {
+    "python": [
+      "pygame/src/rich4/economy.py::经济_类.api_连锁数"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_inventory_economy.py",
+      "evidence/rules-differential.json"
+    ]
+  },
+  "src/economy.cpp:51": {
+    "python": [
+      "pygame/src/rich4/economy.py::经济_类.api_通行费"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_inventory_economy.py",
+      "evidence/rules-differential.json"
+    ]
+  }
+}
