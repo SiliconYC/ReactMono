@@ -80,3 +80,7 @@ uv run --project pygame python pygame/tools/differential_world.py \
 ## 商店与魔法增量（2026-10-23）
 
 八图24组7200个服务动作逐步比较完整DAT、RNG、回值/异常类别、货架/赠品和回调参数顺序，通过。测试回调仅观察接口；尚未验证真实事件处理、魔法窗口或商店UI。规则依据、复现命令和测试准备失败记录见 [SERVICES.md](SERVICES.md)。
+
+## 日历与彩票增量（2026-10-23）
+
+完整Python测试 **85/85**、Ruff通过。96456个日历用例（其中3168个贷款到期日）与5880个彩票动作的完整DAT/RNG/返回字段均与固定C++一致，见 [报告](evidence/calendar-lottery-differential.json)。未执行真实开奖/节日动画、完整回合或自然长局；输入与原日历的边界说明见 [CALENDAR_LOTTERY.md](CALENDAR_LOTTERY.md)。

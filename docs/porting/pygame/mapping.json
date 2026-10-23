@@ -1663,5 +1663,159 @@
       "evidence/services-differential.json",
       "SERVICES.md"
     ]
+  },
+  "src/holidays.cpp:137": {
+    "python": [
+      "pygame/src/rich4/holidays.py::节日_类.api_农历"
+    ],
+    "status": "已实现，自动差分；表现和回合入口未接入",
+    "evidence": [
+      "tests/test_holidays.py",
+      "evidence/calendar-lottery-differential.json",
+      "CALENDAR_LOTTERY.md"
+    ]
+  },
+  "src/holidays.cpp:150": {
+    "python": [
+      "pygame/src/rich4/holidays.py::节日_类.api_节日行"
+    ],
+    "status": "已实现，自动差分；表现和回合入口未接入",
+    "evidence": [
+      "tests/test_holidays.py",
+      "evidence/calendar-lottery-differential.json",
+      "CALENDAR_LOTTERY.md"
+    ]
+  },
+  "src/holidays.cpp:188": {
+    "python": [
+      "pygame/src/rich4/holidays.py::节日_类.api_休市"
+    ],
+    "status": "已实现，自动差分；表现和回合入口未接入",
+    "evidence": [
+      "tests/test_holidays.py",
+      "evidence/calendar-lottery-differential.json",
+      "CALENDAR_LOTTERY.md"
+    ]
+  },
+  "src/holidays.cpp:197": {
+    "python": [
+      "pygame/src/rich4/holidays.py::节日_类.api_节日图片"
+    ],
+    "status": "已实现，自动差分；表现和回合入口未接入",
+    "evidence": [
+      "tests/test_holidays.py",
+      "evidence/calendar-lottery-differential.json",
+      "CALENDAR_LOTTERY.md"
+    ]
+  },
+  "src/holidays.cpp:221": {
+    "python": [
+      "pygame/src/rich4/holidays.py::节日_类.api_庆祝"
+    ],
+    "status": "已实现，自动差分；表现和回合入口未接入",
+    "evidence": [
+      "tests/test_holidays.py",
+      "evidence/calendar-lottery-differential.json",
+      "CALENDAR_LOTTERY.md"
+    ]
+  },
+  "src/holidays.cpp:237": {
+    "python": [
+      "pygame/src/rich4/holidays.py::节日_类.api_贷款到期"
+    ],
+    "status": "已实现，自动差分；表现和回合入口未接入",
+    "evidence": [
+      "tests/test_holidays.py",
+      "evidence/calendar-lottery-differential.json",
+      "CALENDAR_LOTTERY.md"
+    ]
+  },
+  "src/lottery.cpp:12": {
+    "python": [
+      "pygame/src/rich4/lottery.py::彩票_类._验证"
+    ],
+    "status": "已实现，自动差分；表现和回合入口未接入",
+    "evidence": [
+      "tests/test_lottery.py",
+      "evidence/calendar-lottery-differential.json",
+      "CALENDAR_LOTTERY.md"
+    ]
+  },
+  "src/lottery.cpp:19": {
+    "python": [
+      "pygame/src/rich4/lottery.py::彩票_类._整数"
+    ],
+    "status": "已实现，自动差分；表现和回合入口未接入",
+    "evidence": [
+      "tests/test_lottery.py",
+      "evidence/calendar-lottery-differential.json",
+      "CALENDAR_LOTTERY.md"
+    ]
+  },
+  "src/lottery.cpp:24": {
+    "python": [
+      "pygame/src/rich4/lottery.py::彩票_类.api_可售号码"
+    ],
+    "status": "已实现，自动差分；表现和回合入口未接入",
+    "evidence": [
+      "tests/test_lottery.py",
+      "evidence/calendar-lottery-differential.json",
+      "CALENDAR_LOTTERY.md"
+    ]
+  },
+  "src/lottery.cpp:33": {
+    "python": [
+      "pygame/src/rich4/lottery.py::彩票_类.api_购票"
+    ],
+    "status": "已实现，自动差分；表现和回合入口未接入",
+    "evidence": [
+      "tests/test_lottery.py",
+      "evidence/calendar-lottery-differential.json",
+      "CALENDAR_LOTTERY.md"
+    ]
+  },
+  "src/lottery.cpp:51": {
+    "python": [
+      "pygame/src/rich4/lottery.py::彩票_类.api_随机购票"
+    ],
+    "status": "已实现，自动差分；表现和回合入口未接入",
+    "evidence": [
+      "tests/test_lottery.py",
+      "evidence/calendar-lottery-differential.json",
+      "CALENDAR_LOTTERY.md"
+    ]
+  },
+  "src/lottery.cpp:64": {
+    "python": [
+      "pygame/src/rich4/lottery.py::彩票_类.api_退票"
+    ],
+    "status": "已实现，自动差分；表现和回合入口未接入",
+    "evidence": [
+      "tests/test_lottery.py",
+      "evidence/calendar-lottery-differential.json",
+      "CALENDAR_LOTTERY.md"
+    ]
+  },
+  "src/lottery.cpp:71": {
+    "python": [
+      "pygame/src/rich4/lottery.py::彩票_类.api_开奖"
+    ],
+    "status": "已实现，自动差分；表现和回合入口未接入",
+    "evidence": [
+      "tests/test_lottery.py",
+      "evidence/calendar-lottery-differential.json",
+      "CALENDAR_LOTTERY.md"
+    ]
+  },
+  "src/lottery.cpp:103": {
+    "python": [
+      "pygame/src/rich4/lottery.py::彩票_类.api_开奖日"
+    ],
+    "status": "已实现，自动差分；表现和回合入口未接入",
+    "evidence": [
+      "tests/test_lottery.py",
+      "evidence/calendar-lottery-differential.json",
+      "CALENDAR_LOTTERY.md"
+    ]
   }
 }
