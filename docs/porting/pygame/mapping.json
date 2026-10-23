@@ -2885,5 +2885,281 @@
       "evidence/special-actors-differential.json",
       "SPECIAL_ACTORS.md"
     ]
+  },
+  "src/gods.cpp:17": {
+    "python": [
+      "pygame/src/rich4/gods.py::神明_类.api_附身/16位回绕"
+    ],
+    "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+    "evidence": [
+      "tests/test_gods.py",
+      "evidence/gods-differential.json",
+      "evidence/gods-initial-failure.json",
+      "GODS.md"
+    ]
+  },
+  "src/gods.cpp:21": {
+    "python": [
+      "pygame/src/rich4/gods.py::神明_类.api_附身/服务_类._整数"
+    ],
+    "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+    "evidence": [
+      "tests/test_gods.py",
+      "evidence/gods-differential.json",
+      "evidence/gods-initial-failure.json",
+      "GODS.md"
+    ]
+  },
+  "src/gods.cpp:24": {
+    "python": [
+      "pygame/src/rich4/gods.py::神明_类.api_地产后/服务_类._整数"
+    ],
+    "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+    "evidence": [
+      "tests/test_gods.py",
+      "evidence/gods-differential.json",
+      "evidence/gods-initial-failure.json",
+      "GODS.md"
+    ]
+  },
+  "src/gods.cpp:27": {
+    "python": [
+      "pygame/src/rich4/gods.py::神明_类._缺"
+    ],
+    "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+    "evidence": [
+      "tests/test_gods.py",
+      "evidence/gods-differential.json",
+      "evidence/gods-initial-failure.json",
+      "GODS.md"
+    ]
+  },
+  "src/gods.cpp:30": {
+    "python": [
+      "pygame/src/rich4/gods.py::神明_类._语音"
+    ],
+    "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+    "evidence": [
+      "tests/test_gods.py",
+      "evidence/gods-differential.json",
+      "evidence/gods-initial-failure.json",
+      "GODS.md"
+    ]
+  },
+  "src/gods.cpp:34": {
+    "python": [
+      "pygame/src/rich4/gods.py::神明_类._奖语音"
+    ],
+    "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+    "evidence": [
+      "tests/test_gods.py",
+      "evidence/gods-differential.json",
+      "evidence/gods-initial-failure.json",
+      "GODS.md"
+    ]
+  },
+  "src/gods.cpp:42": {
+    "python": [
+      "pygame/src/rich4/gods.py::神明_类._收入语音"
+    ],
+    "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+    "evidence": [
+      "tests/test_gods.py",
+      "evidence/gods-differential.json",
+      "evidence/gods-initial-failure.json",
+      "GODS.md"
+    ]
+  },
+  "src/gods.cpp:51": {
+    "python": [
+      "pygame/src/rich4/gods.py::神明_类._结束"
+    ],
+    "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+    "evidence": [
+      "tests/test_gods.py",
+      "evidence/gods-differential.json",
+      "evidence/gods-initial-failure.json",
+      "GODS.md"
+    ]
+  },
+  "src/gods.cpp:56": {
+    "python": [
+      "pygame/src/rich4/gods.py::金钱转盘_类.__init__"
+    ],
+    "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+    "evidence": [
+      "tests/test_gods.py",
+      "evidence/gods-differential.json",
+      "evidence/gods-initial-failure.json",
+      "GODS.md"
+    ]
+  },
+  "src/gods.cpp:61": {
+    "python": [
+      "pygame/src/rich4/gods.py::金钱转盘_类.api_停止"
+    ],
+    "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+    "evidence": [
+      "tests/test_gods.py",
+      "evidence/gods-differential.json",
+      "evidence/gods-initial-failure.json",
+      "GODS.md"
+    ]
+  },
+  "src/gods.cpp:65": {
+    "python": [
+      "pygame/src/rich4/gods.py::金钱转盘_类.金额"
+    ],
+    "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+    "evidence": [
+      "tests/test_gods.py",
+      "evidence/gods-differential.json",
+      "evidence/gods-initial-failure.json",
+      "GODS.md"
+    ]
+  },
+  "src/gods.cpp:71": {
+    "python": [
+      "pygame/src/rich4/gods.py::金钱转盘_类._转位"
+    ],
+    "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+    "evidence": [
+      "tests/test_gods.py",
+      "evidence/gods-differential.json",
+      "evidence/gods-initial-failure.json",
+      "GODS.md"
+    ]
+  },
+  "src/gods.cpp:100": {
+    "python": [
+      "pygame/src/rich4/gods.py::金钱转盘_类.api_步进"
+    ],
+    "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+    "evidence": [
+      "tests/test_gods.py",
+      "evidence/gods-differential.json",
+      "evidence/gods-initial-failure.json",
+      "GODS.md"
+    ]
+  },
+  "src/gods.cpp:151": {
+    "python": [
+      "pygame/src/rich4/gods.py::神明_类.api_自动金额"
+    ],
+    "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+    "evidence": [
+      "tests/test_gods.py",
+      "evidence/gods-differential.json",
+      "evidence/gods-initial-failure.json",
+      "GODS.md"
+    ]
+  },
+  "src/gods.cpp:161": {
+    "python": [
+      "pygame/src/rich4/gods.py::神明_类.api_可附身"
+    ],
+    "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+    "evidence": [
+      "tests/test_gods.py",
+      "evidence/gods-differential.json",
+      "evidence/gods-initial-failure.json",
+      "GODS.md"
+    ]
+  },
+  "src/gods.cpp:167": {
+    "python": [
+      "pygame/src/rich4/gods.py::神明_类.api_脱离"
+    ],
+    "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+    "evidence": [
+      "tests/test_gods.py",
+      "evidence/gods-differential.json",
+      "evidence/gods-initial-failure.json",
+      "GODS.md"
+    ]
+  },
+  "src/gods.cpp:185": {
+    "python": [
+      "pygame/src/rich4/gods.py::神明_类.api_附身"
+    ],
+    "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+    "evidence": [
+      "tests/test_gods.py",
+      "evidence/gods-differential.json",
+      "evidence/gods-initial-failure.json",
+      "GODS.md"
+    ]
+  },
+  "src/gods.cpp:275": {
+    "python": [
+      "pygame/src/rich4/gods.py::神明_类.api_接触"
+    ],
+    "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+    "evidence": [
+      "tests/test_gods.py",
+      "evidence/gods-differential.json",
+      "evidence/gods-initial-failure.json",
+      "GODS.md"
+    ]
+  },
+  "src/gods.cpp:338": {
+    "python": [
+      "pygame/src/rich4/gods.py::神明_类.api_地产后"
+    ],
+    "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+    "evidence": [
+      "tests/test_gods.py",
+      "evidence/gods-differential.json",
+      "evidence/gods-initial-failure.json",
+      "GODS.md"
+    ]
+  },
+  "src/gods.cpp:405": {
+    "python": [
+      "pygame/src/rich4/gods.py::神明_类.api_购地后"
+    ],
+    "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+    "evidence": [
+      "tests/test_gods.py",
+      "evidence/gods-differential.json",
+      "evidence/gods-initial-failure.json",
+      "GODS.md"
+    ]
+  },
+  "include/rich4/gods.hpp:46": {
+    "python": [
+      "pygame/src/rich4/gods.py::金钱转盘_类.完成"
+    ],
+    "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+    "evidence": [
+      "tests/test_gods.py",
+      "evidence/gods-differential.json",
+      "evidence/gods-initial-failure.json",
+      "GODS.md"
+    ]
+  },
+  "include/rich4/gods.hpp:50": {
+    "python": [
+      "pygame/src/rich4/gods.py::金钱转盘_类.阶段"
+    ],
+    "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+    "evidence": [
+      "tests/test_gods.py",
+      "evidence/gods-differential.json",
+      "evidence/gods-initial-failure.json",
+      "GODS.md"
+    ]
+  },
+  "include/rich4/gods.hpp:54": {
+    "python": [
+      "pygame/src/rich4/gods.py::金钱转盘_类.数字"
+    ],
+    "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+    "evidence": [
+      "tests/test_gods.py",
+      "evidence/gods-differential.json",
+      "evidence/gods-initial-failure.json",
+      "GODS.md"
+    ]
   }
 }

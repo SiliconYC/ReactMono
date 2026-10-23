@@ -13,6 +13,7 @@
 - [拍卖会话和数值依据](AUCTION.md)。
 - [私下交易与电脑市场](TRADING.md)。
 - [特殊移动角色、回调顺序与部分失败](SPECIAL_ACTORS.md)。
+- [神明、地上对象与原金钱转盘](GODS.md)。
 - [GND与原定点地形扫描](TERRAIN.md)。
 - [原查表投影、反投影与渲染快照](PROJECTION.md)。
 - [原地图合成、遮挡与性能边界](BOARD.md)。
