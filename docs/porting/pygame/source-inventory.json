@@ -3050,11 +3050,14 @@
       "python": [
         "pygame/src/rich4/board_projection.py::棋盘投影_类.Python整数//32"
       ],
-      "status": "已实现，自动差分；实际场景合成待接入",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
       "evidence": [
         "tests/test_board_projection.py",
         "evidence/projection-differential.json",
-        "PROJECTION.md"
+        "PROJECTION.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
       ]
     },
     {
@@ -3064,11 +3067,14 @@
       "python": [
         "pygame/src/rich4/board_projection.py::棋盘投影_类.api_分数偏移"
       ],
-      "status": "已实现，自动差分；实际场景合成待接入",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
       "evidence": [
         "tests/test_board_projection.py",
         "evidence/projection-differential.json",
-        "PROJECTION.md"
+        "PROJECTION.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
       ]
     },
     {
@@ -3078,11 +3084,14 @@
       "python": [
         "pygame/src/rich4/board_projection.py::棋盘投影_类.api_验证相机"
       ],
-      "status": "已实现，自动差分；实际场景合成待接入",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
       "evidence": [
         "tests/test_board_projection.py",
         "evidence/projection-differential.json",
-        "PROJECTION.md"
+        "PROJECTION.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
       ]
     },
     {
@@ -3092,11 +3101,14 @@
       "python": [
         "pygame/src/rich4/board_projection.py::棋盘投影_类.api_屏幕中心"
       ],
-      "status": "已实现，自动差分；实际场景合成待接入",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
       "evidence": [
         "tests/test_board_projection.py",
         "evidence/projection-differential.json",
-        "PROJECTION.md"
+        "PROJECTION.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
       ]
     },
     {
@@ -3106,84 +3118,168 @@
       "python": [
         "pygame/src/rich4/board_projection.py::棋盘投影_类.api_格点"
       ],
-      "status": "已实现，自动差分；实际场景合成待接入",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
       "evidence": [
         "tests/test_board_projection.py",
         "evidence/projection-differential.json",
-        "PROJECTION.md"
+        "PROJECTION.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
       ]
     },
     {
       "id": "src/board_renderer.cpp:58",
       "declarator": "read_u16(std::span<const std::uint8_t> bytes, std::size_t offset)",
       "end_line": 63,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_renderer.py::棋盘绘制_类._摆放/struct.unpack_from"
+      ],
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "evidence": [
+        "tests/test_board_renderer.py",
+        "evidence/board-baseline-differential.json",
+        "BOARD.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:65",
       "declarator": "read_i16(std::span<const std::uint8_t> bytes, std::size_t offset)",
       "end_line": 68,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_renderer.py::棋盘绘制_类._摆放/struct.unpack_from"
+      ],
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "evidence": [
+        "tests/test_board_renderer.py",
+        "evidence/board-baseline-differential.json",
+        "BOARD.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:70",
       "declarator": "read_u32(std::span<const std::uint8_t> bytes, std::size_t offset)",
       "end_line": 72,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_renderer.py::棋盘绘制_类._摆放/struct.unpack_from"
+      ],
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "evidence": [
+        "tests/test_board_renderer.py",
+        "evidence/board-baseline-differential.json",
+        "BOARD.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:74",
       "declarator": "find_archive(const std::filesystem::path &directory, std::string name)",
       "end_line": 84,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_renderer.py::棋盘绘制_类._查包"
+      ],
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "evidence": [
+        "tests/test_board_renderer.py",
+        "evidence/board-baseline-differential.json",
+        "BOARD.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:95",
       "declarator": "read_placements(std::span<const std::uint8_t> bytes, std::size_t table)",
       "end_line": 125,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_renderer.py::棋盘绘制_类._摆放"
+      ],
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "evidence": [
+        "tests/test_board_renderer.py",
+        "evidence/board-baseline-differential.json",
+        "BOARD.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:127",
       "declarator": "effective_clip(const graphics::Image &image, const Camera &camera)",
       "end_line": 135,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_renderer.py::棋盘绘制_类._取框"
+      ],
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "evidence": [
+        "tests/test_board_renderer.py",
+        "evidence/board-baseline-differential.json",
+        "BOARD.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:137",
       "declarator": "owner_color(std::uint8_t owner, const Scene &scene)",
       "end_line": 151,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_renderer.py::棋盘绘制_类._业主色"
+      ],
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "evidence": [
+        "tests/test_board_renderer.py",
+        "evidence/board-baseline-differential.json",
+        "BOARD.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:153",
       "declarator": "owner_character(std::uint8_t owner, const Scene &scene)",
       "end_line": 163,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_renderer.py::棋盘绘制_类._业主角色"
+      ],
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "evidence": [
+        "tests/test_board_renderer.py",
+        "evidence/board-baseline-differential.json",
+        "BOARD.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:165",
       "declarator": "with_override(Placement placement, std::size_t id, std::span<const PropertyState> overrides)",
       "end_line": 175,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_renderer.py::棋盘绘制_类._覆盖"
+      ],
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "evidence": [
+        "tests/test_board_renderer.py",
+        "evidence/board-baseline-differential.json",
+        "BOARD.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:179",
@@ -3192,11 +3288,14 @@
       "python": [
         "pygame/src/rich4/board_projection.py::棋盘投影_类.api_角色资源"
       ],
-      "status": "已实现，自动差分；实际场景合成待接入",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
       "evidence": [
         "tests/test_board_projection.py",
         "evidence/projection-differential.json",
-        "PROJECTION.md"
+        "PROJECTION.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
       ]
     },
     {
@@ -3206,11 +3305,14 @@
       "python": [
         "pygame/src/rich4/board_projection.py::棋盘投影_类.api_投影"
       ],
-      "status": "已实现，自动差分；实际场景合成待接入",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
       "evidence": [
         "tests/test_board_projection.py",
         "evidence/projection-differential.json",
-        "PROJECTION.md"
+        "PROJECTION.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
       ]
     },
     {
@@ -3220,116 +3322,236 @@
       "python": [
         "pygame/src/rich4/board_projection.py::棋盘投影_类.api_反投影"
       ],
-      "status": "已实现，自动差分；实际场景合成待接入",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
       "evidence": [
         "tests/test_board_projection.py",
         "evidence/projection-differential.json",
-        "PROJECTION.md"
+        "PROJECTION.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
       ]
     },
     {
       "id": "src/board_renderer.cpp:249",
       "declarator": "Impl(const std::filesystem::path &directory, std::uint8_t selected_map)",
       "end_line": 257,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_renderer.py::棋盘绘制_类.__init__"
+      ],
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "evidence": [
+        "tests/test_board_renderer.py",
+        "evidence/board-baseline-differential.json",
+        "BOARD.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:259",
       "declarator": "&resource(bool data, std::size_t index)",
       "end_line": 267,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_renderer.py::棋盘绘制_类._资源"
+      ],
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "evidence": [
+        "tests/test_board_renderer.py",
+        "evidence/board-baseline-differential.json",
+        "BOARD.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:269",
       "declarator": "&frame(bool data, std::size_t index, std::size_t number, int accent = -1)",
       "end_line": 290,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_renderer.py::棋盘绘制_类._帧"
+      ],
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "evidence": [
+        "tests/test_board_renderer.py",
+        "evidence/board-baseline-differential.json",
+        "BOARD.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:292",
       "declarator": "facility_base() const",
       "end_line": 294,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_renderer.py::棋盘绘制_类._设施基数"
+      ],
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "evidence": [
+        "tests/test_board_renderer.py",
+        "evidence/board-baseline-differential.json",
+        "BOARD.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:296",
       "declarator": "scenery_resource(std::uint16_t id) const",
       "end_line": 310,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_renderer.py::棋盘绘制_类._景物资源"
+      ],
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "evidence": [
+        "tests/test_board_renderer.py",
+        "evidence/board-baseline-differential.json",
+        "BOARD.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:313",
       "declarator": "Renderer::Renderer(const std::filesystem::path &directory, std::uint8_t map_id)",
       "end_line": 318,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_renderer.py::棋盘绘制_类.__init__"
+      ],
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "evidence": [
+        "tests/test_board_renderer.py",
+        "evidence/board-baseline-differential.json",
+        "BOARD.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:319",
       "declarator": "Renderer::~Renderer()",
       "end_line": 319,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_renderer.py::棋盘绘制_类.Python对象生命周期"
+      ],
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "evidence": [
+        "tests/test_board_renderer.py",
+        "evidence/board-baseline-differential.json",
+        "BOARD.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:320",
       "declarator": "Renderer::Renderer(Renderer &&) noexcept",
       "end_line": 320,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_renderer.py::棋盘绘制_类.Python对象引用/所有权"
+      ],
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "evidence": [
+        "tests/test_board_renderer.py",
+        "evidence/board-baseline-differential.json",
+        "BOARD.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:323",
       "declarator": "Renderer::node_position(std::uint32_t id) const",
       "end_line": 328,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_renderer.py::棋盘绘制_类.api_节点位置"
+      ],
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "evidence": [
+        "tests/test_board_renderer.py",
+        "evidence/board-baseline-differential.json",
+        "BOARD.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:330",
       "declarator": "Renderer::node_count() const noexcept",
       "end_line": 332,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_renderer.py::棋盘绘制_类.api_节点数"
+      ],
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "evidence": [
+        "tests/test_board_renderer.py",
+        "evidence/board-baseline-differential.json",
+        "BOARD.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:333",
       "declarator": "Renderer::map_id() const noexcept",
       "end_line": 335,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_renderer.py::棋盘绘制_类.api_地图编号"
+      ],
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "evidence": [
+        "tests/test_board_renderer.py",
+        "evidence/board-baseline-differential.json",
+        "BOARD.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:337",
       "declarator": "Renderer::render_ground(graphics::Image &destination, const Camera &camera)",
       "end_line": 387,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_renderer.py::棋盘绘制_类.api_绘地面"
+      ],
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "evidence": [
+        "tests/test_board_renderer.py",
+        "evidence/board-baseline-differential.json",
+        "BOARD.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:389",
       "declarator": "Renderer::render(graphics::Image &destination, const Scene &scene, const Camera &camera)",
       "end_line": 570,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_renderer.py::棋盘绘制_类.api_绘制"
+      ],
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "evidence": [
+        "tests/test_board_renderer.py",
+        "evidence/board-baseline-differential.json",
+        "BOARD.md",
+        "evidence/board-differential.json",
+        "evidence/board-performance.json",
+        "evidence/board-native-verification.json"
+      ]
     },
     {
       "id": "src/calendar.cpp:13",
@@ -6116,7 +6338,8 @@
       "status": "已实现，自动差分",
       "evidence": [
         "tests/test_graphics.py",
-        "evidence/assets-differential.json"
+        "evidence/assets-differential.json",
+        "evidence/blit-differential.json"
       ]
     },
     {
@@ -6129,7 +6352,8 @@
       "status": "已实现，自动差分",
       "evidence": [
         "tests/test_graphics.py",
-        "evidence/assets-differential.json"
+        "evidence/assets-differential.json",
+        "evidence/blit-differential.json"
       ]
     },
     {
@@ -6142,7 +6366,8 @@
       "status": "已实现，自动差分",
       "evidence": [
         "tests/test_graphics.py",
-        "evidence/assets-differential.json"
+        "evidence/assets-differential.json",
+        "evidence/colors-differential.json"
       ]
     },
     {
@@ -6155,7 +6380,8 @@
       "status": "已实现，自动差分",
       "evidence": [
         "tests/test_graphics.py",
-        "evidence/assets-differential.json"
+        "evidence/assets-differential.json",
+        "evidence/colors-differential.json"
       ]
     },
     {

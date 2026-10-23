@@ -14,6 +14,14 @@ uv run --project pygame rich4-pygame --assets /path/to/Rich4 --archive Data.mkf 
 
 窗口保持 640×480 逻辑画布，缩放时等比留黑边；左右键切换资源内精灵帧，`Esc` 退出。`--frame` 指定初始帧；`--screenshot` 只写本地忽略目录，`--frames` 用于有限帧窗口冒烟运行。不接收或假装执行任何尚未实现的游戏指令。
 
+地图合成工具可读取全部八图：
+
+```sh
+uv run --project pygame python pygame/tools/preview_board.py --assets /path/to/Rich4
+```
+
+方向键平移，`Q/E`旋转，`F`换人物帧，`Tab`换图，`Home`归位，`Esc`退出。`Space`是精灵帧采样，不是正式动画时序。黑色应用栏/侧栏尚无游戏UI，也没有可玩的回合；性能与真实桌面操作范围见 [棋盘说明](../docs/porting/pygame/BOARD.md)。
+
 ## 测试
 
 ```sh

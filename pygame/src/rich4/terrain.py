@@ -91,7 +91,7 @@ class 地形_类:
     原16.16四边形扫描；点顺序为(y,x)，裁剪框为(左,顶,右,底)。
 
     更新日志：
-    2026.10.23 - 对应 draw_tile与其全部有符号整数辅助函数。
+    2026.10.23 - 对应draw_tile；惰性扫描行与延后纹理回绕保持原位取样。
     """
 
     @staticmethod
@@ -120,7 +120,7 @@ class 地形_类:
         arg_末纹: tuple[int, int],
         arg_纹差: tuple[int, int],
         arg_框: tuple[int, int, int, int],
-        arg_行: list[扫描行_类],
+        arg_行: list[扫描行_类 | None],
         arg_首行: int,
     ) -> int:
         高 = arg_末[0] - arg_首[0]
@@ -144,6 +144,9 @@ class 地形_类:
         u, v, x = cls._步进(u, du, 跳过), cls._步进(v, dv, 跳过), cls._步进(x, dx, 跳过)
         for y in range(顶行, 底行):
             行 = arg_行[y]
+            if 行 is None:
+                行 = 扫描行_类()
+                arg_行[y] = 行
             已改 = False
             if x < 行.左:
                 行.左, 已改 = x, True
@@ -186,15 +189,16 @@ class 地形_类:
         框 = 左, 顶, 右, 底
         纹 = ((0, 0), (31, 0), (31, 31), (0, 31))
         差 = ((32, 0), (0, 32), (-32, 0), (0, -32))
-        行组 = [扫描行_类() for _ in range(高)]
+        行组: list[扫描行_类 | None] = [None] * 高
         首行 = 高
         for 边 in range(4):
             后 = (边 + 1) % 4
             首行 = cls._扫边(arg_角[边], arg_角[后], 纹[边], 纹[后], 差[边], 框, 行组, 首行)
         掩码 = bytearray(arg_目标.不透明)
+        像素 = arg_目标.像素
         for y in range(首行, 高):
             行 = 行组[y]
-            if 行.左 == 0x7FFF0000:
+            if 行 is None or 行.左 == 0x7FFF0000:
                 break
             行左, 行右 = 行.左 >> 16, 行.右 >> 16
             跨 = 行右 - 行左
@@ -204,11 +208,13 @@ class 地形_类:
             dv = cls._除(cls._整数(行.右v - 行.左v), 跨)
             起, 终 = max(行左, 左), min(行右, 右)
             u, v = cls._步进(行.左u, du, 起 - 行左), cls._步进(行.左v, dv, 起 - 行左)
-            for x in range(起, 终):
+            行首 = y * 宽 + 起
+            for 号 in range(行首, 行首 + 终 - 起):
                 纹x, 纹y = u >> 16 & 31, v >> 16 & 31
-                号 = y * 宽 + x
-                arg_目标.像素[号] = arg_调色[arg_纹理[纹y * 32 + 纹x]]
-                if 掩码:
-                    掩码[号] = 1
-                u, v = cls._步进(u, du), cls._步进(v, dv)
+                像素[号] = arg_调色[arg_纹理[纹y * 32 + 纹x]]
+                # 取样只读位16..20，累加可延后32位回绕而不改变纹理索引。
+                u += du
+                v += dv
+            if 掩码:
+                掩码[行首 : 行首 + 终 - 起] = b"\x01" * (终 - 起)
         arg_目标.不透明 = bytes(掩码)

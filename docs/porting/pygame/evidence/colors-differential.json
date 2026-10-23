@@ -1,0 +1,8 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "scope": "all uint16 opaque RGB555 conversions; alpha mask contract tested separately",
+  "cases": 65536,
+  "bytes": 262144,
+  "output_sha256": "056a558ad3f6c0d4803fa29f697cc86d8613b499d6a688b0034fcf09b2b4be9b"
+}

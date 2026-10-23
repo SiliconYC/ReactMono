@@ -1,0 +1,96 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "scope": "real-asset board composition; no application UI, sound or timing",
+  "timing_scope": "all Python render attempts, including cold loads and expected rejects; not display FPS",
+  "status": "passed",
+  "maps": [
+    {
+      "map": 0,
+      "frames": 293,
+      "rejected": 2,
+      "initialize_seconds": 0.1143,
+      "attempt_seconds_total": 106.9472,
+      "input_sha256": "58c23ee7266b00b23b35d6764876c5917ec0acfcc00fbd4af1e0b2c4aa7d1fe4",
+      "pixels_masks_sha256": "c239b64fc00a908cad20806e355db5c149fb842d9aaf8615eabab8b1518d1a40",
+      "original_34_cases_sha256": "1eb1733a37eb8637cd385b63a76adc56ea87153d39cb43758e36e68ab196e2eb",
+      "fractional_camera_cases": 256
+    },
+    {
+      "map": 1,
+      "frames": 293,
+      "rejected": 2,
+      "initialize_seconds": 1.0983,
+      "attempt_seconds_total": 27.9417,
+      "input_sha256": "04fb78a52549d88f706b442abf008e2693858275b9c8f2f216b1aec5d1dac262",
+      "pixels_masks_sha256": "9c9e880ca40bfcf23bbaf3bcc2bb2384e415e644bf23b8d516613875bf5cb94c",
+      "original_34_cases_sha256": "dbd15da1407effd3d5fcea81f3ef972f1d8bc6e994514d198b7cb7e1ee26845e",
+      "fractional_camera_cases": 256
+    },
+    {
+      "map": 2,
+      "frames": 293,
+      "rejected": 2,
+      "initialize_seconds": 0.1007,
+      "attempt_seconds_total": 18.7088,
+      "input_sha256": "209ec491577a0bdd75b91402078c450b050ae61d89e0e2fda387fad1c4bdbe4c",
+      "pixels_masks_sha256": "cfcd09aaec23214546e1a0e1e48a5f144451adc0def8447a75ef7ec65f17449e",
+      "original_34_cases_sha256": "3406c14a8abd58af3cfd0f17da41ee38800bcc7eb91acb2dda74ddb2f68cae65",
+      "fractional_camera_cases": 256
+    },
+    {
+      "map": 3,
+      "frames": 293,
+      "rejected": 2,
+      "initialize_seconds": 0.0882,
+      "attempt_seconds_total": 17.8546,
+      "input_sha256": "88697e368a77e748823fb25589aedb16e72c0eb9787768a3b9b2002640e78804",
+      "pixels_masks_sha256": "fefcb05839c7b00bab08554c73c8209294a5d65230c3b15761705820779dab8e",
+      "original_34_cases_sha256": "c726a71ec31ce9f83664a64ebcf535c65a00b4b775140bcc73d9e21d24c0d107",
+      "fractional_camera_cases": 256
+    },
+    {
+      "map": 4,
+      "frames": 293,
+      "rejected": 2,
+      "initialize_seconds": 0.1302,
+      "attempt_seconds_total": 24.0912,
+      "input_sha256": "ca9a6b9ef2cf5b17d9152df2bc0100008ed3958daef03f8c35a5866c4a058a8d",
+      "pixels_masks_sha256": "3bbecb22b742ab74c925596cb12b045a3aeea80e9a3dc7e6e885074a2dd9bd2c",
+      "original_34_cases_sha256": "1d53de8906ba49eeacc54b02e3873f392e118c12915b6c3246bb583f6faac56f",
+      "fractional_camera_cases": 256
+    },
+    {
+      "map": 5,
+      "frames": 293,
+      "rejected": 2,
+      "initialize_seconds": 0.1316,
+      "attempt_seconds_total": 14.0821,
+      "input_sha256": "781ab1a999d1c90a4db4ed5a46bde893e977d98423eada969f688a1d98dd3b33",
+      "pixels_masks_sha256": "9aa7c67ed7860494c49c2d877c3395dae5fdbf7939f544c48046dcec48c9a7db",
+      "original_34_cases_sha256": "28886e1c83851fc8bea600886b0c9d3ddb7ddb44309b2bfc42bd11f3968caeca",
+      "fractional_camera_cases": 256
+    },
+    {
+      "map": 6,
+      "frames": 293,
+      "rejected": 2,
+      "initialize_seconds": 0.1446,
+      "attempt_seconds_total": 11.3968,
+      "input_sha256": "01379b77786ed742d7ea55d8829ed0367f87cc18f6c0061fbee11d59f78f093a",
+      "pixels_masks_sha256": "c5c6280d37284889eda7517a17cd2d27cc42928f04f0c75a9a0ee669328d030c",
+      "original_34_cases_sha256": "be06c3b392fccf837e81b4717ab5c1b1eed43a42b30b1131c55400fc94c4f875",
+      "fractional_camera_cases": 256
+    },
+    {
+      "map": 7,
+      "frames": 293,
+      "rejected": 2,
+      "initialize_seconds": 0.0695,
+      "attempt_seconds_total": 10.5881,
+      "input_sha256": "5ce079b65456f648056a1a05633377bebeb9e32cea222a2c025196cc1f1d0e61",
+      "pixels_masks_sha256": "1d9654c2960480b76a9ba90cd4ad3bec755935cf0273d937dd797c79edbfe2f5",
+      "original_34_cases_sha256": "ed3c19c21a6d8b98e56f9c37009ae2050557b06323921a0f5a62cfc76b62daad",
+      "fractional_camera_cases": 256
+    }
+  ]
+}
