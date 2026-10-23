@@ -1,0 +1,14 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "scope": "lookup projection, inverse tile hit-test and pose selector only",
+  "generator_seed": 2026102308,
+  "raw_table_sha256": "396188ec0d57d5fd4b5fa021890d0cc57b2ffb0cf42d53a65623a08fadafe1d7",
+  "status": "passed",
+  "cases": 63584,
+  "projection": 50184,
+  "unprojection": 3000,
+  "poses": 10400,
+  "rejections": 13026,
+  "input_sha256": "3525c298ff479c47ab8e4b6c22674980a8c3895cc23399fe1f3977f7d33f06eb",
+  "output_sha256": "b740d7306bdf6f0cb668e1c441bd10612b9f391591e2de23ae063d87f5b87dea"
+}
