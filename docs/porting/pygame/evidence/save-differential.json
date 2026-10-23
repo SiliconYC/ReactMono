@@ -1,0 +1,20 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "files": [
+    {
+      "name": "SAVE1.DAT",
+      "input_sha256": "1bd634156b8f75dbf4181ca8392860cd6b3e94755537eea67ee081db04caf066",
+      "bytes": 90111,
+      "edited_outputs_compared": 40,
+      "decoded_fields_and_regions_identical": true
+    },
+    {
+      "name": "Save0.dat",
+      "input_sha256": "d3e5af5aea1f0bfd735fe087963e93ae969e8bb4676b0d88de6559d48c661c73",
+      "bytes": 95371,
+      "edited_outputs_compared": 40,
+      "decoded_fields_and_regions_identical": true
+    }
+  ]
+}

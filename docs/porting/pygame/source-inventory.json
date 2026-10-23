@@ -6417,137 +6417,222 @@
       "id": "src/save.cpp:22",
       "declarator": "require_range(std::span<const std::uint8_t> bytes, std::size_t offset, std::size_t size,\n                   const char *label)",
       "end_line": 27,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/save.py::存档_类._范围"
+      ],
+      "status": "已实现，真实 DAT 自动差分",
+      "evidence": [
+        "tests/test_save.py",
+        "evidence/save-differential.json"
+      ]
     },
     {
       "id": "src/save.cpp:29",
       "declarator": "read_u16(std::span<const std::uint8_t> bytes, std::size_t offset)",
       "end_line": 33,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/save.py::存档_类._数"
+      ],
+      "status": "已实现，真实 DAT 自动差分",
+      "evidence": [
+        "tests/test_save.py",
+        "evidence/save-differential.json"
+      ]
     },
     {
       "id": "src/save.cpp:35",
       "declarator": "read_u32(std::span<const std::uint8_t> bytes, std::size_t offset)",
       "end_line": 40,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/save.py::存档_类._数"
+      ],
+      "status": "已实现，真实 DAT 自动差分",
+      "evidence": [
+        "tests/test_save.py",
+        "evidence/save-differential.json"
+      ]
     },
     {
       "id": "src/save.cpp:42",
       "declarator": "read_i32(std::span<const std::uint8_t> bytes, std::size_t offset)",
       "end_line": 44,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/save.py::存档_类._数"
+      ],
+      "status": "已实现，真实 DAT 自动差分",
+      "evidence": [
+        "tests/test_save.py",
+        "evidence/save-differential.json"
+      ]
     },
     {
       "id": "src/save.cpp:46",
       "declarator": "write_i32(std::vector<std::uint8_t> &bytes, std::size_t offset, std::int32_t value)",
       "end_line": 51,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/save.py::存档_类._写整数"
+      ],
+      "status": "已实现，真实 DAT 自动差分",
+      "evidence": [
+        "tests/test_save.py",
+        "evidence/save-differential.json"
+      ]
     },
     {
       "id": "src/save.cpp:53",
       "declarator": "read_map_summary(std::span<const std::uint8_t> bytes)",
       "end_line": 60,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/save.py::存档_类.api_地图摘要"
+      ],
+      "status": "已实现，真实 DAT 自动差分",
+      "evidence": [
+        "tests/test_save.py",
+        "evidence/save-differential.json"
+      ]
     },
     {
       "id": "src/save.cpp:62",
       "declarator": "validate_map(const MapSummary &map)",
       "end_line": 79,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/save.py::存档_类.api_解码"
+      ],
+      "status": "已实现，真实 DAT 自动差分",
+      "evidence": [
+        "tests/test_save.py",
+        "evidence/save-differential.json"
+      ]
     },
     {
       "id": "src/save.cpp:83",
       "declarator": "SaveFile::SaveFile(std::vector<std::uint8_t> bytes, std::vector<SaveRegion> regions)",
       "end_line": 84,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/save.py::存档_类.__init__"
+      ],
+      "status": "已实现，真实 DAT 自动差分",
+      "evidence": [
+        "tests/test_save.py",
+        "evidence/save-differential.json"
+      ]
     },
     {
       "id": "src/save.cpp:86",
       "declarator": "SaveFile::decode(std::span<const std::uint8_t> bytes)",
       "end_line": 165,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/save.py::存档_类.api_解码"
+      ],
+      "status": "已实现，真实 DAT 自动差分",
+      "evidence": [
+        "tests/test_save.py",
+        "evidence/save-differential.json"
+      ]
     },
     {
       "id": "src/save.cpp:167",
       "declarator": "SaveFile::header() const",
       "end_line": 177,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/save.py::存档_类.api_头"
+      ],
+      "status": "已实现，真实 DAT 自动差分",
+      "evidence": [
+        "tests/test_save.py",
+        "evidence/save-differential.json"
+      ]
     },
     {
       "id": "src/save.cpp:179",
       "declarator": "SaveFile::player_offset(std::size_t slot) const",
       "end_line": 184,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/save.py::存档_类._玩家偏移"
+      ],
+      "status": "已实现，真实 DAT 自动差分",
+      "evidence": [
+        "tests/test_save.py",
+        "evidence/save-differential.json"
+      ]
     },
     {
       "id": "src/save.cpp:186",
       "declarator": "SaveFile::player(std::size_t slot) const",
       "end_line": 211,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/save.py::存档_类.api_玩家"
+      ],
+      "status": "已实现，真实 DAT 自动差分",
+      "evidence": [
+        "tests/test_save.py",
+        "evidence/save-differential.json"
+      ]
     },
     {
       "id": "src/save.cpp:213",
       "declarator": "SaveFile::map_summary() const",
       "end_line": 215,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/save.py::存档_类.api_地图摘要"
+      ],
+      "status": "已实现，真实 DAT 自动差分",
+      "evidence": [
+        "tests/test_save.py",
+        "evidence/save-differential.json"
+      ]
     },
     {
       "id": "src/save.cpp:217",
       "declarator": "SaveFile::regions() const noexcept",
       "end_line": 219,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/save.py::存档_类.api_区域"
+      ],
+      "status": "已实现，真实 DAT 自动差分",
+      "evidence": [
+        "tests/test_save.py",
+        "evidence/save-differential.json"
+      ]
     },
     {
       "id": "src/save.cpp:221",
       "declarator": "SaveFile::encode() const",
       "end_line": 223,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/save.py::存档_类.api_导出"
+      ],
+      "status": "已实现，真实 DAT 自动差分",
+      "evidence": [
+        "tests/test_save.py",
+        "evidence/save-differential.json"
+      ]
     },
     {
       "id": "src/save.cpp:225",
       "declarator": "SaveFile::set_cash(std::size_t slot, std::int32_t value)",
       "end_line": 227,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/save.py::存档_类.api_设现金"
+      ],
+      "status": "已实现，真实 DAT 自动差分",
+      "evidence": [
+        "tests/test_save.py",
+        "evidence/save-differential.json"
+      ]
     },
     {
       "id": "src/save.cpp:229",
       "declarator": "SaveFile::set_bank_balance(std::size_t slot, std::int32_t value)",
       "end_line": 231,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/save.py::存档_类.api_设银行"
+      ],
+      "status": "已实现，真实 DAT 自动差分",
+      "evidence": [
+        "tests/test_save.py",
+        "evidence/save-differential.json"
+      ]
     },
     {
       "id": "src/services.cpp:14",
