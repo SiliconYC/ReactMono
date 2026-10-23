@@ -100,3 +100,7 @@ uv run --project pygame python pygame/tools/differential_world.py \
 ## 投影增量（2026-10-23）
 
 完整Python测试 **121/121**、Ruff通过。原常量字节哈希复核，63584个投影/反投影/角色资源用例与固定C++一致，见 [报告](evidence/projection-differential.json)。不含实际合成帧、游戏键鼠或动画时序验收，见 [PROJECTION.md](PROJECTION.md)。
+
+## 棋盘合成基线（2026-10-23）
+
+完整Python测试 **125/125**、Ruff通过。八图八视角共272场景（264有效/8相机拒绝）的完整像素、掩码和绘制统计一致，见 [基线](evidence/board-baseline-differential.json)。重绘最快约0.13秒，性能不达最终要求；剖析和后续优化范围见 [BOARD.md](BOARD.md)，不冒充图形游戏操作、流畅动画或自然长局。

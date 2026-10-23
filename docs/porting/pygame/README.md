@@ -14,6 +14,7 @@
 - [私下交易与电脑市场](TRADING.md)。
 - [GND与原定点地形扫描](TERRAIN.md)。
 - [原查表投影、反投影与渲染快照](PROJECTION.md)。
+- [原地图合成、遮挡与性能边界](BOARD.md)。
 - [验收、失败与修复记录](ACCEPTANCE.md)。
 - [可复现资源差分报告](evidence/assets-differential.json)。
 - [子项目运行说明](../../../pygame/README.md) 与 [许可证边界](../../../pygame/NOTICE.md)。
