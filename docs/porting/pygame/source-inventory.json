@@ -2158,281 +2158,491 @@
       "id": "include/rich4/minigames.hpp:26",
       "declarator": "game_for_node_kind(unsigned kind) noexcept",
       "end_line": 28,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::小游戏种类_类.api_节点游戏"
+      ],
+      "status": "已实现，单测；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:29",
       "declarator": "tick_ms(Game game) noexcept",
       "end_line": 31,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::小游戏种类_类.api_间隔"
+      ],
+      "status": "已实现，单测；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:36",
       "declarator": "Stream(std::uint32_t seed) noexcept",
       "end_line": 36,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::小游戏随机_类.__init__"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:37",
       "declarator": "next() noexcept",
       "end_line": 40,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::小游戏随机_类.api_下一个"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:41",
       "declarator": "draws() const noexcept",
       "end_line": 43,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::小游戏随机_类.次数"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:44",
       "declarator": "state() const noexcept",
       "end_line": 46,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::小游戏随机_类.随机.状态"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:84",
       "declarator": "Base(std::uint32_t seed) noexcept",
       "end_line": 84,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::小游戏_类.__init__"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:85",
       "declarator": "stage() const noexcept",
       "end_line": 87,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::小游戏_类.阶段"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:88",
       "declarator": "draws() const noexcept",
       "end_line": 90,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::小游戏_类.随机.次数"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:91",
       "declarator": "random_state() const noexcept",
       "end_line": 93,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::小游戏_类.随机.随机.状态"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:94",
       "declarator": "&scene() const noexcept",
       "end_line": 96,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::小游戏_类.场景"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:97",
       "declarator": "drain_cues()",
       "end_line": 99,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::小游戏_类.api_取声音"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:101",
       "declarator": "begin_play() noexcept",
       "end_line": 104,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::小游戏_类.api_开始"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:106",
       "declarator": "ticks_left() const noexcept",
       "end_line": 108,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::小游戏_类.剩余帧"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:111",
       "declarator": "play(std::size_t effect)",
       "end_line": 113,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::小游戏_类._声"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:114",
       "declarator": "loop(std::size_t effect)",
       "end_line": 116,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::小游戏_类._声"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:117",
       "declarator": "stop(std::size_t effect)",
       "end_line": 119,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::小游戏_类._声"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:140",
       "declarator": "begin_play() noexcept",
       "end_line": 144,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::企鹅_类.api_开始"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:151",
       "declarator": "&cell(int col, int row) const",
       "end_line": 153,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::企鹅_类.格子"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:157",
       "declarator": "&found() const noexcept",
       "end_line": 159,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::企鹅_类.发现"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:161",
       "declarator": "&holes() const noexcept",
       "end_line": 163,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::企鹅_类.洞"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:165",
       "declarator": "score_shown() const noexcept",
       "end_line": 167,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::企鹅_类.分数显示"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:168",
       "declarator": "position() const noexcept",
       "end_line": 170,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::企鹅_类.位置"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:171",
       "declarator": "idle() const noexcept",
       "end_line": 173,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::企鹅_类.空闲"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:179",
       "declarator": "draw(std::uint16_t entry, std::uint16_t frame, int x, int y)",
       "end_line": 181,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::小游戏_类._画"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:210",
       "declarator": "score() const noexcept",
       "end_line": 212,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::气球_类.api_得分"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:213",
       "declarator": "&slots() const noexcept",
       "end_line": 215,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::气球_类.槽"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:216",
       "declarator": "freeze() const noexcept",
       "end_line": 218,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::气球_类.冻结"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:219",
       "declarator": "speed_modifier() const noexcept",
       "end_line": 221,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::气球_类.变速"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:246",
       "declarator": "set_target(int x) noexcept",
       "end_line": 248,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::天降_类.api_目标"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:250",
       "declarator": "&caught() const noexcept",
       "end_line": 252,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::天降_类.接到"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:253",
       "declarator": "&slots() const noexcept",
       "end_line": 255,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::天降_类.槽"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:256",
       "declarator": "catcher_x() const noexcept",
       "end_line": 258,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::天降_类.接者x"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:260",
       "declarator": "explosion() const noexcept",
       "end_line": 264,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::天降_类.爆炸/爆x/爆龄"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/minigames.hpp:265",
       "declarator": "god_x() const noexcept",
       "end_line": 267,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::天降_类.财神x"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "include/rich4/random.hpp:11",
@@ -7420,185 +7630,323 @@
       "id": "src/minigames.cpp:39",
       "declarator": "sar16(std::uint32_t value) noexcept",
       "end_line": 41,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::股市_类._回绕/右移"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "src/minigames.cpp:42",
       "declarator": "cell_of(std::uint32_t value) noexcept",
       "end_line": 44,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::企鹅_类.位置/右移"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "src/minigames.cpp:51",
       "declarator": "Penguin::valid(int col, int row) noexcept",
       "end_line": 54,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::企鹅_类.api_有效"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "src/minigames.cpp:56",
       "declarator": "Penguin::Penguin(std::uint32_t seed)",
       "end_line": 84,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::企鹅_类.__init__"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "src/minigames.cpp:86",
       "declarator": "Penguin::score() const noexcept",
       "end_line": 88,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::企鹅_类.api_得分"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "src/minigames.cpp:90",
       "declarator": "Penguin::tap_anywhere() noexcept",
       "end_line": 93,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::企鹅_类.api_任意点击"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "src/minigames.cpp:95",
       "declarator": "Penguin::tap(int col, int row)",
       "end_line": 106,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::企鹅_类.api_点击"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "src/minigames.cpp:109",
       "declarator": "Penguin::aim(int col, int row)",
       "end_line": 123,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::企鹅_类._瞄准"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "src/minigames.cpp:126",
       "declarator": "Penguin::step()",
       "end_line": 151,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::企鹅_类._步进"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "src/minigames.cpp:154",
       "declarator": "Penguin::tick()",
       "end_line": 189,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::企鹅_类.api_帧"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "src/minigames.cpp:192",
       "declarator": "Penguin::animate()",
       "end_line": 308,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::企鹅_类._动画帧"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "src/minigames.cpp:317",
       "declarator": "balloon_box(unsigned frame)",
       "end_line": 321,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::气球_类._框"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "src/minigames.cpp:324",
       "declarator": "Balloon::Balloon(std::uint32_t seed)",
       "end_line": 327,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::气球_类.__init__"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "src/minigames.cpp:330",
       "declarator": "Balloon::tick()",
       "end_line": 354,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::气球_类.api_帧"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "src/minigames.cpp:357",
       "declarator": "Balloon::step()",
       "end_line": 416,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::气球_类._步进"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "src/minigames.cpp:419",
       "declarator": "Balloon::tap(int x, int y)",
       "end_line": 473,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::气球_类.api_点击"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "src/minigames.cpp:487",
       "declarator": "Catcher::Catcher(std::uint32_t seed, std::uint8_t character, std::vector<Box> catcher_frames, int explosion_ticks)",
       "end_line": 495,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::天降_类.__init__"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "src/minigames.cpp:497",
       "declarator": "Catcher::drift(int x)",
       "end_line": 501,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::天降_类.api_漂移"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "src/minigames.cpp:503",
       "declarator": "Catcher::score() const noexcept",
       "end_line": 505,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::天降_类.api_得分"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "src/minigames.cpp:507",
       "declarator": "Catcher::catcher_frame() const noexcept",
       "end_line": 509,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::天降_类._接者帧"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "src/minigames.cpp:511",
       "declarator": "Catcher::spawn(int x, bool bomb)",
       "end_line": 525,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::天降_类._生成"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "src/minigames.cpp:528",
       "declarator": "Catcher::tick()",
       "end_line": 560,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::天降_类.api_帧"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "src/minigames.cpp:563",
       "declarator": "Catcher::step()",
       "end_line": 686,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigames.py::天降_类._步进"
+      ],
+      "status": "已实现，逐tick自动差分；正式UI接入待完成",
+      "evidence": [
+        "tests/test_minigames.py",
+        "evidence/minigames-differential.json",
+        "MINIGAMES.md"
+      ]
     },
     {
       "id": "src/random.cpp:7",

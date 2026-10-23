@@ -12,6 +12,7 @@
 - [原股票电脑评分、排序与贷款门控](STOCKS_AI.md)。
 - [原道具电脑策略、投影选择缓冲与EDX边界](TOOLS_AI.md)。
 - [原卡片电脑策略、八槽访问与持续参数](CARDS_AI.md)。
+- [三个原小游戏逐tick逻辑及场景/声音接口](MINIGAMES.md)。
 - [商店/魔法接口](SERVICES.md) 与 [节日/彩票规则](CALENDAR_LOTTERY.md)。
 - [拍卖会话和数值依据](AUCTION.md)。
 - [私下交易与电脑市场](TRADING.md)。

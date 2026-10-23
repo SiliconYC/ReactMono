@@ -4723,5 +4723,643 @@
       "evidence/cards-ai-differential.json",
       "CARDS_AI.md"
     ]
+  },
+  "src/minigames.cpp:39": {
+    "python": [
+      "pygame/src/rich4/minigames.py::股市_类._回绕/右移"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "src/minigames.cpp:42": {
+    "python": [
+      "pygame/src/rich4/minigames.py::企鹅_类.位置/右移"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "src/minigames.cpp:51": {
+    "python": [
+      "pygame/src/rich4/minigames.py::企鹅_类.api_有效"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "src/minigames.cpp:56": {
+    "python": [
+      "pygame/src/rich4/minigames.py::企鹅_类.__init__"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "src/minigames.cpp:86": {
+    "python": [
+      "pygame/src/rich4/minigames.py::企鹅_类.api_得分"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "src/minigames.cpp:90": {
+    "python": [
+      "pygame/src/rich4/minigames.py::企鹅_类.api_任意点击"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "src/minigames.cpp:95": {
+    "python": [
+      "pygame/src/rich4/minigames.py::企鹅_类.api_点击"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "src/minigames.cpp:109": {
+    "python": [
+      "pygame/src/rich4/minigames.py::企鹅_类._瞄准"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "src/minigames.cpp:126": {
+    "python": [
+      "pygame/src/rich4/minigames.py::企鹅_类._步进"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "src/minigames.cpp:154": {
+    "python": [
+      "pygame/src/rich4/minigames.py::企鹅_类.api_帧"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "src/minigames.cpp:192": {
+    "python": [
+      "pygame/src/rich4/minigames.py::企鹅_类._动画帧"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "src/minigames.cpp:317": {
+    "python": [
+      "pygame/src/rich4/minigames.py::气球_类._框"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "src/minigames.cpp:324": {
+    "python": [
+      "pygame/src/rich4/minigames.py::气球_类.__init__"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "src/minigames.cpp:330": {
+    "python": [
+      "pygame/src/rich4/minigames.py::气球_类.api_帧"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "src/minigames.cpp:357": {
+    "python": [
+      "pygame/src/rich4/minigames.py::气球_类._步进"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "src/minigames.cpp:419": {
+    "python": [
+      "pygame/src/rich4/minigames.py::气球_类.api_点击"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "src/minigames.cpp:487": {
+    "python": [
+      "pygame/src/rich4/minigames.py::天降_类.__init__"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "src/minigames.cpp:497": {
+    "python": [
+      "pygame/src/rich4/minigames.py::天降_类.api_漂移"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "src/minigames.cpp:503": {
+    "python": [
+      "pygame/src/rich4/minigames.py::天降_类.api_得分"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "src/minigames.cpp:507": {
+    "python": [
+      "pygame/src/rich4/minigames.py::天降_类._接者帧"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "src/minigames.cpp:511": {
+    "python": [
+      "pygame/src/rich4/minigames.py::天降_类._生成"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "src/minigames.cpp:528": {
+    "python": [
+      "pygame/src/rich4/minigames.py::天降_类.api_帧"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "src/minigames.cpp:563": {
+    "python": [
+      "pygame/src/rich4/minigames.py::天降_类._步进"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:26": {
+    "python": [
+      "pygame/src/rich4/minigames.py::小游戏种类_类.api_节点游戏"
+    ],
+    "status": "已实现，单测；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:29": {
+    "python": [
+      "pygame/src/rich4/minigames.py::小游戏种类_类.api_间隔"
+    ],
+    "status": "已实现，单测；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:36": {
+    "python": [
+      "pygame/src/rich4/minigames.py::小游戏随机_类.__init__"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:37": {
+    "python": [
+      "pygame/src/rich4/minigames.py::小游戏随机_类.api_下一个"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:41": {
+    "python": [
+      "pygame/src/rich4/minigames.py::小游戏随机_类.次数"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:44": {
+    "python": [
+      "pygame/src/rich4/minigames.py::小游戏随机_类.随机.状态"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:84": {
+    "python": [
+      "pygame/src/rich4/minigames.py::小游戏_类.__init__"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:85": {
+    "python": [
+      "pygame/src/rich4/minigames.py::小游戏_类.阶段"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:88": {
+    "python": [
+      "pygame/src/rich4/minigames.py::小游戏_类.随机.次数"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:91": {
+    "python": [
+      "pygame/src/rich4/minigames.py::小游戏_类.随机.随机.状态"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:94": {
+    "python": [
+      "pygame/src/rich4/minigames.py::小游戏_类.场景"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:97": {
+    "python": [
+      "pygame/src/rich4/minigames.py::小游戏_类.api_取声音"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:101": {
+    "python": [
+      "pygame/src/rich4/minigames.py::小游戏_类.api_开始"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:106": {
+    "python": [
+      "pygame/src/rich4/minigames.py::小游戏_类.剩余帧"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:111": {
+    "python": [
+      "pygame/src/rich4/minigames.py::小游戏_类._声"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:114": {
+    "python": [
+      "pygame/src/rich4/minigames.py::小游戏_类._声"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:117": {
+    "python": [
+      "pygame/src/rich4/minigames.py::小游戏_类._声"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:140": {
+    "python": [
+      "pygame/src/rich4/minigames.py::企鹅_类.api_开始"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:151": {
+    "python": [
+      "pygame/src/rich4/minigames.py::企鹅_类.格子"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:157": {
+    "python": [
+      "pygame/src/rich4/minigames.py::企鹅_类.发现"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:161": {
+    "python": [
+      "pygame/src/rich4/minigames.py::企鹅_类.洞"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:165": {
+    "python": [
+      "pygame/src/rich4/minigames.py::企鹅_类.分数显示"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:168": {
+    "python": [
+      "pygame/src/rich4/minigames.py::企鹅_类.位置"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:171": {
+    "python": [
+      "pygame/src/rich4/minigames.py::企鹅_类.空闲"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:179": {
+    "python": [
+      "pygame/src/rich4/minigames.py::小游戏_类._画"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:210": {
+    "python": [
+      "pygame/src/rich4/minigames.py::气球_类.api_得分"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:213": {
+    "python": [
+      "pygame/src/rich4/minigames.py::气球_类.槽"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:216": {
+    "python": [
+      "pygame/src/rich4/minigames.py::气球_类.冻结"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:219": {
+    "python": [
+      "pygame/src/rich4/minigames.py::气球_类.变速"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:246": {
+    "python": [
+      "pygame/src/rich4/minigames.py::天降_类.api_目标"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:250": {
+    "python": [
+      "pygame/src/rich4/minigames.py::天降_类.接到"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:253": {
+    "python": [
+      "pygame/src/rich4/minigames.py::天降_类.槽"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:256": {
+    "python": [
+      "pygame/src/rich4/minigames.py::天降_类.接者x"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:260": {
+    "python": [
+      "pygame/src/rich4/minigames.py::天降_类.爆炸/爆x/爆龄"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
+  },
+  "include/rich4/minigames.hpp:265": {
+    "python": [
+      "pygame/src/rich4/minigames.py::天降_类.财神x"
+    ],
+    "status": "已实现，逐tick自动差分；正式UI接入待完成",
+    "evidence": [
+      "tests/test_minigames.py",
+      "evidence/minigames-differential.json",
+      "MINIGAMES.md"
+    ]
   }
 }
