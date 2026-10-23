@@ -4119,193 +4119,337 @@
       "id": "src/cards_ai.cpp:17",
       "declarator": "add(std::int32_t a, std::int32_t b)",
       "end_line": 19,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards_ai.py::卡片电脑_类._回绕"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_cards_ai.py",
+        "evidence/cards-ai-differential.json",
+        "CARDS_AI.md"
+      ]
     },
     {
       "id": "src/cards_ai.cpp:20",
       "declarator": "mul(std::int32_t a, std::int32_t b)",
       "end_line": 22,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards_ai.py::卡片电脑_类._回绕"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_cards_ai.py",
+        "evidence/cards-ai-differential.json",
+        "CARDS_AI.md"
+      ]
     },
     {
       "id": "src/cards_ai.cpp:23",
       "declarator": "name(const std::string &s)",
       "end_line": 25,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards_ai.py::卡片电脑_类._名"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_cards_ai.py",
+        "evidence/cards-ai-differential.json",
+        "CARDS_AI.md"
+      ]
     },
     {
       "id": "src/cards_ai.cpp:26",
       "declarator": "land(const World &w, unsigned code)",
       "end_line": 28,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards_ai.py::卡片电脑_类._地码"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_cards_ai.py",
+        "evidence/cards-ai-differential.json",
+        "CARDS_AI.md"
+      ]
     },
     {
       "id": "src/cards_ai.cpp:29",
       "declarator": "facility(const World &w, unsigned code)",
       "end_line": 31,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards_ai.py::卡片电脑_类._设施码"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_cards_ai.py",
+        "evidence/cards-ai-differential.json",
+        "CARDS_AI.md"
+      ]
     },
     {
       "id": "src/cards_ai.cpp:32",
       "declarator": "commercial(const World &w, unsigned code)",
       "end_line": 34,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards_ai.py::卡片电脑_类._公司码"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_cards_ai.py",
+        "evidence/cards-ai-differential.json",
+        "CARDS_AI.md"
+      ]
     },
     {
       "id": "src/cards_ai.cpp:35",
       "declarator": "node_code(const World &w, unsigned node)",
       "end_line": 37,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards_ai.py::卡片电脑_类._节点码"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_cards_ai.py",
+        "evidence/cards-ai-differential.json",
+        "CARDS_AI.md"
+      ]
     },
     {
       "id": "src/cards_ai.cpp:38",
       "declarator": "standing(const World &w, std::size_t slot)",
       "end_line": 40,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards_ai.py::卡片电脑_类._脚下"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_cards_ai.py",
+        "evidence/cards-ai-differential.json",
+        "CARDS_AI.md"
+      ]
     },
     {
       "id": "src/cards_ai.cpp:41",
       "declarator": "owner(const World &w, unsigned code)",
       "end_line": 45,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards_ai.py::卡片电脑_类._业主"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_cards_ai.py",
+        "evidence/cards-ai-differential.json",
+        "CARDS_AI.md"
+      ]
     },
     {
       "id": "src/cards_ai.cpp:46",
       "declarator": "level(const World &w, unsigned code)",
       "end_line": 50,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards_ai.py::卡片电脑_类._层"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_cards_ai.py",
+        "evidence/cards-ai-differential.json",
+        "CARDS_AI.md"
+      ]
     },
     {
       "id": "src/cards_ai.cpp:51",
       "declarator": "base(const World &w, unsigned code)",
       "end_line": 53,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards_ai.py::卡片电脑_类._基价"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_cards_ai.py",
+        "evidence/cards-ai-differential.json",
+        "CARDS_AI.md"
+      ]
     },
     {
       "id": "src/cards_ai.cpp:54",
       "declarator": "enemy(const World &w, std::size_t actor)",
       "end_line": 66,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards_ai.py::卡片电脑_类._敌手"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_cards_ai.py",
+        "evidence/cards-ai-differential.json",
+        "CARDS_AI.md"
+      ]
     },
     {
       "id": "src/cards_ai.cpp:67",
       "declarator": "actor_code(unsigned actor)",
       "end_line": 69,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards_ai.py::卡片电脑_类._自己码"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_cards_ai.py",
+        "evidence/cards-ai-differential.json",
+        "CARDS_AI.md"
+      ]
     },
     {
       "id": "src/cards_ai.cpp:70",
       "declarator": "scanned_players(const World &w, std::size_t actor,\n                                         const std::vector<std::uint16_t> &scan)",
       "end_line": 79,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards_ai.py::卡片电脑_类._扫描玩家"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_cards_ai.py",
+        "evidence/cards-ai-differential.json",
+        "CARDS_AI.md"
+      ]
     },
     {
       "id": "src/cards_ai.cpp:80",
       "declarator": "desirable_property(const World &w, std::size_t actor, int foe, unsigned code)",
       "end_line": 93,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards_ai.py::卡片电脑_类._想要"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_cards_ai.py",
+        "evidence/cards-ai-differential.json",
+        "CARDS_AI.md"
+      ]
     },
     {
       "id": "src/cards_ai.cpp:94",
       "declarator": "acquisition_cost(const World &w, unsigned code)",
       "end_line": 99,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards_ai.py::卡片电脑_类._购价"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_cards_ai.py",
+        "evidence/cards-ai-differential.json",
+        "CARDS_AI.md"
+      ]
     },
     {
       "id": "src/cards_ai.cpp:100",
       "declarator": "toll(const World &w, unsigned code)",
       "end_line": 108,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards_ai.py::卡片电脑_类._通行费"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_cards_ai.py",
+        "evidence/cards-ai-differential.json",
+        "CARDS_AI.md"
+      ]
     },
     {
       "id": "src/cards_ai.cpp:109",
       "declarator": "monster_target(const World &w, std::size_t actor, const std::vector<std::uint16_t> &scan)",
       "end_line": 144,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards_ai.py::卡片电脑_类._怪兽"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_cards_ai.py",
+        "evidence/cards-ai-differential.json",
+        "CARDS_AI.md"
+      ]
     },
     {
       "id": "src/cards_ai.cpp:145",
       "declarator": "nearest_god(const World &w, std::size_t actor,\n                                         const std::vector<std::uint16_t> &scan)",
       "end_line": 167,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards_ai.py::卡片电脑_类._最近神"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_cards_ai.py",
+        "evidence/cards-ai-differential.json",
+        "CARDS_AI.md"
+      ]
     },
     {
       "id": "src/cards_ai.cpp:168",
       "declarator": "friendly_god_id(unsigned id)",
       "end_line": 170,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards_ai.py::卡片电脑_类._友善号"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_cards_ai.py",
+        "evidence/cards-ai-differential.json",
+        "CARDS_AI.md"
+      ]
     },
     {
       "id": "src/cards_ai.cpp:171",
       "declarator": "holding_cost(const StockHolding &stock)",
       "end_line": 175,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards_ai.py::卡片电脑_类._持仓成本"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_cards_ai.py",
+        "evidence/cards-ai-differential.json",
+        "CARDS_AI.md"
+      ]
     },
     {
       "id": "src/cards_ai.cpp:180",
       "declarator": "predicate(const World &w, Random &random, std::size_t actor, unsigned id, const CardCallbacks &cb,\n               CardAiMemory &memory, std::size_t traversal_end)",
       "end_line": 742,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards_ai.py::卡片电脑_类._谓词"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_cards_ai.py",
+        "evidence/cards-ai-differential.json",
+        "CARDS_AI.md"
+      ]
     },
     {
       "id": "src/cards_ai.cpp:743",
       "declarator": "decode_target(std::uint32_t code)",
       "end_line": 754,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards_ai.py::卡片电脑_类._解码"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_cards_ai.py",
+        "evidence/cards-ai-differential.json",
+        "CARDS_AI.md"
+      ]
     },
     {
       "id": "src/cards_ai.cpp:757",
       "declarator": "choose_ai_card(const World &w, Random &random, std::size_t actor,\n                                      const CardCallbacks &cb, CardAiMemory *persistent)",
       "end_line": 798,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/cards_ai.py::卡片电脑_类.api_选择"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_cards_ai.py",
+        "evidence/cards-ai-differential.json",
+        "CARDS_AI.md"
+      ]
     },
     {
       "id": "src/direction.cpp:12",

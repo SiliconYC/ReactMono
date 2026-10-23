@@ -4459,5 +4459,269 @@
       "evidence/tools-ai-differential.json",
       "TOOLS_AI.md"
     ]
+  },
+  "src/cards_ai.cpp:17": {
+    "python": [
+      "pygame/src/rich4/cards_ai.py::卡片电脑_类._回绕"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_cards_ai.py",
+      "evidence/cards-ai-differential.json",
+      "CARDS_AI.md"
+    ]
+  },
+  "src/cards_ai.cpp:20": {
+    "python": [
+      "pygame/src/rich4/cards_ai.py::卡片电脑_类._回绕"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_cards_ai.py",
+      "evidence/cards-ai-differential.json",
+      "CARDS_AI.md"
+    ]
+  },
+  "src/cards_ai.cpp:23": {
+    "python": [
+      "pygame/src/rich4/cards_ai.py::卡片电脑_类._名"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_cards_ai.py",
+      "evidence/cards-ai-differential.json",
+      "CARDS_AI.md"
+    ]
+  },
+  "src/cards_ai.cpp:26": {
+    "python": [
+      "pygame/src/rich4/cards_ai.py::卡片电脑_类._地码"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_cards_ai.py",
+      "evidence/cards-ai-differential.json",
+      "CARDS_AI.md"
+    ]
+  },
+  "src/cards_ai.cpp:29": {
+    "python": [
+      "pygame/src/rich4/cards_ai.py::卡片电脑_类._设施码"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_cards_ai.py",
+      "evidence/cards-ai-differential.json",
+      "CARDS_AI.md"
+    ]
+  },
+  "src/cards_ai.cpp:32": {
+    "python": [
+      "pygame/src/rich4/cards_ai.py::卡片电脑_类._公司码"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_cards_ai.py",
+      "evidence/cards-ai-differential.json",
+      "CARDS_AI.md"
+    ]
+  },
+  "src/cards_ai.cpp:35": {
+    "python": [
+      "pygame/src/rich4/cards_ai.py::卡片电脑_类._节点码"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_cards_ai.py",
+      "evidence/cards-ai-differential.json",
+      "CARDS_AI.md"
+    ]
+  },
+  "src/cards_ai.cpp:38": {
+    "python": [
+      "pygame/src/rich4/cards_ai.py::卡片电脑_类._脚下"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_cards_ai.py",
+      "evidence/cards-ai-differential.json",
+      "CARDS_AI.md"
+    ]
+  },
+  "src/cards_ai.cpp:41": {
+    "python": [
+      "pygame/src/rich4/cards_ai.py::卡片电脑_类._业主"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_cards_ai.py",
+      "evidence/cards-ai-differential.json",
+      "CARDS_AI.md"
+    ]
+  },
+  "src/cards_ai.cpp:46": {
+    "python": [
+      "pygame/src/rich4/cards_ai.py::卡片电脑_类._层"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_cards_ai.py",
+      "evidence/cards-ai-differential.json",
+      "CARDS_AI.md"
+    ]
+  },
+  "src/cards_ai.cpp:51": {
+    "python": [
+      "pygame/src/rich4/cards_ai.py::卡片电脑_类._基价"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_cards_ai.py",
+      "evidence/cards-ai-differential.json",
+      "CARDS_AI.md"
+    ]
+  },
+  "src/cards_ai.cpp:54": {
+    "python": [
+      "pygame/src/rich4/cards_ai.py::卡片电脑_类._敌手"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_cards_ai.py",
+      "evidence/cards-ai-differential.json",
+      "CARDS_AI.md"
+    ]
+  },
+  "src/cards_ai.cpp:67": {
+    "python": [
+      "pygame/src/rich4/cards_ai.py::卡片电脑_类._自己码"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_cards_ai.py",
+      "evidence/cards-ai-differential.json",
+      "CARDS_AI.md"
+    ]
+  },
+  "src/cards_ai.cpp:70": {
+    "python": [
+      "pygame/src/rich4/cards_ai.py::卡片电脑_类._扫描玩家"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_cards_ai.py",
+      "evidence/cards-ai-differential.json",
+      "CARDS_AI.md"
+    ]
+  },
+  "src/cards_ai.cpp:80": {
+    "python": [
+      "pygame/src/rich4/cards_ai.py::卡片电脑_类._想要"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_cards_ai.py",
+      "evidence/cards-ai-differential.json",
+      "CARDS_AI.md"
+    ]
+  },
+  "src/cards_ai.cpp:94": {
+    "python": [
+      "pygame/src/rich4/cards_ai.py::卡片电脑_类._购价"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_cards_ai.py",
+      "evidence/cards-ai-differential.json",
+      "CARDS_AI.md"
+    ]
+  },
+  "src/cards_ai.cpp:100": {
+    "python": [
+      "pygame/src/rich4/cards_ai.py::卡片电脑_类._通行费"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_cards_ai.py",
+      "evidence/cards-ai-differential.json",
+      "CARDS_AI.md"
+    ]
+  },
+  "src/cards_ai.cpp:109": {
+    "python": [
+      "pygame/src/rich4/cards_ai.py::卡片电脑_类._怪兽"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_cards_ai.py",
+      "evidence/cards-ai-differential.json",
+      "CARDS_AI.md"
+    ]
+  },
+  "src/cards_ai.cpp:145": {
+    "python": [
+      "pygame/src/rich4/cards_ai.py::卡片电脑_类._最近神"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_cards_ai.py",
+      "evidence/cards-ai-differential.json",
+      "CARDS_AI.md"
+    ]
+  },
+  "src/cards_ai.cpp:168": {
+    "python": [
+      "pygame/src/rich4/cards_ai.py::卡片电脑_类._友善号"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_cards_ai.py",
+      "evidence/cards-ai-differential.json",
+      "CARDS_AI.md"
+    ]
+  },
+  "src/cards_ai.cpp:171": {
+    "python": [
+      "pygame/src/rich4/cards_ai.py::卡片电脑_类._持仓成本"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_cards_ai.py",
+      "evidence/cards-ai-differential.json",
+      "CARDS_AI.md"
+    ]
+  },
+  "src/cards_ai.cpp:180": {
+    "python": [
+      "pygame/src/rich4/cards_ai.py::卡片电脑_类._谓词"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_cards_ai.py",
+      "evidence/cards-ai-differential.json",
+      "CARDS_AI.md"
+    ]
+  },
+  "src/cards_ai.cpp:743": {
+    "python": [
+      "pygame/src/rich4/cards_ai.py::卡片电脑_类._解码"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_cards_ai.py",
+      "evidence/cards-ai-differential.json",
+      "CARDS_AI.md"
+    ]
+  },
+  "src/cards_ai.cpp:757": {
+    "python": [
+      "pygame/src/rich4/cards_ai.py::卡片电脑_类.api_选择"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_cards_ai.py",
+      "evidence/cards-ai-differential.json",
+      "CARDS_AI.md"
+    ]
   }
 }
