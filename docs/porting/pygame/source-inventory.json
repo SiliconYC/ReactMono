@@ -2435,9 +2435,14 @@
       "id": "include/rich4/terrain.hpp:22",
       "declarator": "tile_count() const noexcept",
       "end_line": 24,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/terrain.py::地面_类.api_瓦片数"
+      ],
+      "status": "已实现，自动差分",
+      "evidence": [
+        "tests/test_terrain.py",
+        "evidence/terrain-differential.json"
+      ]
     },
     {
       "id": "include/rich4/world.hpp:144",
@@ -7602,105 +7607,183 @@
       "id": "src/terrain.cpp:12",
       "declarator": "require_range(std::size_t offset, std::size_t count, std::size_t total, const char *message)",
       "end_line": 16,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/assets.py::资源包_类.api_检查范围"
+      ],
+      "status": "已实现，八图字段/像素及扫描器自动差分",
+      "evidence": [
+        "tests/test_terrain.py",
+        "evidence/terrain-differential.json",
+        "TERRAIN.md"
+      ]
     },
     {
       "id": "src/terrain.cpp:18",
       "declarator": "read_u16(std::span<const std::uint8_t> bytes, std::size_t offset)",
       "end_line": 21,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/terrain.py::地面_类.api_解码/struct.unpack_from"
+      ],
+      "status": "已实现，八图字段/像素及扫描器自动差分",
+      "evidence": [
+        "tests/test_terrain.py",
+        "evidence/terrain-differential.json",
+        "TERRAIN.md"
+      ]
     },
     {
       "id": "src/terrain.cpp:23",
       "declarator": "read_u32(std::span<const std::uint8_t> bytes, std::size_t offset)",
       "end_line": 27,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/terrain.py::地面_类.api_解码/struct.unpack_from"
+      ],
+      "status": "已实现，八图字段/像素及扫描器自动差分",
+      "evidence": [
+        "tests/test_terrain.py",
+        "evidence/terrain-differential.json",
+        "TERRAIN.md"
+      ]
     },
     {
       "id": "src/terrain.cpp:30",
       "declarator": "Ground::tile(std::size_t index) const",
       "end_line": 35,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/terrain.py::地面_类.api_瓦片"
+      ],
+      "status": "已实现，八图字段/像素及扫描器自动差分",
+      "evidence": [
+        "tests/test_terrain.py",
+        "evidence/terrain-differential.json",
+        "TERRAIN.md"
+      ]
     },
     {
       "id": "src/terrain.cpp:37",
       "declarator": "parse_ground(std::span<const std::uint8_t> decoded)",
       "end_line": 73,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/terrain.py::地面_类.api_解码"
+      ],
+      "status": "已实现，八图字段/像素及扫描器自动差分",
+      "evidence": [
+        "tests/test_terrain.py",
+        "evidence/terrain-differential.json",
+        "TERRAIN.md"
+      ]
     },
     {
       "id": "src/terrain.cpp:75",
       "declarator": "render_overview(const Ground &ground, std::size_t max_pixels)",
       "end_line": 97,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/terrain.py::地面_类.api_总览"
+      ],
+      "status": "已实现，八图字段/像素及扫描器自动差分",
+      "evidence": [
+        "tests/test_terrain.py",
+        "evidence/terrain-differential.json",
+        "TERRAIN.md"
+      ]
     },
     {
       "id": "src/terrain.cpp:110",
       "declarator": "signed_bits(std::uint32_t value)",
       "end_line": 112,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/terrain.py::地形_类._整数"
+      ],
+      "status": "已实现，八图字段/像素及扫描器自动差分",
+      "evidence": [
+        "tests/test_terrain.py",
+        "evidence/terrain-differential.json",
+        "TERRAIN.md"
+      ]
     },
     {
       "id": "src/terrain.cpp:114",
       "declarator": "fixed_integer(std::int32_t value)",
       "end_line": 116,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/terrain.py::地形_类._定点"
+      ],
+      "status": "已实现，八图字段/像素及扫描器自动差分",
+      "evidence": [
+        "tests/test_terrain.py",
+        "evidence/terrain-differential.json",
+        "TERRAIN.md"
+      ]
     },
     {
       "id": "src/terrain.cpp:118",
       "declarator": "wrapped_subtract(std::int32_t first, std::int32_t second)",
       "end_line": 120,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/terrain.py::地形_类._整数"
+      ],
+      "status": "已实现，八图字段/像素及扫描器自动差分",
+      "evidence": [
+        "tests/test_terrain.py",
+        "evidence/terrain-differential.json",
+        "TERRAIN.md"
+      ]
     },
     {
       "id": "src/terrain.cpp:122",
       "declarator": "advance_fixed(std::int32_t value, std::int32_t step, std::int32_t count = 1)",
       "end_line": 125,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/terrain.py::地形_类._步进"
+      ],
+      "status": "已实现，八图字段/像素及扫描器自动差分",
+      "evidence": [
+        "tests/test_terrain.py",
+        "evidence/terrain-differential.json",
+        "TERRAIN.md"
+      ]
     },
     {
       "id": "src/terrain.cpp:127",
       "declarator": "floor_fixed(std::int32_t value)",
       "end_line": 130,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/terrain.py::地形_类.api_绘瓦片/整数右移"
+      ],
+      "status": "已实现，八图字段/像素及扫描器自动差分",
+      "evidence": [
+        "tests/test_terrain.py",
+        "evidence/terrain-differential.json",
+        "TERRAIN.md"
+      ]
     },
     {
       "id": "src/terrain.cpp:132",
       "declarator": "scan_edge(Point first, Point second, TexturePoint uv_first, TexturePoint uv_second,\n               TexturePoint texture_delta, graphics::Rect clip, std::vector<Scanline> &lines,\n               int &first_row)",
       "end_line": 191,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/terrain.py::地形_类._扫边"
+      ],
+      "status": "已实现，八图字段/像素及扫描器自动差分",
+      "evidence": [
+        "tests/test_terrain.py",
+        "evidence/terrain-differential.json",
+        "TERRAIN.md"
+      ]
     },
     {
       "id": "src/terrain.cpp:194",
       "declarator": "draw_tile(graphics::Image &destination, std::span<const std::uint8_t, tile_pixels> texture,\n               std::span<const std::uint16_t, 256> palette, const Quad &corners, graphics::Rect clip)",
       "end_line": 252,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/terrain.py::地形_类.api_绘瓦片"
+      ],
+      "status": "已实现，八图字段/像素及扫描器自动差分",
+      "evidence": [
+        "tests/test_terrain.py",
+        "evidence/terrain-differential.json",
+        "TERRAIN.md"
+      ]
     },
     {
       "id": "src/tools.cpp:11",

@@ -92,3 +92,7 @@ uv run --project pygame python pygame/tools/differential_world.py \
 ## 私下交易增量（2026-10-23）
 
 完整Python测试 **99/99**、Ruff通过。八图三种子共9600个交易动作完整DAT/RNG/返回字段与固定C++一致，见 [报告](evidence/trading-differential.json)。四类资产定向前缀、共享道具供应255边界也纳入最终重跑；[TRADING.md](TRADING.md) 记录源行为缺陷而未静默改变。图形交易、融资对账和真实长局未验收。
+
+## 地形增量（2026-10-23）
+
+完整Python测试 **108/108**、Ruff通过。八图GND全部解析字段、42467328个俯视总览像素，与4010组四边形的完整像素/掩码/拒绝状态均与固定C++一致，见 [报告](evidence/terrain-differential.json)。没有把俯视总览当作原游戏视角；相机、遮挡、人物/UI和实际图形验收仍待实现，见 [TERRAIN.md](TERRAIN.md)。

@@ -2220,5 +2220,158 @@
       "evidence/trading-differential.json",
       "TRADING.md"
     ]
+  },
+  "src/terrain.cpp:12": {
+    "python": [
+      "pygame/src/rich4/assets.py::资源包_类.api_检查范围"
+    ],
+    "status": "已实现，八图字段/像素及扫描器自动差分",
+    "evidence": [
+      "tests/test_terrain.py",
+      "evidence/terrain-differential.json",
+      "TERRAIN.md"
+    ]
+  },
+  "src/terrain.cpp:18": {
+    "python": [
+      "pygame/src/rich4/terrain.py::地面_类.api_解码/struct.unpack_from"
+    ],
+    "status": "已实现，八图字段/像素及扫描器自动差分",
+    "evidence": [
+      "tests/test_terrain.py",
+      "evidence/terrain-differential.json",
+      "TERRAIN.md"
+    ]
+  },
+  "src/terrain.cpp:23": {
+    "python": [
+      "pygame/src/rich4/terrain.py::地面_类.api_解码/struct.unpack_from"
+    ],
+    "status": "已实现，八图字段/像素及扫描器自动差分",
+    "evidence": [
+      "tests/test_terrain.py",
+      "evidence/terrain-differential.json",
+      "TERRAIN.md"
+    ]
+  },
+  "src/terrain.cpp:30": {
+    "python": [
+      "pygame/src/rich4/terrain.py::地面_类.api_瓦片"
+    ],
+    "status": "已实现，八图字段/像素及扫描器自动差分",
+    "evidence": [
+      "tests/test_terrain.py",
+      "evidence/terrain-differential.json",
+      "TERRAIN.md"
+    ]
+  },
+  "src/terrain.cpp:37": {
+    "python": [
+      "pygame/src/rich4/terrain.py::地面_类.api_解码"
+    ],
+    "status": "已实现，八图字段/像素及扫描器自动差分",
+    "evidence": [
+      "tests/test_terrain.py",
+      "evidence/terrain-differential.json",
+      "TERRAIN.md"
+    ]
+  },
+  "src/terrain.cpp:75": {
+    "python": [
+      "pygame/src/rich4/terrain.py::地面_类.api_总览"
+    ],
+    "status": "已实现，八图字段/像素及扫描器自动差分",
+    "evidence": [
+      "tests/test_terrain.py",
+      "evidence/terrain-differential.json",
+      "TERRAIN.md"
+    ]
+  },
+  "src/terrain.cpp:110": {
+    "python": [
+      "pygame/src/rich4/terrain.py::地形_类._整数"
+    ],
+    "status": "已实现，八图字段/像素及扫描器自动差分",
+    "evidence": [
+      "tests/test_terrain.py",
+      "evidence/terrain-differential.json",
+      "TERRAIN.md"
+    ]
+  },
+  "src/terrain.cpp:114": {
+    "python": [
+      "pygame/src/rich4/terrain.py::地形_类._定点"
+    ],
+    "status": "已实现，八图字段/像素及扫描器自动差分",
+    "evidence": [
+      "tests/test_terrain.py",
+      "evidence/terrain-differential.json",
+      "TERRAIN.md"
+    ]
+  },
+  "src/terrain.cpp:118": {
+    "python": [
+      "pygame/src/rich4/terrain.py::地形_类._整数"
+    ],
+    "status": "已实现，八图字段/像素及扫描器自动差分",
+    "evidence": [
+      "tests/test_terrain.py",
+      "evidence/terrain-differential.json",
+      "TERRAIN.md"
+    ]
+  },
+  "src/terrain.cpp:122": {
+    "python": [
+      "pygame/src/rich4/terrain.py::地形_类._步进"
+    ],
+    "status": "已实现，八图字段/像素及扫描器自动差分",
+    "evidence": [
+      "tests/test_terrain.py",
+      "evidence/terrain-differential.json",
+      "TERRAIN.md"
+    ]
+  },
+  "src/terrain.cpp:127": {
+    "python": [
+      "pygame/src/rich4/terrain.py::地形_类.api_绘瓦片/整数右移"
+    ],
+    "status": "已实现，八图字段/像素及扫描器自动差分",
+    "evidence": [
+      "tests/test_terrain.py",
+      "evidence/terrain-differential.json",
+      "TERRAIN.md"
+    ]
+  },
+  "src/terrain.cpp:132": {
+    "python": [
+      "pygame/src/rich4/terrain.py::地形_类._扫边"
+    ],
+    "status": "已实现，八图字段/像素及扫描器自动差分",
+    "evidence": [
+      "tests/test_terrain.py",
+      "evidence/terrain-differential.json",
+      "TERRAIN.md"
+    ]
+  },
+  "src/terrain.cpp:194": {
+    "python": [
+      "pygame/src/rich4/terrain.py::地形_类.api_绘瓦片"
+    ],
+    "status": "已实现，八图字段/像素及扫描器自动差分",
+    "evidence": [
+      "tests/test_terrain.py",
+      "evidence/terrain-differential.json",
+      "TERRAIN.md"
+    ]
+  },
+  "include/rich4/terrain.hpp:22": {
+    "python": [
+      "pygame/src/rich4/terrain.py::地面_类.api_瓦片数"
+    ],
+    "status": "已实现，自动差分",
+    "evidence": [
+      "tests/test_terrain.py",
+      "evidence/terrain-differential.json"
+    ]
   }
 }
