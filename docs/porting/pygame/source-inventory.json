@@ -8226,201 +8226,351 @@
       "id": "src/stocks_ai.cpp:20",
       "declarator": "number(double value)",
       "end_line": 22,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/numeric.py::扩展数_类.api_从值"
+      ],
+      "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+      "evidence": [
+        "tests/test_stocks_ai.py",
+        "evidence/stocks-ai-differential.json",
+        "STOCKS_AI.md"
+      ]
     },
     {
       "id": "src/stocks_ai.cpp:24",
       "declarator": "less(Extended a, Extended b)",
       "end_line": 36,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks_ai.py::股票电脑_类._小"
+      ],
+      "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+      "evidence": [
+        "tests/test_stocks_ai.py",
+        "evidence/stocks-ai-differential.json",
+        "STOCKS_AI.md"
+      ]
     },
     {
       "id": "src/stocks_ai.cpp:37",
       "declarator": "add(std::int32_t a, std::int32_t b)",
       "end_line": 39,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks.py::股市_类._回绕"
+      ],
+      "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+      "evidence": [
+        "tests/test_stocks_ai.py",
+        "evidence/stocks-ai-differential.json",
+        "STOCKS_AI.md"
+      ]
     },
     {
       "id": "src/stocks_ai.cpp:40",
       "declarator": "subtract(std::int32_t a, std::int32_t b)",
       "end_line": 42,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks.py::股市_类._回绕"
+      ],
+      "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+      "evidence": [
+        "tests/test_stocks_ai.py",
+        "evidence/stocks-ai-differential.json",
+        "STOCKS_AI.md"
+      ]
     },
     {
       "id": "src/stocks_ai.cpp:43",
       "declarator": "multiply(std::int32_t a, std::int32_t b)",
       "end_line": 45,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks.py::股市_类._回绕"
+      ],
+      "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+      "evidence": [
+        "tests/test_stocks_ai.py",
+        "evidence/stocks-ai-differential.json",
+        "STOCKS_AI.md"
+      ]
     },
     {
       "id": "src/stocks_ai.cpp:46",
       "declarator": "scalar(const StockState &stock, std::size_t index)",
       "end_line": 48,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks_ai.py::股票电脑_类._标量"
+      ],
+      "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+      "evidence": [
+        "tests/test_stocks_ai.py",
+        "evidence/stocks-ai-differential.json",
+        "STOCKS_AI.md"
+      ]
     },
     {
       "id": "src/stocks_ai.cpp:49",
       "declarator": "quote(const StockState &stock)",
       "end_line": 51,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks_ai.py::股票电脑_类._标量"
+      ],
+      "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+      "evidence": [
+        "tests/test_stocks_ai.py",
+        "evidence/stocks-ai-differential.json",
+        "STOCKS_AI.md"
+      ]
     },
     {
       "id": "src/stocks_ai.cpp:52",
       "declarator": "basis(const StockHolding &holding)",
       "end_line": 54,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks.py::股市_类._浮点"
+      ],
+      "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+      "evidence": [
+        "tests/test_stocks_ai.py",
+        "evidence/stocks-ai-differential.json",
+        "STOCKS_AI.md"
+      ]
     },
     {
       "id": "src/stocks_ai.cpp:55",
       "declarator": "liquidity(const WorldPlayer &player)",
       "end_line": 57,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks_ai.py::股票电脑_类._流动"
+      ],
+      "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+      "evidence": [
+        "tests/test_stocks_ai.py",
+        "evidence/stocks-ai-differential.json",
+        "STOCKS_AI.md"
+      ]
     },
     {
       "id": "src/stocks_ai.cpp:61",
       "declarator": "original_day_index(std::uint32_t packed)",
       "end_line": 67,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks_ai.py::股票电脑_类._原日序"
+      ],
+      "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+      "evidence": [
+        "tests/test_stocks_ai.py",
+        "evidence/stocks-ai-differential.json",
+        "STOCKS_AI.md"
+      ]
     },
     {
       "id": "src/stocks_ai.cpp:68",
       "declarator": "days_until_loan(const World &world, const WorldPlayer &player)",
       "end_line": 72,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks_ai.py::股票电脑_类._贷款余日"
+      ],
+      "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+      "evidence": [
+        "tests/test_stocks_ai.py",
+        "evidence/stocks-ai-differential.json",
+        "STOCKS_AI.md"
+      ]
     },
     {
       "id": "src/stocks_ai.cpp:74",
       "declarator": "history_average(const World &world, std::size_t stock, int periods)",
       "end_line": 92,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks_ai.py::股票电脑_类._历史均值"
+      ],
+      "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+      "evidence": [
+        "tests/test_stocks_ai.py",
+        "evidence/stocks-ai-differential.json",
+        "STOCKS_AI.md"
+      ]
     },
     {
       "id": "src/stocks_ai.cpp:93",
       "declarator": "company_average_profit(const World &world, const Commercial &company)",
       "end_line": 98,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks_ai.py::股票电脑_类._公司均利"
+      ],
+      "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+      "evidence": [
+        "tests/test_stocks_ai.py",
+        "evidence/stocks-ai-differential.json",
+        "STOCKS_AI.md"
+      ]
     },
     {
       "id": "src/stocks_ai.cpp:99",
       "declarator": "company_unit_value(const Commercial &company)",
       "end_line": 101,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks_ai.py::股票电脑_类._单位估值"
+      ],
+      "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+      "evidence": [
+        "tests/test_stocks_ai.py",
+        "evidence/stocks-ai-differential.json",
+        "STOCKS_AI.md"
+      ]
     },
     {
       "id": "src/stocks_ai.cpp:102",
       "declarator": "&company_for(const World &world, const StockState &stock)",
       "end_line": 107,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks_ai.py::股票电脑_类._公司"
+      ],
+      "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+      "evidence": [
+        "tests/test_stocks_ai.py",
+        "evidence/stocks-ai-differential.json",
+        "STOCKS_AI.md"
+      ]
     },
     {
       "id": "src/stocks_ai.cpp:108",
       "declarator": "holdings_value(const World &world, std::size_t actor)",
       "end_line": 118,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks_ai.py::股票电脑_类._持仓值"
+      ],
+      "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+      "evidence": [
+        "tests/test_stocks_ai.py",
+        "evidence/stocks-ai-differential.json",
+        "STOCKS_AI.md"
+      ]
     },
     {
       "id": "src/stocks_ai.cpp:120",
       "declarator": "company_buy_score(const World &world, std::size_t actor, std::size_t index)",
       "end_line": 158,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks_ai.py::股票电脑_类._公司买分"
+      ],
+      "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+      "evidence": [
+        "tests/test_stocks_ai.py",
+        "evidence/stocks-ai-differential.json",
+        "STOCKS_AI.md"
+      ]
     },
     {
       "id": "src/stocks_ai.cpp:160",
       "declarator": "market_buy_score(const World &world, std::size_t index)",
       "end_line": 178,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks_ai.py::股票电脑_类._市场买分"
+      ],
+      "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+      "evidence": [
+        "tests/test_stocks_ai.py",
+        "evidence/stocks-ai-differential.json",
+        "STOCKS_AI.md"
+      ]
     },
     {
       "id": "src/stocks_ai.cpp:184",
       "declarator": "original_sort(std::array<RatedStock, 12> &entries)",
       "end_line": 194,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks_ai.py::股票电脑_类._原排序"
+      ],
+      "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+      "evidence": [
+        "tests/test_stocks_ai.py",
+        "evidence/stocks-ai-differential.json",
+        "STOCKS_AI.md"
+      ]
     },
     {
       "id": "src/stocks_ai.cpp:196",
       "declarator": "company_sell_score(const World &world, std::size_t actor, std::size_t index, bool urgent)",
       "end_line": 242,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks_ai.py::股票电脑_类._公司卖分"
+      ],
+      "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+      "evidence": [
+        "tests/test_stocks_ai.py",
+        "evidence/stocks-ai-differential.json",
+        "STOCKS_AI.md"
+      ]
     },
     {
       "id": "src/stocks_ai.cpp:244",
       "declarator": "ratio_points(float ratio, float offset)",
       "end_line": 249,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks_ai.py::股票电脑_类._比率分"
+      ],
+      "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+      "evidence": [
+        "tests/test_stocks_ai.py",
+        "evidence/stocks-ai-differential.json",
+        "STOCKS_AI.md"
+      ]
     },
     {
       "id": "src/stocks_ai.cpp:250",
       "declarator": "market_sell_score(const World &world, std::size_t actor, std::size_t index, bool urgent)",
       "end_line": 288,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks_ai.py::股票电脑_类._市场卖分"
+      ],
+      "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+      "evidence": [
+        "tests/test_stocks_ai.py",
+        "evidence/stocks-ai-differential.json",
+        "STOCKS_AI.md"
+      ]
     },
     {
       "id": "src/stocks_ai.cpp:290",
       "declarator": "validate(const World &world, std::size_t actor)",
       "end_line": 295,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks_ai.py::股票电脑_类._验证"
+      ],
+      "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+      "evidence": [
+        "tests/test_stocks_ai.py",
+        "evidence/stocks-ai-differential.json",
+        "STOCKS_AI.md"
+      ]
     },
     {
       "id": "src/stocks_ai.cpp:298",
       "declarator": "buy(World &world, Random &random, std::size_t actor, bool market_closed)",
       "end_line": 346,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks_ai.py::股票电脑_类.api_买入"
+      ],
+      "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+      "evidence": [
+        "tests/test_stocks_ai.py",
+        "evidence/stocks-ai-differential.json",
+        "STOCKS_AI.md"
+      ]
     },
     {
       "id": "src/stocks_ai.cpp:348",
       "declarator": "sell(World &world, Random &random, std::size_t actor, bool market_closed)",
       "end_line": 383,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks_ai.py::股票电脑_类.api_卖出"
+      ],
+      "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+      "evidence": [
+        "tests/test_stocks_ai.py",
+        "evidence/stocks-ai-differential.json",
+        "STOCKS_AI.md"
+      ]
     },
     {
       "id": "src/terrain.cpp:12",

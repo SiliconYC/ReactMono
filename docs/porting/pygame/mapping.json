@@ -3909,5 +3909,280 @@
       "evidence/cards-differential.json",
       "CARDS.md"
     ]
+  },
+  "src/stocks_ai.cpp:20": {
+    "python": [
+      "pygame/src/rich4/numeric.py::扩展数_类.api_从值"
+    ],
+    "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+    "evidence": [
+      "tests/test_stocks_ai.py",
+      "evidence/stocks-ai-differential.json",
+      "STOCKS_AI.md"
+    ]
+  },
+  "src/stocks_ai.cpp:24": {
+    "python": [
+      "pygame/src/rich4/stocks_ai.py::股票电脑_类._小"
+    ],
+    "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+    "evidence": [
+      "tests/test_stocks_ai.py",
+      "evidence/stocks-ai-differential.json",
+      "STOCKS_AI.md"
+    ]
+  },
+  "src/stocks_ai.cpp:37": {
+    "python": [
+      "pygame/src/rich4/stocks.py::股市_类._回绕"
+    ],
+    "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+    "evidence": [
+      "tests/test_stocks_ai.py",
+      "evidence/stocks-ai-differential.json",
+      "STOCKS_AI.md"
+    ]
+  },
+  "src/stocks_ai.cpp:40": {
+    "python": [
+      "pygame/src/rich4/stocks.py::股市_类._回绕"
+    ],
+    "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+    "evidence": [
+      "tests/test_stocks_ai.py",
+      "evidence/stocks-ai-differential.json",
+      "STOCKS_AI.md"
+    ]
+  },
+  "src/stocks_ai.cpp:43": {
+    "python": [
+      "pygame/src/rich4/stocks.py::股市_类._回绕"
+    ],
+    "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+    "evidence": [
+      "tests/test_stocks_ai.py",
+      "evidence/stocks-ai-differential.json",
+      "STOCKS_AI.md"
+    ]
+  },
+  "src/stocks_ai.cpp:46": {
+    "python": [
+      "pygame/src/rich4/stocks_ai.py::股票电脑_类._标量"
+    ],
+    "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+    "evidence": [
+      "tests/test_stocks_ai.py",
+      "evidence/stocks-ai-differential.json",
+      "STOCKS_AI.md"
+    ]
+  },
+  "src/stocks_ai.cpp:49": {
+    "python": [
+      "pygame/src/rich4/stocks_ai.py::股票电脑_类._标量"
+    ],
+    "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+    "evidence": [
+      "tests/test_stocks_ai.py",
+      "evidence/stocks-ai-differential.json",
+      "STOCKS_AI.md"
+    ]
+  },
+  "src/stocks_ai.cpp:52": {
+    "python": [
+      "pygame/src/rich4/stocks.py::股市_类._浮点"
+    ],
+    "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+    "evidence": [
+      "tests/test_stocks_ai.py",
+      "evidence/stocks-ai-differential.json",
+      "STOCKS_AI.md"
+    ]
+  },
+  "src/stocks_ai.cpp:55": {
+    "python": [
+      "pygame/src/rich4/stocks_ai.py::股票电脑_类._流动"
+    ],
+    "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+    "evidence": [
+      "tests/test_stocks_ai.py",
+      "evidence/stocks-ai-differential.json",
+      "STOCKS_AI.md"
+    ]
+  },
+  "src/stocks_ai.cpp:61": {
+    "python": [
+      "pygame/src/rich4/stocks_ai.py::股票电脑_类._原日序"
+    ],
+    "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+    "evidence": [
+      "tests/test_stocks_ai.py",
+      "evidence/stocks-ai-differential.json",
+      "STOCKS_AI.md"
+    ]
+  },
+  "src/stocks_ai.cpp:68": {
+    "python": [
+      "pygame/src/rich4/stocks_ai.py::股票电脑_类._贷款余日"
+    ],
+    "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+    "evidence": [
+      "tests/test_stocks_ai.py",
+      "evidence/stocks-ai-differential.json",
+      "STOCKS_AI.md"
+    ]
+  },
+  "src/stocks_ai.cpp:74": {
+    "python": [
+      "pygame/src/rich4/stocks_ai.py::股票电脑_类._历史均值"
+    ],
+    "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+    "evidence": [
+      "tests/test_stocks_ai.py",
+      "evidence/stocks-ai-differential.json",
+      "STOCKS_AI.md"
+    ]
+  },
+  "src/stocks_ai.cpp:93": {
+    "python": [
+      "pygame/src/rich4/stocks_ai.py::股票电脑_类._公司均利"
+    ],
+    "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+    "evidence": [
+      "tests/test_stocks_ai.py",
+      "evidence/stocks-ai-differential.json",
+      "STOCKS_AI.md"
+    ]
+  },
+  "src/stocks_ai.cpp:99": {
+    "python": [
+      "pygame/src/rich4/stocks_ai.py::股票电脑_类._单位估值"
+    ],
+    "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+    "evidence": [
+      "tests/test_stocks_ai.py",
+      "evidence/stocks-ai-differential.json",
+      "STOCKS_AI.md"
+    ]
+  },
+  "src/stocks_ai.cpp:102": {
+    "python": [
+      "pygame/src/rich4/stocks_ai.py::股票电脑_类._公司"
+    ],
+    "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+    "evidence": [
+      "tests/test_stocks_ai.py",
+      "evidence/stocks-ai-differential.json",
+      "STOCKS_AI.md"
+    ]
+  },
+  "src/stocks_ai.cpp:108": {
+    "python": [
+      "pygame/src/rich4/stocks_ai.py::股票电脑_类._持仓值"
+    ],
+    "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+    "evidence": [
+      "tests/test_stocks_ai.py",
+      "evidence/stocks-ai-differential.json",
+      "STOCKS_AI.md"
+    ]
+  },
+  "src/stocks_ai.cpp:120": {
+    "python": [
+      "pygame/src/rich4/stocks_ai.py::股票电脑_类._公司买分"
+    ],
+    "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+    "evidence": [
+      "tests/test_stocks_ai.py",
+      "evidence/stocks-ai-differential.json",
+      "STOCKS_AI.md"
+    ]
+  },
+  "src/stocks_ai.cpp:160": {
+    "python": [
+      "pygame/src/rich4/stocks_ai.py::股票电脑_类._市场买分"
+    ],
+    "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+    "evidence": [
+      "tests/test_stocks_ai.py",
+      "evidence/stocks-ai-differential.json",
+      "STOCKS_AI.md"
+    ]
+  },
+  "src/stocks_ai.cpp:184": {
+    "python": [
+      "pygame/src/rich4/stocks_ai.py::股票电脑_类._原排序"
+    ],
+    "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+    "evidence": [
+      "tests/test_stocks_ai.py",
+      "evidence/stocks-ai-differential.json",
+      "STOCKS_AI.md"
+    ]
+  },
+  "src/stocks_ai.cpp:196": {
+    "python": [
+      "pygame/src/rich4/stocks_ai.py::股票电脑_类._公司卖分"
+    ],
+    "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+    "evidence": [
+      "tests/test_stocks_ai.py",
+      "evidence/stocks-ai-differential.json",
+      "STOCKS_AI.md"
+    ]
+  },
+  "src/stocks_ai.cpp:244": {
+    "python": [
+      "pygame/src/rich4/stocks_ai.py::股票电脑_类._比率分"
+    ],
+    "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+    "evidence": [
+      "tests/test_stocks_ai.py",
+      "evidence/stocks-ai-differential.json",
+      "STOCKS_AI.md"
+    ]
+  },
+  "src/stocks_ai.cpp:250": {
+    "python": [
+      "pygame/src/rich4/stocks_ai.py::股票电脑_类._市场卖分"
+    ],
+    "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+    "evidence": [
+      "tests/test_stocks_ai.py",
+      "evidence/stocks-ai-differential.json",
+      "STOCKS_AI.md"
+    ]
+  },
+  "src/stocks_ai.cpp:290": {
+    "python": [
+      "pygame/src/rich4/stocks_ai.py::股票电脑_类._验证"
+    ],
+    "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+    "evidence": [
+      "tests/test_stocks_ai.py",
+      "evidence/stocks-ai-differential.json",
+      "STOCKS_AI.md"
+    ]
+  },
+  "src/stocks_ai.cpp:298": {
+    "python": [
+      "pygame/src/rich4/stocks_ai.py::股票电脑_类.api_买入"
+    ],
+    "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+    "evidence": [
+      "tests/test_stocks_ai.py",
+      "evidence/stocks-ai-differential.json",
+      "STOCKS_AI.md"
+    ]
+  },
+  "src/stocks_ai.cpp:348": {
+    "python": [
+      "pygame/src/rich4/stocks_ai.py::股票电脑_类.api_卖出"
+    ],
+    "status": "已实现，八图交易/私有探针差分；GameSession调用时机待集成",
+    "evidence": [
+      "tests/test_stocks_ai.py",
+      "evidence/stocks-ai-differential.json",
+      "STOCKS_AI.md"
+    ]
   }
 }
