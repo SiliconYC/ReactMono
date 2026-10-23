@@ -1,0 +1,518 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "generator_seed": 2026102316,
+  "scope": "original native mini-game screen, selected full RGB555 canvases, audio requests and real input timelines; no audible or desktop acceptance",
+  "status": "passed",
+  "episodes": [
+    {
+      "game": 0,
+      "seed": 42,
+      "character": 0,
+      "bot": false,
+      "commands": 633,
+      "operations": {
+        "n": 1,
+        "t": 524,
+        "s": 99,
+        "p": 9
+      },
+      "snapshots": 99,
+      "stages": {
+        "0": 23,
+        "1": 52,
+        "2": 403,
+        "3": 43,
+        "4": 1
+      },
+      "score": 63,
+      "draws": 28,
+      "pixels_sha256": "6fb3f849b6f417e7eae74197f78f3cd139f34b34a9c396d4a3ddcc30903d11e4",
+      "input_sha256": "a803a032314d5efd51eaa8a4899f9d9865b420c07dd7470e9892651115d33083",
+      "output_sha256": "a4e512f7ad61bb90caa99d47c03fb8fa19220bd405e54444052cebe351031e18"
+    },
+    {
+      "game": 0,
+      "seed": 42,
+      "character": 0,
+      "bot": true,
+      "commands": 624,
+      "operations": {
+        "n": 1,
+        "t": 524,
+        "s": 99
+      },
+      "snapshots": 99,
+      "stages": {
+        "0": 23,
+        "1": 52,
+        "2": 403,
+        "3": 43,
+        "4": 1
+      },
+      "score": 63,
+      "draws": 28,
+      "pixels_sha256": "6fb3f849b6f417e7eae74197f78f3cd139f34b34a9c396d4a3ddcc30903d11e4",
+      "input_sha256": "7d08ee4a8e7db89b8dce4cb0fd02a1b52cd1d6204692436cff901a6143c8f039",
+      "output_sha256": "978cb60563c73872fc7679a4435d45afc643da8303a0fe6d8b64d484a8173fcb"
+    },
+    {
+      "game": 0,
+      "seed": 77,
+      "character": 0,
+      "bot": false,
+      "commands": 635,
+      "operations": {
+        "n": 1,
+        "t": 524,
+        "s": 99,
+        "p": 11
+      },
+      "snapshots": 99,
+      "stages": {
+        "0": 23,
+        "1": 52,
+        "2": 403,
+        "3": 43,
+        "4": 1
+      },
+      "score": 84,
+      "draws": 28,
+      "pixels_sha256": "4e7949c8e1b96f737081218f9362035a761bac03bc5c4ab1ff9fd7243062627f",
+      "input_sha256": "eea0e5820321acd17aee00977028a407e496643142db0ef0dd556d35f7a6285f",
+      "output_sha256": "526b525b14a6bb61a91a466291e467eb40228d23852b193d93d608d2de97f461"
+    },
+    {
+      "game": 0,
+      "seed": 77,
+      "character": 0,
+      "bot": true,
+      "commands": 624,
+      "operations": {
+        "n": 1,
+        "t": 524,
+        "s": 99
+      },
+      "snapshots": 99,
+      "stages": {
+        "0": 23,
+        "1": 52,
+        "2": 403,
+        "3": 43,
+        "4": 1
+      },
+      "score": 84,
+      "draws": 28,
+      "pixels_sha256": "4e7949c8e1b96f737081218f9362035a761bac03bc5c4ab1ff9fd7243062627f",
+      "input_sha256": "4b4fd2d23b8c331b7a0852d3d359a909dd81d61f9465c423e425691af0746318",
+      "output_sha256": "adbf1223afb0eb33c4a5978afdf5cf3bc0d95f4dfbf51cb1f726a63a0128a29b"
+    },
+    {
+      "game": 1,
+      "seed": 42,
+      "character": 0,
+      "bot": false,
+      "commands": 351,
+      "operations": {
+        "n": 1,
+        "t": 221,
+        "s": 56,
+        "p": 73
+      },
+      "snapshots": 56,
+      "stages": {
+        "0": 12,
+        "1": 54,
+        "2": 107,
+        "3": 45,
+        "4": 1
+      },
+      "score": 70,
+      "draws": 619,
+      "pixels_sha256": "527fc1dd637c3399bc2b59a9400bf46f88cae320a44980d560cc70df9d207fa1",
+      "input_sha256": "82b9d76b3fe2f97e90c56003f01ebe44f1f449a9a3c9bc769da2ea1ce780dd75",
+      "output_sha256": "4a3aaceb9f23aa0f61d80fb40d8696268ba8016a00aba603e60c0f1250c64f80"
+    },
+    {
+      "game": 1,
+      "seed": 42,
+      "character": 0,
+      "bot": true,
+      "commands": 559,
+      "operations": {
+        "n": 1,
+        "t": 467,
+        "s": 91
+      },
+      "snapshots": 91,
+      "stages": {
+        "0": 12,
+        "1": 54,
+        "2": 352,
+        "3": 46,
+        "4": 1
+      },
+      "score": 156,
+      "draws": 1815,
+      "pixels_sha256": "4b1d26c32ca7610a49f57dc4fb2a1113302ed0e638dae0f41f3361bbccbd31b3",
+      "input_sha256": "b94e0fa9624cd60c7a29f73c88bb2d3e72db95a39ea70e24073f92535a6b1b90",
+      "output_sha256": "0b5b12d0f2c2fd4742f34fe66161a1b73fd7d098606e91eb86e262ef55d04db8"
+    },
+    {
+      "game": 1,
+      "seed": 77,
+      "character": 0,
+      "bot": false,
+      "commands": 590,
+      "operations": {
+        "n": 1,
+        "t": 383,
+        "s": 79,
+        "p": 127
+      },
+      "snapshots": 79,
+      "stages": {
+        "0": 12,
+        "1": 54,
+        "2": 268,
+        "3": 46,
+        "4": 1
+      },
+      "score": 136,
+      "draws": 1730,
+      "pixels_sha256": "ebf1bab69e53dc44360c7758de3cfcae76d9b3c1a0483e97f6a51597d5b9eb3a",
+      "input_sha256": "7a37104e8b166f5fdf07dc3734c67cb32b9896a3f3c40c8a5b85fa9404b77e48",
+      "output_sha256": "21191a855e2de53d9cfb6908495c24d1d2a9e0bf3619080a6a3ca24bee34e67f"
+    },
+    {
+      "game": 1,
+      "seed": 77,
+      "character": 0,
+      "bot": true,
+      "commands": 570,
+      "operations": {
+        "n": 1,
+        "t": 477,
+        "s": 92
+      },
+      "snapshots": 92,
+      "stages": {
+        "0": 12,
+        "1": 54,
+        "2": 364,
+        "3": 44,
+        "4": 1
+      },
+      "score": 340,
+      "draws": 1698,
+      "pixels_sha256": "3fd04c8e9c02379de355a32a584bcf6ff1990906263c930b268e449525ae18b3",
+      "input_sha256": "11c823e7a96abe290c2ff21a93fc78c2add034d3ccabecd06ec3806c840b1eb4",
+      "output_sha256": "094d03f84b5f4e208db3a1c8de187358ff044bae9cf1f2b80517c33db49f2bda"
+    },
+    {
+      "game": 2,
+      "seed": 42,
+      "character": 0,
+      "bot": false,
+      "commands": 270,
+      "operations": {
+        "n": 1,
+        "t": 197,
+        "s": 60,
+        "p": 12
+      },
+      "snapshots": 60,
+      "stages": {
+        "0": 12,
+        "1": 54,
+        "2": 85,
+        "3": 43,
+        "4": 1
+      },
+      "score": 0,
+      "draws": 27,
+      "pixels_sha256": "2dfa125d0a7300748953fec485e9cd6930e409607bc24ada52a0bee60ed760c8",
+      "input_sha256": "912fc9a525d2bfb019c842a22a51a28eef863d78659ec85699e46015c13d5d13",
+      "output_sha256": "8fdabbd2b308f92caa3eb88a5ecf7de753cd7cc90825d4a5a2851dab3d8e0c7c"
+    },
+    {
+      "game": 2,
+      "seed": 42,
+      "character": 0,
+      "bot": true,
+      "commands": 362,
+      "operations": {
+        "n": 1,
+        "t": 288,
+        "s": 73
+      },
+      "snapshots": 73,
+      "stages": {
+        "0": 12,
+        "1": 54,
+        "2": 175,
+        "3": 44,
+        "4": 1
+      },
+      "score": 17,
+      "draws": 67,
+      "pixels_sha256": "8a6c0c8494e699a232c195996b051188e0a16f0b7116ee23a829972f5a6e228a",
+      "input_sha256": "ee3afb7e82054e6b33c1c09bd4f54a3e9f8b3c5c4336f677cdd85002cc3156be",
+      "output_sha256": "bdc5bf3fdced6bed6039e7eeb75a176ec4de02e68901c8dd2508a6745a5b18ba"
+    },
+    {
+      "game": 2,
+      "seed": 42,
+      "character": 7,
+      "bot": false,
+      "commands": 270,
+      "operations": {
+        "n": 1,
+        "t": 197,
+        "s": 60,
+        "p": 12
+      },
+      "snapshots": 60,
+      "stages": {
+        "0": 12,
+        "1": 54,
+        "2": 85,
+        "3": 43,
+        "4": 1
+      },
+      "score": 3,
+      "draws": 27,
+      "pixels_sha256": "998b9a672e6e797b3610945e0efab2596b7c8c561735375e7011fa40fae9150c",
+      "input_sha256": "a567564c0ac66cc27d0b13ef68b74ae0b5dc2cc474458715a6451f8d13e36f4f",
+      "output_sha256": "7900088f8dbe0790b7a36e09a6f7cb5b0840873fc134b9faed5fc56de4c854d8"
+    },
+    {
+      "game": 2,
+      "seed": 42,
+      "character": 7,
+      "bot": true,
+      "commands": 362,
+      "operations": {
+        "n": 1,
+        "t": 288,
+        "s": 73
+      },
+      "snapshots": 73,
+      "stages": {
+        "0": 12,
+        "1": 54,
+        "2": 175,
+        "3": 44,
+        "4": 1
+      },
+      "score": 6,
+      "draws": 67,
+      "pixels_sha256": "c55f4b8370415348c5f48579438a593f80f1a525463330b820e92ee741d6454f",
+      "input_sha256": "eb44b9dc24cc2de07cd8daf86aa385e6f247ca5e9718ba5a2ab1d8af0a133a8d",
+      "output_sha256": "9a34472817505e25cc844a1787db04f774a8b5c8f2e26f24e722b7fdac12781d"
+    },
+    {
+      "game": 2,
+      "seed": 42,
+      "character": 11,
+      "bot": false,
+      "commands": 274,
+      "operations": {
+        "n": 1,
+        "t": 200,
+        "s": 61,
+        "p": 12
+      },
+      "snapshots": 61,
+      "stages": {
+        "0": 12,
+        "1": 54,
+        "2": 86,
+        "3": 45,
+        "4": 1
+      },
+      "score": 3,
+      "draws": 27,
+      "pixels_sha256": "5ad7a96dad676d45122257bc621fdd5e3594fc0284d25f3cf3a1104c0c00b0a7",
+      "input_sha256": "738c07e72558344a940c559f692784c2b22622e1ab4c74827cdafe1631aba655",
+      "output_sha256": "037db582a910fb97ed2de4d0938692db21989a047274e418d22f299efd0eafb8"
+    },
+    {
+      "game": 2,
+      "seed": 42,
+      "character": 11,
+      "bot": true,
+      "commands": 648,
+      "operations": {
+        "n": 1,
+        "t": 545,
+        "s": 102
+      },
+      "snapshots": 102,
+      "stages": {
+        "0": 12,
+        "1": 54,
+        "2": 433,
+        "3": 43,
+        "4": 1
+      },
+      "score": 43,
+      "draws": 174,
+      "pixels_sha256": "82cf1e6836711f5226859484a97c587e99ce28429c03a15fb9ec0ddbeff61272",
+      "input_sha256": "c57377214ae7cb291be3dce09816be5da2f716250c43a6541cf091f0694cd5c0",
+      "output_sha256": "92675d790813418ed077fe799f69fdd04cfa3eb6e1be51e2fafdbb77710bfcda"
+    },
+    {
+      "game": 2,
+      "seed": 77,
+      "character": 0,
+      "bot": false,
+      "commands": 270,
+      "operations": {
+        "n": 1,
+        "t": 197,
+        "s": 60,
+        "p": 12
+      },
+      "snapshots": 60,
+      "stages": {
+        "0": 12,
+        "1": 54,
+        "2": 85,
+        "3": 43,
+        "4": 1
+      },
+      "score": 3,
+      "draws": 23,
+      "pixels_sha256": "7e20e22aa6916cf06c0511a790bd6600c13a091018ac2dff9aefa7b9e575bdf1",
+      "input_sha256": "213f7f44582241cb297b86472c01b56bf7e857284a5dd753a9ca94955b5f53c7",
+      "output_sha256": "339bea13051005589d5cebf6ec3ab84ae1bf9d29ae4f8b0683697a1bfda184b4"
+    },
+    {
+      "game": 2,
+      "seed": 77,
+      "character": 0,
+      "bot": true,
+      "commands": 642,
+      "operations": {
+        "n": 1,
+        "t": 540,
+        "s": 101
+      },
+      "snapshots": 101,
+      "stages": {
+        "0": 12,
+        "1": 54,
+        "2": 427,
+        "3": 44,
+        "4": 1
+      },
+      "score": 73,
+      "draws": 174,
+      "pixels_sha256": "0ac4003d8554f90eae3dc2268c7b76270021af0a8e3652d0dcfb7e43edb9829f",
+      "input_sha256": "4dbf9a8f39342dd3e0ab6b228f60c3ef736c54e0f928a24d83942071afcf244e",
+      "output_sha256": "c1df8cfce167e597fb4e865ab7b5e1b43a2820f82077e210d1d01e0be567ef16"
+    },
+    {
+      "game": 2,
+      "seed": 77,
+      "character": 7,
+      "bot": false,
+      "commands": 270,
+      "operations": {
+        "n": 1,
+        "t": 197,
+        "s": 60,
+        "p": 12
+      },
+      "snapshots": 60,
+      "stages": {
+        "0": 12,
+        "1": 54,
+        "2": 85,
+        "3": 43,
+        "4": 1
+      },
+      "score": 0,
+      "draws": 23,
+      "pixels_sha256": "72d18b6a6b9ee5f00a59a39223f282c9ef08bdf38348695cbb7ecdb89e053df5",
+      "input_sha256": "2e9bea2b6171af2f91974d04903d833f7e25364f648c08d4bfd3eb9d7222ca68",
+      "output_sha256": "1ab99fd51942b56b23ea26e3c2d9b49bac319690c3a0d9b8445a39897739db13"
+    },
+    {
+      "game": 2,
+      "seed": 77,
+      "character": 7,
+      "bot": true,
+      "commands": 642,
+      "operations": {
+        "n": 1,
+        "t": 540,
+        "s": 101
+      },
+      "snapshots": 101,
+      "stages": {
+        "0": 12,
+        "1": 54,
+        "2": 427,
+        "3": 44,
+        "4": 1
+      },
+      "score": 59,
+      "draws": 174,
+      "pixels_sha256": "b1acc5be7ae9f2085f7e333297c80e778f486a259277b325a179374abc1b80fa",
+      "input_sha256": "920edcf595093597da726af23fe8adbb250ae97475a74dedc89d377a5f9b7b9e",
+      "output_sha256": "bac3bc1028233f57307465bcfa4cd39b4be12dd8b689bea093bf510ce25851eb"
+    },
+    {
+      "game": 2,
+      "seed": 77,
+      "character": 11,
+      "bot": false,
+      "commands": 274,
+      "operations": {
+        "n": 1,
+        "t": 200,
+        "s": 61,
+        "p": 12
+      },
+      "snapshots": 61,
+      "stages": {
+        "0": 12,
+        "1": 54,
+        "2": 86,
+        "3": 45,
+        "4": 1
+      },
+      "score": 3,
+      "draws": 23,
+      "pixels_sha256": "7fa82c2515a94392e7a9467a014553f24bbbdc57f09de4b52f8a6d920d2e24ac",
+      "input_sha256": "668ce0f10d8eb5b081f06710cc0e13e25c5b7ac564bc90633fdba89ba9dc7291",
+      "output_sha256": "e8203c96e2e441b387907dba95390885ec48eeb8c4b674013a60bcc3672ca467"
+    },
+    {
+      "game": 2,
+      "seed": 77,
+      "character": 11,
+      "bot": true,
+      "commands": 642,
+      "operations": {
+        "n": 1,
+        "t": 540,
+        "s": 101
+      },
+      "snapshots": 101,
+      "stages": {
+        "0": 12,
+        "1": 54,
+        "2": 427,
+        "3": 44,
+        "4": 1
+      },
+      "score": 63,
+      "draws": 174,
+      "pixels_sha256": "53f326d1ea8f134bb81c51a8b2339f0bd58af1035720e4e5119af7207296b128",
+      "input_sha256": "1fcfe07298b824030d77fb3447f17caaaf743eccae930e6c4dd377e50359abe2",
+      "output_sha256": "8d2c1b7e0413063417bb5b6c6614407838be52d799e05d1b8968007816a41f9b"
+    }
+  ]
+}

@@ -13168,33 +13168,53 @@
       "id": "tools/native_frame.hpp:29",
       "declarator": "Artwork(std::filesystem::path directory)",
       "end_line": 29,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/artwork.py::美术_类.__init__"
+      ],
+      "status": "已实现，原屏幕像素差分与边界单测",
+      "evidence": [
+        "tests/test_artwork.py",
+        "evidence/minigame-presentation-differential.json"
+      ]
     },
     {
       "id": "tools/native_frame.hpp:30",
       "declarator": "&archive(char id)",
       "end_line": 43,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/artwork.py::美术_类.api_包"
+      ],
+      "status": "已实现，原屏幕像素差分与边界单测",
+      "evidence": [
+        "tests/test_artwork.py",
+        "evidence/minigame-presentation-differential.json"
+      ]
     },
     {
       "id": "tools/native_frame.hpp:44",
       "declarator": "&frame(char id, std::size_t entry, std::size_t frame_index)",
       "end_line": 52,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/artwork.py::美术_类.api_帧"
+      ],
+      "status": "已实现，原屏幕像素差分与边界单测",
+      "evidence": [
+        "tests/test_artwork.py",
+        "evidence/minigame-presentation-differential.json"
+      ]
     },
     {
       "id": "tools/native_frame.hpp:54",
       "declarator": "frame_count(char id, std::size_t entry)",
       "end_line": 63,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/artwork.py::美术_类.api_帧数"
+      ],
+      "status": "已实现，原屏幕像素差分与边界单测",
+      "evidence": [
+        "tests/test_artwork.py",
+        "evidence/minigame-presentation-differential.json"
+      ]
     },
     {
       "id": "tools/native_frame.hpp:84",
@@ -15080,9 +15100,14 @@
       "id": "tools/screens/draw.cpp:136",
       "declarator": "raw_picture(Artwork &artwork, char archive, std::size_t entry, int width, int height)",
       "end_line": 143,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/artwork.py::美术_类.api_原图"
+      ],
+      "status": "已实现，原屏幕像素差分与边界单测",
+      "evidence": [
+        "tests/test_artwork.py",
+        "evidence/minigame-presentation-differential.json"
+      ]
     },
     {
       "id": "tools/screens/draw.cpp:145",
@@ -17456,153 +17481,257 @@
       "id": "tools/screens/minigames.cpp:28",
       "declarator": "blit_scaled(graphics::Image &canvas, const graphics::Image &image, int x, int y, std::uint32_t scale)",
       "end_line": 48,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigame_presentation.py::小游戏演出_类._缩放"
+      ],
+      "status": "已实现，选定完整画布像素/输入/时钟差分；主会话接入待完成",
+      "evidence": [
+        "tests/test_minigame_presentation.py",
+        "evidence/minigame-presentation-differential.json",
+        "MINIGAME_PRESENTATION.md"
+      ]
     },
     {
       "id": "tools/screens/minigames.cpp:50",
       "declarator": "format(const char *pattern, long value)",
       "end_line": 54,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigame_presentation.py::小游戏演出_类._数字/_大分/f-string"
+      ],
+      "status": "已实现，选定完整画布像素/输入/时钟差分；主会话接入待完成",
+      "evidence": [
+        "tests/test_minigame_presentation.py",
+        "evidence/minigame-presentation-differential.json",
+        "MINIGAME_PRESENTATION.md"
+      ]
     },
     {
       "id": "tools/screens/minigames.cpp:57",
       "declarator": "lcd(Frame &frame, const std::string &text, std::initializer_list<int> xs)",
       "end_line": 67,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigame_presentation.py::小游戏演出_类._数字"
+      ],
+      "status": "已实现，选定完整画布像素/输入/时钟差分；主会话接入待完成",
+      "evidence": [
+        "tests/test_minigame_presentation.py",
+        "evidence/minigame-presentation-differential.json",
+        "MINIGAME_PRESENTATION.md"
+      ]
     },
     {
       "id": "tools/screens/minigames.cpp:70",
       "declarator": "big_score(graphics::Image &target, Artwork &artwork, std::int32_t score)",
       "end_line": 78,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigame_presentation.py::小游戏演出_类._大分"
+      ],
+      "status": "已实现，选定完整画布像素/输入/时钟差分；主会话接入待完成",
+      "evidence": [
+        "tests/test_minigame_presentation.py",
+        "evidence/minigame-presentation-differential.json",
+        "MINIGAME_PRESENTATION.md"
+      ]
     },
     {
       "id": "tools/screens/minigames.cpp:104",
       "declarator": "&base()",
       "end_line": 113,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigame_presentation.py::小游戏演出_类.逻辑"
+      ],
+      "status": "已实现，选定完整画布像素/输入/时钟差分；主会话接入待完成",
+      "evidence": [
+        "tests/test_minigame_presentation.py",
+        "evidence/minigame-presentation-differential.json",
+        "MINIGAME_PRESENTATION.md"
+      ]
     },
     {
       "id": "tools/screens/minigames.cpp:114",
       "declarator": "score()",
       "end_line": 123,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigame_presentation.py::小游戏演出_类.逻辑.api_得分"
+      ],
+      "status": "已实现，选定完整画布像素/输入/时钟差分；主会话接入待完成",
+      "evidence": [
+        "tests/test_minigame_presentation.py",
+        "evidence/minigame-presentation-differential.json",
+        "MINIGAME_PRESENTATION.md"
+      ]
     },
     {
       "id": "tools/screens/minigames.cpp:126",
       "declarator": "MiniGames::MiniGames(Sound sound)",
       "end_line": 126,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigame_presentation.py::小游戏演出_类.__init__"
+      ],
+      "status": "已实现，选定完整画布像素/输入/时钟差分；主会话接入待完成",
+      "evidence": [
+        "tests/test_minigame_presentation.py",
+        "evidence/minigame-presentation-differential.json",
+        "MINIGAME_PRESENTATION.md"
+      ]
     },
     {
       "id": "tools/screens/minigames.cpp:127",
       "declarator": "MiniGames::~MiniGames()",
       "end_line": 127,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigame_presentation.py::小游戏演出_类.api_关闭"
+      ],
+      "status": "已实现，选定完整画布像素/输入/时钟差分；主会话接入待完成",
+      "evidence": [
+        "tests/test_minigame_presentation.py",
+        "evidence/minigame-presentation-differential.json",
+        "MINIGAME_PRESENTATION.md"
+      ]
     },
     {
       "id": "tools/screens/minigames.cpp:129",
       "declarator": "handles(const GameDecision &decision)",
       "end_line": 131,
       "python": [],
-      "status": "未移植",
-      "evidence": []
+      "status": "待GameSession决策接入；独立窗口已有真实演出",
+      "evidence": [
+        "MINIGAME_PRESENTATION.md"
+      ]
     },
     {
       "id": "tools/screens/minigames.cpp:133",
       "declarator": "MiniGames::clear()",
       "end_line": 137,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigame_presentation.py::小游戏演出_类.api_关闭"
+      ],
+      "status": "已实现，选定完整画布像素/输入/时钟差分；主会话接入待完成",
+      "evidence": [
+        "tests/test_minigame_presentation.py",
+        "evidence/minigame-presentation-differential.json",
+        "MINIGAME_PRESENTATION.md"
+      ]
     },
     {
       "id": "tools/screens/minigames.cpp:139",
       "declarator": "MiniGames::begin(core::Game game, std::uint32_t seed, std::uint8_t character, Frame &frame)",
       "end_line": 174,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigame_presentation.py::小游戏演出_类.__init__"
+      ],
+      "status": "已实现，选定完整画布像素/输入/时钟差分；主会话接入待完成",
+      "evidence": [
+        "tests/test_minigame_presentation.py",
+        "evidence/minigame-presentation-differential.json",
+        "MINIGAME_PRESENTATION.md"
+      ]
     },
     {
       "id": "tools/screens/minigames.cpp:176",
       "declarator": "MiniGames::start(core::Game game, std::uint32_t seed, std::uint8_t character, Frame &frame, bool autoplay,\n                      std::filesystem::path capture_directory)",
       "end_line": 181,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigame_presentation.py::小游戏演出_类.__init__"
+      ],
+      "status": "已实现，选定完整画布像素/输入/时钟差分；主会话接入待完成",
+      "evidence": [
+        "tests/test_minigame_presentation.py",
+        "evidence/minigame-presentation-differential.json",
+        "MINIGAME_PRESENTATION.md"
+      ]
     },
     {
       "id": "tools/screens/minigames.cpp:183",
       "declarator": "MiniGames::draw_decision(Frame &frame, const GameDecision &decision)",
       "end_line": 191,
       "python": [],
-      "status": "未移植",
-      "evidence": []
+      "status": "待GameSession决策接入；独立窗口已有真实演出",
+      "evidence": [
+        "MINIGAME_PRESENTATION.md"
+      ]
     },
     {
       "id": "tools/screens/minigames.cpp:193",
       "declarator": "MiniGames::draw(Frame &frame)",
       "end_line": 197,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigame_presentation.py::小游戏演出_类.api_帧"
+      ],
+      "status": "已实现，选定完整画布像素/输入/时钟差分；主会话接入待完成",
+      "evidence": [
+        "tests/test_minigame_presentation.py",
+        "evidence/minigame-presentation-differential.json",
+        "MINIGAME_PRESENTATION.md"
+      ]
     },
     {
       "id": "tools/screens/minigames.cpp:199",
       "declarator": "MiniGames::run(Frame &frame)",
       "end_line": 268,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigame_presentation.py::小游戏演出_类.api_帧"
+      ],
+      "status": "已实现，选定完整画布像素/输入/时钟差分；主会话接入待完成",
+      "evidence": [
+        "tests/test_minigame_presentation.py",
+        "evidence/minigame-presentation-differential.json",
+        "MINIGAME_PRESENTATION.md"
+      ]
     },
     {
       "id": "tools/screens/minigames.cpp:270",
       "declarator": "MiniGames::input(Frame &frame)",
       "end_line": 316,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigame_presentation.py::小游戏演出_类.api_点击/api_帧"
+      ],
+      "status": "已实现，选定完整画布像素/输入/时钟差分；主会话接入待完成",
+      "evidence": [
+        "tests/test_minigame_presentation.py",
+        "evidence/minigame-presentation-differential.json",
+        "MINIGAME_PRESENTATION.md"
+      ]
     },
     {
       "id": "tools/screens/minigames.cpp:319",
       "declarator": "MiniGames::autoplay(Frame &frame)",
       "end_line": 348,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigame_presentation.py::小游戏演出_类._自动操作"
+      ],
+      "status": "已实现，选定完整画布像素/输入/时钟差分；主会话接入待完成",
+      "evidence": [
+        "tests/test_minigame_presentation.py",
+        "evidence/minigame-presentation-differential.json",
+        "MINIGAME_PRESENTATION.md"
+      ]
     },
     {
       "id": "tools/screens/minigames.cpp:350",
       "declarator": "MiniGames::capture(Frame &frame, const std::string &tag)",
       "end_line": 357,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/tools/preview_minigames.py::api_执行"
+      ],
+      "status": "部分实现：本地单张截图/哈希；未移植原五阶段自动截图接口",
+      "evidence": [
+        "evidence/minigame-pygame-smoke.json"
+      ]
     },
     {
       "id": "tools/screens/minigames.cpp:359",
       "declarator": "MiniGames::paint(Frame &frame)",
       "end_line": 431,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/minigame_presentation.py::小游戏演出_类._绘制"
+      ],
+      "status": "已实现，选定完整画布像素/输入/时钟差分；主会话接入待完成",
+      "evidence": [
+        "tests/test_minigame_presentation.py",
+        "evidence/minigame-presentation-differential.json",
+        "MINIGAME_PRESENTATION.md"
+      ]
     },
     {
       "id": "tools/screens/minigames.hpp:46",
