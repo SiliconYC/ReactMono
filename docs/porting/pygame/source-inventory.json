@@ -1969,25 +1969,46 @@
       "id": "include/rich4/gods.hpp:46",
       "declarator": "finished() const noexcept",
       "end_line": 48,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/gods.py::金钱转盘_类.完成"
+      ],
+      "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+      "evidence": [
+        "tests/test_gods.py",
+        "evidence/gods-differential.json",
+        "evidence/gods-initial-failure.json",
+        "GODS.md"
+      ]
     },
     {
       "id": "include/rich4/gods.hpp:50",
       "declarator": "phase() const noexcept",
       "end_line": 52,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/gods.py::金钱转盘_类.阶段"
+      ],
+      "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+      "evidence": [
+        "tests/test_gods.py",
+        "evidence/gods-differential.json",
+        "evidence/gods-initial-failure.json",
+        "GODS.md"
+      ]
     },
     {
       "id": "include/rich4/gods.hpp:54",
       "declarator": "&digits() const noexcept",
       "end_line": 56,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/gods.py::金钱转盘_类.数字"
+      ],
+      "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+      "evidence": [
+        "tests/test_gods.py",
+        "evidence/gods-differential.json",
+        "evidence/gods-initial-failure.json",
+        "GODS.md"
+      ]
     },
     {
       "id": "include/rich4/holidays.hpp:30",
@@ -6107,161 +6128,301 @@
       "id": "src/gods.cpp:17",
       "declarator": "add16(std::int16_t a, std::int16_t b)",
       "end_line": 20,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/gods.py::神明_类.api_附身/16位回绕"
+      ],
+      "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+      "evidence": [
+        "tests/test_gods.py",
+        "evidence/gods-differential.json",
+        "evidence/gods-initial-failure.json",
+        "GODS.md"
+      ]
     },
     {
       "id": "src/gods.cpp:21",
       "declarator": "add32(std::int32_t a, std::int32_t b)",
       "end_line": 23,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/gods.py::神明_类.api_附身/服务_类._整数"
+      ],
+      "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+      "evidence": [
+        "tests/test_gods.py",
+        "evidence/gods-differential.json",
+        "evidence/gods-initial-failure.json",
+        "GODS.md"
+      ]
     },
     {
       "id": "src/gods.cpp:24",
       "declarator": "mul32(std::int32_t a, std::int32_t b)",
       "end_line": 26,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/gods.py::神明_类.api_地产后/服务_类._整数"
+      ],
+      "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+      "evidence": [
+        "tests/test_gods.py",
+        "evidence/gods-differential.json",
+        "evidence/gods-initial-failure.json",
+        "GODS.md"
+      ]
     },
     {
       "id": "src/gods.cpp:27",
       "declarator": "missing(const char *text)",
       "end_line": 29,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/gods.py::神明_类._缺"
+      ],
+      "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+      "evidence": [
+        "tests/test_gods.py",
+        "evidence/gods-differential.json",
+        "evidence/gods-initial-failure.json",
+        "GODS.md"
+      ]
     },
     {
       "id": "src/gods.cpp:30",
       "declarator": "voice(const Callbacks &callback, std::size_t actor, std::uint8_t category)",
       "end_line": 33,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/gods.py::神明_类._语音"
+      ],
+      "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+      "evidence": [
+        "tests/test_gods.py",
+        "evidence/gods-differential.json",
+        "evidence/gods-initial-failure.json",
+        "GODS.md"
+      ]
     },
     {
       "id": "src/gods.cpp:34",
       "declarator": "prize_voice(Random &random, const Callbacks &callbacks, std::size_t actor, unsigned amount)",
       "end_line": 41,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/gods.py::神明_类._奖语音"
+      ],
+      "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+      "evidence": [
+        "tests/test_gods.py",
+        "evidence/gods-differential.json",
+        "evidence/gods-initial-failure.json",
+        "GODS.md"
+      ]
     },
     {
       "id": "src/gods.cpp:42",
       "declarator": "income_voice(const World &world, Random &random, const Callbacks &callbacks, std::size_t actor,\n                  std::int32_t amount)",
       "end_line": 50,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/gods.py::神明_类._收入语音"
+      ],
+      "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+      "evidence": [
+        "tests/test_gods.py",
+        "evidence/gods-differential.json",
+        "evidence/gods-initial-failure.json",
+        "GODS.md"
+      ]
     },
     {
       "id": "src/gods.cpp:51",
       "declarator": "ended(const Callbacks &callbacks)",
       "end_line": 53,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/gods.py::神明_类._结束"
+      ],
+      "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+      "evidence": [
+        "tests/test_gods.py",
+        "evidence/gods-differential.json",
+        "evidence/gods-initial-failure.json",
+        "GODS.md"
+      ]
     },
     {
       "id": "src/gods.cpp:56",
       "declarator": "MoneySpinner::MoneySpinner(std::uint8_t kind)",
       "end_line": 60,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/gods.py::金钱转盘_类.__init__"
+      ],
+      "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+      "evidence": [
+        "tests/test_gods.py",
+        "evidence/gods-differential.json",
+        "evidence/gods-initial-failure.json",
+        "GODS.md"
+      ]
     },
     {
       "id": "src/gods.cpp:61",
       "declarator": "MoneySpinner::stop() noexcept",
       "end_line": 64,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/gods.py::金钱转盘_类.api_停止"
+      ],
+      "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+      "evidence": [
+        "tests/test_gods.py",
+        "evidence/gods-differential.json",
+        "evidence/gods-initial-failure.json",
+        "GODS.md"
+      ]
     },
     {
       "id": "src/gods.cpp:65",
       "declarator": "MoneySpinner::amount() const noexcept",
       "end_line": 70,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/gods.py::金钱转盘_类.金额"
+      ],
+      "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+      "evidence": [
+        "tests/test_gods.py",
+        "evidence/gods-differential.json",
+        "evidence/gods-initial-failure.json",
+        "GODS.md"
+      ]
     },
     {
       "id": "src/gods.cpp:71",
       "declarator": "MoneySpinner::advance_digits(unsigned mask, unsigned slowing)",
       "end_line": 99,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/gods.py::金钱转盘_类._转位"
+      ],
+      "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+      "evidence": [
+        "tests/test_gods.py",
+        "evidence/gods-differential.json",
+        "evidence/gods-initial-failure.json",
+        "GODS.md"
+      ]
     },
     {
       "id": "src/gods.cpp:100",
       "declarator": "MoneySpinner::tick(Random &random, bool computer)",
       "end_line": 150,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/gods.py::金钱转盘_类.api_步进"
+      ],
+      "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+      "evidence": [
+        "tests/test_gods.py",
+        "evidence/gods-differential.json",
+        "evidence/gods-initial-failure.json",
+        "GODS.md"
+      ]
     },
     {
       "id": "src/gods.cpp:151",
       "declarator": "auto_money(std::uint8_t kind, Random &random)",
       "end_line": 159,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/gods.py::神明_类.api_自动金额"
+      ],
+      "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+      "evidence": [
+        "tests/test_gods.py",
+        "evidence/gods-differential.json",
+        "evidence/gods-initial-failure.json",
+        "GODS.md"
+      ]
     },
     {
       "id": "src/gods.cpp:161",
       "declarator": "attachable(const World &world, std::uint16_t object)",
       "end_line": 166,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/gods.py::神明_类.api_可附身"
+      ],
+      "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+      "evidence": [
+        "tests/test_gods.py",
+        "evidence/gods-differential.json",
+        "evidence/gods-initial-failure.json",
+        "GODS.md"
+      ]
     },
     {
       "id": "src/gods.cpp:167",
       "declarator": "detach(World &world, std::size_t actor, const Callbacks &callbacks)",
       "end_line": 184,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/gods.py::神明_类.api_脱离"
+      ],
+      "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+      "evidence": [
+        "tests/test_gods.py",
+        "evidence/gods-differential.json",
+        "evidence/gods-initial-failure.json",
+        "GODS.md"
+      ]
     },
     {
       "id": "src/gods.cpp:185",
       "declarator": "attach(World &world, Random &random, std::size_t actor, std::uint16_t id, std::uint16_t source_node,\n              const Callbacks &callbacks)",
       "end_line": 273,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/gods.py::神明_类.api_附身"
+      ],
+      "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+      "evidence": [
+        "tests/test_gods.py",
+        "evidence/gods-differential.json",
+        "evidence/gods-initial-failure.json",
+        "GODS.md"
+      ]
     },
     {
       "id": "src/gods.cpp:275",
       "declarator": "touch(World &world, Random &random, std::size_t actor, std::uint16_t id, bool stopped,\n             const Callbacks &callbacks)",
       "end_line": 336,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/gods.py::神明_类.api_接触"
+      ],
+      "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+      "evidence": [
+        "tests/test_gods.py",
+        "evidence/gods-differential.json",
+        "evidence/gods-initial-failure.json",
+        "GODS.md"
+      ]
     },
     {
       "id": "src/gods.cpp:338",
       "declarator": "after_property(World &world, std::size_t actor, std::uint16_t node, const Callbacks &callbacks)",
       "end_line": 403,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/gods.py::神明_类.api_地产后"
+      ],
+      "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+      "evidence": [
+        "tests/test_gods.py",
+        "evidence/gods-differential.json",
+        "evidence/gods-initial-failure.json",
+        "GODS.md"
+      ]
     },
     {
       "id": "src/gods.cpp:405",
       "declarator": "after_successful_purchase(World &world, Random &random, std::size_t actor, std::uint16_t node,\n                                 const Callbacks &callbacks)",
       "end_line": 416,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/gods.py::神明_类.api_购地后"
+      ],
+      "status": "已实现，模块/转盘逐帧自动差分；真实会话/表现待接入",
+      "evidence": [
+        "tests/test_gods.py",
+        "evidence/gods-differential.json",
+        "evidence/gods-initial-failure.json",
+        "GODS.md"
+      ]
     },
     {
       "id": "src/graphics.cpp:13",
