@@ -1476,5 +1476,192 @@
       "tests/test_stocks.py",
       "evidence/stocks-differential.json"
     ]
+  },
+  "src/services.cpp:14": {
+    "python": [
+      "pygame/src/rich4/services.py::服务_类._整数"
+    ],
+    "status": "已实现，模块自动差分；真实会话回调待集成",
+    "evidence": [
+      "tests/test_services.py",
+      "evidence/services-differential.json",
+      "SERVICES.md"
+    ]
+  },
+  "src/services.cpp:17": {
+    "python": [
+      "pygame/src/rich4/services.py::服务_类._加权"
+    ],
+    "status": "已实现，模块自动差分；真实会话回调待集成",
+    "evidence": [
+      "tests/test_services.py",
+      "evidence/services-differential.json",
+      "SERVICES.md"
+    ]
+  },
+  "src/services.cpp:29": {
+    "python": [
+      "pygame/src/rich4/services.py::服务_类._买卡"
+    ],
+    "status": "已实现，模块自动差分；真实会话回调待集成",
+    "evidence": [
+      "tests/test_services.py",
+      "evidence/services-differential.json",
+      "SERVICES.md"
+    ]
+  },
+  "src/services.cpp:35": {
+    "python": [
+      "pygame/src/rich4/services.py::服务_类._买道具"
+    ],
+    "status": "已实现，模块自动差分；真实会话回调待集成",
+    "evidence": [
+      "tests/test_services.py",
+      "evidence/services-differential.json",
+      "SERVICES.md"
+    ]
+  },
+  "src/services.cpp:41": {
+    "python": [
+      "pygame/src/rich4/services.py::服务_类._电脑购物"
+    ],
+    "status": "已实现，模块自动差分；真实会话回调待集成",
+    "evidence": [
+      "tests/test_services.py",
+      "evidence/services-differential.json",
+      "SERVICES.md"
+    ]
+  },
+  "src/services.cpp:102": {
+    "python": [
+      "pygame/src/rich4/services.py::服务_类._脚下地产"
+    ],
+    "status": "已实现，模块自动差分；真实会话回调待集成",
+    "evidence": [
+      "tests/test_services.py",
+      "evidence/services-differential.json",
+      "SERVICES.md"
+    ]
+  },
+  "src/services.cpp:112": {
+    "python": [
+      "pygame/src/rich4/services.py::服务_类.api_随机卡"
+    ],
+    "status": "已实现，模块自动差分；真实会话回调待集成",
+    "evidence": [
+      "tests/test_services.py",
+      "evidence/services-differential.json",
+      "SERVICES.md"
+    ]
+  },
+  "src/services.cpp:118": {
+    "python": [
+      "pygame/src/rich4/services.py::服务_类.api_随机道具"
+    ],
+    "status": "已实现，模块自动差分；真实会话回调待集成",
+    "evidence": [
+      "tests/test_services.py",
+      "evidence/services-differential.json",
+      "SERVICES.md"
+    ]
+  },
+  "src/services.cpp:124": {
+    "python": [
+      "pygame/src/rich4/services.py::服务_类.api_开店"
+    ],
+    "status": "已实现，模块自动差分；真实会话回调待集成",
+    "evidence": [
+      "tests/test_services.py",
+      "evidence/services-differential.json",
+      "SERVICES.md"
+    ]
+  },
+  "src/services.cpp:151": {
+    "python": [
+      "pygame/src/rich4/services.py::服务_类.api_买卡"
+    ],
+    "status": "已实现，模块自动差分；真实会话回调待集成",
+    "evidence": [
+      "tests/test_services.py",
+      "evidence/services-differential.json",
+      "SERVICES.md"
+    ]
+  },
+  "src/services.cpp:161": {
+    "python": [
+      "pygame/src/rich4/services.py::服务_类.api_买道具"
+    ],
+    "status": "已实现，模块自动差分；真实会话回调待集成",
+    "evidence": [
+      "tests/test_services.py",
+      "evidence/services-differential.json",
+      "SERVICES.md"
+    ]
+  },
+  "src/services.cpp:172": {
+    "python": [
+      "pygame/src/rich4/services.py::服务_类.api_卖卡"
+    ],
+    "status": "已实现，模块自动差分；真实会话回调待集成",
+    "evidence": [
+      "tests/test_services.py",
+      "evidence/services-differential.json",
+      "SERVICES.md"
+    ]
+  },
+  "src/services.cpp:180": {
+    "python": [
+      "pygame/src/rich4/services.py::服务_类.api_卖道具"
+    ],
+    "status": "已实现，模块自动差分；真实会话回调待集成",
+    "evidence": [
+      "tests/test_services.py",
+      "evidence/services-differential.json",
+      "SERVICES.md"
+    ]
+  },
+  "src/services.cpp:191": {
+    "python": [
+      "pygame/src/rich4/services.py::服务_类.api_关店"
+    ],
+    "status": "已实现，模块自动差分；真实会话回调待集成",
+    "evidence": [
+      "tests/test_services.py",
+      "evidence/services-differential.json",
+      "SERVICES.md"
+    ]
+  },
+  "src/services.cpp:202": {
+    "python": [
+      "pygame/src/rich4/services.py::服务_类.api_魔法目标"
+    ],
+    "status": "已实现，模块自动差分；真实会话回调待集成",
+    "evidence": [
+      "tests/test_services.py",
+      "evidence/services-differential.json",
+      "SERVICES.md"
+    ]
+  },
+  "src/services.cpp:253": {
+    "python": [
+      "pygame/src/rich4/services.py::服务_类.api_电脑魔法"
+    ],
+    "status": "已实现，模块自动差分；真实会话回调待集成",
+    "evidence": [
+      "tests/test_services.py",
+      "evidence/services-differential.json",
+      "SERVICES.md"
+    ]
+  },
+  "src/services.cpp:273": {
+    "python": [
+      "pygame/src/rich4/services.py::服务_类.api_施法"
+    ],
+    "status": "已实现，模块自动差分；真实会话回调待集成",
+    "evidence": [
+      "tests/test_services.py",
+      "evidence/services-differential.json",
+      "SERVICES.md"
+    ]
   }
 }

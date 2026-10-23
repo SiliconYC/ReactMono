@@ -76,3 +76,7 @@ uv run --project pygame python pygame/tools/differential_world.py \
 完整Python测试 **68/68**、Ruff通过。40900软件x87表达式完整状态与存储/整数转换一致；20288股价输入及2400模块动作（四图三种子、510拒绝）每步比较完整世界DAT、RNG、返回值/拒绝类别，通过。[数值报告](evidence/numeric-differential.json)、[股市报告](evidence/stocks-differential.json) 与 [保留的首次失败](evidence/stocks-initial-failure.json) 分开记录。
 
 首轮失败为测试适配器未捕获参考对正次正规报价的范围异常；不是游戏规则被放宽或数据被替代。范围异常新增回归后RED→GREEN，完整报告随后通过。该接口与注释差异及财富域差异详见 [NUMERIC.md](NUMERIC.md)。这些是模块序列，不是游戏回合、长局或图形UI验收。
+
+## 商店与魔法增量（2026-10-23）
+
+八图24组7200个服务动作逐步比较完整DAT、RNG、回值/异常类别、货架/赠品和回调参数顺序，通过。测试回调仅观察接口；尚未验证真实事件处理、魔法窗口或商店UI。规则依据、复现命令和测试准备失败记录见 [SERVICES.md](SERVICES.md)。
