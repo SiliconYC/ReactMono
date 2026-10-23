@@ -1,0 +1,108 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "scope": "stock-module actions, not full-game long runs",
+  "status": "passed",
+  "episodes": [
+    {
+      "map": 0,
+      "seed": 0,
+      "steps": 200,
+      "rejected_actions": 34,
+      "initial_sha256": "e670953f097a0fedb4164f98a28f243e2f1587873a031bc5c1ec63da1958fdad",
+      "input_sha256": "d7041085b118b473c210cd30629758e3fa4f7fa7d590029d70b903845af6d343"
+    },
+    {
+      "map": 0,
+      "seed": 1,
+      "steps": 200,
+      "rejected_actions": 44,
+      "initial_sha256": "7ad24cbdb232bbfd5fa9ffb02a2e72981b304b783adfaf271f2677dc8c791303",
+      "input_sha256": "f147ba1d7f2e955d7f17bc07a572771ae340b0d044082599090aa9ae3dfbe734"
+    },
+    {
+      "map": 0,
+      "seed": 4294967295,
+      "steps": 200,
+      "rejected_actions": 39,
+      "initial_sha256": "0e72c6714d94e0ab65c61848e390112c7c1a2e1fe71f9d99ca22bae880042bb4",
+      "input_sha256": "9d6d56d42cb8f1c31f9438a0057b7be40d05a34e75b19813eb75eaf51decc77e"
+    },
+    {
+      "map": 3,
+      "seed": 0,
+      "steps": 200,
+      "rejected_actions": 51,
+      "initial_sha256": "4693c01da6b37f3b0b6f404ee4f9e89fc44cf3b3ecd0678fd941e74e03e60a6a",
+      "input_sha256": "d2332e879c015b45a242520f44e4988e8c4dbbe7e528e35e620a2621cc505344"
+    },
+    {
+      "map": 3,
+      "seed": 1,
+      "steps": 200,
+      "rejected_actions": 38,
+      "initial_sha256": "7e0ad6533a0a422c637c55f602a2ca21d1f85f63dd3e6fc0a82f9e0bd1a87311",
+      "input_sha256": "574edd541ac3c0737ec19be6c4388ce9f2913b04ce08d685d8357022fb16a376"
+    },
+    {
+      "map": 3,
+      "seed": 4294967295,
+      "steps": 200,
+      "rejected_actions": 46,
+      "initial_sha256": "76ad4330d0785f0a229eb8a93896c07e94f35bc7a8d1e7cc5f82c202a2687963",
+      "input_sha256": "b177b6e9ec4b56b7e529d3723cf11cfedb47c1c71763c03c0899bfc6fa685a31"
+    },
+    {
+      "map": 4,
+      "seed": 0,
+      "steps": 200,
+      "rejected_actions": 47,
+      "initial_sha256": "5367e0791a8b5dc1c7c2f2469ff68ae58bc1e8d9cb6b42c11a641f7edf44b812",
+      "input_sha256": "72fc59ce769571138d32fd6cfbbddbf4228e29d74c3277bfcacbb8df1aa8029a"
+    },
+    {
+      "map": 4,
+      "seed": 1,
+      "steps": 200,
+      "rejected_actions": 45,
+      "initial_sha256": "973de4ca8410dab26e7ec1d6a524dcc0dde0500286b018d2bdc8748332c92c24",
+      "input_sha256": "17f03ade4b7de946ea39da134c3c25e966116d62e371a1b21eb837282d29f455"
+    },
+    {
+      "map": 4,
+      "seed": 4294967295,
+      "steps": 200,
+      "rejected_actions": 35,
+      "initial_sha256": "cf224e1cf5ba05d137d989aed69e7961ebea4e8ecffce7747e24d92b4b382315",
+      "input_sha256": "1ff343774e061344ae7a82ec788c715e7ffe5c649a207ff0067a1edfdda56bec"
+    },
+    {
+      "map": 7,
+      "seed": 0,
+      "steps": 200,
+      "rejected_actions": 36,
+      "initial_sha256": "6f502570e0562ca1b364731f74ed49dc104efac61465df2b55c13fabff9c0bdd",
+      "input_sha256": "c894b2bf20bfbe902bb36b2d63075aaddc07a7d123741d2c476732ba1b4e495f"
+    },
+    {
+      "map": 7,
+      "seed": 1,
+      "steps": 200,
+      "rejected_actions": 46,
+      "initial_sha256": "6d025b09a2a80668e69266cf863822076dc413fdec6ee8123c763ce784f82a10",
+      "input_sha256": "76adb609a223d196530e2d4f2dcb352192fec06f4861f60c0ddb4397f73381bd"
+    },
+    {
+      "map": 7,
+      "seed": 4294967295,
+      "steps": 200,
+      "rejected_actions": 49,
+      "initial_sha256": "e3a27a90f767ddffe88d44f4c69d49075c328cfaf25bb8e0a04dd29122be45b4",
+      "input_sha256": "e2a3ec19a0ccdd03323d3b46205779db370a77d7d2901539d71b9ae43fd229b6"
+    }
+  ],
+  "prices": {
+    "cases": 20288,
+    "input_sha256": "19614dc94f45399f5b5723f9e8f3e016216ca3c17f536b8a8feb574e8100512e",
+    "output_sha256": "c7b794519714f561fa8fa637f96087a4c1eb8e356c98333ecdd000062291e321"
+  }
+}

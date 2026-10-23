@@ -70,3 +70,9 @@ uv run --project pygame python pygame/tools/differential_world.py \
 ```
 
 作者自审补充：检测到 Python 的可变列表会失去 C++ `std::array` 固定维度约束；新增失败测试后补齐显式维度检查，53/53 通过。未活跃角色/物件的遗留字段、交通及状态日高位、空出售项未知字节均按 C++ 保留，不做额外清理或规范化。
+
+## 数值与股票增量（2026-10-23）
+
+完整Python测试 **68/68**、Ruff通过。40900软件x87表达式完整状态与存储/整数转换一致；20288股价输入及2400模块动作（四图三种子、510拒绝）每步比较完整世界DAT、RNG、返回值/拒绝类别，通过。[数值报告](evidence/numeric-differential.json)、[股市报告](evidence/stocks-differential.json) 与 [保留的首次失败](evidence/stocks-initial-failure.json) 分开记录。
+
+首轮失败为测试适配器未捕获参考对正次正规报价的范围异常；不是游戏规则被放宽或数据被替代。范围异常新增回归后RED→GREEN，完整报告随后通过。该接口与注释差异及财富域差异详见 [NUMERIC.md](NUMERIC.md)。这些是模块序列，不是游戏回合、长局或图形UI验收。

@@ -1,0 +1,7 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "scope": "stock-module actions, not full-game long runs",
+  "status": "failed",
+  "episodes": [],
+  "error": "Command '['/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/cpp-core/stocks-oracle', '--prices']' died with <Signals.SIGABRT: 6>."
+}

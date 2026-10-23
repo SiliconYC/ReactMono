@@ -1236,5 +1236,245 @@
       "tests/test_world_validation.py",
       "evidence/world-differential.json"
     ]
+  },
+  "include/rich4/legacy_float.hpp:25": {
+    "python": [
+      "pygame/src/rich4/numeric.py::扩展数_类.api_归一"
+    ],
+    "status": "已实现，40900表达式软件参考差分",
+    "evidence": [
+      "tests/test_numeric.py",
+      "evidence/numeric-differential.json"
+    ]
+  },
+  "include/rich4/legacy_float.hpp:53": {
+    "python": [
+      "pygame/src/rich4/numeric.py::扩展数_类.api_从值"
+    ],
+    "status": "已实现，40900表达式软件参考差分",
+    "evidence": [
+      "tests/test_numeric.py",
+      "evidence/numeric-differential.json"
+    ]
+  },
+  "include/rich4/legacy_float.hpp:63": {
+    "python": [
+      "pygame/src/rich4/numeric.py::扩展数_类.__neg__"
+    ],
+    "status": "已实现，40900表达式软件参考差分",
+    "evidence": [
+      "tests/test_numeric.py",
+      "evidence/numeric-differential.json"
+    ]
+  },
+  "include/rich4/legacy_float.hpp:67": {
+    "python": [
+      "pygame/src/rich4/numeric.py::扩展数_类.__add__"
+    ],
+    "status": "已实现，40900表达式软件参考差分",
+    "evidence": [
+      "tests/test_numeric.py",
+      "evidence/numeric-differential.json"
+    ]
+  },
+  "include/rich4/legacy_float.hpp:92": {
+    "python": [
+      "pygame/src/rich4/numeric.py::扩展数_类.__sub__"
+    ],
+    "status": "已实现，40900表达式软件参考差分",
+    "evidence": [
+      "tests/test_numeric.py",
+      "evidence/numeric-differential.json"
+    ]
+  },
+  "include/rich4/legacy_float.hpp:95": {
+    "python": [
+      "pygame/src/rich4/numeric.py::扩展数_类.__mul__"
+    ],
+    "status": "已实现，40900表达式软件参考差分",
+    "evidence": [
+      "tests/test_numeric.py",
+      "evidence/numeric-differential.json"
+    ]
+  },
+  "include/rich4/legacy_float.hpp:99": {
+    "python": [
+      "pygame/src/rich4/numeric.py::扩展数_类.__truediv__"
+    ],
+    "status": "已实现，40900表达式软件参考差分",
+    "evidence": [
+      "tests/test_numeric.py",
+      "evidence/numeric-differential.json"
+    ]
+  },
+  "include/rich4/legacy_float.hpp:117": {
+    "python": [
+      "pygame/src/rich4/numeric.py::扩展数_类.api_单精度/api_单精度位"
+    ],
+    "status": "已实现，40900表达式软件参考差分",
+    "evidence": [
+      "tests/test_numeric.py",
+      "evidence/numeric-differential.json"
+    ]
+  },
+  "include/rich4/legacy_float.hpp:143": {
+    "python": [
+      "pygame/src/rich4/numeric.py::扩展数_类.api_整数"
+    ],
+    "status": "已实现，40900表达式软件参考差分",
+    "evidence": [
+      "tests/test_numeric.py",
+      "evidence/numeric-differential.json"
+    ]
+  },
+  "include/rich4/legacy_float.hpp:160": {
+    "python": [
+      "pygame/src/rich4/numeric.py::扩展数_类.api_双精度/api_双精度位"
+    ],
+    "status": "已实现，40900表达式软件参考差分",
+    "evidence": [
+      "tests/test_numeric.py",
+      "evidence/numeric-differential.json"
+    ]
+  },
+  "src/stocks.cpp:20": {
+    "python": [
+      "pygame/src/rich4/stocks.py::股市_类._回绕"
+    ],
+    "status": "已实现，价格及逐动作全状态差分",
+    "evidence": [
+      "tests/test_stocks.py",
+      "evidence/stocks-differential.json"
+    ]
+  },
+  "src/stocks.cpp:25": {
+    "python": [
+      "pygame/src/rich4/stocks.py::股市_类._回绕"
+    ],
+    "status": "已实现，价格及逐动作全状态差分",
+    "evidence": [
+      "tests/test_stocks.py",
+      "evidence/stocks-differential.json"
+    ]
+  },
+  "src/stocks.cpp:33": {
+    "python": [
+      "pygame/src/rich4/stocks.py::股市_类._所得"
+    ],
+    "status": "已实现，价格及逐动作全状态差分",
+    "evidence": [
+      "tests/test_stocks.py",
+      "evidence/stocks-differential.json"
+    ]
+  },
+  "src/stocks.cpp:57": {
+    "python": [
+      "pygame/src/rich4/stocks.py::股市_类._关联"
+    ],
+    "status": "已实现，价格及逐动作全状态差分",
+    "evidence": [
+      "tests/test_stocks.py",
+      "evidence/stocks-differential.json"
+    ]
+  },
+  "src/stocks.cpp:74": {
+    "python": [
+      "pygame/src/rich4/stocks.py::股市_类._重排"
+    ],
+    "status": "已实现，价格及逐动作全状态差分",
+    "evidence": [
+      "tests/test_stocks.py",
+      "evidence/stocks-differential.json"
+    ]
+  },
+  "src/stocks.cpp:111": {
+    "python": [
+      "pygame/src/rich4/stocks.py::股市_类.api_更新业主"
+    ],
+    "status": "已实现，价格及逐动作全状态差分",
+    "evidence": [
+      "tests/test_stocks.py",
+      "evidence/stocks-differential.json"
+    ]
+  },
+  "src/stocks.cpp:118": {
+    "python": [
+      "pygame/src/rich4/stocks.py::股市_类.api_调整股价"
+    ],
+    "status": "已实现，价格及逐动作全状态差分",
+    "evidence": [
+      "tests/test_stocks.py",
+      "evidence/stocks-differential.json"
+    ]
+  },
+  "src/stocks.cpp:147": {
+    "python": [
+      "pygame/src/rich4/stocks.py::股市_类.api_走势"
+    ],
+    "status": "已实现，价格及逐动作全状态差分",
+    "evidence": [
+      "tests/test_stocks.py",
+      "evidence/stocks-differential.json"
+    ]
+  },
+  "src/stocks.cpp:160": {
+    "python": [
+      "pygame/src/rich4/stocks.py::股市_类.api_买入"
+    ],
+    "status": "已实现，价格及逐动作全状态差分",
+    "evidence": [
+      "tests/test_stocks.py",
+      "evidence/stocks-differential.json"
+    ]
+  },
+  "src/stocks.cpp:206": {
+    "python": [
+      "pygame/src/rich4/stocks.py::股市_类.api_卖出"
+    ],
+    "status": "已实现，价格及逐动作全状态差分",
+    "evidence": [
+      "tests/test_stocks.py",
+      "evidence/stocks-differential.json"
+    ]
+  },
+  "src/stocks.cpp:235": {
+    "python": [
+      "pygame/src/rich4/stocks.py::股市_类.api_强制行情"
+    ],
+    "status": "已实现，价格及逐动作全状态差分",
+    "evidence": [
+      "tests/test_stocks.py",
+      "evidence/stocks-differential.json"
+    ]
+  },
+  "src/stocks.cpp:259": {
+    "python": [
+      "pygame/src/rich4/stocks.py::股市_类.api_财富"
+    ],
+    "status": "已实现，价格及逐动作全状态差分",
+    "evidence": [
+      "tests/test_stocks.py",
+      "evidence/stocks-differential.json"
+    ]
+  },
+  "src/stocks.cpp:308": {
+    "python": [
+      "pygame/src/rich4/stocks.py::股市_类.api_刷新限额"
+    ],
+    "status": "已实现，价格及逐动作全状态差分",
+    "evidence": [
+      "tests/test_stocks.py",
+      "evidence/stocks-differential.json"
+    ]
+  },
+  "src/stocks.cpp:320": {
+    "python": [
+      "pygame/src/rich4/stocks.py::股市_类.api_日更新"
+    ],
+    "status": "已实现，价格及逐动作全状态差分",
+    "evidence": [
+      "tests/test_stocks.py",
+      "evidence/stocks-differential.json"
+    ]
   }
 }
