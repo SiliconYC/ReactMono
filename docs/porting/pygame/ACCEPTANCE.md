@@ -88,3 +88,7 @@ uv run --project pygame python pygame/tools/differential_world.py \
 ## 拍卖增量（2026-10-23）
 
 完整Python测试 **92/92**、Ruff通过。800组八图拍卖共5554个初始/动作后状态（317成交、166构造拒绝）与固定C++完整会话公开状态/RNG/DAT一致，另2000组纯电脑拍卖终止和现金守恒通过。[报告](evidence/auction-differential.json) 与 [数值/行为说明](AUCTION.md) 保留验证范围；尚无拍卖图形操作或完整游戏长局。
+
+## 私下交易增量（2026-10-23）
+
+完整Python测试 **99/99**、Ruff通过。八图三种子共9600个交易动作完整DAT/RNG/返回字段与固定C++一致，见 [报告](evidence/trading-differential.json)。四类资产定向前缀、共享道具供应255边界也纳入最终重跑；[TRADING.md](TRADING.md) 记录源行为缺陷而未静默改变。图形交易、融资对账和真实长局未验收。

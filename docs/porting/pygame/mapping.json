@@ -2033,5 +2033,192 @@
       "tests/test_auction.py",
       "evidence/auction-differential.json"
     ]
+  },
+  "src/trading.cpp:20": {
+    "python": [
+      "pygame/src/rich4/trading.py::交易_类._整数"
+    ],
+    "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+    "evidence": [
+      "tests/test_trading.py",
+      "evidence/trading-differential.json",
+      "TRADING.md"
+    ]
+  },
+  "src/trading.cpp:23": {
+    "python": [
+      "pygame/src/rich4/trading.py::交易_类._整数"
+    ],
+    "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+    "evidence": [
+      "tests/test_trading.py",
+      "evidence/trading-differential.json",
+      "TRADING.md"
+    ]
+  },
+  "src/trading.cpp:26": {
+    "python": [
+      "pygame/src/rich4/trading.py::交易_类._活跃"
+    ],
+    "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+    "evidence": [
+      "tests/test_trading.py",
+      "evidence/trading-differential.json",
+      "TRADING.md"
+    ]
+  },
+  "src/trading.cpp:29": {
+    "python": [
+      "pygame/src/rich4/trading.py::交易_类._普通地"
+    ],
+    "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+    "evidence": [
+      "tests/test_trading.py",
+      "evidence/trading-differential.json",
+      "TRADING.md"
+    ]
+  },
+  "src/trading.cpp:32": {
+    "python": [
+      "pygame/src/rich4/trading.py::交易_类._设施"
+    ],
+    "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+    "evidence": [
+      "tests/test_trading.py",
+      "evidence/trading-differential.json",
+      "TRADING.md"
+    ]
+  },
+  "src/trading.cpp:39": {
+    "python": [
+      "pygame/src/rich4/trading.py::交易_类._地产"
+    ],
+    "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+    "evidence": [
+      "tests/test_trading.py",
+      "evidence/trading-differential.json",
+      "TRADING.md"
+    ]
+  },
+  "src/trading.cpp:54": {
+    "python": [
+      "pygame/src/rich4/trading.py::交易_类._库存价"
+    ],
+    "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+    "evidence": [
+      "tests/test_trading.py",
+      "evidence/trading-differential.json",
+      "TRADING.md"
+    ]
+  },
+  "src/trading.cpp:61": {
+    "python": [
+      "pygame/src/rich4/trading.py::交易_类._有效"
+    ],
+    "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+    "evidence": [
+      "tests/test_trading.py",
+      "evidence/trading-differential.json",
+      "TRADING.md"
+    ]
+  },
+  "src/trading.cpp:82": {
+    "python": [
+      "pygame/src/rich4/trading.py::交易结果_类"
+    ],
+    "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+    "evidence": [
+      "tests/test_trading.py",
+      "evidence/trading-differential.json",
+      "TRADING.md"
+    ]
+  },
+  "src/trading.cpp:87": {
+    "python": [
+      "pygame/src/rich4/trading.py::交易_类.api_可售项目"
+    ],
+    "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+    "evidence": [
+      "tests/test_trading.py",
+      "evidence/trading-differential.json",
+      "TRADING.md"
+    ]
+  },
+  "src/trading.cpp:111": {
+    "python": [
+      "pygame/src/rich4/trading.py::交易_类.api_限价"
+    ],
+    "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+    "evidence": [
+      "tests/test_trading.py",
+      "evidence/trading-differential.json",
+      "TRADING.md"
+    ]
+  },
+  "src/trading.cpp:153": {
+    "python": [
+      "pygame/src/rich4/trading.py::交易_类.api_报价"
+    ],
+    "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+    "evidence": [
+      "tests/test_trading.py",
+      "evidence/trading-differential.json",
+      "TRADING.md"
+    ]
+  },
+  "src/trading.cpp:168": {
+    "python": [
+      "pygame/src/rich4/trading.py::交易_类.api_挂牌"
+    ],
+    "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+    "evidence": [
+      "tests/test_trading.py",
+      "evidence/trading-differential.json",
+      "TRADING.md"
+    ]
+  },
+  "src/trading.cpp:192": {
+    "python": [
+      "pygame/src/rich4/trading.py::交易_类.api_取消"
+    ],
+    "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+    "evidence": [
+      "tests/test_trading.py",
+      "evidence/trading-differential.json",
+      "TRADING.md"
+    ]
+  },
+  "src/trading.cpp:202": {
+    "python": [
+      "pygame/src/rich4/trading.py::交易_类.api_清理"
+    ],
+    "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+    "evidence": [
+      "tests/test_trading.py",
+      "evidence/trading-differential.json",
+      "TRADING.md"
+    ]
+  },
+  "src/trading.cpp:222": {
+    "python": [
+      "pygame/src/rich4/trading.py::交易_类.api_购买"
+    ],
+    "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+    "evidence": [
+      "tests/test_trading.py",
+      "evidence/trading-differential.json",
+      "TRADING.md"
+    ]
+  },
+  "src/trading.cpp:284": {
+    "python": [
+      "pygame/src/rich4/trading.py::交易_类.api_电脑回合"
+    ],
+    "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+    "evidence": [
+      "tests/test_trading.py",
+      "evidence/trading-differential.json",
+      "TRADING.md"
+    ]
   }
 }

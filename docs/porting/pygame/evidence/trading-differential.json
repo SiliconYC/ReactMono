@@ -1,0 +1,224 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "generator_seed": 2026102306,
+  "scope": "private-market module actions; no UI or game long runs",
+  "status": "passed",
+  "episodes": [
+    {
+      "map": 0,
+      "seed": 0,
+      "steps": 400,
+      "posted": 70,
+      "purchased": 44,
+      "input_sha256": "f0e3b1db07b01a0b03bbb1fd194434dbd541882e04c352109b516f71dd5eb4c0",
+      "states_sha256": "140b2e88b72b9b6efe948a59c255ef448241b6038c9dc39668f598fc123a42c5"
+    },
+    {
+      "map": 0,
+      "seed": 1,
+      "steps": 400,
+      "posted": 57,
+      "purchased": 35,
+      "input_sha256": "6c87c1dab185c7d14f2e5bdfe5f0d0d52fac418d7c5c07a2213a0da720039001",
+      "states_sha256": "d637b340070df8f8781b5f8e6b5d8c352bfcf711144264d40b6f234677de1952"
+    },
+    {
+      "map": 0,
+      "seed": 4294967295,
+      "steps": 400,
+      "posted": 59,
+      "purchased": 37,
+      "input_sha256": "cf1c3802af9d8bb7ce396b4bc6a78632fc63e63b73d64e542eeb29ae6b88760b",
+      "states_sha256": "01963e83c460386464b28b92bd14ef5c47dd3c3424ff309e9f5936b4017be094"
+    },
+    {
+      "map": 1,
+      "seed": 0,
+      "steps": 400,
+      "posted": 62,
+      "purchased": 50,
+      "input_sha256": "66a84bd1a5d3ba856fb4e24bd09bb4a3b3cdcd75d00e856933ea82c5c5439ede",
+      "states_sha256": "cadb8babe2ff8c555b529aa4f5a37d7a6a4a23f067a2e1a84f7d19dbfcee1b9b"
+    },
+    {
+      "map": 1,
+      "seed": 1,
+      "steps": 400,
+      "posted": 59,
+      "purchased": 43,
+      "input_sha256": "0917579e04379afb47448f4b87276688fda5a105ada90e1ffa4efe55e091bbf8",
+      "states_sha256": "11af2767b6794d5f5081b1c94154bbcba365691d567bfd9f77bfb6468b6902b0"
+    },
+    {
+      "map": 1,
+      "seed": 4294967295,
+      "steps": 400,
+      "posted": 56,
+      "purchased": 37,
+      "input_sha256": "6895e7b1f79489070e1031ab164d7fa1e4a4b9e0f5caa64915e46997c8f3fd35",
+      "states_sha256": "29dae381916bebd3b18522eb386e9b08fc3098d5d9bf4197d5f0c3fad835ce78"
+    },
+    {
+      "map": 2,
+      "seed": 0,
+      "steps": 400,
+      "posted": 52,
+      "purchased": 45,
+      "input_sha256": "367ad9dfb11df81b100cf26fa93154dd50cef5cfe12738fe970c710e3b6ad09a",
+      "states_sha256": "d3d5fbbec53ef0e90a3baa36083b253b3157e278a765333ced3748db5ac01713"
+    },
+    {
+      "map": 2,
+      "seed": 1,
+      "steps": 400,
+      "posted": 59,
+      "purchased": 39,
+      "input_sha256": "b89b6db6b55af71707802315e0720d37a4c17595c781a425a4edcb636297e1bc",
+      "states_sha256": "58dda70e24288bab00ac1c5ac2ea11f323c97b4baac30a85bd0bcdf1e47355c4"
+    },
+    {
+      "map": 2,
+      "seed": 4294967295,
+      "steps": 400,
+      "posted": 56,
+      "purchased": 37,
+      "input_sha256": "c20d2a731adad472c3642e00891cc5f4f88ecbabc5dafbf5f51fe3e6b4beb578",
+      "states_sha256": "9f8706356205e8fe2df89b343bd733e90fc92b00089c6df04a6c985b2a8e9a37"
+    },
+    {
+      "map": 3,
+      "seed": 0,
+      "steps": 400,
+      "posted": 48,
+      "purchased": 35,
+      "input_sha256": "baaae1dac65d967687b5500a23a4f35b9e150f7474341086368d1fe7b8df1072",
+      "states_sha256": "f22e4451e106904d69e322e702be8724e3dd69f86f44e90bfe45f3e355d68ce9"
+    },
+    {
+      "map": 3,
+      "seed": 1,
+      "steps": 400,
+      "posted": 65,
+      "purchased": 39,
+      "input_sha256": "fdca3de1cc2d6d76f7c465ea99d82a8037cec107e7e2468a7406a2d7e5b115c6",
+      "states_sha256": "1698bf18f8f17df73e2013b77e111782e9ffafba76b5822d5229d6b52a1a6b91"
+    },
+    {
+      "map": 3,
+      "seed": 4294967295,
+      "steps": 400,
+      "posted": 56,
+      "purchased": 38,
+      "input_sha256": "74538622ff55bf4b0a1b49573ad52d9bedd9a52d646f5e1aed294c65694e8b9f",
+      "states_sha256": "5c566d38a1d008fe1be5fd23866ffd1ffc76ab8c1d9df742355e333cd14903ba"
+    },
+    {
+      "map": 4,
+      "seed": 0,
+      "steps": 400,
+      "posted": 58,
+      "purchased": 43,
+      "input_sha256": "ed01f75f07a566093db3bbc77d7e610928e03415b386add0935245a4aedcb93d",
+      "states_sha256": "e1188b09d5ba49cb34832e1701e95f2ee4df34508e9378f310abee0bcf90ac57"
+    },
+    {
+      "map": 4,
+      "seed": 1,
+      "steps": 400,
+      "posted": 65,
+      "purchased": 38,
+      "input_sha256": "b028d0a2837273bf9b6a93472d7f9cefb16e79551f9166d9bb6a1642102808f0",
+      "states_sha256": "42e93c00ff2d13d1bf2e8c877890eb48078dd09f3c4111235af8f16208770c86"
+    },
+    {
+      "map": 4,
+      "seed": 4294967295,
+      "steps": 400,
+      "posted": 50,
+      "purchased": 40,
+      "input_sha256": "f5ef1ac0969d71874d97238a3372509622cf75b8ed858bb3354de47bdd00d394",
+      "states_sha256": "789a8d84e5f37b52f29e1e1abd3db255a463667d99b52d2452e5449f2daa3256"
+    },
+    {
+      "map": 5,
+      "seed": 0,
+      "steps": 400,
+      "posted": 63,
+      "purchased": 41,
+      "input_sha256": "52eb154acc32d59f2997495ee658ef855fd0b2c47b1008a78938a41496706bf3",
+      "states_sha256": "dfb6a3ff6737d7a88970dc8efe81f06559b9bae17ae375deb2e9f1213c59f4f8"
+    },
+    {
+      "map": 5,
+      "seed": 1,
+      "steps": 400,
+      "posted": 59,
+      "purchased": 44,
+      "input_sha256": "a5606f1aa232aa1119886e31f7f09ca0c7b3cb95d99dac21da9c6a02e06ea8c2",
+      "states_sha256": "fd61beab0c4fd24383783c573651f06e3f9d82c94cd8f02e784a6b1b4cc30a1b"
+    },
+    {
+      "map": 5,
+      "seed": 4294967295,
+      "steps": 400,
+      "posted": 58,
+      "purchased": 43,
+      "input_sha256": "51ad01d25a3806b4650bd2d440f39acad48f158584d26cfa896a83e329d581c0",
+      "states_sha256": "b127951fb9a51435b6ec8fe394eb5e45d32f7842fc9c6fae8cc4198036cc8bc0"
+    },
+    {
+      "map": 6,
+      "seed": 0,
+      "steps": 400,
+      "posted": 66,
+      "purchased": 32,
+      "input_sha256": "a5708ae4c88d2945c1083e501545e735632e624d00f00140b7053e52c6a42d73",
+      "states_sha256": "1a27071c9ffd995bb70a96aa5a5707fd76fd15993dc1f76b94e916b95ac9d73e"
+    },
+    {
+      "map": 6,
+      "seed": 1,
+      "steps": 400,
+      "posted": 71,
+      "purchased": 39,
+      "input_sha256": "076371181cbbe7c898e8bf9532e1dd464d8cae67a127d89165dedb3552655df9",
+      "states_sha256": "8787707968f5a93b31ad728c0e0a52d840a46bbafbe1cd5ee3a70fa9bc2cb884"
+    },
+    {
+      "map": 6,
+      "seed": 4294967295,
+      "steps": 400,
+      "posted": 73,
+      "purchased": 43,
+      "input_sha256": "a8a24c23013a6f59fc090fd23ff5ba970082d56b5fc97e958c8caddba8b0e6a8",
+      "states_sha256": "697f283c55a6a9f1dc180d49be3c15d263bbdfeddb0f629b41ef4bbd364f7ef6"
+    },
+    {
+      "map": 7,
+      "seed": 0,
+      "steps": 400,
+      "posted": 58,
+      "purchased": 34,
+      "input_sha256": "76fe78505c0f252409e324b29b23dd6edb7b4dacab53ea9a1ccc9ea58f786581",
+      "states_sha256": "2038c47b3e6195569d14cc4d50d99e9697dc187517cf8896f9153bd8358c9cae"
+    },
+    {
+      "map": 7,
+      "seed": 1,
+      "steps": 400,
+      "posted": 51,
+      "purchased": 30,
+      "input_sha256": "c53d885aeec994d271a783ddb14f5b7ca5b8a112ca4078d330779a74668a229e",
+      "states_sha256": "b81497278c8ae6a712a3cd3a819feefd5b8cb9dc605d9f8cdbc5816bae9679a4"
+    },
+    {
+      "map": 7,
+      "seed": 4294967295,
+      "steps": 400,
+      "posted": 70,
+      "purchased": 39,
+      "input_sha256": "208fc9b22b9ff45cc00219f8f2b58b9836f6c3d67dca2b230ffc8018a328ff31",
+      "states_sha256": "8426076254a80e69ab621d65a22f77306e0617e866725cc7ddd7017e6bd011c3"
+    }
+  ]
+}
