@@ -57,3 +57,16 @@ uv run --project pygame python pygame/tools/differential_save.py \
   --source /path/to/pinned-cpp --build /tmp/rich4-cpp-core \
   --report /tmp/save-differential.json /path/to/SAVE1.DAT /path/to/Save0.dat
 ```
+
+## 世界模型增量（2026-10-23）
+
+完整 Python 测试 **53/53**、Ruff 通过。固定 C++ 工作树核对干净。两份原 DAT 的6373/7243个世界标量、无损导出、8个破产导出、选定编辑导出及可玩验证结果一致；八图各9组，共72个新局，比较521667个世界标量及全部初始导出、168个破产导出、选定编辑导出与验证结果，一致。见 [世界差分](evidence/world-differential.json)。原字段解析/回填和初始世界均经验证；不代表已执行回合、游戏存档恢复或地图图形验收。
+
+```sh
+uv run --project pygame python pygame/tools/differential_world.py \
+  --source /path/to/pinned-cpp --build /tmp/rich4-cpp-core \
+  --report /tmp/world-differential.json --assets /path/to/map.mkf \
+  /path/to/SAVE1.DAT /path/to/Save0.dat
+```
+
+作者自审补充：检测到 Python 的可变列表会失去 C++ `std::array` 固定维度约束；新增失败测试后补齐显式维度检查，53/53 通过。未活跃角色/物件的遗留字段、交通及状态日高位、空出售项未知字节均按 C++ 保留，不做额外清理或规范化。
