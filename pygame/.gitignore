@@ -1,0 +1,18 @@
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+# 商业素材、解码图像与存档不得发布。
+assets/
+local/
+*.mkf
+*.MKF
+*.dat
+*.DAT
+*.exe
+*.mid
+*.wav
+*.avi
+*.png
+*.ppm
+*.bin

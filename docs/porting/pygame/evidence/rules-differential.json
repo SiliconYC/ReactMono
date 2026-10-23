@@ -1,0 +1,17 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "generator_seed": 20261023,
+  "cases": 19738,
+  "input_sha256": "c500e2b33fac5a85504cd63edf06c5f7329eeceac9ad2ea06e2bfc931dbb968a",
+  "oracle_sha256": "f9c6c14f8eeaf1da274b6a26e1a2ba362620a4d45deffbe28eae33a3f4977fd4",
+  "status": "passed",
+  "inventory_actions": 15000,
+  "rng_values": 50000,
+  "modules": [
+    "random",
+    "calendar",
+    "direction",
+    "inventory",
+    "economy"
+  ]
+}
