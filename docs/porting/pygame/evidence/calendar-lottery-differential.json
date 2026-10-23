@@ -1,0 +1,111 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "generator_seed": 2026102304,
+  "scope": "calendar outputs and lottery module actions, not game long runs",
+  "status": "passed",
+  "lottery": [
+    {
+      "map": 0,
+      "seed": 0,
+      "steps": 490,
+      "exception_rejections": 244,
+      "input_sha256": "bf510de03c7852892a52c5cdf3af2f78feb86f2aa212efa55b32dfd17b38a14d",
+      "states_sha256": "0aaef9583a8c5594e7569cc415f74f14630e32b34ea11507de446da7ce653cfb"
+    },
+    {
+      "map": 0,
+      "seed": 1,
+      "steps": 490,
+      "exception_rejections": 223,
+      "input_sha256": "95663bf0631a61240d392701ea14a6cb52d45dc33c1b32f50ebda1848e540201",
+      "states_sha256": "aa6da74c81917dde3f91a0cd421bc9f45d673a04f418d4fb0ca043e9484805bf"
+    },
+    {
+      "map": 0,
+      "seed": 4294967295,
+      "steps": 490,
+      "exception_rejections": 251,
+      "input_sha256": "9c62da247f0062d0c0489c94119d0023ec5c6fcc30d8f02095faa53421009a93",
+      "states_sha256": "8af9442623d158e64cbef23ddf164d8bd74d5a2708849098cfdaac896adb42ca"
+    },
+    {
+      "map": 3,
+      "seed": 0,
+      "steps": 490,
+      "exception_rejections": 243,
+      "input_sha256": "fb396aecf45bf1afbf254e949860ba95e6b849b9309a72b229a0930b4be08745",
+      "states_sha256": "88f2f7255c9381e9a2c0aaaf3099c77535f5a9b997c136301bd09156f8eb8be9"
+    },
+    {
+      "map": 3,
+      "seed": 1,
+      "steps": 490,
+      "exception_rejections": 243,
+      "input_sha256": "f126c733b7157a3536a7d153633031696a8b77c68b11b91a1f77cbb653c9f2fc",
+      "states_sha256": "36e369230f9389b10ede3f15c2c4f8887ab11e82830aab39079abc8808236f1e"
+    },
+    {
+      "map": 3,
+      "seed": 4294967295,
+      "steps": 490,
+      "exception_rejections": 238,
+      "input_sha256": "dcc3262a5b11f0132b6294d4b2e9db5314a6ecfeb13f45423acb60a29c35cdff",
+      "states_sha256": "ff0d26fba3907da5c04df7b972895141326fadd447f4f79cc74d1e18a0da6178"
+    },
+    {
+      "map": 4,
+      "seed": 0,
+      "steps": 490,
+      "exception_rejections": 93,
+      "input_sha256": "eae864fe08789cc46ced6d892d7e2a41e96e6a831c6eef22bd08af709093ee3c",
+      "states_sha256": "3cfc7e27d5e0873eb3c0b1d3246cf193c0e71d730584e27d9775272120bcbfac"
+    },
+    {
+      "map": 4,
+      "seed": 1,
+      "steps": 490,
+      "exception_rejections": 247,
+      "input_sha256": "14a08f499d5db5cf3c3b73b6d8b363a2c39752e3e418dcdf0daba2be97627b57",
+      "states_sha256": "2b15bbd2e3e3f4519cc23972c46fc687a27d3fa87539eb40341f29b31e2039a9"
+    },
+    {
+      "map": 4,
+      "seed": 4294967295,
+      "steps": 490,
+      "exception_rejections": 248,
+      "input_sha256": "ad3a5531747640eb6418e3da6f3879e005627efc7e4e9e6c8f30131a90d81f19",
+      "states_sha256": "fc79ab4b93f046c31fa1a4a6f6c884d918921c64078e52a7c122b954e8040a8a"
+    },
+    {
+      "map": 7,
+      "seed": 0,
+      "steps": 490,
+      "exception_rejections": 270,
+      "input_sha256": "e05b5451591ae1934a2a08bd0ae83c2f005af8ad0cd3df33b4e7f3c4cbb2d68c",
+      "states_sha256": "0d5df5f5cd7d35020ca69597ebe015b47889b2f79b93d4282dd7eb2c29980705"
+    },
+    {
+      "map": 7,
+      "seed": 1,
+      "steps": 490,
+      "exception_rejections": 165,
+      "input_sha256": "862821c833d8707a09b7748a3efc2f02a4d3501c94a41b4d074f802664ddb596",
+      "states_sha256": "7be92d71bb9a5fdb23f56c26c5a657d0ed0dd3801619f4700c8f429fb99c481f"
+    },
+    {
+      "map": 7,
+      "seed": 4294967295,
+      "steps": 490,
+      "exception_rejections": 257,
+      "input_sha256": "4b35b01df700ed729171fca33339369d4aa728e4b54e5ea74ffded1ee1ef434a",
+      "states_sha256": "f85e437afedf6d39fe7c9bb3f65ee8c0c65f20412135410974f08067a55cb7fd"
+    }
+  ],
+  "calendar": {
+    "cases": 96456,
+    "loan_dates": 3168,
+    "dates": "1998-01-01..2030-12-31 daily, plus 2100 leap and 65535 boundary",
+    "input_sha256": "9bec666e456b42f5c5aba9d8cffbc034652f9b36f724b6136e39d7a6cbe2a54b",
+    "output_sha256": "697aae771542d697999e12814ea92763f7777ac2c0d612b3aa378c3a4d8f245a"
+  }
+}

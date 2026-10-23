@@ -6006,49 +6006,85 @@
       "id": "src/holidays.cpp:137",
       "declarator": "lunar_date(calendar::Date date)",
       "end_line": 146,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/holidays.py::节日_类.api_农历"
+      ],
+      "status": "已实现，自动差分；表现和回合入口未接入",
+      "evidence": [
+        "tests/test_holidays.py",
+        "evidence/calendar-lottery-differential.json",
+        "CALENDAR_LOTTERY.md"
+      ]
     },
     {
       "id": "src/holidays.cpp:150",
       "declarator": "festival_row(calendar::Date date, std::uint16_t map, std::uint16_t stage)",
       "end_line": 185,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/holidays.py::节日_类.api_节日行"
+      ],
+      "status": "已实现，自动差分；表现和回合入口未接入",
+      "evidence": [
+        "tests/test_holidays.py",
+        "evidence/calendar-lottery-differential.json",
+        "CALENDAR_LOTTERY.md"
+      ]
     },
     {
       "id": "src/holidays.cpp:188",
       "declarator": "is_closed(calendar::Date date, std::uint16_t map, std::uint16_t stage)",
       "end_line": 195,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/holidays.py::节日_类.api_休市"
+      ],
+      "status": "已实现，自动差分；表现和回合入口未接入",
+      "evidence": [
+        "tests/test_holidays.py",
+        "evidence/calendar-lottery-differential.json",
+        "CALENDAR_LOTTERY.md"
+      ]
     },
     {
       "id": "src/holidays.cpp:197",
       "declarator": "festival_picture(calendar::Date date, std::uint16_t map, std::uint16_t stage)",
       "end_line": 204,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/holidays.py::节日_类.api_节日图片"
+      ],
+      "status": "已实现，自动差分；表现和回合入口未接入",
+      "evidence": [
+        "tests/test_holidays.py",
+        "evidence/calendar-lottery-differential.json",
+        "CALENDAR_LOTTERY.md"
+      ]
     },
     {
       "id": "src/holidays.cpp:221",
       "declarator": "celebration(calendar::Date date, std::uint16_t map, std::uint16_t stage)",
       "end_line": 235,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/holidays.py::节日_类.api_庆祝"
+      ],
+      "status": "已实现，自动差分；表现和回合入口未接入",
+      "evidence": [
+        "tests/test_holidays.py",
+        "evidence/calendar-lottery-differential.json",
+        "CALENDAR_LOTTERY.md"
+      ]
     },
     {
       "id": "src/holidays.cpp:237",
       "declarator": "loan_due_date(calendar::Date current, std::uint16_t map, std::uint16_t stage)",
       "end_line": 242,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/holidays.py::节日_类.api_贷款到期"
+      ],
+      "status": "已实现，自动差分；表现和回合入口未接入",
+      "evidence": [
+        "tests/test_holidays.py",
+        "evidence/calendar-lottery-differential.json",
+        "CALENDAR_LOTTERY.md"
+      ]
     },
     {
       "id": "src/inventory.cpp:12",
@@ -6236,65 +6272,113 @@
       "id": "src/lottery.cpp:12",
       "declarator": "validate_owners(const World &world)",
       "end_line": 18,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/lottery.py::彩票_类._验证"
+      ],
+      "status": "已实现，自动差分；表现和回合入口未接入",
+      "evidence": [
+        "tests/test_lottery.py",
+        "evidence/calendar-lottery-differential.json",
+        "CALENDAR_LOTTERY.md"
+      ]
     },
     {
       "id": "src/lottery.cpp:19",
       "declarator": "add(std::int32_t a, std::int32_t b)",
       "end_line": 21,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/lottery.py::彩票_类._整数"
+      ],
+      "status": "已实现，自动差分；表现和回合入口未接入",
+      "evidence": [
+        "tests/test_lottery.py",
+        "evidence/calendar-lottery-differential.json",
+        "CALENDAR_LOTTERY.md"
+      ]
     },
     {
       "id": "src/lottery.cpp:24",
       "declarator": "available_numbers(const World &world)",
       "end_line": 31,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/lottery.py::彩票_类.api_可售号码"
+      ],
+      "status": "已实现，自动差分；表现和回合入口未接入",
+      "evidence": [
+        "tests/test_lottery.py",
+        "evidence/calendar-lottery-differential.json",
+        "CALENDAR_LOTTERY.md"
+      ]
     },
     {
       "id": "src/lottery.cpp:33",
       "declarator": "buy_ticket(World &world, std::size_t actor, std::uint32_t number)",
       "end_line": 49,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/lottery.py::彩票_类.api_购票"
+      ],
+      "status": "已实现，自动差分；表现和回合入口未接入",
+      "evidence": [
+        "tests/test_lottery.py",
+        "evidence/calendar-lottery-differential.json",
+        "CALENDAR_LOTTERY.md"
+      ]
     },
     {
       "id": "src/lottery.cpp:51",
       "declarator": "buy_random_ticket(World &world, Random &random, std::size_t actor)",
       "end_line": 62,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/lottery.py::彩票_类.api_随机购票"
+      ],
+      "status": "已实现，自动差分；表现和回合入口未接入",
+      "evidence": [
+        "tests/test_lottery.py",
+        "evidence/calendar-lottery-differential.json",
+        "CALENDAR_LOTTERY.md"
+      ]
     },
     {
       "id": "src/lottery.cpp:64",
       "declarator": "discard_player_tickets(World &world, std::size_t actor)",
       "end_line": 69,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/lottery.py::彩票_类.api_退票"
+      ],
+      "status": "已实现，自动差分；表现和回合入口未接入",
+      "evidence": [
+        "tests/test_lottery.py",
+        "evidence/calendar-lottery-differential.json",
+        "CALENDAR_LOTTERY.md"
+      ]
     },
     {
       "id": "src/lottery.cpp:71",
       "declarator": "draw(World &world, Random &random)",
       "end_line": 101,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/lottery.py::彩票_类.api_开奖"
+      ],
+      "status": "已实现，自动差分；表现和回合入口未接入",
+      "evidence": [
+        "tests/test_lottery.py",
+        "evidence/calendar-lottery-differential.json",
+        "CALENDAR_LOTTERY.md"
+      ]
     },
     {
       "id": "src/lottery.cpp:103",
       "declarator": "draw_due(SaveDate date) noexcept",
       "end_line": 105,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/lottery.py::彩票_类.api_开奖日"
+      ],
+      "status": "已实现，自动差分；表现和回合入口未接入",
+      "evidence": [
+        "tests/test_lottery.py",
+        "evidence/calendar-lottery-differential.json",
+        "CALENDAR_LOTTERY.md"
+      ]
     },
     {
       "id": "src/minigames.cpp:39",
@@ -6718,137 +6802,239 @@
       "id": "src/services.cpp:14",
       "declarator": "add(std::int32_t a, std::int32_t b)",
       "end_line": 16,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/services.py::服务_类._整数"
+      ],
+      "status": "已实现，模块自动差分；真实会话回调待集成",
+      "evidence": [
+        "tests/test_services.py",
+        "evidence/services-differential.json",
+        "SERVICES.md"
+      ]
     },
     {
       "id": "src/services.cpp:17",
       "declarator": "weighted(const Supply &supply, Random &random)",
       "end_line": 28,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/services.py::服务_类._加权"
+      ],
+      "status": "已实现，模块自动差分；真实会话回调待集成",
+      "evidence": [
+        "tests/test_services.py",
+        "evidence/services-differential.json",
+        "SERVICES.md"
+      ]
     },
     {
       "id": "src/services.cpp:29",
       "declarator": "buy_card_unchecked(World &world, Shop &shop, std::size_t slot, std::uint8_t id)",
       "end_line": 34,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/services.py::服务_类._买卡"
+      ],
+      "status": "已实现，模块自动差分；真实会话回调待集成",
+      "evidence": [
+        "tests/test_services.py",
+        "evidence/services-differential.json",
+        "SERVICES.md"
+      ]
     },
     {
       "id": "src/services.cpp:35",
       "declarator": "buy_tool_unchecked(World &world, Shop &shop, std::size_t slot, std::uint8_t id)",
       "end_line": 40,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/services.py::服务_类._买道具"
+      ],
+      "status": "已实现，模块自动差分；真实会话回调待集成",
+      "evidence": [
+        "tests/test_services.py",
+        "evidence/services-differential.json",
+        "SERVICES.md"
+      ]
     },
     {
       "id": "src/services.cpp:41",
       "declarator": "computer_shop(World &world, Shop &shop, std::size_t slot)",
       "end_line": 101,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/services.py::服务_类._电脑购物"
+      ],
+      "status": "已实现，模块自动差分；真实会话回调待集成",
+      "evidence": [
+        "tests/test_services.py",
+        "evidence/services-differential.json",
+        "SERVICES.md"
+      ]
     },
     {
       "id": "src/services.cpp:102",
       "declarator": "property_under(const World &world, std::size_t slot)",
       "end_line": 109,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/services.py::服务_类._脚下地产"
+      ],
+      "status": "已实现，模块自动差分；真实会话回调待集成",
+      "evidence": [
+        "tests/test_services.py",
+        "evidence/services-differential.json",
+        "SERVICES.md"
+      ]
     },
     {
       "id": "src/services.cpp:112",
       "declarator": "receive_random_card(World &world, Random &random, std::size_t slot)",
       "end_line": 117,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/services.py::服务_类.api_随机卡"
+      ],
+      "status": "已实现，模块自动差分；真实会话回调待集成",
+      "evidence": [
+        "tests/test_services.py",
+        "evidence/services-differential.json",
+        "SERVICES.md"
+      ]
     },
     {
       "id": "src/services.cpp:118",
       "declarator": "receive_random_tool(World &world, Random &random, std::size_t slot)",
       "end_line": 123,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/services.py::服务_类.api_随机道具"
+      ],
+      "status": "已实现，模块自动差分；真实会话回调待集成",
+      "evidence": [
+        "tests/test_services.py",
+        "evidence/services-differential.json",
+        "SERVICES.md"
+      ]
     },
     {
       "id": "src/services.cpp:124",
       "declarator": "open_shop(World &world, Random &random, std::size_t slot, std::uint16_t property)",
       "end_line": 150,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/services.py::服务_类.api_开店"
+      ],
+      "status": "已实现，模块自动差分；真实会话回调待集成",
+      "evidence": [
+        "tests/test_services.py",
+        "evidence/services-differential.json",
+        "SERVICES.md"
+      ]
     },
     {
       "id": "src/services.cpp:151",
       "declarator": "buy_card(World &world, Shop &shop, std::size_t slot, std::uint8_t id)",
       "end_line": 160,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/services.py::服务_类.api_买卡"
+      ],
+      "status": "已实现，模块自动差分；真实会话回调待集成",
+      "evidence": [
+        "tests/test_services.py",
+        "evidence/services-differential.json",
+        "SERVICES.md"
+      ]
     },
     {
       "id": "src/services.cpp:161",
       "declarator": "buy_tool(World &world, Shop &shop, std::size_t slot, std::uint8_t id)",
       "end_line": 171,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/services.py::服务_类.api_买道具"
+      ],
+      "status": "已实现，模块自动差分；真实会话回调待集成",
+      "evidence": [
+        "tests/test_services.py",
+        "evidence/services-differential.json",
+        "SERVICES.md"
+      ]
     },
     {
       "id": "src/services.cpp:172",
       "declarator": "sell_card(World &world, Shop &shop, std::size_t slot, std::uint8_t id)",
       "end_line": 179,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/services.py::服务_类.api_卖卡"
+      ],
+      "status": "已实现，模块自动差分；真实会话回调待集成",
+      "evidence": [
+        "tests/test_services.py",
+        "evidence/services-differential.json",
+        "SERVICES.md"
+      ]
     },
     {
       "id": "src/services.cpp:180",
       "declarator": "sell_tool(World &world, Shop &shop, std::size_t slot, std::uint8_t id, unsigned quantity)",
       "end_line": 190,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/services.py::服务_类.api_卖道具"
+      ],
+      "status": "已实现，模块自动差分；真实会话回调待集成",
+      "evidence": [
+        "tests/test_services.py",
+        "evidence/services-differential.json",
+        "SERVICES.md"
+      ]
     },
     {
       "id": "src/services.cpp:191",
       "declarator": "close_shop(World &world, Shop &shop, std::uint16_t property)",
       "end_line": 200,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/services.py::服务_类.api_关店"
+      ],
+      "status": "已实现，模块自动差分；真实会话回调待集成",
+      "evidence": [
+        "tests/test_services.py",
+        "evidence/services-differential.json",
+        "SERVICES.md"
+      ]
     },
     {
       "id": "src/services.cpp:202",
       "declarator": "magic_targets(const World &world, unsigned category)",
       "end_line": 252,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/services.py::服务_类.api_魔法目标"
+      ],
+      "status": "已实现，模块自动差分；真实会话回调待集成",
+      "evidence": [
+        "tests/test_services.py",
+        "evidence/services-differential.json",
+        "SERVICES.md"
+      ]
     },
     {
       "id": "src/services.cpp:253",
       "declarator": "choose_magic_ai(const World &world, Random &random, std::size_t actor)",
       "end_line": 272,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/services.py::服务_类.api_电脑魔法"
+      ],
+      "status": "已实现，模块自动差分；真实会话回调待集成",
+      "evidence": [
+        "tests/test_services.py",
+        "evidence/services-differential.json",
+        "SERVICES.md"
+      ]
     },
     {
       "id": "src/services.cpp:273",
       "declarator": "apply_magic(World &world, Random &random, std::size_t actor, std::span<const std::size_t> targets,\n                 unsigned effect, const MagicCallbacks &callbacks)",
       "end_line": 357,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/services.py::服务_类.api_施法"
+      ],
+      "status": "已实现，模块自动差分；真实会话回调待集成",
+      "evidence": [
+        "tests/test_services.py",
+        "evidence/services-differential.json",
+        "SERVICES.md"
+      ]
     },
     {
       "id": "src/special_actors.cpp:11",
