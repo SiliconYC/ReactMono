@@ -43,3 +43,7 @@ uv run --project pygame python pygame/tools/differential_rules.py \
 - 保存/退出/重载后继续同动作流，比较跨进程状态。
 - 同视口静帧、遮挡、动画中间帧和实际操作流程；无法逐帧比较者保留人工证据和明确差异。
 - 自然长期局与完整结局需在真正 Python 游戏中完成，禁止将库存动作批次叫做长局。
+
+## 既有 React 回归与集成
+
+独立集成树 `5b98ce4` 上 Python 35/35、Ruff 与 `git diff --check` 通过。默认 Node v14.18.1 解析既有 Vite 的 `??=` 失败；明确使用现有 Node v22.20.0 后 `npm test` 为 **298/298 通过**，没有跳过或取消。原日志保存在本机 `/tmp/reactmono-pygame-react-regression-node22.log`。变更范围仅 `pygame/` 与 `docs/porting/pygame/`，没有修改原 React 逻辑、美术或构建配置。
