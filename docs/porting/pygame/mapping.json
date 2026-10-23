@@ -928,5 +928,313 @@
       "tests/test_save.py",
       "evidence/save-differential.json"
     ]
+  },
+  "src/world.cpp:18": {
+    "python": [
+      "pygame/src/rich4/world.py::_数"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "src/world.cpp:23": {
+    "python": [
+      "pygame/src/rich4/world.py::_数"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "src/world.cpp:26": {
+    "python": [
+      "pygame/src/rich4/world.py::_写"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "src/world.cpp:30": {
+    "python": [
+      "pygame/src/rich4/world.py::_写"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "src/world.cpp:34": {
+    "python": [
+      "pygame/src/rich4/world.py::_名字"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "src/world.cpp:41": {
+    "python": [
+      "pygame/src/rich4/world.py::_写名字"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "src/world.cpp:49": {
+    "python": [
+      "pygame/src/rich4/world.py::_读地图/_写地图"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "src/world.cpp:86": {
+    "python": [
+      "pygame/src/rich4/world.py::_洗牌"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "src/world.cpp:165": {
+    "python": [
+      "pygame/src/rich4/world.py::_检查表"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "src/world.cpp:174": {
+    "python": [
+      "pygame/src/rich4/world.py::api_从存档/__init__"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "src/world.cpp:345": {
+    "python": [
+      "pygame/src/rich4/world.py::api_活跃玩家"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "src/world.cpp:348": {
+    "python": [
+      "pygame/src/rich4/world.py::api_活跃玩家"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "src/world.cpp:352": {
+    "python": [
+      "pygame/src/rich4/world.py::api_清破产字段"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "src/world.cpp:378": {
+    "python": [
+      "pygame/src/rich4/world.py::api_导出"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "src/world.cpp:588": {
+    "python": [
+      "pygame/src/rich4/world.py::api_从地图"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "src/world_validation.cpp:16": {
+    "python": [
+      "pygame/src/rich4/world_validation.py::_检查"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "src/world_validation.cpp:20": {
+    "python": [
+      "pygame/src/rich4/world_validation.py::api_验证/字段路径"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "src/world_validation.cpp:24": {
+    "python": [
+      "pygame/src/rich4/world_validation.py::_检查"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "src/world_validation.cpp:29": {
+    "python": [
+      "pygame/src/rich4/world_validation.py::_表"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "src/world_validation.cpp:37": {
+    "python": [
+      "pygame/src/rich4/world_validation.py::_牌堆"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "src/world_validation.cpp:49": {
+    "python": [
+      "pygame/src/rich4/world_validation.py::_浮点"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "src/world_validation.cpp:55": {
+    "python": [
+      "pygame/src/rich4/world_validation.py::_地产引用"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "src/world_validation.cpp:70": {
+    "python": [
+      "pygame/src/rich4/world_validation.py::api_验证"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "include/rich4/world.hpp:144": {
+    "python": [
+      "pygame/src/rich4/world_map.py::设施_类.每级造价"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "include/rich4/world.hpp:147": {
+    "python": [
+      "pygame/src/rich4/world_map.py::设施_类.每级造价.setter"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "include/rich4/world.hpp:244": {
+    "python": [
+      "pygame/src/rich4/world.py::地图摘要"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "include/rich4/world.hpp:249": {
+    "python": [
+      "pygame/src/rich4/world.py::初始随机状态"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
+  },
+  "include/rich4/world.hpp:252": {
+    "python": [
+      "pygame/src/rich4/world.py::有初始随机状态"
+    ],
+    "status": "已实现，世界/八图初始化自动差分",
+    "evidence": [
+      "tests/test_world.py",
+      "tests/test_world_validation.py",
+      "evidence/world-differential.json"
+    ]
   }
 }

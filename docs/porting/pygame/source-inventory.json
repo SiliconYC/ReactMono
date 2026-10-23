@@ -2373,41 +2373,71 @@
       "id": "include/rich4/world.hpp:144",
       "declarator": "price_per_level() const noexcept",
       "end_line": 146,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world_map.py::设施_类.每级造价"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "include/rich4/world.hpp:147",
       "declarator": "&price_per_level() noexcept",
       "end_line": 149,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world_map.py::设施_类.每级造价.setter"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "include/rich4/world.hpp:244",
       "declarator": "&map_summary() const noexcept",
       "end_line": 246,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world.py::地图摘要"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "include/rich4/world.hpp:249",
       "declarator": "initial_random_state() const noexcept",
       "end_line": 251,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world.py::初始随机状态"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "include/rich4/world.hpp:252",
       "declarator": "has_initial_random_state() const noexcept",
       "end_line": 254,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world.py::有初始随机状态"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "ios/rich4_ios.mm:19",
@@ -7686,185 +7716,323 @@
       "id": "src/world.cpp:18",
       "declarator": "u16(std::span<const std::uint8_t> bytes, std::size_t offset)",
       "end_line": 22,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world.py::_数"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "src/world.cpp:23",
       "declarator": "u32(std::span<const std::uint8_t> bytes, std::size_t offset)",
       "end_line": 25,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world.py::_数"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "src/world.cpp:26",
       "declarator": "put16(std::vector<std::uint8_t> &bytes, std::size_t offset, std::uint16_t value)",
       "end_line": 29,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world.py::_写"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "src/world.cpp:30",
       "declarator": "put32(std::vector<std::uint8_t> &bytes, std::size_t offset, std::uint32_t value)",
       "end_line": 33,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world.py::_写"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "src/world.cpp:34",
       "declarator": "name_at(std::span<const std::uint8_t> bytes, std::size_t offset)",
       "end_line": 40,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world.py::_名字"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "src/world.cpp:41",
       "declarator": "put_name(std::vector<std::uint8_t> &bytes, std::size_t offset, const std::string &value)",
       "end_line": 48,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world.py::_写名字"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "src/world.cpp:49",
       "declarator": "record_offset(const MapTableSummary &table, std::size_t id)",
       "end_line": 51,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world.py::_读地图/_写地图"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "src/world.cpp:86",
       "declarator": "shuffle_deck(std::array<std::uint8_t, N> &deck, Random &random)",
       "end_line": 100,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world.py::_洗牌"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "src/world.cpp:165",
       "declarator": "check_table(const std::vector<Record> &records, const MapTableSummary &table)",
       "end_line": 171,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world.py::_检查表"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "src/world.cpp:174",
       "declarator": "World::from_save(const SaveFile &save)",
       "end_line": 343,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world.py::api_从存档/__init__"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "src/world.cpp:345",
       "declarator": "&World::active_player()",
       "end_line": 347,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world.py::api_活跃玩家"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "src/world.cpp:348",
       "declarator": "&World::active_player() const",
       "end_line": 350,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world.py::api_活跃玩家"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "src/world.cpp:352",
       "declarator": "World::clear_bankrupt_player_fields(std::size_t slot)",
       "end_line": 376,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world.py::api_清破产字段"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "src/world.cpp:378",
       "declarator": "World::export_save() const",
       "end_line": 586,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world.py::api_导出"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "src/world.cpp:588",
       "declarator": "World::from_map_resource(std::span<const std::uint8_t> map, const NewGameOptions &options)",
       "end_line": 711,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world.py::api_从地图"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "src/world_validation.cpp:16",
       "declarator": "fail(const std::string &field, std::string_view reason)",
       "end_line": 18,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world_validation.py::_检查"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "src/world_validation.cpp:20",
       "declarator": "element(std::string_view table, std::size_t index)",
       "end_line": 22,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world_validation.py::api_验证/字段路径"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "src/world_validation.cpp:24",
       "declarator": "check(bool condition, const std::string &field, std::string_view reason)",
       "end_line": 27,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world_validation.py::_检查"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "src/world_validation.cpp:29",
       "declarator": "table_ids(const std::vector<Record> &table, std::string_view name)",
       "end_line": 34,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world_validation.py::_表"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "src/world_validation.cpp:37",
       "declarator": "deck(const std::array<std::uint8_t, N> &values, std::uint32_t cursor, std::string_view name,\n          std::string_view cursor_name)",
       "end_line": 47,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world_validation.py::_牌堆"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "src/world_validation.cpp:49",
       "declarator": "finite_float(std::uint32_t bits, const std::string &field)",
       "end_line": 53,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world_validation.py::_浮点"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "src/world_validation.cpp:55",
       "declarator": "property_reference(const World &world, std::uint16_t code, const std::string &field,\n                        bool require_property = false)",
       "end_line": 66,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world_validation.py::_地产引用"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "src/world_validation.cpp:70",
       "declarator": "validate_playable_world(const World &world)",
       "end_line": 225,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/world_validation.py::api_验证"
+      ],
+      "status": "已实现，世界/八图初始化自动差分",
+      "evidence": [
+        "tests/test_world.py",
+        "tests/test_world_validation.py",
+        "evidence/world-differential.json"
+      ]
     },
     {
       "id": "tests/assets_tests.cpp:16",
