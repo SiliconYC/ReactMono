@@ -1,0 +1,86 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "generator_seed": 2026102307,
+  "scope": "raw GND overview and fixed-point rasterization; not board composition or UI",
+  "status": "passed",
+  "grounds": [
+    {
+      "map": 0,
+      "tile_width": 72,
+      "tile_height": 72,
+      "tiles": 5184,
+      "pixels": 5308416,
+      "input_sha256": "737aa39ef6721b91b4cdad91a01b8e2d998f7474a9fa3fd92d863e4d8d272211",
+      "overview_sha256": "b76190fca5415164b5854c0d17c0b4270830aca7c5457b272330860aeaaad21d"
+    },
+    {
+      "map": 1,
+      "tile_width": 72,
+      "tile_height": 72,
+      "tiles": 5184,
+      "pixels": 5308416,
+      "input_sha256": "104989f3129aea73ad12fa8eb38d8a1e85276260176e331ba33f780e20972ea5",
+      "overview_sha256": "21dd207742c262f48706e90a0dd07393b6a6255729e60557bf1418585dc82fbc"
+    },
+    {
+      "map": 2,
+      "tile_width": 72,
+      "tile_height": 72,
+      "tiles": 5184,
+      "pixels": 5308416,
+      "input_sha256": "9e05c860804f310f7c41ac8c98ef6b4475b3f791efc32a5c20a2d884a944af6c",
+      "overview_sha256": "50397736c670ee826e13892f4d97385c461d5dd3f298296b6ffa346c27eba246"
+    },
+    {
+      "map": 3,
+      "tile_width": 72,
+      "tile_height": 72,
+      "tiles": 5184,
+      "pixels": 5308416,
+      "input_sha256": "8153e2eddbd25af7d400db6980bfadf104cd1505524d9e55ae1cca4e8c5acac1",
+      "overview_sha256": "b163ccb112e44b441890eb9478528d9be3eb01fb0123dc5ff0c8243b364a0674"
+    },
+    {
+      "map": 4,
+      "tile_width": 72,
+      "tile_height": 72,
+      "tiles": 5184,
+      "pixels": 5308416,
+      "input_sha256": "48e462729c4541d151c85321a05ce4c1eb46bbc6294fb3cf49d64ca21fbcc239",
+      "overview_sha256": "aaac2e7b12c7e7107b55ac226e27bf28f804d68603242e2d57b6b917e225cdd8"
+    },
+    {
+      "map": 5,
+      "tile_width": 72,
+      "tile_height": 72,
+      "tiles": 5184,
+      "pixels": 5308416,
+      "input_sha256": "81edc488be7e4dfbd49a109ce9619ee5eb2d5aed8319f59b092f437d35ba978a",
+      "overview_sha256": "4a2b7a3dab35fdb76f78a9eb7a3d2465018d94a2011cbdcc457f82eed602c598"
+    },
+    {
+      "map": 6,
+      "tile_width": 72,
+      "tile_height": 72,
+      "tiles": 5184,
+      "pixels": 5308416,
+      "input_sha256": "5cf1a9ec21ca9ed8f9f58e1d698186badc27e28bde7b35ac484a5b071157d011",
+      "overview_sha256": "6cbf724601b21c0202a2161595f59f7aea790ea87ab1954ce3ca55c3579a92d7"
+    },
+    {
+      "map": 7,
+      "tile_width": 72,
+      "tile_height": 72,
+      "tiles": 5184,
+      "pixels": 5308416,
+      "input_sha256": "ae9d40685c2ea9821f0b9abd35eeb6d9eb383b286e1f963f96a53fcfdbe86a21",
+      "overview_sha256": "557e35f4e64f864e25ae6bea52ad925782be275f004d98f64d848c96f9df62e8"
+    }
+  ],
+  "quads": {
+    "cases": 4010,
+    "rejected": 4,
+    "input_sha256": "45cd22553d95eb5d2134511f7038c50d6c1161d0d7dadda89559ecf44f1d6382",
+    "output_sha256": "a75eff68e581dbc3719d8f37834ef30b31bef6ab0fbb0706302a3adb9e60ec87"
+  }
+}
