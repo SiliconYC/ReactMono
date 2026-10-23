@@ -5378,225 +5378,421 @@
       "id": "src/game.cpp:147",
       "declarator": "emit(GameEventKind kind, std::string message, std::int32_t amount = 0)",
       "end_line": 149,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._发事件"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:151",
       "declarator": "effect(EffectKind kind, std::size_t slot, EffectPoint target, std::uint16_t property = 0)",
       "end_line": 154,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._效果"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:156",
       "declarator": "board_movie(EffectKind kind, std::size_t slot, EffectPoint target, std::optional<EffectPoint> from,\n                     std::uint8_t variant = 0)",
       "end_line": 161,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._地图影片"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:163",
       "declarator": "on_board(std::size_t slot) const",
       "end_line": 169,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._在场"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:170",
       "declarator": "costume_key(std::size_t slot) const",
       "end_line": 174,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._服装键"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:175",
       "declarator": "end_costume(std::size_t slot)",
       "end_line": 178,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._结束服装"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:179",
       "declarator": "refresh_costumes()",
       "end_line": 183,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._刷新服装"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:184",
       "declarator": "actor_point(std::size_t slot) const",
       "end_line": 187,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._角色点"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:188",
       "declarator": "property_point(std::uint16_t code) const",
       "end_line": 191,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._地产点"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:192",
       "declarator": "property_level(std::uint16_t code) const",
       "end_line": 198,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._地产层"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:199",
       "declarator": "sparkle_if_top_floor(std::uint16_t code, unsigned before)",
       "end_line": 202,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._顶楼闪光"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:204",
       "declarator": "tool_effect(unsigned tool, std::uint16_t target)",
       "end_line": 211,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._道具效果"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:213",
       "declarator": "card_effect(std::uint8_t card, std::optional<CardTarget> target)",
       "end_line": 222,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._卡片效果"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:225",
       "declarator": "card_throw(const CardUse &use)",
       "end_line": 244,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._抛卡"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:246",
       "declarator": "&announce(Announcement kind, std::size_t slot, std::uint8_t id = 0)",
       "end_line": 252,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._公告"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:255",
       "declarator": "speak(std::size_t slot, SpeechTable table, unsigned line, std::uint8_t mood)",
       "end_line": 266,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._语句"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:267",
       "declarator": "card_speech(std::size_t slot, unsigned row, std::uint8_t card, std::uint8_t mood)",
       "end_line": 269,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._卡片语句"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:270",
       "declarator": "begin_card(const CardUse &use)",
       "end_line": 274,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._开始卡片"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:275",
       "declarator": "card_picture()",
       "end_line": 280,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._卡图"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:281",
       "declarator": "voice(std::size_t slot, std::uint8_t category)",
       "end_line": 284,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._语音"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:286",
       "declarator": "cue(std::size_t slot, std::uint8_t sound)",
       "end_line": 291,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._音效"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:295",
       "declarator": "announce_toll_waived(const PlayerStatus &owner, std::size_t owner_slot, std::uint8_t temporary,\n                              std::uint16_t property)",
       "end_line": 310,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._公告免租"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:311",
       "declarator": "amount_voice(std::size_t slot, std::int32_t amount, unsigned category)",
       "end_line": 320,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._金额语音"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:321",
       "declarator": "absence_voice(std::size_t slot, int days_left)",
       "end_line": 328,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._缺席语音"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:329",
       "declarator": "set_phase(GamePhase next)",
       "end_line": 332,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._置阶段"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:333",
       "declarator": "finish_turn()",
       "end_line": 356,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._结束回合"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:358",
       "declarator": "pause(std::uint8_t ticks)",
       "end_line": 361,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._暂停"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:362",
       "declarator": "unsupported(std::string description, GamePhase resume = GamePhase::advancing_turn)",
       "end_line": 372,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_presentation.py::会话表现_类._不支持"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:373",
@@ -6210,17 +6406,31 @@
       "id": "src/game.cpp:2810",
       "declarator": "drop_replayed(std::size_t event_count, std::size_t effect_count, const DeliveredPresentation &shown)",
       "end_line": 2833,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_transactions.py::会话事务_类._去重表现"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:2834",
       "declarator": "run_rule(std::function<void()> action, bool first_attempt = true, bool finish_after = true,\n                  std::function<void()> on_success = {},\n                  std::shared_ptr<const DeliveredPresentation> shown = nullptr)",
       "end_line": 2905,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_transactions.py::会话事务_类._执行规则"
+      ],
+      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "evidence": [
+        "tests/test_game_transactions.py",
+        "tests/test_game_presentation.py",
+        "evidence/game-transactions-differential.json",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:2908",
