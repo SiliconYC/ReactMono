@@ -3047,41 +3047,71 @@
       "id": "src/board_renderer.cpp:25",
       "declarator": "floor_divide_32(int value)",
       "end_line": 28,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_projection.py::棋盘投影_类.Python整数//32"
+      ],
+      "status": "已实现，自动差分；实际场景合成待接入",
+      "evidence": [
+        "tests/test_board_projection.py",
+        "evidence/projection-differential.json",
+        "PROJECTION.md"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:30",
       "declarator": "fractional_offset(Point position, std::uint8_t rotation)",
       "end_line": 36,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_projection.py::棋盘投影_类.api_分数偏移"
+      ],
+      "status": "已实现，自动差分；实际场景合成待接入",
+      "evidence": [
+        "tests/test_board_projection.py",
+        "evidence/projection-differential.json",
+        "PROJECTION.md"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:38",
       "declarator": "validate_camera(const Camera &camera)",
       "end_line": 47,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_projection.py::棋盘投影_类.api_验证相机"
+      ],
+      "status": "已实现，自动差分；实际场景合成待接入",
+      "evidence": [
+        "tests/test_board_projection.py",
+        "evidence/projection-differential.json",
+        "PROJECTION.md"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:49",
       "declarator": "screen_center(const Camera &camera)",
       "end_line": 52,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_projection.py::棋盘投影_类.api_屏幕中心"
+      ],
+      "status": "已实现，自动差分；实际场景合成待接入",
+      "evidence": [
+        "tests/test_board_projection.py",
+        "evidence/projection-differential.json",
+        "PROJECTION.md"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:54",
       "declarator": "grid_point(int x, int y, const Camera &camera)",
       "end_line": 56,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_projection.py::棋盘投影_类.api_格点"
+      ],
+      "status": "已实现，自动差分；实际场景合成待接入",
+      "evidence": [
+        "tests/test_board_projection.py",
+        "evidence/projection-differential.json",
+        "PROJECTION.md"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:58",
@@ -3159,25 +3189,43 @@
       "id": "src/board_renderer.cpp:179",
       "declarator": "player_resource(const PlayerSprite &player)",
       "end_line": 191,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_projection.py::棋盘投影_类.api_角色资源"
+      ],
+      "status": "已实现，自动差分；实际场景合成待接入",
+      "evidence": [
+        "tests/test_board_projection.py",
+        "evidence/projection-differential.json",
+        "PROJECTION.md"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:193",
       "declarator": "project(Point world, const Camera &camera)",
       "end_line": 206,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_projection.py::棋盘投影_类.api_投影"
+      ],
+      "status": "已实现，自动差分；实际场景合成待接入",
+      "evidence": [
+        "tests/test_board_projection.py",
+        "evidence/projection-differential.json",
+        "PROJECTION.md"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:208",
       "declarator": "unproject(Point screen, const Camera &camera)",
       "end_line": 231,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_projection.py::棋盘投影_类.api_反投影"
+      ],
+      "status": "已实现，自动差分；实际场景合成待接入",
+      "evidence": [
+        "tests/test_board_projection.py",
+        "evidence/projection-differential.json",
+        "PROJECTION.md"
+      ]
     },
     {
       "id": "src/board_renderer.cpp:249",

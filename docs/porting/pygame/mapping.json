@@ -2373,5 +2373,93 @@
       "tests/test_terrain.py",
       "evidence/terrain-differential.json"
     ]
+  },
+  "src/board_renderer.cpp:25": {
+    "python": [
+      "pygame/src/rich4/board_projection.py::棋盘投影_类.Python整数//32"
+    ],
+    "status": "已实现，自动差分；实际场景合成待接入",
+    "evidence": [
+      "tests/test_board_projection.py",
+      "evidence/projection-differential.json",
+      "PROJECTION.md"
+    ]
+  },
+  "src/board_renderer.cpp:30": {
+    "python": [
+      "pygame/src/rich4/board_projection.py::棋盘投影_类.api_分数偏移"
+    ],
+    "status": "已实现，自动差分；实际场景合成待接入",
+    "evidence": [
+      "tests/test_board_projection.py",
+      "evidence/projection-differential.json",
+      "PROJECTION.md"
+    ]
+  },
+  "src/board_renderer.cpp:38": {
+    "python": [
+      "pygame/src/rich4/board_projection.py::棋盘投影_类.api_验证相机"
+    ],
+    "status": "已实现，自动差分；实际场景合成待接入",
+    "evidence": [
+      "tests/test_board_projection.py",
+      "evidence/projection-differential.json",
+      "PROJECTION.md"
+    ]
+  },
+  "src/board_renderer.cpp:49": {
+    "python": [
+      "pygame/src/rich4/board_projection.py::棋盘投影_类.api_屏幕中心"
+    ],
+    "status": "已实现，自动差分；实际场景合成待接入",
+    "evidence": [
+      "tests/test_board_projection.py",
+      "evidence/projection-differential.json",
+      "PROJECTION.md"
+    ]
+  },
+  "src/board_renderer.cpp:54": {
+    "python": [
+      "pygame/src/rich4/board_projection.py::棋盘投影_类.api_格点"
+    ],
+    "status": "已实现，自动差分；实际场景合成待接入",
+    "evidence": [
+      "tests/test_board_projection.py",
+      "evidence/projection-differential.json",
+      "PROJECTION.md"
+    ]
+  },
+  "src/board_renderer.cpp:179": {
+    "python": [
+      "pygame/src/rich4/board_projection.py::棋盘投影_类.api_角色资源"
+    ],
+    "status": "已实现，自动差分；实际场景合成待接入",
+    "evidence": [
+      "tests/test_board_projection.py",
+      "evidence/projection-differential.json",
+      "PROJECTION.md"
+    ]
+  },
+  "src/board_renderer.cpp:193": {
+    "python": [
+      "pygame/src/rich4/board_projection.py::棋盘投影_类.api_投影"
+    ],
+    "status": "已实现，自动差分；实际场景合成待接入",
+    "evidence": [
+      "tests/test_board_projection.py",
+      "evidence/projection-differential.json",
+      "PROJECTION.md"
+    ]
+  },
+  "src/board_renderer.cpp:208": {
+    "python": [
+      "pygame/src/rich4/board_projection.py::棋盘投影_类.api_反投影"
+    ],
+    "status": "已实现，自动差分；实际场景合成待接入",
+    "evidence": [
+      "tests/test_board_projection.py",
+      "evidence/projection-differential.json",
+      "PROJECTION.md"
+    ]
   }
 }

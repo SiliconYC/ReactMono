@@ -96,3 +96,7 @@ uv run --project pygame python pygame/tools/differential_world.py \
 ## 地形增量（2026-10-23）
 
 完整Python测试 **108/108**、Ruff通过。八图GND全部解析字段、42467328个俯视总览像素，与4010组四边形的完整像素/掩码/拒绝状态均与固定C++一致，见 [报告](evidence/terrain-differential.json)。没有把俯视总览当作原游戏视角；相机、遮挡、人物/UI和实际图形验收仍待实现，见 [TERRAIN.md](TERRAIN.md)。
+
+## 投影增量（2026-10-23）
+
+完整Python测试 **121/121**、Ruff通过。原常量字节哈希复核，63584个投影/反投影/角色资源用例与固定C++一致，见 [报告](evidence/projection-differential.json)。不含实际合成帧、游戏键鼠或动画时序验收，见 [PROJECTION.md](PROJECTION.md)。
