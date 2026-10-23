@@ -8002,137 +8002,239 @@
       "id": "src/trading.cpp:20",
       "declarator": "add32(std::int32_t a, std::int32_t b)",
       "end_line": 22,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/trading.py::交易_类._整数"
+      ],
+      "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+      "evidence": [
+        "tests/test_trading.py",
+        "evidence/trading-differential.json",
+        "TRADING.md"
+      ]
     },
     {
       "id": "src/trading.cpp:23",
       "declarator": "mul32(std::int32_t a, std::int32_t b)",
       "end_line": 25,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/trading.py::交易_类._整数"
+      ],
+      "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+      "evidence": [
+        "tests/test_trading.py",
+        "evidence/trading-differential.json",
+        "TRADING.md"
+      ]
     },
     {
       "id": "src/trading.cpp:26",
       "declarator": "active(const World &w, std::size_t slot)",
       "end_line": 28,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/trading.py::交易_类._活跃"
+      ],
+      "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+      "evidence": [
+        "tests/test_trading.py",
+        "evidence/trading-differential.json",
+        "TRADING.md"
+      ]
     },
     {
       "id": "src/trading.cpp:29",
       "declarator": "is_land(const World &w, std::uint16_t id)",
       "end_line": 31,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/trading.py::交易_类._普通地"
+      ],
+      "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+      "evidence": [
+        "tests/test_trading.py",
+        "evidence/trading-differential.json",
+        "TRADING.md"
+      ]
     },
     {
       "id": "src/trading.cpp:32",
       "declarator": "is_facility(const World &w, std::uint16_t id)",
       "end_line": 34,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/trading.py::交易_类._设施"
+      ],
+      "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+      "evidence": [
+        "tests/test_trading.py",
+        "evidence/trading-differential.json",
+        "TRADING.md"
+      ]
     },
     {
       "id": "src/trading.cpp:39",
       "declarator": "property(const World &w, std::uint16_t id)",
       "end_line": 53,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/trading.py::交易_类._地产"
+      ],
+      "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+      "evidence": [
+        "tests/test_trading.py",
+        "evidence/trading-differential.json",
+        "TRADING.md"
+      ]
     },
     {
       "id": "src/trading.cpp:54",
       "declarator": "inventory_price(const World &w, OfferKind kind, std::uint16_t id)",
       "end_line": 60,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/trading.py::交易_类._库存价"
+      ],
+      "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+      "evidence": [
+        "tests/test_trading.py",
+        "evidence/trading-differential.json",
+        "TRADING.md"
+      ]
     },
     {
       "id": "src/trading.cpp:61",
       "declarator": "current_offer(const World &w, std::size_t seller, const TradeOffer &offer)",
       "end_line": 81,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/trading.py::交易_类._有效"
+      ],
+      "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+      "evidence": [
+        "tests/test_trading.py",
+        "evidence/trading-differential.json",
+        "TRADING.md"
+      ]
     },
     {
       "id": "src/trading.cpp:82",
       "declarator": "failure(const char *message)",
       "end_line": 84,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/trading.py::交易结果_类"
+      ],
+      "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+      "evidence": [
+        "tests/test_trading.py",
+        "evidence/trading-differential.json",
+        "TRADING.md"
+      ]
     },
     {
       "id": "src/trading.cpp:87",
       "declarator": "listable_items(const World &w, std::size_t seller)",
       "end_line": 109,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/trading.py::交易_类.api_可售项目"
+      ],
+      "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+      "evidence": [
+        "tests/test_trading.py",
+        "evidence/trading-differential.json",
+        "TRADING.md"
+      ]
     },
     {
       "id": "src/trading.cpp:111",
       "declarator": "listing_limits(const World &w, std::size_t seller, OfferKind kind,\n                                            std::uint16_t item, std::uint16_t quantity)",
       "end_line": 151,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/trading.py::交易_类.api_限价"
+      ],
+      "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+      "evidence": [
+        "tests/test_trading.py",
+        "evidence/trading-differential.json",
+        "TRADING.md"
+      ]
     },
     {
       "id": "src/trading.cpp:153",
       "declarator": "quotes(const World &w)",
       "end_line": 166,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/trading.py::交易_类.api_报价"
+      ],
+      "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+      "evidence": [
+        "tests/test_trading.py",
+        "evidence/trading-differential.json",
+        "TRADING.md"
+      ]
     },
     {
       "id": "src/trading.cpp:168",
       "declarator": "post(World &w, std::size_t seller, const Listing &listing)",
       "end_line": 190,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/trading.py::交易_类.api_挂牌"
+      ],
+      "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+      "evidence": [
+        "tests/test_trading.py",
+        "evidence/trading-differential.json",
+        "TRADING.md"
+      ]
     },
     {
       "id": "src/trading.cpp:192",
       "declarator": "cancel(World &w, std::size_t seller, std::size_t index)",
       "end_line": 200,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/trading.py::交易_类.api_取消"
+      ],
+      "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+      "evidence": [
+        "tests/test_trading.py",
+        "evidence/trading-differential.json",
+        "TRADING.md"
+      ]
     },
     {
       "id": "src/trading.cpp:202",
       "declarator": "prune(World &w)",
       "end_line": 220,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/trading.py::交易_类.api_清理"
+      ],
+      "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+      "evidence": [
+        "tests/test_trading.py",
+        "evidence/trading-differential.json",
+        "TRADING.md"
+      ]
     },
     {
       "id": "src/trading.cpp:222",
       "declarator": "buy(World &w, std::size_t buyer, std::size_t seller, std::size_t index)",
       "end_line": 282,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/trading.py::交易_类.api_购买"
+      ],
+      "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+      "evidence": [
+        "tests/test_trading.py",
+        "evidence/trading-differential.json",
+        "TRADING.md"
+      ]
     },
     {
       "id": "src/trading.cpp:284",
       "declarator": "ai_turn(World &w, Random &random, std::size_t actor)",
       "end_line": 350,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/trading.py::交易_类.api_电脑回合"
+      ],
+      "status": "已实现，八图自动差分；交易UI及融资会话待接入",
+      "evidence": [
+        "tests/test_trading.py",
+        "evidence/trading-differential.json",
+        "TRADING.md"
+      ]
     },
     {
       "id": "src/world.cpp:18",
