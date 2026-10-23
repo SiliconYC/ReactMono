@@ -1817,5 +1817,221 @@
       "evidence/calendar-lottery-differential.json",
       "CALENDAR_LOTTERY.md"
     ]
+  },
+  "src/auction.cpp:16": {
+    "python": [
+      "pygame/src/rich4/auction.py::拍卖会话_类._整数"
+    ],
+    "status": "已实现，八图自动差分；UI及嵌套会话待接入",
+    "evidence": [
+      "tests/test_auction.py",
+      "evidence/auction-differential.json",
+      "AUCTION.md"
+    ]
+  },
+  "src/auction.cpp:19": {
+    "python": [
+      "pygame/src/rich4/auction.py::拍卖会话_类._整数"
+    ],
+    "status": "已实现，八图自动差分；UI及嵌套会话待接入",
+    "evidence": [
+      "tests/test_auction.py",
+      "evidence/auction-differential.json",
+      "AUCTION.md"
+    ]
+  },
+  "src/auction.cpp:22": {
+    "python": [
+      "pygame/src/rich4/auction.py::拍卖会话_类._电脑估价/bytes.split"
+    ],
+    "status": "已实现，八图自动差分；UI及嵌套会话待接入",
+    "evidence": [
+      "tests/test_auction.py",
+      "evidence/auction-differential.json",
+      "AUCTION.md"
+    ]
+  },
+  "src/auction.cpp:34": {
+    "python": [
+      "pygame/src/rich4/auction.py::拍卖会话_类._标的"
+    ],
+    "status": "已实现，八图自动差分；UI及嵌套会话待接入",
+    "evidence": [
+      "tests/test_auction.py",
+      "evidence/auction-differential.json",
+      "AUCTION.md"
+    ]
+  },
+  "src/auction.cpp:55": {
+    "python": [
+      "pygame/src/rich4/auction.py::拍卖会话_类._电脑估价/扩展数_类"
+    ],
+    "status": "已实现，八图自动差分；UI及嵌套会话待接入",
+    "evidence": [
+      "tests/test_auction.py",
+      "evidence/auction-differential.json",
+      "AUCTION.md"
+    ]
+  },
+  "src/auction.cpp:92": {
+    "python": [
+      "pygame/src/rich4/auction.py::拍卖会话_类._电脑估价"
+    ],
+    "status": "已实现，八图自动差分；UI及嵌套会话待接入",
+    "evidence": [
+      "tests/test_auction.py",
+      "evidence/auction-differential.json",
+      "AUCTION.md"
+    ]
+  },
+  "src/auction.cpp:126": {
+    "python": [
+      "pygame/src/rich4/auction.py::拍卖会话_类._缺席"
+    ],
+    "status": "已实现，八图自动差分；UI及嵌套会话待接入",
+    "evidence": [
+      "tests/test_auction.py",
+      "evidence/auction-differential.json",
+      "AUCTION.md"
+    ]
+  },
+  "src/auction.cpp:132": {
+    "python": [
+      "pygame/src/rich4/auction.py::拍卖会话_类.__init__"
+    ],
+    "status": "已实现，八图自动差分；UI及嵌套会话待接入",
+    "evidence": [
+      "tests/test_auction.py",
+      "evidence/auction-differential.json",
+      "AUCTION.md"
+    ]
+  },
+  "src/auction.cpp:176": {
+    "python": [
+      "pygame/src/rich4/auction.py::拍卖会话_类.api_电脑上限"
+    ],
+    "status": "已实现，八图自动差分；UI及嵌套会话待接入",
+    "evidence": [
+      "tests/test_auction.py",
+      "evidence/auction-differential.json",
+      "AUCTION.md"
+    ]
+  },
+  "src/auction.cpp:183": {
+    "python": [
+      "pygame/src/rich4/auction.py::拍卖会话_类._合法"
+    ],
+    "status": "已实现，八图自动差分；UI及嵌套会话待接入",
+    "evidence": [
+      "tests/test_auction.py",
+      "evidence/auction-differential.json",
+      "AUCTION.md"
+    ]
+  },
+  "src/auction.cpp:195": {
+    "python": [
+      "pygame/src/rich4/auction.py::拍卖会话_类.api_决策"
+    ],
+    "status": "已实现，八图自动差分；UI及嵌套会话待接入",
+    "evidence": [
+      "tests/test_auction.py",
+      "evidence/auction-differential.json",
+      "AUCTION.md"
+    ]
+  },
+  "src/auction.cpp:210": {
+    "python": [
+      "pygame/src/rich4/auction.py::拍卖会话_类._电脑行动"
+    ],
+    "status": "已实现，八图自动差分；UI及嵌套会话待接入",
+    "evidence": [
+      "tests/test_auction.py",
+      "evidence/auction-differential.json",
+      "AUCTION.md"
+    ]
+  },
+  "src/auction.cpp:240": {
+    "python": [
+      "pygame/src/rich4/auction.py::拍卖会话_类.api_推进"
+    ],
+    "status": "已实现，八图自动差分；UI及嵌套会话待接入",
+    "evidence": [
+      "tests/test_auction.py",
+      "evidence/auction-differential.json",
+      "AUCTION.md"
+    ]
+  },
+  "src/auction.cpp:246": {
+    "python": [
+      "pygame/src/rich4/auction.py::拍卖会话_类.api_竞价"
+    ],
+    "status": "已实现，八图自动差分；UI及嵌套会话待接入",
+    "evidence": [
+      "tests/test_auction.py",
+      "evidence/auction-differential.json",
+      "AUCTION.md"
+    ]
+  },
+  "src/auction.cpp:264": {
+    "python": [
+      "pygame/src/rich4/auction.py::拍卖会话_类._行动后"
+    ],
+    "status": "已实现，八图自动差分；UI及嵌套会话待接入",
+    "evidence": [
+      "tests/test_auction.py",
+      "evidence/auction-differential.json",
+      "AUCTION.md"
+    ]
+  },
+  "src/auction.cpp:282": {
+    "python": [
+      "pygame/src/rich4/auction.py::拍卖会话_类._结算"
+    ],
+    "status": "已实现，八图自动差分；UI及嵌套会话待接入",
+    "evidence": [
+      "tests/test_auction.py",
+      "evidence/auction-differential.json",
+      "AUCTION.md"
+    ]
+  },
+  "include/rich4/auction.hpp:55": {
+    "python": [
+      "pygame/src/rich4/auction.py::拍卖会话_类.已结束"
+    ],
+    "status": "以公开属性实现，自动差分",
+    "evidence": [
+      "tests/test_auction.py",
+      "evidence/auction-differential.json"
+    ]
+  },
+  "include/rich4/auction.hpp:58": {
+    "python": [
+      "pygame/src/rich4/auction.py::拍卖会话_类.结果"
+    ],
+    "status": "以公开属性实现，自动差分",
+    "evidence": [
+      "tests/test_auction.py",
+      "evidence/auction-differential.json"
+    ]
+  },
+  "include/rich4/auction.hpp:61": {
+    "python": [
+      "pygame/src/rich4/auction.py::拍卖会话_类.价格"
+    ],
+    "status": "以公开属性实现，自动差分",
+    "evidence": [
+      "tests/test_auction.py",
+      "evidence/auction-differential.json"
+    ]
+  },
+  "include/rich4/auction.hpp:64": {
+    "python": [
+      "pygame/src/rich4/auction.py::拍卖会话_类.起价"
+    ],
+    "status": "以公开属性实现，自动差分",
+    "evidence": [
+      "tests/test_auction.py",
+      "evidence/auction-differential.json"
+    ]
   }
 }

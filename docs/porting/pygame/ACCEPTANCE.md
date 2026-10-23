@@ -84,3 +84,7 @@ uv run --project pygame python pygame/tools/differential_world.py \
 ## 日历与彩票增量（2026-10-23）
 
 完整Python测试 **85/85**、Ruff通过。96456个日历用例（其中3168个贷款到期日）与5880个彩票动作的完整DAT/RNG/返回字段均与固定C++一致，见 [报告](evidence/calendar-lottery-differential.json)。未执行真实开奖/节日动画、完整回合或自然长局；输入与原日历的边界说明见 [CALENDAR_LOTTERY.md](CALENDAR_LOTTERY.md)。
+
+## 拍卖增量（2026-10-23）
+
+完整Python测试 **92/92**、Ruff通过。800组八图拍卖共5554个初始/动作后状态（317成交、166构造拒绝）与固定C++完整会话公开状态/RNG/DAT一致，另2000组纯电脑拍卖终止和现金守恒通过。[报告](evidence/auction-differential.json) 与 [数值/行为说明](AUCTION.md) 保留验证范围；尚无拍卖图形操作或完整游戏长局。

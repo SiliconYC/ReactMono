@@ -1,0 +1,80 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "generator_seed": 2026102305,
+  "scope": "auction sessions; no presentation timer/announcer animation",
+  "status": "passed",
+  "maps": [
+    {
+      "map": 0,
+      "cases": 100,
+      "snapshots": 716,
+      "rejected_constructors": 21,
+      "sales": 38,
+      "input_sha256": "46b4b7473938d6b83bff76c25c6916900c762955eea706b0ae8133cc686327f3",
+      "states_sha256": "b1dda6a4a4b1f79c9c3c7b389ea8241537e8adbf3f508911c95de0336573eb26"
+    },
+    {
+      "map": 1,
+      "cases": 100,
+      "snapshots": 677,
+      "rejected_constructors": 21,
+      "sales": 40,
+      "input_sha256": "9061f212288569ea05d4dd8d2491b8c247fbb5aaf2e6fd0d26e6fae555f4fa1a",
+      "states_sha256": "7ee3f97cf9bd4c2bd09a5cf7d937f886ef93fa20bd3753aa605e6ebf035e406d"
+    },
+    {
+      "map": 2,
+      "cases": 100,
+      "snapshots": 607,
+      "rejected_constructors": 17,
+      "sales": 36,
+      "input_sha256": "45eb5863ceccd668e83ba95ba0bcea0c71fc3b9904fcbc891b5345555193f2a5",
+      "states_sha256": "2dad125e7952a6d6a3f1fca0a753c81aa428b9995df5db381b0d11f2f136eabc"
+    },
+    {
+      "map": 3,
+      "cases": 100,
+      "snapshots": 658,
+      "rejected_constructors": 22,
+      "sales": 43,
+      "input_sha256": "ff8c8e198b0f323294ec33620fe48b12f63678a56a3736407a56332aefbf5b25",
+      "states_sha256": "97a1a17065a7e2cb0cc5eb706a4f1f4d53bdb17016aba47d2247902b1a632936"
+    },
+    {
+      "map": 4,
+      "cases": 100,
+      "snapshots": 625,
+      "rejected_constructors": 20,
+      "sales": 38,
+      "input_sha256": "641fc1fe2c94c4f496afc7ca9ea6abdbdded0d05f8205182e2fb2386f9b3cdd9",
+      "states_sha256": "6be739def01557d2427c73fb3c00c39b946a5bd99d5d99e8ad82998a17ce4f88"
+    },
+    {
+      "map": 5,
+      "cases": 100,
+      "snapshots": 667,
+      "rejected_constructors": 24,
+      "sales": 41,
+      "input_sha256": "6669725bba0051813e1205b358e5778ff6c354f4a5042b9647dee9a02acde8d7",
+      "states_sha256": "8a56b7f643572a95d26d58814b25ddb25db2ba771463634c74fb43b05d6e86bc"
+    },
+    {
+      "map": 6,
+      "cases": 100,
+      "snapshots": 671,
+      "rejected_constructors": 21,
+      "sales": 36,
+      "input_sha256": "d1abdc5e84f0a1f394ea0680c179d95b9d67736e52b96bc58209eee61faf454d",
+      "states_sha256": "39bd0c729920523e416852ecde02197266b22cf16a73ea1839f38793a5727020"
+    },
+    {
+      "map": 7,
+      "cases": 100,
+      "snapshots": 933,
+      "rejected_constructors": 20,
+      "sales": 45,
+      "input_sha256": "9e5e5993d8464814bf57cecfa2e5196a003a87f806978bd7bee95eee12000553",
+      "states_sha256": "a97636adf0ed6d4ce2f66b99aa90611f4afb73439769ad8afc7bb004934da780"
+    }
+  ]
+}

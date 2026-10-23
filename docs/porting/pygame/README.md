@@ -10,6 +10,7 @@
 - [功能覆盖与规则依据](COVERAGE.md)。
 - [资源和动画接口](RESOURCES.md)、[世界/存档接口](WORLD.md) 与 [数值/股市契约](NUMERIC.md)。
 - [商店/魔法接口](SERVICES.md) 与 [节日/彩票规则](CALENDAR_LOTTERY.md)。
+- [拍卖会话和数值依据](AUCTION.md)。
 - [验收、失败与修复记录](ACCEPTANCE.md)。
 - [可复现资源差分报告](evidence/assets-differential.json)。
 - [子项目运行说明](../../../pygame/README.md) 与 [许可证边界](../../../pygame/NOTICE.md)。
