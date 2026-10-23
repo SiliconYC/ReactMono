@@ -8434,97 +8434,169 @@
       "id": "src/tools.cpp:11",
       "declarator": "skipped(const char *reason)",
       "end_line": 13,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools.py::道具_类._略"
+      ],
+      "status": "已实现，八图模块差分；真实嵌套会话/表现待接入",
+      "evidence": [
+        "tests/test_tools.py",
+        "evidence/tools-differential.json",
+        "TOOLS.md"
+      ]
     },
     {
       "id": "src/tools.cpp:14",
       "declarator": "missing(const char *reason)",
       "end_line": 16,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools.py::道具_类._缺"
+      ],
+      "status": "已实现，八图模块差分；真实嵌套会话/表现待接入",
+      "evidence": [
+        "tests/test_tools.py",
+        "evidence/tools-differential.json",
+        "TOOLS.md"
+      ]
     },
     {
       "id": "src/tools.cpp:17",
       "declarator": "road(const World &w, unsigned id)",
       "end_line": 19,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools.py::道具_类._道路"
+      ],
+      "status": "已实现，八图模块差分；真实嵌套会话/表现待接入",
+      "evidence": [
+        "tests/test_tools.py",
+        "evidence/tools-differential.json",
+        "TOOLS.md"
+      ]
     },
     {
       "id": "src/tools.cpp:20",
       "declarator": "between(const World &w, unsigned from, unsigned to)",
       "end_line": 24,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools.py::道具_类._之间"
+      ],
+      "status": "已实现，八图模块差分；真实嵌套会话/表现待接入",
+      "evidence": [
+        "tests/test_tools.py",
+        "evidence/tools-differential.json",
+        "TOOLS.md"
+      ]
     },
     {
       "id": "src/tools.cpp:25",
       "declarator": "first_neighbor(const MapNode &node)",
       "end_line": 30,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools.py::道具_类._首邻居"
+      ],
+      "status": "已实现，八图模块差分；真实嵌套会话/表现待接入",
+      "evidence": [
+        "tests/test_tools.py",
+        "evidence/tools-differential.json",
+        "TOOLS.md"
+      ]
     },
     {
       "id": "src/tools.cpp:31",
       "declarator": "equip(World &world, std::size_t slot, unsigned tool)",
       "end_line": 52,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools.py::道具_类._装备"
+      ],
+      "status": "已实现，八图模块差分；真实嵌套会话/表现待接入",
+      "evidence": [
+        "tests/test_tools.py",
+        "evidence/tools-differential.json",
+        "TOOLS.md"
+      ]
     },
     {
       "id": "src/tools.cpp:53",
       "declarator": "place(World &w, std::size_t slot, unsigned tool, unsigned node_id)",
       "end_line": 75,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools.py::道具_类._放置"
+      ],
+      "status": "已实现，八图模块差分；真实嵌套会话/表现待接入",
+      "evidence": [
+        "tests/test_tools.py",
+        "evidence/tools-differential.json",
+        "TOOLS.md"
+      ]
     },
     {
       "id": "src/tools.cpp:76",
       "declarator": "move_property(World &w, unsigned source, unsigned destination)",
       "end_line": 114,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools.py::道具_类._搬地"
+      ],
+      "status": "已实现，八图模块差分；真实嵌套会话/表现待接入",
+      "evidence": [
+        "tests/test_tools.py",
+        "evidence/tools-differential.json",
+        "TOOLS.md"
+      ]
     },
     {
       "id": "src/tools.cpp:115",
       "declarator": "teleport(World &w, std::size_t actor, unsigned source, unsigned destination,\n                const Callbacks &callbacks)",
       "end_line": 192,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools.py::道具_类._传送"
+      ],
+      "status": "已实现，八图模块差分；真实嵌套会话/表现待接入",
+      "evidence": [
+        "tests/test_tools.py",
+        "evidence/tools-differential.json",
+        "TOOLS.md"
+      ]
     },
     {
       "id": "src/tools.cpp:194",
       "declarator": "selection_flags(unsigned tool, std::uint16_t source)",
       "end_line": 219,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools.py::道具_类.api_选择位"
+      ],
+      "status": "已实现，八图模块差分；真实嵌套会话/表现待接入",
+      "evidence": [
+        "tests/test_tools.py",
+        "evidence/tools-differential.json",
+        "TOOLS.md"
+      ]
     },
     {
       "id": "src/tools.cpp:220",
       "declarator": "use(World &w, Random &, std::size_t slot, unsigned tool, std::uint16_t target,\n           std::uint16_t destination, const Callbacks &callbacks)",
       "end_line": 304,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools.py::道具_类.api_使用"
+      ],
+      "status": "已实现，八图模块差分；真实嵌套会话/表现待接入",
+      "evidence": [
+        "tests/test_tools.py",
+        "evidence/tools-differential.json",
+        "TOOLS.md"
+      ]
     },
     {
       "id": "src/tools.cpp:305",
       "declarator": "dismount(World &w, std::size_t slot)",
       "end_line": 316,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools.py::道具_类.api_下车"
+      ],
+      "status": "已实现，八图模块差分；真实嵌套会话/表现待接入",
+      "evidence": [
+        "tests/test_tools.py",
+        "evidence/tools-differential.json",
+        "TOOLS.md"
+      ]
     },
     {
       "id": "src/tools_ai.cpp:20",

@@ -3458,5 +3458,137 @@
       "evidence/events-differential.json",
       "EVENTS.md"
     ]
+  },
+  "src/tools.cpp:11": {
+    "python": [
+      "pygame/src/rich4/tools.py::道具_类._略"
+    ],
+    "status": "已实现，八图模块差分；真实嵌套会话/表现待接入",
+    "evidence": [
+      "tests/test_tools.py",
+      "evidence/tools-differential.json",
+      "TOOLS.md"
+    ]
+  },
+  "src/tools.cpp:14": {
+    "python": [
+      "pygame/src/rich4/tools.py::道具_类._缺"
+    ],
+    "status": "已实现，八图模块差分；真实嵌套会话/表现待接入",
+    "evidence": [
+      "tests/test_tools.py",
+      "evidence/tools-differential.json",
+      "TOOLS.md"
+    ]
+  },
+  "src/tools.cpp:17": {
+    "python": [
+      "pygame/src/rich4/tools.py::道具_类._道路"
+    ],
+    "status": "已实现，八图模块差分；真实嵌套会话/表现待接入",
+    "evidence": [
+      "tests/test_tools.py",
+      "evidence/tools-differential.json",
+      "TOOLS.md"
+    ]
+  },
+  "src/tools.cpp:20": {
+    "python": [
+      "pygame/src/rich4/tools.py::道具_类._之间"
+    ],
+    "status": "已实现，八图模块差分；真实嵌套会话/表现待接入",
+    "evidence": [
+      "tests/test_tools.py",
+      "evidence/tools-differential.json",
+      "TOOLS.md"
+    ]
+  },
+  "src/tools.cpp:25": {
+    "python": [
+      "pygame/src/rich4/tools.py::道具_类._首邻居"
+    ],
+    "status": "已实现，八图模块差分；真实嵌套会话/表现待接入",
+    "evidence": [
+      "tests/test_tools.py",
+      "evidence/tools-differential.json",
+      "TOOLS.md"
+    ]
+  },
+  "src/tools.cpp:31": {
+    "python": [
+      "pygame/src/rich4/tools.py::道具_类._装备"
+    ],
+    "status": "已实现，八图模块差分；真实嵌套会话/表现待接入",
+    "evidence": [
+      "tests/test_tools.py",
+      "evidence/tools-differential.json",
+      "TOOLS.md"
+    ]
+  },
+  "src/tools.cpp:53": {
+    "python": [
+      "pygame/src/rich4/tools.py::道具_类._放置"
+    ],
+    "status": "已实现，八图模块差分；真实嵌套会话/表现待接入",
+    "evidence": [
+      "tests/test_tools.py",
+      "evidence/tools-differential.json",
+      "TOOLS.md"
+    ]
+  },
+  "src/tools.cpp:76": {
+    "python": [
+      "pygame/src/rich4/tools.py::道具_类._搬地"
+    ],
+    "status": "已实现，八图模块差分；真实嵌套会话/表现待接入",
+    "evidence": [
+      "tests/test_tools.py",
+      "evidence/tools-differential.json",
+      "TOOLS.md"
+    ]
+  },
+  "src/tools.cpp:115": {
+    "python": [
+      "pygame/src/rich4/tools.py::道具_类._传送"
+    ],
+    "status": "已实现，八图模块差分；真实嵌套会话/表现待接入",
+    "evidence": [
+      "tests/test_tools.py",
+      "evidence/tools-differential.json",
+      "TOOLS.md"
+    ]
+  },
+  "src/tools.cpp:194": {
+    "python": [
+      "pygame/src/rich4/tools.py::道具_类.api_选择位"
+    ],
+    "status": "已实现，八图模块差分；真实嵌套会话/表现待接入",
+    "evidence": [
+      "tests/test_tools.py",
+      "evidence/tools-differential.json",
+      "TOOLS.md"
+    ]
+  },
+  "src/tools.cpp:220": {
+    "python": [
+      "pygame/src/rich4/tools.py::道具_类.api_使用"
+    ],
+    "status": "已实现，八图模块差分；真实嵌套会话/表现待接入",
+    "evidence": [
+      "tests/test_tools.py",
+      "evidence/tools-differential.json",
+      "TOOLS.md"
+    ]
+  },
+  "src/tools.cpp:305": {
+    "python": [
+      "pygame/src/rich4/tools.py::道具_类.api_下车"
+    ],
+    "status": "已实现，八图模块差分；真实嵌套会话/表现待接入",
+    "evidence": [
+      "tests/test_tools.py",
+      "evidence/tools-differential.json",
+      "TOOLS.md"
+    ]
   }
 }
