@@ -1,0 +1,9 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "generator_seed": 2026102309,
+  "status": "passed",
+  "scope": "synthetic raw RGB555 blit and mask outputs, including aliasing",
+  "cases": 10000,
+  "input_sha256": "f5a505b894caa2aae74f722b11ace9106d70992320977a70ee6e282d513e99a4",
+  "output_sha256": "bfcad4f42947d902c2e2a1c4fef2c01ec67b1e5518b0f893c03ed0b6e6d2647e"
+}

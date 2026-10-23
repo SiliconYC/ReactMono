@@ -2,6 +2,7 @@
 # 派生自固定 C++ src/board_renderer.cpp，保留原资源编号、深度键和调色方式。
 # ◑ 导入
 import struct
+from collections import OrderedDict
 from dataclasses import dataclass, replace
 from pathlib import Path
 
@@ -50,7 +51,7 @@ class 棋盘绘制_类:
     八图原地面、道路与场景合成，资源/换色缓存不改变外部游戏状态。
 
     更新日志：
-    2026.10.23 - 对应 board::Renderer/Impl，程序运行不调用C++。
+    2026.10.23 - 对应Renderer/Impl；瓦片中心缓存保留分数平移和覆盖掩码，不调用C++。
     """
 
     @staticmethod
@@ -96,6 +97,7 @@ class 棋盘绘制_类:
         self.摆放 = [self._摆放(元数据, 表) for 表 in range(5)]
         self.资源缓存: dict[tuple[bool, int], 精灵资源_类] = {}
         self.帧缓存: dict[tuple[bool, int, int, int], 图像_类] = {}
+        self.地面缓存: OrderedDict[tuple, tuple[图像_类, 绘制统计_类]] = OrderedDict()
 
     def _资源(self, arg_数据包: bool, arg_号: int) -> 精灵资源_类:
         键 = arg_数据包, arg_号
@@ -196,7 +198,7 @@ class 棋盘绘制_类:
     def api_地图编号(self) -> int:
         return self.地图
 
-    def api_绘地面(self, arg_目标: 图像_类, arg_相机: 相机_类) -> 绘制统计_类:
+    def _绘地面原始(self, arg_目标: 图像_类, arg_相机: 相机_类) -> 绘制统计_类:
         框 = self._取框(arg_目标, arg_相机)
         统计 = 绘制统计_类()
         左, 顶, 右, 底 = 框
@@ -235,6 +237,53 @@ class 棋盘绘制_类:
                 arg_目标.api_绘制(self._帧(False, 0x18, 项.精灵 - 1), *位置, 框)
                 统计.道路 += 1
         return 统计
+
+    def api_绘地面(self, arg_目标: 图像_类, arg_相机: 相机_类) -> 绘制统计_类:
+        左, 顶, 右, 底 = self._取框(arg_目标, arg_相机)
+        if 右 <= 左 or 底 <= 顶:
+            return 绘制统计_类()
+        宽, 高 = arg_目标.宽, arg_目标.高
+        if (
+            宽 + 128 > 8192
+            or 高 + 128 > 8192
+            or (宽 + 128) * (高 + 128) > 32 * 1024 * 1024
+            or arg_相机.视口[2] + 128 > 8192
+            or arg_相机.视口[3] + 128 > 8192
+            or (arg_目标.不透明 and len(arg_目标.不透明) != 宽 * 高)
+        ):
+            return self._绘地面原始(arg_目标, arg_相机)
+        瓦中心 = arg_相机.中心[0] // 32 * 32, arg_相机.中心[1] // 32 * 32
+        键 = 宽, 高, arg_相机.视口, arg_相机.旋转, 瓦中心
+        if 键 not in self.地面缓存:
+            视左, 视顶, 视右, 视底 = arg_相机.视口
+            相机 = 相机_类(瓦中心, arg_相机.旋转, (视左, 视顶, 视右 + 128, 视底 + 128))
+            数 = (宽 + 128) * (高 + 128)
+            基图 = 图像_类(宽 + 128, 高 + 128, [0] * 数, 不透明=bytes(数))
+            try:
+                统计 = self._绘地面原始(基图, 相机)
+            except (ValueError, IndexError):
+                # 损坏资源仍在真实目标上执行原路径，保留拒绝前的部分画布变更。
+                return self._绘地面原始(arg_目标, arg_相机)
+            self.地面缓存[键] = 基图, 统计
+            while len(self.地面缓存) > 4:
+                self.地面缓存.popitem(last=False)
+        self.地面缓存.move_to_end(键)
+        基图, 统计 = self.地面缓存[键]
+        偏x, 偏y = 棋盘投影_类.api_分数偏移(arg_相机.中心, arg_相机.旋转)
+        # 同一相机瓦片内，所有原四边形/道路仅平移整数小数偏移；64像素边距覆盖八基底。
+        移x, 移y = 64 - 偏x, 64 - 偏y
+        掩码 = bytearray(arg_目标.不透明)
+        for y in range(顶, 底):
+            源 = (y + 移y) * 基图.宽 + 左 + 移x
+            目标 = y * 宽 + 左
+            arg_目标.像素[目标 : 目标 + 右 - 左] = 基图.像素[源 : 源 + 右 - 左]
+            if 掩码:
+                掩码[目标 : 目标 + 右 - 左] = bytes(
+                    1 if 覆盖 else 原
+                    for 覆盖, 原 in zip(基图.不透明[源 : 源 + 右 - 左], 掩码[目标 : 目标 + 右 - 左])
+                )
+        arg_目标.不透明 = bytes(掩码)
+        return replace(统计)
 
     def api_绘制(self, arg_目标: 图像_类, arg_场景: 场景_类, arg_相机: 相机_类) -> 绘制统计_类:
         统计 = self.api_绘地面(arg_目标, arg_相机)

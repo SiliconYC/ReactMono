@@ -26,4 +26,25 @@ uv run --project pygame python pygame/tools/differential_board.py \
   --assets /path/to/Rich4 --report /tmp/board-differential.json
 ```
 
-未完成：性能优化、真实Pygame棋盘窗口操作、完整UI/动画时序/音效、规则状态到场景快照的游戏集成，以及自然长局。差分不证明与1998官方EXE完全一致。
+## 保持像素一致的优化
+
+扫描行按需分配；纹理逐像素累加延后整数回绕，取样仍只使用原位16–20。固定瓦片内的相机小数对应整数屏幕平移，因此地面以对齐32格的相机和四边64像素余量缓存，最多保留四个中心。只回填视口及实际覆盖的掩码；大画布、异常掩码等走原始路径，保留异常前的部分写入。
+
+RGBA转换用字节查表和批量写入，保留原五位绿色到六位再缩放的值；精灵按非零掩码连续段复制，缓存键包含不可变掩码内容，自拷贝先快照。原始颜色0与`0x8000`的透明键差异仍保留。
+
+[扩展棋盘差分](evidence/board-differential.json)：八图2344例（2328有效、16预期拒绝），包含每图256组瓦片内分数、小视口、宽视口回退及异常掩码。所有RGB555/掩码/计数一致，原272例的哈希与独立基线逐图核对相同。[全65536种颜色](evidence/colors-differential.json) 与 [10000组裁剪/透明/自拷贝](evidence/blit-differential.json) 另行对照固定C++通过；透明alpha由Python契约单测覆盖，C++转换本身不输出透明alpha。完整Python128/128、Ruff通过。
+
+[性能报告](evidence/board-performance.json) 单独测地图0、每模式60帧的CPU合成加RGBA，含源码哈希。固定相机平均13.48ms，小数移动11.25ms；跨瓦片平均43.43ms、p95为325.38ms，首次新中心仍有明显停顿。这里不是实际窗口FPS；尚不满足最终连续移动性能验收，需结合真实移动路线处理预热或进一步优化。
+
+## 原生窗口验收工具
+
+```sh
+uv run --project pygame python pygame/tools/preview_board.py \
+  --assets /path/to/Rich4 --map 0 --log .research-cache/board-input.jsonl
+```
+
+方向键平移，`Q/E`或`0–7`旋转，`F`逐帧，`Home`回中心，`Tab`切地图，`Esc`退出。`Space`仅按默认120ms采样精灵帧，不是原游戏动画时间线。人物置于节点51用于观察；没有回合规则或正式UI，应用栏和侧栏仍黑色。
+
+[原生操作记录](evidence/board-native-verification.json)：Agent通过桌面工具操纵真实Pygame窗口，八图切换、旋转、换帧、平移/归位、系统缩放和Esc退出已观察。独立CPython直接运行时工具绑定失败；用官方包仓库的PyInstaller6.22.3生成本机应用、切到前台后可按完整路径绑定。坐标点击仍报`noWindowsAvailable`，没有点击日志，不算鼠标通过。验收应用不含素材，只从外部目录读取；应用包、图片和截图未上传。
+
+未完成：连续移动性能、鼠标实际操作、完整UI/动画时序/音效、规则状态到场景快照的游戏集成，以及自然长局。上述是Agent渲染工具操作，不是完整游戏真人试玩；差分不证明与1998官方EXE完全一致。

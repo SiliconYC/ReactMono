@@ -88,7 +88,13 @@ class 棋盘差分_类:
         return 场
 
     @staticmethod
-    def _输入(arg_相机: 相机_类, arg_场: 场景_类, arg_掩码: bool, arg_地面: bool = False) -> str:
+    def _输入(
+        arg_相机: 相机_类,
+        arg_场: 场景_类,
+        arg_掩码: int,
+        arg_地面: bool = False,
+        arg_尺寸: tuple[int, int] = (640, 480),
+    ) -> str:
         组 = [
             arg_场.玩家,
             arg_场.物件,
@@ -108,8 +114,7 @@ class 棋盘差分_类:
                         *arg_相机.中心,
                         arg_相机.旋转,
                         *arg_相机.视口,
-                        640,
-                        480,
+                        *arg_尺寸,
                         0x1234,
                         int(arg_掩码),
                         *(len(项) for 项 in 组),
@@ -220,6 +225,10 @@ class 棋盘差分_类:
         报告: dict = {
             "reference": 版本,
             "scope": "real-asset board composition; no application UI, sound or timing",
+            "timing_scope": (
+                "all Python render attempts, including cold loads and expected rejects; "
+                "not display FPS"
+            ),
             "status": "running",
             "maps": [],
         }
@@ -249,9 +258,23 @@ class 棋盘差分_类:
                         场 = cls._场景(世, 中, 型, 旋)
                         用例.append((相机, 场, 型 % 2 == 0, False))
                 用例.append((相机_类(中心, 0), 场景_类(), True, True))
-                用例.append((相机_类(中心, 8), 场景_类(), False, False))
+                for 旋 in range(8):
+                    固定场 = cls._场景(世, 中心, 1, 旋)
+                    for 小数 in range(32):
+                        分数中 = 中心[0] // 32 * 32 + 小数, 中心[1] // 32 * 32 + 31 - 小数
+                        用例.append((相机_类(分数中, 旋), 固定场, 小数 % 2, False))
+                用例 = [(*项, (640, 480)) for 项 in 用例]
+                用例.extend(
+                    [
+                        (相机_类(中心, 0, (3, 7, 60, 44)), 场景_类(), 1, False, (64, 48)),
+                        (相机_类(中心, 0, (0, 0, 8192, 1)), 场景_类(), 0, True, (8192, 1)),
+                        (相机_类(中心, 0), 场景_类(), 2, False, (640, 480)),
+                        (相机_类(中心, 8), 场景_类(), 0, False, (640, 480)),
+                    ]
+                )
                 输入 = "".join(cls._输入(*项) for 项 in 用例)
                 摘要 = hashlib.sha256()
+                基线摘要 = hashlib.sha256()
                 绘时 = []
                 拒绝数 = 0
                 with tempfile.TemporaryDirectory(prefix="rich4-board-") as 临时:
@@ -266,15 +289,16 @@ class 棋盘差分_类:
                     行 = cpp.stdout.splitlines()
                     if len(行) != len(用例):
                         raise ValueError("棋盘输出帧数不同")
-                    for i, ((相机, 场, 掩码, 地面), cpp行) in enumerate(zip(用例, 行)):
+                    for i, ((相机, 场, 掩码, 地面, 尺寸), cpp行) in enumerate(zip(用例, 行)):
+                        宽, 高 = 尺寸
                         图 = 图像_类(
-                            640,
-                            480,
-                            [0x1234] * (640 * 480),
-                            不透明=bytes(int(i % 3 == 0) for i in range(640 * 480))
-                            if 掩码
-                            else b"",
+                            宽,
+                            高,
+                            [0x1234] * (宽 * 高),
+                            不透明=bytes(int(i % 3 == 0) for i in range(宽 * 高)) if 掩码 else b"",
                         )
+                        if 掩码 == 2:
+                            图.不透明 = 图.不透明[:-1]
                         统计 = 绘制统计_类()
                         状态 = 0
                         起 = time.perf_counter()
@@ -289,7 +313,7 @@ class 棋盘差分_类:
                             raise ValueError(
                                 f"图{地图}/帧{i}状态/绘制计数不同：{状态}/{统计}/{cpp行}"
                             )
-                        if 状态 and i != len(用例) - 1:
+                        if bool(状态) != (相机.旋转 == 8 or 掩码 == 2):
                             raise ValueError(
                                 f"图{地图}/帧{i}本应有效的场景被拒绝，C++ stderr={cpp.stderr}"
                             )
@@ -300,6 +324,8 @@ class 棋盘差分_类:
                             首差 = next(n for n, (a, b) in enumerate(zip(输出, cpp输出)) if a != b)
                             raise ValueError(f"图{地图}/帧{i}像素或掩码不同，首差字节{首差}")
                         摘要.update(输出)
+                        if i < 33 or i == len(用例) - 1:
+                            基线摘要.update(输出)
                         拒绝数 += 状态
                 报告["maps"].append(
                     {
@@ -307,14 +333,14 @@ class 棋盘差分_类:
                         "frames": len(用例),
                         "rejected": 拒绝数,
                         "initialize_seconds": round(初始化, 4),
-                        "render_seconds_min": round(min(绘时[:-1]), 4),
-                        "render_seconds_max": round(max(绘时[:-1]), 4),
-                        "render_seconds_total": round(sum(绘时), 4),
+                        "attempt_seconds_total": round(sum(绘时), 4),
                         "input_sha256": hashlib.sha256(输入.encode()).hexdigest(),
                         "pixels_masks_sha256": 摘要.hexdigest(),
+                        "original_34_cases_sha256": 基线摘要.hexdigest(),
+                        "fractional_camera_cases": 256,
                     }
                 )
-                print(f"[完成] 地图{地图}八视角34场景全像素/掩码/计数一致。", flush=True)
+                print(f"[完成] 地图{地图}八视角{len(用例)}场景全像素/掩码/计数一致。", flush=True)
             报告["status"] = "passed"
         except (ValueError, IndexError, OSError, subprocess.CalledProcessError) as 错误:
             报告.update(status="failed", error=str(错误))

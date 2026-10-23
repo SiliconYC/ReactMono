@@ -37,7 +37,7 @@ int main(int argc,char **argv){
             for(auto &p:owners){unsigned c,h;std::cin>>c>>h;p.color=c;p.character=h;}
             if(!std::cin)return 4;
             auto image=rich4::graphics::make_canvas(width,height,static_cast<std::uint16_t>(fill));
-            if(mask){image.opaque_pixels.resize(image.pixels.size());for(std::size_t i=0;i<image.pixels.size();++i)image.opaque_pixels[i]=i%3==0;}
+            if(mask){image.opaque_pixels.resize(image.pixels.size());for(std::size_t i=0;i<image.pixels.size();++i)image.opaque_pixels[i]=i%3==0;if(mask==2)image.opaque_pixels.pop_back();}
             rich4::board::Scene scene{players,objects,lands,facilities,actors,commercials,owners};
             rich4::board::RenderStats stats;
             unsigned status=0;

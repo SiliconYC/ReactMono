@@ -1,0 +1,212 @@
+{
+  "date": "2026-10-23",
+  "scope": "Agent native rendering verifier operation, not human complete-game playtest",
+  "python": "3.12.13",
+  "pygame": "2.6.1",
+  "sdl": "2.28.4",
+  "bundler": "PyInstaller 6.22.3, official package registry, local development app only",
+  "bundle_id": "org.reactmono.board-verification",
+  "external_assets_only": true,
+  "media_or_app_uploaded": false,
+  "source_sha256": "39074e21bb1b350f4b2b85a422c146ff558f8d069f3b6517c0169bd1583b1fb5",
+  "observed": {
+    "native_keys": [
+      "e",
+      "f",
+      "right",
+      "home",
+      "7",
+      "tab",
+      "escape"
+    ],
+    "maps_visited": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "zoom": "AX zoom action expanded actual screenshot from 1280x1016 to 4358x2470; 640x480 logical canvas with letterboxing observed; restored via same exposed action",
+    "escape": "escape received in JSONL; app PID absent afterwards; post-exit AX read returned procNotFound",
+    "pointer": "not passed: coordinate clicks rejected by desktop tool with noWindowsAvailable; no click event in application log",
+    "binding": "initial direct-python app/bundle binding timeout; standard bundled app brought to foreground with Finder then full-path getApp succeeded; later bundle-id binding succeeded"
+  },
+  "events": [
+    {
+      "event": "ready",
+      "map": 0,
+      "view": 0,
+      "center": [
+        1247,
+        697
+      ],
+      "frame": 0,
+      "canvas_sha256": "4e0564b933627a4785e266895b2e5d7a060e4eee74a5f786ad1d24e71539ea94"
+    },
+    {
+      "event": "key",
+      "key": "e",
+      "map": 0,
+      "view": 1,
+      "center": [
+        1247,
+        697
+      ],
+      "frame": 0,
+      "canvas_sha256": "d19f1170ea77d700b9664221216e2aa8be2f9afd598c7d67dc280465071c7035"
+    },
+    {
+      "event": "key",
+      "key": "f",
+      "map": 0,
+      "view": 1,
+      "center": [
+        1247,
+        697
+      ],
+      "frame": 1,
+      "canvas_sha256": "a89f49921680e432657131880603f8ffe08371f2c1321b8f6d455ee86f062da1"
+    },
+    {
+      "event": "key",
+      "key": "right",
+      "map": 0,
+      "view": 1,
+      "center": [
+        1279,
+        697
+      ],
+      "frame": 1,
+      "canvas_sha256": "193588300cf2825e3c2aa2b196ff6639fcea0d934865cb2e2f6285833998b98e"
+    },
+    {
+      "event": "key",
+      "key": "home",
+      "map": 0,
+      "view": 1,
+      "center": [
+        1247,
+        697
+      ],
+      "frame": 1,
+      "canvas_sha256": "a89f49921680e432657131880603f8ffe08371f2c1321b8f6d455ee86f062da1"
+    },
+    {
+      "event": "key",
+      "key": "7",
+      "map": 0,
+      "view": 7,
+      "center": [
+        1247,
+        697
+      ],
+      "frame": 1,
+      "canvas_sha256": "795c34725b143820ae83fd31a1c8b40ddf7c454c25d7350230221918f4cd68ea"
+    },
+    {
+      "event": "key",
+      "key": "tab",
+      "map": 1,
+      "view": 0,
+      "center": [
+        1681,
+        1440
+      ],
+      "frame": 1,
+      "canvas_sha256": "4234c8d3106179ecc26363d898bc8632653b39c5629c6cb5ac7667d045d59bcf"
+    },
+    {
+      "event": "key",
+      "key": "tab",
+      "map": 2,
+      "view": 0,
+      "center": [
+        1075,
+        1467
+      ],
+      "frame": 1,
+      "canvas_sha256": "62262ef5b6546e6c122f260a0f2e8382c9be6639d9d450de4741566c451fdf73"
+    },
+    {
+      "event": "key",
+      "key": "tab",
+      "map": 3,
+      "view": 0,
+      "center": [
+        1677,
+        1390
+      ],
+      "frame": 1,
+      "canvas_sha256": "ec658b592b0424e366099f85d581e7426d549668cdf7409cdf9e1d3c686803e9"
+    },
+    {
+      "event": "key",
+      "key": "tab",
+      "map": 4,
+      "view": 0,
+      "center": [
+        875,
+        1676
+      ],
+      "frame": 1,
+      "canvas_sha256": "73a554dc352584a0bf55feea407ce39f9ec6c9367d2b0ac1a77cba0f06973902"
+    },
+    {
+      "event": "key",
+      "key": "tab",
+      "map": 5,
+      "view": 0,
+      "center": [
+        1324,
+        1668
+      ],
+      "frame": 1,
+      "canvas_sha256": "a468c0e20d46f50a7fb04b5b5076ca19f5a5e4531d21ba027d38240df675dfb1"
+    },
+    {
+      "event": "key",
+      "key": "tab",
+      "map": 6,
+      "view": 0,
+      "center": [
+        916,
+        844
+      ],
+      "frame": 1,
+      "canvas_sha256": "1917e26194aec074de975ae5f0730f73eccdafacb658877b5125eaed934daf31"
+    },
+    {
+      "event": "key",
+      "key": "tab",
+      "map": 7,
+      "view": 0,
+      "center": [
+        1213,
+        1649
+      ],
+      "frame": 1,
+      "canvas_sha256": "9e639f3709a3986074c45ce1271a8768876be08e64f0d6c71d33ff453917bd58"
+    },
+    {
+      "event": "key",
+      "key": "escape",
+      "map": 7,
+      "view": 0,
+      "center": [
+        1213,
+        1649
+      ],
+      "frame": 1,
+      "canvas_sha256": "9e639f3709a3986074c45ce1271a8768876be08e64f0d6c71d33ff453917bd58"
+    }
+  ],
+  "limitations": [
+    "No formal UI, game turn, game animation timeline, audio or natural long play",
+    "No human acceptance",
+    "No successful pointer input",
+    "Cold tile center composition stutter remains"
+  ]
+}
