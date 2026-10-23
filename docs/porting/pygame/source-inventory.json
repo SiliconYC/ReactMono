@@ -8926,201 +8926,351 @@
       "id": "src/tools_ai.cpp:20",
       "declarator": "add(std::int32_t a, std::int32_t b)",
       "end_line": 22,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools_ai.py::股市_类._回绕"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_tools_ai.py",
+        "evidence/tools-ai-differential.json",
+        "TOOLS_AI.md"
+      ]
     },
     {
       "id": "src/tools_ai.cpp:23",
       "declarator": "multiply(std::int32_t a, std::int32_t b)",
       "end_line": 25,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools_ai.py::股市_类._回绕"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_tools_ai.py",
+        "evidence/tools-ai-differential.json",
+        "TOOLS_AI.md"
+      ]
     },
     {
       "id": "src/tools_ai.cpp:26",
       "declarator": "name(const std::string &value)",
       "end_line": 28,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools_ai.py::bytes.split"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_tools_ai.py",
+        "evidence/tools-ai-differential.json",
+        "TOOLS_AI.md"
+      ]
     },
     {
       "id": "src/tools_ai.cpp:29",
       "declarator": "is_land(const World &world, unsigned code)",
       "end_line": 31,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools_ai.py::道具电脑_类._地码"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_tools_ai.py",
+        "evidence/tools-ai-differential.json",
+        "TOOLS_AI.md"
+      ]
     },
     {
       "id": "src/tools_ai.cpp:32",
       "declarator": "is_facility(const World &world, unsigned code)",
       "end_line": 34,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools_ai.py::道具电脑_类._设施码"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_tools_ai.py",
+        "evidence/tools-ai-differential.json",
+        "TOOLS_AI.md"
+      ]
     },
     {
       "id": "src/tools_ai.cpp:35",
       "declarator": "owner(const World &world, unsigned code)",
       "end_line": 40,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools_ai.py::道具电脑_类._业主"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_tools_ai.py",
+        "evidence/tools-ai-differential.json",
+        "TOOLS_AI.md"
+      ]
     },
     {
       "id": "src/tools_ai.cpp:41",
       "declarator": "level(const World &world, unsigned code)",
       "end_line": 46,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools_ai.py::道具电脑_类._层"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_tools_ai.py",
+        "evidence/tools-ai-differential.json",
+        "TOOLS_AI.md"
+      ]
     },
     {
       "id": "src/tools_ai.cpp:47",
       "declarator": "position(const World &world, unsigned code)",
       "end_line": 54,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools_ai.py::道具电脑_类._位置"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_tools_ai.py",
+        "evidence/tools-ai-differential.json",
+        "TOOLS_AI.md"
+      ]
     },
     {
       "id": "src/tools_ai.cpp:55",
       "declarator": "actor_code(std::size_t actor)",
       "end_line": 57,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools_ai.py::道具电脑_类._自己码"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_tools_ai.py",
+        "evidence/tools-ai-differential.json",
+        "TOOLS_AI.md"
+      ]
     },
     {
       "id": "src/tools_ai.cpp:58",
       "declarator": "absent(const PlayerStatus &status)",
       "end_line": 61,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools_ai.py::道具电脑_类._缺席"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_tools_ai.py",
+        "evidence/tools-ai-differential.json",
+        "TOOLS_AI.md"
+      ]
     },
     {
       "id": "src/tools_ai.cpp:62",
       "declarator": "same_street_count(const World &world, std::size_t actor, const Land &land)",
       "end_line": 68,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools_ai.py::道具电脑_类._同街数"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_tools_ai.py",
+        "evidence/tools-ai-differential.json",
+        "TOOLS_AI.md"
+      ]
     },
     {
       "id": "src/tools_ai.cpp:69",
       "declarator": "toll(const World &world, unsigned code)",
       "end_line": 77,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools_ai.py::道具电脑_类._通行费"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_tools_ai.py",
+        "evidence/tools-ai-differential.json",
+        "TOOLS_AI.md"
+      ]
     },
     {
       "id": "src/tools_ai.cpp:83",
       "declarator": "preview(const World &world, Random &random, std::size_t actor, unsigned count, bool reverse = false)",
       "end_line": 112,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools_ai.py::道具电脑_类._前瞻"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_tools_ai.py",
+        "evidence/tools-ai-differential.json",
+        "TOOLS_AI.md"
+      ]
     },
     {
       "id": "src/tools_ai.cpp:117",
       "declarator": "Selection(const World &world, board::Point center)",
       "end_line": 118,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools_ai.py::选择缓冲_类.__init__"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_tools_ai.py",
+        "evidence/tools-ai-differential.json",
+        "TOOLS_AI.md"
+      ]
     },
     {
       "id": "src/tools_ai.cpp:120",
       "declarator": "insert(board::Point point, std::uint16_t code)",
       "end_line": 130,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools_ai.py::选择缓冲_类.api_插入"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_tools_ai.py",
+        "evidence/tools-ai-differential.json",
+        "TOOLS_AI.md"
+      ]
     },
     {
       "id": "src/tools_ai.cpp:132",
       "declarator": "scan(int radius = -1) const",
       "end_line": 145,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools_ai.py::选择缓冲_类.api_扫描"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_tools_ai.py",
+        "evidence/tools-ai-differential.json",
+        "TOOLS_AI.md"
+      ]
     },
     {
       "id": "src/tools_ai.cpp:152",
       "declarator": "visible_roads(const World &world, std::size_t actor)",
       "end_line": 162,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools_ai.py::道具电脑_类._可见道路"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_tools_ai.py",
+        "evidence/tools-ai-differential.json",
+        "TOOLS_AI.md"
+      ]
     },
     {
       "id": "src/tools_ai.cpp:164",
       "declarator": "owned_area(const World &world, std::size_t actor, board::Point center,\n                                      int radius)",
       "end_line": 184,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools_ai.py::道具电脑_类._占地范围"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_tools_ai.py",
+        "evidence/tools-ai-differential.json",
+        "TOOLS_AI.md"
+      ]
     },
     {
       "id": "src/tools_ai.cpp:186",
       "declarator": "occupied_confinement(const World &world, const MapNode &node)",
       "end_line": 191,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools_ai.py::道具电脑_类._有收容"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_tools_ai.py",
+        "evidence/tools-ai-differential.json",
+        "TOOLS_AI.md"
+      ]
     },
     {
       "id": "src/tools_ai.cpp:193",
       "declarator": "enemy(const World &world, Random &random, std::size_t actor)",
       "end_line": 215,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools_ai.py::道具电脑_类._敌手"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_tools_ai.py",
+        "evidence/tools-ai-differential.json",
+        "TOOLS_AI.md"
+      ]
     },
     {
       "id": "src/tools_ai.cpp:217",
       "declarator": "selected(unsigned tool, std::uint16_t target = 0, std::uint16_t destination = 0)",
       "end_line": 219,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools_ai.py::道具电脑_类._选"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_tools_ai.py",
+        "evidence/tools-ai-differential.json",
+        "TOOLS_AI.md"
+      ]
     },
     {
       "id": "src/tools_ai.cpp:220",
       "declarator": "missing_instances()",
       "end_line": 222,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools_ai.py::道具电脑_类._缺实例"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_tools_ai.py",
+        "evidence/tools-ai-differential.json",
+        "TOOLS_AI.md"
+      ]
     },
     {
       "id": "src/tools_ai.cpp:224",
       "declarator": "predicate(const World &world, Random &random, std::size_t actor, unsigned tool,\n                 const Callbacks &callbacks)",
       "end_line": 537,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools_ai.py::道具电脑_类._谓词"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_tools_ai.py",
+        "evidence/tools-ai-differential.json",
+        "TOOLS_AI.md"
+      ]
     },
     {
       "id": "src/tools_ai.cpp:540",
       "declarator": "evaluate(const World &world, Random &random, std::size_t actor, unsigned tool,\n                const Callbacks &callbacks)",
       "end_line": 550,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools_ai.py::道具电脑_类.api_评估"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_tools_ai.py",
+        "evidence/tools-ai-differential.json",
+        "TOOLS_AI.md"
+      ]
     },
     {
       "id": "src/tools_ai.cpp:552",
       "declarator": "choose(const World &world, Random &random, std::size_t actor, const Callbacks &callbacks)",
       "end_line": 578,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tools_ai.py::道具电脑_类.api_选择"
+      ],
+      "status": "已实现，自动差分；真实会话接入待完成",
+      "evidence": [
+        "tests/test_tools_ai.py",
+        "evidence/tools-ai-differential.json",
+        "TOOLS_AI.md"
+      ]
     },
     {
       "id": "src/trading.cpp:20",

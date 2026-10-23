@@ -4184,5 +4184,280 @@
       "evidence/stocks-ai-differential.json",
       "STOCKS_AI.md"
     ]
+  },
+  "src/tools_ai.cpp:20": {
+    "python": [
+      "pygame/src/rich4/tools_ai.py::股市_类._回绕"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_tools_ai.py",
+      "evidence/tools-ai-differential.json",
+      "TOOLS_AI.md"
+    ]
+  },
+  "src/tools_ai.cpp:23": {
+    "python": [
+      "pygame/src/rich4/tools_ai.py::股市_类._回绕"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_tools_ai.py",
+      "evidence/tools-ai-differential.json",
+      "TOOLS_AI.md"
+    ]
+  },
+  "src/tools_ai.cpp:26": {
+    "python": [
+      "pygame/src/rich4/tools_ai.py::bytes.split"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_tools_ai.py",
+      "evidence/tools-ai-differential.json",
+      "TOOLS_AI.md"
+    ]
+  },
+  "src/tools_ai.cpp:29": {
+    "python": [
+      "pygame/src/rich4/tools_ai.py::道具电脑_类._地码"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_tools_ai.py",
+      "evidence/tools-ai-differential.json",
+      "TOOLS_AI.md"
+    ]
+  },
+  "src/tools_ai.cpp:32": {
+    "python": [
+      "pygame/src/rich4/tools_ai.py::道具电脑_类._设施码"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_tools_ai.py",
+      "evidence/tools-ai-differential.json",
+      "TOOLS_AI.md"
+    ]
+  },
+  "src/tools_ai.cpp:35": {
+    "python": [
+      "pygame/src/rich4/tools_ai.py::道具电脑_类._业主"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_tools_ai.py",
+      "evidence/tools-ai-differential.json",
+      "TOOLS_AI.md"
+    ]
+  },
+  "src/tools_ai.cpp:41": {
+    "python": [
+      "pygame/src/rich4/tools_ai.py::道具电脑_类._层"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_tools_ai.py",
+      "evidence/tools-ai-differential.json",
+      "TOOLS_AI.md"
+    ]
+  },
+  "src/tools_ai.cpp:47": {
+    "python": [
+      "pygame/src/rich4/tools_ai.py::道具电脑_类._位置"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_tools_ai.py",
+      "evidence/tools-ai-differential.json",
+      "TOOLS_AI.md"
+    ]
+  },
+  "src/tools_ai.cpp:55": {
+    "python": [
+      "pygame/src/rich4/tools_ai.py::道具电脑_类._自己码"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_tools_ai.py",
+      "evidence/tools-ai-differential.json",
+      "TOOLS_AI.md"
+    ]
+  },
+  "src/tools_ai.cpp:58": {
+    "python": [
+      "pygame/src/rich4/tools_ai.py::道具电脑_类._缺席"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_tools_ai.py",
+      "evidence/tools-ai-differential.json",
+      "TOOLS_AI.md"
+    ]
+  },
+  "src/tools_ai.cpp:62": {
+    "python": [
+      "pygame/src/rich4/tools_ai.py::道具电脑_类._同街数"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_tools_ai.py",
+      "evidence/tools-ai-differential.json",
+      "TOOLS_AI.md"
+    ]
+  },
+  "src/tools_ai.cpp:69": {
+    "python": [
+      "pygame/src/rich4/tools_ai.py::道具电脑_类._通行费"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_tools_ai.py",
+      "evidence/tools-ai-differential.json",
+      "TOOLS_AI.md"
+    ]
+  },
+  "src/tools_ai.cpp:83": {
+    "python": [
+      "pygame/src/rich4/tools_ai.py::道具电脑_类._前瞻"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_tools_ai.py",
+      "evidence/tools-ai-differential.json",
+      "TOOLS_AI.md"
+    ]
+  },
+  "src/tools_ai.cpp:117": {
+    "python": [
+      "pygame/src/rich4/tools_ai.py::选择缓冲_类.__init__"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_tools_ai.py",
+      "evidence/tools-ai-differential.json",
+      "TOOLS_AI.md"
+    ]
+  },
+  "src/tools_ai.cpp:120": {
+    "python": [
+      "pygame/src/rich4/tools_ai.py::选择缓冲_类.api_插入"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_tools_ai.py",
+      "evidence/tools-ai-differential.json",
+      "TOOLS_AI.md"
+    ]
+  },
+  "src/tools_ai.cpp:132": {
+    "python": [
+      "pygame/src/rich4/tools_ai.py::选择缓冲_类.api_扫描"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_tools_ai.py",
+      "evidence/tools-ai-differential.json",
+      "TOOLS_AI.md"
+    ]
+  },
+  "src/tools_ai.cpp:152": {
+    "python": [
+      "pygame/src/rich4/tools_ai.py::道具电脑_类._可见道路"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_tools_ai.py",
+      "evidence/tools-ai-differential.json",
+      "TOOLS_AI.md"
+    ]
+  },
+  "src/tools_ai.cpp:164": {
+    "python": [
+      "pygame/src/rich4/tools_ai.py::道具电脑_类._占地范围"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_tools_ai.py",
+      "evidence/tools-ai-differential.json",
+      "TOOLS_AI.md"
+    ]
+  },
+  "src/tools_ai.cpp:186": {
+    "python": [
+      "pygame/src/rich4/tools_ai.py::道具电脑_类._有收容"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_tools_ai.py",
+      "evidence/tools-ai-differential.json",
+      "TOOLS_AI.md"
+    ]
+  },
+  "src/tools_ai.cpp:193": {
+    "python": [
+      "pygame/src/rich4/tools_ai.py::道具电脑_类._敌手"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_tools_ai.py",
+      "evidence/tools-ai-differential.json",
+      "TOOLS_AI.md"
+    ]
+  },
+  "src/tools_ai.cpp:217": {
+    "python": [
+      "pygame/src/rich4/tools_ai.py::道具电脑_类._选"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_tools_ai.py",
+      "evidence/tools-ai-differential.json",
+      "TOOLS_AI.md"
+    ]
+  },
+  "src/tools_ai.cpp:220": {
+    "python": [
+      "pygame/src/rich4/tools_ai.py::道具电脑_类._缺实例"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_tools_ai.py",
+      "evidence/tools-ai-differential.json",
+      "TOOLS_AI.md"
+    ]
+  },
+  "src/tools_ai.cpp:224": {
+    "python": [
+      "pygame/src/rich4/tools_ai.py::道具电脑_类._谓词"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_tools_ai.py",
+      "evidence/tools-ai-differential.json",
+      "TOOLS_AI.md"
+    ]
+  },
+  "src/tools_ai.cpp:540": {
+    "python": [
+      "pygame/src/rich4/tools_ai.py::道具电脑_类.api_评估"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_tools_ai.py",
+      "evidence/tools-ai-differential.json",
+      "TOOLS_AI.md"
+    ]
+  },
+  "src/tools_ai.cpp:552": {
+    "python": [
+      "pygame/src/rich4/tools_ai.py::道具电脑_类.api_选择"
+    ],
+    "status": "已实现，自动差分；真实会话接入待完成",
+    "evidence": [
+      "tests/test_tools_ai.py",
+      "evidence/tools-ai-differential.json",
+      "TOOLS_AI.md"
+    ]
   }
 }
