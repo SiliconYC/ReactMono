@@ -6918,113 +6918,183 @@
       "id": "src/stocks.cpp:20",
       "declarator": "add_wrap(std::int32_t first, std::int32_t second)",
       "end_line": 23,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks.py::股市_类._回绕"
+      ],
+      "status": "已实现，价格及逐动作全状态差分",
+      "evidence": [
+        "tests/test_stocks.py",
+        "evidence/stocks-differential.json"
+      ]
     },
     {
       "id": "src/stocks.cpp:25",
       "declarator": "subtract_wrap(std::int32_t first, std::int32_t second)",
       "end_line": 28,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks.py::股市_类._回绕"
+      ],
+      "status": "已实现，价格及逐动作全状态差分",
+      "evidence": [
+        "tests/test_stocks.py",
+        "evidence/stocks-differential.json"
+      ]
     },
     {
       "id": "src/stocks.cpp:33",
       "declarator": "sale_proceeds(float quote, std::int32_t amount)",
       "end_line": 55,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks.py::股市_类._所得"
+      ],
+      "status": "已实现，价格及逐动作全状态差分",
+      "evidence": [
+        "tests/test_stocks.py",
+        "evidence/stocks-differential.json"
+      ]
     },
     {
       "id": "src/stocks.cpp:57",
       "declarator": "*linked_commercial(World &world, std::size_t stock)",
       "end_line": 72,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks.py::股市_类._关联"
+      ],
+      "status": "已实现，价格及逐动作全状态差分",
+      "evidence": [
+        "tests/test_stocks.py",
+        "evidence/stocks-differential.json"
+      ]
     },
     {
       "id": "src/stocks.cpp:74",
       "declarator": "update_commercial_owner(World &world, Commercial *commercial, std::size_t player, std::size_t stock)",
       "end_line": 107,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks.py::股市_类._重排"
+      ],
+      "status": "已实现，价格及逐动作全状态差分",
+      "evidence": [
+        "tests/test_stocks.py",
+        "evidence/stocks-differential.json"
+      ]
     },
     {
       "id": "src/stocks.cpp:111",
       "declarator": "update_commercial_owner(World &world, std::size_t player, std::size_t stock)",
       "end_line": 116,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks.py::股市_类.api_更新业主"
+      ],
+      "status": "已实现，价格及逐动作全状态差分",
+      "evidence": [
+        "tests/test_stocks.py",
+        "evidence/stocks-differential.json"
+      ]
     },
     {
       "id": "src/stocks.cpp:118",
       "declarator": "adjusted_price(float previous, float percent)",
       "end_line": 145,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks.py::股市_类.api_调整股价"
+      ],
+      "status": "已实现，价格及逐动作全状态差分",
+      "evidence": [
+        "tests/test_stocks.py",
+        "evidence/stocks-differential.json"
+      ]
     },
     {
       "id": "src/stocks.cpp:147",
       "declarator": "trend(const World &world, std::size_t stock)",
       "end_line": 158,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks.py::股市_类.api_走势"
+      ],
+      "status": "已实现，价格及逐动作全状态差分",
+      "evidence": [
+        "tests/test_stocks.py",
+        "evidence/stocks-differential.json"
+      ]
     },
     {
       "id": "src/stocks.cpp:160",
       "declarator": "buy_stock(World &world, std::size_t player, std::size_t stock, std::int32_t amount,\n                         bool from_market)",
       "end_line": 204,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks.py::股市_类.api_买入"
+      ],
+      "status": "已实现，价格及逐动作全状态差分",
+      "evidence": [
+        "tests/test_stocks.py",
+        "evidence/stocks-differential.json"
+      ]
     },
     {
       "id": "src/stocks.cpp:206",
       "declarator": "sell_stock(World &world, std::size_t player, std::size_t stock, std::int32_t amount,\n                      bool credit_bank)",
       "end_line": 233,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks.py::股市_类.api_卖出"
+      ],
+      "status": "已实现，价格及逐动作全状态差分",
+      "evidence": [
+        "tests/test_stocks.py",
+        "evidence/stocks-differential.json"
+      ]
     },
     {
       "id": "src/stocks.cpp:235",
       "declarator": "update_stocks(World &world, unsigned selection)",
       "end_line": 257,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks.py::股市_类.api_强制行情"
+      ],
+      "status": "已实现，价格及逐动作全状态差分",
+      "evidence": [
+        "tests/test_stocks.py",
+        "evidence/stocks-differential.json"
+      ]
     },
     {
       "id": "src/stocks.cpp:259",
       "declarator": "player_wealth(const World &world, std::size_t player)",
       "end_line": 306,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks.py::股市_类.api_财富"
+      ],
+      "status": "已实现，价格及逐动作全状态差分",
+      "evidence": [
+        "tests/test_stocks.py",
+        "evidence/stocks-differential.json"
+      ]
     },
     {
       "id": "src/stocks.cpp:308",
       "declarator": "refresh_trade_limits(World &world, Random &random)",
       "end_line": 318,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks.py::股市_类.api_刷新限额"
+      ],
+      "status": "已实现，价格及逐动作全状态差分",
+      "evidence": [
+        "tests/test_stocks.py",
+        "evidence/stocks-differential.json"
+      ]
     },
     {
       "id": "src/stocks.cpp:320",
       "declarator": "daily_update(World &world, Random &random, bool calendar_holiday)",
       "end_line": 385,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks.py::股市_类.api_日更新"
+      ],
+      "status": "已实现，价格及逐动作全状态差分",
+      "evidence": [
+        "tests/test_stocks.py",
+        "evidence/stocks-differential.json"
+      ]
     },
     {
       "id": "src/stocks_ai.cpp:20",
