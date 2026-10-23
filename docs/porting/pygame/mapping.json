@@ -2797,5 +2797,93 @@
       "evidence/board-performance.json",
       "evidence/board-native-verification.json"
     ]
+  },
+  "src/special_actors.cpp:11": {
+    "python": [
+      "pygame/src/rich4/special_actors.py::特殊行动_类._角色"
+    ],
+    "status": "已实现，八图模块自动差分；真实会话回调待集成",
+    "evidence": [
+      "tests/test_special_actors.py",
+      "evidence/special-actors-differential.json",
+      "SPECIAL_ACTORS.md"
+    ]
+  },
+  "src/special_actors.cpp:16": {
+    "python": [
+      "pygame/src/rich4/special_actors.py::特殊行动_类._缺"
+    ],
+    "status": "已实现，八图模块自动差分；真实会话回调待集成",
+    "evidence": [
+      "tests/test_special_actors.py",
+      "evidence/special-actors-differential.json",
+      "SPECIAL_ACTORS.md"
+    ]
+  },
+  "src/special_actors.cpp:22": {
+    "python": [
+      "pygame/src/rich4/special_actors.py::特殊行动_类._奖语音"
+    ],
+    "status": "已实现，八图模块自动差分；真实会话回调待集成",
+    "evidence": [
+      "tests/test_special_actors.py",
+      "evidence/special-actors-differential.json",
+      "SPECIAL_ACTORS.md"
+    ]
+  },
+  "src/special_actors.cpp:31": {
+    "python": [
+      "pygame/src/rich4/special_actors.py::特殊行动_类.api_交互/加"
+    ],
+    "status": "已实现，八图模块自动差分；真实会话回调待集成",
+    "evidence": [
+      "tests/test_special_actors.py",
+      "evidence/special-actors-differential.json",
+      "SPECIAL_ACTORS.md"
+    ]
+  },
+  "src/special_actors.cpp:37": {
+    "python": [
+      "pygame/src/rich4/special_actors.py::特殊行动_类.api_老化"
+    ],
+    "status": "已实现，八图模块自动差分；真实会话回调待集成",
+    "evidence": [
+      "tests/test_special_actors.py",
+      "evidence/special-actors-differential.json",
+      "SPECIAL_ACTORS.md"
+    ]
+  },
+  "src/special_actors.cpp:47": {
+    "python": [
+      "pygame/src/rich4/special_actors.py::特殊行动_类.api_单步"
+    ],
+    "status": "已实现，八图模块自动差分；真实会话回调待集成",
+    "evidence": [
+      "tests/test_special_actors.py",
+      "evidence/special-actors-differential.json",
+      "SPECIAL_ACTORS.md"
+    ]
+  },
+  "src/special_actors.cpp:74": {
+    "python": [
+      "pygame/src/rich4/special_actors.py::特殊行动_类.api_交互"
+    ],
+    "status": "已实现，八图模块自动差分；真实会话回调待集成",
+    "evidence": [
+      "tests/test_special_actors.py",
+      "evidence/special-actors-differential.json",
+      "SPECIAL_ACTORS.md"
+    ]
+  },
+  "src/special_actors.cpp:229": {
+    "python": [
+      "pygame/src/rich4/special_actors.py::特殊行动_类.api_回合"
+    ],
+    "status": "已实现，八图模块自动差分；真实会话回调待集成",
+    "evidence": [
+      "tests/test_special_actors.py",
+      "evidence/special-actors-differential.json",
+      "SPECIAL_ACTORS.md"
+    ]
   }
 }

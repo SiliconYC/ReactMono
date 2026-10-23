@@ -7435,65 +7435,113 @@
       "id": "src/special_actors.cpp:11",
       "declarator": "&actor(World &world, std::size_t slot)",
       "end_line": 15,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/special_actors.py::特殊行动_类._角色"
+      ],
+      "status": "已实现，八图模块自动差分；真实会话回调待集成",
+      "evidence": [
+        "tests/test_special_actors.py",
+        "evidence/special-actors-differential.json",
+        "SPECIAL_ACTORS.md"
+      ]
     },
     {
       "id": "src/special_actors.cpp:16",
       "declarator": "missing(const char *message)",
       "end_line": 21,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/special_actors.py::特殊行动_类._缺"
+      ],
+      "status": "已实现，八图模块自动差分；真实会话回调待集成",
+      "evidence": [
+        "tests/test_special_actors.py",
+        "evidence/special-actors-differential.json",
+        "SPECIAL_ACTORS.md"
+      ]
     },
     {
       "id": "src/special_actors.cpp:22",
       "declarator": "prize_voice(Random &random, const Callbacks &callbacks, std::size_t owner, unsigned price)",
       "end_line": 30,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/special_actors.py::特殊行动_类._奖语音"
+      ],
+      "status": "已实现，八图模块自动差分；真实会话回调待集成",
+      "evidence": [
+        "tests/test_special_actors.py",
+        "evidence/special-actors-differential.json",
+        "SPECIAL_ACTORS.md"
+      ]
     },
     {
       "id": "src/special_actors.cpp:31",
       "declarator": "append(Result &result, EffectKind kind, std::size_t slot, std::int32_t target, std::int32_t amount,\n            std::uint16_t node)",
       "end_line": 34,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/special_actors.py::特殊行动_类.api_交互/加"
+      ],
+      "status": "已实现，八图模块自动差分；真实会话回调待集成",
+      "evidence": [
+        "tests/test_special_actors.py",
+        "evidence/special-actors-differential.json",
+        "SPECIAL_ACTORS.md"
+      ]
     },
     {
       "id": "src/special_actors.cpp:37",
       "declarator": "age_status(SpecialActor &state) noexcept",
       "end_line": 45,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/special_actors.py::特殊行动_类.api_老化"
+      ],
+      "status": "已实现，八图模块自动差分；真实会话回调待集成",
+      "evidence": [
+        "tests/test_special_actors.py",
+        "evidence/special-actors-differential.json",
+        "SPECIAL_ACTORS.md"
+      ]
     },
     {
       "id": "src/special_actors.cpp:47",
       "declarator": "move_one_step(World &world, Random &random, std::size_t slot)",
       "end_line": 72,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/special_actors.py::特殊行动_类.api_单步"
+      ],
+      "status": "已实现，八图模块自动差分；真实会话回调待集成",
+      "evidence": [
+        "tests/test_special_actors.py",
+        "evidence/special-actors-differential.json",
+        "SPECIAL_ACTORS.md"
+      ]
     },
     {
       "id": "src/special_actors.cpp:74",
       "declarator": "interact(World &world, Random &random, std::size_t slot, bool stopped, const Callbacks &callbacks)",
       "end_line": 227,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/special_actors.py::特殊行动_类.api_交互"
+      ],
+      "status": "已实现，八图模块自动差分；真实会话回调待集成",
+      "evidence": [
+        "tests/test_special_actors.py",
+        "evidence/special-actors-differential.json",
+        "SPECIAL_ACTORS.md"
+      ]
     },
     {
       "id": "src/special_actors.cpp:229",
       "declarator": "turn(World &world, Random &random, std::size_t slot, const Callbacks &callbacks)",
       "end_line": 258,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/special_actors.py::特殊行动_类.api_回合"
+      ],
+      "status": "已实现，八图模块自动差分；真实会话回调待集成",
+      "evidence": [
+        "tests/test_special_actors.py",
+        "evidence/special-actors-differential.json",
+        "SPECIAL_ACTORS.md"
+      ]
     },
     {
       "id": "src/stocks.cpp:20",
