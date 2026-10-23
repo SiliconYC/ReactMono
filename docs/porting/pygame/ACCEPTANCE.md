@@ -47,3 +47,13 @@ uv run --project pygame python pygame/tools/differential_rules.py \
 ## 既有 React 回归与集成
 
 独立集成树 `5b98ce4` 上 Python 35/35、Ruff 与 `git diff --check` 通过。默认 Node v14.18.1 解析既有 Vite 的 `??=` 失败；明确使用现有 Node v22.20.0 后 `npm test` 为 **298/298 通过**，没有跳过或取消。原日志保存在本机 `/tmp/reactmono-pygame-react-regression-node22.log`。变更范围仅 `pygame/` 与 `docs/porting/pygame/`，没有修改原 React 逻辑、美术或构建配置。
+
+## 原 DAT codec 增量（2026-10-23）
+
+新增模块后完整 Python 测试 **42/42**、Ruff 通过。两份本机原 DAT（90111 与 95371 字节）与 C++ 对照全部已解读头/玩家/地图摘要、连续区域清单、无损输出及 80 个现金/银行边界编辑输出，全部一致。公开 [差分报告](evidence/save-differential.json) 只含文件大小与哈希，不含原档或玩家数据。规则恢复、跨进程游戏恢复和长局尚未实现。
+
+```sh
+uv run --project pygame python pygame/tools/differential_save.py \
+  --source /path/to/pinned-cpp --build /tmp/rich4-cpp-core \
+  --report /tmp/save-differential.json /path/to/SAVE1.DAT /path/to/Save0.dat
+```

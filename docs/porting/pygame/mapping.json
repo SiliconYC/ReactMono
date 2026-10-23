@@ -758,5 +758,175 @@
       "tests/test_inventory_economy.py",
       "evidence/rules-differential.json"
     ]
+  },
+  "src/save.cpp:22": {
+    "python": [
+      "pygame/src/rich4/save.py::存档_类._范围"
+    ],
+    "status": "已实现，真实 DAT 自动差分",
+    "evidence": [
+      "tests/test_save.py",
+      "evidence/save-differential.json"
+    ]
+  },
+  "src/save.cpp:29": {
+    "python": [
+      "pygame/src/rich4/save.py::存档_类._数"
+    ],
+    "status": "已实现，真实 DAT 自动差分",
+    "evidence": [
+      "tests/test_save.py",
+      "evidence/save-differential.json"
+    ]
+  },
+  "src/save.cpp:35": {
+    "python": [
+      "pygame/src/rich4/save.py::存档_类._数"
+    ],
+    "status": "已实现，真实 DAT 自动差分",
+    "evidence": [
+      "tests/test_save.py",
+      "evidence/save-differential.json"
+    ]
+  },
+  "src/save.cpp:42": {
+    "python": [
+      "pygame/src/rich4/save.py::存档_类._数"
+    ],
+    "status": "已实现，真实 DAT 自动差分",
+    "evidence": [
+      "tests/test_save.py",
+      "evidence/save-differential.json"
+    ]
+  },
+  "src/save.cpp:46": {
+    "python": [
+      "pygame/src/rich4/save.py::存档_类._写整数"
+    ],
+    "status": "已实现，真实 DAT 自动差分",
+    "evidence": [
+      "tests/test_save.py",
+      "evidence/save-differential.json"
+    ]
+  },
+  "src/save.cpp:53": {
+    "python": [
+      "pygame/src/rich4/save.py::存档_类.api_地图摘要"
+    ],
+    "status": "已实现，真实 DAT 自动差分",
+    "evidence": [
+      "tests/test_save.py",
+      "evidence/save-differential.json"
+    ]
+  },
+  "src/save.cpp:62": {
+    "python": [
+      "pygame/src/rich4/save.py::存档_类.api_解码"
+    ],
+    "status": "已实现，真实 DAT 自动差分",
+    "evidence": [
+      "tests/test_save.py",
+      "evidence/save-differential.json"
+    ]
+  },
+  "src/save.cpp:83": {
+    "python": [
+      "pygame/src/rich4/save.py::存档_类.__init__"
+    ],
+    "status": "已实现，真实 DAT 自动差分",
+    "evidence": [
+      "tests/test_save.py",
+      "evidence/save-differential.json"
+    ]
+  },
+  "src/save.cpp:86": {
+    "python": [
+      "pygame/src/rich4/save.py::存档_类.api_解码"
+    ],
+    "status": "已实现，真实 DAT 自动差分",
+    "evidence": [
+      "tests/test_save.py",
+      "evidence/save-differential.json"
+    ]
+  },
+  "src/save.cpp:167": {
+    "python": [
+      "pygame/src/rich4/save.py::存档_类.api_头"
+    ],
+    "status": "已实现，真实 DAT 自动差分",
+    "evidence": [
+      "tests/test_save.py",
+      "evidence/save-differential.json"
+    ]
+  },
+  "src/save.cpp:179": {
+    "python": [
+      "pygame/src/rich4/save.py::存档_类._玩家偏移"
+    ],
+    "status": "已实现，真实 DAT 自动差分",
+    "evidence": [
+      "tests/test_save.py",
+      "evidence/save-differential.json"
+    ]
+  },
+  "src/save.cpp:186": {
+    "python": [
+      "pygame/src/rich4/save.py::存档_类.api_玩家"
+    ],
+    "status": "已实现，真实 DAT 自动差分",
+    "evidence": [
+      "tests/test_save.py",
+      "evidence/save-differential.json"
+    ]
+  },
+  "src/save.cpp:213": {
+    "python": [
+      "pygame/src/rich4/save.py::存档_类.api_地图摘要"
+    ],
+    "status": "已实现，真实 DAT 自动差分",
+    "evidence": [
+      "tests/test_save.py",
+      "evidence/save-differential.json"
+    ]
+  },
+  "src/save.cpp:217": {
+    "python": [
+      "pygame/src/rich4/save.py::存档_类.api_区域"
+    ],
+    "status": "已实现，真实 DAT 自动差分",
+    "evidence": [
+      "tests/test_save.py",
+      "evidence/save-differential.json"
+    ]
+  },
+  "src/save.cpp:221": {
+    "python": [
+      "pygame/src/rich4/save.py::存档_类.api_导出"
+    ],
+    "status": "已实现，真实 DAT 自动差分",
+    "evidence": [
+      "tests/test_save.py",
+      "evidence/save-differential.json"
+    ]
+  },
+  "src/save.cpp:225": {
+    "python": [
+      "pygame/src/rich4/save.py::存档_类.api_设现金"
+    ],
+    "status": "已实现，真实 DAT 自动差分",
+    "evidence": [
+      "tests/test_save.py",
+      "evidence/save-differential.json"
+    ]
+  },
+  "src/save.cpp:229": {
+    "python": [
+      "pygame/src/rich4/save.py::存档_类.api_设银行"
+    ],
+    "status": "已实现，真实 DAT 自动差分",
+    "evidence": [
+      "tests/test_save.py",
+      "evidence/save-differential.json"
+    ]
   }
 }
