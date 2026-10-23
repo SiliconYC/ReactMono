@@ -2,7 +2,8 @@
 # 派生自固定 C++ src/world.cpp；所有未解释字节与历史快照保留在原 backing。
 # ◑ 导入
 import struct
-from dataclasses import asdict, astuple
+from copy import deepcopy
+from dataclasses import asdict, astuple, fields
 
 from rich4.direction import 方向_类
 from rich4.economy import 地产经济_类
@@ -31,6 +32,7 @@ class 世界_类:
 
     更新日志：
     2026.10.23 - 实现 from_save/export_save、活跃玩家与破产字段清除。
+    2026.10.24 - 值赋保持World引用，破产重置保留状态和嵌入数组引用。
     """
 
     状态字节 = (
@@ -288,7 +290,7 @@ class 世界_类:
         self.原字节[偏移 : 偏移 + 76] = bytes(76)
         玩家.记录.现金 = 玩家.记录.银行 = 玩家.记录.贷款 = 玩家.记录.特殊融资 = 玩家.记录.点券 = 0
         旧 = 玩家.状态
-        玩家.状态 = 玩家状态_类(
+        新状态 = 玩家状态_类(
             初始现金比例=旧.初始现金比例,
             救援策略=旧.救援策略,
             卡片策略=旧.卡片策略,
@@ -296,6 +298,20 @@ class 世界_类:
             股票投资比例=旧.股票投资比例,
             保存方向=旧.保存方向,
         )
+        for 项 in fields(玩家状态_类):
+            原值, 新值 = getattr(旧, 项.name), getattr(新状态, 项.name)
+            if isinstance(原值, list):
+                原值[:] = 新值
+            else:
+                setattr(旧, 项.name, 新值)
+
+    def api_覆盖(self, arg_世界: "世界_类") -> None:
+        if arg_世界 is self:
+            return
+        # C++ World赋值保留World&本体；道具回调返回后仍通过原参数访问恢复的世界。
+        新值 = deepcopy(arg_世界.__dict__)
+        self.__dict__.clear()
+        self.__dict__.update(新值)
 
     @staticmethod
     def _写(

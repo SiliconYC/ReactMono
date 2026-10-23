@@ -38,9 +38,10 @@ int main(int argc,char **argv) {
                 else if(op=='s')g.random.seed(n.at(0));
                 else if(op=='q'){
                     const int cost=n.at(0),depth=n.at(1),flavor=n.at(2);const bool finish=n.at(3),first=n.at(4);
-                    auto action=[&,cost,depth,flavor]{
+                    World *held=&g.world;
+                    auto action=[&,cost,depth,flavor,held]{
                         for(int i=1;i<=depth;++i){
-                            auto &p=g.world.players[g.actor()].state;
+                            auto &p=(flavor==5?held->players:g.world.players)[g.actor()].state;
                             p.cash=subtract32(p.cash,add32(cost,i));(void)g.random.next();++g.card_ai_memory.parameter0;
                             g.emit(GameEventKind::notice,"stage"+std::to_string(i),i);
                             g.effect(i%2?EffectKind::monster:EffectKind::explosion,g.actor(),{i,i*2});
@@ -71,6 +72,13 @@ int main(int argc,char **argv) {
                 else if(op=='k'){g.costumes.at(n.at(0))=n.at(1);g.costume_keys.at(n.at(0))=n.at(2);}
                 else if(op=='o'){auto a=n.at(0);if(a<0||std::size_t(a)>=g.world.players.size())throw std::out_of_range("actor");values={g.on_board(a),g.costume_key(a)};}
                 else if(op=='w')g.refresh_costumes();
+                else if(op=='S'){
+                    auto &p=g.world.players.at(n.at(0));p.status.cumulative_spending=123;p.status.hostility={1,2,3,4};p.status.init_cash_ratio=73;
+                    auto *held=&p.status;auto *array=&p.status.hostility;
+                    g.world.clear_bankrupt_player_fields(n.at(0));
+                    values={held==&p.status,array==&p.status.hostility,held->cumulative_spending,held->init_cash_ratio};
+                    for(auto v:*array)values.push_back(v);
+                }
                 else if(op=='d'){g.events.clear();g.effects.clear();}
                 else return 3;
             }catch(const std::out_of_range &){status=2;}

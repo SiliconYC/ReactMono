@@ -170,10 +170,11 @@ class 会话事务探针_类(会话表现_类, 会话事务_类):
                 self.随机.状态 = n[0]
             elif op == "q":
                 价, 深, 型, 结束, 首次 = n
+                引用 = self.世界
 
                 def 动作() -> None:
                     for i in range(1, 深 + 1):
-                        p = self._玩家()
+                        p = 引用.玩家[self._当前()].记录 if 型 == 5 else self._玩家()
                         p.现金 = 股市_类._回绕(p.现金 - 股市_类._回绕(价 + i))
                         self.随机.api_下一个()
                         self.卡片电脑记忆.参数0 = (self.卡片电脑记忆.参数0 + 1) & 0xFFFFFFFF
@@ -254,6 +255,19 @@ class 会话事务探针_类(会话表现_类, 会话事务_类):
                 值 = [int(self._在场(n[0])), self._服装键(n[0])]
             elif op == "w":
                 self._刷新服装()
+            elif op == "S":
+                p = 事件_类._取(self.世界.玩家, n[0])
+                旧 = p.状态
+                旧.累计支出, 旧.敌意[:], 旧.初始现金比例 = 123, [1, 2, 3, 4], 73
+                数组 = 旧.敌意
+                self.世界.api_清破产字段(n[0])
+                值 = [
+                    int(旧 is p.状态),
+                    int(数组 is p.状态.敌意),
+                    旧.累计支出,
+                    旧.初始现金比例,
+                    *数组,
+                ]
             elif op == "d":
                 self.事件队列.clear()
                 self.效果队列.clear()
@@ -378,7 +392,14 @@ class 会话事务差分_类:
         return 组
 
     @classmethod
-    def api_执行(cls, arg_源码: Path, arg_构建: Path, arg_素材: Path, arg_报告: Path) -> None:
+    def api_执行(
+        cls,
+        arg_源码: Path,
+        arg_构建: Path,
+        arg_素材: Path,
+        arg_报告: Path,
+        arg_仅引用: bool = False,
+    ) -> None:
         版本 = subprocess.check_output(
             ["git", "-C", str(arg_源码), "rev-parse", "HEAD"], text=True
         ).strip()
@@ -439,6 +460,12 @@ class 会话事务差分_类:
             "status": "running",
             "episodes": [],
         }
+        报告["identity_only"] = arg_仅引用
+        if arg_仅引用:
+            报告["scope"] = (
+                "escaped World/PlayerStatus/embedded-array references through original assignment; "
+                "explicit private probes, not game turns"
+            )
         生 = random.Random(报告["generator_seed"])
         try:
             包 = 资源包_类(arg_素材 / "map.mkf")
@@ -450,7 +477,12 @@ class 会话事务差分_类:
                     cls._设置(世)
                     原 = 世.api_导出()
                     会 = 会话事务探针_类(原, 种)
-                    命令, 预期, 字节 = cls._命令(生), [], []
+                    命令 = (
+                        ["r", "q 100 1 5 0 1", "a 25", "r", "S 0", "S 1"]
+                        if arg_仅引用
+                        else cls._命令(生)
+                    )
+                    预期, 字节 = [], []
                     for 行 in 命令:
                         返回 = 会.api_动作(行)
                         预期.append(返回)
@@ -514,5 +546,6 @@ if __name__ == "__main__":
     参数.add_argument("--build", type=Path, required=True)
     参数.add_argument("--assets", type=Path, required=True)
     参数.add_argument("--report", type=Path, required=True)
+    参数.add_argument("--identity-only", action="store_true")
     选项 = 参数.parse_args()
-    会话事务差分_类.api_执行(选项.source, 选项.build, 选项.assets, 选项.report)
+    会话事务差分_类.api_执行(选项.source, 选项.build, 选项.assets, 选项.report, 选项.identity_only)

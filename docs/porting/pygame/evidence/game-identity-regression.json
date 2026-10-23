@@ -1,0 +1,11 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "scope": "regression after in-place World, PlayerStatus and CardAiMemory assignment fixes; explicit transaction probes, not natural game",
+  "original_report": "game-transactions-differential.json",
+  "original_report_sha256": "6a9f649a427c24838cc67adec09e59cd51d6b2935854219934e854df5abfba3b",
+  "regression_report_sha256": "fd9e60e261783354eff5dc9f4c6183e39696d44205ade94f9ee44ead39563d40",
+  "episodes": 24,
+  "commands": 18648,
+  "all_episode_input_state_hashes_and_counts_identical": true
+}

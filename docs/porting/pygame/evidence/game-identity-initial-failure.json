@@ -1,0 +1,8 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "generator_seed": 2026102401,
+  "scope": "original transaction replay and scoped presentation probes; explicit field/reset/RNG test commands, not game long play",
+  "status": "failed",
+  "episodes": [],
+  "failure": "图0/种0/步2/a 25 DAT不同offset=44"
+}

@@ -1,0 +1,393 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "generator_seed": 2026102401,
+  "scope": "escaped World/PlayerStatus/embedded-array references through original assignment; explicit private probes, not game turns",
+  "status": "passed",
+  "episodes": [
+    {
+      "map": 0,
+      "seed": 0,
+      "commands": 6,
+      "operations": {
+        "r": 2,
+        "q": 1,
+        "a": 1,
+        "S": 2
+      },
+      "statuses": {
+        "0": 6
+      },
+      "state_sha256": "be428c3f5cd8048bab4397cb10a9571f17dce558ee498bee4df00b26c200a8a0",
+      "input_sha256": "098c6c70d7758c7e69dc59e8aa8db8d459e67933f29733737f9ef8ce040c3126"
+    },
+    {
+      "map": 0,
+      "seed": 1,
+      "commands": 6,
+      "operations": {
+        "r": 2,
+        "q": 1,
+        "a": 1,
+        "S": 2
+      },
+      "statuses": {
+        "0": 6
+      },
+      "state_sha256": "f1f9e13e5f6f849719851a0706a2a5563f8f896d4faa518b05a97611fad9ca95",
+      "input_sha256": "098c6c70d7758c7e69dc59e8aa8db8d459e67933f29733737f9ef8ce040c3126"
+    },
+    {
+      "map": 0,
+      "seed": 4294967295,
+      "commands": 6,
+      "operations": {
+        "r": 2,
+        "q": 1,
+        "a": 1,
+        "S": 2
+      },
+      "statuses": {
+        "0": 6
+      },
+      "state_sha256": "97ba66f21ef2486645ceb5ad66ef916c413f0d6fd7d0ae4a2ed3fec508fdf785",
+      "input_sha256": "098c6c70d7758c7e69dc59e8aa8db8d459e67933f29733737f9ef8ce040c3126"
+    },
+    {
+      "map": 1,
+      "seed": 0,
+      "commands": 6,
+      "operations": {
+        "r": 2,
+        "q": 1,
+        "a": 1,
+        "S": 2
+      },
+      "statuses": {
+        "0": 6
+      },
+      "state_sha256": "985ad4c124e6365b106a14e2fb44347f65c4219c304f08fafde844c009868994",
+      "input_sha256": "098c6c70d7758c7e69dc59e8aa8db8d459e67933f29733737f9ef8ce040c3126"
+    },
+    {
+      "map": 1,
+      "seed": 1,
+      "commands": 6,
+      "operations": {
+        "r": 2,
+        "q": 1,
+        "a": 1,
+        "S": 2
+      },
+      "statuses": {
+        "0": 6
+      },
+      "state_sha256": "2b5ce71a757e722fe494cf02f6610dd6c71afcad1853690948bf03182de33766",
+      "input_sha256": "098c6c70d7758c7e69dc59e8aa8db8d459e67933f29733737f9ef8ce040c3126"
+    },
+    {
+      "map": 1,
+      "seed": 4294967295,
+      "commands": 6,
+      "operations": {
+        "r": 2,
+        "q": 1,
+        "a": 1,
+        "S": 2
+      },
+      "statuses": {
+        "0": 6
+      },
+      "state_sha256": "d6048b3a1df4c8cd2d691f5befa72d35402d82dbecab641fee17deffd3dd8c2a",
+      "input_sha256": "098c6c70d7758c7e69dc59e8aa8db8d459e67933f29733737f9ef8ce040c3126"
+    },
+    {
+      "map": 2,
+      "seed": 0,
+      "commands": 6,
+      "operations": {
+        "r": 2,
+        "q": 1,
+        "a": 1,
+        "S": 2
+      },
+      "statuses": {
+        "0": 6
+      },
+      "state_sha256": "5b03da138a3b23311fc78f5d4cdd4f21aa0b06aa91d20b81fa171094a08c0bcf",
+      "input_sha256": "098c6c70d7758c7e69dc59e8aa8db8d459e67933f29733737f9ef8ce040c3126"
+    },
+    {
+      "map": 2,
+      "seed": 1,
+      "commands": 6,
+      "operations": {
+        "r": 2,
+        "q": 1,
+        "a": 1,
+        "S": 2
+      },
+      "statuses": {
+        "0": 6
+      },
+      "state_sha256": "23bab1312cdc468a50598b722e18d674896c1d9b29ff1aa5d40020e94362c14f",
+      "input_sha256": "098c6c70d7758c7e69dc59e8aa8db8d459e67933f29733737f9ef8ce040c3126"
+    },
+    {
+      "map": 2,
+      "seed": 4294967295,
+      "commands": 6,
+      "operations": {
+        "r": 2,
+        "q": 1,
+        "a": 1,
+        "S": 2
+      },
+      "statuses": {
+        "0": 6
+      },
+      "state_sha256": "6619f080bffbd1af3a0785fcea0a6cb34b3a9073b6b50147ce61164d9bc6b5da",
+      "input_sha256": "098c6c70d7758c7e69dc59e8aa8db8d459e67933f29733737f9ef8ce040c3126"
+    },
+    {
+      "map": 3,
+      "seed": 0,
+      "commands": 6,
+      "operations": {
+        "r": 2,
+        "q": 1,
+        "a": 1,
+        "S": 2
+      },
+      "statuses": {
+        "0": 6
+      },
+      "state_sha256": "f8f56644f987d52a3f935a2074fca7138c954018bc2bd2aecf11aad388e39974",
+      "input_sha256": "098c6c70d7758c7e69dc59e8aa8db8d459e67933f29733737f9ef8ce040c3126"
+    },
+    {
+      "map": 3,
+      "seed": 1,
+      "commands": 6,
+      "operations": {
+        "r": 2,
+        "q": 1,
+        "a": 1,
+        "S": 2
+      },
+      "statuses": {
+        "0": 6
+      },
+      "state_sha256": "bf151a240e9cdf5d8a6f6ba8f208c7da12305d3e69b7305747605e3aa49b7b5e",
+      "input_sha256": "098c6c70d7758c7e69dc59e8aa8db8d459e67933f29733737f9ef8ce040c3126"
+    },
+    {
+      "map": 3,
+      "seed": 4294967295,
+      "commands": 6,
+      "operations": {
+        "r": 2,
+        "q": 1,
+        "a": 1,
+        "S": 2
+      },
+      "statuses": {
+        "0": 6
+      },
+      "state_sha256": "8896309d1c8ae2defd9d324aa9cb9884b08b815bf7a26173dcc31c5388ee6278",
+      "input_sha256": "098c6c70d7758c7e69dc59e8aa8db8d459e67933f29733737f9ef8ce040c3126"
+    },
+    {
+      "map": 4,
+      "seed": 0,
+      "commands": 6,
+      "operations": {
+        "r": 2,
+        "q": 1,
+        "a": 1,
+        "S": 2
+      },
+      "statuses": {
+        "0": 6
+      },
+      "state_sha256": "e68ce327a05860705119ccd0177a28720ee037ed60bf08c0c4e53aea5b4c209a",
+      "input_sha256": "098c6c70d7758c7e69dc59e8aa8db8d459e67933f29733737f9ef8ce040c3126"
+    },
+    {
+      "map": 4,
+      "seed": 1,
+      "commands": 6,
+      "operations": {
+        "r": 2,
+        "q": 1,
+        "a": 1,
+        "S": 2
+      },
+      "statuses": {
+        "0": 6
+      },
+      "state_sha256": "e77efd54cafbfef1d5dfeb7f2298d039abf72f061a872819e963095a42615560",
+      "input_sha256": "098c6c70d7758c7e69dc59e8aa8db8d459e67933f29733737f9ef8ce040c3126"
+    },
+    {
+      "map": 4,
+      "seed": 4294967295,
+      "commands": 6,
+      "operations": {
+        "r": 2,
+        "q": 1,
+        "a": 1,
+        "S": 2
+      },
+      "statuses": {
+        "0": 6
+      },
+      "state_sha256": "7f0b6f8fccf66954946acb7ff85df751f0497d5fedf19f8fc07dd69934b08dc9",
+      "input_sha256": "098c6c70d7758c7e69dc59e8aa8db8d459e67933f29733737f9ef8ce040c3126"
+    },
+    {
+      "map": 5,
+      "seed": 0,
+      "commands": 6,
+      "operations": {
+        "r": 2,
+        "q": 1,
+        "a": 1,
+        "S": 2
+      },
+      "statuses": {
+        "0": 6
+      },
+      "state_sha256": "bec200b8587f96f5f58b072fd9c36504264a92521d0283c38f9375c1be943e17",
+      "input_sha256": "098c6c70d7758c7e69dc59e8aa8db8d459e67933f29733737f9ef8ce040c3126"
+    },
+    {
+      "map": 5,
+      "seed": 1,
+      "commands": 6,
+      "operations": {
+        "r": 2,
+        "q": 1,
+        "a": 1,
+        "S": 2
+      },
+      "statuses": {
+        "0": 6
+      },
+      "state_sha256": "fee196c8ef94a051494ee720d72bada00815300930c9cd862f0dfff93d772c8d",
+      "input_sha256": "098c6c70d7758c7e69dc59e8aa8db8d459e67933f29733737f9ef8ce040c3126"
+    },
+    {
+      "map": 5,
+      "seed": 4294967295,
+      "commands": 6,
+      "operations": {
+        "r": 2,
+        "q": 1,
+        "a": 1,
+        "S": 2
+      },
+      "statuses": {
+        "0": 6
+      },
+      "state_sha256": "f6fd1e1063aa3f2630f596129610008f3dc4a708718dc71ed1899c3ab4dc87ac",
+      "input_sha256": "098c6c70d7758c7e69dc59e8aa8db8d459e67933f29733737f9ef8ce040c3126"
+    },
+    {
+      "map": 6,
+      "seed": 0,
+      "commands": 6,
+      "operations": {
+        "r": 2,
+        "q": 1,
+        "a": 1,
+        "S": 2
+      },
+      "statuses": {
+        "0": 6
+      },
+      "state_sha256": "efba5101f73dea522c01ce4add62fbe73b2d7b4085bc1754bd91b073c22191d6",
+      "input_sha256": "098c6c70d7758c7e69dc59e8aa8db8d459e67933f29733737f9ef8ce040c3126"
+    },
+    {
+      "map": 6,
+      "seed": 1,
+      "commands": 6,
+      "operations": {
+        "r": 2,
+        "q": 1,
+        "a": 1,
+        "S": 2
+      },
+      "statuses": {
+        "0": 6
+      },
+      "state_sha256": "1786e023e6957b3555f91f135ef819c18058c1bd336402767ea4f905d1a08e39",
+      "input_sha256": "098c6c70d7758c7e69dc59e8aa8db8d459e67933f29733737f9ef8ce040c3126"
+    },
+    {
+      "map": 6,
+      "seed": 4294967295,
+      "commands": 6,
+      "operations": {
+        "r": 2,
+        "q": 1,
+        "a": 1,
+        "S": 2
+      },
+      "statuses": {
+        "0": 6
+      },
+      "state_sha256": "c30404492a27bc817ae35473309c7814f730c6981a246d624996bbb2d571f46a",
+      "input_sha256": "098c6c70d7758c7e69dc59e8aa8db8d459e67933f29733737f9ef8ce040c3126"
+    },
+    {
+      "map": 7,
+      "seed": 0,
+      "commands": 6,
+      "operations": {
+        "r": 2,
+        "q": 1,
+        "a": 1,
+        "S": 2
+      },
+      "statuses": {
+        "0": 6
+      },
+      "state_sha256": "efd474460d2d3e90db0b2a622e560a27801da85cd3c4e765e0a7711de95638eb",
+      "input_sha256": "098c6c70d7758c7e69dc59e8aa8db8d459e67933f29733737f9ef8ce040c3126"
+    },
+    {
+      "map": 7,
+      "seed": 1,
+      "commands": 6,
+      "operations": {
+        "r": 2,
+        "q": 1,
+        "a": 1,
+        "S": 2
+      },
+      "statuses": {
+        "0": 6
+      },
+      "state_sha256": "0a1aa1b41514b455a4b775e5402937de5ba02f244f542fe2c1fbb5943d66afe9",
+      "input_sha256": "098c6c70d7758c7e69dc59e8aa8db8d459e67933f29733737f9ef8ce040c3126"
+    },
+    {
+      "map": 7,
+      "seed": 4294967295,
+      "commands": 6,
+      "operations": {
+        "r": 2,
+        "q": 1,
+        "a": 1,
+        "S": 2
+      },
+      "statuses": {
+        "0": 6
+      },
+      "state_sha256": "cbd787f48032e02ed227d3ea2d7cb59a3b5cb3b05eb73761895875e7427438c7",
+      "input_sha256": "098c6c70d7758c7e69dc59e8aa8db8d459e67933f29733737f9ef8ce040c3126"
+    }
+  ],
+  "identity_only": true
+}
