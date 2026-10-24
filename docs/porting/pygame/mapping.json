@@ -11359,5 +11359,70 @@
       "tests/test_save_slot_screen.py",
       "evidence/options-slots-differential.json"
     ]
+  },
+  "tools/screens/menus.cpp:17": {
+    "python": [
+      "pygame/src/rich4/player_info_screen.py::玩家查询_类._画资产/_画地产/api_绘制"
+    ],
+    "status": "已实现，实际格式调用内联/原玩家查询组件画布与状态差分；完整主应用未验",
+    "evidence": [
+      "PLAYER_INFO.md",
+      "tests/test_player_info_screen.py",
+      "evidence/player-info-differential.json"
+    ]
+  },
+  "tools/screens/menus.cpp:487": {
+    "python": [
+      "pygame/src/rich4/player_info_screen.py::玩家查询_类.api_绘制"
+    ],
+    "status": "已实现，实际格式调用内联/原玩家查询组件画布与状态差分；完整主应用未验",
+    "evidence": [
+      "PLAYER_INFO.md",
+      "tests/test_player_info_screen.py",
+      "evidence/player-info-differential.json"
+    ]
+  },
+  "tools/screens/menus.cpp:537": {
+    "python": [
+      "pygame/src/rich4/player_info_screen.py::玩家查询_类._画资产/_统计"
+    ],
+    "status": "已实现，实际格式调用内联/原玩家查询组件画布与状态差分；完整主应用未验",
+    "evidence": [
+      "PLAYER_INFO.md",
+      "tests/test_player_info_screen.py",
+      "evidence/player-info-differential.json"
+    ]
+  },
+  "tools/screens/menus.cpp:598": {
+    "python": [
+      "pygame/src/rich4/player_info_screen.py::玩家查询_类._画地产/_地产行"
+    ],
+    "status": "已实现，实际格式调用内联/原玩家查询组件画布与状态差分；完整主应用未验",
+    "evidence": [
+      "PLAYER_INFO.md",
+      "tests/test_player_info_screen.py",
+      "evidence/player-info-differential.json"
+    ]
+  },
+  "tools/screens/menus.cpp:678": {
+    "python": [
+      "pygame/src/rich4/player_info_screen.py::玩家查询_类._画股票"
+    ],
+    "status": "已实现，实际格式调用内联/原玩家查询组件画布与状态差分；完整主应用未验",
+    "evidence": [
+      "PLAYER_INFO.md",
+      "tests/test_player_info_screen.py",
+      "evidence/player-info-differential.json"
+    ]
+  },
+  "tools/screens/menus.hpp:151": {
+    "python": [
+      "pygame/src/rich4/player_info_screen.py::玩家查询_类.api_打开"
+    ],
+    "status": "已实现，组件状态差分",
+    "evidence": [
+      "PLAYER_INFO.md",
+      "evidence/player-info-differential.json"
+    ]
   }
 }

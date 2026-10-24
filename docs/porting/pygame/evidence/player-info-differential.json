@@ -1,0 +1,21 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 4172,
+  "painted_frames": 1872,
+  "scope": "direct original PlayerInfo, real maps and world records, private state and query callbacks, real sprites, internal state and callbacks; not actual window/financial rule integration",
+  "font_sha256": "4b450afb2c61d7529fe05647316e9fc3137ea703a664bded5bca895a5c30748c",
+  "mode": "base",
+  "runtime_sha256": {
+    "player_info_screen.py": "c45fe74bf9379d03bbeb84a9c1f8f0a3b9a42652972e47d88fadeb10f978f1b8",
+    "player_info_types.py": "5703bf788f6c8be9416762955c8d77b2392e1e3fef08542580f7e29099edb240",
+    "original_text.py": "a06361cb889309fb58b45a554f47c46f7e988b1c9524df1980a3f93af46d3ffd",
+    "screen_draw.py": "082a3b0d67c61a0ad903adf4dae70847b4b67f3fedaa2f7ad83049942cbd0d28"
+  },
+  "python_sha256": "c45fe74bf9379d03bbeb84a9c1f8f0a3b9a42652972e47d88fadeb10f978f1b8",
+  "last_command": "D 0 -1 -1 0",
+  "last_index": 4171,
+  "state_sha256": "f1cf562748540ee5c0da4a1ca44d4b989e920d68d2b96a8e20776ea244f6aec5",
+  "input_sha256": "898e9466cc941fb03dd5df245308e8e28e26dba01c1e329dcea44550bb56e34e",
+  "compared_pixels": 575078400
+}

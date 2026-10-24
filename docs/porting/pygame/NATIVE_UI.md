@@ -130,3 +130,7 @@ uv run --project pygame python pygame/tools/benchmark_main_screen.py \
 ## 选项与存读档槽组件增量（2026-10-24）
 
 原配置控件/确认、六读五存槽已做2133完整画布及状态/回调差分，曲名外部读取；真实保存恢复与音频等未验项见 [选项与存档槽](OPTIONS_SAVE_SLOTS.md)。
+
+## 玩家查询组件增量（2026-10-24）
+
+三页/五分类查询已对照1872完整画布，原栋数/滚动/估价口径和未验范围见 [玩家查询](PLAYER_INFO.md)。

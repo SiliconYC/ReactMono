@@ -61,3 +61,5 @@
 原Data1主菜单与Jump新局设置/骑乘/私有MT见 [主菜单与新局](MAIN_MENU_SETUP.md)，完整应用仍待接通其真实回调。
 
 原Data3选项与Data520存读档槽见 [选项与存档槽](OPTIONS_SAVE_SLOTS.md)，真实文件/音频及完整应用仍待接通。
+
+原Panel9资产/地产/股票查询和源码估价口径见 [玩家查询](PLAYER_INFO.md)，完整主应用接线仍在实施。
