@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "scope": "Python original codecs versus fresh open-format file reads; no new C++ full-frame/OS/manual claim",
+  "statistics": {
+    "sprite_frames": 13034,
+    "entries": 2673,
+    "pictures": 240,
+    "animation_frames": 3099,
+    "mask_entries": 3,
+    "data_entries": 124,
+    "grounds": 8,
+    "wav_entries": 1473,
+    "midi_files": 25,
+    "verified_files": 20558,
+    "asset_bytes": 280640575
+  },
+  "manifest_sha256": "b415ed604a3248399a0bc8bb33206d1f210c8f7bee30d4bff43450365424720b",
+  "last_entry": [
+    "h",
+    99
+  ],
+  "content_sha256": "5266730048a7f676cf144a584682b632dae04fe6647c3a5f0c4ad3dddf497d1d"
+}

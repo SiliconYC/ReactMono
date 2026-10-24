@@ -29,3 +29,10 @@ select = ["E", "F", "I"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/rich4"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src/**/*.py", "/tests/**/*.py", "/tools/**/*.py",
+    "/.gitignore", "/AGENTS.md", "/LICENSE", "/NOTICE.md", "/README.md",
+    "/pyproject.toml", "/uv.lock",
+]
