@@ -18663,9 +18663,16 @@
       "id": "tools/screens/items.cpp:165",
       "declarator": "option_of(const GameDecision &decision, std::int32_t value)",
       "end_line": 170,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_choice_screens.py::物品选择绘制_类._选项"
+      ],
+      "status": "已实现，直接原组件画布/状态/完整DAT及实际骰子/抢夺选择差分；重置旧选择缺陷另记，正式应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_targets.py",
+        "evidence/item-targets-differential.json",
+        "evidence/item-targets-reset-edge.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:171",
@@ -18845,9 +18852,16 @@
       "id": "tools/screens/items.cpp:461",
       "declarator": "Screens::draw_targets(Frame &frame, const GameDecision &decision, const board::Camera &camera,\n                           std::optional<std::size_t> selected, const std::function<void(std::size_t)> &tap)",
       "end_line": 541,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_targets.py::地图目标绘制_类.api_绘制 + 物品选择绘制_类.api_画地图目标"
+      ],
+      "status": "已实现，直接原组件画布/状态/完整DAT及实际骰子/抢夺选择差分；重置旧选择缺陷另记，正式应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_targets.py",
+        "evidence/item-targets-differential.json",
+        "evidence/item-targets-reset-edge.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:544",
@@ -18861,25 +18875,46 @@
       "id": "tools/screens/items.cpp:596",
       "declarator": "Screens::draw_remote_dice(Frame &frame, const GameDecision &decision, const Host &host)",
       "end_line": 612,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_choice_screens.py::物品选择绘制_类.api_画遥控骰"
+      ],
+      "status": "已实现，直接原组件画布/状态/完整DAT及实际骰子/抢夺选择差分；重置旧选择缺陷另记，正式应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_targets.py",
+        "evidence/item-targets-differential.json",
+        "evidence/item-targets-reset-edge.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:618",
       "declarator": "Screens::draw_steal(Frame &frame, GameSession &session, const GameDecision &decision, const Host &host)",
       "end_line": 680,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_choice_screens.py::物品选择绘制_类.api_画抢夺"
+      ],
+      "status": "已实现，直接原组件画布/状态/完整DAT及实际骰子/抢夺选择差分；重置旧选择缺陷另记，正式应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_targets.py",
+        "evidence/item-targets-differential.json",
+        "evidence/item-targets-reset-edge.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:685",
       "declarator": "Screens::draw_frame_up(Frame &frame, GameSession &session, const GameDecision &decision,\n                            const Host &host)",
       "end_line": 725,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_choice_screens.py::物品选择绘制_类.api_画嫁祸"
+      ],
+      "status": "已实现，直接原组件画布/状态/完整DAT及实际骰子/抢夺选择差分；重置旧选择缺陷另记，正式应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_targets.py",
+        "evidence/item-targets-differential.json",
+        "evidence/item-targets-reset-edge.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:736",

@@ -1,0 +1,24 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 402,
+  "painted_frames": 107,
+  "scope": "direct original target/dice/steal/frame-up screens, real maps and assets, explicit display fixtures and actual GameSession dice/steal choices, phase/RNG and complete World DAT, real sprites, internal state and callbacks; not actual window or full Application integration",
+  "font_sha256": "4b450afb2c61d7529fe05647316e9fc3137ea703a664bded5bca895a5c30748c",
+  "mode": "core-only",
+  "runtime_sha256": {
+    "item_screens.py": "2035ae9ae47a00694510baa1e7a8756eefe36c5368c8799fd46699191dae7c58",
+    "item_choice_screens.py": "8131fa9d5e4da941825f6c836a30d76529982f56852962a7bd539b33f219cf0b",
+    "item_targets.py": "3fb12fe60d67cfb87e0ef1a4e3a29d8770e98b7976615a1806731b041a5cec70",
+    "item_paint.py": "2a2890b4dd25fb60e302e2e9fa779a8e1ad70f88107605674391e7bee7bb6c99",
+    "item_screen_types.py": "ae1cc8cbad6e504c1172b60711ce3a07162783229faab091e1309228c423bb80",
+    "message_overlay.py": "60ec398e580f54b43b6740ed127333ca5f6545bb8a1297bed28663ac8482c314",
+    "native_frame.py": "1ddef472fc701130a3d25246ebbbc5b266dfe8b383b7d20252b6b81b9a87fafa"
+  },
+  "python_sha256": "2035ae9ae47a00694510baa1e7a8756eefe36c5368c8799fd46699191dae7c58",
+  "last_command": "C -1",
+  "last_index": 401,
+  "state_sha256": "656800589e6f7803ede959c08b2e1e6955e0b9b5a78dc832d282659902c71d88",
+  "input_sha256": "cb630ea9ce99bf9e7a2adc0e34d07d8a4564a00bf8b4e9173e34c167c08063e9",
+  "compared_pixels": 32870400
+}
