@@ -73,3 +73,28 @@ uv run --project pygame python pygame/tools/differential_native_frame.py \
   --font '/System/Library/Fonts/Hiragino Sans GB.ttc' \
   --report .research-cache/native-frame-repeat.json
 ```
+
+## 单色文字性能增量（2026-10-24）
+
+主屏日历暖缓存绘制仍超出28毫秒骰子帧间隔。剖析一帧得到总46毫秒、302次`Font.draw`共39毫秒；原单色模式的每个遮罩值已是0或255，仍逐像素做三通道混合造成主要开销。现复用原图像的不可变连续行段缓存，以列表切片写入RGB555。灰度分支不变，字体/字号/描粗/时钟/动画帧未简化。
+
+这里不能直接调用普通透明blit：黑字颜色0必须被写入，原字体也不更新目标透明遮罩；满覆盖时原混合会清除颜色最高位。两项新增测试明确保护黑字、目标遮罩、裁切与最高位，完整Python396/396、Ruff通过。
+
+同一机器/字体/世界、每视图预热五帧并测量40帧：
+
+| 主屏视图 | 优化前中位数（毫秒） | 优化后中位数（毫秒） | 优化后P95（毫秒） |
+| --- | --- | --- | --- |
+| 0 | 45.84 | 7.90 | 10.39 |
+| 1 | 10.77 | 4.71 | 4.95 |
+| 2 | 40.76 | 6.94 | 7.40 |
+
+[前测](evidence/main-screen-font-before.json)和[后测](evidence/main-screen-font-after.json)保留平台、字体/实现哈希与范围。这只测暖缓存主屏界面CPU绘制，没有板面、SDL窗口、声音，不得换算为完整游戏FPS；地图冷相机中心停顿仍未解决。
+
+完整重跑66493字体命令、308画布，以及原MainScreen两组3620完整画布；所有输入/状态/像素摘要与优化前报告相同，见[字体回归](evidence/native-ui-spans.json)及[主屏回归](evidence/main-screen-font-regression.json)。没有为了性能略过动画帧或更换字体。
+
+```sh
+uv run --project pygame python pygame/tools/benchmark_main_screen.py \
+  --assets /Users/laocao/Downloads/Rich4 \
+  --font '/System/Library/Fonts/Hiragino Sans GB.ttc' \
+  --samples 40 --report .research-cache/main-screen-font-benchmark.json
+```

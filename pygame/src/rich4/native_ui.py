@@ -26,7 +26,7 @@ class 原生界面_类:
         片, 位 = [], 0
         while 位 < len(arg_文):
             跳 = 2 if arg_文[位] >= 0x81 and 位 + 1 < len(arg_文) else 1
-            字 = arg_文[位:位 + 跳]
+            字 = arg_文[位 : 位 + 跳]
             # Python的CP950复用了Big5日文区；原iconv CP950拒绝这249项。
             if 跳 == 2 and 0xC6A1 <= int.from_bytes(字, "big") <= 0xC7FC:
                 片.append("?")
@@ -242,6 +242,7 @@ class 字体_类:
 
     更新日志：
     2026.10.24 - 支持宿主FreeType及Pygame随附库；字体本身从外部读取。
+    2026.10.24 - 原单色遮罩用连续行段复制，不改变灰度路径或目标透明遮罩。
     """
 
     @staticmethod
@@ -364,6 +365,28 @@ class 字体_类:
             x += 字.前进 + arg_间距
         return 框
 
+    @staticmethod
+    def _绘二值(
+        arg_图: 图像_类,
+        arg_字: 字形_类,
+        arg_x: int,
+        arg_y: int,
+        arg_色: int,
+    ) -> None:
+        左, 右 = max(0, arg_x), min(arg_图.宽, arg_x + arg_字.宽)
+        顶, 底 = max(0, arg_y), min(arg_图.高, arg_y + arg_字.高)
+        if 左 >= 右 or 顶 >= 底:
+            return
+        # 原单色只有0/255，覆盖时RGB555最高位被丢弃。普通blit会更新目标掩码，不能代用。
+        段表 = 图像_类._不透明段(arg_字.遮罩, arg_字.宽)
+        色 = arg_色 & 32767
+        for y in range(顶, 底):
+            for 段左, 段右 in 段表[y - arg_y]:
+                开, 末 = max(左, arg_x + 段左), min(右, arg_x + 段右)
+                if 开 < 末:
+                    i = y * arg_图.宽 + 开
+                    arg_图.像素[i : i + 末 - 开] = [色] * (末 - 开)
+
     def api_绘制(
         self,
         arg_图: 图像_类,
@@ -383,6 +406,10 @@ class 字体_类:
             字 = self._字形(号, arg_大小, arg_单色)
             if arg_折宽 > 0 and x > 起x and x + 字.前进 > 起x + arg_折宽:
                 x, y = 起x, y + arg_大小 + 5
+            if arg_单色:
+                self._绘二值(arg_图, 字, x + 字.左, y + arg_大小 - 字.顶, arg_色)
+                x += 字.前进
+                continue
             for 行 in range(字.高):
                 dy = y + arg_大小 - 字.顶 + 行
                 if not 0 <= dy < arg_图.高:
