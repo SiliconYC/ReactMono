@@ -3,6 +3,7 @@
 # ◑ 导入
 from collections.abc import Callable
 from dataclasses import dataclass
+from functools import lru_cache
 
 from rich4.calendar import 日期_类
 from rich4.graphics import 图像_类
@@ -50,6 +51,7 @@ class 屏幕绘图_类:
 
     更新日志：
     2026.10.24 - 绘图保留RGB555与独立透明掩码，局部图片坐标不改游戏投影。
+    2026.10.24 - 暗化使用有界RGB555查表，保留原整数截断与最高位/遮罩语义。
     """
 
     白字 = 屏幕字样_类()
@@ -157,12 +159,26 @@ class 屏幕绘图_类:
     @classmethod
     def api_暗化(cls, arg_图: 图像_类, arg_框: tuple[int, int, int, int], arg_级: int) -> None:
         左, 顶, 右, 底 = cls._范围(arg_图, arg_框)
-        倍 = min(max(32 + arg_级, 0), 32)
+        if 右 <= 左 or 底 <= 顶:
+            return
+        表 = cls._暗表(min(max(32 + arg_级, 0), 32))
         for y in range(顶, 底):
-            for x in range(左, 右):
-                i = y * arg_图.宽 + x
-                色 = arg_图.像素[i]
-                arg_图.像素[i] = sum((((色 >> s) & 31) * 倍 // 32) << s for s in (0, 5, 10))
+            起, 终 = y * arg_图.宽 + 左, y * arg_图.宽 + 右
+            arg_图.像素[起:终] = [表[色 & 32767] for 色 in arg_图.像素[起:终]]
+
+    @staticmethod
+    @lru_cache(maxsize=8)
+    def _暗表(arg_倍: int) -> tuple[int, ...]:
+        if arg_倍 == 0:
+            return (0,) * 32768
+        if arg_倍 == 32:
+            return tuple(range(32768))
+        return tuple(
+            (((色 >> 10) & 31) * arg_倍 // 32) << 10
+            | (((色 >> 5) & 31) * arg_倍 // 32) << 5
+            | ((色 & 31) * arg_倍 // 32)
+            for 色 in range(32768)
+        )
 
     @classmethod
     def api_灰阶(cls, arg_图: 图像_类, arg_框: tuple[int, int, int, int]) -> None:

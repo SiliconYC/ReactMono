@@ -101,6 +101,7 @@ class 画框差分_类:
         arg_素材: Path,
         arg_字体: Path,
         arg_报告: Path,
+        arg_暗化网格: bool = False,
     ) -> None:
         版 = subprocess.check_output(
             ["git", "-C", str(arg_源码), "rev-parse", "HEAD"], text=True
@@ -137,10 +138,18 @@ class 画框差分_类:
         )
         美术, 字, 绘 = 美术_类(arg_素材), 字体_类(arg_字体), 屏幕绘图_类()
         世界 = 世界_类.api_从地图(美术.api_解码("m", 1))
-        组 = cls._命令(美术)
+        if arg_暗化网格:
+            组 = [f"X 0 0 0 640 480 {v}" for v in (*range(-32, 1), -100, 1, 32)]
+            组 += [
+                f"X 32768 {x} {y} {r} {b} -16"
+                for x, y, r, b in ((-20, -20, 20, 20), (20, 10, 10, 5), (600, 470, 660, 490))
+            ]
+        else:
+            组 = cls._命令(美术)
         报 = {
             "reference": 版,
             "generator_seed": 2026102403,
+            "darken_grid": arg_暗化网格,
             "status": "running",
             "font_sha256": hashlib.sha256(arg_字体.read_bytes()).hexdigest(),
             "freetype_library": 字.库路径,
@@ -286,5 +295,8 @@ if __name__ == "__main__":
     参数 = argparse.ArgumentParser()
     for 键 in ("source", "build", "assets", "font", "report"):
         参数.add_argument("--" + 键, type=Path, required=True)
+    参数.add_argument("--darken-grid", action="store_true")
     选项 = 参数.parse_args()
-    画框差分_类.api_执行(选项.source, 选项.build, 选项.assets, 选项.font, 选项.report)
+    画框差分_类.api_执行(
+        选项.source, 选项.build, 选项.assets, 选项.font, 选项.report, 选项.darken_grid
+    )

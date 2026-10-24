@@ -8421,7 +8421,10 @@
     "evidence": [
       "tests/test_native_frame.py",
       "NATIVE_UI.md",
-      "evidence/native-frame-differential.json"
+      "evidence/native-frame-differential.json",
+      "MONTHLY.md",
+      "evidence/native-frame-darken-grid.json",
+      "evidence/native-frame-darken-regression.json"
     ]
   },
   "tools/screens/draw.cpp:122": {
@@ -9716,12 +9719,13 @@
   },
   "tools/screens/monthly.cpp:119": {
     "python": [
-      "pygame/src/rich4/presentation_queue.py::呈现队列_类.api_泵"
+      "pygame/src/rich4/monthly_screen.py::月报屏幕_类.api_处理"
     ],
-    "status": "仅本handles效果判定已转写并与原函数对照；完整专属屏幕仍未移植",
+    "status": "已实现，真实画布/完整状态/影片指纹/声音请求直接差分；完整应用待接线",
     "evidence": [
-      "PRESENTATION_QUEUE.md",
-      "evidence/presentation-queue-differential.json"
+      "MONTHLY.md",
+      "tests/test_monthly_screen.py",
+      "evidence/monthly-screen-differential.json"
     ]
   },
   "tools/native_game.cpp:1090": {
@@ -9967,6 +9971,257 @@
     "evidence": [
       "SPINNERS.md",
       "evidence/spinner-screen-lifecycle.json"
+    ]
+  },
+  "tools/screens/monthly.cpp:35": {
+    "python": [
+      "pygame/src/rich4/monthly_common.py::月报共用_类._钱"
+    ],
+    "status": "已实现，真实画布/完整状态/影片指纹/声音请求直接差分；完整应用待接线",
+    "evidence": [
+      "MONTHLY.md",
+      "tests/test_monthly_screen.py",
+      "evidence/monthly-screen-differential.json"
+    ]
+  },
+  "tools/screens/monthly.cpp:38": {
+    "python": [
+      "pygame/src/rich4/monthly_common.py::月报共用_类._槽"
+    ],
+    "status": "已实现，真实画布/完整状态/影片指纹/声音请求直接差分；完整应用待接线",
+    "evidence": [
+      "MONTHLY.md",
+      "tests/test_monthly_screen.py",
+      "evidence/monthly-screen-differential.json"
+    ]
+  },
+  "tools/screens/monthly.cpp:41": {
+    "python": [
+      "pygame/src/rich4/monthly_common.py::月报共用_类._槽"
+    ],
+    "status": "已实现，真实画布/完整状态/影片指纹/声音请求直接差分；完整应用待接线",
+    "evidence": [
+      "MONTHLY.md",
+      "tests/test_monthly_screen.py",
+      "evidence/monthly-screen-differential.json"
+    ]
+  },
+  "tools/screens/monthly.cpp:48": {
+    "python": [
+      "pygame/src/rich4/monthly_common.py::月报共用_类._角色"
+    ],
+    "status": "已实现，真实画布/完整状态/影片指纹/声音请求直接差分；完整应用待接线",
+    "evidence": [
+      "MONTHLY.md",
+      "tests/test_monthly_screen.py",
+      "evidence/monthly-screen-differential.json"
+    ]
+  },
+  "tools/screens/monthly.cpp:51": {
+    "python": [
+      "pygame/src/rich4/monthly_common.py::月报共用_类._姓名"
+    ],
+    "status": "已实现，真实画布/完整状态/影片指纹/声音请求直接差分；完整应用待接线",
+    "evidence": [
+      "MONTHLY.md",
+      "tests/test_monthly_screen.py",
+      "evidence/monthly-screen-differential.json"
+    ]
+  },
+  "tools/screens/monthly.cpp:55": {
+    "python": [
+      "pygame/src/rich4/monthly_common.py::月报共用_类._装饰"
+    ],
+    "status": "已实现，真实画布/完整状态/影片指纹/声音请求直接差分；完整应用待接线",
+    "evidence": [
+      "MONTHLY.md",
+      "tests/test_monthly_screen.py",
+      "evidence/monthly-screen-differential.json"
+    ]
+  },
+  "tools/screens/monthly.cpp:60": {
+    "python": [
+      "pygame/src/rich4/monthly_common.py::月报共用_类._贴"
+    ],
+    "status": "已实现，真实画布/完整状态/影片指纹/声音请求直接差分；完整应用待接线",
+    "evidence": [
+      "MONTHLY.md",
+      "tests/test_monthly_screen.py",
+      "evidence/monthly-screen-differential.json"
+    ]
+  },
+  "tools/screens/monthly.cpp:64": {
+    "python": [
+      "pygame/src/rich4/monthly_common.py::月报共用_类._开片"
+    ],
+    "status": "已实现，真实画布/完整状态/影片指纹/声音请求直接差分；完整应用待接线",
+    "evidence": [
+      "MONTHLY.md",
+      "tests/test_monthly_screen.py",
+      "evidence/monthly-screen-differential.json"
+    ]
+  },
+  "tools/screens/monthly.cpp:222": {
+    "python": [
+      "pygame/src/rich4/monthly_common.py::月报共用_类._画股利"
+    ],
+    "status": "已实现，真实画布/完整状态/影片指纹/声音请求直接差分；完整应用待接线",
+    "evidence": [
+      "MONTHLY.md",
+      "tests/test_monthly_screen.py",
+      "evidence/monthly-screen-differential.json"
+    ]
+  },
+  "tools/screens/monthly.cpp:125": {
+    "python": [
+      "pygame/src/rich4/monthly_screen.py::月报屏幕_类.api_入队"
+    ],
+    "status": "已实现，真实画布/完整状态/影片指纹/声音请求直接差分；完整应用待接线",
+    "evidence": [
+      "MONTHLY.md",
+      "tests/test_monthly_screen.py",
+      "evidence/monthly-screen-differential.json"
+    ]
+  },
+  "tools/screens/monthly.cpp:131": {
+    "python": [
+      "pygame/src/rich4/monthly_screen.py::月报屏幕_类.api_清空"
+    ],
+    "status": "已实现，真实画布/完整状态/影片指纹/声音请求直接差分；完整应用待接线",
+    "evidence": [
+      "MONTHLY.md",
+      "tests/test_monthly_screen.py",
+      "evidence/monthly-screen-differential.json"
+    ]
+  },
+  "tools/screens/monthly.cpp:136": {
+    "python": [
+      "pygame/src/rich4/monthly_screen.py::月报屏幕_类.api_画面名"
+    ],
+    "status": "已实现，真实画布/完整状态/影片指纹/声音请求直接差分；完整应用待接线",
+    "evidence": [
+      "MONTHLY.md",
+      "tests/test_monthly_screen.py",
+      "evidence/monthly-screen-differential.json"
+    ]
+  },
+  "tools/screens/monthly.cpp:149": {
+    "python": [
+      "pygame/src/rich4/monthly_common.py::月报共用_类._说"
+    ],
+    "status": "已实现，真实画布/完整状态/影片指纹/声音请求直接差分；完整应用待接线",
+    "evidence": [
+      "MONTHLY.md",
+      "tests/test_monthly_screen.py",
+      "evidence/monthly-screen-differential.json"
+    ]
+  },
+  "tools/screens/monthly.cpp:157": {
+    "python": [
+      "pygame/src/rich4/monthly_screen.py::月报屏幕_类._开始"
+    ],
+    "status": "已实现，真实画布/完整状态/影片指纹/声音请求直接差分；完整应用待接线",
+    "evidence": [
+      "MONTHLY.md",
+      "tests/test_monthly_screen.py",
+      "evidence/monthly-screen-differential.json"
+    ]
+  },
+  "tools/screens/monthly.cpp:182": {
+    "python": [
+      "pygame/src/rich4/monthly_screen.py::月报屏幕_类.api_绘制"
+    ],
+    "status": "已实现，真实画布/完整状态/影片指纹/声音请求直接差分；完整应用待接线",
+    "evidence": [
+      "MONTHLY.md",
+      "tests/test_monthly_screen.py",
+      "evidence/monthly-screen-differential.json"
+    ]
+  },
+  "tools/screens/monthly.cpp:262": {
+    "python": [
+      "pygame/src/rich4/monthly_lottery.py::月报开奖_类._开奖步"
+    ],
+    "status": "已实现，真实画布/完整状态/影片指纹/声音请求直接差分；完整应用待接线",
+    "evidence": [
+      "MONTHLY.md",
+      "tests/test_monthly_screen.py",
+      "evidence/monthly-screen-differential.json"
+    ]
+  },
+  "tools/screens/monthly.cpp:409": {
+    "python": [
+      "pygame/src/rich4/monthly_lottery.py::月报开奖_类._画开奖"
+    ],
+    "status": "已实现，真实画布/完整状态/影片指纹/声音请求直接差分；完整应用待接线",
+    "evidence": [
+      "MONTHLY.md",
+      "tests/test_monthly_screen.py",
+      "evidence/monthly-screen-differential.json"
+    ]
+  },
+  "tools/screens/monthly.cpp:518": {
+    "python": [
+      "pygame/src/rich4/monthly_report.py::月报结算_类._月报步"
+    ],
+    "status": "已实现，真实画布/完整状态/影片指纹/声音请求直接差分；完整应用待接线",
+    "evidence": [
+      "MONTHLY.md",
+      "tests/test_monthly_screen.py",
+      "evidence/monthly-screen-differential.json"
+    ]
+  },
+  "tools/screens/monthly.cpp:683": {
+    "python": [
+      "pygame/src/rich4/monthly_report.py::月报结算_类._画月报"
+    ],
+    "status": "已实现，真实画布/完整状态/影片指纹/声音请求直接差分；完整应用待接线",
+    "evidence": [
+      "MONTHLY.md",
+      "tests/test_monthly_screen.py",
+      "evidence/monthly-screen-differential.json"
+    ]
+  },
+  "tools/screens/monthly.cpp:798": {
+    "python": [
+      "pygame/tools/differential_monthly_screen.py::月报画面差分_类._夹具"
+    ],
+    "status": "原开发gallery未作为正式运行时入口移植；显式测试夹具仅部分承担展示诊断职责，不计完整游戏功能",
+    "evidence": [
+      "MONTHLY.md"
+    ]
+  },
+  "tools/screens/monthly.hpp:40": {
+    "python": [
+      "pygame/src/rich4/monthly_screen.py::月报屏幕_类.__init__"
+    ],
+    "status": "已实现，真实月结画布/时序差分",
+    "evidence": [
+      "MONTHLY.md",
+      "tests/test_monthly_screen.py",
+      "evidence/monthly-screen-differential.json"
+    ]
+  },
+  "tools/screens/monthly.hpp:43": {
+    "python": [
+      "pygame/src/rich4/monthly_screen.py::月报屏幕_类.api_跳过"
+    ],
+    "status": "已实现，真实月结画布/时序差分",
+    "evidence": [
+      "MONTHLY.md",
+      "tests/test_monthly_screen.py",
+      "evidence/monthly-screen-differential.json"
+    ]
+  },
+  "tools/screens/monthly.hpp:47": {
+    "python": [
+      "pygame/src/rich4/monthly_screen.py::月报屏幕_类.api_活跃"
+    ],
+    "status": "已实现，真实月结画布/时序差分",
+    "evidence": [
+      "MONTHLY.md",
+      "tests/test_monthly_screen.py",
+      "evidence/monthly-screen-differential.json"
     ]
   }
 }

@@ -1,0 +1,100 @@
+[
+  {
+    "line": 171,
+    "voice": 17,
+    "exact": true,
+    "source_length": 20,
+    "external_length": 20
+  },
+  {
+    "line": 177,
+    "voice": 92,
+    "exact": true,
+    "source_length": 23,
+    "external_length": 23
+  },
+  {
+    "line": 271,
+    "voice": 18,
+    "exact": true,
+    "source_length": 19,
+    "external_length": 19
+  },
+  {
+    "line": 303,
+    "voice": 19,
+    "exact": true,
+    "source_length": 12,
+    "external_length": 12
+  },
+  {
+    "line": 316,
+    "voice": 33,
+    "exact": true,
+    "source_length": 17,
+    "external_length": 17
+  },
+  {
+    "line": 348,
+    "voice": 32,
+    "exact": true,
+    "source_length": 11,
+    "external_length": 11
+  },
+  {
+    "line": 357,
+    "voice": 34,
+    "exact": true,
+    "source_length": 16,
+    "external_length": 16
+  },
+  {
+    "line": 363,
+    "voice": 35,
+    "exact": true,
+    "source_length": 13,
+    "external_length": 13
+  },
+  {
+    "line": 367,
+    "voice": 36,
+    "exact": true,
+    "source_length": 6,
+    "external_length": 6
+  },
+  {
+    "line": 559,
+    "voice": 93,
+    "exact": true,
+    "source_length": 26,
+    "external_length": 26
+  },
+  {
+    "line": 584,
+    "voice": 95,
+    "exact": true,
+    "source_length": 10,
+    "external_length": 10
+  },
+  {
+    "line": 588,
+    "voice": 109,
+    "exact": true,
+    "source_length": 8,
+    "external_length": 8
+  },
+  {
+    "line": 618,
+    "voice": 108,
+    "exact": true,
+    "source_length": 9,
+    "external_length": 9
+  },
+  {
+    "line": 643,
+    "voice": 122,
+    "exact": true,
+    "source_length": 11,
+    "external_length": 11
+  }
+]
