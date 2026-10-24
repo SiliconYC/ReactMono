@@ -1,0 +1,24 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 2434,
+  "painted_frames": 871,
+  "scope": "direct original TradingBoard and NumberPad, real maps and assets, actual trading post/cancel/buy callbacks, complete World DAT and real sprites, internal state and callbacks; not actual window or full Application integration",
+  "font_sha256": "4b450afb2c61d7529fe05647316e9fc3137ea703a664bded5bca895a5c30748c",
+  "mode": "all-inventory-actions",
+  "runtime_sha256": {
+    "trading_board_screen.py": "93b4719c56f7b98115697c06db198bd35146fe58a911445d024120963d76ae27",
+    "trading_screen_text.py": "5e88a086c9f030b92651820ae3c1423a9370da7c6adb91ab371e6f2c9a8fe49a",
+    "trading_screen_types.py": "9cba0a66cac5d57c99b873a9f1c603d279791a423d270e1b77d6f47d7c53fcce",
+    "trading.py": "c779d9ecc954c72871c68d5548682fd9ad8269de7d51190b752242af8c5f90fe",
+    "number_pad.py": "dff01c649ca1ba9f9d7f8dd211d8a71ba5e51682573b218ed87d27ff69bda179",
+    "original_text.py": "a06361cb889309fb58b45a554f47c46f7e988b1c9524df1980a3f93af46d3ffd",
+    "screen_draw.py": "082a3b0d67c61a0ad903adf4dae70847b4b67f3fedaa2f7ad83049942cbd0d28"
+  },
+  "python_sha256": "93b4719c56f7b98115697c06db198bd35146fe58a911445d024120963d76ae27",
+  "last_command": "D 2012 -1 -1 0 1",
+  "last_index": 2433,
+  "state_sha256": "55dc496802690c3a2b8e2f4c19fc2321fb4b814092b269ee99fc6774732978b2",
+  "input_sha256": "04379f1612ed91c48b09b10e7f0cc3efe68df453383e1fa7f5a68faf527f677c",
+  "compared_pixels": 267571200
+}
