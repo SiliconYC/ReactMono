@@ -49,6 +49,7 @@ from rich4.player_info_screen import 玩家查询_类
 from rich4.presentation_queue import 呈现宿主_类, 呈现队列_类
 from rich4.primary_stock_screen import 一级股票屏幕_类
 from rich4.save import 存档_类
+from rich4.save_random import 随机旁车_类
 from rich4.save_slot_screen import 存档槽屏幕_类
 from rich4.screen_draw import 屏幕宿主_类
 from rich4.spinner_screen import 转盘声音_类, 转盘屏幕_类
@@ -66,7 +67,7 @@ class 游戏应用_类(应用操作_类, 应用绘制_类, 应用输入_类):
     原主应用的会话/表现生命周期；各专属屏幕只发出真实核心操作。
 
     更新日志：
-    2026.10.24 - 正式窗口入口接线中；未接入现有资源预览命令，不宣称完整游戏已验收。
+    2026.10.24 - 正式入口已接通；补齐原旁车字节提取及异常退出的资源释放。
     """
 
     def __init__(self, arg_设置: 应用设置_类) -> None:
@@ -331,17 +332,8 @@ class 游戏应用_类(应用操作_类, 应用绘制_类, 应用输入_类):
 
     def api_读取(self, arg_路径: Path) -> bool:
         try:
-            data, seed = arg_路径.read_bytes(), self.设置.种子
-            rng = Path(str(arg_路径) + ".rng")
-            if rng.is_file():
-                values = rng.read_text().split()
-                if len(values) >= 2 and values[0] == "RICH4-RNG-1":
-                    try:
-                        value = int(values[1])
-                    except ValueError:
-                        value = -1
-                    if 0 <= value <= 0xFFFFFFFF:
-                        seed = value
+            data = arg_路径.read_bytes()
+            seed = 随机旁车_类.api_读取(Path(str(arg_路径) + ".rng"), self.设置.种子)
             self.api_安装会话(世界_类.api_从存档(存档_类.api_解码(data)), seed)
             self.音频.api_选音乐(0)
             self.音乐导演.api_忘记()
@@ -416,6 +408,8 @@ class 游戏应用_类(应用操作_类, 应用绘制_类, 应用输入_类):
 
     def api_关闭(self) -> None:
         if not self._已关闭:
-            self.音频.api_关闭()
-            self.字体.api_关闭()
             self._已关闭 = True
+            try:
+                self.音频.api_关闭()
+            finally:
+                self.字体.api_关闭()

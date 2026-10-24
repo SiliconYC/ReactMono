@@ -1,0 +1,219 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "scope": "direct original Application::load/draw with real DAT; exact complete state/world/canvas for optional sidecar failures and uint32 extraction; audio disabled",
+  "save_sha256": "fa36fdc2bd0c1a516db7a36f21d05be250d665df67059ea5d4cd3a34e1d38ebf",
+  "cases": [
+    {
+      "case": 0,
+      "kind": "missing",
+      "bytes": null,
+      "payload_sha256": null,
+      "state_sha256": "d0ee3866b960c1cdcfe5182fd3da0263db3585f4d0e2fec2b6cb01cb2e0306ef",
+      "random_state": 999
+    },
+    {
+      "case": 1,
+      "kind": "file",
+      "bytes": 0,
+      "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "state_sha256": "dae886c7ab3c43bd5d55b26764eec33851c0b57f12b3822dc2e69d2a87a1be84",
+      "random_state": 999
+    },
+    {
+      "case": 2,
+      "kind": "file",
+      "bytes": 1,
+      "payload_sha256": "a8100ae6aa1940d0b663bb31cd466142ebbdbd5187131b92d93818987832eb89",
+      "state_sha256": "5ad82364e91434dddfe5a7cb49e25de20630f12249bafdb6dc241fe4587226d2",
+      "random_state": 999
+    },
+    {
+      "case": 3,
+      "kind": "file",
+      "bytes": 14,
+      "payload_sha256": "9663025e430aac5fc53238bd1078987f4081191288157e5dce7ee32b187aa556",
+      "state_sha256": "b1e1c9953c4357380512c023b3bfb3a92bd13b6d1dff38d03137154b3133d143",
+      "random_state": 999
+    },
+    {
+      "case": 4,
+      "kind": "file",
+      "bytes": 13,
+      "payload_sha256": "381072def83e8451c8753b5c5c83ffd25070c8dc7d118826b81e014f497ad953",
+      "state_sha256": "6fa0ae29045147e9db85ef47a50209e2e4eda9a74367f83ed300aa2f87acfcef",
+      "random_state": 0
+    },
+    {
+      "case": 5,
+      "kind": "file",
+      "bytes": 13,
+      "payload_sha256": "0e172c83ff69b561651d10db9a49e2c0dd1b02e38a5f77bdf7a730bec6425d3f",
+      "state_sha256": "ea62096dfd9016f2dd299a11aac7ec62d45be0e19469855e602255367bfe1908",
+      "random_state": 1
+    },
+    {
+      "case": 6,
+      "kind": "file",
+      "bytes": 22,
+      "payload_sha256": "a360aa2e85ea521c7cfc969d81312b93ddbb87b3c3c428441c84292095a2bf04",
+      "state_sha256": "9b7ddcc29b550a495717c82145e16ab7105d0d6b37f8e3b529bea9103f18fe06",
+      "random_state": 4294967295
+    },
+    {
+      "case": 7,
+      "kind": "file",
+      "bytes": 22,
+      "payload_sha256": "03779bc683bbc68d2c0eaca4f6048529db16ae54b7f789ab6be59103ce1b830a",
+      "state_sha256": "63a8272117a9a74585ec78c4f3d015d0f995f6886a9149e4a77d5a2da8a9082f",
+      "random_state": 999
+    },
+    {
+      "case": 8,
+      "kind": "file",
+      "bytes": 14,
+      "payload_sha256": "ae847e85802e86607c44b317483e6df97ca0522b4ca0faf057d0fa66d4f837f9",
+      "state_sha256": "d47c7188317afdc817bf081e282ce425bb9c49e702eeffd93c5eb39c797c347e",
+      "random_state": 4294967295
+    },
+    {
+      "case": 9,
+      "kind": "file",
+      "bytes": 14,
+      "payload_sha256": "c9487f3c0b555bc860f68d27e59b7bdaafe80c0e0aed632b2e6ee72f6bc63c33",
+      "state_sha256": "69621e585017af5e4ba3013f733d3b5f2260ef8a4b94123cb62e2832e9c8d5cf",
+      "random_state": 4294967294
+    },
+    {
+      "case": 10,
+      "kind": "file",
+      "bytes": 23,
+      "payload_sha256": "6b3c08923f7734ee48c36edd6c2492c6f533f8194f1738b8b36894f3d38e2abe",
+      "state_sha256": "632822da975037aee95f47576800f77f4c2346b367da754660f7c3c5e8b7fdb9",
+      "random_state": 1
+    },
+    {
+      "case": 11,
+      "kind": "file",
+      "bytes": 23,
+      "payload_sha256": "b906e9183697a2aef6e685a09a4d7e3c122c849c6e1eac7248f5d8e1036d56d9",
+      "state_sha256": "7ef2794cb31cb88badb1463b57d3b9358e84af271d641f964af3a35ae760d38f",
+      "random_state": 999
+    },
+    {
+      "case": 12,
+      "kind": "file",
+      "bytes": 15,
+      "payload_sha256": "299cb4dd0034426249f09f7e7663a9c04e9796dccf0ae97c8dd5c86b56c8f063",
+      "state_sha256": "0a5afdf8d91f45e1036af4c5876466a4b483fbb6cff6beba7bce69fe0113670c",
+      "random_state": 17
+    },
+    {
+      "case": 13,
+      "kind": "file",
+      "bytes": 17,
+      "payload_sha256": "dad94d5b1336f3f7b65cf57973f03fda3d3f1f59fb002f847c29822e5116c6eb",
+      "state_sha256": "e5b94cadfc2b6f3488317afc98ee96b09ad8a214248e8610cb44b4c318a62cce",
+      "random_state": 1
+    },
+    {
+      "case": 14,
+      "kind": "file",
+      "bytes": 16,
+      "payload_sha256": "d172802213001b28adaddfded9b1e76f61b42704d9bb95c17e5c6e36d2aec071",
+      "state_sha256": "956429a3f75563e195514bc5f4ed8612707c6e6e72bc5daf6187add511da6b77",
+      "random_state": 0
+    },
+    {
+      "case": 15,
+      "kind": "file",
+      "bytes": 16,
+      "payload_sha256": "7ab5ebd0613fe8a38b2deca19083828f9612beb668f84872e0edaf6082c83e2b",
+      "state_sha256": "1f67fe86e3c4911748fc374a2b3625258e497b43abba6066b95aecad2a09a93c",
+      "random_state": 999
+    },
+    {
+      "case": 16,
+      "kind": "file",
+      "bytes": 15,
+      "payload_sha256": "98409a6fa51e62589b2bd2e22a1bf9d13635d88d2207224b4e2e29785eff9580",
+      "state_sha256": "d0be34d9b123933fbb08f31d76f2af10449d236cbd7f5e84d14a386eee2fdd3a",
+      "random_state": 999
+    },
+    {
+      "case": 17,
+      "kind": "file",
+      "bytes": 32,
+      "payload_sha256": "26638cbaf1025c11e52abd80d165fca1c4cc20112e77d18c14087523516383bb",
+      "state_sha256": "b26827786b726e21f4ad4e51868d05cab4c4cb82d3f013885142739c0853d77a",
+      "random_state": 999
+    },
+    {
+      "case": 18,
+      "kind": "file",
+      "bytes": 15,
+      "payload_sha256": "375ddcc89699ac381dd0f3a1825fbe19e76ee67be30c81f12f2862ec6e7b67f9",
+      "state_sha256": "9079ce653c3ea230ace64b1f9be5b618bd56151d5a3e829e6fe49342628d0662",
+      "random_state": 12
+    },
+    {
+      "case": 19,
+      "kind": "file",
+      "bytes": 13,
+      "payload_sha256": "ce1693c51a81e8c70e3fe473c3fd4a421ae5224a73edd87ae8d0524dc5d1717b",
+      "state_sha256": "4b118ff90ac371cf00216e736c078b6dcd8eb8382120d6c2ebbd50577ebfc58f",
+      "random_state": 999
+    },
+    {
+      "case": 20,
+      "kind": "file",
+      "bytes": 13,
+      "payload_sha256": "00908b282ade240e11a6b8a456aa620110714b9d60a94bb0ff0f2554283ddbed",
+      "state_sha256": "394432c4e456e375cba8915e0fa2dcd4fb719fc92b04cb5cbb5d133041c86bb6",
+      "random_state": 999
+    },
+    {
+      "case": 21,
+      "kind": "file",
+      "bytes": 17,
+      "payload_sha256": "e8ba2e27ea59023f98dda29c6da6c2f8b2fed913e24176476f0352c59ca7cca6",
+      "state_sha256": "98cf860273e0a64afb477881300478fdcbbe69183b512f7881a5745a94593f6b",
+      "random_state": 17
+    },
+    {
+      "case": 22,
+      "kind": "file",
+      "bytes": 5014,
+      "payload_sha256": "1d5f62278dc2991613d355d8badd8cf83aa1fa6df8e04b08d447117e03fcdb28",
+      "state_sha256": "52cb91339327bca562c95310eac41550b8caf49bbc56914fbda4557dbd45dedd",
+      "random_state": 17
+    },
+    {
+      "case": 23,
+      "kind": "file",
+      "bytes": 21,
+      "payload_sha256": "21a71fc5e0271e1ed7051a2fab771c65ff9eef6fb46129adce105ca5b2baf26a",
+      "state_sha256": "1319386434af3c7b080f2055d1f22419ef6ad1f8655c09e7cd9576d8885a3b50",
+      "random_state": 23
+    },
+    {
+      "case": 24,
+      "kind": "directory",
+      "bytes": null,
+      "payload_sha256": null,
+      "state_sha256": "2b1dfb2e5bc73ec2ff0bcb4c3093b2cfc45ded9dd84b9ccfa5db51cb08488735",
+      "random_state": 999
+    }
+  ],
+  "runtime_sha256": {
+    "application.py": "38c58a62fb0889800d4ac270faa93d918187d9b88e2398292e69c85a640a0392",
+    "application_actions.py": "b2d1d0b9acbc8a14358d4fd74f67a240d2b091154fef3f50313c85f1ecfe02df",
+    "application_draw.py": "68429b4a44f4be91b84dc7eedb776cee80c8e5ee11aee0b3a18b59318eb277a0",
+    "application_input.py": "0de5e1bba0656d6aae93a63691b7d52aa733762c06213eea09019ede8014f40a",
+    "application_types.py": "dfe47d812399c406a6901f9f6eb601dbf67e0bfec9ead62a57c4d87d7a403bd7",
+    "application_window.py": "f3ed5d3fb8ecb6ea16f832bc7b18aa31bc04dc4acbb49c8c91db49273fc02c28",
+    "save_random.py": "c8602cbb3de2cd110fe8b8cd9945206859d936285fbf084ae363b6b64277945f"
+  },
+  "commands": 50,
+  "canvases": 25
+}
