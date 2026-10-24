@@ -3761,16 +3761,21 @@
       "declarator": "Renderer::render_ground(graphics::Image &destination, const Camera &camera)",
       "end_line": 387,
       "python": [
-        "pygame/src/rich4/board_renderer.py::棋盘绘制_类.api_绘地面"
+        "pygame/src/rich4/board_renderer.py::棋盘绘制_类.api_绘地面",
+        "pygame/src/rich4/ground_samples.py::地面取样_类.api_绘制"
       ],
-      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "status": "已实现，精确取样缓存后八图全像素/掩码/计数及应用复验；冷中心p95降至34.109ms，完整实时FPS未验",
       "evidence": [
         "tests/test_board_renderer.py",
         "evidence/board-baseline-differential.json",
         "BOARD.md",
         "evidence/board-differential.json",
         "evidence/board-performance.json",
-        "evidence/board-native-verification.json"
+        "evidence/board-native-verification.json",
+        "tests/test_ground_samples.py",
+        "evidence/board-samples-differential.json",
+        "evidence/board-samples-performance.json",
+        "evidence/application-ground-samples.json"
       ]
     },
     {

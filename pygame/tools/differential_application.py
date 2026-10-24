@@ -244,7 +244,19 @@ class 应用差分_类:
             "pixels": 0,
             "runtime_sha256": {
                 p.name: hashlib.sha256(p.read_bytes()).hexdigest()
-                for p in sorted(Path(__file__).parents[1].glob("src/rich4/application*.py"))
+                for p in sorted(
+                    set(Path(__file__).parents[1].glob("src/rich4/application*.py"))
+                    | set(Path(__file__).parents[1].glob("src/rich4/minigame*.py"))
+                    | {
+                        Path(__file__).parents[1] / "src/rich4/board_renderer.py",
+                        Path(__file__).parents[1] / "src/rich4/ground_samples.py",
+                    }
+                )
+            },
+            "oracle_build": json.loads(exe.with_suffix(".build.json").read_text()),
+            "driver_sha256": {
+                n: hashlib.sha256(Path(__file__).with_name(n).read_bytes()).hexdigest()
+                for n in ("differential_application.py", "replay_application.py")
             },
         }
         try:
