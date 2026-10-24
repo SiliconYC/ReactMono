@@ -1,0 +1,30 @@
+{
+  "scope": "warm MainScreen chrome CPU only; no board, SDL window, audio or gameplay FPS",
+  "python": "3.12.13",
+  "platform": "macOS-14.5-arm64-arm-64bit",
+  "font_sha256": "4b450afb2c61d7529fe05647316e9fc3137ea703a664bded5bca895a5c30748c",
+  "freetype_library": "/opt/homebrew/opt/freetype/lib/libfreetype.6.dylib",
+  "native_ui_source_sha256": "ee13aaf7a4dedb601c16756dcf84f633b52b4189bb99d6510048095045222fbd",
+  "samples_per_view": 40,
+  "warmup_per_view": 5,
+  "views": [
+    {
+      "view": 0,
+      "median_ms": 45.8359795,
+      "p95_ms": 48.10875,
+      "max_ms": 63.255166
+    },
+    {
+      "view": 1,
+      "median_ms": 10.773125499999999,
+      "p95_ms": 12.900708,
+      "max_ms": 19.3175
+    },
+    {
+      "view": 2,
+      "median_ms": 40.7581875,
+      "p95_ms": 46.02025,
+      "max_ms": 48.464916
+    }
+  ]
+}

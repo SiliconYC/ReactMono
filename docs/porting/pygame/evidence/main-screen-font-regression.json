@@ -1,0 +1,20 @@
+{
+  "native_ui_source_sha256": "5c945760afa44952d7c46bc9a858ed4f6c602c737050c94e7c0beb64db75be88",
+  "scope": "full original MainScreen regression; exact input/state/canvas digests equal published pre-optimization reports",
+  "comparisons": [
+    {
+      "report": "main-screen-differential.json",
+      "commands": 2408,
+      "input_sha256": "bc24e9615270a71c2995da4759d811de8d926b11314495d64feb2a610eab6c11",
+      "state_sha256": "971735b1eaddadb34ef5b8144eac26fca943083b9608dbde204e213a9227361a",
+      "result": "unchanged after binary-glyph span optimization"
+    },
+    {
+      "report": "main-screen-rotations-differential.json",
+      "commands": 1212,
+      "input_sha256": "faaf42c58e21776bf9260053eea62dfb8dedc2f8cc301a67e147f36c7f04ee7d",
+      "state_sha256": "d901c3226286f5f4545b3ab745e32c4ddf0656d16662f057fdb2e63eceeb699f",
+      "result": "unchanged after binary-glyph span optimization"
+    }
+  ]
+}
