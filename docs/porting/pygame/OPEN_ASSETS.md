@@ -46,7 +46,7 @@ PNG反向读取和动画帧独立副本去掉了不必要的大量Python循环/�
 
 124个非媒体数据条目目前以JSON的`uint8`整数数组无损保存；地图表和帮助控制字段仍由原已移植字段解释器处理。它们没有MKF压缩或私有容器，但还不是所有未知字段均已语义命名的现代数据模型。本次不凭猜测丢弃未知数据，也不把这部分说成全面重设计。
 
-当前状态：代码与转换已验证，正在准备正式目录部署、桌面复验和旧副本清理；尚未删除分散副本。
+当前状态：开放素材已安装到正式游戏目录，旧副本已按下文记录清理；完整移植仍以总验收台账为准。
 
 ## 本地部署后的打包边界
 
@@ -58,3 +58,20 @@ uv run --project pygame python pygame/tools/audit_distribution.py
 ```
 
 审计在修复前真实拒绝含原生应用的sdist，修复后源码包与wheel均通过；见 [失败及修复](evidence/open-assets-package-regression.json) 和 [产物审计](evidence/open-assets-package-audit.json)。PNG优化后重新读回全部2673条目和20558文件的审计也通过，[最终全量审计](evidence/open-assets-audit-final.json)的清单与内容哈希保持不变。独立集成Worktree完整610项测试通过（47.56秒），未跳过需素材的用例。
+
+## 正式目录安装与实际清理（2026-10-25）
+
+已合入并推送`dev@7d7ab41753e0526017be923401bd04d9821a85f8`后，将验证完毕的忽略产物移动至`/Users/laocao/Documents/coding/ReactMono/pygame/`：
+
+- `assets/`：20558个开放格式媒体/元数据文件，移动后逐文件长度与SHA256再次通过，无外部符号链接。
+- `.local/lib/`：标准SDL3和FluidSynth本地副本，与已验收构建字节相同；不含参考游戏引擎。
+- `.local/dist/Rich4OpenAssets.app`：真实Cocoa窗口及音频已启动，`music_available=true`，保持运行。CUA两次连接超时，本次没有新的直接屏幕观察或人类试玩反馈，不冒领人工项。
+- `userdata/saves/`：已成对保留上两次真实试玩的DAT/RNG，最新为`Autosave.DAT`，前次为`Save1.DAT`；历史差分的21个存档/旁车文件另移动到`userdata/validation/cache-saves/`，保留失败与后续恢复研究所需状态。
+
+开发Worktree只保留指向正式游戏目录的忽略链接，不再持有另一套素材；根目录和子项目的Git忽略同时覆盖目录与此类链接。正式CLI在移除外部SDK/GM环境变量后、清理前后均以启用音频的dummy设备完成冒烟；真实设备启动另有原生日志。FluidSynth会在DLS成功装载前由SF2探测器打印`Not a SoundFont file`，该行不等于音乐装载失败；未掩盖它，也未将dummy冒烟当作听感。
+
+实际删除22个已停用应用/构建目录、210个媒体/测试文件及一个原始音频采样，合计895个常规文件、469496803逻辑内容字节（约447.7 MiB）；含新应用重复的非`.app`收集目录。清理前验证所有候选路径和受保护目录边界，删除链接时不跟随目标。删除结果逐路径核验，详见 [完整清理清单](evidence/open-assets-cleanup.json)。此数字不是APFS实际可用空间变化的测量。
+
+`/Users/laocao/Downloads/Rich4`清理前后64个文件、248491414字节及逐文件哈希完全一致，原目录完整保留。系统原始字体/GM音库、公共SDK研究构建、React资源和其它项目不删除。这里只处理确认由本任务创建的副本，没有宣称清扫未知来源的全磁盘文件。安装核验见 [部署报告](evidence/open-assets-installation.json)。
+
+后续测试的临时资源指定到自身目录，例如先建立`pygame/.local/tmp/`，设置`TMPDIR="$PWD/pygame/.local/tmp"`，pytest再使用`--basetemp pygame/.local/test-tmp`；差分研究仍可只读原正版来源。代码仓库和分发包不包含本地商业内容。

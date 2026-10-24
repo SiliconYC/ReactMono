@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "installed_game": "/Users/laocao/Documents/coding/ReactMono/pygame",
+  "media_files_verified": 20558,
+  "manifest_sha256": "b415ed604a3248399a0bc8bb33206d1f210c8f7bee30d4bff43450365424720b",
+  "no_asset_symlinks": true,
+  "sdk_copies_match_builds": true,
+  "real_window_initialization": [
+    {
+      "event": "initialized",
+      "seed": 1792859252,
+      "music_available": true,
+      "audio_enabled": true,
+      "audio_device": null,
+      "time_ns": 1792859256580426000
+    },
+    {
+      "event": "window-shown",
+      "size": [
+        960,
+        720
+      ],
+      "driver": "cocoa",
+      "ticks": 0
+    }
+  ],
+  "desktop_observation_limit": "CUA app binding timed out twice; no fresh visual observation or new human-feedback claim",
+  "headless_default_audio_smoke": "formal CLI from installed project; no external SDK/GM environment; exit 0, no BGM-unavailable warning",
+  "manual_feedback_already_received": "Previous real main-game operations/visuals, BGM/effects/speech and headphone hotplug passed per user; limited workflow, not all UI/maps"
+}
