@@ -1,0 +1,14 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "failed",
+  "commands": 1922,
+  "scope": "original message rules vs external PE, explicit events/decisions, not natural gameplay or GUI",
+  "python_source_sha256": {
+    "message_rules.py": "3b50d1cf4e87364bbeeb04b4ca87bacc4f937773f6fff0198d34daa80ead1b55",
+    "original_text.py": "881f41283a6e27af9d7d0390b9825e70fc067dde19734ebead1d08fef911a84c"
+  },
+  "failure_command": "E 0 1 3 12345 4001 2 3 1 3 15 5 -17 1000 9999 -1 0 0 0",
+  "expected_sha256": "969e18d4a007c67cf84d7e19a0bb4cb5c7064828dfb80137997bb332a3560f2d",
+  "actual_sha256": "a72701b05cf8ee45ba3de02af76952e7399ca7b6c9d66b5a2615e780992a8e51",
+  "failure": "step=1922 op=E metadata differs"
+}
