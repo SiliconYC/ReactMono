@@ -1,0 +1,22 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 1946,
+  "painted_frames": 1171,
+  "scope": "direct original MainMenu and NewGameSetup, full private MT state and real choices, real sprites, internal state and callbacks; not actual window/financial rule integration",
+  "font_sha256": "4b450afb2c61d7529fe05647316e9fc3137ea703a664bded5bca895a5c30748c",
+  "mode": "base",
+  "runtime_sha256": {
+    "main_menu.py": "01ea5b9ed3d5ac8dc5a0fec6b9efcf840ac444584286fd54fa4b7de6bd566f08",
+    "new_game_screen.py": "a1a9ae06456580065aa981ae208fb669162d77c4aa34eccd9cbb4d82e3ca8346",
+    "new_game_types.py": "22ee36414e60b8091f69c7bf4ca1bc4dec400a447c03d432cf9a279e0d58fa14",
+    "menu_random.py": "b27398653fe885f19e09aad42e094b59ad6eb157e7a2e4c77552ee5549a96d16",
+    "screen_draw.py": "082a3b0d67c61a0ad903adf4dae70847b4b67f3fedaa2f7ad83049942cbd0d28"
+  },
+  "python_sha256": "a1a9ae06456580065aa981ae208fb669162d77c4aa34eccd9cbb4d82e3ca8346",
+  "last_command": "B",
+  "last_index": 1945,
+  "state_sha256": "614ec490ade979c6d8516795eacde60ba331ffa65e753c79f2fd4598db126070",
+  "input_sha256": "cb47cc5951948ccb6a7c4ca8e1c6060222b04fbccdd8f2c2a00ecc5a759ab105",
+  "compared_pixels": 359731200
+}

@@ -11081,5 +11081,211 @@
       "tests/test_ai_settings_screen.py",
       "evidence/facility-ai-differential.json"
     ]
+  },
+  "tools/screens/menus.cpp:23": {
+    "python": [
+      "pygame/src/rich4/main_menu.py::主菜单_类._框"
+    ],
+    "status": "已实现，原菜单/新局组件画布和状态差分；完整主应用未验",
+    "evidence": [
+      "MAIN_MENU_SETUP.md",
+      "tests/test_main_menu.py",
+      "tests/test_new_game_screen.py",
+      "evidence/main-setup-differential.json",
+      "evidence/main-setup-lifecycle.json"
+    ]
+  },
+  "tools/screens/menus.cpp:33": {
+    "python": [
+      "pygame/src/rich4/main_menu.py::主菜单_类.api_绘制"
+    ],
+    "status": "已实现，原菜单/新局组件画布和状态差分；完整主应用未验",
+    "evidence": [
+      "MAIN_MENU_SETUP.md",
+      "tests/test_main_menu.py",
+      "tests/test_new_game_screen.py",
+      "evidence/main-setup-differential.json",
+      "evidence/main-setup-lifecycle.json"
+    ]
+  },
+  "tools/screens/menus.cpp:92": {
+    "python": [
+      "pygame/src/rich4/new_game_screen.py::新局屏幕_类.api_绘制"
+    ],
+    "status": "已实现，原菜单/新局组件画布和状态差分；完整主应用未验",
+    "evidence": [
+      "MAIN_MENU_SETUP.md",
+      "tests/test_main_menu.py",
+      "tests/test_new_game_screen.py",
+      "evidence/main-setup-differential.json",
+      "evidence/main-setup-lifecycle.json"
+    ]
+  },
+  "tools/screens/menus.cpp:95": {
+    "python": [
+      "pygame/src/rich4/new_game_screen.py::新局屏幕_类.api_绘制"
+    ],
+    "status": "已实现，原菜单/新局组件画布和状态差分；完整主应用未验",
+    "evidence": [
+      "MAIN_MENU_SETUP.md",
+      "tests/test_main_menu.py",
+      "tests/test_new_game_screen.py",
+      "evidence/main-setup-differential.json",
+      "evidence/main-setup-lifecycle.json"
+    ]
+  },
+  "tools/screens/menus.cpp:98": {
+    "python": [
+      "pygame/src/rich4/new_game_screen.py::新局屏幕_类._条名"
+    ],
+    "status": "已实现，原菜单/新局组件画布和状态差分；完整主应用未验",
+    "evidence": [
+      "MAIN_MENU_SETUP.md",
+      "tests/test_main_menu.py",
+      "tests/test_new_game_screen.py",
+      "evidence/main-setup-differential.json",
+      "evidence/main-setup-lifecycle.json"
+    ]
+  },
+  "tools/screens/menus.cpp:115": {
+    "python": [
+      "pygame/src/rich4/new_game_screen.py::新局屏幕_类.api_绘制"
+    ],
+    "status": "已实现，原菜单/新局组件画布和状态差分；完整主应用未验",
+    "evidence": [
+      "MAIN_MENU_SETUP.md",
+      "tests/test_main_menu.py",
+      "tests/test_new_game_screen.py",
+      "evidence/main-setup-differential.json",
+      "evidence/main-setup-lifecycle.json"
+    ]
+  },
+  "tools/screens/menus.cpp:121": {
+    "python": [
+      "pygame/src/rich4/new_game_screen.py::新局屏幕_类.api_打开"
+    ],
+    "status": "已实现，原菜单/新局组件画布和状态差分；完整主应用未验",
+    "evidence": [
+      "MAIN_MENU_SETUP.md",
+      "tests/test_main_menu.py",
+      "tests/test_new_game_screen.py",
+      "evidence/main-setup-differential.json",
+      "evidence/main-setup-lifecycle.json"
+    ]
+  },
+  "tools/screens/menus.cpp:130": {
+    "python": [
+      "pygame/src/rich4/new_game_screen.py::新局屏幕_类._选择"
+    ],
+    "status": "已实现，原菜单/新局组件画布和状态差分；完整主应用未验",
+    "evidence": [
+      "MAIN_MENU_SETUP.md",
+      "tests/test_main_menu.py",
+      "tests/test_new_game_screen.py",
+      "evidence/main-setup-differential.json",
+      "evidence/main-setup-lifecycle.json"
+    ]
+  },
+  "tools/screens/menus.cpp:142": {
+    "python": [
+      "pygame/src/rich4/new_game_screen.py::新局屏幕_类._补一人"
+    ],
+    "status": "已实现，原菜单/新局组件画布和状态差分；完整主应用未验",
+    "evidence": [
+      "MAIN_MENU_SETUP.md",
+      "tests/test_main_menu.py",
+      "tests/test_new_game_screen.py",
+      "evidence/main-setup-differential.json",
+      "evidence/main-setup-lifecycle.json"
+    ]
+  },
+  "tools/screens/menus.cpp:151": {
+    "python": [
+      "pygame/src/rich4/new_game_screen.py::新局屏幕_类.api_取消"
+    ],
+    "status": "已实现，原菜单/新局组件画布和状态差分；完整主应用未验",
+    "evidence": [
+      "MAIN_MENU_SETUP.md",
+      "tests/test_main_menu.py",
+      "tests/test_new_game_screen.py",
+      "evidence/main-setup-differential.json",
+      "evidence/main-setup-lifecycle.json"
+    ]
+  },
+  "tools/screens/menus.cpp:160": {
+    "python": [
+      "pygame/src/rich4/new_game_screen.py::新局屏幕_类._画背景"
+    ],
+    "status": "已实现，原菜单/新局组件画布和状态差分；完整主应用未验",
+    "evidence": [
+      "MAIN_MENU_SETUP.md",
+      "tests/test_main_menu.py",
+      "tests/test_new_game_screen.py",
+      "evidence/main-setup-differential.json",
+      "evidence/main-setup-lifecycle.json"
+    ]
+  },
+  "tools/screens/menus.cpp:173": {
+    "python": [
+      "pygame/src/rich4/new_game_screen.py::新局屏幕_类.api_绘制"
+    ],
+    "status": "已实现，原菜单/新局组件画布和状态差分；完整主应用未验",
+    "evidence": [
+      "MAIN_MENU_SETUP.md",
+      "tests/test_main_menu.py",
+      "tests/test_new_game_screen.py",
+      "evidence/main-setup-differential.json",
+      "evidence/main-setup-lifecycle.json"
+    ]
+  },
+  "tools/screens/menus.hpp:59": {
+    "python": [
+      "pygame/src/rich4/new_game_screen.py::新局屏幕_类.api_人选"
+    ],
+    "status": "已实现，组件状态差分",
+    "evidence": [
+      "MAIN_MENU_SETUP.md",
+      "evidence/main-setup-differential.json"
+    ]
+  },
+  "tools/screens/menus.hpp:62": {
+    "python": [
+      "pygame/src/rich4/new_game_screen.py::新局屏幕_类.api_地图"
+    ],
+    "status": "已实现，组件状态差分",
+    "evidence": [
+      "MAIN_MENU_SETUP.md",
+      "evidence/main-setup-differential.json"
+    ]
+  },
+  "tools/screens/menus.hpp:65": {
+    "python": [
+      "pygame/src/rich4/new_game_screen.py::新局屏幕_类.api_阶段"
+    ],
+    "status": "已实现，组件状态差分",
+    "evidence": [
+      "MAIN_MENU_SETUP.md",
+      "evidence/main-setup-differential.json"
+    ]
+  },
+  "tools/screens/menus.hpp:68": {
+    "python": [
+      "pygame/src/rich4/new_game_screen.py::新局屏幕_类.api_人数"
+    ],
+    "status": "已实现，组件状态差分",
+    "evidence": [
+      "MAIN_MENU_SETUP.md",
+      "evidence/main-setup-differential.json"
+    ]
+  },
+  "tools/screens/menus.hpp:71": {
+    "python": [
+      "pygame/src/rich4/new_game_screen.py::新局屏幕_类.api_忙"
+    ],
+    "status": "已实现，组件状态差分",
+    "evidence": [
+      "MAIN_MENU_SETUP.md",
+      "evidence/main-setup-differential.json"
+    ]
   }
 }
