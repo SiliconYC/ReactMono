@@ -284,6 +284,6 @@
     "save_random.py": "c8602cbb3de2cd110fe8b8cd9945206859d936285fbf084ae363b6b64277945f"
   },
   "source_of_valid_inputs": "actual public-menu natural replay, previously compared to fixed C++ actual save bytes; no fabricated world/event/outcome",
-  "full_suite_attempt": "Initial full attempt: 633 passed, 1 dummy clock-criterion failure. Corrected probe documented in AUDIO_DUMMY_CLOCK.md; integration full suite pending.",
+  "full_suite_attempt": "Initial: 633 passed, 1 dummy clock criterion failed; final isolated integration: 636 passed, zero skips, 61.45 seconds. Failure history retained in save-transaction-failures.json.",
   "targeted_tests": "34 passed in 14.29 seconds after malformed/deep journal slot checks"
 }

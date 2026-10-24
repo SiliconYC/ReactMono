@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "runtime_integration_commit": "fdfc15cf4797223ad715baab39446e0bd9cff23f",
+  "tests_passed": 636,
+  "test_seconds": 61.45,
+  "skipped": 0,
+  "wheel_files": 158,
+  "sdist_files": 344,
+  "ruff": "passed",
+  "test_log_sha256": "856613d410982dddf183ea4d48283a322395e9bbe85f99afb7516186f657c520",
+  "scope": "all Python tests with explicit original/open assets, project font/libraries/GM and natural saves; actual distribution allowlists; no new desktop or hardware listening claim"
+}
