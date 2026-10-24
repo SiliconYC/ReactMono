@@ -354,6 +354,8 @@ class 物品库存差分_类:
                 ).hexdigest()
                 for name in (
                     "item_screens.py",
+                    "item_rescue_screen.py",
+                    "item_dispatch.py",
                     "item_magic_screen.py",
                     "item_shop_screen.py",
                     "item_service_types.py",
