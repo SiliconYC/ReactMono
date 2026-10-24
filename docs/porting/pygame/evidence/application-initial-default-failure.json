@@ -1,0 +1,25 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "failed",
+  "scope": "original Application private drawing and button actions + mirrored original post-input orchestration; Python uses Pygame event batches. All logical canvas bytes/world DAT/state; audio disabled, not original OS event loop/desktop/listening proof",
+  "cases": [],
+  "commands": 0,
+  "canvases": 0,
+  "pixels": 0,
+  "runtime_sha256": {
+    "application.py": "bb4cad199191c37e45b8e89d67720a5849b460cc6a5eb1c5582e860b54d566ae",
+    "application_actions.py": "b2d1d0b9acbc8a14358d4fd74f67a240d2b091154fef3f50313c85f1ecfe02df",
+    "application_draw.py": "68429b4a44f4be91b84dc7eedb776cee80c8e5ee11aee0b3a18b59318eb277a0",
+    "application_input.py": "0de5e1bba0656d6aae93a63691b7d52aa733762c06213eea09019ede8014f40a",
+    "application_types.py": "a49a0c7c245fe263227c499d73f1639ee180dacbdd392fbedd4cb3f60196598f",
+    "application_window.py": "bd8b389bf67f265d0a2f586c25f93712ae5eb7fd40554cadbaaa46652fe9019d"
+  },
+  "last_map": 0,
+  "last_command": "D 0",
+  "last_index": 0,
+  "cpp": "0 0 0 0 1 1 0 1 0 0 1000 0 0 0 1 0 0 18446744073709551615 0 14695981039346656037 0 0 14695981039346656037 0 14695981039346656037 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 -1 0 0 5 1 131 323 247 436 1 0 2 273 326 387 425 0 0 3 415 332 518 430 1 0 5 289 434 367 480 1 0 4 17 328 107 435 1 0 0 0 0 0 1 0 1 1 -1 0 10 17920624535877608047 0 614400 0",
+  "python": "0 0 0 0 1 1 0 1 0 0 1000 0 0 0 0 0 0 18446744073709551615 0 14695981039346656037 0 0 14695981039346656037 0 14695981039346656037 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 -1 0 0 5 1 131 323 247 436 1 0 2 273 326 387 425 0 0 3 415 332 518 430 1 0 5 289 434 367 480 1 0 4 17 328 107 435 1 0 0 0 0 0 1 0 1 1 -1 0 10 17920624535877608047 0 614400 0",
+  "failure": "map=0 step=0 initial humans_at_start differs: reference1 Python0",
+  "primary_failure": "map=0 step=0 initial humans_at_start differs: reference1 Python0",
+  "cleanup_failure": "Command '['/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/cpp-core/application-oracle', '/Users/laocao/Downloads/Rich4', '/System/Library/Fonts/Hiragino Sans GB.ttc', '/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-initial/tmp8j75ix22/cpp-saves', '0', '123', '3']' timed out after 10 seconds"
+}

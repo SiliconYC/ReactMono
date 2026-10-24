@@ -1,0 +1,22 @@
+{
+  "status": "unverified",
+  "scope": "real macOS Pygame desktop window input; not replaced with in-process events",
+  "attempts": [
+    "ordinary Python app binding timed out",
+    "script bundle first path hit stale LaunchServices bundle ID",
+    "fresh script bundle ran game but getApp timed out",
+    "native Python executable bundle ran actual game loop; getApp timed out/kernel reset"
+  ],
+  "verified": [
+    "real main window loop running with original software menu canvas",
+    "own native process sample showed application loop/drawing/delay, not deadlock",
+    "owned probes closed normally with TERM/pygame finally cleanup"
+  ],
+  "not_verified": [
+    "OS mouse/key dispatch to the main game",
+    "actual desktop screenshots through cua",
+    "human game listening/playthrough"
+  ],
+  "policy": "only cua used for computer UI operations; no AppleScript/CGEvent/alternate OS input injection",
+  "artifacts": "raw stacks, development launcher/runtime and media stay in ignored .research-cache"
+}

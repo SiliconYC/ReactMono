@@ -15334,33 +15334,57 @@
       "id": "tools/native_game.cpp:247",
       "declarator": "Application(Options options)",
       "end_line": 310,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application.py::__init__"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:311",
       "declarator": "~Application()",
       "end_line": 317,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application.py::api_关闭"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:319",
       "declarator": "write_diagnostic(std::string_view reason) const",
       "end_line": 328,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_window.py::api_诊断"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:330",
       "declarator": "run()",
       "end_line": 574,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_window.py::api_运行"
+      ],
+      "status": "桌面循环已实现；绘制/推进及Pygame事件批次自动对照，原OS事件循环/手动操作未验证；开发画廊不计覆盖",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:581",
@@ -15406,89 +15430,155 @@
       "id": "tools/native_game.cpp:608",
       "declarator": "make_host()",
       "end_line": 620,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application.py::api_宿主"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:622",
       "declarator": "speak(std::size_t clip, bool queued)",
       "end_line": 629,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application.py::api_说话"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:632",
       "declarator": "update_board_audio()",
       "end_line": 676,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application.py::api_更新音频"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:679",
       "declarator": "voice_decision_shown(const GameDecision &decision)",
       "end_line": 694,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application.py::api_配音决策"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:695",
       "declarator": "pad_key(SDL_Keycode key)",
       "end_line": 711,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_input.py::api_数字键"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:712",
       "declarator": "facility_cancellable() const",
       "end_line": 715,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_设施可取消"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:716",
       "declarator": "bank_pending() const",
       "end_line": 719,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_银行待决"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:721",
       "declarator": "cancellable() const",
       "end_line": 726,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_可取消"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:727",
       "declarator": "cancel_screen()",
       "end_line": 766,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_取消"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:768",
       "declarator": "back_screen() const",
       "end_line": 772,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_返回页面"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:774",
       "declarator": "respond_value(std::int32_t value, std::int32_t amount)",
       "end_line": 786,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_回答值"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:787",
@@ -15502,65 +15592,113 @@
       "id": "tools/native_game.cpp:790",
       "declarator": "stock_actions()",
       "end_line": 800,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_股票动作"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:802",
       "declarator": "slot_path(int slot) const",
       "end_line": 804,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application.py::api_槽路径"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:805",
       "declarator": "read_slots() const",
       "end_line": 826,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_读槽"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:827",
       "declarator": "any_slot() const",
       "end_line": 832,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_读槽/any"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:833",
       "declarator": "open_load()",
       "end_line": 846,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_开读取"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:847",
       "declarator": "open_save()",
       "end_line": 852,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_开保存"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:853",
       "declarator": "choose_slot(int slot)",
       "end_line": 866,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_选槽"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:867",
       "declarator": "notify_action(bool success, std::string_view failure = \"目前無法使用\")",
       "end_line": 874,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_通知"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:875",
@@ -15590,86 +15728,144 @@
       "id": "tools/native_game.cpp:888",
       "declarator": "load_path() const",
       "end_line": 900,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_载入路径"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:901",
       "declarator": "rotate(unsigned increment)",
       "end_line": 905,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_转图"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:906",
       "declarator": "open_setup(unsigned stage)",
       "end_line": 909,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_开新局"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:913",
       "declarator": "new_game(const screens::NewGameChoice &choice)",
       "end_line": 949,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application.py::api_新局"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:954",
       "declarator": "end_to_title()",
       "end_line": 971,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_回标题"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:972",
       "declarator": "install_session(World world, std::uint32_t seed, bool intro = false)",
       "end_line": 1014,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application.py::api_安装会话"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1015",
       "declarator": "load(const fs::path &path)",
       "end_line": 1039,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application.py::api_读取"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1040",
       "declarator": "save()",
       "end_line": 1048,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_保存"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1049",
       "declarator": "write_save(const fs::path &path)",
       "end_line": 1053,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application.py::api_写存档"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1062",
       "declarator": "presenting() const",
       "end_line": 1067,
       "python": [
-        "pygame/src/rich4/presentation_queue.py::呈现队列_类.api_忙碌/api_可推进"
+        "pygame/src/rich4/presentation_queue.py::呈现队列_类.api_忙碌/api_可推进",
+        "pygame/src/rich4/application.py::api_呈现中"
       ],
-      "status": "部分实现：等待与宿主忙碌契约；真实各屏组合待应用绑定",
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
       "evidence": [
         "PRESENTATION_QUEUE.md",
         "tests/test_presentation_queue.py",
-        "evidence/presentation-queue-differential.json"
+        "evidence/presentation-queue-differential.json",
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
       ]
     },
     {
@@ -15691,13 +15887,17 @@
       "declarator": "present(const GameEvent &event)",
       "end_line": 1131,
       "python": [
-        "pygame/src/rich4/presentation_queue.py::呈现队列_类.api_泵/呈现宿主_类.呈现事件"
+        "pygame/src/rich4/presentation_queue.py::呈现队列_类.api_泵/呈现宿主_类.呈现事件",
+        "pygame/src/rich4/application.py::_呈现事件"
       ],
-      "status": "部分实现：仅回合/破产标志及必需回调；消息/电影/音频/拍卖等由正式宿主补齐",
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
       "evidence": [
         "PRESENTATION_QUEUE.md",
         "tests/test_presentation_queue.py",
-        "evidence/presentation-queue-differential.json"
+        "evidence/presentation-queue-differential.json",
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
       ]
     },
     {
@@ -15705,46 +15905,74 @@
       "declarator": "observe()",
       "end_line": 1181,
       "python": [
-        "pygame/src/rich4/presentation_queue.py::呈现队列_类.api_观察会话/api_入队"
+        "pygame/src/rich4/presentation_queue.py::呈现队列_类.api_观察会话/api_入队",
+        "pygame/src/rich4/application.py::api_观察/_观察事件"
       ],
-      "status": "部分实现：提取/顺序入队/观察回调/末尾泵自动差分；其它原应用统计与状态待接",
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
       "evidence": [
         "PRESENTATION_QUEUE.md",
         "tests/test_presentation_queue.py",
-        "evidence/presentation-queue-differential.json"
+        "evidence/presentation-queue-differential.json",
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
       ]
     },
     {
       "id": "tools/native_game.cpp:1182",
       "declarator": "draw()",
       "end_line": 1368,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_draw.py::api_绘制"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1371",
       "declarator": "draw_intro()",
       "end_line": 1390,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_draw.py::api_绘制/开场.api_绘制"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1392",
       "declarator": "draw_effects()",
       "end_line": 1424,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_draw.py::api_绘电影"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1426",
       "declarator": "draw_monthly()",
       "end_line": 1431,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_draw.py::api_绘制/月报.api_绘制"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1433",
@@ -15758,9 +15986,15 @@
       "id": "tools/native_game.cpp:1450",
       "declarator": "spinner_elapsed()",
       "end_line": 1455,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_draw.py::_经过"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1456",
@@ -15768,191 +16002,327 @@
       "end_line": 1652,
       "python": [
         "pygame/src/rich4/main_scene.py::主板场景_类.api_构建",
-        "pygame/src/rich4/main_scene.py::表现步_类"
+        "pygame/src/rich4/main_scene.py::表现步_类",
+        "pygame/src/rich4/application_draw.py::api_绘棋盘"
       ],
-      "status": "部分实现：仅1456–1599板面构造/相机完整值自动差分；后续应用动作/叠加绘制与完整宿主待接线",
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
       "evidence": [
         "MAIN_SCENE.md",
         "tests/test_main_scene.py",
         "evidence/main-scene-differential.json",
-        "evidence/main-scene-movement-grid.json"
+        "evidence/main-scene-movement-grid.json",
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
       ]
     },
     {
       "id": "tools/native_game.cpp:1655",
       "declarator": "draw_endgame()",
       "end_line": 1669,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_draw.py::api_绘结局"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1670",
       "declarator": "start_endgame()",
       "end_line": 1689,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_开始结局"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1690",
       "declarator": "endgame_actions()",
       "end_line": 1709,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_结局动作"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1711",
       "declarator": "toggle_tile_popup(int x, int y)",
       "end_line": 1722,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_地图提示"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1724",
       "declarator": "presented_player() const",
       "end_line": 1726,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_呈现玩家"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1727",
       "declarator": "ai_settings_actions()",
       "end_line": 1741,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_托管动作"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1742",
       "declarator": "item_host()",
       "end_line": 1746,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_物品宿主"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1747",
       "declarator": "draw_inventory()",
       "end_line": 1750,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_draw.py::api_绘制/物品.api_画库存"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1751",
       "declarator": "draw_stocks()",
       "end_line": 1755,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_draw.py::api_绘制/股票.api_绘制"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1756",
       "declarator": "close_stocks()",
       "end_line": 1762,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_关股票"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1763",
       "declarator": "trade(bool buy, std::int32_t quantity)",
       "end_line": 1775,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_股票买卖"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1776",
       "declarator": "close_trading()",
       "end_line": 1782,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_关交易"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1783",
       "declarator": "trading_actions()",
       "end_line": 1806,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_交易动作"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1807",
       "declarator": "draw_trading()",
       "end_line": 1812,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_draw.py::api_绘制/交易.api_绘制"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1813",
       "declarator": "sync_decision()",
       "end_line": 1835,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_同步决策"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1836",
       "declarator": "map_decision() const",
       "end_line": 1842,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_地图决策"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1843",
       "declarator": "select_target(std::size_t index)",
       "end_line": 1851,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_选目标"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1852",
       "declarator": "draw_map_decision(const GameDecision &pending)",
       "end_line": 1905,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_draw.py::api_绘地图决策"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1906",
       "declarator": "draw_decision()",
       "end_line": 1989,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_draw.py::api_绘决策"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1990",
       "declarator": "draw_choice_dialog(const GameDecision &decision)",
       "end_line": 2024,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_draw.py::api_绘普通选择"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:2025",
       "declarator": "yes_no_index(std::int32_t value) const",
       "end_line": 2031,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_确认索引"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:2032",
       "declarator": "respond(std::size_t index)",
       "end_line": 2051,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/application_actions.py::api_回答"
+      ],
+      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "evidence": [
+        "APPLICATION.md",
+        "tests/test_application.py",
+        "evidence/application-eight-maps.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:2053",
@@ -21752,10 +22122,13 @@
       "id": "tools/screens/minigames.cpp:183",
       "declarator": "MiniGames::draw_decision(Frame &frame, const GameDecision &decision)",
       "end_line": 191,
-      "python": [],
-      "status": "待GameSession决策接入；独立窗口已有真实演出",
+      "python": [
+        "pygame/src/rich4/minigame_screen.py::小游戏屏幕_类.api_绘决策"
+      ],
+      "status": "正式接线已实现；种子/重启/时钟/单次结果定向通过；自然小游戏与核心交接未验证",
       "evidence": [
-        "MINIGAME_PRESENTATION.md"
+        "APPLICATION.md",
+        "tests/test_minigame_screen.py"
       ]
     },
     {
