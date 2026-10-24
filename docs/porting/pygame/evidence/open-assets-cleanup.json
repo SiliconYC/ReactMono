@@ -1,0 +1,1542 @@
+{
+  "status": "deleted-and-verified",
+  "protected_source": "/Users/laocao/Downloads/Rich4",
+  "installed_game": "/Users/laocao/Documents/coding/ReactMono/pygame",
+  "folders": [
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/manual-dist",
+      "files": 254,
+      "bytes": 159719262,
+      "symlinks": 118
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/game-dist",
+      "files": 127,
+      "bytes": 79838245,
+      "symlinks": 59
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/pygame-app",
+      "files": 122,
+      "bytes": 76126530,
+      "symlinks": 58
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/manual-build",
+      "files": 16,
+      "bytes": 10918791,
+      "symlinks": 0
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/manual-audio-build",
+      "files": 16,
+      "bytes": 10926011,
+      "symlinks": 0
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/game-build",
+      "files": 16,
+      "bytes": 10886985,
+      "symlinks": 0
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/pygame-build",
+      "files": 16,
+      "bytes": 7122840,
+      "symlinks": 0
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/open-assets-build",
+      "files": 16,
+      "bytes": 10985368,
+      "symlinks": 0
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/pygame/.local/dist/Rich4OpenAssets",
+      "files": 62,
+      "bytes": 39878132,
+      "symlinks": 27
+    },
+    {
+      "path": "/tmp/reactmono-pygame-session-rules-dist",
+      "files": 3,
+      "bytes": 549373,
+      "symlinks": 0
+    },
+    {
+      "path": "/tmp/reactmono-pygame-cards-ai-dist",
+      "files": 3,
+      "bytes": 419472,
+      "symlinks": 0
+    },
+    {
+      "path": "/tmp/reactmono-pygame-external-text-build",
+      "files": 3,
+      "bytes": 596644,
+      "symlinks": 0
+    },
+    {
+      "path": "/tmp/reactmono-pygame-effect-scene-build",
+      "files": 3,
+      "bytes": 649435,
+      "symlinks": 0
+    },
+    {
+      "path": "/tmp/reactmono-pygame-frame-build",
+      "files": 3,
+      "bytes": 610321,
+      "symlinks": 0
+    },
+    {
+      "path": "/tmp/reactmono-pygame-public-session-dist",
+      "files": 3,
+      "bytes": 574904,
+      "symlinks": 0
+    },
+    {
+      "path": "/tmp/reactmono-pygame-font-spans-build",
+      "files": 3,
+      "bytes": 651363,
+      "symlinks": 0
+    },
+    {
+      "path": "/tmp/reactmono-pygame-build-20261023",
+      "files": 3,
+      "bytes": 188063,
+      "symlinks": 0
+    },
+    {
+      "path": "/tmp/reactmono-pygame-native-ui-build",
+      "files": 3,
+      "bytes": 588265,
+      "symlinks": 0
+    },
+    {
+      "path": "/tmp/reactmono-pygame-tools-dist",
+      "files": 3,
+      "bytes": 352445,
+      "symlinks": 0
+    },
+    {
+      "path": "/tmp/reactmono-pygame-main-screen-build",
+      "files": 3,
+      "bytes": 636690,
+      "symlinks": 0
+    },
+    {
+      "path": "/tmp/reactmono-pygame-board-dist",
+      "files": 3,
+      "bytes": 293739,
+      "symlinks": 0
+    },
+    {
+      "path": "/tmp/reactmono-pygame-minigame-presentation-dist",
+      "files": 3,
+      "bytes": 451878,
+      "symlinks": 0
+    }
+  ],
+  "media": [
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/indexed-probe.png",
+      "bytes": 851,
+      "symlink": false,
+      "sha256": "335aa2c85565c6cc2e05cf3de31e40812b7e66e6b7669ecc13f6c05164be9403"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-menu.png",
+      "bytes": 242422,
+      "symlink": false,
+      "sha256": "557482730e351709fd3259103b1fe8f4b3fc49eb5a2976b1614dc2255625190b"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/pygame-loading.png",
+      "bytes": 171590,
+      "symlink": false,
+      "sha256": "8b7d3a727e440a83809e2bb3bbb723c9dda5aefd65703f9e3520dee0fa6ede2a"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-public-entry.png",
+      "bytes": 242422,
+      "symlink": false,
+      "sha256": "557482730e351709fd3259103b1fe8f4b3fc49eb5a2976b1614dc2255625190b"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/pygame-board.png",
+      "bytes": 250140,
+      "symlink": false,
+      "sha256": "e810cfff9e8985621352d251b9a7cf3d39277b8d34d4e4545b88d5cfef6e19ad"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/minigame-catcher.png",
+      "bytes": 214216,
+      "symlink": false,
+      "sha256": "cbeb5896354ec281abe3bb786c4ba91d3cabba060445a65aed53962cb8f15683"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-shop-bot-fix/failure-map-3/screen-0.png",
+      "bytes": 242422,
+      "symlink": false,
+      "sha256": "557482730e351709fd3259103b1fe8f4b3fc49eb5a2976b1614dc2255625190b"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-shop-bot-fix/failure-map-3/screen-1.png",
+      "bytes": 315976,
+      "symlink": false,
+      "sha256": "d8afbab562973a53de2ff1469022db27e419be7eaf0252476d0e645166737469"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-shop-bot-fix/failure-map-3/screen-2.png",
+      "bytes": 389427,
+      "symlink": false,
+      "sha256": "8b016253e079412deabd4b755b8e71af9a8c13565d5a55b082b78e9916c86cf5"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-shop-bot-fix/failure-map-3/decision-0.png",
+      "bytes": 374850,
+      "symlink": false,
+      "sha256": "4b536796f816e1d741eacf61dc86fc5ad37311f02bf4a5e14c0bc64fee012025"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-shop-bot-fix/failure-map-3/decision-15.png",
+      "bytes": 352916,
+      "symlink": false,
+      "sha256": "f9f67c410542471b45f9cdb4776c631e47afe379c1b4de888465f5221d4fb406"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/audio-coreaudio-pause-fix/device.wav",
+      "bytes": 1486892,
+      "symlink": false,
+      "sha256": "d286f4ffdc44ad6a4d875a597e1533f1e37f9a2672ce49e282bd5c660be166b5"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-normal/failure-map-0/screen-6.png",
+      "bytes": 356564,
+      "symlink": false,
+      "sha256": "c19d47eecfe0b2428c4bedcdd6008d6d1089a9854a6ddb8f34c7098eba7e9a61"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-normal/failure-map-0/screen-7.png",
+      "bytes": 334365,
+      "symlink": false,
+      "sha256": "45a41188fa051d76c9b954ae7f34e1071fc38b23b257d042179d68e82bff2845"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-normal/failure-map-0/screen-5.png",
+      "bytes": 355267,
+      "symlink": false,
+      "sha256": "d5f3cdf4682e1de800f75c9548fb018e9c4607664b6959a8fc784aeface24711"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-normal/failure-map-0/screen-4.png",
+      "bytes": 394746,
+      "symlink": false,
+      "sha256": "ca32e4ba18bd0c85c6161451c6332e9b433ba899672afcdfc76bde9b8c2950d1"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-normal/failure-map-0/screen-0.png",
+      "bytes": 242422,
+      "symlink": false,
+      "sha256": "557482730e351709fd3259103b1fe8f4b3fc49eb5a2976b1614dc2255625190b"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-normal/failure-map-0/screen-1.png",
+      "bytes": 382349,
+      "symlink": false,
+      "sha256": "b2f86d966f430f86d879d27b0ae4dd0bac4941b86a3780b7cdd0a66f590a2acf"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-normal/failure-map-0/screen-3.png",
+      "bytes": 373252,
+      "symlink": false,
+      "sha256": "63f7c7c50cc77cdc57b9f07ffa63d5593f766f700bbe21bfb58338d217390be0"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-normal/failure-map-0/screen-11.png",
+      "bytes": 352043,
+      "symlink": false,
+      "sha256": "804651ca0550ab14ce51d9bcdca366cb04c75f42745a4d8a0df0e3b960a49d18"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-normal/failure-map-0/screen-10.png",
+      "bytes": 364885,
+      "symlink": false,
+      "sha256": "1ee024b169555d7b7ea14d9fdeb1f37ac9077a00d56faf82e5601a85613c0f87"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-normal/failure-map-0/screen-2.png",
+      "bytes": 2311,
+      "symlink": false,
+      "sha256": "577fde5223e7881f90e138a162884c81b99cb4edc7da1ec9ac7c7dcf96aba837"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-normal/failure-map-0/decision-0.png",
+      "bytes": 390263,
+      "symlink": false,
+      "sha256": "64f1de17cc2905abbed3506459335d2be1e35181c7e6e75c1318468ab215a699"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-normal/failure-map-0/screen-9.png",
+      "bytes": 377585,
+      "symlink": false,
+      "sha256": "abfc86bd0e65750afe0d9e6f22dbc53bff511c6bfb15aba4e11f38baf7c413b5"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-normal/failure-map-0/screen-8.png",
+      "bytes": 390267,
+      "symlink": false,
+      "sha256": "bd0fec1d3c07d1644d57ed0ac36ddddd1f8e4aac18bbe6d28e57ea31ad358ad8"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/manual-audio-review/canvas.png",
+      "bytes": 369954,
+      "symlink": false,
+      "sha256": "a98c2a49e7491cc01d06ab4bb04f7f6210bff6851336ea015f9a5d142563a418"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/audio-dummy-initial/device.wav",
+      "bytes": 44,
+      "symlink": false,
+      "sha256": "4872b61c768dff943f9e021453d816f06e35adc8edd88ef183301f03e31b94a5"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/audio-coreaudio-release/device.wav",
+      "bytes": 1486892,
+      "symlink": false,
+      "sha256": "21d564654e24fb2803f502da1ca70d743607be051f8cef68ec406236d11e92f2"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-normal-clock-fix/failure-map-0/screen-6.png",
+      "bytes": 356564,
+      "symlink": false,
+      "sha256": "c19d47eecfe0b2428c4bedcdd6008d6d1089a9854a6ddb8f34c7098eba7e9a61"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-normal-clock-fix/failure-map-0/screen-7.png",
+      "bytes": 334365,
+      "symlink": false,
+      "sha256": "45a41188fa051d76c9b954ae7f34e1071fc38b23b257d042179d68e82bff2845"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-normal-clock-fix/failure-map-0/screen-5.png",
+      "bytes": 355267,
+      "symlink": false,
+      "sha256": "d5f3cdf4682e1de800f75c9548fb018e9c4607664b6959a8fc784aeface24711"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-normal-clock-fix/failure-map-0/screen-4.png",
+      "bytes": 394746,
+      "symlink": false,
+      "sha256": "ca32e4ba18bd0c85c6161451c6332e9b433ba899672afcdfc76bde9b8c2950d1"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-normal-clock-fix/failure-map-0/screen-0.png",
+      "bytes": 242422,
+      "symlink": false,
+      "sha256": "557482730e351709fd3259103b1fe8f4b3fc49eb5a2976b1614dc2255625190b"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-normal-clock-fix/failure-map-0/screen-1.png",
+      "bytes": 382349,
+      "symlink": false,
+      "sha256": "b2f86d966f430f86d879d27b0ae4dd0bac4941b86a3780b7cdd0a66f590a2acf"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-normal-clock-fix/failure-map-0/screen-3.png",
+      "bytes": 373252,
+      "symlink": false,
+      "sha256": "63f7c7c50cc77cdc57b9f07ffa63d5593f766f700bbe21bfb58338d217390be0"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-normal-clock-fix/failure-map-0/screen-11.png",
+      "bytes": 352043,
+      "symlink": false,
+      "sha256": "804651ca0550ab14ce51d9bcdca366cb04c75f42745a4d8a0df0e3b960a49d18"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-normal-clock-fix/failure-map-0/screen-10.png",
+      "bytes": 364885,
+      "symlink": false,
+      "sha256": "1ee024b169555d7b7ea14d9fdeb1f37ac9077a00d56faf82e5601a85613c0f87"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-normal-clock-fix/failure-map-0/screen-2.png",
+      "bytes": 2311,
+      "symlink": false,
+      "sha256": "577fde5223e7881f90e138a162884c81b99cb4edc7da1ec9ac7c7dcf96aba837"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-normal-clock-fix/failure-map-0/decision-0.png",
+      "bytes": 390263,
+      "symlink": false,
+      "sha256": "64f1de17cc2905abbed3506459335d2be1e35181c7e6e75c1318468ab215a699"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-normal-clock-fix/failure-map-0/screen-9.png",
+      "bytes": 377585,
+      "symlink": false,
+      "sha256": "abfc86bd0e65750afe0d9e6f22dbc53bff511c6bfb15aba4e11f38baf7c413b5"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-diff-normal-clock-fix/failure-map-0/screen-8.png",
+      "bytes": 390267,
+      "symlink": false,
+      "sha256": "bd0fec1d3c07d1644d57ed0ac36ddddd1f8e4aac18bbe6d28e57ea31ad358ad8"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/audio-coreaudio-final/device.wav",
+      "bytes": 1486892,
+      "symlink": false,
+      "sha256": "d154c79c7720341cdd51d12eca9a02dd495a2b8944545418ab67704ccd4d85f9"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/audio-dummy-release/device.wav",
+      "bytes": 1214508,
+      "symlink": false,
+      "sha256": "252850f31de7b5f2bad4e47406ae3b1e52ef44de841ca0b78fbb08a476e8bbe6"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-save-producer/screen-6.png",
+      "bytes": 356564,
+      "symlink": false,
+      "sha256": "c19d47eecfe0b2428c4bedcdd6008d6d1089a9854a6ddb8f34c7098eba7e9a61"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-save-producer/screen-7.png",
+      "bytes": 334365,
+      "symlink": false,
+      "sha256": "45a41188fa051d76c9b954ae7f34e1071fc38b23b257d042179d68e82bff2845"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-save-producer/screen-5.png",
+      "bytes": 355267,
+      "symlink": false,
+      "sha256": "d5f3cdf4682e1de800f75c9548fb018e9c4607664b6959a8fc784aeface24711"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-save-producer/screen-4.png",
+      "bytes": 396028,
+      "symlink": false,
+      "sha256": "d27c0b3f549782e6a4269855db37cef411771174237e8b4b0bec0679f74d5460"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-save-producer/screen-0.png",
+      "bytes": 242422,
+      "symlink": false,
+      "sha256": "557482730e351709fd3259103b1fe8f4b3fc49eb5a2976b1614dc2255625190b"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-save-producer/screen-1.png",
+      "bytes": 383449,
+      "symlink": false,
+      "sha256": "4225a78d6eaca54a6bded83ec37119f216e38a4bb8c0ae4e1f4568532b88c496"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-save-producer/screen-3.png",
+      "bytes": 373252,
+      "symlink": false,
+      "sha256": "63f7c7c50cc77cdc57b9f07ffa63d5593f766f700bbe21bfb58338d217390be0"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-save-producer/screen-11.png",
+      "bytes": 345383,
+      "symlink": false,
+      "sha256": "8ca54308d237239a3519233584f59a3a7c83ba20e340c0f9fb09250b2e3f4425"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-save-producer/screen-10.png",
+      "bytes": 364885,
+      "symlink": false,
+      "sha256": "1ee024b169555d7b7ea14d9fdeb1f37ac9077a00d56faf82e5601a85613c0f87"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-save-producer/screen-2.png",
+      "bytes": 372893,
+      "symlink": false,
+      "sha256": "ad4569c66eee5945877d56974e47219715ab16590ed84bfea647db6112e07a23"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-save-producer/decision-0.png",
+      "bytes": 375341,
+      "symlink": false,
+      "sha256": "eeb7264a463fb9222f43133df947756c56aa1572148fa9384adaf600ec76457f"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-save-producer/screen-9.png",
+      "bytes": 375778,
+      "symlink": false,
+      "sha256": "e259a79aa8a8353f8b6af27586b5aed24fedc86004349b1057cd2430bb45c1eb"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-save-producer/screen-8.png",
+      "bytes": 387866,
+      "symlink": false,
+      "sha256": "e6584abf4fda3e27656934453aa767726f96788a7a06f96b7aaf2eac9516ccea"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/manual-review-b7c60dd/canvas.png",
+      "bytes": 242422,
+      "symlink": false,
+      "sha256": "557482730e351709fd3259103b1fe8f4b3fc49eb5a2976b1614dc2255625190b"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/autopilot-loss-save/screen-0.png",
+      "bytes": 242422,
+      "symlink": false,
+      "sha256": "557482730e351709fd3259103b1fe8f4b3fc49eb5a2976b1614dc2255625190b"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/autopilot-loss-save/screen-1.png",
+      "bytes": 383449,
+      "symlink": false,
+      "sha256": "4225a78d6eaca54a6bded83ec37119f216e38a4bb8c0ae4e1f4568532b88c496"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/autopilot-loss-save/screen-11.png",
+      "bytes": 352043,
+      "symlink": false,
+      "sha256": "804651ca0550ab14ce51d9bcdca366cb04c75f42745a4d8a0df0e3b960a49d18"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/autopilot-loss-save/screen-2.png",
+      "bytes": 372893,
+      "symlink": false,
+      "sha256": "ad4569c66eee5945877d56974e47219715ab16590ed84bfea647db6112e07a23"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/autopilot-loss-save/screen-9.png",
+      "bytes": 375263,
+      "symlink": false,
+      "sha256": "afae1cfe26986849fdb2f6b80134e06821461adb7df19c4035b545579e24af92"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/cpp-core/capture-py-4.wav",
+      "bytes": 11520044,
+      "symlink": false,
+      "sha256": "501de62e4738d2425d3b49016a9f6e4b99a915eaaeeeb87d611caec457fb6f27"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/cpp-core/capture-py-0.wav",
+      "bytes": 44,
+      "symlink": false,
+      "sha256": "4872b61c768dff943f9e021453d816f06e35adc8edd88ef183301f03e31b94a5"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/cpp-core/capture-py-1.wav",
+      "bytes": 48,
+      "symlink": false,
+      "sha256": "ba80b0d9671920cd87e5b7cfb6853489efd1e380d7659b07125b1bffa12b2c9f"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/cpp-core/capture-py-3.wav",
+      "bytes": 200072,
+      "symlink": false,
+      "sha256": "363bdbe0180b7188aa9b6feb6eb05245b0feb5c8ba1fd092d208080ed8735656"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/cpp-core/capture-py-2.wav",
+      "bytes": 78,
+      "symlink": false,
+      "sha256": "86ab25768ed140447171652adce5e571263d071c449560aa6d9cd6ed84f348f5"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/cpp-core/capture-cpp-4.wav",
+      "bytes": 11520044,
+      "symlink": false,
+      "sha256": "501de62e4738d2425d3b49016a9f6e4b99a915eaaeeeb87d611caec457fb6f27"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/cpp-core/capture-cpp-1.wav",
+      "bytes": 48,
+      "symlink": false,
+      "sha256": "ba80b0d9671920cd87e5b7cfb6853489efd1e380d7659b07125b1bffa12b2c9f"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/cpp-core/capture-cpp-0.wav",
+      "bytes": 44,
+      "symlink": false,
+      "sha256": "4872b61c768dff943f9e021453d816f06e35adc8edd88ef183301f03e31b94a5"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/cpp-core/capture-cpp-2.wav",
+      "bytes": 78,
+      "symlink": false,
+      "sha256": "86ab25768ed140447171652adce5e571263d071c449560aa6d9cd6ed84f348f5"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/cpp-core/capture-cpp-3.wav",
+      "bytes": 200072,
+      "symlink": false,
+      "sha256": "363bdbe0180b7188aa9b6feb6eb05245b0feb5c8ba1fd092d208080ed8735656"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/audio-dummy-buffer-fix/device.wav",
+      "bytes": 1196076,
+      "symlink": false,
+      "sha256": "45d8896f26ed267d3c44702c5ad3e994adf6cba5ce53228f79a6e6d9c3d603c8"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-replay-initial/screen-0.png",
+      "bytes": 242422,
+      "symlink": false,
+      "sha256": "557482730e351709fd3259103b1fe8f4b3fc49eb5a2976b1614dc2255625190b"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-replay-initial/screen-1.png",
+      "bytes": 383449,
+      "symlink": false,
+      "sha256": "4225a78d6eaca54a6bded83ec37119f216e38a4bb8c0ae4e1f4568532b88c496"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-replay-initial/screen-2.png",
+      "bytes": 372893,
+      "symlink": false,
+      "sha256": "ad4569c66eee5945877d56974e47219715ab16590ed84bfea647db6112e07a23"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/application-replay-initial/decision-0.png",
+      "bytes": 375341,
+      "symlink": false,
+      "sha256": "eeb7264a463fb9222f43133df947756c56aa1572148fa9384adaf600ec76457f"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/audio-default-dummy/device.wav",
+      "bytes": 1204268,
+      "symlink": false,
+      "sha256": "81a1ed9c1872b3fbafdd9d2cd3c6960dbe4a6a457e6f2ddda6673e87591c57ad"
+    },
+    {
+      "path": "/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/audio-default-coreaudio/device.wav",
+      "bytes": 1486892,
+      "symlink": false,
+      "sha256": "346bee2d22a035f2f8c412ac1a604accc08fd9331822155213532c17d1854b02"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_开放档案直接读PNG且不伪造旧SPR字节0/a.png",
+      "bytes": 70,
+      "symlink": false,
+      "sha256": "394e15b02a2e55d1b84e898764a30ec99c58b49071fd65f98064315da4c0e7b8"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix5/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix5/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix2/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix2/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_PNG无掩码黑色与高位黑色保持原语义0/no-mask.png",
+      "bytes": 76,
+      "symlink": false,
+      "sha256": "20c2d0bbd6722bed4cb63ec70454eae0cfa5e70d1af09ca1a6adf28e782201a3"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_活动人物在同锚点后画而外部栏不被覆盖0/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_活动人物在同锚点后画而外部栏不被覆盖0/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix3/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix3/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix4/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix4/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_PNG帧序列保留间隔全部帧透明与倒带0/2.png",
+      "bytes": 70,
+      "symlink": false,
+      "sha256": "394e15b02a2e55d1b84e898764a30ec99c58b49071fd65f98064315da4c0e7b8"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_PNG帧序列保留间隔全部帧透明与倒带0/1.png",
+      "bytes": 70,
+      "symlink": false,
+      "sha256": "9e48548837788a50c04e1d7e7586f715554ac0b6743b7211a83b6aa16147dee5"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_PNG帧序列保留间隔全部帧透明与倒带0/0.png",
+      "bytes": 70,
+      "symlink": false,
+      "sha256": "2bd7900e5260f7c795aab09b25e241f93db630244b772d73241ba6498b09b686"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_原F32乘法后远零取整及PCM16头0/capture.wav",
+      "bytes": 60,
+      "symlink": false,
+      "sha256": "68857f4cff285057d0cdf112ef9977b618785bc9486b1f56101d1f6eebfe80e5"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle4/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle4/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non4/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non4/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle3/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle3/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non3/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non3/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle2/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle2/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non2/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non2/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle5/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle5/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non5/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non5/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_地图编号先拒绝并按大小写无关读取节点0/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_地图编号先拒绝并按大小写无关读取节点0/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_预览人物以画布中心为锚点而非将人物裁到窗口外0/sample.mkf",
+      "bytes": 52,
+      "symlink": false,
+      "sha256": "567312ff46b87ed7fd089a4b5d4d56a2aebab3709d3ec80f4abdb67874d5b838"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix1/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix1/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix6/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix6/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix7/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix7/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix0/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix0/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle0/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle0/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non0/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non0/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle7/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle7/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non7/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non7/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_真实回调缓冲暂停退出与原声音0/device.wav",
+      "bytes": 1202220,
+      "symlink": false,
+      "sha256": "2e602b08c5d3ab031e06643f2918107816e70dace207e783e6ee5b129f25dba9"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_临时地产着色只按掩码或运算而不产生假建筑0/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_临时地产着色只按掩码或运算而不产生假建筑0/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_PNG完整16位像素与显式掩码原点无损往返0/all-colors.png",
+      "bytes": 2929,
+      "symlink": false,
+      "sha256": "b56c73bc33437ae0863949c4710db3a6abc5c60c8a614970aced34e6e1f27924"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle6/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle6/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non6/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non6/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle1/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle1/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non1/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-244/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non1/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-243/test_PNG无掩码黑色与高位黑色保持原语义0/no-mask.png",
+      "bytes": 76,
+      "symlink": false,
+      "sha256": "20c2d0bbd6722bed4cb63ec70454eae0cfa5e70d1af09ca1a6adf28e782201a3"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-243/test_PNG帧序列保留间隔全部帧透明与倒带0/2.png",
+      "bytes": 70,
+      "symlink": false,
+      "sha256": "394e15b02a2e55d1b84e898764a30ec99c58b49071fd65f98064315da4c0e7b8"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-243/test_PNG帧序列保留间隔全部帧透明与倒带0/1.png",
+      "bytes": 70,
+      "symlink": false,
+      "sha256": "9e48548837788a50c04e1d7e7586f715554ac0b6743b7211a83b6aa16147dee5"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-243/test_PNG帧序列保留间隔全部帧透明与倒带0/0.png",
+      "bytes": 70,
+      "symlink": false,
+      "sha256": "2bd7900e5260f7c795aab09b25e241f93db630244b772d73241ba6498b09b686"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-243/test_PNG完整16位像素与显式掩码原点无损往返0/all-colors.png",
+      "bytes": 2929,
+      "symlink": false,
+      "sha256": "b56c73bc33437ae0863949c4710db3a6abc5c60c8a614970aced34e6e1f27924"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_开放档案直接读PNG且不伪造旧SPR字节0/a.png",
+      "bytes": 70,
+      "symlink": false,
+      "sha256": "394e15b02a2e55d1b84e898764a30ec99c58b49071fd65f98064315da4c0e7b8"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix5/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix5/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix2/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix2/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_PNG无掩码黑色与高位黑色保持原语义0/no-mask.png",
+      "bytes": 76,
+      "symlink": false,
+      "sha256": "20c2d0bbd6722bed4cb63ec70454eae0cfa5e70d1af09ca1a6adf28e782201a3"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_活动人物在同锚点后画而外部栏不被覆盖0/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_活动人物在同锚点后画而外部栏不被覆盖0/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix3/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix3/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix4/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix4/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_PNG帧序列保留间隔全部帧透明与倒带0/2.png",
+      "bytes": 70,
+      "symlink": false,
+      "sha256": "394e15b02a2e55d1b84e898764a30ec99c58b49071fd65f98064315da4c0e7b8"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_PNG帧序列保留间隔全部帧透明与倒带0/1.png",
+      "bytes": 70,
+      "symlink": false,
+      "sha256": "9e48548837788a50c04e1d7e7586f715554ac0b6743b7211a83b6aa16147dee5"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_PNG帧序列保留间隔全部帧透明与倒带0/0.png",
+      "bytes": 70,
+      "symlink": false,
+      "sha256": "2bd7900e5260f7c795aab09b25e241f93db630244b772d73241ba6498b09b686"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_原F32乘法后远零取整及PCM16头0/capture.wav",
+      "bytes": 60,
+      "symlink": false,
+      "sha256": "68857f4cff285057d0cdf112ef9977b618785bc9486b1f56101d1f6eebfe80e5"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle4/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle4/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non4/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non4/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle3/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle3/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non3/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non3/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle2/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle2/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non2/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non2/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle5/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle5/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non5/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non5/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_地图编号先拒绝并按大小写无关读取节点0/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_地图编号先拒绝并按大小写无关读取节点0/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_预览人物以画布中心为锚点而非将人物裁到窗口外0/sample.mkf",
+      "bytes": 52,
+      "symlink": false,
+      "sha256": "567312ff46b87ed7fd089a4b5d4d56a2aebab3709d3ec80f4abdb67874d5b838"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix1/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix1/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix6/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix6/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix7/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix7/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix0/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_mix0/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle0/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle0/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non0/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non0/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle7/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle7/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non7/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non7/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_真实回调缓冲暂停退出与原声音0/device.wav",
+      "bytes": 1206316,
+      "symlink": false,
+      "sha256": "5452bc8c28e321067d7b2427af5d3cc335e7558871d0cd7b473b770ccdfbd5a1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_临时地产着色只按掩码或运算而不产生假建筑0/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_临时地产着色只按掩码或运算而不产生假建筑0/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_PNG完整16位像素与显式掩码原点无损往返0/all-colors.png",
+      "bytes": 2929,
+      "symlink": false,
+      "sha256": "b56c73bc33437ae0863949c4710db3a6abc5c60c8a614970aced34e6e1f27924"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle6/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle6/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non6/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non6/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle1/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_cle1/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non1/mAp.MkF",
+      "bytes": 5872,
+      "symlink": false,
+      "sha256": "31d01868c4ad3f2506e8da9d314642ef8897c9da7112c646c7cef7f7b3579963"
+    },
+    {
+      "path": "/var/folders/lv/l3lkvwy97ksd9c9h1gcz6kb80000gn/T/pytest-of-laocao/pytest-245/test_非均匀纹理跨地图边界与原扫描全像素掩码一致_non1/dAtA.mKf",
+      "bytes": 8088,
+      "symlink": false,
+      "sha256": "a183ac168bb87ee6b61c9ccb82d84a14cdf0a18749eb243bb80fb06d6b8d45f1"
+    }
+  ],
+  "canonical_files_unchanged": 64,
+  "canonical_bytes_unchanged": 248491414,
+  "canonical_inventory_sha256": "c5ee12081ff1074f2f6a2c05d12a0d747431fbecff3fda67b82fb7672d3a389b",
+  "removed_regular_files": 895,
+  "removed_logical_bytes": 469496803,
+  "space_scope": "logical content sizes; not a measured physical APFS free-space delta",
+  "save_files_relocated": [
+    {
+      "old_path": ".research-cache/application-diff-shop-bot-fix/failure-map-3/failure.DAT",
+      "new_path": "/Users/laocao/Documents/coding/ReactMono/pygame/userdata/validation/cache-saves/application-diff-shop-bot-fix/failure-map-3/failure.DAT",
+      "bytes": 95371,
+      "sha256": "1b7512e12ae657fe0110ce9bb34a9d66c5ecebc9b9969f62dd944bff3fff7b77"
+    },
+    {
+      "old_path": ".research-cache/application-diff-shop-bot-fix/failure-map-3/saves/Autosave.DAT.rng",
+      "new_path": "/Users/laocao/Documents/coding/ReactMono/pygame/userdata/validation/cache-saves/application-diff-shop-bot-fix/failure-map-3/saves/Autosave.DAT.rng",
+      "bytes": 21,
+      "sha256": "a3159cb9a61f4bcdcff0240e2c8ba0270cd1c25626fc6822978cb2140681fe3f"
+    },
+    {
+      "old_path": ".research-cache/application-diff-shop-bot-fix/failure-map-3/saves/Autosave.DAT",
+      "new_path": "/Users/laocao/Documents/coding/ReactMono/pygame/userdata/validation/cache-saves/application-diff-shop-bot-fix/failure-map-3/saves/Autosave.DAT",
+      "bytes": 95371,
+      "sha256": "04617d3472b5baeffd9dc99afaf0657efc6f6080ef0049360f164986b4f25b54"
+    },
+    {
+      "old_path": ".research-cache/application-diff-normal/failure-map-0/failure.DAT",
+      "new_path": "/Users/laocao/Documents/coding/ReactMono/pygame/userdata/validation/cache-saves/application-diff-normal/failure-map-0/failure.DAT",
+      "bytes": 89871,
+      "sha256": "31dfb9070fe67eafbb849b7f6bf2097ad523f47322ed0d708df84e841b92c9ad"
+    },
+    {
+      "old_path": ".research-cache/application-diff-normal/failure-map-0/saves/Autosave.DAT.rng",
+      "new_path": "/Users/laocao/Documents/coding/ReactMono/pygame/userdata/validation/cache-saves/application-diff-normal/failure-map-0/saves/Autosave.DAT.rng",
+      "bytes": 22,
+      "sha256": "5a85158f2b05bc0b0654a86f1de473dc8bee6f52ec75afda17d0d7ad832e1230"
+    },
+    {
+      "old_path": ".research-cache/application-diff-normal/failure-map-0/saves/Autosave.DAT",
+      "new_path": "/Users/laocao/Documents/coding/ReactMono/pygame/userdata/validation/cache-saves/application-diff-normal/failure-map-0/saves/Autosave.DAT",
+      "bytes": 89871,
+      "sha256": "813ba739940cd87d6a260757420558a8ac5fd468c23e4a7c30e6c08e59d36721"
+    },
+    {
+      "old_path": ".research-cache/manual-audio-review/saves/Autosave.DAT.rng",
+      "new_path": "/Users/laocao/Documents/coding/ReactMono/pygame/userdata/validation/cache-saves/manual-audio-review/saves/Autosave.DAT.rng",
+      "bytes": 23,
+      "sha256": "5779424e8aed484765f491c5bd034f3ded5735e3ae920da9472cb3bf520d4bb1"
+    },
+    {
+      "old_path": ".research-cache/manual-audio-review/saves/Autosave.DAT",
+      "new_path": "/Users/laocao/Documents/coding/ReactMono/pygame/userdata/validation/cache-saves/manual-audio-review/saves/Autosave.DAT",
+      "bytes": 89871,
+      "sha256": "641e147825bdaeda4c90785340374333a660ba1dcca784b140b1745bbe06b81c"
+    },
+    {
+      "old_path": ".research-cache/application-diff-normal-clock-fix/failure-map-0/failure.DAT",
+      "new_path": "/Users/laocao/Documents/coding/ReactMono/pygame/userdata/validation/cache-saves/application-diff-normal-clock-fix/failure-map-0/failure.DAT",
+      "bytes": 89871,
+      "sha256": "31dfb9070fe67eafbb849b7f6bf2097ad523f47322ed0d708df84e841b92c9ad"
+    },
+    {
+      "old_path": ".research-cache/application-diff-normal-clock-fix/failure-map-0/saves/Autosave.DAT.rng",
+      "new_path": "/Users/laocao/Documents/coding/ReactMono/pygame/userdata/validation/cache-saves/application-diff-normal-clock-fix/failure-map-0/saves/Autosave.DAT.rng",
+      "bytes": 22,
+      "sha256": "5a85158f2b05bc0b0654a86f1de473dc8bee6f52ec75afda17d0d7ad832e1230"
+    },
+    {
+      "old_path": ".research-cache/application-diff-normal-clock-fix/failure-map-0/saves/Autosave.DAT",
+      "new_path": "/Users/laocao/Documents/coding/ReactMono/pygame/userdata/validation/cache-saves/application-diff-normal-clock-fix/failure-map-0/saves/Autosave.DAT",
+      "bytes": 89871,
+      "sha256": "813ba739940cd87d6a260757420558a8ac5fd468c23e4a7c30e6c08e59d36721"
+    },
+    {
+      "old_path": ".research-cache/application-save-producer/saves/Save1.DAT.rng",
+      "new_path": "/Users/laocao/Documents/coding/ReactMono/pygame/userdata/validation/cache-saves/application-save-producer/saves/Save1.DAT.rng",
+      "bytes": 22,
+      "sha256": "5a85158f2b05bc0b0654a86f1de473dc8bee6f52ec75afda17d0d7ad832e1230"
+    },
+    {
+      "old_path": ".research-cache/application-save-producer/saves/Save1.DAT",
+      "new_path": "/Users/laocao/Documents/coding/ReactMono/pygame/userdata/validation/cache-saves/application-save-producer/saves/Save1.DAT",
+      "bytes": 89871,
+      "sha256": "45c54dfa25ae9b883962165fdab83fe8099a506904610c6b7d165193360d6ace"
+    },
+    {
+      "old_path": ".research-cache/application-save-producer/saves/Autosave.DAT.rng",
+      "new_path": "/Users/laocao/Documents/coding/ReactMono/pygame/userdata/validation/cache-saves/application-save-producer/saves/Autosave.DAT.rng",
+      "bytes": 23,
+      "sha256": "b8b1b44b2adc88e8fa96cc3002e92df6ac596fe024de750f72d9649a0da642e2"
+    },
+    {
+      "old_path": ".research-cache/application-save-producer/saves/Autosave.DAT",
+      "new_path": "/Users/laocao/Documents/coding/ReactMono/pygame/userdata/validation/cache-saves/application-save-producer/saves/Autosave.DAT",
+      "bytes": 89871,
+      "sha256": "fa36fdc2bd0c1a516db7a36f21d05be250d665df67059ea5d4cd3a34e1d38ebf"
+    },
+    {
+      "old_path": ".research-cache/manual-review-b7c60dd/saves/Autosave.DAT.rng",
+      "new_path": "/Users/laocao/Documents/coding/ReactMono/pygame/userdata/validation/cache-saves/manual-review-b7c60dd/saves/Autosave.DAT.rng",
+      "bytes": 21,
+      "sha256": "d594edb1ae2e2602c62c251ccc6a1da273157a399d12dee1adf57316347cee2a"
+    },
+    {
+      "old_path": ".research-cache/manual-review-b7c60dd/saves/Autosave.DAT",
+      "new_path": "/Users/laocao/Documents/coding/ReactMono/pygame/userdata/validation/cache-saves/manual-review-b7c60dd/saves/Autosave.DAT",
+      "bytes": 89871,
+      "sha256": "36494f14f5d0d495fcb5518f9d4b18f2b55ab7e71ae0e5ffa3df7aa49a9a1926"
+    },
+    {
+      "old_path": ".research-cache/autopilot-loss-save/saves/Autosave.DAT.rng",
+      "new_path": "/Users/laocao/Documents/coding/ReactMono/pygame/userdata/validation/cache-saves/autopilot-loss-save/saves/Autosave.DAT.rng",
+      "bytes": 22,
+      "sha256": "762b2e64b12cd3237f3753cc89976065bce818b60f353dd1c5b34966325fda2a"
+    },
+    {
+      "old_path": ".research-cache/autopilot-loss-save/saves/Autosave.DAT",
+      "new_path": "/Users/laocao/Documents/coding/ReactMono/pygame/userdata/validation/cache-saves/autopilot-loss-save/saves/Autosave.DAT",
+      "bytes": 89871,
+      "sha256": "cd1137baaa086bb1ccab6b2758e61e7fd7ea0c3355dad27dee604b6ad42077c0"
+    },
+    {
+      "old_path": ".research-cache/application-replay-initial/saves/Autosave.DAT.rng",
+      "new_path": "/Users/laocao/Documents/coding/ReactMono/pygame/userdata/validation/cache-saves/application-replay-initial/saves/Autosave.DAT.rng",
+      "bytes": 23,
+      "sha256": "b8b1b44b2adc88e8fa96cc3002e92df6ac596fe024de750f72d9649a0da642e2"
+    },
+    {
+      "old_path": ".research-cache/application-replay-initial/saves/Autosave.DAT",
+      "new_path": "/Users/laocao/Documents/coding/ReactMono/pygame/userdata/validation/cache-saves/application-replay-initial/saves/Autosave.DAT",
+      "bytes": 89871,
+      "sha256": "fa36fdc2bd0c1a516db7a36f21d05be250d665df67059ea5d4cd3a34e1d38ebf"
+    }
+  ],
+  "additional_media_removed": [
+    {
+      "path": ".research-cache/midi-resume-source.bin",
+      "bytes": 550712,
+      "sha256": "bb93faeccae056b9760e445d83866d3a7f9a23699af431db1b128a2bb0f02b3e"
+    }
+  ]
+}
