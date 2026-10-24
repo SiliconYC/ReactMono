@@ -1,0 +1,22 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 1788,
+  "painted_frames": 352,
+  "scope": "direct original StockMarket, explicit UI state and captured trade callbacks, real sprites, internal state and callbacks; not actual window/financial rule integration",
+  "font_sha256": "4b450afb2c61d7529fe05647316e9fc3137ea703a664bded5bca895a5c30748c",
+  "mode": "grid",
+  "runtime_sha256": {
+    "stock_screen.py": "92942a7be9f7f73d365e47f96298458f0d703f1af125a00d3409b2e21174d8f7",
+    "stock_screen_draw.py": "d583e05c800315f4028abe90d9ea863e33db801cbfad0061e71247f874c5d30f",
+    "stock_info.py": "a9770af36dad6ba320d158d04d5bde5d6b8540b4e2081fed8c4b8471027a3722",
+    "number_pad.py": "dff01c649ca1ba9f9d7f8dd211d8a71ba5e51682573b218ed87d27ff69bda179",
+    "screen_draw.py": "082a3b0d67c61a0ad903adf4dae70847b4b67f3fedaa2f7ad83049942cbd0d28"
+  },
+  "python_sha256": "92942a7be9f7f73d365e47f96298458f0d703f1af125a00d3409b2e21174d8f7",
+  "last_command": "D 1 -1 -1 0 0 210 0",
+  "last_index": 1787,
+  "state_sha256": "45daa0436e489aaab0545640e56694ec541fbbc7fcc05c7decc028c1b8ff8e36",
+  "input_sha256": "5cf81cebd345666ada73c85d955fd3cd13f94bf0d627eab90a92a10c45ba4178",
+  "compared_pixels": 108134400
+}

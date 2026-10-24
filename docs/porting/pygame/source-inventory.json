@@ -18140,9 +18140,14 @@
       "id": "tools/screens/finance.hpp:162",
       "declarator": "reset()",
       "end_line": 164,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stock_screen.py::股票屏幕_类.api_重置"
+      ],
+      "status": "已实现，组件状态差分",
+      "evidence": [
+        "STOCK_SCREENS.md",
+        "evidence/stock-screen-initial.json"
+      ]
     },
     {
       "id": "tools/screens/finance.hpp:203",
@@ -21109,121 +21114,226 @@
       "id": "tools/screens/stocks.cpp:20",
       "declarator": "price(const World &world, std::size_t stock)",
       "end_line": 22,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stock_info.py::_价"
+      ],
+      "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+      "evidence": [
+        "STOCK_SCREENS.md",
+        "tests/test_stock_screen.py",
+        "evidence/stock-screen-initial.json",
+        "evidence/stock-screen-grid.json"
+      ]
     },
     {
       "id": "tools/screens/stocks.cpp:23",
       "declarator": "previous_price(const World &world, std::size_t stock)",
       "end_line": 25,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stock_info.py::_价"
+      ],
+      "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+      "evidence": [
+        "STOCK_SCREENS.md",
+        "tests/test_stock_screen.py",
+        "evidence/stock-screen-initial.json",
+        "evidence/stock-screen-grid.json"
+      ]
     },
     {
       "id": "tools/screens/stocks.cpp:27",
       "declarator": "format_price(float value, float magnitude, bool sign = false)",
       "end_line": 32,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stock_info.py::_格式"
+      ],
+      "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+      "evidence": [
+        "STOCK_SCREENS.md",
+        "tests/test_stock_screen.py",
+        "evidence/stock-screen-initial.json",
+        "evidence/stock-screen-grid.json"
+      ]
     },
     {
       "id": "tools/screens/stocks.cpp:33",
       "declarator": "stock_name(const World &world, std::size_t stock)",
       "end_line": 35,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stock_info.py::_名"
+      ],
+      "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+      "evidence": [
+        "STOCK_SCREENS.md",
+        "tests/test_stock_screen.py",
+        "evidence/stock-screen-initial.json",
+        "evidence/stock-screen-grid.json"
+      ]
     },
     {
       "id": "tools/screens/stocks.cpp:36",
       "declarator": "*company(const World &world, std::size_t stock)",
       "end_line": 41,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stock_info.py::_公司"
+      ],
+      "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+      "evidence": [
+        "STOCK_SCREENS.md",
+        "tests/test_stock_screen.py",
+        "evidence/stock-screen-initial.json",
+        "evidence/stock-screen-grid.json"
+      ]
     },
     {
       "id": "tools/screens/stocks.cpp:43",
       "declarator": "history(const World &world, std::size_t stock)",
       "end_line": 55,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stock_info.py::_历史"
+      ],
+      "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+      "evidence": [
+        "STOCK_SCREENS.md",
+        "tests/test_stock_screen.py",
+        "evidence/stock-screen-initial.json",
+        "evidence/stock-screen-grid.json"
+      ]
     },
     {
       "id": "tools/screens/stocks.cpp:56",
       "declarator": "line(graphics::Image &canvas, int x0, int y0, int x1, int y1, std::uint16_t colour)",
       "end_line": 75,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stock_info.py::_线"
+      ],
+      "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+      "evidence": [
+        "STOCK_SCREENS.md",
+        "tests/test_stock_screen.py",
+        "evidence/stock-screen-initial.json",
+        "evidence/stock-screen-grid.json"
+      ]
     },
     {
       "id": "tools/screens/stocks.cpp:80",
       "declarator": "tall(graphics::Rect rect)",
       "end_line": 82,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stock_screen.py::api_绘制"
+      ],
+      "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+      "evidence": [
+        "STOCK_SCREENS.md",
+        "tests/test_stock_screen.py",
+        "evidence/stock-screen-initial.json",
+        "evidence/stock-screen-grid.json"
+      ]
     },
     {
       "id": "tools/screens/stocks.cpp:86",
       "declarator": "market_closed(const World &world)",
       "end_line": 90,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stock_screen.py::api_休市"
+      ],
+      "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+      "evidence": [
+        "STOCK_SCREENS.md",
+        "tests/test_stock_screen.py",
+        "evidence/stock-screen-initial.json",
+        "evidence/stock-screen-grid.json"
+      ]
     },
     {
       "id": "tools/screens/stocks.cpp:92",
       "declarator": "StockMarket::cancel(Host &host, const StockActions &actions)",
       "end_line": 101,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stock_screen.py::api_取消"
+      ],
+      "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+      "evidence": [
+        "STOCK_SCREENS.md",
+        "tests/test_stock_screen.py",
+        "evidence/stock-screen-initial.json",
+        "evidence/stock-screen-grid.json"
+      ]
     },
     {
       "id": "tools/screens/stocks.cpp:103",
       "declarator": "StockMarket::draw(Host &host, const World &world, std::size_t player, NumberPad &pad,\n                       const StockActions &actions)",
       "end_line": 196,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stock_screen.py::api_绘制"
+      ],
+      "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+      "evidence": [
+        "STOCK_SCREENS.md",
+        "tests/test_stock_screen.py",
+        "evidence/stock-screen-initial.json",
+        "evidence/stock-screen-grid.json"
+      ]
     },
     {
       "id": "tools/screens/stocks.cpp:198",
       "declarator": "StockMarket::draw_card_target(Host &host, const World &world, std::size_t player,\n                                   const GameDecision *decision, int option_base,\n                                   const std::function<void(std::size_t)> &respond)",
       "end_line": 238,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stock_screen.py::api_卡片目标"
+      ],
+      "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+      "evidence": [
+        "STOCK_SCREENS.md",
+        "tests/test_stock_screen.py",
+        "evidence/stock-screen-initial.json",
+        "evidence/stock-screen-grid.json"
+      ]
     },
     {
       "id": "tools/screens/stocks.cpp:240",
       "declarator": "StockMarket::draw_prices(Host &host, const World &world, std::size_t player)",
       "end_line": 291,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stock_screen_draw.py::_画报价"
+      ],
+      "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+      "evidence": [
+        "STOCK_SCREENS.md",
+        "tests/test_stock_screen.py",
+        "evidence/stock-screen-initial.json",
+        "evidence/stock-screen-grid.json"
+      ]
     },
     {
       "id": "tools/screens/stocks.cpp:293",
       "declarator": "StockMarket::draw_holdings(Host &host, const World &world)",
       "end_line": 320,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stock_screen_draw.py::_画持仓"
+      ],
+      "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+      "evidence": [
+        "STOCK_SCREENS.md",
+        "tests/test_stock_screen.py",
+        "evidence/stock-screen-initial.json",
+        "evidence/stock-screen-grid.json"
+      ]
     },
     {
       "id": "tools/screens/stocks.cpp:322",
       "declarator": "StockMarket::draw_info(Host &host, const World &world, std::size_t stock)",
       "end_line": 427,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stock_info.py::_画资讯"
+      ],
+      "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+      "evidence": [
+        "STOCK_SCREENS.md",
+        "tests/test_stock_screen.py",
+        "evidence/stock-screen-initial.json",
+        "evidence/stock-screen-grid.json"
+      ]
     },
     {
       "id": "tools/screens/tile_popup.cpp:30",
