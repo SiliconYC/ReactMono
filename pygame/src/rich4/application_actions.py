@@ -11,6 +11,7 @@ from rich4.item_screen_types import 物品宿主_类
 from rich4.options_types import 选项状态_类
 from rich4.save import 存档_类
 from rich4.save_slot_screen import 存档槽_类
+from rich4.save_transaction import 存档事务_类
 from rich4.stock_screen import 股票动作_类
 from rich4.tile_pick import 地图拾取_类
 from rich4.tile_popup import 地图弹框_类, 地图提示_类
@@ -202,10 +203,9 @@ class 应用操作_类:
         slots = [存档槽_类() for _ in range(6)]
         for i in range(6):
             path = self.api_槽路径(i)
-            if not path.is_file():
-                continue
             try:
-                save = 存档_类.api_解码(path.read_bytes())
+                data, _ = 存档事务_类(path).api_读取(self.设置.种子)
+                save = 存档_类.api_解码(data)
                 header = save.api_头()
                 if header.签名 != 0x26:
                     continue
@@ -216,7 +216,7 @@ class 应用操作_类:
                     header.阶段,
                     [save.api_玩家(j).角色 for j in range(min(header.人数, 4))],
                 )
-            except (OSError, ValueError):
+            except (OSError, ValueError, RuntimeError):
                 # 原选择窗的坏槽不可用；真正点击读档的错误由读取入口报告且保留当前局。
                 continue
         return slots
@@ -224,6 +224,8 @@ class 应用操作_类:
     def api_载入路径(self) -> Path:
         if self.设置.载入 is not None:
             return self.设置.载入
+        # 首次保存若在提交点后被杀，尚无DAT也须先完成日志，才能参与最近槽选择。
+        self.api_读槽()
         newest = self.api_槽路径(1)
         for i in range(6):
             path = self.api_槽路径(i)

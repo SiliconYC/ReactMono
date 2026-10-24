@@ -1,0 +1,289 @@
+{
+  "status": "passed",
+  "scope": "settled native DAT/RNG file transaction, real macOS process SIGKILL; no arbitrary-phase checkpoint or hardware-power-loss claim",
+  "inputs": [
+    {
+      "name": "Save1.DAT",
+      "dat_sha256": "45c54dfa25ae9b883962165fdab83fe8099a506904610c6b7d165193360d6ace",
+      "rng_sha256": "5a85158f2b05bc0b0654a86f1de473dc8bee6f52ec75afda17d0d7ad832e1230",
+      "rng_state": 310915626
+    },
+    {
+      "name": "Autosave.DAT",
+      "dat_sha256": "fa36fdc2bd0c1a516db7a36f21d05be250d665df67059ea5d4cd3a34e1d38ebf",
+      "rng_sha256": "b8b1b44b2adc88e8fa96cc3002e92df6ac596fe024de750f72d9649a0da642e2",
+      "rng_state": 2240418548
+    }
+  ],
+  "distinct_boundary_cases": 60,
+  "observed_workers": 139,
+  "observed_sigkill_exits": 78,
+  "observed_successful_fresh_reads": 57,
+  "boundaries": [
+    {
+      "case": "test_恢复本身在每个持久化边界再被强杀仍可恢复同一新对0",
+      "points": [
+        {
+          "point": "fsync-1-before",
+          "committed": true
+        },
+        {
+          "point": "fsync-1-after",
+          "committed": true
+        },
+        {
+          "point": "replace-dat.next-Save1.DAT-before",
+          "committed": true
+        },
+        {
+          "point": "replace-dat.next-Save1.DAT-after",
+          "committed": true
+        },
+        {
+          "point": "fsync-2-before",
+          "committed": true
+        },
+        {
+          "point": "fsync-2-after",
+          "committed": true
+        },
+        {
+          "point": "fsync-3-before",
+          "committed": true
+        },
+        {
+          "point": "fsync-3-after",
+          "committed": true
+        },
+        {
+          "point": "replace-rng.next-Save1.DAT.rng-before",
+          "committed": true
+        },
+        {
+          "point": "replace-rng.next-Save1.DAT.rng-after",
+          "committed": true
+        },
+        {
+          "point": "fsync-4-before",
+          "committed": true
+        },
+        {
+          "point": "fsync-4-after",
+          "committed": true
+        },
+        {
+          "point": "unlink-pending.json-before",
+          "committed": true
+        },
+        {
+          "point": "unlink-pending.json-after",
+          "committed": true
+        },
+        {
+          "point": "fsync-5-before",
+          "committed": true
+        },
+        {
+          "point": "fsync-5-after",
+          "committed": true
+        }
+      ]
+    },
+    {
+      "case": "test_真实强杀每个持久化边界后新进程只见提交前旧对或提交0",
+      "points": [
+        {
+          "point": "fsync-1-before",
+          "committed": false
+        },
+        {
+          "point": "fsync-1-after",
+          "committed": false
+        },
+        {
+          "point": "replace-prepare.json-pending.json-before",
+          "committed": false
+        },
+        {
+          "point": "replace-prepare.json-pending.json-after",
+          "committed": true
+        },
+        {
+          "point": "fsync-2-before",
+          "committed": true
+        },
+        {
+          "point": "fsync-2-after",
+          "committed": true
+        },
+        {
+          "point": "fsync-3-before",
+          "committed": true
+        },
+        {
+          "point": "fsync-3-after",
+          "committed": true
+        },
+        {
+          "point": "replace-dat.next-Save1.DAT-before",
+          "committed": true
+        },
+        {
+          "point": "replace-dat.next-Save1.DAT-after",
+          "committed": true
+        },
+        {
+          "point": "fsync-4-before",
+          "committed": true
+        },
+        {
+          "point": "fsync-4-after",
+          "committed": true
+        },
+        {
+          "point": "fsync-5-before",
+          "committed": true
+        },
+        {
+          "point": "fsync-5-after",
+          "committed": true
+        },
+        {
+          "point": "replace-rng.next-Save1.DAT.rng-before",
+          "committed": true
+        },
+        {
+          "point": "replace-rng.next-Save1.DAT.rng-after",
+          "committed": true
+        },
+        {
+          "point": "fsync-6-before",
+          "committed": true
+        },
+        {
+          "point": "fsync-6-after",
+          "committed": true
+        },
+        {
+          "point": "unlink-pending.json-before",
+          "committed": true
+        },
+        {
+          "point": "unlink-pending.json-after",
+          "committed": true
+        },
+        {
+          "point": "fsync-7-before",
+          "committed": true
+        },
+        {
+          "point": "fsync-7-after",
+          "committed": true
+        }
+      ]
+    },
+    {
+      "case": "test_真实强杀每个持久化边界后新进程只见提交前旧对或提交1",
+      "points": [
+        {
+          "point": "fsync-1-before",
+          "committed": false
+        },
+        {
+          "point": "fsync-1-after",
+          "committed": false
+        },
+        {
+          "point": "replace-prepare.json-pending.json-before",
+          "committed": false
+        },
+        {
+          "point": "replace-prepare.json-pending.json-after",
+          "committed": true
+        },
+        {
+          "point": "fsync-2-before",
+          "committed": true
+        },
+        {
+          "point": "fsync-2-after",
+          "committed": true
+        },
+        {
+          "point": "fsync-3-before",
+          "committed": true
+        },
+        {
+          "point": "fsync-3-after",
+          "committed": true
+        },
+        {
+          "point": "replace-dat.next-Save1.DAT-before",
+          "committed": true
+        },
+        {
+          "point": "replace-dat.next-Save1.DAT-after",
+          "committed": true
+        },
+        {
+          "point": "fsync-4-before",
+          "committed": true
+        },
+        {
+          "point": "fsync-4-after",
+          "committed": true
+        },
+        {
+          "point": "fsync-5-before",
+          "committed": true
+        },
+        {
+          "point": "fsync-5-after",
+          "committed": true
+        },
+        {
+          "point": "replace-rng.next-Save1.DAT.rng-before",
+          "committed": true
+        },
+        {
+          "point": "replace-rng.next-Save1.DAT.rng-after",
+          "committed": true
+        },
+        {
+          "point": "fsync-6-before",
+          "committed": true
+        },
+        {
+          "point": "fsync-6-after",
+          "committed": true
+        },
+        {
+          "point": "unlink-pending.json-before",
+          "committed": true
+        },
+        {
+          "point": "unlink-pending.json-after",
+          "committed": true
+        },
+        {
+          "point": "fsync-7-before",
+          "committed": true
+        },
+        {
+          "point": "fsync-7-after",
+          "committed": true
+        }
+      ]
+    }
+  ],
+  "runtime_sha256": {
+    "application.py": "2231577a00fe9b288c6d249213e1958fb56c594b2fccfdab2db6809c3d615108",
+    "application_actions.py": "c9baba9c2a135fde77555a8381d46ac3c771d63abefe7a2fe7e0c20d79146d78",
+    "application_window.py": "57389aef8526e0054bdd989c2a2ae8910e357507a67268dcec755bfc07e45cb5",
+    "save_transaction.py": "b14a293d9eddd14327ec8ff6e273f08da2bbcaac3b171c77886db6c96c8d99b9",
+    "save_random.py": "c8602cbb3de2cd110fe8b8cd9945206859d936285fbf084ae363b6b64277945f"
+  },
+  "source_of_valid_inputs": "actual public-menu natural replay, previously compared to fixed C++ actual save bytes; no fabricated world/event/outcome",
+  "full_suite_attempt": "Initial full attempt: 633 passed, 1 dummy clock-criterion failure. Corrected probe documented in AUDIO_DUMMY_CLOCK.md; integration full suite pending.",
+  "targeted_tests": "34 passed in 14.29 seconds after malformed/deep journal slot checks"
+}

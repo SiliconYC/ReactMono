@@ -15467,11 +15467,14 @@
       "python": [
         "pygame/src/rich4/application_window.py::api_诊断"
       ],
-      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "status": "桌面循环与用户有限操作/画面/声音已验；普通异常诊断后仍上抛；当前不启动桌面采集",
       "evidence": [
         "APPLICATION.md",
         "tests/test_application.py",
-        "evidence/application-eight-maps.json"
+        "evidence/application-eight-maps.json",
+        "RECOVERY.md",
+        "evidence/save-transaction-failures.json",
+        "evidence/application-human-audio.json"
       ]
     },
     {
@@ -15481,11 +15484,14 @@
       "python": [
         "pygame/src/rich4/application_window.py::api_运行"
       ],
-      "status": "桌面循环已实现；绘制/推进及Pygame事件批次自动对照，原OS事件循环/手动操作未验证；开发画廊不计覆盖",
+      "status": "桌面循环与用户有限操作/画面/声音已验；普通异常诊断后仍上抛；当前不启动桌面采集",
       "evidence": [
         "APPLICATION.md",
         "tests/test_application.py",
-        "evidence/application-eight-maps.json"
+        "evidence/application-eight-maps.json",
+        "RECOVERY.md",
+        "evidence/save-transaction-failures.json",
+        "evidence/application-human-audio.json"
       ]
     },
     {
@@ -15723,15 +15729,20 @@
       "declarator": "read_slots() const",
       "end_line": 826,
       "python": [
-        "pygame/src/rich4/application_actions.py::api_读槽"
+        "pygame/src/rich4/application_actions.py::api_读槽",
+        "pygame/src/rich4/save_transaction.py::存档事务_类"
       ],
-      "status": "正式Python应用已接线；八图真实槽位/DAT与RNG字节及跨进程继续自动差分；任意中途完整检查点未实现",
+      "status": "原DAT/RNG字节与新会话合同不变；两文件提交/强杀恢复/列槽已验；非任意阶段检查点",
       "evidence": [
         "APPLICATION.md",
         "tests/test_application.py",
         "evidence/application-eight-maps.json",
         "evidence/application-save-slots.json",
-        "evidence/application-cross-process.json"
+        "evidence/application-cross-process.json",
+        "RECOVERY.md",
+        "tests/test_save_transaction.py",
+        "evidence/save-transaction-crashes.json",
+        "evidence/application-save-transaction-eight-maps.json"
       ]
     },
     {
@@ -15920,9 +15931,10 @@
       "end_line": 1039,
       "python": [
         "pygame/src/rich4/application.py::api_读取",
-        "pygame/src/rich4/save_random.py::随机旁车_类.api_读取/api_解码"
+        "pygame/src/rich4/save_random.py::随机旁车_类.api_读取/api_解码",
+        "pygame/src/rich4/save_transaction.py::存档事务_类"
       ],
-      "status": "正式原DAT+RNG新会话恢复、可选旁车uint32提取/错误边界直接差分；非任意阶段完整检查点",
+      "status": "原DAT/RNG字节与新会话合同不变；两文件提交/强杀恢复/列槽已验；非任意阶段检查点",
       "evidence": [
         "APPLICATION.md",
         "tests/test_application.py",
@@ -15933,7 +15945,10 @@
         "tests/test_save_random.py",
         "evidence/application-load-boundaries.json",
         "evidence/application-load-official-save1.json",
-        "evidence/application-load-official-save0.json"
+        "evidence/application-load-official-save0.json",
+        "tests/test_save_transaction.py",
+        "evidence/save-transaction-crashes.json",
+        "evidence/application-save-transaction-eight-maps.json"
       ]
     },
     {
@@ -15955,15 +15970,20 @@
       "declarator": "write_save(const fs::path &path)",
       "end_line": 1053,
       "python": [
-        "pygame/src/rich4/application.py::api_写存档"
+        "pygame/src/rich4/application.py::api_写存档",
+        "pygame/src/rich4/save_transaction.py::存档事务_类"
       ],
-      "status": "正式Python应用已接线；八图真实槽位/DAT与RNG字节及跨进程继续自动差分；任意中途完整检查点未实现",
+      "status": "原DAT/RNG字节与新会话合同不变；两文件提交/强杀恢复/列槽已验；非任意阶段检查点",
       "evidence": [
         "APPLICATION.md",
         "tests/test_application.py",
         "evidence/application-eight-maps.json",
         "evidence/application-save-slots.json",
-        "evidence/application-cross-process.json"
+        "evidence/application-cross-process.json",
+        "RECOVERY.md",
+        "tests/test_save_transaction.py",
+        "evidence/save-transaction-crashes.json",
+        "evidence/application-save-transaction-eight-maps.json"
       ]
     },
     {

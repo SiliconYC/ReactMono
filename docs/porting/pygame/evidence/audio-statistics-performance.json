@@ -1,0 +1,24 @@
+{
+  "scope": "seven paired offline runs, same 300 real MIDI blocks; all PCM bytes and full statistics equal; not a hardware latency guarantee",
+  "before_ms": 99.6874579868745,
+  "after_ms": 73.92466699820943,
+  "output_sha256": "ef9a8900cbc020bce3694d9b557af765812ffb7c86b416ba6cfba9e21bf35f57",
+  "stats": {
+    "渲染帧": 153600,
+    "非零采样": 179639,
+    "效果启动": 0,
+    "语音启动": 0,
+    "片段完成": 0,
+    "音乐帧": 153600,
+    "超时次数": 0,
+    "饥饿毫秒": 0,
+    "削波采样": 0,
+    "限幅采样": 0,
+    "峰值": 0.07840617746114731,
+    "最长更新间隔": 0,
+    "最长渲染微秒": 0
+  },
+  "baseline_source_sha256": "24b68ba148877d18285671b3ff9bb9a62cd693dc19c18d69672e4ae1dd4226b4",
+  "updated_source_sha256": "3778060c810c1c106f990b08b281e25791a213b03b8cb7eecf5198131495ae6e",
+  "status": "passed"
+}

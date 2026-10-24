@@ -19,6 +19,7 @@ class PCM混音_类:
 
     更新日志：
     2026.10.24 - 宿主必须用同一锁保护主线程与设备回调；样本缓存不得边播边修改。
+    2026.10.25 - 峰值/削波统计使用局部累加，避免每采样重复属性写入，不改变混音与限幅。
     """
 
     # fmaf不调用Python；保留GIL避免每个采样跨线程让出导致回调超预算。
@@ -108,12 +109,17 @@ class PCM混音_类:
             index, pcm = self._语音队列.pop(0)
             self._待日志.append(("speech", str(index)))
             self.api_起音(pcm, True, True)
+        statistics = self._统计
+        peak, clipped = statistics.峰值, 0
         for sample in output:
             magnitude = abs(sample)
-            self._统计.峰值 = max(self._统计.峰值, magnitude)
+            if magnitude > peak:
+                peak = magnitude
             if magnitude > 1:
-                self._统计.削波采样 += 1
-        self._统计.限幅采样 += self._限幅.api_处理(output)
-        self._统计.非零采样 += sum(abs(s) > 0.000001 for s in output)
-        self._统计.渲染帧 += 512
+                clipped += 1
+        statistics.峰值 = peak
+        statistics.削波采样 += clipped
+        statistics.限幅采样 += self._限幅.api_处理(output)
+        statistics.非零采样 += sum(abs(s) > 0.000001 for s in output)
+        statistics.渲染帧 += 512
         return output
