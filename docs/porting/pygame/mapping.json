@@ -10735,5 +10735,195 @@
       "BANK_SCREENS.md",
       "evidence/bank-screen-initial.json"
     ]
+  },
+  "tools/screens/stocks.cpp:20": {
+    "python": [
+      "pygame/src/rich4/stock_info.py::_价"
+    ],
+    "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+    "evidence": [
+      "STOCK_SCREENS.md",
+      "tests/test_stock_screen.py",
+      "evidence/stock-screen-initial.json",
+      "evidence/stock-screen-grid.json"
+    ]
+  },
+  "tools/screens/stocks.cpp:23": {
+    "python": [
+      "pygame/src/rich4/stock_info.py::_价"
+    ],
+    "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+    "evidence": [
+      "STOCK_SCREENS.md",
+      "tests/test_stock_screen.py",
+      "evidence/stock-screen-initial.json",
+      "evidence/stock-screen-grid.json"
+    ]
+  },
+  "tools/screens/stocks.cpp:27": {
+    "python": [
+      "pygame/src/rich4/stock_info.py::_格式"
+    ],
+    "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+    "evidence": [
+      "STOCK_SCREENS.md",
+      "tests/test_stock_screen.py",
+      "evidence/stock-screen-initial.json",
+      "evidence/stock-screen-grid.json"
+    ]
+  },
+  "tools/screens/stocks.cpp:33": {
+    "python": [
+      "pygame/src/rich4/stock_info.py::_名"
+    ],
+    "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+    "evidence": [
+      "STOCK_SCREENS.md",
+      "tests/test_stock_screen.py",
+      "evidence/stock-screen-initial.json",
+      "evidence/stock-screen-grid.json"
+    ]
+  },
+  "tools/screens/stocks.cpp:36": {
+    "python": [
+      "pygame/src/rich4/stock_info.py::_公司"
+    ],
+    "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+    "evidence": [
+      "STOCK_SCREENS.md",
+      "tests/test_stock_screen.py",
+      "evidence/stock-screen-initial.json",
+      "evidence/stock-screen-grid.json"
+    ]
+  },
+  "tools/screens/stocks.cpp:43": {
+    "python": [
+      "pygame/src/rich4/stock_info.py::_历史"
+    ],
+    "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+    "evidence": [
+      "STOCK_SCREENS.md",
+      "tests/test_stock_screen.py",
+      "evidence/stock-screen-initial.json",
+      "evidence/stock-screen-grid.json"
+    ]
+  },
+  "tools/screens/stocks.cpp:56": {
+    "python": [
+      "pygame/src/rich4/stock_info.py::_线"
+    ],
+    "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+    "evidence": [
+      "STOCK_SCREENS.md",
+      "tests/test_stock_screen.py",
+      "evidence/stock-screen-initial.json",
+      "evidence/stock-screen-grid.json"
+    ]
+  },
+  "tools/screens/stocks.cpp:80": {
+    "python": [
+      "pygame/src/rich4/stock_screen.py::api_绘制"
+    ],
+    "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+    "evidence": [
+      "STOCK_SCREENS.md",
+      "tests/test_stock_screen.py",
+      "evidence/stock-screen-initial.json",
+      "evidence/stock-screen-grid.json"
+    ]
+  },
+  "tools/screens/stocks.cpp:86": {
+    "python": [
+      "pygame/src/rich4/stock_screen.py::api_休市"
+    ],
+    "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+    "evidence": [
+      "STOCK_SCREENS.md",
+      "tests/test_stock_screen.py",
+      "evidence/stock-screen-initial.json",
+      "evidence/stock-screen-grid.json"
+    ]
+  },
+  "tools/screens/stocks.cpp:92": {
+    "python": [
+      "pygame/src/rich4/stock_screen.py::api_取消"
+    ],
+    "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+    "evidence": [
+      "STOCK_SCREENS.md",
+      "tests/test_stock_screen.py",
+      "evidence/stock-screen-initial.json",
+      "evidence/stock-screen-grid.json"
+    ]
+  },
+  "tools/screens/stocks.cpp:103": {
+    "python": [
+      "pygame/src/rich4/stock_screen.py::api_绘制"
+    ],
+    "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+    "evidence": [
+      "STOCK_SCREENS.md",
+      "tests/test_stock_screen.py",
+      "evidence/stock-screen-initial.json",
+      "evidence/stock-screen-grid.json"
+    ]
+  },
+  "tools/screens/stocks.cpp:198": {
+    "python": [
+      "pygame/src/rich4/stock_screen.py::api_卡片目标"
+    ],
+    "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+    "evidence": [
+      "STOCK_SCREENS.md",
+      "tests/test_stock_screen.py",
+      "evidence/stock-screen-initial.json",
+      "evidence/stock-screen-grid.json"
+    ]
+  },
+  "tools/screens/stocks.cpp:240": {
+    "python": [
+      "pygame/src/rich4/stock_screen_draw.py::_画报价"
+    ],
+    "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+    "evidence": [
+      "STOCK_SCREENS.md",
+      "tests/test_stock_screen.py",
+      "evidence/stock-screen-initial.json",
+      "evidence/stock-screen-grid.json"
+    ]
+  },
+  "tools/screens/stocks.cpp:293": {
+    "python": [
+      "pygame/src/rich4/stock_screen_draw.py::_画持仓"
+    ],
+    "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+    "evidence": [
+      "STOCK_SCREENS.md",
+      "tests/test_stock_screen.py",
+      "evidence/stock-screen-initial.json",
+      "evidence/stock-screen-grid.json"
+    ]
+  },
+  "tools/screens/stocks.cpp:322": {
+    "python": [
+      "pygame/src/rich4/stock_info.py::_画资讯"
+    ],
+    "status": "已实现，原股票屏幕组件自动差分；正式主应用接线未验",
+    "evidence": [
+      "STOCK_SCREENS.md",
+      "tests/test_stock_screen.py",
+      "evidence/stock-screen-initial.json",
+      "evidence/stock-screen-grid.json"
+    ]
+  },
+  "tools/screens/finance.hpp:162": {
+    "python": [
+      "pygame/src/rich4/stock_screen.py::股票屏幕_类.api_重置"
+    ],
+    "status": "已实现，组件状态差分",
+    "evidence": [
+      "STOCK_SCREENS.md",
+      "evidence/stock-screen-initial.json"
+    ]
   }
 }

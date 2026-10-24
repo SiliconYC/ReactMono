@@ -114,3 +114,7 @@ uv run --project pygame python pygame/tools/benchmark_main_screen.py \
 ## 银行与一级股组件增量（2026-10-24）
 
 原三层银行与Panel73认购提示已完成4876实际完整画布差分，私有时钟/按钮/声音请求/数额回调相同。长对白外部读取，原门控及未验范围见 [银行屏幕](BANK_SCREENS.md)。
+
+## 股票组件增量（2026-10-24）
+
+原Panel75的完整报价/持仓/资讯图表和红黑卡目标已对照911实际画布；binary32边界、当前玩家持股和失败修复见 [股票屏幕](STOCK_SCREENS.md)。正式交易与完整窗口接线仍待验。
