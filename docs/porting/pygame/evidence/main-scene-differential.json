@@ -1,0 +1,15 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "cases": 3456,
+  "scope": "verbatim original draw_board scene-construction prefix with capture renderer; explicit host/world/animation fixtures; no pixel, native UI application or natural gameplay acceptance",
+  "source_range": {
+    "path": "tools/native_game.cpp",
+    "start_line": 1456,
+    "end_line": 1599,
+    "sha256": "1a05af74debf952f07f9856f25f31ef328345bb2578ab54fd621cd71f7286857"
+  },
+  "python_sha256": "7cb59a393f12c18f42830e6c95a8e1c3d63f902a81bdcd2f956bf50200ec3781",
+  "state_sha256": "d93cea059d7b0de657eb2ed6e7d5d92112fcf733c726873a124b36918aafc044",
+  "input_sha256": "c9253902ccbbc0697df1f3515a8c9dd6e0f997e236ab63c06ede5e16e1911e44"
+}
