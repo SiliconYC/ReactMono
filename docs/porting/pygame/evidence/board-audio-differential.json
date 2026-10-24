@@ -1,0 +1,15 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 8769,
+  "scope": "original board_audio policies with request-recording sinks, real maps/World DAT; not mixer/device/waveform/listening proof",
+  "runtime_sha256": {
+    "board_audio.py": "73f84345b33fe98a2045e7cae05dc4dc70f1382ab9b58299cec0f02dda7b820d",
+    "audio_types.py": "45e3c6e83a6a33eae171df6f6f0423ef7829832bef7344dcdb86ae7998529eed",
+    "holidays.py": "9c7c2b037d30078e08ee67dc9f66010bbe193856f480faeb1a97a2f548b302d1"
+  },
+  "last_index": 8768,
+  "last_command": "F",
+  "state_sha256": "6d14a3717cb1b89f2e6a6054d755a147de40ca588de46d8d45f2f92a04e589d5",
+  "input_sha256": "e3be4a194e31d0b964d1209951783beb59c091851b94d4030ed0a4bdad18f488"
+}

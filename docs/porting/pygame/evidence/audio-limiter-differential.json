@@ -1,0 +1,12 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 2496,
+  "samples": 2359728,
+  "scope": "direct original Limiter: exact float32 sample/private-state bits; numeric signals only, not real audio playback",
+  "runtime_sha256": "03088adb1c99a4ab2869f207e055426214375f2d3de04462129363754fba57d4",
+  "last_index": 2495,
+  "last_command": "B 1024",
+  "state_sha256": "61ae47c57f056538633e574a627a8f5c9e6c38349bf4288bf53b917a5c8dbe58",
+  "input_sha256": "2fcba561a0d5a5c5f65f7d45d57661eb074370340e1255575f5c1ef1c9e9d72f"
+}

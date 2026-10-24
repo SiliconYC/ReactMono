@@ -14095,105 +14095,183 @@
       "id": "tools/audio_limiter.hpp:21",
       "declarator": "Limiter(float sample_rate, float ceiling = default_ceiling, float release_ms = 150.0F)",
       "end_line": 22,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/audio_limiter.py::限幅器_类.__init__"
+      ],
+      "status": "已实现，原算法2359728采样/内部状态逐位差分；实际混音设备未接线",
+      "evidence": [
+        "AUDIO.md",
+        "tests/test_audio_limiter.py",
+        "evidence/audio-limiter-differential.json"
+      ]
     },
     {
       "id": "tools/audio_limiter.hpp:25",
       "declarator": "process(std::span<float> interleaved)",
       "end_line": 45,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/audio_limiter.py::限幅器_类.api_处理"
+      ],
+      "status": "已实现，原算法2359728采样/内部状态逐位差分；实际混音设备未接线",
+      "evidence": [
+        "AUDIO.md",
+        "tests/test_audio_limiter.py",
+        "evidence/audio-limiter-differential.json"
+      ]
     },
     {
       "id": "tools/audio_limiter.hpp:46",
       "declarator": "ceiling() const noexcept",
       "end_line": 48,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/audio_limiter.py::限幅器_类.api_上限"
+      ],
+      "status": "已实现，原算法2359728采样/内部状态逐位差分；实际混音设备未接线",
+      "evidence": [
+        "AUDIO.md",
+        "tests/test_audio_limiter.py",
+        "evidence/audio-limiter-differential.json"
+      ]
     },
     {
       "id": "tools/audio_limiter.hpp:49",
       "declarator": "gain() const noexcept",
       "end_line": 51,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/audio_limiter.py::限幅器_类.api_增益"
+      ],
+      "status": "已实现，原算法2359728采样/内部状态逐位差分；实际混音设备未接线",
+      "evidence": [
+        "AUDIO.md",
+        "tests/test_audio_limiter.py",
+        "evidence/audio-limiter-differential.json"
+      ]
     },
     {
       "id": "tools/board_audio.hpp:27",
       "declarator": "walk_loop_clip(const World &world, std::size_t slot)",
       "end_line": 45,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_audio.py::主板声音_类.api_步行"
+      ],
+      "status": "已实现，直接原策略/私有状态/请求/世界只读差分；实际混音和应用未验",
+      "evidence": [
+        "AUDIO.md",
+        "tests/test_board_audio.py",
+        "evidence/board-audio-differential.json"
+      ]
     },
     {
       "id": "tools/board_audio.hpp:47",
       "declarator": "bomb_loop_clip(const World &world, std::size_t slot)",
       "end_line": 51,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_audio.py::主板声音_类.api_炸弹"
+      ],
+      "status": "已实现，直接原策略/私有状态/请求/世界只读差分；实际混音和应用未验",
+      "evidence": [
+        "AUDIO.md",
+        "tests/test_board_audio.py",
+        "evidence/board-audio-differential.json"
+      ]
     },
     {
       "id": "tools/board_audio.hpp:54",
       "declarator": "decision_music(const GameDecision &decision)",
       "end_line": 71,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_audio.py::主板声音_类.api_决策音乐"
+      ],
+      "status": "已实现，直接原策略/私有状态/请求/世界只读差分；实际混音和应用未验",
+      "evidence": [
+        "AUDIO.md",
+        "tests/test_board_audio.py",
+        "evidence/board-audio-differential.json"
+      ]
     },
     {
       "id": "tools/board_audio.hpp:75",
       "declarator": "holiday_music(const World &world)",
       "end_line": 88,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_audio.py::主板声音_类.api_节庆音乐"
+      ],
+      "status": "已实现，直接原策略/私有状态/请求/世界只读差分；实际混音和应用未验",
+      "evidence": [
+        "AUDIO.md",
+        "tests/test_board_audio.py",
+        "evidence/board-audio-differential.json"
+      ]
     },
     {
       "id": "tools/board_audio.hpp:97",
       "declarator": "update(audio::Audio &audio, const std::vector<audio::Music> &wanted, std::uint64_t now_ms)",
       "end_line": 127,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_audio.py::音乐导演_类.api_更新"
+      ],
+      "status": "已实现，直接原策略/私有状态/请求/世界只读差分；实际混音和应用未验",
+      "evidence": [
+        "AUDIO.md",
+        "tests/test_board_audio.py",
+        "evidence/board-audio-differential.json"
+      ]
     },
     {
       "id": "tools/board_audio.hpp:129",
       "declarator": "forget()",
       "end_line": 132,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_audio.py::音乐导演_类.api_忘记"
+      ],
+      "status": "已实现，直接原策略/私有状态/请求/世界只读差分；实际混音和应用未验",
+      "evidence": [
+        "AUDIO.md",
+        "tests/test_board_audio.py",
+        "evidence/board-audio-differential.json"
+      ]
     },
     {
       "id": "tools/board_audio.hpp:133",
       "declarator": "&pushed() const noexcept",
       "end_line": 133,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_audio.py::音乐导演_类._已推"
+      ],
+      "status": "已实现，直接原策略/私有状态/请求/世界只读差分；实际混音和应用未验",
+      "evidence": [
+        "AUDIO.md",
+        "tests/test_board_audio.py",
+        "evidence/board-audio-differential.json"
+      ]
     },
     {
       "id": "tools/board_audio.hpp:147",
       "declarator": "update(audio::Audio &audio, std::optional<std::size_t> walk, std::optional<std::size_t> bomb,\n                std::uint64_t now_ms)",
       "end_line": 160,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_audio.py::步行声音_类.api_更新"
+      ],
+      "status": "已实现，直接原策略/私有状态/请求/世界只读差分；实际混音和应用未验",
+      "evidence": [
+        "AUDIO.md",
+        "tests/test_board_audio.py",
+        "evidence/board-audio-differential.json"
+      ]
     },
     {
       "id": "tools/board_audio.hpp:161",
       "declarator": "stop(audio::Audio &audio)",
       "end_line": 164,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/board_audio.py::步行声音_类.api_停止"
+      ],
+      "status": "已实现，直接原策略/私有状态/请求/世界只读差分；实际混音和应用未验",
+      "evidence": [
+        "AUDIO.md",
+        "tests/test_board_audio.py",
+        "evidence/board-audio-differential.json"
+      ]
     },
     {
       "id": "tools/contact_sheet.cpp:15",
