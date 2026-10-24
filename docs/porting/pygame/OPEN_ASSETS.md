@@ -65,7 +65,7 @@ uv run --project pygame python pygame/tools/audit_distribution.py
 
 - `assets/`：20558个开放格式媒体/元数据文件，移动后逐文件长度与SHA256再次通过，无外部符号链接。
 - `.local/lib/`：标准SDL3和FluidSynth本地副本，与已验收构建字节相同；不含参考游戏引擎。
-- `.local/dist/Rich4OpenAssets.app`：真实Cocoa窗口及音频已启动，`music_available=true`，保持运行。CUA两次连接超时，本次没有新的直接屏幕观察或人类试玩反馈，不冒领人工项。
+- `.local/dist/Rich4OpenAssets.app`：安装时真实Cocoa窗口及音频启动，`music_available=true`。CUA两次连接超时，本次没有新的直接屏幕观察或人类试玩反馈，不冒领人工项；随后按用户反馈关闭空转窗口及桌面控制辅助进程，不再保持后台采集。
 - `userdata/saves/`：已成对保留上两次真实试玩的DAT/RNG，最新为`Autosave.DAT`，前次为`Save1.DAT`；历史差分的21个存档/旁车文件另移动到`userdata/validation/cache-saves/`，保留失败与后续恢复研究所需状态。
 
 开发Worktree只保留指向正式游戏目录的忽略链接，不再持有另一套素材；根目录和子项目的Git忽略同时覆盖目录与此类链接。正式CLI在移除外部SDK/GM环境变量后、清理前后均以启用音频的dummy设备完成冒烟；真实设备启动另有原生日志。FluidSynth会在DLS成功装载前由SF2探测器打印`Not a SoundFont file`，该行不等于音乐装载失败；未掩盖它，也未将dummy冒烟当作听感。

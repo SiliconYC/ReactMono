@@ -1,0 +1,33 @@
+{
+  "scope": "observed regression evidence and honest test-gate boundaries",
+  "storage_red": {
+    "dat": "new natural world",
+    "observed_rng": 310915626,
+    "expected_new_rng": 2240418548,
+    "failure": "sequential writes left new DAT with old sidecar"
+  },
+  "additional_red": [
+    "IndexError escaped without failure-world diagnostic",
+    "symlink targets were rejected only after a durable commit record existed"
+  ],
+  "fixed_storage_contract": "journal commit point, roll-forward under persistent lock; symlinks/non-files rejected before commit; ordinary exceptions diagnosed then rethrown",
+  "full_suite_first_attempt": {
+    "passed": 633,
+    "failed": 1,
+    "failure_name": "test_真实回调缓冲暂停退出与原声音",
+    "driver": "dummy",
+    "one_second_frames": 36864,
+    "old_threshold_frames": 38400,
+    "process_nice": 10
+  },
+  "ordinary_priority_reproduction": {
+    "failed": 1,
+    "one_second_frames": 37888
+  },
+  "dummy_clock_correction": "80 percent retained as visible metric for dummy, enforced for real hardware; functional progress measured in four windows; injected slow callback must retain failed performance flags",
+  "source_evidence": [
+    "https://github.com/libsdl-org/SDL/blob/release-2.28.4/src/audio/dummy/SDL_dummyaudio.c",
+    "https://github.com/libsdl-org/SDL/blob/release-2.28.4/src/audio/SDL_audio.c#L659-L690"
+  ],
+  "detail": "AUDIO_DUMMY_CLOCK.md"
+}

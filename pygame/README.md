@@ -18,7 +18,7 @@ uv run --project pygame rich4-pygame
 
 默认真实规则与时钟，960×720窗口显示原640×480画布，等比最近邻缩放与黑边。原菜单选择人物/地图后进入对局，鼠标操作原控件，`Esc`按原路径返回。存档缺省写入游戏自身的`pygame/userdata/saves/`；`--save-dir`可明确覆盖；`--load`读取原DAT及RNG旁车；`--silent`关闭音频。声音缺省跟随系统默认输出及其切换；需要固定设备时使用`--audio-device '设备名称'`或`RICH4_AUDIO_DEVICE`，无效名称明确报错。
 
-当前用户已实际试玩并确认操作/画面、BGM/点击音效/角色语音及运行中耳机拔插正常；这是有限流程的人工反馈。完整长局已有加速自动差分，任意中途检查点、写入中断恢复与所有地图/功能人工验收仍未完成，见 [主应用记录](../docs/porting/pygame/APPLICATION.md)。
+当前用户已实际试玩并确认操作/画面、BGM/点击音效/角色语音及运行中耳机拔插正常；这是有限流程的人工反馈。完整长局已有加速自动差分，两文件写入强杀恢复已有真实进程验证，见 [恢复说明](../docs/porting/pygame/RECOVERY.md)。原参考不提供任意中途完整检查点；全部地图/功能逐项人工验收没有冒领为完成，见 [主应用记录](../docs/porting/pygame/APPLICATION.md)。
 
 `--headless --frames 2`只用于有限帧冒烟运行，不能当作游戏验收。`--screenshot`只写本地忽略目录。音频需要标准SDL3/FluidSynth运行库，GM音库已由导入工具部署到自己的素材目录；缺少依赖应显式处理，不以静音假装成功。
 
@@ -54,6 +54,8 @@ uv run --project pygame python pygame/tools/preview_minigames.py --assets /path/
 ```sh
 uv run --project pygame python -m pytest pygame/tests -q
 uv run --project pygame ruff check pygame
+uv build --project pygame
+uv run --project pygame python pygame/tools/audit_distribution.py
 uv run --project pygame python pygame/tools/source_inventory.py \
   --source /path/to/pinned-cpp --output /tmp/source-inventory.json
 uv run --project pygame python pygame/tools/differential_assets.py \

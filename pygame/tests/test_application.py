@@ -156,3 +156,137 @@ def test_音频退出报错仍释放字体与窗口(
         assert not 应用.字体._字面 and 应用.字体._库.value is None
     finally:
         pygame.quit()
+
+
+@pytest.mark.assets
+def test_真实保存两文件之间写失败后读取恢复同一代DAT和随机数(
+    应用: 游戏应用_类,
+    tmp_path: Path,
+    自然存档: tuple[tuple[bytes, int], tuple[bytes, int]],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    old, new = 自然存档
+    path = tmp_path / "Save1.DAT"
+    path.write_bytes(old[0])
+    rng = Path(str(path) + ".rng")
+    rng.write_text(f"RICH4-RNG-1 {old[1]}\n")
+    imported = tmp_path / "natural-new.DAT"
+    imported.write_bytes(new[0])
+    Path(str(imported) + ".rng").write_text(f"RICH4-RNG-1 {new[1]}\n")
+    assert 应用.api_读取(imported)
+    原写文本, 原替换 = Path.write_text, os.replace
+
+    def 写文本(
+        self: Path,
+        data: str,
+        encoding: str | None = None,
+        errors: str | None = None,
+        newline: str | None = None,
+    ) -> int:
+        if self == rng:
+            raise OSError("测试中断旁车写入")
+        return 原写文本(self, data, encoding, errors, newline)
+
+    def 替换(src: str | os.PathLike[str], dst: str | os.PathLike[str]) -> None:
+        if Path(dst) == rng:
+            raise OSError("测试中断旁车写入")
+        原替换(src, dst)
+
+    with monkeypatch.context() as local:
+        local.setattr(Path, "write_text", 写文本)
+        local.setattr(os, "replace", 替换)
+        with pytest.raises(OSError, match="旁车写入"):
+            应用.api_写存档(path)
+    assert 应用.api_读取(path)
+    assert 应用.会话.世界.api_导出() == new[0]
+    assert 应用.会话.随机.状态 == new[1]
+
+
+@pytest.mark.assets
+def test_窗口捕获普通越界异常写诊断并仍抛出原错误(
+    应用: 游戏应用_类,
+    tmp_path: Path,
+    自然存档: tuple[tuple[bytes, int], tuple[bytes, int]],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    import json
+
+    import pygame
+
+    from rich4.application_window import 游戏窗口_类
+
+    data, seed = 自然存档[0]
+    path = tmp_path / "natural.DAT"
+    path.write_bytes(data)
+    Path(str(path) + ".rng").write_text(f"RICH4-RNG-1 {seed}\n")
+    assert 应用.api_读取(path)
+    应用.设置.输出 = tmp_path / "diagnostic"
+
+    def 越界(arg_时钟: int) -> None:
+        raise IndexError("测试观察未分类的真实窗口错误路径")
+
+    pygame.display.quit()
+    monkeypatch.setenv("SDL_VIDEODRIVER", "dummy")
+    monkeypatch.setattr(应用, "api_绘制", 越界)
+    with pytest.raises(IndexError, match="未分类"):
+        游戏窗口_类(应用).api_运行(1)
+    assert (应用.设置.输出 / "failure-world.DAT").read_bytes() == data
+    info = json.loads((应用.设置.输出 / "failure.json").read_text())
+    assert info["resumable_save"] is False and info["random_state"] == seed
+    assert 应用._已关闭 and not pygame.display.get_init()
+
+
+@pytest.mark.assets
+def test_首次保存已提交但没有主文件时列槽和F9路径仍能恢复(
+    应用: 游戏应用_类,
+    自然存档: tuple[tuple[bytes, int], tuple[bytes, int]],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from rich4.save_transaction import 存档事务_类
+
+    new = 自然存档[1]
+    path = 应用.api_槽路径(0)
+    original = os.replace
+
+    def 替换(src: str | os.PathLike[str], dst: str | os.PathLike[str]) -> None:
+        if Path(dst) == path:
+            raise OSError("首次提交后替换之前中断")
+        original(src, dst)
+
+    with monkeypatch.context() as local:
+        local.setattr(os, "replace", 替换)
+        with pytest.raises(OSError):
+            存档事务_类(path).api_写入(*new)
+    assert not path.exists()
+    assert 应用.api_载入路径() == path
+    assert 应用.api_读槽()[0].有效
+    assert 应用.api_读取(path)
+    assert 应用.会话.世界.api_导出() == new[0] and 应用.会话.随机.状态 == new[1]
+
+
+@pytest.mark.assets
+@pytest.mark.parametrize(
+    "arg_日志",
+    (
+        pytest.param("{broken-journal", id="syntax"),
+        pytest.param("[" * 20000 + "0" + "]" * 20000, id="depth"),
+    ),
+)
+def test_坏提交日志不会替换当前合法会话和棋盘(
+    应用: 游戏应用_类,
+    自然存档: tuple[tuple[bytes, int], tuple[bytes, int]],
+    arg_日志: str,
+) -> None:
+    from rich4.save_transaction import 存档事务_类
+
+    old = 自然存档[0]
+    path = 应用.api_槽路径(1)
+    transaction = 存档事务_类(path)
+    transaction.api_写入(*old)
+    assert 应用.api_读取(path)
+    session, board = 应用.会话, 应用.棋盘
+    transaction._待提交.write_text(arg_日志)
+    assert not 应用.api_读取(path)
+    assert not 应用.api_读槽()[1].有效
+    assert 应用.会话 is session and 应用.棋盘 is board
+    assert 应用.会话.世界.api_导出() == old[0] and 应用.会话.随机.状态 == old[1]

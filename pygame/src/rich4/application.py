@@ -50,8 +50,8 @@ from rich4.player_info_screen import 玩家查询_类
 from rich4.presentation_queue import 呈现宿主_类, 呈现队列_类
 from rich4.primary_stock_screen import 一级股票屏幕_类
 from rich4.save import 存档_类
-from rich4.save_random import 随机旁车_类
 from rich4.save_slot_screen import 存档槽屏幕_类
+from rich4.save_transaction import 存档事务_类
 from rich4.screen_draw import 屏幕宿主_类
 from rich4.spinner_screen import 转盘声音_类, 转盘屏幕_类
 from rich4.stock_screen import 股票屏幕_类
@@ -330,14 +330,11 @@ class 游戏应用_类(应用操作_类, 应用绘制_类, 应用输入_类):
     def api_写存档(self, arg_路径: Path) -> None:
         if self.会话 is None:
             raise ValueError("没有当前会话可保存")
-        arg_路径.parent.mkdir(parents=True, exist_ok=True)
-        arg_路径.write_bytes(self.会话.api_导出存档().api_导出())
-        Path(str(arg_路径) + ".rng").write_text(f"RICH4-RNG-1 {self.会话.随机.状态}\n")
+        存档事务_类(arg_路径).api_写入(self.会话.api_导出存档().api_导出(), self.会话.随机.状态)
 
     def api_读取(self, arg_路径: Path) -> bool:
         try:
-            data = arg_路径.read_bytes()
-            seed = 随机旁车_类.api_读取(Path(str(arg_路径) + ".rng"), self.设置.种子)
+            data, seed = 存档事务_类(arg_路径).api_读取(self.设置.种子)
             self.api_安装会话(世界_类.api_从存档(存档_类.api_解码(data)), seed)
             self.音频.api_选音乐(0)
             self.音乐导演.api_忘记()
