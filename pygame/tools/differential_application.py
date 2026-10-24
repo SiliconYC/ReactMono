@@ -154,9 +154,8 @@ class 应用差分_类:
             "tile_popup",
             "ai_settings",
         )
-        exe = arg_构建.resolve() / "application-oracle"
-        manifest = exe.with_suffix(".build.json")
         stamp = {
+            "clock_override": "SDL_GetTicks=rich4_application_clock (all translation units)",
             "oracle": hashlib.sha256(
                 Path(__file__).with_name("application_oracle.cpp").read_bytes()
             ).hexdigest(),
@@ -167,6 +166,9 @@ class 应用差分_类:
             "flags": flags,
             "compiler": subprocess.check_output(["c++", "--version"], text=True),
         }
+        key = hashlib.sha256(json.dumps(stamp, sort_keys=True).encode()).hexdigest()[:16]
+        exe = arg_构建.resolve() / ("application-oracle-" + key)
+        manifest = exe.with_suffix(".build.json")
         if exe.is_file() and manifest.is_file() and json.loads(manifest.read_text()) == stamp:
             return exe
         subprocess.run(
@@ -175,6 +177,7 @@ class 应用差分_类:
                 "-std=c++20",
                 "-O2",
                 "-fno-access-control",
+                "-DSDL_GetTicks=rich4_application_clock",
                 '-DRICH4_DEFAULT_ASSETS="."',
                 "-I",
                 str(arg_源码 / "include"),
@@ -209,6 +212,10 @@ class 应用差分_类:
         arg_种子: int,
         arg_天数: int,
         arg_浏览页面: bool,
+        arg_正常流程: bool = False,
+        arg_存读: bool = False,
+        arg_帧上限: int = 10000,
+        arg_读档: Path | None = None,
     ) -> None:
         ref = subprocess.check_output(
             ["git", "-C", str(arg_源码), "rev-parse", "HEAD"], text=True
@@ -225,6 +232,8 @@ class 应用差分_类:
         report = {
             "reference": ref,
             "status": "running",
+            "normal_flow": arg_正常流程,
+            "exercise_save": arg_存读,
             "scope": "original Application private drawing "
             "and button actions + mirrored original post-input orchestration; Python uses "
             "Pygame event batches. All logical canvas bytes/world DAT/state; audio disabled, "
@@ -252,7 +261,7 @@ class 应用差分_类:
                                 str(root / "cpp-saves"),
                                 str(map_id),
                                 str(arg_种子),
-                                str(arg_天数),
+                                str(0 if arg_正常流程 else arg_天数),
                             ],
                             stdin=subprocess.PIPE,
                             stdout=subprocess.PIPE,
@@ -321,9 +330,12 @@ class 应用差分_类:
                                 map_id,
                                 arg_种子,
                                 arg_天数,
-                                10000,
+                                arg_帧上限,
                                 观察,
                                 arg_浏览页面,
+                                arg_正常流程,
+                                arg_存读,
+                                arg_读档,
                             )
                             proc.stdin.close()
                             code = proc.wait(timeout=30)
@@ -332,6 +344,20 @@ class 应用差分_类:
                             error = errors.read()
                             if code:
                                 raise ValueError("原应用退出故障：" + error)
+                            saved = {}
+                            py_saves, cpp_saves = root / "py/saves", root / "cpp-saves"
+                            py_names = {p.name for p in py_saves.glob("*") if p.is_file()}
+                            cpp_names = {p.name for p in cpp_saves.glob("*") if p.is_file()}
+                            if py_names != cpp_names:
+                                raise ValueError("实际应用存档文件列表不同")
+                            for name in sorted(py_names):
+                                data = (py_saves / name).read_bytes()
+                                if data != (cpp_saves / name).read_bytes():
+                                    raise ValueError("实际应用存档字节不同：" + name)
+                                saved[name] = {
+                                    "bytes": len(data),
+                                    "sha256": hashlib.sha256(data).hexdigest(),
+                                }
                             report["cases"].append(
                                 {
                                     "map": map_id,
@@ -339,6 +365,14 @@ class 应用差分_类:
                                     "state_sha256": digest.hexdigest(),
                                     "input_sha256": inputs.hexdigest(),
                                     "reference_stderr": error.splitlines(),
+                                    "save_files": saved,
+                                    "replay": {
+                                        k: v
+                                        for k, v in json.loads(
+                                            (root / "py/report.json").read_text()
+                                        ).items()
+                                        if k != "inputs"
+                                    },
                                 }
                             )
                         except (ValueError, RuntimeError, OSError) as error:
@@ -383,6 +417,10 @@ if __name__ == "__main__":
     参数.add_argument("--seed", type=int, default=123)
     参数.add_argument("--days", type=int, default=3)
     参数.add_argument("--exercise-screens", action="store_true")
+    参数.add_argument("--normal-flow", action="store_true")
+    参数.add_argument("--exercise-save", action="store_true")
+    参数.add_argument("--frames", type=int, default=10000)
+    参数.add_argument("--load", type=Path)
     选项 = 参数.parse_args()
     应用差分_类.api_执行(
         选项.source,
@@ -395,4 +433,8 @@ if __name__ == "__main__":
         选项.seed,
         选项.days,
         选项.exercise_screens,
+        选项.normal_flow,
+        选项.exercise_save,
+        选项.frames,
+        选项.load,
     )

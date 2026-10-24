@@ -1,0 +1,23 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "failed",
+  "normal_flow": true,
+  "scope": "original Application private drawing and button actions + mirrored original post-input orchestration; Python uses Pygame event batches. All logical canvas bytes/world DAT/state; audio disabled, not original OS event loop/desktop/listening proof",
+  "cases": [],
+  "commands": 619,
+  "canvases": 297,
+  "pixels": 91238400,
+  "runtime_sha256": {
+    "application.py": "485fe05072f02b823f7c805c075218a0fccf55ffd53547ba5280d2d6138d4a24",
+    "application_actions.py": "b2d1d0b9acbc8a14358d4fd74f67a240d2b091154fef3f50313c85f1ecfe02df",
+    "application_draw.py": "68429b4a44f4be91b84dc7eedb776cee80c8e5ee11aee0b3a18b59318eb277a0",
+    "application_input.py": "0de5e1bba0656d6aae93a63691b7d52aa733762c06213eea09019ede8014f40a",
+    "application_types.py": "a49a0c7c245fe263227c499d73f1639ee180dacbdd392fbedd4cb3f60196598f",
+    "application_window.py": "bd8b389bf67f265d0a2f586c25f93712ae5eb7fd40554cadbaaa46652fe9019d"
+  },
+  "last_map": 0,
+  "last_command": "D 29700",
+  "last_index": 619,
+  "failure": "map=0 step=619 应用状态不同",
+  "diagnosis": "Oracle overrode SDL_GetTicks only in native_game.cpp; messages.cpp still read wall clock. Python used application clock. Not evidence of a production timing bug. Fixed compiler-wide clock override and build-cache stamp, rerun pending."
+}

@@ -16,6 +16,7 @@ int main(int argc,char **argv){
  std::ios::sync_with_stdio(false);std::cin.tie(nullptr);
  try{
   Options opt;opt.assets=argv[1];opt.font=argv[2];opt.save_directory=argv[3];opt.map=std::stoul(argv[4]);opt.seed=std::stoul(argv[5]);opt.auto_rounds=std::stoul(argv[6]);opt.headless=true;
+  if(!opt.auto_rounds)opt.start_date=rich4::SaveDate{5,10,2026};
   Application a(opt);a.audio_=std::make_unique<rich4::audio::Audio>(opt.assets,false);a.sound_effects_=false;
   const auto p=[](auto n){std::cout<<' '<<+n;};
   const auto text=[&](std::string_view s){std::uint64_t h=14695981039346656037ULL;for(unsigned char c:s)h=(h^c)*1099511628211ULL;p(s.size());p(h);};
@@ -30,6 +31,8 @@ int main(int argc,char **argv){
     if(a.screen_==Screen::game&&a.session_)a.main_screen_.pointer_up(a.frame_.pointer_x,a.frame_.pointer_y,false);
    }else if(op=='K'){
     int key;in>>key;if(key!=27)return 3;a.buttons_.clear();if(a.pad_.active())a.pad_key(SDLK_ESCAPE);else if(a.cancellable())a.cancel_screen();else a.screen_=a.screen_==Screen::game?Screen::menu:a.session_?Screen::game:Screen::menu;
+   }else if(op=='L'){
+    std::string path;in>>std::quoted(path);if(!a.load(path))throw std::runtime_error("original application load failed");
    }else if(op=='U'){
     unsigned elapsed;in>>elapsed;
     if(a.session_&&a.screen_==Screen::game&&!a.items_.popup_active()&&!a.help_.active()){

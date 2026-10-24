@@ -36,6 +36,9 @@ class 应用重放_类:
         arg_帧上限: int,
         arg_观察: Callable[[str, 游戏应用_类], None] | None = None,
         arg_浏览页面: bool = False,
+        arg_正常流程: bool = False,
+        arg_存读: bool = False,
+        arg_读档: Path | None = None,
     ) -> None:
         os.environ["SDL_VIDEODRIVER"] = "dummy"
         os.environ["SDL_AUDIODRIVER"] = "dummy"
@@ -46,16 +49,22 @@ class 应用重放_类:
                 arg_字体,
                 arg_输出 / "saves",
                 种子=arg_种子,
+                日期=(5, 10, 2026),
                 地图=arg_地图,
                 输出=arg_输出,
                 静音=True,
-                验证天数=arg_天数,
+                验证天数=0 if arg_正常流程 else arg_天数,
             )
         )
         report = {
             "status": "running",
-            "scope": "actual application software drawing and "
-            "Pygame event batches in reference fast replay mode; no OS desktop or listening proof",
+            "scope": "actual application software drawing and Pygame event batches; "
+            + (
+                "normal flow with virtual clock, animations and interactive minigames"
+                if arg_正常流程
+                else "reference fast replay mode"
+            )
+            + "; no OS desktop or listening proof",
             "map": arg_地图,
             "seed": arg_种子,
             "requested_days": arg_天数,
@@ -69,6 +78,12 @@ class 应用重放_类:
         pygame.display.init()
         pygame.display.set_mode((640, 480), pygame.HIDDEN)
         try:
+            if arg_读档 is not None:
+                if not app.api_读取(arg_读档):
+                    raise ValueError("跨进程应用重放无法读档")
+                report["load_sha256"] = hashlib.sha256(arg_读档.read_bytes()).hexdigest()
+                if arg_观察 is not None:
+                    arg_观察("L " + json.dumps(str(arg_读档.resolve()), ensure_ascii=False), app)
             stall = 0
             last_progress = None
             shop_attempted: set[int] = set()
@@ -76,10 +91,11 @@ class 应用重放_类:
             shop_confirming = False
             toolbar = [75, 76, 77, 78, 79, 80, 71, 72, 81, 82] if arg_浏览页面 else []
             toolbar_index, closing = 0, False
+            step_ms = 100 if arg_正常流程 else 500
             for frame in range(arg_帧上限):
-                image = app.api_绘制(frame * 500)
+                image = app.api_绘制(frame * step_ms)
                 if arg_观察 is not None:
-                    arg_观察(f"D {frame * 500}", app)
+                    arg_观察(f"D {frame * step_ms}", app)
                 ids = {b.编号 for b in app.按钮 if b.启用}
                 chosen = None
                 page, S = app.页面, 应用页面_类
@@ -104,6 +120,9 @@ class 应用重放_类:
                         chosen = 20
                     elif not app.新局.api_忙():
                         chosen = 40
+                elif arg_存读 and closing and page in (S.保存, S.读取):
+                    chosen = 531 if page == S.保存 else 521
+                    closing = False
                 elif closing and (app.帮助.api_活跃() or page != S.游戏):
                     app.api_输入(
                         [pygame.event.Event(pygame.KEYDOWN, key=pygame.K_ESCAPE, repeat=False)]
@@ -191,6 +210,8 @@ class 应用重放_类:
                             chosen = 208
                         elif 900 in ids:
                             chosen = 900
+                        elif 902 in ids:
+                            chosen = 902
                         else:
                             raise ValueError(
                                 "待决策无已接线合法控件：" + d.提示 + " " + str(sorted(ids))
@@ -213,9 +234,9 @@ class 应用重放_类:
                     if arg_观察 is not None:
                         arg_观察(f"I {chosen}", app)
                     report["inputs"].append([frame, int(page), chosen])
-                app.api_推进(500)
+                app.api_推进(step_ms)
                 if arg_观察 is not None:
-                    arg_观察("U 500", app)
+                    arg_观察(f"U {step_ms}", app)
                 if app.会话 is not None:
                     session = app.会话
                     trace.update(session.世界.api_导出())
@@ -232,7 +253,7 @@ class 应用重放_类:
                     )
                     stall = stall + 1 if progress == last_progress else 0
                     last_progress = progress
-                    if stall > 100:
+                    if stall > (1000 if arg_正常流程 else 100):
                         raise ValueError("实际应用重放停滞：" + str(progress))
                 report["frames"] = frame + 1
                 if frame % 128 == 0:
@@ -276,7 +297,20 @@ if __name__ == "__main__":
     参数.add_argument("--days", type=int, default=3)
     参数.add_argument("--frames", type=int, default=10000)
     参数.add_argument("--exercise-screens", action="store_true")
+    参数.add_argument("--normal-flow", action="store_true")
+    参数.add_argument("--exercise-save", action="store_true")
+    参数.add_argument("--load", type=Path)
     选项 = 参数.parse_args()
     应用重放_类.api_执行(
-        选项.assets, 选项.font, 选项.output, 选项.map, 选项.seed, 选项.days, 选项.frames
+        选项.assets,
+        选项.font,
+        选项.output,
+        选项.map,
+        选项.seed,
+        选项.days,
+        选项.frames,
+        arg_浏览页面=选项.exercise_screens,
+        arg_正常流程=选项.normal_flow,
+        arg_存读=选项.exercise_save,
+        arg_读档=选项.load,
     )

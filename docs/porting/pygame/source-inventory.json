@@ -15623,11 +15623,13 @@
       "python": [
         "pygame/src/rich4/application_actions.py::api_读槽"
       ],
-      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "status": "正式Python应用已接线；八图真实槽位/DAT与RNG字节及跨进程继续自动差分；任意中途完整检查点未实现",
       "evidence": [
         "APPLICATION.md",
         "tests/test_application.py",
-        "evidence/application-eight-maps.json"
+        "evidence/application-eight-maps.json",
+        "evidence/application-save-slots.json",
+        "evidence/application-cross-process.json"
       ]
     },
     {
@@ -15679,11 +15681,13 @@
       "python": [
         "pygame/src/rich4/application_actions.py::api_选槽"
       ],
-      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "status": "正式Python应用已接线；八图真实槽位/DAT与RNG字节及跨进程继续自动差分；任意中途完整检查点未实现",
       "evidence": [
         "APPLICATION.md",
         "tests/test_application.py",
-        "evidence/application-eight-maps.json"
+        "evidence/application-eight-maps.json",
+        "evidence/application-save-slots.json",
+        "evidence/application-cross-process.json"
       ]
     },
     {
@@ -15815,11 +15819,13 @@
       "python": [
         "pygame/src/rich4/application.py::api_读取"
       ],
-      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "status": "正式Python应用已接线；八图真实槽位/DAT与RNG字节及跨进程继续自动差分；任意中途完整检查点未实现",
       "evidence": [
         "APPLICATION.md",
         "tests/test_application.py",
-        "evidence/application-eight-maps.json"
+        "evidence/application-eight-maps.json",
+        "evidence/application-save-slots.json",
+        "evidence/application-cross-process.json"
       ]
     },
     {
@@ -15843,11 +15849,13 @@
       "python": [
         "pygame/src/rich4/application.py::api_写存档"
       ],
-      "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+      "status": "正式Python应用已接线；八图真实槽位/DAT与RNG字节及跨进程继续自动差分；任意中途完整检查点未实现",
       "evidence": [
         "APPLICATION.md",
         "tests/test_application.py",
-        "evidence/application-eight-maps.json"
+        "evidence/application-eight-maps.json",
+        "evidence/application-save-slots.json",
+        "evidence/application-cross-process.json"
       ]
     },
     {
@@ -22125,10 +22133,13 @@
       "python": [
         "pygame/src/rich4/minigame_screen.py::小游戏屏幕_类.api_绘决策"
       ],
-      "status": "正式接线已实现；种子/重启/时钟/单次结果定向通过；自然小游戏与核心交接未验证",
+      "status": "正式主游戏自然触发/真实结算/共享RNG交接已接线，三游戏正常路径自动差分；OS输入/实际音频未验证",
       "evidence": [
         "APPLICATION.md",
-        "tests/test_minigame_screen.py"
+        "tests/test_minigame_screen.py",
+        "evidence/application-penguin.json",
+        "evidence/application-balloon.json",
+        "evidence/application-catcher.json"
       ]
     },
     {

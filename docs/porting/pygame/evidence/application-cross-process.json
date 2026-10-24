@@ -1,0 +1,144 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "normal_flow": false,
+  "exercise_save": false,
+  "scope": "original Application private drawing and button actions + mirrored original post-input orchestration; Python uses Pygame event batches. All logical canvas bytes/world DAT/state; audio disabled, not original OS event loop/desktop/listening proof",
+  "cases": [
+    {
+      "map": 0,
+      "commands": 250,
+      "state_sha256": "5a4b038dde6a4f734faf647118c1d29b0d30377dcb1c87c019a00250016b2204",
+      "input_sha256": "a88bc94be1eace7580dad7e762212d6cd201d523a97878a056a86cc34e925218",
+      "reference_stderr": [
+        "fluidsynth: error: Not a SoundFont file"
+      ],
+      "save_files": {
+        "Autosave.DAT": {
+          "bytes": 89871,
+          "sha256": "339d50c4f93e7cba587d6a47c1b220f2807243f2a3202d220ecfe57178e35aab"
+        },
+        "Autosave.DAT.rng": {
+          "bytes": 23,
+          "sha256": "17364f8b689c22cdaa102659c46977cd85af8aa187a443bf4d9108c869169d41"
+        }
+      },
+      "replay": {
+        "status": "passed",
+        "scope": "actual application software drawing and Pygame event batches; reference fast replay mode; no OS desktop or listening proof",
+        "map": 0,
+        "seed": 999,
+        "requested_days": 3,
+        "frames": 111,
+        "screens": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "decisions": [
+          0
+        ],
+        "load_sha256": "fa36fdc2bd0c1a516db7a36f21d05be250d665df67059ea5d4cd3a34e1d38ebf",
+        "completed_days": 3,
+        "finished": false,
+        "random_state": 4187469660,
+        "world_sha256": "339d50c4f93e7cba587d6a47c1b220f2807243f2a3202d220ecfe57178e35aab",
+        "events": {
+          "0": 13,
+          "1": 10,
+          "2": 31,
+          "3": 6,
+          "7": 3,
+          "12": 38
+        },
+        "state_sha256": "616a81ab4c61b9ce39f20b69bbac077593b2e2780b445466ecab05f8bd5c9047",
+        "visited_toolbar": [
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          71,
+          72,
+          81,
+          82
+        ]
+      }
+    }
+  ],
+  "commands": 250,
+  "canvases": 112,
+  "pixels": 34406400,
+  "runtime_sha256": {
+    "application.py": "485fe05072f02b823f7c805c075218a0fccf55ffd53547ba5280d2d6138d4a24",
+    "application_actions.py": "b2d1d0b9acbc8a14358d4fd74f67a240d2b091154fef3f50313c85f1ecfe02df",
+    "application_draw.py": "68429b4a44f4be91b84dc7eedb776cee80c8e5ee11aee0b3a18b59318eb277a0",
+    "application_input.py": "0de5e1bba0656d6aae93a63691b7d52aa733762c06213eea09019ede8014f40a",
+    "application_types.py": "a49a0c7c245fe263227c499d73f1639ee180dacbdd392fbedd4cb3f60196598f",
+    "application_window.py": "bd8b389bf67f265d0a2f586c25f93712ae5eb7fd40554cadbaaa46652fe9019d"
+  },
+  "last_map": 0,
+  "last_command": "D 55500",
+  "last_index": 249,
+  "producer": {
+    "status": "passed",
+    "scope": "actual application software drawing and Pygame event batches; reference fast replay mode; no OS desktop or listening proof",
+    "map": 0,
+    "seed": 123,
+    "requested_days": 3,
+    "frames": 101,
+    "screens": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "decisions": [
+      0
+    ],
+    "completed_days": 3,
+    "finished": false,
+    "random_state": 2240418548,
+    "world_sha256": "fa36fdc2bd0c1a516db7a36f21d05be250d665df67059ea5d4cd3a34e1d38ebf",
+    "events": {
+      "0": 14,
+      "1": 12,
+      "2": 49,
+      "3": 7,
+      "5": 1,
+      "6": 1,
+      "7": 3,
+      "12": 15
+    },
+    "state_sha256": "35eaed1c4e25d0aac486342a72b264e93d0d32e6a2b893467202d113b6bccde8",
+    "visited_toolbar": [
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      71,
+      72,
+      81,
+      82
+    ]
+  },
+  "process_boundary": "producer CLI exited 0 before fresh Python/C++ consumers started; seed999 consumers read producer DAT + RNG sidecar; faithful new-session load, not full mid-turn checkpoint"
+}

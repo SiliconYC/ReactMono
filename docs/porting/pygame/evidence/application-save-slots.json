@@ -1,0 +1,656 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "normal_flow": false,
+  "exercise_save": true,
+  "scope": "original Application private drawing and button actions + mirrored original post-input orchestration; Python uses Pygame event batches. All logical canvas bytes/world DAT/state; audio disabled, not original OS event loop/desktop/listening proof",
+  "cases": [
+    {
+      "map": 0,
+      "commands": 232,
+      "state_sha256": "2cc84bbb513d337af185498326b6333aa1394b299ef6b73ca50e5adef865866a",
+      "input_sha256": "048382a0f501b65460c5930488ba738d6e351e711483f70110bcea5f3844add4",
+      "reference_stderr": [
+        "fluidsynth: error: Not a SoundFont file"
+      ],
+      "save_files": {
+        "Autosave.DAT": {
+          "bytes": 89871,
+          "sha256": "fa36fdc2bd0c1a516db7a36f21d05be250d665df67059ea5d4cd3a34e1d38ebf"
+        },
+        "Autosave.DAT.rng": {
+          "bytes": 23,
+          "sha256": "b8b1b44b2adc88e8fa96cc3002e92df6ac596fe024de750f72d9649a0da642e2"
+        },
+        "Save1.DAT": {
+          "bytes": 89871,
+          "sha256": "45c54dfa25ae9b883962165fdab83fe8099a506904610c6b7d165193360d6ace"
+        },
+        "Save1.DAT.rng": {
+          "bytes": 22,
+          "sha256": "5a85158f2b05bc0b0654a86f1de473dc8bee6f52ec75afda17d0d7ad832e1230"
+        }
+      },
+      "replay": {
+        "status": "passed",
+        "scope": "actual application software drawing and Pygame event batches; reference fast replay mode; no OS desktop or listening proof",
+        "map": 0,
+        "seed": 123,
+        "requested_days": 3,
+        "frames": 101,
+        "screens": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "decisions": [
+          0
+        ],
+        "completed_days": 3,
+        "finished": false,
+        "random_state": 2240418548,
+        "world_sha256": "fa36fdc2bd0c1a516db7a36f21d05be250d665df67059ea5d4cd3a34e1d38ebf",
+        "events": {
+          "0": 14,
+          "1": 12,
+          "2": 49,
+          "3": 7,
+          "5": 1,
+          "6": 1,
+          "7": 3,
+          "12": 15
+        },
+        "state_sha256": "35eaed1c4e25d0aac486342a72b264e93d0d32e6a2b893467202d113b6bccde8",
+        "visited_toolbar": [
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          71,
+          72,
+          81,
+          82
+        ]
+      }
+    },
+    {
+      "map": 1,
+      "commands": 236,
+      "state_sha256": "761be3b5df2974051b1778fac02abf6e154e1435875500ce31a2fbb0b65dcbe3",
+      "input_sha256": "e63917520af9d793f8ef8602a1c702e85e616a66ccf0688039b5402cafe3aa15",
+      "reference_stderr": [
+        "fluidsynth: error: Not a SoundFont file"
+      ],
+      "save_files": {
+        "Autosave.DAT": {
+          "bytes": 106131,
+          "sha256": "82a3bbb4a6672faea0894f4d957651eee35265d6389e86e50d573e8f9ba12125"
+        },
+        "Autosave.DAT.rng": {
+          "bytes": 23,
+          "sha256": "95999d611a603373776f7b00bfcf705ec762645d4c4f9f3a68b3320882e29f00"
+        },
+        "Save1.DAT": {
+          "bytes": 106131,
+          "sha256": "ec34b685bcc83abe37231f317d85ca4d95f417bdf8968ea9416c22f401a6cc45"
+        },
+        "Save1.DAT.rng": {
+          "bytes": 23,
+          "sha256": "7b793d20dcbf459aac8121ab20d05224f44658af06b984afa9056095d0939e52"
+        }
+      },
+      "replay": {
+        "status": "passed",
+        "scope": "actual application software drawing and Pygame event batches; reference fast replay mode; no OS desktop or listening proof",
+        "map": 1,
+        "seed": 123,
+        "requested_days": 3,
+        "frames": 104,
+        "screens": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "decisions": [
+          0
+        ],
+        "completed_days": 3,
+        "finished": false,
+        "random_state": 1744600777,
+        "world_sha256": "82a3bbb4a6672faea0894f4d957651eee35265d6389e86e50d573e8f9ba12125",
+        "events": {
+          "0": 14,
+          "1": 10,
+          "2": 36,
+          "3": 5,
+          "5": 2,
+          "7": 3,
+          "12": 25
+        },
+        "state_sha256": "b529368a5923a5e44c36b0cdb43966d4249babd81de83be8f49dd5573b3aa1cc",
+        "visited_toolbar": [
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          71,
+          72,
+          81,
+          82
+        ]
+      }
+    },
+    {
+      "map": 2,
+      "commands": 280,
+      "state_sha256": "eddfd4eb4e7e141b3acebe5bf7ed2724be3ea0e560d2b65b93d1ace72b64b847",
+      "input_sha256": "1464deb3d004049850ba99c4c56951f7c466390153fd94017ac58855fe55b928",
+      "reference_stderr": [
+        "fluidsynth: error: Not a SoundFont file"
+      ],
+      "save_files": {
+        "Autosave.DAT": {
+          "bytes": 91371,
+          "sha256": "774d1b1b342709eb04f30ffb8bee207b363071e61d01348f1dcfc25a7bf00d9d"
+        },
+        "Autosave.DAT.rng": {
+          "bytes": 23,
+          "sha256": "2259fa777b2e1a6a1f324915c788ee690ba1a5b14d00e1b8050a661a9244ab47"
+        },
+        "Save1.DAT": {
+          "bytes": 91371,
+          "sha256": "2906816af673edf17591db1b4b299507d9629084343ecd0095ccce72f7e2bf54"
+        },
+        "Save1.DAT.rng": {
+          "bytes": 22,
+          "sha256": "5a85158f2b05bc0b0654a86f1de473dc8bee6f52ec75afda17d0d7ad832e1230"
+        }
+      },
+      "replay": {
+        "status": "passed",
+        "scope": "actual application software drawing and Pygame event batches; reference fast replay mode; no OS desktop or listening proof",
+        "map": 2,
+        "seed": 123,
+        "requested_days": 3,
+        "frames": 120,
+        "screens": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "decisions": [
+          0,
+          10,
+          19
+        ],
+        "completed_days": 3,
+        "finished": false,
+        "random_state": 3098721891,
+        "world_sha256": "774d1b1b342709eb04f30ffb8bee207b363071e61d01348f1dcfc25a7bf00d9d",
+        "events": {
+          "0": 14,
+          "1": 11,
+          "2": 32,
+          "3": 5,
+          "7": 3,
+          "8": 3,
+          "12": 38
+        },
+        "state_sha256": "11b1d4ba15267aaebd2cb44baf93402b757a0b1e0e538f1dce4f91d4461d44aa",
+        "visited_toolbar": [
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          71,
+          72,
+          81,
+          82
+        ]
+      }
+    },
+    {
+      "map": 3,
+      "commands": 231,
+      "state_sha256": "6ebeda356c5a51cdc83a48ff4595d859e45f28eca45e0cb373dcb449ffaa3401",
+      "input_sha256": "6019c506b11417a534a867b4900a456517d25ffcc5d314e5258681a9d0f4a6e0",
+      "reference_stderr": [
+        "fluidsynth: error: Not a SoundFont file"
+      ],
+      "save_files": {
+        "Autosave.DAT": {
+          "bytes": 95371,
+          "sha256": "be962b9195dea8a0a25b40c9db86c6f8ff1eceed393434c3ad92d4d20296ce6a"
+        },
+        "Autosave.DAT.rng": {
+          "bytes": 23,
+          "sha256": "b8b1b44b2adc88e8fa96cc3002e92df6ac596fe024de750f72d9649a0da642e2"
+        },
+        "Save1.DAT": {
+          "bytes": 95371,
+          "sha256": "c8cb96eed7f002bec9272583be3ff14a948217d2008bd4b0d4c760c5af29d6a7"
+        },
+        "Save1.DAT.rng": {
+          "bytes": 22,
+          "sha256": "5a85158f2b05bc0b0654a86f1de473dc8bee6f52ec75afda17d0d7ad832e1230"
+        }
+      },
+      "replay": {
+        "status": "passed",
+        "scope": "actual application software drawing and Pygame event batches; reference fast replay mode; no OS desktop or listening proof",
+        "map": 3,
+        "seed": 123,
+        "requested_days": 3,
+        "frames": 99,
+        "screens": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "decisions": [
+          0,
+          15
+        ],
+        "completed_days": 3,
+        "finished": false,
+        "random_state": 2240418548,
+        "world_sha256": "be962b9195dea8a0a25b40c9db86c6f8ff1eceed393434c3ad92d4d20296ce6a",
+        "events": {
+          "0": 14,
+          "1": 12,
+          "2": 43,
+          "3": 5,
+          "6": 2,
+          "7": 3,
+          "8": 1,
+          "12": 14
+        },
+        "state_sha256": "1aaa7cce2ceefc5ed378c328cccfdf55284eb341c65e9d9b177b0da77e1e34c6",
+        "visited_toolbar": [
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          71,
+          72,
+          81,
+          82
+        ]
+      }
+    },
+    {
+      "map": 4,
+      "commands": 244,
+      "state_sha256": "40a4b07fba9d1fdc9db56839548660e52fada96fe306531420c59e3f55a53528",
+      "input_sha256": "acb15262d1bd168a85a0a35ee333cfaa4c1586c36529e3132aa38f11f239bff2",
+      "reference_stderr": [
+        "fluidsynth: error: Not a SoundFont file"
+      ],
+      "save_files": {
+        "Autosave.DAT": {
+          "bytes": 93111,
+          "sha256": "c766efcbd08f080d0f46fe8de9c7e7dcda2a4d771febba0edebe6abaf2618c97"
+        },
+        "Autosave.DAT.rng": {
+          "bytes": 23,
+          "sha256": "29811d2cb053bf8e870e031ce6fd6572ce1442dfd45ee7a2f39f2549e80c9843"
+        },
+        "Save1.DAT": {
+          "bytes": 93111,
+          "sha256": "ab82f43e9c0ee1441fd55a17796209027f71a9fda6e0fbdcaa79c7db15b3ebaa"
+        },
+        "Save1.DAT.rng": {
+          "bytes": 22,
+          "sha256": "5a85158f2b05bc0b0654a86f1de473dc8bee6f52ec75afda17d0d7ad832e1230"
+        }
+      },
+      "replay": {
+        "status": "passed",
+        "scope": "actual application software drawing and Pygame event batches; reference fast replay mode; no OS desktop or listening proof",
+        "map": 4,
+        "seed": 123,
+        "requested_days": 3,
+        "frames": 107,
+        "screens": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "decisions": [
+          0,
+          2
+        ],
+        "completed_days": 3,
+        "finished": false,
+        "random_state": 3985875663,
+        "world_sha256": "c766efcbd08f080d0f46fe8de9c7e7dcda2a4d771febba0edebe6abaf2618c97",
+        "events": {
+          "0": 14,
+          "1": 12,
+          "2": 38,
+          "3": 3,
+          "7": 3,
+          "8": 6,
+          "12": 21
+        },
+        "state_sha256": "79b95a2bcebdd1c751323ca63eb9423d70faba92e824ebfdc4c1675583c9dd9f",
+        "visited_toolbar": [
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          71,
+          72,
+          81,
+          82
+        ]
+      }
+    },
+    {
+      "map": 5,
+      "commands": 259,
+      "state_sha256": "fa1b9e2dc60a93016636843b2cfd4c057161810bba3fda88d5b9b9f4073b07cb",
+      "input_sha256": "21e294bdeb83b60dce5779554e57ce9a57d6875a620a7bef68b154f504124b18",
+      "reference_stderr": [
+        "fluidsynth: error: Not a SoundFont file"
+      ],
+      "save_files": {
+        "Autosave.DAT": {
+          "bytes": 118011,
+          "sha256": "b82682443994c09d4fd5e411f0bfc78590a7c1ef733ecbd4c711c388a3209e11"
+        },
+        "Autosave.DAT.rng": {
+          "bytes": 23,
+          "sha256": "8bb3c9eceef4042688b8c99efa183da78b6b15b1eee38a7e7f138598a0f68ab7"
+        },
+        "Save1.DAT": {
+          "bytes": 118011,
+          "sha256": "ffc44ccd503b67d6dd0155a1b5cdf2f2d34cc85264126522148deb5cfc4268be"
+        },
+        "Save1.DAT.rng": {
+          "bytes": 22,
+          "sha256": "5a85158f2b05bc0b0654a86f1de473dc8bee6f52ec75afda17d0d7ad832e1230"
+        }
+      },
+      "replay": {
+        "status": "passed",
+        "scope": "actual application software drawing and Pygame event batches; reference fast replay mode; no OS desktop or listening proof",
+        "map": 5,
+        "seed": 123,
+        "requested_days": 3,
+        "frames": 114,
+        "screens": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "decisions": [
+          15
+        ],
+        "completed_days": 3,
+        "finished": false,
+        "random_state": 4077964428,
+        "world_sha256": "b82682443994c09d4fd5e411f0bfc78590a7c1ef733ecbd4c711c388a3209e11",
+        "events": {
+          "0": 14,
+          "1": 12,
+          "2": 51,
+          "3": 4,
+          "6": 1,
+          "7": 3,
+          "8": 6,
+          "12": 19
+        },
+        "state_sha256": "27d5fd75ef5b3fc32eaca9d3f48635700003be1d99e95226d2c8d0902b7c6819",
+        "visited_toolbar": [
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          71,
+          72,
+          81,
+          82
+        ]
+      }
+    },
+    {
+      "map": 6,
+      "commands": 247,
+      "state_sha256": "4ebe8e7f356c2e42b39b2d55da4841c29bf264be716f52c4858776b44286b665",
+      "input_sha256": "3a6a405f52256b2af040dfea5d37b579769287a18fcdbd91caedc9e27d15b672",
+      "reference_stderr": [
+        "fluidsynth: error: Not a SoundFont file"
+      ],
+      "save_files": {
+        "Autosave.DAT": {
+          "bytes": 117951,
+          "sha256": "8c1f0a1c4abfd00c720419f24dd12a7bc83a015e18b80b7f3a71a042d2bdc2ca"
+        },
+        "Autosave.DAT.rng": {
+          "bytes": 22,
+          "sha256": "6e229f57a691c542d6b35d4bfc407e98ba481b1265c87b854810080b4cc8fa10"
+        },
+        "Save1.DAT": {
+          "bytes": 117951,
+          "sha256": "3275f016e9dc4e8b926ecd1aa08aa67bc457c2f519accb530e301be149445330"
+        },
+        "Save1.DAT.rng": {
+          "bytes": 22,
+          "sha256": "5a85158f2b05bc0b0654a86f1de473dc8bee6f52ec75afda17d0d7ad832e1230"
+        }
+      },
+      "replay": {
+        "status": "passed",
+        "scope": "actual application software drawing and Pygame event batches; reference fast replay mode; no OS desktop or listening proof",
+        "map": 6,
+        "seed": 123,
+        "requested_days": 3,
+        "frames": 109,
+        "screens": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "decisions": [
+          0
+        ],
+        "completed_days": 3,
+        "finished": false,
+        "random_state": 500276459,
+        "world_sha256": "8c1f0a1c4abfd00c720419f24dd12a7bc83a015e18b80b7f3a71a042d2bdc2ca",
+        "events": {
+          "0": 14,
+          "1": 12,
+          "2": 40,
+          "3": 6,
+          "4": 1,
+          "7": 3,
+          "8": 4,
+          "12": 23
+        },
+        "state_sha256": "8916acb2e3e87c43325e710abe1918a6b953febec127fdc66d55fae84f3e6e18",
+        "visited_toolbar": [
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          71,
+          72,
+          81,
+          82
+        ]
+      }
+    },
+    {
+      "map": 7,
+      "commands": 253,
+      "state_sha256": "a59c45fe082b9b0f9c1078af6478f7bee98bc696d8b1348ffb99afe4b8035428",
+      "input_sha256": "1ce6a3ede67043b26ba145f917c334c6b11bee493da0fc68762cd259b651ff73",
+      "reference_stderr": [
+        "fluidsynth: error: Not a SoundFont file"
+      ],
+      "save_files": {
+        "Autosave.DAT": {
+          "bytes": 90111,
+          "sha256": "ddccba08926a827736bede8b8ca56d8f9d928785764e2947215fccad47e40dd5"
+        },
+        "Autosave.DAT.rng": {
+          "bytes": 23,
+          "sha256": "fb0cfb4e80daf645a1f0d8eb0581b09ee4abd9fcdafb0ce20d58f1dfad8a5b1d"
+        },
+        "Save1.DAT": {
+          "bytes": 90111,
+          "sha256": "29fc555fa063298b3ffaa3abfd9aafd9e186341b8077d15add44caae6ac48c93"
+        },
+        "Save1.DAT.rng": {
+          "bytes": 22,
+          "sha256": "5a85158f2b05bc0b0654a86f1de473dc8bee6f52ec75afda17d0d7ad832e1230"
+        }
+      },
+      "replay": {
+        "status": "passed",
+        "scope": "actual application software drawing and Pygame event batches; reference fast replay mode; no OS desktop or listening proof",
+        "map": 7,
+        "seed": 123,
+        "requested_days": 3,
+        "frames": 112,
+        "screens": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "decisions": [
+          6
+        ],
+        "completed_days": 3,
+        "finished": false,
+        "random_state": 2404164754,
+        "world_sha256": "ddccba08926a827736bede8b8ca56d8f9d928785764e2947215fccad47e40dd5",
+        "events": {
+          "0": 14,
+          "1": 12,
+          "2": 43,
+          "3": 6,
+          "6": 1,
+          "7": 3,
+          "8": 4,
+          "12": 27
+        },
+        "state_sha256": "4911a4a911d5f9e594ad6dd395fde7bd9060dabebea3cc7c15401d17946a728a",
+        "visited_toolbar": [
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          71,
+          72,
+          81,
+          82
+        ]
+      }
+    }
+  ],
+  "commands": 1982,
+  "canvases": 874,
+  "pixels": 268492800,
+  "runtime_sha256": {
+    "application.py": "485fe05072f02b823f7c805c075218a0fccf55ffd53547ba5280d2d6138d4a24",
+    "application_actions.py": "b2d1d0b9acbc8a14358d4fd74f67a240d2b091154fef3f50313c85f1ecfe02df",
+    "application_draw.py": "68429b4a44f4be91b84dc7eedb776cee80c8e5ee11aee0b3a18b59318eb277a0",
+    "application_input.py": "0de5e1bba0656d6aae93a63691b7d52aa733762c06213eea09019ede8014f40a",
+    "application_types.py": "a49a0c7c245fe263227c499d73f1639ee180dacbdd392fbedd4cb3f60196598f",
+    "application_window.py": "bd8b389bf67f265d0a2f586c25f93712ae5eb7fd40554cadbaaa46652fe9019d"
+  },
+  "last_map": 7,
+  "last_command": "D 56000",
+  "last_index": 252
+}

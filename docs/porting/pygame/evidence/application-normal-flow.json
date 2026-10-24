@@ -1,0 +1,83 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "normal_flow": true,
+  "scope": "original Application private drawing and button actions + mirrored original post-input orchestration; Python uses Pygame event batches. All logical canvas bytes/world DAT/state; audio disabled, not original OS event loop/desktop/listening proof",
+  "cases": [
+    {
+      "map": 0,
+      "commands": 1904,
+      "state_sha256": "c33dbda07caf4316eb0b97dfcd03a04bf11939356ba769f7e45b7b23bfc64f42",
+      "input_sha256": "e064f6aa8997c3c7aca8eaca3a55f78f4e7a9b03ce68c7af8aaafc4a84fc73c3",
+      "reference_stderr": [
+        "fluidsynth: error: Not a SoundFont file"
+      ],
+      "replay": {
+        "status": "passed",
+        "scope": "actual application software drawing and Pygame event batches; normal flow with virtual clock, animations and interactive minigames",
+        "map": 0,
+        "seed": 123,
+        "requested_days": 3,
+        "frames": 937,
+        "screens": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "decisions": [
+          0
+        ],
+        "completed_days": 3,
+        "finished": false,
+        "random_state": 2240418548,
+        "world_sha256": "dad8fdf53e9bb4d12eceec7768aa3a6354f51e95d90bd5277fde602c1e966cf9",
+        "events": {
+          "0": 13,
+          "1": 12,
+          "2": 49,
+          "3": 7,
+          "5": 1,
+          "6": 1,
+          "7": 3,
+          "12": 15
+        },
+        "state_sha256": "825c97b0504e077a16476118eb7bd309beb31978c1825f683d9d5c743b0c324c",
+        "visited_toolbar": [
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          71,
+          72,
+          81,
+          82
+        ]
+      }
+    }
+  ],
+  "commands": 1904,
+  "canvases": 938,
+  "pixels": 288153600,
+  "runtime_sha256": {
+    "application.py": "485fe05072f02b823f7c805c075218a0fccf55ffd53547ba5280d2d6138d4a24",
+    "application_actions.py": "b2d1d0b9acbc8a14358d4fd74f67a240d2b091154fef3f50313c85f1ecfe02df",
+    "application_draw.py": "68429b4a44f4be91b84dc7eedb776cee80c8e5ee11aee0b3a18b59318eb277a0",
+    "application_input.py": "0de5e1bba0656d6aae93a63691b7d52aa733762c06213eea09019ede8014f40a",
+    "application_types.py": "a49a0c7c245fe263227c499d73f1639ee180dacbdd392fbedd4cb3f60196598f",
+    "application_window.py": "bd8b389bf67f265d0a2f586c25f93712ae5eb7fd40554cadbaaa46652fe9019d"
+  },
+  "last_map": 0,
+  "last_command": "D 93700",
+  "last_index": 1903
+}

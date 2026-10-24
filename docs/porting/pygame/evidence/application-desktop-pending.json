@@ -5,12 +5,16 @@
     "ordinary Python app binding timed out",
     "script bundle first path hit stale LaunchServices bundle ID",
     "fresh script bundle ran game but getApp timed out",
-    "native Python executable bundle ran actual game loop; getApp timed out/kernel reset"
+    "native Python executable bundle ran actual game loop; getApp timed out/kernel reset",
+    "normal native-Python shell bundle retry timed out",
+    "official PyInstaller6.22.3 built real independent game app; full-path getApp still timed out",
+    "Finder initially readable, but subsequent key/path and even getApp timed out"
   ],
   "verified": [
     "real main window loop running with original software menu canvas",
     "own native process sample showed application loop/drawing/delay, not deadlock",
-    "owned probes closed normally with TERM/pygame finally cleanup"
+    "owned probes closed normally with TERM/pygame finally cleanup",
+    "owned native and bundled game processes stopped after failed binding probes"
   ],
   "not_verified": [
     "OS mouse/key dispatch to the main game",

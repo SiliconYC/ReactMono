@@ -43,3 +43,7 @@ uv run --project pygame python pygame/tools/preview_minigames.py \
 [三入口冒烟报告](evidence/minigame-pygame-smoke.json) 在dummy显示/音频配置、100ms开发步长下真实结算：企鹅63分/28随机、气球73分/1463随机、天降55分/174随机；原WAV/MIDI载入及播放路径成功。天降截图仅本地检查，未上传商业图片。
 
 这不是实际桌面点击、人类听感或完整游戏试玩。原输入/绘制像素已自动对照，真实窗口操作、音频波形/听感以及GameSession主流接回仍待验收。
+
+## 正式主游戏交接增量
+
+三个小游戏已从真实新局的自然首回合触发，正常表现路径分别完成实际小游戏并返回主游戏；1979完整画布与逐步世界DAT/RNG/阶段直接对照原Application一致。输入只是实际902控件中心点击，得分由规则计算，无预置结果。详见 [主应用交接](APPLICATION.md)，音频/OS桌面/真人玩法仍未因此通过。
