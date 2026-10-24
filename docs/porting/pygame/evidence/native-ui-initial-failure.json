@@ -1,0 +1,10 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "generator_seed": 2026102402,
+  "font_filename": "Hiragino Sans GB.ttc",
+  "font_sha256": "4b450afb2c61d7529fe05647316e9fc3137ea703a664bded5bca895a5c30748c",
+  "freetype_library": "/opt/homebrew/opt/freetype/lib/libfreetype.6.dylib",
+  "scope": "fixed native_ui.hpp; complete byte-pair CP950 and UTF8 codepoints, actual FreeType glyphs/metrics and complete RGB555 font canvases; no graphical gameplay acceptance",
+  "status": "failed",
+  "failure": "step=51106 cmd=C c6a1 cpp=1 417 3f py=1 417 e383be"
+}

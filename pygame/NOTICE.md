@@ -14,4 +14,4 @@
 
 ## 依赖
 
-Pygame 2.6.1 的许可为 LGPL，底层 SDL 及其他随包依赖以其发行许可证为准。运行时不链接 C++ 参考引擎。pytest、Ruff、tree-sitter、CMake 和 C++ 编译器仅作开发与测试；具体锁定版本见 `pyproject.toml` 与 `uv.lock`。
+Pygame 2.6.1 的许可为 LGPL，底层 SDL 及其他随包依赖以其发行许可证为准。字体渲染通过`ctypes`调用宿主或Pygame随附FreeType的公开C接口，FreeType适用其FTL/GPL许可；字体文件另受各自许可约束，须由用户外部提供。运行时不链接 C++ 参考引擎。pytest、Ruff、tree-sitter、CMake 和 C++ 编译器仅作开发与测试；具体锁定版本见 `pyproject.toml` 与 `uv.lock`。
