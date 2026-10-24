@@ -17403,81 +17403,151 @@
       "id": "tools/screens/endgame.cpp:19",
       "declarator": "EndgameScreen::open_play_again()",
       "end_line": 23,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/endgame_screen.py::结局屏幕_类.api_再玩"
+      ],
+      "status": "已实现，直接原组件逐帧画布/私有随机与电影状态/声音/动作对照；正式主应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_intro_player.py",
+        "tests/test_endgame_screen.py",
+        "evidence/intro-endgame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/endgame.cpp:25",
       "declarator": "EndgameScreen::open_stage_clear(const StageClear &info)",
       "end_line": 30,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/endgame_screen.py::结局屏幕_类.api_过关"
+      ],
+      "status": "已实现，直接原组件逐帧画布/私有随机与电影状态/声音/动作对照；正式主应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_intro_player.py",
+        "tests/test_endgame_screen.py",
+        "evidence/intro-endgame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/endgame.cpp:32",
       "declarator": "EndgameScreen::close()",
       "end_line": 47,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/endgame_screen.py::结局屏幕_类.api_关闭"
+      ],
+      "status": "已实现，直接原组件逐帧画布/私有随机与电影状态/声音/动作对照；正式主应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_intro_player.py",
+        "tests/test_endgame_screen.py",
+        "evidence/intro-endgame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/endgame.cpp:49",
       "declarator": "EndgameScreen::exit_button() const noexcept",
       "end_line": 63,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/endgame_screen.py::结局屏幕_类.api_退出按钮"
+      ],
+      "status": "已实现，直接原组件逐帧画布/私有随机与电影状态/声音/动作对照；正式主应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_intro_player.py",
+        "tests/test_endgame_screen.py",
+        "evidence/intro-endgame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/endgame.cpp:65",
       "declarator": "EndgameScreen::draw(Host &host, bool hold, const EndgameActions &actions)",
       "end_line": 75,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/endgame_screen.py::结局屏幕_类.api_绘制"
+      ],
+      "status": "已实现，直接原组件逐帧画布/私有随机与电影状态/声音/动作对照；正式主应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_intro_player.py",
+        "tests/test_endgame_screen.py",
+        "evidence/intro-endgame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/endgame.cpp:78",
       "declarator": "EndgameScreen::draw_play_again(Host &host, unsigned elapsed, bool hold, const EndgameActions &actions)",
       "end_line": 151,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/endgame_replay.py::再玩屏幕_类._画再玩"
+      ],
+      "status": "已实现，直接原组件逐帧画布/私有随机与电影状态/声音/动作对照；正式主应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_intro_player.py",
+        "tests/test_endgame_screen.py",
+        "evidence/intro-endgame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/endgame.cpp:154",
       "declarator": "EndgameScreen::stage_tick()",
       "end_line": 181,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/endgame_stage.py::过关屏幕_类._过关步"
+      ],
+      "status": "已实现，直接原组件逐帧画布/私有随机与电影状态/声音/动作对照；正式主应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_intro_player.py",
+        "tests/test_endgame_screen.py",
+        "evidence/intro-endgame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/endgame.cpp:184",
       "declarator": "EndgameScreen::draw_stage_clear(Host &host, unsigned elapsed, bool hold, const EndgameActions &actions)",
       "end_line": 267,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/endgame_stage.py::过关屏幕_类._画过关"
+      ],
+      "status": "已实现，直接原组件逐帧画布/私有随机与电影状态/声音/动作对照；正式主应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_intro_player.py",
+        "tests/test_endgame_screen.py",
+        "evidence/intro-endgame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/endgame.hpp:56",
       "declarator": "kind() const noexcept",
       "end_line": 56,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/endgame_screen.py::结局屏幕_类.api_种类"
+      ],
+      "status": "已实现，直接原组件逐帧画布/私有随机与电影状态/声音/动作对照；正式主应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_intro_player.py",
+        "tests/test_endgame_screen.py",
+        "evidence/intro-endgame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/endgame.hpp:57",
       "declarator": "active() const noexcept",
       "end_line": 57,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/endgame_screen.py::结局屏幕_类.api_活跃"
+      ],
+      "status": "已实现，直接原组件逐帧画布/私有随机与电影状态/声音/动作对照；正式主应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_intro_player.py",
+        "tests/test_endgame_screen.py",
+        "evidence/intro-endgame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/facility.cpp:23",
@@ -18519,49 +18589,91 @@
       "id": "tools/screens/intro.cpp:27",
       "declarator": "IntroPlayer::start(const std::vector<std::uint8_t> &characters)",
       "end_line": 68,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/intro_player.py::开局演出_类.api_开始"
+      ],
+      "status": "已实现，直接原组件逐帧画布/私有随机与电影状态/声音/动作对照；正式主应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_intro_player.py",
+        "tests/test_endgame_screen.py",
+        "evidence/intro-endgame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/intro.cpp:70",
       "declarator": "IntroPlayer::skip() noexcept",
       "end_line": 73,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/intro_player.py::开局演出_类.api_跳过"
+      ],
+      "status": "已实现，直接原组件逐帧画布/私有随机与电影状态/声音/动作对照；正式主应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_intro_player.py",
+        "tests/test_endgame_screen.py",
+        "evidence/intro-endgame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/intro.cpp:75",
       "declarator": "IntroPlayer::begin_shot()",
       "end_line": 87,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/intro_player.py::开局演出_类._开始镜头"
+      ],
+      "status": "已实现，直接原组件逐帧画布/私有随机与电影状态/声音/动作对照；正式主应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_intro_player.py",
+        "tests/test_endgame_screen.py",
+        "evidence/intro-endgame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/intro.cpp:89",
       "declarator": "IntroPlayer::draw(graphics::Image &canvas, unsigned elapsed_ms, const SoundFunction &play_sound)",
       "end_line": 139,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/intro_player.py::开局演出_类.api_绘制"
+      ],
+      "status": "已实现，直接原组件逐帧画布/私有随机与电影状态/声音/动作对照；正式主应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_intro_player.py",
+        "tests/test_endgame_screen.py",
+        "evidence/intro-endgame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/intro.hpp:35",
       "declarator": "IntroPlayer(Artwork &artwork)",
       "end_line": 35,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/intro_player.py::开局演出_类.__init__"
+      ],
+      "status": "已实现，直接原组件逐帧画布/私有随机与电影状态/声音/动作对照；正式主应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_intro_player.py",
+        "tests/test_endgame_screen.py",
+        "evidence/intro-endgame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/intro.hpp:39",
       "declarator": "active() const noexcept",
       "end_line": 39,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/intro_player.py::开局演出_类.api_活跃"
+      ],
+      "status": "已实现，直接原组件逐帧画布/私有随机与电影状态/声音/动作对照；正式主应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_intro_player.py",
+        "tests/test_endgame_screen.py",
+        "evidence/intro-endgame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:34",
