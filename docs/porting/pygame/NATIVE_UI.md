@@ -26,7 +26,7 @@ uv run --project pygame python pygame/tools/differential_native_ui.py \
 
 ## 后续界面与商业文字边界
 
-原`native_frame.hpp`的Frame、正式MainScreen、菜单/表现队列/音频和结局仍待移植。C++的`message_strings.inc`包含从商业EXE提取的台词；不将这些长文本转抄进公开Python源码。下一步从用户外部原`rich4.exe`只读解析文字表，并对照参考的规范化、声音编号及图标标记。EXE、字体、画布与任何解码后的商业文本都不进入Git或发行包。
+正式MainScreen、菜单/表现队列/音频和结局仍待移植。C++的`message_strings.inc`包含从商业EXE提取的台词；不将这些长文本转抄进公开Python源码。下文记录外部原`rich4.exe`文字表及原Frame绘制基础的增量。EXE、字体、画布与任何解码后的商业文本都不进入Git或发行包。
 
 ## 外部原程序文字（2026-10-24）
 
@@ -53,4 +53,23 @@ uv run --project pygame python pygame/tools/differential_original_text.py \
   --build .research-cache/cpp-core \
   --exe /Users/laocao/Downloads/Rich4/rich4.exe \
   --report .research-cache/original-text-differential.json
+```
+
+## 原Frame与通用绘图（2026-10-24，#148）
+
+`native_frame.py`对应原Frame/Button：共用按钮列表、稳定编号/启用/声音策略、真实回调、半开命中、原精灵原点处理、按钮缩字/居中、对话框、字体与指针时钟。`Frame.picture`先加原点再交给减原点的底层blit，结果是Frame局部左上角，不可直接套用地图精灵的世界锚点。
+
+`screen_draw.py`对应`tools/screens/draw.cpp`：八种GDI对齐（包括竖排）、基线和粗体/阴影/描边、RGB555暗化/灰阶、按下斜面、局部/整数缩放/不透明背景、真实节庆图、弹框与金额分组、专用点击音先于动作。坏日期/地图按参考保留季节图；没有改写规则世界或生成替代图片。字体夹具移到测试共用`conftest.py`，没有运行时假字体。
+
+十三项新增测试及完整Python382/382、Ruff通过。直接编译原Frame和`draw.cpp`，733场景逐幅完整640×480 RGB555画布共225177600像素、按钮编号/区域/启用/通用声音标志、回调与声音请求顺序一致。包含320文字对齐/样式场景、100真实精灵绘制/局部/缩放/背景、40八图日期/节庆场景、15弹框及八个有符号64位金额边界；完整操作计数见[报告](evidence/native-frame-differential.json)。
+
+这些是直接绘制及回调探针；禁用按钮探针可以直接调用已注册回调，不能据此声称应用会派发禁用按钮。未验收正式MainScreen、真实窗口输入、播放时序或完整游戏，后续跟踪[#148](https://github.com/SiliconYC/ReactMono/issues/148)。
+
+```sh
+uv run --project pygame python pygame/tools/differential_native_frame.py \
+  --source .research-upstreams/richman4-remastered \
+  --build .research-cache/cpp-core \
+  --assets /Users/laocao/Downloads/Rich4 \
+  --font '/System/Library/Fonts/Hiragino Sans GB.ttc' \
+  --report .research-cache/native-frame-repeat.json
 ```
