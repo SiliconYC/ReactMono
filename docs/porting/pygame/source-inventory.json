@@ -16969,73 +16969,127 @@
       "id": "tools/screens/effects.cpp:12",
       "declarator": "on_board(const World &world, std::size_t slot)",
       "end_line": 20,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/effect_scene.py::演出场景_类.api_在棋盘"
+      ],
+      "status": "已实现，规格/完整场景值自动差分；非逐帧播放",
+      "evidence": [
+        "tests/test_effect_scene.py",
+        "EFFECTS.md",
+        "evidence/effect-scene-differential.json"
+      ]
     },
     {
       "id": "tools/screens/effects.cpp:23",
       "declarator": "player_sprite(const World &world, std::size_t slot, std::uint8_t frame, std::uint8_t costume)",
       "end_line": 35,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/effect_scene.py::演出场景_类._人物"
+      ],
+      "status": "已实现，规格/完整场景值自动差分；非逐帧播放",
+      "evidence": [
+        "tests/test_effect_scene.py",
+        "EFFECTS.md",
+        "evidence/effect-scene-differential.json"
+      ]
     },
     {
       "id": "tools/screens/effects.cpp:38",
       "declarator": "object_sprites(const World &world, const std::vector<board::PlayerSprite> &players,\n                                                std::uint8_t frame)",
       "end_line": 57,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/effect_scene.py::演出场景_类.api_物件"
+      ],
+      "status": "已实现，规格/完整场景值自动差分；非逐帧播放",
+      "evidence": [
+        "tests/test_effect_scene.py",
+        "EFFECTS.md",
+        "evidence/effect-scene-differential.json"
+      ]
     },
     {
       "id": "tools/screens/effects.cpp:59",
       "declarator": "hide_objects(std::vector<board::ObjectSprite> &objects,\n                  const std::function<bool(board::Point, std::uint8_t)> &hidden)",
       "end_line": 64,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/effect_scene.py::演出场景_类.api_隐藏物件"
+      ],
+      "status": "已实现，规格/完整场景值自动差分；非逐帧播放",
+      "evidence": [
+        "tests/test_effect_scene.py",
+        "EFFECTS.md",
+        "evidence/effect-scene-differential.json"
+      ]
     },
     {
       "id": "tools/screens/effects.cpp:66",
       "declarator": "property_owners(const World &world)",
       "end_line": 71,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/effect_scene.py::演出场景_类.api_业主"
+      ],
+      "status": "已实现，规格/完整场景值自动差分；非逐帧播放",
+      "evidence": [
+        "tests/test_effect_scene.py",
+        "EFFECTS.md",
+        "evidence/effect-scene-differential.json"
+      ]
     },
     {
       "id": "tools/screens/effects.cpp:73",
       "declarator": "make_scene(const World &world, std::uint64_t ticks, const std::array<std::uint8_t, 4> &costumes)",
       "end_line": 103,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/effect_scene.py::演出场景_类.api_静止快照"
+      ],
+      "status": "已实现，规格/完整场景值自动差分；非逐帧播放",
+      "evidence": [
+        "tests/test_effect_scene.py",
+        "EFFECTS.md",
+        "evidence/effect-scene-differential.json"
+      ]
     },
     {
       "id": "tools/screens/effects.cpp:105",
       "declarator": "effect_spec(const EffectEvent &effect)",
       "end_line": 198,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/effect_spec.py::演出规格_类.api_查询"
+      ],
+      "status": "已实现，规格/完整场景值自动差分；非逐帧播放",
+      "evidence": [
+        "tests/test_effect_scene.py",
+        "EFFECTS.md",
+        "evidence/effect-scene-differential.json"
+      ]
     },
     {
       "id": "tools/screens/effects.cpp:200",
       "declarator": "add_pending_actor(std::vector<PendingActor> &pending, const EffectEvent &effect)",
       "end_line": 209,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/effect_scene.py::演出场景_类.api_加入待播"
+      ],
+      "status": "已实现，规格/完整场景值自动差分；非逐帧播放",
+      "evidence": [
+        "tests/test_effect_scene.py",
+        "EFFECTS.md",
+        "evidence/effect-scene-differential.json"
+      ]
     },
     {
       "id": "tools/screens/effects.cpp:211",
       "declarator": "apply_pending_actors(std::vector<board::PlayerSprite> &players, const World &world,\n                          const std::vector<PendingActor> &pending, std::uint8_t frame,\n                          const std::array<std::uint8_t, 4> &costumes)",
       "end_line": 232,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/effect_scene.py::演出场景_类.api_应用待播"
+      ],
+      "status": "已实现，规格/完整场景值自动差分；非逐帧播放",
+      "evidence": [
+        "tests/test_effect_scene.py",
+        "EFFECTS.md",
+        "evidence/effect-scene-differential.json"
+      ]
     },
     {
       "id": "tools/screens/effects.cpp:234",

@@ -1,0 +1,14 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "scope": "explicit scene fixtures, full data and effect specs; not natural rules or pixel playback",
+  "spec_cases": 8448,
+  "scene_cases": 1920,
+  "compared_commands": 10368,
+  "input_sha256": "e8dad56fb12d2dd1f3a235eb66a78c1101b000e7badabe7be9bc4ad28250eac9",
+  "python_source_sha256": {
+    "effect_scene.py": "9c443341aa24854eeb8092ddabcd1cfb48999350a3524b77e6022dc4adbf7dfc",
+    "effect_spec.py": "44da7e55233f4dd26fde3718aa16bbc5f86a878c77c074f3797682b67a1eabb0"
+  },
+  "state_sha256": "e3de4d9201697f792612d716fa2305efb42b2a1b98b729c2f0a5e651c184874c"
+}
