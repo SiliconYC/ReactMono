@@ -63,3 +63,5 @@
 原Data3选项与Data520存读档槽见 [选项与存档槽](OPTIONS_SAVE_SLOTS.md)，真实文件/音频及完整应用仍待接通。
 
 原Panel9资产/地产/股票查询和源码估价口径见 [玩家查询](PLAYER_INFO.md)，完整主应用接线仍在实施。
+
+原Panel26出价/成交和Panel12/14彩票柜台见 [拍卖与彩票屏幕](AUCTION_LOTTERY_UI.md)，完整应用及自然触发仍待接线。

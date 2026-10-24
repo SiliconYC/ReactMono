@@ -18268,9 +18268,16 @@
       "id": "tools/screens/finance.hpp:260",
       "declarator": "sold_active() const noexcept",
       "end_line": 260,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/auction_room_screen.py::拍卖室_类.api_成交中"
+      ],
+      "status": "已实现，直接原组件画布/私有状态差分；完整主应用未验",
+      "evidence": [
+        "AUCTION_LOTTERY_UI.md",
+        "tests/test_auction_room_screen.py",
+        "tests/test_lottery_bar_screen.py",
+        "evidence/auction-lottery-differential.json"
+      ]
     },
     {
       "id": "tools/screens/finance.hpp:263",
@@ -18284,9 +18291,16 @@
       "id": "tools/screens/finance.hpp:269",
       "declarator": "reset()",
       "end_line": 272,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/auction_room_screen.py::拍卖室_类.api_重置"
+      ],
+      "status": "已实现，直接原组件画布/私有状态差分；完整主应用未验",
+      "evidence": [
+        "AUCTION_LOTTERY_UI.md",
+        "tests/test_auction_room_screen.py",
+        "tests/test_lottery_bar_screen.py",
+        "evidence/auction-lottery-differential.json"
+      ]
     },
     {
       "id": "tools/screens/help.cpp:19",
@@ -19440,65 +19454,121 @@
       "id": "tools/screens/market.cpp:406",
       "declarator": "&neon_frames(Artwork &artwork)",
       "end_line": 421,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/lottery_bar_screen.py::彩票柜台_类._霓虹帧"
+      ],
+      "status": "已实现，直接原组件画布/私有状态差分；完整主应用未验",
+      "evidence": [
+        "AUCTION_LOTTERY_UI.md",
+        "tests/test_auction_room_screen.py",
+        "tests/test_lottery_bar_screen.py",
+        "evidence/auction-lottery-differential.json"
+      ]
     },
     {
       "id": "tools/screens/market.cpp:424",
       "declarator": "draw_lottery(Host &host, const World &world, const GameDecision &decision,\n                  const std::function<void(std::size_t)> &respond, LotteryFarewell *farewell,\n                  const std::function<std::uint32_t(bool picked)> &goodbye)",
       "end_line": 517,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/lottery_bar_screen.py::彩票柜台_类.api_绘制"
+      ],
+      "status": "已实现，直接原组件画布/私有状态差分；完整主应用未验",
+      "evidence": [
+        "AUCTION_LOTTERY_UI.md",
+        "tests/test_auction_room_screen.py",
+        "tests/test_lottery_bar_screen.py",
+        "evidence/auction-lottery-differential.json"
+      ]
     },
     {
       "id": "tools/screens/market.cpp:528",
       "declarator": "draw_room(Frame &frame, const World &world, std::uint16_t code, std::int32_t price, bool gavel)",
       "end_line": 554,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/auction_room_draw.py::拍卖绘制_类._画房"
+      ],
+      "status": "已实现，直接原组件画布/私有状态差分；完整主应用未验",
+      "evidence": [
+        "AUCTION_LOTTERY_UI.md",
+        "tests/test_auction_room_screen.py",
+        "tests/test_lottery_bar_screen.py",
+        "evidence/auction-lottery-differential.json"
+      ]
     },
     {
       "id": "tools/screens/market.cpp:556",
       "declarator": "announce(Frame &frame, std::string_view line)",
       "end_line": 559,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/auction_room_draw.py::拍卖绘制_类._公告"
+      ],
+      "status": "已实现，直接原组件画布/私有状态差分；完整主应用未验",
+      "evidence": [
+        "AUCTION_LOTTERY_UI.md",
+        "tests/test_auction_room_screen.py",
+        "tests/test_lottery_bar_screen.py",
+        "evidence/auction-lottery-differential.json"
+      ]
     },
     {
       "id": "tools/screens/market.cpp:564",
       "declarator": "draw_bidders(Frame &frame, const World &world, std::optional<std::size_t> current, int seller,\n                  Pose pose)",
       "end_line": 582,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/auction_room_draw.py::拍卖绘制_类._竞买人"
+      ],
+      "status": "已实现，直接原组件画布/私有状态差分；完整主应用未验",
+      "evidence": [
+        "AUCTION_LOTTERY_UI.md",
+        "tests/test_auction_room_screen.py",
+        "tests/test_lottery_bar_screen.py",
+        "evidence/auction-lottery-differential.json"
+      ]
     },
     {
       "id": "tools/screens/market.cpp:585",
       "declarator": "AuctionRoom::draw(Host &host, const World &world, const GameDecision &decision,\n                       const std::function<void(std::size_t)> &respond)",
       "end_line": 646,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/auction_room_screen.py::拍卖室_类.api_绘制"
+      ],
+      "status": "已实现，直接原组件画布/私有状态差分；完整主应用未验",
+      "evidence": [
+        "AUCTION_LOTTERY_UI.md",
+        "tests/test_auction_room_screen.py",
+        "tests/test_lottery_bar_screen.py",
+        "evidence/auction-lottery-differential.json"
+      ]
     },
     {
       "id": "tools/screens/market.cpp:648",
       "declarator": "AuctionRoom::start_sold(std::size_t winner, std::int32_t price, std::uint16_t property)",
       "end_line": 650,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/auction_room_screen.py::拍卖室_类.api_成交"
+      ],
+      "status": "已实现，直接原组件画布/私有状态差分；完整主应用未验",
+      "evidence": [
+        "AUCTION_LOTTERY_UI.md",
+        "tests/test_auction_room_screen.py",
+        "tests/test_lottery_bar_screen.py",
+        "evidence/auction-lottery-differential.json"
+      ]
     },
     {
       "id": "tools/screens/market.cpp:652",
       "declarator": "AuctionRoom::draw_sold(Host &host, const World &world)",
       "end_line": 675,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/auction_room_screen.py::拍卖室_类.api_画成交"
+      ],
+      "status": "已实现，直接原组件画布/私有状态差分；完整主应用未验",
+      "evidence": [
+        "AUCTION_LOTTERY_UI.md",
+        "tests/test_auction_room_screen.py",
+        "tests/test_lottery_bar_screen.py",
+        "evidence/auction-lottery-differential.json"
+      ]
     },
     {
       "id": "tools/screens/menus.cpp:17",

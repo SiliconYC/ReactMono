@@ -1,0 +1,23 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 2416,
+  "painted_frames": 1738,
+  "scope": "direct original AuctionRoom and lottery bar, real maps and assets, private timers/farewell states and callbacks, real sprites, internal state and callbacks; not actual window/financial rule integration",
+  "font_sha256": "4b450afb2c61d7529fe05647316e9fc3137ea703a664bded5bca895a5c30748c",
+  "mode": "base",
+  "runtime_sha256": {
+    "auction_room_screen.py": "a96859a67369d42021b7cd75e6e167e286d6f52322b9a6d0a15ba465097fd94c",
+    "auction_room_draw.py": "eb10590584e6f76455e625a2877b02b31cdcf618459fb344eb1aa493c6c2484e",
+    "auction_room_types.py": "480a1239a030a0741081f363eff0ffc56c12d97041177365b432c7b06481d8c9",
+    "lottery_bar_screen.py": "63ed359c59751d875f8527460e8c4d698693ec6c919a9365ec24dc8fed420c8a",
+    "original_text.py": "a06361cb889309fb58b45a554f47c46f7e988b1c9524df1980a3f93af46d3ffd",
+    "screen_draw.py": "082a3b0d67c61a0ad903adf4dae70847b4b67f3fedaa2f7ad83049942cbd0d28"
+  },
+  "python_sha256": "a96859a67369d42021b7cd75e6e167e286d6f52322b9a6d0a15ba465097fd94c",
+  "last_command": "L 1 -1 -1 0 0 1 1 1000",
+  "last_index": 2415,
+  "state_sha256": "cffe0a7bb1bafdbdc33bdfd46b4d94d811d1a4b7b1d0abe9e3e6b54dfb58b19e",
+  "input_sha256": "019befac1210f5ee85c30af275dba75b1d2ffec76a3c4c94d07511d08010a1b1",
+  "compared_pixels": 533913600
+}
