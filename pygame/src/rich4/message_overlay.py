@@ -1,7 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # 派生自固定tools/screens/messages.cpp::Overlay/draw_text/draw_yes_no；台词由调用方外部读取。
 # ◑ 导入
-import struct
 from collections import deque
 from collections.abc import Callable
 from copy import deepcopy
@@ -221,10 +220,7 @@ class 消息层_类:
 
     def _照片(self, arg_框: 画框_类, arg_条: int) -> 图像_类:
         if arg_条 not in self._照片缓存:
-            数据 = arg_框.美术.api_解码("d", arg_条)
-            数 = min(388 * 251, len(数据) // 2)
-            色 = list(struct.unpack_from(f"<{数}H", 数据))
-            self._照片缓存[arg_条] = 图像_类(388, 251, 色 + [0] * (388 * 251 - 数))
+            self._照片缓存[arg_条] = arg_框.美术.api_原图("d", arg_条, 388, 251, arg_保留高位=True)
         return self._照片缓存[arg_条]
 
     def _画项(self, arg_框: 画框_类, arg_项: 消息_类) -> None:

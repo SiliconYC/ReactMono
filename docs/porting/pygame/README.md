@@ -4,6 +4,7 @@
 
 ## 导航
 
+- [项目内开放格式素材、无损验证与派生副本清理](OPEN_ASSETS.md)。
 - [设计、参考和最终验收门槛](DESIGN.md)。
 - [逐阶段实施计划](PLAN.md) 与 [持续执行台账](PROGRESS.md)。
 - [源码规模与依赖说明](SOURCE_SCALE.md)；[完整语法清单与逐函数矩阵](source-inventory.json)。

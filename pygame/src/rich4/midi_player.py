@@ -47,7 +47,14 @@ class MIDI播放器_类:
         self._合成: Fluid合成_类 | None = None
         if not arg_初始化:
             return
-        bank = arg_音库 if arg_音库 is not None else Path(os.environ.get("RICH4_SOUNDFONT", ""))
+        opened = (arg_素材 / "manifest.json").is_file()
+        bank = (
+            arg_音库
+            if arg_音库 is not None
+            else (
+                arg_素材 / "music/gm.dls" if opened else Path(os.environ.get("RICH4_SOUNDFONT", ""))
+            )
+        )
         if str(bank) == "." and sys.platform == "darwin":
             bank = Path(
                 "/System/Library/Components/CoreAudio.component/Contents/Resources/"
@@ -58,7 +65,8 @@ class MIDI播放器_类:
                 "MIDI soundbank unavailable; set RICH4_SOUNDFONT to a General MIDI SF2/DLS file"
             )
             return
-        files = {p.name.lower(): p for p in arg_素材.iterdir() if p.is_file()}
+        directory = arg_素材 / "music" if opened else arg_素材
+        files = {p.name.lower(): p for p in directory.iterdir() if p.is_file()}
         for name in self.歌单:
             self._缓存[name] = self._读取(files, name, arg_素材)
         for name in self.上下文文件[1:]:

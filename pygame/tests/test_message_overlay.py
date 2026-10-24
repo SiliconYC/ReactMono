@@ -1,5 +1,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # ◑ 导入
+from pathlib import Path
+
 from rich4.artwork import 美术_类
 from rich4.graphics import 图像_类
 from rich4.message_overlay import 消息_类, 消息声音_类, 消息层_类, 消息种类_类
@@ -17,7 +19,7 @@ class 消息素材夹具_类(美术_类):
     """
 
     def __init__(self) -> None:
-        pass
+        super().__init__(Path("unused-test-assets"))
 
     def api_帧(self, arg_库: str, arg_条: int, arg_帧: int) -> 图像_类:
         return 图像_类(96, 48, [100 + arg_帧] * 4608, 2, 3)

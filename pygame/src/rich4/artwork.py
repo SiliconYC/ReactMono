@@ -2,10 +2,15 @@
 # 派生自固定 C++ tools/native_frame.hpp::Artwork与screens/draw.cpp::raw_picture。
 # ◑ 导入
 import struct
+from copy import deepcopy
 from pathlib import Path
 
 from rich4.assets import 资源包_类
+from rich4.flc import 动画_类
 from rich4.graphics import 图像_类
+from rich4.open_animation import PNG动画_类
+from rich4.open_archive import 开放档案_类
+from rich4.terrain import 地面_类
 
 
 # ◕ 功能
@@ -29,12 +34,16 @@ class 美术_类:
 
     def __init__(self, arg_目录: Path) -> None:
         self.目录 = arg_目录
-        self.包: dict[str, 资源包_类] = {}
+        self.开放 = (arg_目录 / "manifest.json").is_file()
+        self.包: dict[str, 资源包_类 | 开放档案_类] = {}
         self.数据: dict[tuple[str, int], bytes] = {}
         self.帧: dict[tuple[str, int, int], 图像_类] = {}
 
-    def api_包(self, arg_库: str) -> 资源包_类:
+    def api_包(self, arg_库: str) -> 资源包_类 | 开放档案_类:
         if arg_库 not in self.包:
+            if self.开放:
+                self.包[arg_库] = 开放档案_类(self.目录, arg_库)
+                return self.包[arg_库]
             名 = self.文件名.get(arg_库, "help.mkf")
             路 = next(
                 (p for p in self.目录.iterdir() if p.is_file() and p.name.lower() == 名), None
@@ -53,10 +62,18 @@ class 美术_类:
     def api_帧(self, arg_库: str, arg_条: int, arg_帧: int) -> 图像_类:
         键 = arg_库, arg_条, arg_帧
         if 键 not in self.帧:
-            self.帧[键] = 图像_类.api_解码(self.api_解码(arg_库, arg_条), arg_帧)
+            self.帧[键] = (
+                self.api_包(arg_库).api_帧(arg_条, arg_帧)
+                if self.开放
+                else 图像_类.api_解码(self.api_解码(arg_库, arg_条), arg_帧)
+            )
         return self.帧[键]
 
     def api_帧数(self, arg_库: str, arg_条: int) -> int:
+        if self.开放:
+            archive = self.api_包(arg_库)
+            data = archive.api_元数据(arg_条)
+            return archive.api_帧数(arg_条) if data["kind"] == "sprite" else 0
         数据 = self.api_解码(arg_库, arg_条)
         try:
             资源包_类.api_检查范围(0, 12, len(数据))
@@ -73,8 +90,42 @@ class 美术_类:
         except ValueError:
             return 0
 
-    def api_原图(self, arg_库: str, arg_条: int, arg_宽: int, arg_高: int) -> 图像_类:
+    def api_原图(
+        self,
+        arg_库: str,
+        arg_条: int,
+        arg_宽: int,
+        arg_高: int,
+        arg_保留高位: bool = False,
+    ) -> 图像_类:
+        if self.开放:
+            archive = self.api_包(arg_库)
+            image = deepcopy(archive.api_帧(arg_条, 0))
+            if (image.宽, image.高) != (arg_宽, arg_高):
+                raise ValueError("原图尺寸与开放PNG不符")
+            if not arg_保留高位:
+                image.像素[:] = [v & 0x7FFF for v in image.像素]
+            return image
         数据 = self.api_解码(arg_库, arg_条)
         数 = min(arg_宽 * arg_高, len(数据) // 2)
-        色 = [v & 0x7FFF for v in struct.unpack_from(f"<{数}H", 数据)]
+        色 = [v & (0xFFFF if arg_保留高位 else 0x7FFF) for v in struct.unpack_from(f"<{数}H", 数据)]
         return 图像_类(arg_宽, arg_高, 色 + [0] * (arg_宽 * arg_高 - 数))
+
+    def api_动画(self, arg_库: str, arg_条: int) -> 动画_类:
+        if self.开放:
+            archive = self.api_包(arg_库)
+            return PNG动画_类(archive, arg_条)
+        return 动画_类(self.api_解码(arg_库, arg_条))
+
+    def api_是动画(self, arg_库: str, arg_条: int) -> bool:
+        if self.开放:
+            archive = self.api_包(arg_库)
+            return archive.api_元数据(arg_条)["kind"] == "animation"
+        data = self.api_解码(arg_库, arg_条)
+        return len(data) >= 128 and data[4:6] == b"\x12\xaf"
+
+    def api_地面(self, arg_条: int) -> 地面_类:
+        archive = self.api_包("m")
+        if isinstance(archive, 开放档案_类):
+            return archive.api_地面(arg_条)
+        return 地面_类.api_解码(self.api_解码("m", arg_条))

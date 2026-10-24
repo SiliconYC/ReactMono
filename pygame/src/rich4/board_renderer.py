@@ -6,13 +6,15 @@ from collections import OrderedDict
 from dataclasses import dataclass, replace
 from pathlib import Path
 
+from rich4.artwork import 美术_类
 from rich4.assets import 资源包_类
 from rich4.board_models import 地产外观_类, 场景_类, 相机_类, 绘制统计_类
 from rich4.board_projection import 棋盘投影_类
 from rich4.graphics import 图像_类
 from rich4.ground_samples import 地面取样_类
+from rich4.open_archive import 开放档案_类
 from rich4.projection_tables import 投影表_类
-from rich4.terrain import 地形_类, 地面_类
+from rich4.terrain import 地形_类
 
 
 # ◕ 功能
@@ -92,9 +94,10 @@ class 棋盘绘制_类:
         if not 0 <= arg_地图 <= 7:
             raise ValueError("棋盘地图编号必须为0..7")
         self.地图 = arg_地图
-        self.地图包 = 资源包_类(self._查包(arg_目录, "map.mkf"))
-        self.数据包 = 资源包_类(self._查包(arg_目录, "data.mkf"))
-        self.地面 = 地面_类.api_解码(self.地图包.api_解码(arg_地图 * 2))
+        self.美术 = 美术_类(arg_目录)
+        self.地图包 = self.美术.api_包("m")
+        self.数据包 = self.美术.api_包("d")
+        self.地面 = self.美术.api_地面(arg_地图 * 2)
         self.地面取样 = 地面取样_类(self.地面)
         元数据 = self.地图包.api_解码(arg_地图 * 2 + 1)
         self.摆放 = [self._摆放(元数据, 表) for 表 in range(5)]
@@ -127,6 +130,16 @@ class 棋盘绘制_类:
         键 = arg_数据包, arg_号, arg_帧, arg_色
         if 键 in self.帧缓存:
             return self.帧缓存[键]
+        archive = self.数据包 if arg_数据包 else self.地图包
+        if isinstance(archive, 开放档案_类):
+            image = archive.api_帧(arg_号, arg_帧)
+            if arg_色 >= 0:
+                for start, end in archive.api_换色段(arg_号, arg_帧):
+                    if not 0 <= start < end <= len(image.像素):
+                        raise ValueError("PNG玩家换色范围越界")
+                    image.像素[start:end] = [arg_色 & 0xFFFF] * (end - start)
+            self.帧缓存[键] = image
+            return image
         资源 = self._资源(arg_数据包, arg_号)
         if not 0 <= arg_帧 < len(资源.帧偏移):
             raise ValueError("棋盘精灵帧超出原资源")
@@ -138,6 +151,12 @@ class 棋盘绘制_类:
                     图.像素[i] = arg_色 & 0xFFFF
         self.帧缓存[键] = 图
         return 图
+
+    def _帧数(self, arg_数据包: bool, arg_号: int) -> int:
+        archive = self.数据包 if arg_数据包 else self.地图包
+        if isinstance(archive, 开放档案_类):
+            return self.美术.api_帧数("d" if arg_数据包 else "m", arg_号)
+        return len(self._资源(arg_数据包, arg_号).帧偏移)
 
     def _设施基数(self) -> int:
         return 0x57 if self.地图 < 4 else 0x68 + (self.地图 - 4) * 17
@@ -336,26 +355,26 @@ class 棋盘绘制_类:
             if not 0 <= 玩家.角色 < 12 or not 0 <= 玩家.方向 <= 7 or not 0 <= 玩家.交通 <= 3:
                 raise ValueError("棋盘玩家精灵选择无效")
             资源 = 棋盘投影_类.api_角色资源(玩家)
-            每向 = len(self._资源(True, 资源).帧偏移) // 8
+            每向 = self._帧数(True, 资源) // 8
             if 每向 == 0:
                 raise ValueError("玩家精灵不足八个方向帧")
             方向 = (玩家.方向 + 8 - arg_相机.旋转) & 7
             入队(玩家.位置, True, 资源, 方向 * 每向 + 玩家.动画帧 % 每向, 13 if 玩家.活跃 else 12)
             if 玩家.梦游:
-                数 = max(1, len(self._资源(True, 0x19E).帧偏移))
+                数 = max(1, self._帧数(True, 0x19E))
                 入队(玩家.位置, True, 0x19E, 玩家.动画帧 % 数, 13 if 玩家.活跃 else 12)
         for 人物 in arg_场景.特殊人物:
             if not 4 <= 人物.槽位 <= 8 or not 0 <= 人物.方向 <= 7:
                 raise ValueError("棋盘特殊人物选择无效")
             姿态 = (3 if 人物.走动 else 0) if 人物.梦游 else 2 if 人物.踩水 else int(人物.走动)
             资源 = 0x209 + int(人物.走动) if 人物.槽位 == 8 else 0x16C + 人物.槽位 * 4 + 姿态
-            每向 = len(self._资源(True, 资源).帧偏移) // 8
+            每向 = self._帧数(True, 资源) // 8
             if 每向 == 0:
                 raise ValueError("特殊人物精灵不足八方向")
             方向 = (人物.方向 + 8 - arg_相机.旋转) & 7
             入队(人物.位置, True, 资源, 方向 * 每向 + 人物.动画帧 % 每向, 13 if 人物.活跃 else 12)
             if 人物.梦游 and 人物.槽位 < 8:
-                数 = max(1, len(self._资源(True, 0x19E).帧偏移))
+                数 = max(1, self._帧数(True, 0x19E))
                 入队(人物.位置, True, 0x19E, 人物.动画帧 % 数, 13 if 人物.活跃 else 12)
         近 = (
             (-10, -22),
@@ -381,7 +400,7 @@ class 棋盘绘制_类:
             if not 1 <= 物件.种类 <= 20 or not 0 <= 物件.方向 <= 7:
                 raise ValueError("棋盘物件精灵选择无效")
             资源 = 0x18C + 物件.种类 - 1
-            数 = len(self._资源(True, 资源).帧偏移)
+            数 = self._帧数(True, 资源)
             if 数 == 0:
                 raise ValueError("物件精灵无帧")
             方向 = (物件.方向 + 8 - arg_相机.旋转) & 7

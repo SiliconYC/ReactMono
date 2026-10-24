@@ -165,11 +165,7 @@ class 物品屏幕_类(物品选择绘制_类, 商店屏幕_类, 魔法屏幕_�
 
     def _卡图图像(self, arg_美术: 美术_类, arg_卡: int) -> 图像_类:
         if arg_卡 not in self._卡图表 or not self._卡图表[arg_卡].像素:
-            data = arg_美术.api_解码("d", 570 + arg_卡)
-            pixels = [0] * (165 * 256)
-            for i in range(min(len(pixels), len(data) // 2)):
-                pixels[i] = data[2 * i] | (data[2 * i + 1] << 8)
-            self._卡图表[arg_卡] = 图像_类(165, 256, pixels)
+            self._卡图表[arg_卡] = arg_美术.api_原图("d", 570 + arg_卡, 165, 256, arg_保留高位=True)
         return self._卡图表[arg_卡]
 
     def api_观察(self, arg_事件: 游戏事件_类, arg_世: 世界_类) -> None:

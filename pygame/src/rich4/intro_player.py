@@ -90,7 +90,7 @@ class 开局演出_类:
         shot = self._镜头[self._索引]
         self._电影, self._已过, self._已响, self._已开始 = None, 0, False, True
         if shot.影片 >= 0:
-            self._电影 = 动画_类(self.美术.api_解码("j", shot.影片))
+            self._电影 = self.美术.api_动画("j", shot.影片)
             self._间隔 = self._电影.间隔毫秒 or 100
             if self._电影.api_下一帧():
                 self._帧 = self._电影.api_图像()

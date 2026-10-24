@@ -4,18 +4,23 @@
 
 ## 环境与运行
 
-使用 Python 3.12 与 Pygame 2.6.1。推荐独立 CPython，避免本机 Conda 的 `readline` 原生扩展冲突。以下命令在仓库根目录执行；`/path/to/Rich4` 必须是自己合法持有的外部原版素材目录。
+使用 Python 3.12 与 Pygame 2.6.1。推荐独立 CPython，避免本机 Conda 的 `readline` 原生扩展冲突。以下命令在仓库根目录执行。正版来源仅供一次性导入，正式游戏使用子项目自己的`pygame/assets/`，商业内容被Git忽略。
 
 ```sh
 uv sync --project pygame --python 3.12
-uv run --project pygame rich4-pygame --assets /path/to/Rich4 --font /path/to/chinese-font.ttc
+uv run --project pygame python pygame/tools/import_open_assets.py \
+  --source /path/to/licensed/Rich4 --font /path/to/authorized-font.ttc \
+  --soundbank /path/to/authorized-gm.dls
+uv run --project pygame rich4-pygame
 ```
 
-默认真实规则与时钟，960×720窗口显示原640×480画布，等比最近邻缩放与黑边。原菜单选择人物/地图后进入对局，鼠标操作原控件，`Esc`按原路径返回。`--save-dir`指定外部存档目录；`--load`读取原DAT及RNG旁车；`--silent`关闭音频。声音缺省跟随系统默认输出及其切换；需要固定设备时使用`--audio-device '设备名称'`或`RICH4_AUDIO_DEVICE`，无效名称明确报错。
+已完成导入时直接运行最后一行。所有图片、动画帧、音效/语音、音乐、字体、音库和原文字都位于游戏自己的资源目录；正式入口不再接受原MKF/EXE目录。源码差分/旧格式预览工具仍可只读正版来源用于研究，不能充当正式运行依赖。格式、审计、部署与旧副本清理记录见 [开放素材迁移](../docs/porting/pygame/OPEN_ASSETS.md)。
+
+默认真实规则与时钟，960×720窗口显示原640×480画布，等比最近邻缩放与黑边。原菜单选择人物/地图后进入对局，鼠标操作原控件，`Esc`按原路径返回。存档缺省写入游戏自身的`pygame/userdata/saves/`；`--save-dir`可明确覆盖；`--load`读取原DAT及RNG旁车；`--silent`关闭音频。声音缺省跟随系统默认输出及其切换；需要固定设备时使用`--audio-device '设备名称'`或`RICH4_AUDIO_DEVICE`，无效名称明确报错。
 
 当前用户已实际试玩并确认操作/画面、BGM/点击音效/角色语音及运行中耳机拔插正常；这是有限流程的人工反馈。完整长局已有加速自动差分，任意中途检查点、写入中断恢复与所有地图/功能人工验收仍未完成，见 [主应用记录](../docs/porting/pygame/APPLICATION.md)。
 
-`--headless --frames 2`只用于有限帧冒烟运行，不能当作游戏验收。`--screenshot`只写本地忽略目录。音频需要标准SDL3/FluidSynth运行库及外部GM音库，配置见下文音频记录；缺少依赖应显式处理，不以静音假装成功。
+`--headless --frames 2`只用于有限帧冒烟运行，不能当作游戏验收。`--screenshot`只写本地忽略目录。音频需要标准SDL3/FluidSynth运行库，GM音库已由导入工具部署到自己的素材目录；缺少依赖应显式处理，不以静音假装成功。
 
 原资源预览入口保留为独立命令：
 
@@ -66,7 +71,10 @@ uv run --project pygame python pygame/tools/differential_assets.py \
 
 ```sh
 uv run --project pygame python pygame/tools/build_audio_dependencies.py --workspace . --jobs 4
-RICH4_SDL3_LIBRARY=/path/to/libSDL3.dylib uv run --project pygame python -m pytest pygame/tests -q
+mkdir -p pygame/.local/lib
+cp .research-cache/audio-runtime/lib/libSDL3.dylib pygame/.local/lib/
+cp .research-cache/audio-runtime/lib/libfluidsynth.dylib pygame/.local/lib/
+uv run --project pygame rich4-pygame
 ```
 
-工具需要已有CMake/GLib；Linux共享库通常为`libSDL3.so`。音库从用户外部路径读取，当前没有把设备探针或声音请求当作完整音频验收，细节与可复现命令见 [音频记录](../docs/porting/pygame/AUDIO.md)。
+以上复制命令为已验收的macOS配置；工具需要已有CMake/GLib，Linux共享库通常为`libSDL3.so`，其它平台尚未进行同等部署验收。正式游戏优先使用`pygame/.local/lib/`，不依赖研究缓存；显式库参数或环境变量仍优先。GM音库固定读自己的`assets/music/`。当前没有把设备探针或声音请求当作完整音频验收，细节与可复现命令见 [音频记录](../docs/porting/pygame/AUDIO.md)。

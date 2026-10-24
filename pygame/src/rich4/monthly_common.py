@@ -85,10 +85,9 @@ class 月报共用_类:
     @staticmethod
     def _开片(arg_框: 画框_类, arg_库: str, arg_条: int) -> 动画_类 | None:
         try:
-            数据 = arg_框.美术.api_解码(arg_库, arg_条)
-            if len(数据) < 128 or 数据[4:6] != b"\x12\xaf":
+            if not arg_框.美术.api_是动画(arg_库, arg_条):
                 return None
-            return 动画_类(数据)
+            return arg_框.美术.api_动画(arg_库, arg_条)
         except (ValueError, OSError, IndexError, RuntimeError) as 错:
             logging.getLogger(__name__).warning("跳过损坏月报影片：%s", 错)
             return None

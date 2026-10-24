@@ -43,6 +43,7 @@ from rich4.native_ui import 字体_类
 from rich4.new_game_screen import 新局屏幕_类
 from rich4.new_game_types import 新局选择_类
 from rich4.number_pad import 数字板_类
+from rich4.open_text import 开放文字_类
 from rich4.options_screen import 选项屏幕_类
 from rich4.original_text import 原版文字_类, 原版程序_类
 from rich4.player_info_screen import 玩家查询_类
@@ -75,8 +76,11 @@ class 游戏应用_类(应用操作_类, 应用绘制_类, 应用输入_类):
             self.设置, self.时钟 = arg_设置, 0
             self.美术, self.字体 = 美术_类(arg_设置.素材), 字体_类(arg_设置.字体)
             cleanup.callback(self.字体.api_关闭)
-            exe = next(p for p in arg_设置.素材.iterdir() if p.name.lower() == "rich4.exe")
-            self.原文 = 原版文字_类(原版程序_类.api_读取(exe))
+            if self.美术.开放:
+                self.原文 = 开放文字_类(arg_设置.素材 / "text/original.json")
+            else:
+                exe = next(p for p in arg_设置.素材.iterdir() if p.name.lower() == "rich4.exe")
+                self.原文 = 原版文字_类(原版程序_类.api_读取(exe))
             self.消息规则 = 消息规则_类(self.原文)
             self.按钮: list[按钮_类] = []
             self.画布 = 图像_类(640, 480, [0] * 307200)
