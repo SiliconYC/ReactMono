@@ -8965,5 +8965,104 @@
       "evidence/main-screen-differential.json",
       "evidence/main-screen-rotations-differential.json"
     ]
+  },
+  "tools/screens/effects.cpp:12": {
+    "python": [
+      "pygame/src/rich4/effect_scene.py::演出场景_类.api_在棋盘"
+    ],
+    "status": "已实现，规格/完整场景值自动差分；非逐帧播放",
+    "evidence": [
+      "tests/test_effect_scene.py",
+      "EFFECTS.md",
+      "evidence/effect-scene-differential.json"
+    ]
+  },
+  "tools/screens/effects.cpp:23": {
+    "python": [
+      "pygame/src/rich4/effect_scene.py::演出场景_类._人物"
+    ],
+    "status": "已实现，规格/完整场景值自动差分；非逐帧播放",
+    "evidence": [
+      "tests/test_effect_scene.py",
+      "EFFECTS.md",
+      "evidence/effect-scene-differential.json"
+    ]
+  },
+  "tools/screens/effects.cpp:38": {
+    "python": [
+      "pygame/src/rich4/effect_scene.py::演出场景_类.api_物件"
+    ],
+    "status": "已实现，规格/完整场景值自动差分；非逐帧播放",
+    "evidence": [
+      "tests/test_effect_scene.py",
+      "EFFECTS.md",
+      "evidence/effect-scene-differential.json"
+    ]
+  },
+  "tools/screens/effects.cpp:59": {
+    "python": [
+      "pygame/src/rich4/effect_scene.py::演出场景_类.api_隐藏物件"
+    ],
+    "status": "已实现，规格/完整场景值自动差分；非逐帧播放",
+    "evidence": [
+      "tests/test_effect_scene.py",
+      "EFFECTS.md",
+      "evidence/effect-scene-differential.json"
+    ]
+  },
+  "tools/screens/effects.cpp:66": {
+    "python": [
+      "pygame/src/rich4/effect_scene.py::演出场景_类.api_业主"
+    ],
+    "status": "已实现，规格/完整场景值自动差分；非逐帧播放",
+    "evidence": [
+      "tests/test_effect_scene.py",
+      "EFFECTS.md",
+      "evidence/effect-scene-differential.json"
+    ]
+  },
+  "tools/screens/effects.cpp:73": {
+    "python": [
+      "pygame/src/rich4/effect_scene.py::演出场景_类.api_静止快照"
+    ],
+    "status": "已实现，规格/完整场景值自动差分；非逐帧播放",
+    "evidence": [
+      "tests/test_effect_scene.py",
+      "EFFECTS.md",
+      "evidence/effect-scene-differential.json"
+    ]
+  },
+  "tools/screens/effects.cpp:105": {
+    "python": [
+      "pygame/src/rich4/effect_spec.py::演出规格_类.api_查询"
+    ],
+    "status": "已实现，规格/完整场景值自动差分；非逐帧播放",
+    "evidence": [
+      "tests/test_effect_scene.py",
+      "EFFECTS.md",
+      "evidence/effect-scene-differential.json"
+    ]
+  },
+  "tools/screens/effects.cpp:200": {
+    "python": [
+      "pygame/src/rich4/effect_scene.py::演出场景_类.api_加入待播"
+    ],
+    "status": "已实现，规格/完整场景值自动差分；非逐帧播放",
+    "evidence": [
+      "tests/test_effect_scene.py",
+      "EFFECTS.md",
+      "evidence/effect-scene-differential.json"
+    ]
+  },
+  "tools/screens/effects.cpp:211": {
+    "python": [
+      "pygame/src/rich4/effect_scene.py::演出场景_类.api_应用待播"
+    ],
+    "status": "已实现，规格/完整场景值自动差分；非逐帧播放",
+    "evidence": [
+      "tests/test_effect_scene.py",
+      "EFFECTS.md",
+      "evidence/effect-scene-differential.json"
+    ]
   }
 }

@@ -16,6 +16,7 @@
 - [小游戏原画面像素对照与可操作Pygame入口](MINIGAME_PRESENTATION.md)。
 - [原生界面字体、编码与商业文字边界](NATIVE_UI.md)。
 - [原MainScreen、GO/骰子时钟与界面集成进度](MAIN_SCREEN.md)。
+- [板面场景、待播人物和电影规格/播放进度](EFFECTS.md)。
 - [主会话实施顺序](GAMESESSION_PLAN.md) 与 [事务/表现增量和真实闭环缺口](GAMESESSION.md)。
 - 主会话增量：[金融结算](GAMESESSION_FINANCE.md)、[角色与被动防御](GAMESESSION_ACTORS.md)；公开会话自然差分继续在上述主会话记录更新。
 - [商店/魔法接口](SERVICES.md) 与 [节日/彩票规则](CALENDAR_LOTTERY.md)。
