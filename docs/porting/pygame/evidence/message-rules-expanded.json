@@ -1,0 +1,23 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 7965,
+  "scope": "original message rules vs external PE, explicit events/decisions, not natural gameplay or GUI",
+  "python_source_sha256": {
+    "message_rules.py": "304279779c3318c234ad81ce9fe22786bcfaf6b08682bbab0ccc9e6d5ec68e8b",
+    "original_text.py": "881f41283a6e27af9d7d0390b9825e70fc067dde19734ebead1d08fef911a84c"
+  },
+  "state_sha256": "9fd1970fc79851499759366003d5e9d8efa0ec45da19abe5d1f6900b4686ccd7",
+  "input_sha256": "66b017e7e55681afc2e654fc62de6de9ea7002fd356838893046a96b17dc7e17",
+  "operations": {
+    "N": 9,
+    "B": 324,
+    "T": 1416,
+    "V": 400,
+    "S": 968,
+    "E": 4120,
+    "F": 40,
+    "D": 672,
+    "Q": 16
+  }
+}

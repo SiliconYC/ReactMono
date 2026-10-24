@@ -98,3 +98,7 @@ uv run --project pygame python pygame/tools/benchmark_main_screen.py \
   --font '/System/Library/Fonts/Hiragino Sans GB.ttc' \
   --samples 40 --report .research-cache/main-screen-font-benchmark.json
 ```
+
+## 消息原文索引增量（2026-10-24）
+
+`original_text.py`新增外部股票96索引、费用四指针、新闻六标题及按虚拟地址读取公告格式；不提交对应商业字符串。股票第八图存在复用地址，不能用连续NUL串或猜测排序代替。全部八图名称/公告/确认的7965命令直接固定消息CPP差分通过；费用实际索引与免费卡格式起点偏差及修复证据见 [消息说明](MESSAGES.md)。旧1878台词报告对应其原版本，新扩展报告记录当前实现哈希，不篡改旧证据。

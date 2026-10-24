@@ -1,0 +1,11 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 882,
+  "scope": "direct original Overlay, explicit Items/clock/audio callbacks, actual external assets/font; not gameplay or desktop/audio acceptance",
+  "font_sha256": "4b450afb2c61d7529fe05647316e9fc3137ea703a664bded5bca895a5c30748c",
+  "python_sha256": "60ec398e580f54b43b6740ed127333ca5f6545bb8a1297bed28663ac8482c314",
+  "state_sha256": "2f3298eb5b490daad549c127bb114e0a9dcbb12c46954c4e4adb867b44ba8000",
+  "input_sha256": "eb210caafa4d97aa69562b52ca7cb0b2ecbc5e04ff2cadca8038fad640dafb3c",
+  "complete_canvas_pixels": 270950400
+}

@@ -99,3 +99,27 @@ def test_角色台词表越界不环绕且空指针不变成假台词() -> None:
         文.api_台词("tool", 0, 26)
     with pytest.raises(KeyError):
         文.api_台词("unknown", 0, 0)
+
+
+def test_外部股票标签费名与新闻标题只读索引保留原文() -> None:
+    数据 = bytearray(0x90000)
+
+    def 写(arg_地址: int, arg_数据: bytes) -> None:
+        偏 = arg_地址 - 0x401000
+        数据[偏 : 偏 + len(arg_数据)] = arg_数据
+
+    写(0x46677D, b"STOCK\0")
+    写(0x47517C, struct.pack("<4I", 0x401010, 0x401020, 0x401030, 0x401040))
+    写(0x475ED8, struct.pack("<6I", *(0x401050 + i * 8 for i in range(6))))
+    for i in range(4):
+        写(0x401010 + i * 16, f"F{i}\0".encode())
+    for i in range(6):
+        写(0x401050 + i * 8, f"N{i}\0".encode())
+    文 = 原版文字_类(原版程序_类(_程序(bytes(数据))))
+    assert 文.api_股票(0) == "STOCK"
+    assert [文.api_费名(i) for i in range(4)] == ["F0", "F1", "F2", "F3"]
+    assert [文.api_新闻标题(i) for i in range(6)] == ["N0", "N1", "N2", "N3", "N4", "N5"]
+    assert 文.api_原文(0x401010) == "F0"
+    for 操作, 值 in ((文.api_股票, -1), (文.api_股票, 96), (文.api_费名, 4), (文.api_新闻标题, 6)):
+        with pytest.raises(IndexError):
+            操作(值)

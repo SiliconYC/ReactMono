@@ -19323,329 +19323,539 @@
       "id": "tools/screens/messages.cpp:49",
       "declarator": "news_title(unsigned id)",
       "end_line": 53,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_rules.py::消息规则_类._新闻/原版文字_类.api_新闻标题"
+      ],
+      "status": "已实现，事件/决策/名称完整值及世界只读性自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-rules-expanded.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:58",
       "declarator": "Argument(std::string value)",
       "end_line": 58,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_rules.py::消息规则_类.api_格式"
+      ],
+      "status": "已实现，事件/决策/名称完整值及世界只读性自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-rules-expanded.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:59",
       "declarator": "Argument(const char *value)",
       "end_line": 59,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_rules.py::消息规则_类.api_格式"
+      ],
+      "status": "已实现，事件/决策/名称完整值及世界只读性自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-rules-expanded.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:60",
       "declarator": "Argument(std::string_view value)",
       "end_line": 60,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_rules.py::消息规则_类.api_格式"
+      ],
+      "status": "已实现，事件/决策/名称完整值及世界只读性自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-rules-expanded.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:61",
       "declarator": "Argument(std::int64_t value)",
       "end_line": 61,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_rules.py::消息规则_类.api_格式"
+      ],
+      "status": "已实现，事件/决策/名称完整值及世界只读性自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-rules-expanded.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:62",
       "declarator": "Argument(int value)",
       "end_line": 62,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_rules.py::消息规则_类.api_格式"
+      ],
+      "status": "已实现，事件/决策/名称完整值及世界只读性自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-rules-expanded.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:64",
       "declarator": "format(std::string_view pattern, std::initializer_list<Argument> arguments)",
       "end_line": 76,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_rules.py::消息规则_类.api_格式"
+      ],
+      "status": "已实现，事件/决策/名称完整值及世界只读性自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-rules-expanded.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:78",
       "declarator": "player_name(const World &world, std::int64_t slot)",
       "end_line": 82,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_rules.py::消息规则_类.api_人名"
+      ],
+      "status": "已实现，事件/决策/名称完整值及世界只读性自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-rules-expanded.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:83",
       "declarator": "strip_spaces(std::string_view text)",
       "end_line": 89,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_rules.py::消息规则_类.api_地名/api_股名"
+      ],
+      "status": "已实现，事件/决策/名称完整值及世界只读性自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-rules-expanded.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:90",
       "declarator": "property_name(const World &world, std::uint16_t code)",
       "end_line": 96,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_rules.py::消息规则_类.api_地名"
+      ],
+      "status": "已实现，事件/决策/名称完整值及世界只读性自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-rules-expanded.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:97",
       "declarator": "stock_name(const World &world, std::int64_t index)",
       "end_line": 102,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_rules.py::消息规则_类.api_股名"
+      ],
+      "status": "已实现，事件/决策/名称完整值及世界只读性自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-rules-expanded.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:103",
       "declarator": "company_name(const World &world, std::int32_t company)",
       "end_line": 107,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_rules.py::消息规则_类._公司"
+      ],
+      "status": "已实现，事件/决策/名称完整值及世界只读性自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-rules-expanded.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:111",
       "declarator": "speech_bubble(std::uint8_t character, unsigned category, std::optional<std::size_t> focus)",
       "end_line": 126,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_rules.py::消息规则_类.api_事件气泡"
+      ],
+      "status": "已实现，事件/决策/名称完整值及世界只读性自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-rules-expanded.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:128",
       "declarator": "item_speech_bubble(std::uint8_t character, SpeechTable table, unsigned slot,\n                                       std::uint8_t mood, std::optional<std::size_t> focus)",
       "end_line": 151,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_rules.py::消息规则_类.api_物品气泡"
+      ],
+      "status": "已实现，事件/决策/名称完整值及世界只读性自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-rules-expanded.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:154",
       "declarator": "bubble(const World &world, std::size_t slot, unsigned category)",
       "end_line": 156,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_rules.py::消息规则_类.api_事件气泡"
+      ],
+      "status": "已实现，事件/决策/名称完整值及世界只读性自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-rules-expanded.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:158",
       "declarator": "box(std::string text, std::uint32_t ms = 1500)",
       "end_line": 164,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_rules.py::消息规则_类._框"
+      ],
+      "status": "已实现，事件/决策/名称完整值及世界只读性自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-rules-expanded.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:166",
       "declarator": "toll_box(const GameEvent &event, const World &world)",
       "end_line": 184,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_rules.py::消息规则_类._租金"
+      ],
+      "status": "已实现，事件/决策/名称完整值及世界只读性自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-rules-expanded.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:186",
       "declarator": "news_item(const GameEvent &event, const World &world)",
       "end_line": 222,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_rules.py::消息规则_类._新闻"
+      ],
+      "status": "已实现，事件/决策/名称完整值及世界只读性自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-rules-expanded.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:224",
       "declarator": "fortune_item(const GameEvent &event, const World &world)",
       "end_line": 236,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_rules.py::消息规则_类.api_从事件"
+      ],
+      "status": "已实现，事件/决策/名称完整值及世界只读性自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-rules-expanded.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:238",
       "declarator": "god_item(const GameEvent &event)",
       "end_line": 249,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_rules.py::消息规则_类.api_从事件"
+      ],
+      "status": "已实现，事件/决策/名称完整值及世界只读性自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-rules-expanded.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:252",
       "declarator": "from_event(const GameEvent &event, const World &world)",
       "end_line": 330,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_rules.py::消息规则_类.api_从事件"
+      ],
+      "status": "已实现，事件/决策/名称完整值及世界只读性自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-rules-expanded.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:332",
       "declarator": "is_yes_no(const GameDecision &decision)",
       "end_line": 347,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_rules.py::消息规则_类.api_是确认"
+      ],
+      "status": "已实现，事件/决策/名称完整值及世界只读性自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-rules-expanded.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:349",
       "declarator": "yes_no_question(const GameDecision &decision, const World &world)",
       "end_line": 359,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_rules.py::消息规则_类.api_确认问题"
+      ],
+      "status": "已实现，事件/决策/名称完整值及世界只读性自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-rules-expanded.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:361",
       "declarator": "subject_name(const World &world, const CardTarget &subject)",
       "end_line": 389,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_rules.py::消息规则_类.api_对象名"
+      ],
+      "status": "已实现，事件/决策/名称完整值及世界只读性自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-rules-expanded.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:391",
       "declarator": "localized(const GameDecision &decision, const World &world)",
       "end_line": 404,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_rules.py::消息规则_类.api_本地化"
+      ],
+      "status": "已实现，事件/决策/名称完整值及世界只读性自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-rules-expanded.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:406",
       "declarator": "draw_text(Frame &frame, std::string_view text, int x, int y, int mode, const ui::TextStyle &style)",
       "end_line": 424,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_overlay.py::消息层_类.api_文字"
+      ],
+      "status": "已实现，原素材完整画布/按钮/队列/语音时钟自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-overlay-differential.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:426",
       "declarator": "draw_yes_no(Frame &frame, std::string_view question, int yes_id, std::function<void()> yes, int no_id,\n                 std::function<void()> no)",
       "end_line": 433,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_overlay.py::消息层_类.api_确认框"
+      ],
+      "status": "已实现，原素材完整画布/按钮/队列/语音时钟自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-overlay-differential.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:435",
       "declarator": "draw_yes_no_strip(Frame &frame, int centre_x, int centre_y, int yes_id, std::function<void()> yes, int no_id,\n                       std::function<void()> no)",
       "end_line": 447,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_overlay.py::消息层_类.api_确认条"
+      ],
+      "status": "已实现，原素材完整画布/按钮/队列/语音时钟自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-overlay-differential.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:449",
       "declarator": "Overlay::push(Item item)",
       "end_line": 458,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_overlay.py::消息层_类.api_入队"
+      ],
+      "status": "已实现，原素材完整画布/按钮/队列/语音时钟自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-overlay-differential.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:460",
       "declarator": "Overlay::clear()",
       "end_line": 465,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_overlay.py::消息层_类.api_清空"
+      ],
+      "status": "已实现，原素材完整画布/按钮/队列/语音时钟自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-overlay-differential.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:467",
       "declarator": "Overlay::skip()",
       "end_line": 474,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_overlay.py::消息层_类.api_跳过"
+      ],
+      "status": "已实现，原素材完整画布/按钮/队列/语音时钟自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-overlay-differential.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:476",
       "declarator": "Overlay::start(std::uint64_t now)",
       "end_line": 483,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_overlay.py::消息层_类._开始"
+      ],
+      "status": "已实现，原素材完整画布/按钮/队列/语音时钟自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-overlay-differential.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:485",
       "declarator": "Overlay::retire()",
       "end_line": 490,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_overlay.py::消息层_类.api_退休"
+      ],
+      "status": "已实现，原素材完整画布/按钮/队列/语音时钟自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-overlay-differential.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:492",
       "declarator": "Overlay::draw(Frame &frame)",
       "end_line": 502,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_overlay.py::消息层_类.api_绘制"
+      ],
+      "status": "已实现，原素材完整画布/按钮/队列/语音时钟自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-overlay-differential.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:504",
       "declarator": "&Overlay::photo(Frame &frame, std::size_t entry)",
       "end_line": 515,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_overlay.py::消息层_类._照片"
+      ],
+      "status": "已实现，原素材完整画布/按钮/队列/语音时钟自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-overlay-differential.json"
+      ]
     },
     {
       "id": "tools/screens/messages.cpp:517",
       "declarator": "Overlay::draw_item(Frame &frame, const Item &item)",
       "end_line": 564,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_overlay.py::消息层_类._画项"
+      ],
+      "status": "已实现，原素材完整画布/按钮/队列/语音时钟自动差分；正式应用待接线",
+      "evidence": [
+        "MESSAGES.md",
+        "evidence/message-overlay-differential.json"
+      ]
     },
     {
       "id": "tools/screens/messages.hpp:79",
       "declarator": "Overlay(Audio audio)",
       "end_line": 79,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_overlay.py::消息层_类.__init__"
+      ],
+      "status": "已实现，消息层时序/完整画布自动差分",
+      "evidence": [
+        "MESSAGES.md",
+        "tests/test_message_overlay.py",
+        "evidence/message-overlay-differential.json"
+      ]
     },
     {
       "id": "tools/screens/messages.hpp:81",
       "declarator": "active() const noexcept",
       "end_line": 83,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_overlay.py::消息层_类.api_活跃"
+      ],
+      "status": "已实现，消息层时序/完整画布自动差分",
+      "evidence": [
+        "MESSAGES.md",
+        "tests/test_message_overlay.py",
+        "evidence/message-overlay-differential.json"
+      ]
     },
     {
       "id": "tools/screens/messages.hpp:84",
       "declarator": "*current() const noexcept",
       "end_line": 86,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_overlay.py::消息层_类.api_当前"
+      ],
+      "status": "已实现，消息层时序/完整画布自动差分",
+      "evidence": [
+        "MESSAGES.md",
+        "tests/test_message_overlay.py",
+        "evidence/message-overlay-differential.json"
+      ]
     },
     {
       "id": "tools/screens/messages.hpp:87",
       "declarator": "focus() const noexcept",
       "end_line": 89,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_overlay.py::消息层_类.api_焦点"
+      ],
+      "status": "已实现，消息层时序/完整画布自动差分",
+      "evidence": [
+        "MESSAGES.md",
+        "tests/test_message_overlay.py",
+        "evidence/message-overlay-differential.json"
+      ]
     },
     {
       "id": "tools/screens/messages.hpp:93",
       "declarator": "set_instant(bool instant) noexcept",
       "end_line": 95,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/message_overlay.py::消息层_类.api_即时"
+      ],
+      "status": "已实现，消息层时序/完整画布自动差分",
+      "evidence": [
+        "MESSAGES.md",
+        "tests/test_message_overlay.py",
+        "evidence/message-overlay-differential.json"
+      ]
     },
     {
       "id": "tools/screens/minigames.cpp:28",
