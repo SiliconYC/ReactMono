@@ -1,0 +1,41 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "scope": "public GameSession natural play; exact complete DAT and four history snapshots, RNG, phase, decisions, events, effects and internal value state; no field injection",
+  "policy": "autopilot human bit retained",
+  "target_days": 366,
+  "status": "failed",
+  "episodes": [],
+  "failure_context": {
+    "map": 0,
+    "seed": 1,
+    "step": 1448,
+    "recent_inputs": [
+      "d",
+      "t 160",
+      "d",
+      "t 160",
+      "d",
+      "t 160",
+      "d",
+      "t 160",
+      "d",
+      "t 160",
+      "d",
+      "t 160",
+      "d",
+      "t 160",
+      "d",
+      "t 160",
+      "d",
+      "t 160",
+      "d",
+      "t 160",
+      "d",
+      "t 160",
+      "d",
+      "t 160"
+    ],
+    "days": 38
+  },
+  "failure": "map=0 seed=1 step=1448 cmd=t 160 DAT/history=0 offset=1408 cpp=0204000000000000 py=0304000000000000"
+}

@@ -75,6 +75,18 @@ class 会话事务探针_类(会话表现_类, 会话事务_类):
     def _串(arg_文: str) -> str:
         return json.dumps(arg_文, ensure_ascii=False)
 
+    @staticmethod
+    def _盘列(arg_盘) -> list[int]:
+        return [
+            arg_盘.类型,
+            *arg_盘.数位,
+            arg_盘.阶段,
+            arg_盘.游标,
+            arg_盘.主体,
+            arg_盘.种子,
+            arg_盘.结果,
+        ]
+
     def _序列(self, arg_状态: int, arg_值: list[int]) -> str:
         数 = [
             arg_状态,
@@ -140,7 +152,7 @@ class 会话事务探针_类(会话表现_类, 会话事务_类):
                 e.方向,
             ]
             if e.转盘 is not None:
-                raise ValueError("本探针范围不含转盘")
+                数 += self._盘列(e.转盘)
             if e.月报 is not None:
                 m = e.月报
                 数 += [m.活跃, *m.人物, len(m.股利)]
@@ -180,6 +192,12 @@ class 会话事务探针_类(会话表现_类, 会话事务_类):
                 d.不活跃玩家,
                 int(d.被抢玩家 is not None),
             ]
+            if d.转盘 is not None:
+                数 += self._盘列(d.转盘)
+            if d.小游戏 is not None:
+                数 += [d.小游戏.游戏, d.小游戏.人物, d.小游戏.种子]
+            if d.被抢玩家 is not None:
+                数.append(d.被抢玩家)
         数 += [len(arg_值), *arg_值]
         return " ".join(map(str, 数))
 

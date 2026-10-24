@@ -400,7 +400,7 @@ class 会话移动_类:
             and not self._状态().梦游天数
             and (not 物 or 事件_类._取(self.世界.物件, 物 - 1).种类 != 16)
         ):
-            self.银行续遭遇 = True
+            self.银行后遭遇 = True
             self._开银行(True)
             return
         self._逐步遭遇()
