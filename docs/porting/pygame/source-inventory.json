@@ -14747,73 +14747,127 @@
       "id": "tools/native_frame.hpp:84",
       "declarator": "Frame(graphics::Image &canvas, Artwork &artwork, ui::Font &font, std::vector<Button> &buttons)",
       "end_line": 85,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/native_frame.py::画框_类.__init__"
+      ],
+      "status": "已实现，实际字体/精灵自动差分",
+      "evidence": [
+        "tests/test_native_frame.py",
+        "NATIVE_UI.md",
+        "evidence/native-frame-differential.json"
+      ]
     },
     {
       "id": "tools/native_frame.hpp:88",
       "declarator": "picture(const graphics::Image &image, int x, int y)",
       "end_line": 90,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/native_frame.py::画框_类.api_图片"
+      ],
+      "status": "已实现，实际字体/精灵自动差分",
+      "evidence": [
+        "tests/test_native_frame.py",
+        "NATIVE_UI.md",
+        "evidence/native-frame-differential.json"
+      ]
     },
     {
       "id": "tools/native_frame.hpp:91",
       "declarator": "picture(char archive, std::size_t entry, std::size_t frame_index, int x, int y)",
       "end_line": 93,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/native_frame.py::画框_类.api_资源图"
+      ],
+      "status": "已实现，实际字体/精灵自动差分",
+      "evidence": [
+        "tests/test_native_frame.py",
+        "NATIVE_UI.md",
+        "evidence/native-frame-differential.json"
+      ]
     },
     {
       "id": "tools/native_frame.hpp:94",
       "declarator": "hit(int id, graphics::Rect rect, std::function<void()> action, bool enabled = true)",
       "end_line": 96,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/native_frame.py::画框_类.api_命中"
+      ],
+      "status": "已实现，实际字体/精灵自动差分",
+      "evidence": [
+        "tests/test_native_frame.py",
+        "NATIVE_UI.md",
+        "evidence/native-frame-differential.json"
+      ]
     },
     {
       "id": "tools/native_frame.hpp:97",
       "declarator": "button(int id, graphics::Rect rect, std::string_view label, std::function<void()> action,\n                bool enabled = true)",
       "end_line": 108,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/native_frame.py::画框_类.api_按钮"
+      ],
+      "status": "已实现，实际字体/精灵自动差分",
+      "evidence": [
+        "tests/test_native_frame.py",
+        "NATIVE_UI.md",
+        "evidence/native-frame-differential.json"
+      ]
     },
     {
       "id": "tools/native_frame.hpp:109",
       "declarator": "dialog(graphics::Rect rect, std::string_view title)",
       "end_line": 115,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/native_frame.py::画框_类.api_对话框"
+      ],
+      "status": "已实现，实际字体/精灵自动差分",
+      "evidence": [
+        "tests/test_native_frame.py",
+        "NATIVE_UI.md",
+        "evidence/native-frame-differential.json"
+      ]
     },
     {
       "id": "tools/native_frame.hpp:116",
       "declarator": "text(std::string_view value, int x, int y, int size = 16, std::uint16_t colour = ui::ink,\n              int wrap_width = 0)",
       "end_line": 119,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/native_frame.py::画框_类.api_文字"
+      ],
+      "status": "已实现，实际字体/精灵自动差分",
+      "evidence": [
+        "tests/test_native_frame.py",
+        "NATIVE_UI.md",
+        "evidence/native-frame-differential.json"
+      ]
     },
     {
       "id": "tools/native_frame.hpp:120",
       "declarator": "centered(std::string_view value, int centre_x, int y, int size = 16, std::uint16_t colour = ui::ink)",
       "end_line": 122,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/native_frame.py::画框_类.api_居中"
+      ],
+      "status": "已实现，实际字体/精灵自动差分",
+      "evidence": [
+        "tests/test_native_frame.py",
+        "NATIVE_UI.md",
+        "evidence/native-frame-differential.json"
+      ]
     },
     {
       "id": "tools/native_frame.hpp:123",
       "declarator": "pointer_in(graphics::Rect rect) const",
       "end_line": 125,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/native_frame.py::画框_类.api_指针内"
+      ],
+      "status": "已实现，实际字体/精灵自动差分",
+      "evidence": [
+        "tests/test_native_frame.py",
+        "NATIVE_UI.md",
+        "evidence/native-frame-differential.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:77",
@@ -16661,57 +16715,99 @@
       "id": "tools/screens/draw.cpp:15",
       "declarator": "lines(std::string_view text)",
       "end_line": 24,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/screen_draw.py::屏幕绘图_类._行"
+      ],
+      "status": "已实现，原640x480画布/按钮元数据自动差分",
+      "evidence": [
+        "tests/test_native_frame.py",
+        "NATIVE_UI.md",
+        "evidence/native-frame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/draw.cpp:26",
       "declarator": "draw_run(Frame &frame, std::string_view value, int x, int top, const Style &style)",
       "end_line": 43,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/screen_draw.py::屏幕绘图_类._画行"
+      ],
+      "status": "已实现，原640x480画布/按钮元数据自动差分",
+      "evidence": [
+        "tests/test_native_frame.py",
+        "NATIVE_UI.md",
+        "evidence/native-frame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/draw.cpp:46",
       "declarator": "top_for_centre(int centre_y, int size)",
       "end_line": 48,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/screen_draw.py::屏幕绘图_类.api_文字"
+      ],
+      "status": "已实现，原640x480画布/按钮元数据自动差分",
+      "evidence": [
+        "tests/test_native_frame.py",
+        "NATIVE_UI.md",
+        "evidence/native-frame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/draw.cpp:52",
       "declarator": "measure(Frame &frame, std::string_view text, const Style &style)",
       "end_line": 57,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/screen_draw.py::屏幕绘图_类.api_测量"
+      ],
+      "status": "已实现，原640x480画布/按钮元数据自动差分",
+      "evidence": [
+        "tests/test_native_frame.py",
+        "NATIVE_UI.md",
+        "evidence/native-frame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/draw.cpp:59",
       "declarator": "text(Frame &frame, std::string_view value, int x, int y, int align, const Style &style)",
       "end_line": 104,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/screen_draw.py::屏幕绘图_类.api_文字"
+      ],
+      "status": "已实现，原640x480画布/按钮元数据自动差分",
+      "evidence": [
+        "tests/test_native_frame.py",
+        "NATIVE_UI.md",
+        "evidence/native-frame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/draw.cpp:106",
       "declarator": "darken(graphics::Image &image, graphics::Rect rect, int level)",
       "end_line": 120,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/screen_draw.py::屏幕绘图_类.api_暗化"
+      ],
+      "status": "已实现，原640x480画布/按钮元数据自动差分",
+      "evidence": [
+        "tests/test_native_frame.py",
+        "NATIVE_UI.md",
+        "evidence/native-frame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/draw.cpp:122",
       "declarator": "greyscale(graphics::Image &image, graphics::Rect rect)",
       "end_line": 134,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/screen_draw.py::屏幕绘图_类.api_灰阶"
+      ],
+      "status": "已实现，原640x480画布/按钮元数据自动差分",
+      "evidence": [
+        "tests/test_native_frame.py",
+        "NATIVE_UI.md",
+        "evidence/native-frame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/draw.cpp:136",
@@ -16720,83 +16816,138 @@
       "python": [
         "pygame/src/rich4/artwork.py::美术_类.api_原图"
       ],
-      "status": "已实现，原屏幕像素差分与边界单测",
+      "status": "已实现，节庆/小游戏真实画面自动差分",
       "evidence": [
         "tests/test_artwork.py",
-        "evidence/minigame-presentation-differential.json"
+        "NATIVE_UI.md",
+        "MINIGAME_PRESENTATION.md"
       ]
     },
     {
       "id": "tools/screens/draw.cpp:145",
       "declarator": "*festival_picture(Artwork &artwork, const World &world)",
       "end_line": 161,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/screen_draw.py::屏幕绘图_类.api_节日"
+      ],
+      "status": "已实现，原640x480画布/按钮元数据自动差分",
+      "evidence": [
+        "tests/test_native_frame.py",
+        "NATIVE_UI.md",
+        "evidence/native-frame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/draw.cpp:163",
       "declarator": "blit_part(graphics::Image &canvas, const graphics::Image &image, graphics::Rect source, int x, int y)",
       "end_line": 166,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/screen_draw.py::屏幕绘图_类.api_局部"
+      ],
+      "status": "已实现，原640x480画布/按钮元数据自动差分",
+      "evidence": [
+        "tests/test_native_frame.py",
+        "NATIVE_UI.md",
+        "evidence/native-frame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/draw.cpp:168",
       "declarator": "outline_rect(graphics::Image &canvas, graphics::Rect rect, std::uint16_t colour)",
       "end_line": 170,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/screen_draw.py::屏幕绘图_类.api_边框"
+      ],
+      "status": "已实现，原640x480画布/按钮元数据自动差分",
+      "evidence": [
+        "tests/test_native_frame.py",
+        "NATIVE_UI.md",
+        "evidence/native-frame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/draw.cpp:172",
       "declarator": "pressed_bevel(graphics::Image &canvas, graphics::Rect rect)",
       "end_line": 184,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/screen_draw.py::屏幕绘图_类.api_按下斜面"
+      ],
+      "status": "已实现，原640x480画布/按钮元数据自动差分",
+      "evidence": [
+        "tests/test_native_frame.py",
+        "NATIVE_UI.md",
+        "evidence/native-frame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/draw.cpp:186",
       "declarator": "&scaled(Artwork &artwork, char archive, std::size_t entry, std::size_t index, int scale)",
       "end_line": 210,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/screen_draw.py::屏幕绘图_类.api_缩放"
+      ],
+      "status": "已实现，原640x480画布/按钮元数据自动差分",
+      "evidence": [
+        "tests/test_native_frame.py",
+        "NATIVE_UI.md",
+        "evidence/native-frame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/draw.cpp:212",
       "declarator": "backdrop(Frame &frame, char archive, std::size_t entry, std::size_t index)",
       "end_line": 215,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/screen_draw.py::屏幕绘图_类.api_背景"
+      ],
+      "status": "已实现，原640x480画布/按钮元数据自动差分",
+      "evidence": [
+        "tests/test_native_frame.py",
+        "NATIVE_UI.md",
+        "evidence/native-frame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/draw.cpp:217",
       "declarator": "popup(Host &host, std::string_view message, int y)",
       "end_line": 221,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/screen_draw.py::屏幕绘图_类.api_弹框"
+      ],
+      "status": "已实现，原640x480画布/按钮元数据自动差分",
+      "evidence": [
+        "tests/test_native_frame.py",
+        "NATIVE_UI.md",
+        "evidence/native-frame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/draw.cpp:223",
       "declarator": "grouped(std::int64_t amount)",
       "end_line": 225,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/screen_draw.py::屏幕绘图_类.api_货币"
+      ],
+      "status": "已实现，原640x480画布/按钮元数据自动差分",
+      "evidence": [
+        "tests/test_native_frame.py",
+        "NATIVE_UI.md",
+        "evidence/native-frame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/draw.cpp:227",
       "declarator": "hit(Host &host, int id, graphics::Rect rect, int effect, std::function<void()> action, bool enabled)",
       "end_line": 237,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/screen_draw.py::屏幕绘图_类.api_命中"
+      ],
+      "status": "已实现，原640x480画布/按钮元数据自动差分",
+      "evidence": [
+        "tests/test_native_frame.py",
+        "NATIVE_UI.md",
+        "evidence/native-frame-differential.json"
+      ]
     },
     {
       "id": "tools/screens/draw.hpp:18",

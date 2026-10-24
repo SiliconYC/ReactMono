@@ -1,0 +1,34 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "generator_seed": 2026102403,
+  "status": "passed",
+  "font_sha256": "4b450afb2c61d7529fe05647316e9fc3137ea703a664bded5bca895a5c30748c",
+  "freetype_library": "/opt/homebrew/opt/freetype/lib/libfreetype.6.dylib",
+  "python_source_sha256": {
+    "native_frame.py": "1ddef472fc701130a3d25246ebbbc5b266dfe8b383b7d20252b6b81b9a87fafa",
+    "screen_draw.py": "8455f3dd3aefde1b65e2e2c8ca1bad851814a128904d18fe3170be67e3d1ef62"
+  },
+  "scope": "direct fixed Frame/draw.cpp; full canvas and button/callback data; no GUI gameplay acceptance",
+  "commands": 733,
+  "operations": {
+    "T": 320,
+    "B": 25,
+    "Z": 27,
+    "D": 25,
+    "F": 23,
+    "Q": 34,
+    "V": 41,
+    "X": 33,
+    "Y": 32,
+    "L": 28,
+    "A": 25,
+    "O": 18,
+    "U": 29,
+    "H": 10,
+    "E": 40,
+    "M": 8,
+    "P": 15
+  },
+  "complete_canvas_pixels": 225177600,
+  "state_sha256": "2e90a322e546d678f285faf71d5a3a0e6cd1c12267f8f14e21c671a54a3edd9a"
+}
