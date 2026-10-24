@@ -21,7 +21,8 @@ class PCM混音_类:
     2026.10.24 - 宿主必须用同一锁保护主线程与设备回调；样本缓存不得边播边修改。
     """
 
-    _数学 = c.CDLL("msvcrt" if sys.platform == "win32" else ctypes.util.find_library("m"))
+    # fmaf不调用Python；保留GIL避免每个采样跨线程让出导致回调超预算。
+    _数学 = c.PyDLL("msvcrt" if sys.platform == "win32" else ctypes.util.find_library("m"))
     _融合 = _数学.fmaf
     _融合.argtypes, _融合.restype = [c.c_float, c.c_float, c.c_float], c.c_float
 
@@ -86,15 +87,14 @@ class PCM混音_类:
             raise ValueError("原混音器每次必须处理512个立体声帧")
         if arg_音乐 is not None:
             self._统计.音乐帧 += 512
+        fused = self._融合
         for clip in self._片段:
             written = 0
             while True:
                 available = len(clip.样本) - clip.位置
                 count = min(1024 - written, available)
                 for i in range(count):
-                    output[written + i] = self._融合(
-                        clip.样本[clip.位置 + i], 0.6, output[written + i]
-                    )
+                    output[written + i] = fused(clip.样本[clip.位置 + i], 0.6, output[written + i])
                 clip.位置 += count
                 written += count
                 if clip.位置 == len(clip.样本):

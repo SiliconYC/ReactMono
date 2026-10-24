@@ -14375,22 +14375,37 @@
       "declarator": "Impl(const std::filesystem::path &assets, bool requested, const std::filesystem::path &bank)",
       "end_line": 246,
       "python": [
-        "pygame/src/rich4/audio_player.py::PCM播放器_类.__init__"
+        "pygame/src/rich4/device_audio.py::设备音频_类.__init__",
+        "pygame/src/rich4/audio_archives.py::音频档案_类.__init__"
       ],
-      "status": "部分完成，独立PCM初始化；原异步加载/MIDI/设备/捕获生命周期尚未实现",
+      "status": "已实现，macOS实际设备/异步/捕获；正式主应用与移动生命周期待接线",
       "evidence": [
-        "AUDIO.md",
-        "tests/test_audio_pcm.py",
-        "evidence/pcm-differential.json"
+        "tests/test_audio_archives.py",
+        "tests/test_audio_capture.py",
+        "tests/test_audio_feed.py",
+        "tests/test_game_audio_device.py",
+        "evidence/capture-differential.json",
+        "evidence/audio-coreaudio.json",
+        "AUDIO.md"
       ]
     },
     {
       "id": "tools/native_audio.cpp:248",
       "declarator": "~Impl()",
       "end_line": 261,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/device_audio.py::设备音频_类.api_关闭"
+      ],
+      "status": "已实现，macOS实际设备/异步/捕获；正式主应用与移动生命周期待接线",
+      "evidence": [
+        "tests/test_audio_archives.py",
+        "tests/test_audio_capture.py",
+        "tests/test_audio_feed.py",
+        "tests/test_game_audio_device.py",
+        "evidence/capture-differential.json",
+        "evidence/audio-coreaudio.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:265",
@@ -14531,13 +14546,18 @@
       "declarator": "&load_clip(bool voice, std::size_t index)",
       "end_line": 440,
       "python": [
-        "pygame/src/rich4/audio_player.py::PCM播放器_类._载入"
+        "pygame/src/rich4/device_audio.py::设备音频_类._载入",
+        "pygame/src/rich4/audio_archives.py::音频档案_类.api_包"
       ],
-      "status": "已实现，原公开PCM控制/真实离线混音/私有状态/trace逐采样差分；实际设备/异步/错误诊断部分未验",
+      "status": "已实现，macOS实际设备/异步/捕获；正式主应用与移动生命周期待接线",
       "evidence": [
-        "AUDIO.md",
-        "tests/test_audio_pcm.py",
-        "evidence/pcm-differential.json"
+        "tests/test_audio_archives.py",
+        "tests/test_audio_capture.py",
+        "tests/test_audio_feed.py",
+        "tests/test_game_audio_device.py",
+        "evidence/capture-differential.json",
+        "evidence/audio-coreaudio.json",
+        "AUDIO.md"
       ]
     },
     {
@@ -14572,17 +14592,37 @@
       "id": "tools/native_audio.cpp:474",
       "declarator": "feed_callback(void *self, SDL_AudioStream *stream, int additional_amount, int)",
       "end_line": 476,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/audio_device.py::音频设备_类._回调"
+      ],
+      "status": "已实现，macOS实际设备/异步/捕获；正式主应用与移动生命周期待接线",
+      "evidence": [
+        "tests/test_audio_archives.py",
+        "tests/test_audio_capture.py",
+        "tests/test_audio_feed.py",
+        "tests/test_game_audio_device.py",
+        "evidence/capture-differential.json",
+        "evidence/audio-coreaudio.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:477",
       "declarator": "feed(SDL_AudioStream *output, int additional_amount) noexcept",
       "end_line": 505,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/audio_feed.py::设备供料_类.api_填充"
+      ],
+      "status": "已实现，macOS实际设备/异步/捕获；正式主应用与移动生命周期待接线",
+      "evidence": [
+        "tests/test_audio_archives.py",
+        "tests/test_audio_capture.py",
+        "tests/test_audio_feed.py",
+        "tests/test_game_audio_device.py",
+        "evidence/capture-differential.json",
+        "evidence/audio-coreaudio.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:507",
@@ -14605,17 +14645,37 @@
       "id": "tools/native_audio.cpp:565",
       "declarator": "capture_block_locked(std::span<const float> block)",
       "end_line": 570,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/audio_capture.py::音频捕获_类.api_追加"
+      ],
+      "status": "已实现，macOS实际设备/异步/捕获；正式主应用与移动生命周期待接线",
+      "evidence": [
+        "tests/test_audio_archives.py",
+        "tests/test_audio_capture.py",
+        "tests/test_audio_feed.py",
+        "tests/test_game_audio_device.py",
+        "evidence/capture-differential.json",
+        "evidence/audio-coreaudio.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:571",
       "declarator": "write_capture() const",
       "end_line": 594,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/audio_capture.py::音频捕获_类.api_写出"
+      ],
+      "status": "已实现，macOS实际设备/异步/捕获；正式主应用与移动生命周期待接线",
+      "evidence": [
+        "tests/test_audio_archives.py",
+        "tests/test_audio_capture.py",
+        "tests/test_audio_feed.py",
+        "tests/test_game_audio_device.py",
+        "evidence/capture-differential.json",
+        "evidence/audio-coreaudio.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:597",
@@ -14635,17 +14695,37 @@
       "id": "tools/native_audio.cpp:623",
       "declarator": "Audio::Audio(const std::filesystem::path &directory, bool enabled, const std::filesystem::path &soundbank)",
       "end_line": 624,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/device_audio.py::设备音频_类.__init__"
+      ],
+      "status": "已实现，macOS实际设备/异步/捕获；正式主应用与移动生命周期待接线",
+      "evidence": [
+        "tests/test_audio_archives.py",
+        "tests/test_audio_capture.py",
+        "tests/test_audio_feed.py",
+        "tests/test_game_audio_device.py",
+        "evidence/capture-differential.json",
+        "evidence/audio-coreaudio.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:625",
       "declarator": "Audio::~Audio()",
       "end_line": 625,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/device_audio.py::设备音频_类.api_关闭"
+      ],
+      "status": "已实现，macOS实际设备/异步/捕获；正式主应用与移动生命周期待接线",
+      "evidence": [
+        "tests/test_audio_archives.py",
+        "tests/test_audio_capture.py",
+        "tests/test_audio_feed.py",
+        "tests/test_game_audio_device.py",
+        "evidence/capture-differential.json",
+        "evidence/audio-coreaudio.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:626",
@@ -15009,9 +15089,14 @@
       "id": "tools/native_audio.cpp:786",
       "declarator": "Audio::queued_bytes() const",
       "end_line": 788,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/device_audio.py::设备音频_类.api_排队字节"
+      ],
+      "status": "部分：返回Python整块余量，SDL2硬件内部队列不冒充SDL3 queued统计",
+      "evidence": [
+        "tests/test_audio_feed.py",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:789",

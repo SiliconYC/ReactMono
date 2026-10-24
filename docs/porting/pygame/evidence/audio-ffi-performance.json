@@ -1,0 +1,22 @@
+{
+  "scope": "real Effect0, explicit 16-overlap offline fixture; not full game FPS",
+  "runtime_sha256": "24b68ba148877d18285671b3ff9bb9a62cd693dc19c18d69672e4ae1dd4226b4",
+  "cases": {
+    "CDLL": {
+      "median_ms": 8.5182915,
+      "max_ms": 8.848667,
+      "p95_ms": 8.6695,
+      "blocks": 32,
+      "clip_samples": 23176,
+      "output_sha256": "e82eda589aedea01b422330adf46c5e875ac744dca2de583e321fcbdbc13f6bc"
+    },
+    "PyDLL": {
+      "median_ms": 7.916792,
+      "max_ms": 8.99425,
+      "p95_ms": 8.24125,
+      "blocks": 32,
+      "clip_samples": 23176,
+      "output_sha256": "e82eda589aedea01b422330adf46c5e875ac744dca2de583e321fcbdbc13f6bc"
+    }
+  }
+}

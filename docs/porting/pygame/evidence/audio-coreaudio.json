@@ -1,0 +1,173 @@
+{
+  "status": "passed",
+  "driver": "coreaudio",
+  "scope": "real original PCM/MIDI through Pygame callback; capture and timing; no human listening or full application proof",
+  "trace": [
+    [
+      "sound",
+      "0"
+    ],
+    [
+      "speech",
+      "127"
+    ],
+    [
+      "loop_start",
+      "walk 44"
+    ],
+    [
+      "loop_start",
+      "bomb 32"
+    ],
+    [
+      "music_push",
+      "midi05.mid"
+    ],
+    [
+      "music_replace",
+      "midi07.mid"
+    ],
+    [
+      "music_pop",
+      "rich08.mid"
+    ],
+    [
+      "music_enabled",
+      "off"
+    ],
+    [
+      "music_select",
+      "rich22.mid"
+    ],
+    [
+      "music_enabled",
+      "on"
+    ],
+    [
+      "loop_stop",
+      "walk 44"
+    ],
+    [
+      "loop_stop",
+      "bomb 32"
+    ],
+    [
+      "speech",
+      "128"
+    ],
+    [
+      "sound",
+      "0"
+    ],
+    [
+      "sound",
+      "0"
+    ],
+    [
+      "sound",
+      "0"
+    ],
+    [
+      "sound",
+      "0"
+    ],
+    [
+      "sound",
+      "0"
+    ],
+    [
+      "sound",
+      "0"
+    ],
+    [
+      "sound",
+      "0"
+    ],
+    [
+      "sound",
+      "0"
+    ],
+    [
+      "sound",
+      "0"
+    ],
+    [
+      "sound",
+      "0"
+    ],
+    [
+      "sound",
+      "0"
+    ],
+    [
+      "sound",
+      "0"
+    ],
+    [
+      "sound",
+      "0"
+    ],
+    [
+      "sound",
+      "0"
+    ],
+    [
+      "sound",
+      "0"
+    ],
+    [
+      "sound",
+      "0"
+    ]
+  ],
+  "main_thread_one_second_sleep_audio_frames": 48640,
+  "main_thread_one_second_busy_audio_frames": 47616,
+  "statistics": {
+    "渲染帧": 371712,
+    "非零采样": 696620,
+    "效果启动": 19,
+    "语音启动": 3,
+    "片段完成": 32,
+    "音乐帧": 347648,
+    "超时次数": 1,
+    "饥饿毫秒": 1,
+    "削波采样": 2153,
+    "限幅采样": 12096,
+    "峰值": 1.6265445947647095,
+    "最长更新间隔": 2011,
+    "最长渲染微秒": 11717
+  },
+  "real_time_budget_pass": false,
+  "callback_blocks": 726,
+  "elapsed_seconds": 7.760858082998311,
+  "pygame_version": "2.6.1",
+  "sdl_version": [
+    2,
+    28,
+    4
+  ],
+  "device_format": {
+    "frequency": 48000,
+    "format": 33056,
+    "channels": 2,
+    "frames": 512
+  },
+  "archive_loader_done": true,
+  "bank_available": true,
+  "runtime_sha256": {
+    "device_audio.py": "e44b696338d6a401114c3eacf7f6c2f8adf73124a4a0ec4103956435b77e20eb",
+    "audio_device.py": "9f331e6ed389a9b27e15a04ae1c7c975fb285875605a65914a62e11d8a7fd1bd",
+    "audio_feed.py": "919c0100386287285a2f8639af98572543c6aa9cb82d488c7dd55017bc52fb29",
+    "audio_archives.py": "573c988ab9e48453fd22bc26b48d164db731885c02bc13f8a2f47a61e406ed93",
+    "audio_capture.py": "683d0948c97142c8428d40fb8b7b4902d3d8cdf0550b36ffd649c3139be1af4c",
+    "audio_pcm.py": "24b68ba148877d18285671b3ff9bb9a62cd693dc19c18d69672e4ae1dd4226b4",
+    "audio.py": "70d1232e9a7b95231bd60c961b5e8ac2bc8a257dfbd8a7d7f483241b430d6bc6",
+    "audio_player.py": "1f5c0d7543433feff6e0b301b83e9af8d594ef58f82a808f2c9a2d7d65a3728f",
+    "audio_limiter.py": "03088adb1c99a4ab2869f207e055426214375f2d3de04462129363754fba57d4",
+    "wave_decoder.py": "ec447b94cdfc60fb850a95d06a7b72ad7f3d61e5b490836dca51cfec3a6bd85c",
+    "midi_player.py": "520422fe9be4785823c74bd8449a5d00240daaaf1ecde649c154afc256a14e9f",
+    "fluid_synth.py": "c27fab67df4e9f2830f93d927f471b8d22fc46e283c167ffcf5ede7b2d73a6ee"
+  },
+  "captured_frames": 371712,
+  "capture_sha256": "21d564654e24fb2803f502da1ca70d743607be051f8cef68ec406236d11e92f2"
+}

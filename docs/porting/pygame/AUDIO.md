@@ -91,3 +91,36 @@ C++直接使用原`Audio`控制和`render_block_locked`，关闭构造设备后�
 完整对照仍是同arm64/Clang14、固定SDL3/FluidSynth/同音库的离线范围；换库/音库/平台必须重跑，不声称与1998官方合成音色逐位相同。实际Pygame设备持续供料、异步MKF、捕获、正式主游戏/小游戏接线和听感仍待验。
 
 复现沿用WAV的`PKG_CONFIG_PATH`、`--source/--build/--assets/--report`，脚本为`differential_midi.py`，另传`--bank /path/to/GeneralMIDI.sf2`、`--sdl-library .../libSDL3.dylib`和`--fluid-library .../libfluidsynth.dylib`。定向测试需显式设置`RICH4_TEST_ASSETS`、`RICH4_FLUIDSYNTH_LIBRARY`、`RICH4_SOUNDFONT`；缺任一则真实MIDI测试明确跳过。
+
+## Pygame真实设备、异步档案与捕获（2026-10-24，#156）
+
+新增`audio_archives.py`43行、`audio_capture.py`44行、`audio_feed.py`72行、`audio_device.py`68行、`device_audio.py`88行，共315行，另优化PCM的标准FMA调用。后台自有线程一次开Effect/Speaking，两者成功才发布；首次声音在锁外等待/解码，失败保留并重复报告。回调只消费已解码样本、合成MIDI和积存日志，主线程送trace；关闭先停设备，再写捕获/等待资源/释放合成器，正式应用最终负责`pygame.quit()`。
+
+Pygame SDL2回调是填满固定缓冲，参考SDL3则可把整块余量排入流。`audio_feed.py`始终按512帧渲染并保留余量，定向验证不整块请求不丢/重复采样、不提前续接语音。`api_排队字节()`只报告Python余量，未把SDL2驱动内部待播量当作原SDL3流的queued计数。移动平台背景/前台事件将由应用调用暂停接口，尚未验。
+
+[实际dummy流程](evidence/audio-dummy.json)593回调/303616帧，[本机CoreAudio](evidence/audio-coreaudio.json)726回调/371712帧，均真实48000Hz/立体声F32/512帧，原音效/语音排队/人物语音/步行炸弹循环/音乐上下文/静音切曲/16效果压力、捕获与正常退出通过。后台档案加载成功，音效19次/语音3次且非零采样明确验证。CoreAudio主线程睡眠一秒推进48640帧、忙算一秒推进47616帧；均为短流程自动设备操作，没有声称人工听感或图形游戏长局。
+
+CoreAudio压力仍有1次11.717毫秒回调超过10.667毫秒预算，累计超出按原整数口径1毫秒，`real_time_budget_pass:false`保留；前次同流程有5次/18毫秒。dummy本次零超预算，但它主线程忙算一秒仅推进24576帧：SDL2 dummy的调度与实际设备不同，也不能从统计零推出没有停顿。回调计时起于Python入口，不能直接测到拿GIL之前的等待；真实帧/墙钟与后续完整游戏仍须共同审查，未宣称无欠载。
+
+### 真实回调失败与GIL死锁
+
+[失败与修复记录](evidence/audio-device-failures.json)保留两种实际失败。Pygame传入Cython`_memoryviewslice`，它没有标准`memoryview.cast`，先取`memoryview(buffer)`才可处理。另一处CoreAudio在暂停/退出附近挂住：本机原生线程采样显示主线程`AudioDevice.pause→SDL_PauseAudioDevice→SDL_LockMutex`持GIL等设备，设备`recording_cb→PyGILState_Ensure→take_gil`等GIL。Pygame2.6.1[固定源码](https://raw.githubusercontent.com/pygame/pygame/2.6.1/src_c/cython/pygame/_sdl2/audio.pyx)与实测一致。
+
+修复只调用同一Pygame SDL2库的公开暂停接口，`ctypes.CDLL`释放GIL等待回调结束，随后Pygame自身`close()`清理其deviceid，避免外部关闭后重复析构。没有调用参考引擎，也没有把设备关掉冒充持续音频。旧挂起探针在保留栈后仅终止自有PID；修复后的实际CoreAudio正常退出。此同库符号解析已验macOS；Windows DLL解析和其它系统仍需补验，不能外推。
+
+回调异常不能穿过C边界，故记录原因并清未填缓冲，下一次主线程检查必重新抛出进入恢复；不会把异常后的静音计为成功声音。完整应用的恢复落盘仍待接线。七个资源/捕获/余量测试加一个真实外部SDK子进程回调测试，本阶段共532项通过；无外部SDK/MIDI/音库时真实项明确跳过。
+
+### 捕获位精度与性能回归
+
+[原捕获文件对照](evidence/capture-differential.json)五组、5960047个输入F32，含空、奇数尾、取整边界、随机范围和超过60秒；实际原`capture_block_locked/write_capture`与Python全部WAV字节一致。60秒预分配上限5760000采样，回调不扩容、不写文件；退出F32钳制/乘32767后远零取整，与Python银行家取整不同。合成数值只验文件格式，实际声音捕获留忽略目录，全部媒体不入Git。
+
+标准`fmaf`保留GIL并缓存函数引用，避免每个采样跨线程切换；[可重放16真实效果基准](evidence/audio-ffi-performance.json)32块输出摘要相同，CDLL中位8.518毫秒/PyDLL7.917毫秒；不是完整窗口FPS。优化后重新跑[完整PCM](evidence/pcm-device-regression.json)3881命令/4400128采样与[完整MIDI](evidence/midi-device-regression.json)1190命令/200695808采样，输入/状态/波形摘要均与原报告相同，八曲/十七上下文自然进展仍通过。导入Pygame后显式库版本也核验为FluidSynth2.6.1，不误用其打包的其它FluidSynth。
+
+```sh
+RICH4_SDL3_LIBRARY="$PWD/.research-cache/audio-runtime/lib/libSDL3.dylib" \
+RICH4_FLUIDSYNTH_LIBRARY="$PWD/.research-cache/audio-runtime/lib/libfluidsynth.dylib" \
+uv run --project pygame python pygame/tools/probe_game_audio.py \
+  --assets /path/to/Rich4 --driver coreaudio --output .research-cache/audio-device
+```
+
+上例CoreAudio仅macOS，`--driver dummy`为静音设备流程；另以`benchmark_audio.py --assets ... --report ...`复现FMA性能，`differential_capture.py`沿用WAV的源码/构建/SDK参数。正式主程序/小游戏接线、移动生命周期、长期图形对局、人工听感仍待验，不把本节短设备流程当最终完整音频验收。

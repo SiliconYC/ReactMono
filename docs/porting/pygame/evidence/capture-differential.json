@@ -1,0 +1,38 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "scope": "synthetic float capture format and 60-second cap only; exact original WAV bytes, no listening proof",
+  "cases": [
+    {
+      "samples": 0,
+      "retained": 0,
+      "bytes": 44,
+      "sha256": "4872b61c768dff943f9e021453d816f06e35adc8edd88ef183301f03e31b94a5"
+    },
+    {
+      "samples": 2,
+      "retained": 2,
+      "bytes": 48,
+      "sha256": "ba80b0d9671920cd87e5b7cfb6853489efd1e380d7659b07125b1bffa12b2c9f"
+    },
+    {
+      "samples": 17,
+      "retained": 17,
+      "bytes": 78,
+      "sha256": "86ab25768ed140447171652adce5e571263d071c449560aa6d9cd6ed84f348f5"
+    },
+    {
+      "samples": 100014,
+      "retained": 100014,
+      "bytes": 200072,
+      "sha256": "363bdbe0180b7188aa9b6feb6eb05245b0feb5c8ba1fd092d208080ed8735656"
+    },
+    {
+      "samples": 5860014,
+      "retained": 5760000,
+      "bytes": 11520044,
+      "sha256": "501de62e4738d2425d3b49016a9f6e4b99a915eaaeeeb87d611caec457fb6f27"
+    }
+  ],
+  "runtime_sha256": "683d0948c97142c8428d40fb8b7b4902d3d8cdf0550b36ffd649c3139be1af4c"
+}
