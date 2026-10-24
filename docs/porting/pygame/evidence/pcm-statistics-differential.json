@@ -1,0 +1,22 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 3881,
+  "samples": 4400128,
+  "rejected": 5,
+  "scope": "original public PCM controls and actual render_block_locked offline vs Python; real WAVs plus explicit numeric fixtures, private state/trace and exact F32; no audio device, MIDI, asynchronous loader or listening proof",
+  "mode": "base",
+  "architecture": "arm64",
+  "compiler": "Apple clang version 14.0.3 (clang-1403.0.22.14.1)",
+  "runtime_sha256": {
+    "audio_player.py": "1f5c0d7543433feff6e0b301b83e9af8d594ef58f82a808f2c9a2d7d65a3728f",
+    "audio_pcm.py": "3778060c810c1c106f990b08b281e25791a213b03b8cb7eecf5198131495ae6e",
+    "audio_pcm_types.py": "3f0f1ddb99ae43f76755b1e21df890be62169d7d74cf01fb1845ca90ce66cbac",
+    "audio_limiter.py": "03088adb1c99a4ab2869f207e055426214375f2d3de04462129363754fba57d4",
+    "wave_decoder.py": "5733052c47f5a31d9a1360583d8b969f74f49c457df0dfc0a6effa07fc3f3acf"
+  },
+  "last_index": 3880,
+  "last_command": "U 1000000001",
+  "state_sha256": "feb742f7e869305cb1f8a95cf947db0be8e1af1d6b10669be67509e523b9fa91",
+  "input_sha256": "1f42b0ea16c0353fa522fcfa1d17a3679f10bed74814327a7e4177c52fbb3bdf"
+}

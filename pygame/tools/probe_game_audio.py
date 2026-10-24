@@ -22,6 +22,7 @@ class 游戏音频探针_类:
 
     更新日志：
     2026.10.24 - 主线程暂停一秒也要求设备推进；不声称真人听感或完整游戏通过。
+    2026.10.25 - dummy是回调后再等待的软件时钟；连续推进与原80%吞吐/真实预算分开记录。
     """
 
     @staticmethod
@@ -70,11 +71,30 @@ class 游戏音频探针_类:
                 player.api_更新()
                 time.sleep(0.005)
             before = player.api_统计().渲染帧
-            time.sleep(1)
-            after = player.api_统计().渲染帧
+            last, windows = before, []
+            quiet_begin = time.monotonic()
+            for _ in range(4):
+                time.sleep(0.25)
+                after = player.api_统计().渲染帧
+                windows.append(after - last)
+                last = after
+            quiet_seconds = time.monotonic() - quiet_begin
             report["main_thread_one_second_sleep_audio_frames"] = after - before
-            if after - before < 48000 * 0.8:
-                raise ValueError("主线程停一秒时音频设备未持续推进")
+            report["no_main_update_window_frames"] = windows
+            report["no_main_update_elapsed_seconds"] = quiet_seconds
+            independent = all(n > 0 for n in windows)
+            nominal = after - before >= 48000 * quiet_seconds * 0.8
+            report["callback_independent_progress_pass"] = independent
+            report["dummy_nominal_rate_80_percent_pass"] = nominal if arg_驱动 == "dummy" else None
+            report["hardware_nominal_rate_80_percent_pass"] = (
+                nominal if arg_驱动 != "dummy" else None
+            )
+            if not independent:
+                raise ValueError("主线程不更新时音频回调停止推进")
+            # SDL2 dummy每次callback之后再SDL_Delay一个缓冲周期，不能拿它冒充硬件时钟。
+            # 原80%指标和所有超预算统计仍保留；真实设备继续把80%作为失败门槛。
+            if arg_驱动 != "dummy" and not nominal:
+                raise ValueError("真实设备在主线程不更新时未达到80%名义采样推进")
             # 真实解码后在不释放GIL的普通Python忙循环中观测调度，计数不决定通过。
             before_busy = player.api_统计().渲染帧
             busy_end = time.monotonic() + 1
@@ -155,6 +175,8 @@ class 游戏音频探针_类:
             raise
         finally:
             if player is not None:
+                report["final_statistics"] = asdict(player.api_统计())
+                report["final_callback_blocks"] = player._供料.回调次数
                 player.api_关闭()
             pygame.quit()
             (arg_输出 / "report.json").write_text(

@@ -1,0 +1,406 @@
+{
+  "scope": "functional progress and performance flags intentionally separate; slow callback uses real game PCM/MIDI, no screen or microphone capture",
+  "status": "passed",
+  "reports": [
+    {
+      "status": "passed",
+      "driver": "dummy",
+      "scope": "real original PCM/MIDI through Pygame callback; capture and timing; no human listening or full application proof",
+      "trace": [
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "speech",
+          "127"
+        ],
+        [
+          "loop_start",
+          "walk 44"
+        ],
+        [
+          "loop_start",
+          "bomb 32"
+        ],
+        [
+          "music_push",
+          "midi05.mid"
+        ],
+        [
+          "music_replace",
+          "midi07.mid"
+        ],
+        [
+          "music_pop",
+          "rich08.mid"
+        ],
+        [
+          "music_enabled",
+          "off"
+        ],
+        [
+          "music_select",
+          "rich22.mid"
+        ],
+        [
+          "music_enabled",
+          "on"
+        ],
+        [
+          "loop_stop",
+          "walk 44"
+        ],
+        [
+          "loop_stop",
+          "bomb 32"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ]
+      ],
+      "main_thread_one_second_sleep_audio_frames": 16384,
+      "no_main_update_window_frames": [
+        4096,
+        4096,
+        4096,
+        4096
+      ],
+      "no_main_update_elapsed_seconds": 1.0849052499979734,
+      "callback_independent_progress_pass": true,
+      "dummy_nominal_rate_80_percent_pass": false,
+      "hardware_nominal_rate_80_percent_pass": null,
+      "main_thread_one_second_busy_audio_frames": 10240,
+      "statistics": {
+        "渲染帧": 110080,
+        "非零采样": 217983,
+        "效果启动": 19,
+        "语音启动": 2,
+        "片段完成": 20,
+        "音乐帧": 102912,
+        "超时次数": 215,
+        "饥饿毫秒": 3024,
+        "削波采样": 2174,
+        "限幅采样": 11314,
+        "峰值": 1.5400185585021973,
+        "最长更新间隔": 2112,
+        "最长渲染微秒": 38680
+      },
+      "real_time_budget_pass": false,
+      "callback_blocks": 215,
+      "elapsed_seconds": 7.901249666989315,
+      "pygame_version": "2.6.1",
+      "sdl_version": [
+        2,
+        28,
+        4
+      ],
+      "device_format": {
+        "frequency": 48000,
+        "format": 33056,
+        "channels": 2,
+        "frames": 512
+      },
+      "archive_loader_done": true,
+      "bank_available": true,
+      "output_device": null,
+      "default_output": true,
+      "runtime_sha256": {
+        "device_audio.py": "be3c51bdd6f204ced0c1af6a20fd98238c296012f9303f0e76e691d9ee6e1084",
+        "audio_device.py": "edfd52e847d36b1f36c597d561ebb6329791dccc7bd51543c11de2c6b513e5d9",
+        "audio_sdl.py": "12117213c2cafed42cdae2ee0bfb53a55dda0f0801d86333f3b7e1121a626110",
+        "audio_feed.py": "919c0100386287285a2f8639af98572543c6aa9cb82d488c7dd55017bc52fb29",
+        "audio_archives.py": "32846e373012a5cbbf6adb12d6c627db85a09a91894431c06adf84bb029b6160",
+        "audio_capture.py": "683d0948c97142c8428d40fb8b7b4902d3d8cdf0550b36ffd649c3139be1af4c",
+        "audio_pcm.py": "3778060c810c1c106f990b08b281e25791a213b03b8cb7eecf5198131495ae6e",
+        "audio.py": "70d1232e9a7b95231bd60c961b5e8ac2bc8a257dfbd8a7d7f483241b430d6bc6",
+        "audio_player.py": "1f5c0d7543433feff6e0b301b83e9af8d594ef58f82a808f2c9a2d7d65a3728f",
+        "audio_limiter.py": "03088adb1c99a4ab2869f207e055426214375f2d3de04462129363754fba57d4",
+        "wave_decoder.py": "5733052c47f5a31d9a1360583d8b969f74f49c457df0dfc0a6effa07fc3f3acf",
+        "midi_player.py": "e879b3ea982acb4dc0350862f25d44a2abfedc557dd20831d46ad1a0566d57d1",
+        "fluid_synth.py": "a191ca4a4c16c28354794531c56b6bde91473f8b61ae807d801669ee0e8bc210"
+      },
+      "captured_frames": 110080,
+      "capture_sha256": "98d095424db813573416b8df7b9f81dca69d0a1464b8b42a39395a8233b3b12f",
+      "final_statistics": {
+        "渲染帧": 110080,
+        "非零采样": 217983,
+        "效果启动": 19,
+        "语音启动": 2,
+        "片段完成": 20,
+        "音乐帧": 102912,
+        "超时次数": 215,
+        "饥饿毫秒": 3024,
+        "削波采样": 2174,
+        "限幅采样": 11314,
+        "峰值": 1.5400185585021973,
+        "最长更新间隔": 2112,
+        "最长渲染微秒": 38680
+      },
+      "final_callback_blocks": 215
+    },
+    {
+      "status": "passed",
+      "driver": "dummy",
+      "scope": "real original PCM/MIDI through Pygame callback; capture and timing; no human listening or full application proof",
+      "trace": [
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "speech",
+          "127"
+        ],
+        [
+          "loop_start",
+          "walk 44"
+        ],
+        [
+          "loop_start",
+          "bomb 32"
+        ],
+        [
+          "music_push",
+          "midi05.mid"
+        ],
+        [
+          "music_replace",
+          "midi07.mid"
+        ],
+        [
+          "music_pop",
+          "rich08.mid"
+        ],
+        [
+          "music_enabled",
+          "off"
+        ],
+        [
+          "music_select",
+          "rich22.mid"
+        ],
+        [
+          "music_enabled",
+          "on"
+        ],
+        [
+          "loop_stop",
+          "walk 44"
+        ],
+        [
+          "loop_stop",
+          "bomb 32"
+        ],
+        [
+          "speech",
+          "128"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ],
+        [
+          "sound",
+          "0"
+        ]
+      ],
+      "main_thread_one_second_sleep_audio_frames": 40960,
+      "no_main_update_window_frames": [
+        9728,
+        10240,
+        10752,
+        10240
+      ],
+      "no_main_update_elapsed_seconds": 1.006447833002312,
+      "callback_independent_progress_pass": true,
+      "dummy_nominal_rate_80_percent_pass": true,
+      "hardware_nominal_rate_80_percent_pass": null,
+      "main_thread_one_second_busy_audio_frames": 24064,
+      "statistics": {
+        "渲染帧": 290816,
+        "非零采样": 567900,
+        "效果启动": 19,
+        "语音启动": 3,
+        "片段完成": 30,
+        "音乐帧": 271360,
+        "超时次数": 0,
+        "饥饿毫秒": 0,
+        "削波采样": 2184,
+        "限幅采样": 11986,
+        "峰值": 1.614102840423584,
+        "最长更新间隔": 2013,
+        "最长渲染微秒": 9714
+      },
+      "real_time_budget_pass": true,
+      "callback_blocks": 568,
+      "elapsed_seconds": 7.7612223340256605,
+      "pygame_version": "2.6.1",
+      "sdl_version": [
+        2,
+        28,
+        4
+      ],
+      "device_format": {
+        "frequency": 48000,
+        "format": 33056,
+        "channels": 2,
+        "frames": 512
+      },
+      "archive_loader_done": true,
+      "bank_available": true,
+      "output_device": null,
+      "default_output": true,
+      "runtime_sha256": {
+        "device_audio.py": "be3c51bdd6f204ced0c1af6a20fd98238c296012f9303f0e76e691d9ee6e1084",
+        "audio_device.py": "edfd52e847d36b1f36c597d561ebb6329791dccc7bd51543c11de2c6b513e5d9",
+        "audio_sdl.py": "12117213c2cafed42cdae2ee0bfb53a55dda0f0801d86333f3b7e1121a626110",
+        "audio_feed.py": "919c0100386287285a2f8639af98572543c6aa9cb82d488c7dd55017bc52fb29",
+        "audio_archives.py": "32846e373012a5cbbf6adb12d6c627db85a09a91894431c06adf84bb029b6160",
+        "audio_capture.py": "683d0948c97142c8428d40fb8b7b4902d3d8cdf0550b36ffd649c3139be1af4c",
+        "audio_pcm.py": "3778060c810c1c106f990b08b281e25791a213b03b8cb7eecf5198131495ae6e",
+        "audio.py": "70d1232e9a7b95231bd60c961b5e8ac2bc8a257dfbd8a7d7f483241b430d6bc6",
+        "audio_player.py": "1f5c0d7543433feff6e0b301b83e9af8d594ef58f82a808f2c9a2d7d65a3728f",
+        "audio_limiter.py": "03088adb1c99a4ab2869f207e055426214375f2d3de04462129363754fba57d4",
+        "wave_decoder.py": "5733052c47f5a31d9a1360583d8b969f74f49c457df0dfc0a6effa07fc3f3acf",
+        "midi_player.py": "e879b3ea982acb4dc0350862f25d44a2abfedc557dd20831d46ad1a0566d57d1",
+        "fluid_synth.py": "a191ca4a4c16c28354794531c56b6bde91473f8b61ae807d801669ee0e8bc210"
+      },
+      "captured_frames": 290816,
+      "capture_sha256": "6b5802d45f43ce55de2c3e7aa5e48b7b8af35f5ed9a5a63799537b0e959751fa",
+      "final_statistics": {
+        "渲染帧": 290816,
+        "非零采样": 567900,
+        "效果启动": 19,
+        "语音启动": 3,
+        "片段完成": 30,
+        "音乐帧": 271360,
+        "超时次数": 0,
+        "饥饿毫秒": 0,
+        "削波采样": 2184,
+        "限幅采样": 11986,
+        "峰值": 1.614102840423584,
+        "最长更新间隔": 2013,
+        "最长渲染微秒": 9714
+      },
+      "final_callback_blocks": 568
+    }
+  ]
+}
