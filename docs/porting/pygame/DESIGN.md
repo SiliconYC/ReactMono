@@ -2,7 +2,7 @@
 
 ## 目标和证据边界
 
-总任务 [#139](https://github.com/SiliconYC/ReactMono/issues/139)；首阶段 [#140](https://github.com/SiliconYC/ReactMono/issues/140)。参考固定为 `lhr0909/richman4-remastered@3f4209a7dfb5b2f20799bf54e6c03c5faa11c557`。最终交付为八地图、完整规则、音画、存读档、托管、长局与真实图形操作验收的独立 Python 游戏。当前基础设施不是完整移植。
+总任务 [#139](https://github.com/SiliconYC/ReactMono/issues/139)；首阶段 [#140](https://github.com/SiliconYC/ReactMono/issues/140)。参考固定为 `lhr0909/richman4-remastered@3f4209a7dfb5b2f20799bf54e6c03c5faa11c557`。最终交付为八地图、完整规则、音画、存读档、托管、长局与真实图形操作验收的独立 Python 游戏。当前交付及证据边界见 [总审计](COMPLETION_AUDIT.md)，以下保留最初架构约定。
 
 继承 [现有研究索引](../../research/repositories/lhr0909--richman4-remastered/source-index.md)，不重复历史研究。用户提供的 Linux 基准（37/37、20/20、348/190 天）作为已有输入，不冒充本机重新验证结果，也不重做大规模 Linux 研究。本地暂无该 Linux 验收原始日志，需补证时只索取或定位具体日志。
 
@@ -18,7 +18,7 @@
 - `pygame/tests/`：确定性行为、错误输入和外部素材可选测试；无素材跳过必须明确展示。
 - `pygame/tools/`：源码清单、跨语言驱动与局部验收，不进入正式游戏依赖。
 - `docs/porting/pygame/`：映射、状态、规则依据、失败案例与验收记录。
-- 外部素材由 `--assets` 指定，绝不复制进 Git；参考克隆和 C++ 构建在忽略目录。
+- 正式素材已转换至游戏自身 `pygame/assets/`，`--assets` 仅选择开放格式目录，绝不复制进 Git；正版来源只读保留，参考克隆和 C++ 构建只用于测试。
 
 ## 完整验收门槛
 

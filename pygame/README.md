@@ -1,6 +1,6 @@
 # Pygame《大富翁4》移植子项目
 
-状态：**真实主游戏已接通，完整移植验收未完成**。默认入口包含原菜单、新局、八地图、独立规则、专属界面、保存槽、托管和音频；当前进度与缺口见 [移植台账](../docs/porting/pygame/README.md)。原 React 游戏保持独立。
+状态：**固定 C++ 桌面范围的 macOS 移植已交付**。默认入口包含原菜单、新局、八地图、独立规则、专属界面、保存槽、托管和音频；验收范围、参考自身缺口与平台限制见 [移植台账](../docs/porting/pygame/README.md)。原 React 游戏保持独立。
 
 ## 环境与运行
 
@@ -67,9 +67,9 @@ uv run --project pygame python pygame/tools/differential_assets.py \
 
 源码及素材权利边界见 [NOTICE.md](NOTICE.md)。
 
-## 主游戏音频依赖（移植中）
+## 主游戏音频依赖
 
-原WAV转换、完整混音、语音队列与MIDI已逐采样对照，主应用已接线；设备压力与听感验收继续实施。开发依赖可在独立Worktree的忽略缓存构建，不安装系统包：
+原WAV转换、完整混音、语音队列与MIDI已逐采样对照，主应用已接线；已取得本机设备与有限真人听感验收，长期/其它平台限制见音频记录。开发依赖可在独立Worktree的忽略缓存构建，不安装系统包：
 
 ```sh
 uv run --project pygame python pygame/tools/build_audio_dependencies.py --workspace . --jobs 4
@@ -79,4 +79,4 @@ cp .research-cache/audio-runtime/lib/libfluidsynth.dylib pygame/.local/lib/
 uv run --project pygame rich4-pygame
 ```
 
-以上复制命令为已验收的macOS配置；工具需要已有CMake/GLib，Linux共享库通常为`libSDL3.so`，其它平台尚未进行同等部署验收。正式游戏优先使用`pygame/.local/lib/`，不依赖研究缓存；显式库参数或环境变量仍优先。GM音库固定读自己的`assets/music/`。当前没有把设备探针或声音请求当作完整音频验收，细节与可复现命令见 [音频记录](../docs/porting/pygame/AUDIO.md)。
+以上复制命令为已验收的macOS配置；工具需要已有CMake/GLib，Linux共享库通常为`libSDL3.so`，其它平台尚未进行同等部署验收。正式游戏优先使用`pygame/.local/lib/`，不依赖研究缓存；显式库参数或环境变量仍优先。GM音库固定读自己的`assets/music/`。设备探针、离线波形与用户实际听感分别留痕，细节与可复现命令见 [音频记录](../docs/porting/pygame/AUDIO.md)。

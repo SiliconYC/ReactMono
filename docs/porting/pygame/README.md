@@ -1,6 +1,6 @@
 # Pygame 忠实移植工作区
 
-**尚未完成完整游戏移植。** 总任务 [#139](https://github.com/SiliconYC/ReactMono/issues/139) 保持开放，首阶段 [#140](https://github.com/SiliconYC/ReactMono/issues/140) 建立资源、画布与差分基础。
+固定 C++ 范围的 macOS 独立移植已完成交付审计。先读 [总交付报告](COMPLETION_AUDIT.md)、[当前覆盖与限制](COVERAGE.md) 和 [全部阶段合并](MERGES.md)。总任务 [#139](https://github.com/SiliconYC/ReactMono/issues/139)；所有组件阶段的旧“待接线/待试玩”按当前审计解释，历史记录不删除。
 
 ## 导航
 
@@ -21,7 +21,7 @@
 - [原MainScreen、GO/骰子时钟与界面集成进度](MAIN_SCREEN.md)。
 - [原卡片/道具、目标、商店、魔法与医院/监狱屏幕](ITEM_SCREENS.md)。
 - [原地图信息、帮助、开局与结局组件](AUXILIARY_UI.md)。
-- [主音频策略、WAV转换、限幅及待完成播放链](AUDIO.md)；[正式主应用接线记录](APPLICATION.md)。
+- [主音频策略、WAV转换、限幅及正式播放链](AUDIO.md)；[正式主应用接线记录](APPLICATION.md)。
 - [板面场景、待播人物和电影规格/播放进度](EFFECTS.md)。
 - [主会话实施顺序](GAMESESSION_PLAN.md) 与 [事务/表现增量和真实闭环缺口](GAMESESSION.md)。
 - 主会话增量：[金融结算](GAMESESSION_FINANCE.md)、[角色与被动防御](GAMESESSION_ACTORS.md)；公开会话自然差分继续在上述主会话记录更新。
@@ -56,22 +56,4 @@
 
 - [原股利、开奖与月末报告](MONTHLY.md)：真实电影/状态/画布对照、引用修复与票面暗化性能。
 
-数字输入与原键盘/量尺边界见 [数字板](NUMBER_PAD.md)，已完成组件差分，金融界面接线与完整窗口操作仍待验。
-
-银行ATM/柜台/董事室与一级股提示的直接原组件差分见 [银行屏幕](BANK_SCREENS.md)，正式主程序、股票及其它金融界面继续实施。
-
-原股票报价、持仓、公司资讯/历史图/股权饼图及红黑卡目标组件见 [股票屏幕](STOCK_SCREENS.md)，实际主程序与规则接线仍在实施。
-
-原Data517设施选择与Panel77托管设置组件见 [设施与托管](FACILITY_AI_UI.md)，真实主应用和自然操作流程仍待接线。
-
-原Data1主菜单与Jump新局设置/骑乘/私有MT见 [主菜单与新局](MAIN_MENU_SETUP.md)，完整应用仍待接通其真实回调。
-
-原Data3选项与Data520存读档槽见 [选项与存档槽](OPTIONS_SAVE_SLOTS.md)，真实文件/音频及完整应用仍待接通。
-
-原Panel9资产/地产/股票查询和源码估价口径见 [玩家查询](PLAYER_INFO.md)，完整主应用接线仍在实施。
-
-原Panel26出价/成交和Panel12/14彩票柜台见 [拍卖与彩票屏幕](AUCTION_LOTTERY_UI.md)，完整应用及自然触发仍待接线。
-
-原Panel73公告栏、分类挂牌/详情与真实交易回调对照见 [交易屏幕](TRADING_UI.md)，完整主应用仍待接线。
-
-原卡片/道具库存、按住/释放/下一帧动作和原卡图见 [物品屏幕](ITEM_SCREENS.md)，目标与服务屏幕继续分阶段实施。
+原专属屏幕均已接入正式游戏；组件细节见 [数字板](NUMBER_PAD.md)、[银行](BANK_SCREENS.md)、[股票](STOCK_SCREENS.md)、[设施与托管](FACILITY_AI_UI.md)、[菜单与新局](MAIN_MENU_SETUP.md)、[选项与存档槽](OPTIONS_SAVE_SLOTS.md)、[玩家查询](PLAYER_INFO.md)、[拍卖与彩票](AUCTION_LOTTERY_UI.md)、[交易](TRADING_UI.md) 与 [物品](ITEM_SCREENS.md)。组件差分、自然流程、真人反馈分别记录，不互相替代。
