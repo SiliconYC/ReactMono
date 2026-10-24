@@ -1,0 +1,20 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 11,
+  "samples": 2048,
+  "rejected": 0,
+  "scope": "original public PCM controls and actual render_block_locked offline vs Python; real WAVs plus explicit numeric fixtures, private state/trace and exact F32; no audio device, MIDI, asynchronous loader or listening proof",
+  "mode": "smoke",
+  "runtime_sha256": {
+    "audio_player.py": "1f5c0d7543433feff6e0b301b83e9af8d594ef58f82a808f2c9a2d7d65a3728f",
+    "audio_pcm.py": "9b1a9f5f9aeb6bf3b35199937a3e0fe7a582c8c1485d32a4b36631865d164d91",
+    "audio_pcm_types.py": "3f0f1ddb99ae43f76755b1e21df890be62169d7d74cf01fb1845ca90ce66cbac",
+    "audio_limiter.py": "03088adb1c99a4ab2869f207e055426214375f2d3de04462129363754fba57d4",
+    "wave_decoder.py": "ec447b94cdfc60fb850a95d06a7b72ad7f3d61e5b490836dca51cfec3a6bd85c"
+  },
+  "last_index": 10,
+  "last_command": "B 1",
+  "state_sha256": "b56035d093154ae95d0486c5ea2999fa7c534f86c11fcd5d6269fcdba3351f06",
+  "input_sha256": "1e8bcbc5d255bd771e768aa6081a1c5c5527e8a9b54d350b22c6ed18a1aab059"
+}
