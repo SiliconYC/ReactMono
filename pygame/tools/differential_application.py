@@ -216,6 +216,8 @@ class 应用差分_类:
         arg_存读: bool = False,
         arg_帧上限: int = 10000,
         arg_读档: Path | None = None,
+        arg_托管: bool = False,
+        arg_结局: bool = False,
     ) -> None:
         ref = subprocess.check_output(
             ["git", "-C", str(arg_源码), "rev-parse", "HEAD"], text=True
@@ -348,6 +350,8 @@ class 应用差分_类:
                                 arg_正常流程,
                                 arg_存读,
                                 arg_读档,
+                                arg_托管,
+                                arg_结局,
                             )
                             proc.stdin.close()
                             code = proc.wait(timeout=30)
@@ -433,6 +437,8 @@ if __name__ == "__main__":
     参数.add_argument("--exercise-save", action="store_true")
     参数.add_argument("--frames", type=int, default=10000)
     参数.add_argument("--load", type=Path)
+    参数.add_argument("--autopilot", action="store_true")
+    参数.add_argument("--finish-ending", action="store_true")
     选项 = 参数.parse_args()
     应用差分_类.api_执行(
         选项.source,
@@ -449,4 +455,6 @@ if __name__ == "__main__":
         选项.exercise_save,
         选项.frames,
         选项.load,
+        选项.autopilot,
+        选项.finish_ending,
     )

@@ -13986,11 +13986,13 @@
     "python": [
       "pygame/src/rich4/application_draw.py::api_绘制"
     ],
-    "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+    "status": "正式应用已接线；308日失败/417日获胜及结局离开自动差分；禁音加速，OS桌面/全部组合未验",
     "evidence": [
       "APPLICATION.md",
       "tests/test_application.py",
-      "evidence/application-eight-maps.json"
+      "evidence/application-eight-maps.json",
+      "evidence/application-autopilot-end.json",
+      "evidence/application-autopilot-win.json"
     ]
   },
   "tools/native_game.cpp:1371": {
@@ -14041,11 +14043,13 @@
     "python": [
       "pygame/src/rich4/application_draw.py::api_绘结局"
     ],
-    "status": "正式Python应用已接线；八图三天/工具栏自动差分；全部动作组合与OS桌面验收未完成",
+    "status": "正式应用已接线；308日失败/417日获胜及结局离开自动差分；禁音加速，OS桌面/全部组合未验",
     "evidence": [
       "APPLICATION.md",
       "tests/test_application.py",
-      "evidence/application-eight-maps.json"
+      "evidence/application-eight-maps.json",
+      "evidence/application-autopilot-end.json",
+      "evidence/application-autopilot-win.json"
     ]
   },
   "tools/native_game.cpp:1747": {
