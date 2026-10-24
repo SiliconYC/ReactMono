@@ -12013,5 +12013,65 @@
     "evidence": [
       "ITEM_SCREENS.md"
     ]
+  },
+  "tools/screens/items.cpp:165": {
+    "python": [
+      "pygame/src/rich4/item_choice_screens.py::物品选择绘制_类._选项"
+    ],
+    "status": "已实现，直接原组件画布/状态/完整DAT及实际骰子/抢夺选择差分；重置旧选择缺陷另记，正式应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_targets.py",
+      "evidence/item-targets-differential.json",
+      "evidence/item-targets-reset-edge.json"
+    ]
+  },
+  "tools/screens/items.cpp:461": {
+    "python": [
+      "pygame/src/rich4/item_targets.py::地图目标绘制_类.api_绘制 + 物品选择绘制_类.api_画地图目标"
+    ],
+    "status": "已实现，直接原组件画布/状态/完整DAT及实际骰子/抢夺选择差分；重置旧选择缺陷另记，正式应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_targets.py",
+      "evidence/item-targets-differential.json",
+      "evidence/item-targets-reset-edge.json"
+    ]
+  },
+  "tools/screens/items.cpp:596": {
+    "python": [
+      "pygame/src/rich4/item_choice_screens.py::物品选择绘制_类.api_画遥控骰"
+    ],
+    "status": "已实现，直接原组件画布/状态/完整DAT及实际骰子/抢夺选择差分；重置旧选择缺陷另记，正式应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_targets.py",
+      "evidence/item-targets-differential.json",
+      "evidence/item-targets-reset-edge.json"
+    ]
+  },
+  "tools/screens/items.cpp:618": {
+    "python": [
+      "pygame/src/rich4/item_choice_screens.py::物品选择绘制_类.api_画抢夺"
+    ],
+    "status": "已实现，直接原组件画布/状态/完整DAT及实际骰子/抢夺选择差分；重置旧选择缺陷另记，正式应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_targets.py",
+      "evidence/item-targets-differential.json",
+      "evidence/item-targets-reset-edge.json"
+    ]
+  },
+  "tools/screens/items.cpp:685": {
+    "python": [
+      "pygame/src/rich4/item_choice_screens.py::物品选择绘制_类.api_画嫁祸"
+    ],
+    "status": "已实现，直接原组件画布/状态/完整DAT及实际骰子/抢夺选择差分；重置旧选择缺陷另记，正式应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_targets.py",
+      "evidence/item-targets-differential.json",
+      "evidence/item-targets-reset-edge.json"
+    ]
   }
 }

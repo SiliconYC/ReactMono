@@ -1,0 +1,23 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 1458,
+  "painted_frames": 633,
+  "scope": "direct original inventory/card popups, real maps and assets, actual GameSession item actions, phase/RNG/pending decision and complete World DAT, real sprites, internal state and callbacks; not actual window or full Application integration",
+  "font_sha256": "4b450afb2c61d7529fe05647316e9fc3137ea703a664bded5bca895a5c30748c",
+  "mode": "base",
+  "runtime_sha256": {
+    "item_screens.py": "2035ae9ae47a00694510baa1e7a8756eefe36c5368c8799fd46699191dae7c58",
+    "item_choice_screens.py": "8131fa9d5e4da941825f6c836a30d76529982f56852962a7bd539b33f219cf0b",
+    "item_targets.py": "3fb12fe60d67cfb87e0ef1a4e3a29d8770e98b7976615a1806731b041a5cec70",
+    "item_paint.py": "2a2890b4dd25fb60e302e2e9fa779a8e1ad70f88107605674391e7bee7bb6c99",
+    "item_screen_types.py": "ae1cc8cbad6e504c1172b60711ce3a07162783229faab091e1309228c423bb80",
+    "native_frame.py": "1ddef472fc701130a3d25246ebbbc5b266dfe8b383b7d20252b6b81b9a87fafa"
+  },
+  "python_sha256": "2035ae9ae47a00694510baa1e7a8756eefe36c5368c8799fd46699191dae7c58",
+  "last_command": "R",
+  "last_index": 1457,
+  "state_sha256": "1f39dfac4fe850555de38a12d6f1c5bffb4c7addcb9579ab6a3e721f18d3fc5d",
+  "input_sha256": "b95726de6505fd9e0520b4bf510884a74174dc88b6dd5e924c6ee11f5a65f424",
+  "compared_pixels": 194457600
+}

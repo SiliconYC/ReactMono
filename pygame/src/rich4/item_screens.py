@@ -9,6 +9,7 @@ from rich4.cards import 卡片_类, 卡片用法_类
 from rich4.game import 游戏会话_类
 from rich4.game_types import 游戏事件_类
 from rich4.graphics import 图像_类
+from rich4.item_choice_screens import 物品选择绘制_类
 from rich4.item_paint import 物品绘图_类
 from rich4.item_screen_types import 卡图等待_类, 物品宿主_类, 物品按住_类
 from rich4.native_frame import 画框_类
@@ -18,7 +19,7 @@ from rich4.world import 世界_类
 
 
 # ◕ 功能
-class 物品屏幕_类:
+class 物品屏幕_类(物品选择绘制_类):
     """
     原物品屏幕共享状态、按住放开、下一帧动作与卡图先于使用。
 
@@ -72,6 +73,7 @@ class 物品屏幕_类:
         self._说明表: dict[tuple[bool, int], str] = {}
         self._卡图表: dict[int, 图像_类] = {}
         self._已说 = ""
+        self._抢夺选择: int | None = None
 
     def _现在(self, arg_框: 画框_类) -> int:
         return self.时钟 if self.时钟 is not None else arg_框.时钟
