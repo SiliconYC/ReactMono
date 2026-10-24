@@ -1,0 +1,11 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 1823,
+  "painted_frames": 852,
+  "scope": "direct original NumberPad, explicit keyboard/pointer/id inputs, real sprites, internal state and callbacks; not actual window/financial rule integration",
+  "python_sha256": "dff01c649ca1ba9f9d7f8dd211d8a71ba5e51682573b218ed87d27ff69bda179",
+  "state_sha256": "92305862942584210aa2c21e1c2dfbf72db9a6129e1d0bb31aeb940e6810e3a9",
+  "input_sha256": "9f6d7ac8b12132f7225e1d459863a84695a8dfb1adaf52bf9382253ca117a2d3",
+  "compared_pixels": 261734400
+}
