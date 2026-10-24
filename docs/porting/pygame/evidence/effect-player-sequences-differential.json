@@ -1,0 +1,46 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "sequence_mode": true,
+  "scope": "direct fixed EffectPlayer with real sprites/FLC/board, explicit fixtures; no natural or desktop acceptance",
+  "episodes": [
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 1,
+      "object": 0,
+      "commands": 261
+    },
+    {
+      "map": 0,
+      "rotation": 3,
+      "kind": 3,
+      "object": 16,
+      "commands": 202
+    },
+    {
+      "map": 7,
+      "rotation": 7,
+      "kind": 28,
+      "object": 7,
+      "commands": 211
+    },
+    {
+      "map": 1,
+      "rotation": 2,
+      "kind": 9,
+      "object": 1,
+      "commands": 39
+    }
+  ],
+  "compared_commands": 713,
+  "python_source_sha256": {
+    "effect_player.py": "a8b5b208972a9c4c06e8b205efbf870cd2c32cf86232cbe12e4e079f29bec87d",
+    "effect_scene.py": "9c443341aa24854eeb8092ddabcd1cfb48999350a3524b77e6022dc4adbf7dfc",
+    "effect_spec.py": "44da7e55233f4dd26fde3718aa16bbc5f86a878c77c074f3797682b67a1eabb0",
+    "board_renderer.py": "821992df5a58b69539865886fbb47db1f28ca707dd7161634ede6d5fe53a2e96"
+  },
+  "state_sha256": "d56f903ca0386f4a11f6dd2483ac28d1a5f2ebde105b919bb142a331a68359f3",
+  "input_sha256": "a64c3e1ffe9c36f948f9d703daac6031169402c9d2b1d47e36dec563c0c26a4d",
+  "complete_canvas_pixels": 219033600
+}

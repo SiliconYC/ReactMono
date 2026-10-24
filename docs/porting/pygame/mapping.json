@@ -9064,5 +9064,181 @@
       "EFFECTS.md",
       "evidence/effect-scene-differential.json"
     ]
+  },
+  "tools/screens/effects.cpp:234": {
+    "python": [
+      "pygame/src/rich4/effect_player.py::电影播放_类.api_记忆"
+    ],
+    "status": "已实现，真实电影/板面完整画布与时序自动差分；正式应用待接线",
+    "evidence": [
+      "tests/test_effect_player.py",
+      "EFFECTS.md",
+      "evidence/effect-player-differential.json",
+      "evidence/effect-player-sequences-differential.json"
+    ]
+  },
+  "tools/screens/effects.cpp:241": {
+    "python": [
+      "pygame/src/rich4/effect_player.py::电影播放_类.api_入队"
+    ],
+    "status": "已实现，真实电影/板面完整画布与时序自动差分；正式应用待接线",
+    "evidence": [
+      "tests/test_effect_player.py",
+      "EFFECTS.md",
+      "evidence/effect-player-differential.json",
+      "evidence/effect-player-sequences-differential.json"
+    ]
+  },
+  "tools/screens/effects.cpp:256": {
+    "python": [
+      "pygame/src/rich4/effect_player.py::电影播放_类.api_抛物待落地"
+    ],
+    "status": "已实现，真实电影/板面完整画布与时序自动差分；正式应用待接线",
+    "evidence": [
+      "tests/test_effect_player.py",
+      "EFFECTS.md",
+      "evidence/effect-player-differential.json",
+      "evidence/effect-player-sequences-differential.json"
+    ]
+  },
+  "tools/screens/effects.cpp:264": {
+    "python": [
+      "pygame/src/rich4/effect_player.py::电影播放_类.api_绘留帧"
+    ],
+    "status": "已实现，真实电影/板面完整画布与时序自动差分；正式应用待接线",
+    "evidence": [
+      "tests/test_effect_player.py",
+      "EFFECTS.md",
+      "evidence/effect-player-differential.json",
+      "evidence/effect-player-sequences-differential.json"
+    ]
+  },
+  "tools/screens/effects.cpp:274": {
+    "python": [
+      "pygame/src/rich4/effect_player.py::电影播放_类.api_清空"
+    ],
+    "status": "已实现，真实电影/板面完整画布与时序自动差分；正式应用待接线",
+    "evidence": [
+      "tests/test_effect_player.py",
+      "EFFECTS.md",
+      "evidence/effect-player-differential.json",
+      "evidence/effect-player-sequences-differential.json"
+    ]
+  },
+  "tools/screens/effects.cpp:281": {
+    "python": [
+      "pygame/src/rich4/effect_player.py::电影播放_类._读片"
+    ],
+    "status": "已实现，真实电影/板面完整画布与时序自动差分；正式应用待接线",
+    "evidence": [
+      "tests/test_effect_player.py",
+      "EFFECTS.md",
+      "evidence/effect-player-differential.json",
+      "evidence/effect-player-sequences-differential.json"
+    ]
+  },
+  "tools/screens/effects.cpp:288": {
+    "python": [
+      "pygame/src/rich4/effect_player.py::电影播放_类._开始"
+    ],
+    "status": "已实现，真实电影/板面完整画布与时序自动差分；正式应用待接线",
+    "evidence": [
+      "tests/test_effect_player.py",
+      "EFFECTS.md",
+      "evidence/effect-player-differential.json",
+      "evidence/effect-player-sequences-differential.json"
+    ]
+  },
+  "tools/screens/effects.cpp:299": {
+    "python": [
+      "pygame/src/rich4/effect_player.py::电影播放_类.api_绘制/_时序/_场景/_画面"
+    ],
+    "status": "已实现，真实电影/板面完整画布与时序自动差分；正式应用待接线",
+    "evidence": [
+      "tests/test_effect_player.py",
+      "EFFECTS.md",
+      "evidence/effect-player-differential.json",
+      "evidence/effect-player-sequences-differential.json"
+    ]
+  },
+  "tools/screens/effects.hpp:99": {
+    "python": [
+      "pygame/src/rich4/effect_player.py::电影播放_类.__init__"
+    ],
+    "status": "已实现，播放器状态/像素自动差分",
+    "evidence": [
+      "tests/test_effect_player.py",
+      "EFFECTS.md"
+    ]
+  },
+  "tools/screens/effects.hpp:102": {
+    "python": [
+      "pygame/src/rich4/effect_player.py::电影播放_类.api_跳过"
+    ],
+    "status": "已实现，播放器状态/像素自动差分",
+    "evidence": [
+      "tests/test_effect_player.py",
+      "EFFECTS.md"
+    ]
+  },
+  "tools/screens/effects.hpp:108": {
+    "python": [
+      "pygame/src/rich4/effect_player.py::电影播放_类.api_服装"
+    ],
+    "status": "已实现，播放器状态/像素自动差分",
+    "evidence": [
+      "tests/test_effect_player.py",
+      "EFFECTS.md"
+    ]
+  },
+  "tools/screens/effects.hpp:111": {
+    "python": [
+      "pygame/src/rich4/effect_player.py::电影播放_类.api_设置待播"
+    ],
+    "status": "已实现，播放器状态/像素自动差分",
+    "evidence": [
+      "tests/test_effect_player.py",
+      "EFFECTS.md"
+    ]
+  },
+  "tools/screens/effects.hpp:112": {
+    "python": [
+      "pygame/src/rich4/effect_player.py::电影播放_类.api_活跃"
+    ],
+    "status": "已实现，播放器状态/像素自动差分",
+    "evidence": [
+      "tests/test_effect_player.py",
+      "EFFECTS.md"
+    ]
+  },
+  "tools/screens/effects.hpp:119": {
+    "python": [
+      "pygame/src/rich4/effect_player.py::电影播放_类.api_保留中"
+    ],
+    "status": "已实现，播放器状态/像素自动差分",
+    "evidence": [
+      "tests/test_effect_player.py",
+      "EFFECTS.md"
+    ]
+  },
+  "tools/screens/effects.hpp:122": {
+    "python": [
+      "pygame/src/rich4/effect_player.py::电影播放_类.api_丢弃末帧"
+    ],
+    "status": "已实现，播放器状态/像素自动差分",
+    "evidence": [
+      "tests/test_effect_player.py",
+      "EFFECTS.md"
+    ]
+  },
+  "tools/screens/effects.hpp:37": {
+    "python": [
+      "pygame/src/rich4/board_models.py::场景_类"
+    ],
+    "status": "已实现，由持有列表的场景直接传递；无额外view副本",
+    "evidence": [
+      "EFFECTS.md",
+      "evidence/effect-scene-differential.json"
+    ]
   }
 }
