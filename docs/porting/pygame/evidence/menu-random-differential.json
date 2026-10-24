@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "scope": "raw std::mt19937 used by original menus.cpp; outputs and libc++ full serialized states",
+  "seeds": [
+    0,
+    1,
+    5489,
+    123456789,
+    2147483648,
+    4294967295
+  ],
+  "outputs": 60000,
+  "state_sha256": "17774ed4475ebafe0583587c7f20dce7f6ceb991a6311e8e95a5339a35402103",
+  "python_sha256": "b27398653fe885f19e09aad42e094b59ad6eb157e7a2e4c77552ee5549a96d16"
+}
