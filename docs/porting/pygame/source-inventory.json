@@ -14381,9 +14381,11 @@
       "end_line": 246,
       "python": [
         "pygame/src/rich4/device_audio.py::设备音频_类.__init__",
-        "pygame/src/rich4/audio_archives.py::音频档案_类.__init__"
+        "pygame/src/rich4/audio_archives.py::音频档案_类.__init__",
+        "pygame/src/rich4/audio_device.py::音频设备_类.__init__",
+        "pygame/src/rich4/audio_sdl.py::SDL音频规格_类"
       ],
-      "status": "已实现，macOS实际设备/异步/捕获；正式主应用与移动生命周期待接线",
+      "status": "已接正式应用；macOS真实设备/用户BGM音效语音与热插拔通过；其它平台和长期听感待验",
       "evidence": [
         "tests/test_audio_archives.py",
         "tests/test_audio_capture.py",
@@ -14391,7 +14393,9 @@
         "tests/test_game_audio_device.py",
         "evidence/capture-differential.json",
         "evidence/audio-coreaudio.json",
-        "AUDIO.md"
+        "AUDIO.md",
+        "tests/test_audio_output.py",
+        "evidence/application-human-audio.json"
       ]
     },
     {
@@ -14401,7 +14405,7 @@
       "python": [
         "pygame/src/rich4/device_audio.py::设备音频_类.api_关闭"
       ],
-      "status": "已实现，macOS实际设备/异步/捕获；正式主应用与移动生命周期待接线",
+      "status": "已接正式应用；macOS真实设备/用户BGM音效语音与热插拔通过；其它平台和长期听感待验",
       "evidence": [
         "tests/test_audio_archives.py",
         "tests/test_audio_capture.py",
@@ -14409,7 +14413,9 @@
         "tests/test_game_audio_device.py",
         "evidence/capture-differential.json",
         "evidence/audio-coreaudio.json",
-        "AUDIO.md"
+        "AUDIO.md",
+        "tests/test_audio_output.py",
+        "evidence/application-human-audio.json"
       ]
     },
     {
@@ -14600,7 +14606,7 @@
       "python": [
         "pygame/src/rich4/audio_device.py::音频设备_类._回调"
       ],
-      "status": "已实现，macOS实际设备/异步/捕获；正式主应用与移动生命周期待接线",
+      "status": "已接正式应用；macOS真实设备/用户BGM音效语音与热插拔通过；其它平台和长期听感待验",
       "evidence": [
         "tests/test_audio_archives.py",
         "tests/test_audio_capture.py",
@@ -14608,7 +14614,9 @@
         "tests/test_game_audio_device.py",
         "evidence/capture-differential.json",
         "evidence/audio-coreaudio.json",
-        "AUDIO.md"
+        "AUDIO.md",
+        "tests/test_audio_output.py",
+        "evidence/application-human-audio.json"
       ]
     },
     {
@@ -14703,7 +14711,7 @@
       "python": [
         "pygame/src/rich4/device_audio.py::设备音频_类.__init__"
       ],
-      "status": "已实现，macOS实际设备/异步/捕获；正式主应用与移动生命周期待接线",
+      "status": "已接正式应用；macOS真实设备/用户BGM音效语音与热插拔通过；其它平台和长期听感待验",
       "evidence": [
         "tests/test_audio_archives.py",
         "tests/test_audio_capture.py",
@@ -14711,7 +14719,9 @@
         "tests/test_game_audio_device.py",
         "evidence/capture-differential.json",
         "evidence/audio-coreaudio.json",
-        "AUDIO.md"
+        "AUDIO.md",
+        "tests/test_audio_output.py",
+        "evidence/application-human-audio.json"
       ]
     },
     {
@@ -14721,7 +14731,7 @@
       "python": [
         "pygame/src/rich4/device_audio.py::设备音频_类.api_关闭"
       ],
-      "status": "已实现，macOS实际设备/异步/捕获；正式主应用与移动生命周期待接线",
+      "status": "已接正式应用；macOS真实设备/用户BGM音效语音与热插拔通过；其它平台和长期听感待验",
       "evidence": [
         "tests/test_audio_archives.py",
         "tests/test_audio_capture.py",
@@ -14729,7 +14739,9 @@
         "tests/test_game_audio_device.py",
         "evidence/capture-differential.json",
         "evidence/audio-coreaudio.json",
-        "AUDIO.md"
+        "AUDIO.md",
+        "tests/test_audio_output.py",
+        "evidence/application-human-audio.json"
       ]
     },
     {
@@ -16057,7 +16069,8 @@
         "tests/test_application.py",
         "evidence/application-eight-maps.json",
         "evidence/application-autopilot-end.json",
-        "evidence/application-autopilot-win.json"
+        "evidence/application-autopilot-win.json",
+        "evidence/application-normal-ending.json"
       ]
     },
     {

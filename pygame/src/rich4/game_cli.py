@@ -27,10 +27,13 @@ def 主程序() -> None:
     参数.add_argument("--seed", type=int, default=int(time.time()) & 0xFFFFFFFF)
     参数.add_argument("--headless", action="store_true")
     参数.add_argument("--silent", action="store_true")
+    参数.add_argument("--audio-device", help="明确指定SDL输出设备；缺省跟随系统默认")
     参数.add_argument("--frames", type=int, default=0)
     参数.add_argument("--screenshot", type=Path)
     参数.add_argument("--output", type=Path)
     选项 = 参数.parse_args()
+    if 选项.audio_device is not None:
+        os.environ["RICH4_AUDIO_DEVICE"] = 选项.audio_device
     if 选项.headless:
         os.environ["SDL_VIDEODRIVER"] = "dummy"
         os.environ["SDL_AUDIODRIVER"] = "dummy"

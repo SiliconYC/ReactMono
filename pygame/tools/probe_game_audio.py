@@ -102,13 +102,17 @@ class 游戏音频探针_类:
                 pygame_version=pygame.version.ver,
                 sdl_version=pygame.get_sdl_version(),
                 device_format={
-                    "frequency": player._设备._设备.frequency,
-                    "format": player._设备._设备.audioformat,
-                    "channels": player._设备._设备.numchannels,
-                    "frames": player._设备._设备.chunksize,
+                    k: v
+                    for k, v in zip(
+                        ("frequency", "format", "channels", "frames"),
+                        player._设备.api_格式(),
+                        strict=True,
+                    )
                 },
                 archive_loader_done=player._档案._任务.done(),
                 bank_available=player.api_音乐可用(),
+                output_device=player._设备.设备名称,
+                default_output=player._设备.设备名称 is None,
                 runtime_sha256={
                     n: hashlib.sha256(
                         Path(__file__).parents[1].joinpath("src/rich4", n).read_bytes()
@@ -116,6 +120,7 @@ class 游戏音频探针_类:
                     for n in (
                         "device_audio.py",
                         "audio_device.py",
+                        "audio_sdl.py",
                         "audio_feed.py",
                         "audio_archives.py",
                         "audio_capture.py",

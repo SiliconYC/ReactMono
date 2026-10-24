@@ -46,7 +46,9 @@ class 设备音频_类(音频_类):
             self._捕获 = 音频捕获_类(path if arg_启用 else None)
             self._供料 = 设备供料_类(self.api_渲染块, self._混音._统计, self._锁, self._捕获)
             if arg_启用:
-                self._设备 = 音频设备_类(self._供料)
+                self._设备 = 音频设备_类(
+                    self._供料, arg_设备名称=os.environ.get("RICH4_AUDIO_DEVICE") or None
+                )
                 cleanup.callback(self._设备.api_关闭)
             cleanup.pop_all()
 
