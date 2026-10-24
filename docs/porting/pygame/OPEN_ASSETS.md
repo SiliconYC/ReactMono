@@ -47,3 +47,14 @@ PNG反向读取和动画帧独立副本去掉了不必要的大量Python循环/�
 124个非媒体数据条目目前以JSON的`uint8`整数数组无损保存；地图表和帮助控制字段仍由原已移植字段解释器处理。它们没有MKF压缩或私有容器，但还不是所有未知字段均已语义命名的现代数据模型。本次不凭猜测丢弃未知数据，也不把这部分说成全面重设计。
 
 当前状态：代码与转换已验证，正在准备正式目录部署、桌面复验和旧副本清理；尚未删除分散副本。
+
+## 本地部署后的打包边界
+
+实际生成`.local`原生应用后，分发审计发现默认sdist将本地应用、动态库和RNG旁车收进包内；未上传任何产物。根目录Git忽略不能替代子项目构建选择。已增加明确的sdist源码/元数据白名单，子项目忽略`.local/`和`userdata/`，并提供独立实际产物检查命令：
+
+```sh
+uv build --project pygame
+uv run --project pygame python pygame/tools/audit_distribution.py
+```
+
+审计在修复前真实拒绝含原生应用的sdist，修复后源码包与wheel均通过；见 [失败及修复](evidence/open-assets-package-regression.json) 和 [产物审计](evidence/open-assets-package-audit.json)。PNG优化后重新读回全部2673条目和20558文件的审计也通过，[最终全量审计](evidence/open-assets-audit-final.json)的清单与内容哈希保持不变。独立集成Worktree完整610项测试通过（47.56秒），未跳过需素材的用例。

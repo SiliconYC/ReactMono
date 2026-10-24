@@ -4,6 +4,8 @@
 *.egg-info/
 # 商业素材、解码图像与存档不得发布。
 assets/
+.local/
+userdata/
 local/
 *.mkf
 *.MKF

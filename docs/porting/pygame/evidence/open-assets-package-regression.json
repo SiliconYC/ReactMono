@@ -1,0 +1,12 @@
+{
+  "status": "fixed-before-publication",
+  "scope": "source-distribution packaging only; no game-rule/runtime change",
+  "failure": "Actual local .app, shared libraries, and RNG sidecars entered default sdist. Parent repository .gitignore did not substitute for the subproject build selection. Wheel remained source/metadata only. No package uploaded.",
+  "red": "audit_distribution.py rejected the actually built native executable before config change",
+  "fix": "Explicit sdist source/metadata allowlist plus subproject ignores for .local and userdata",
+  "green": {
+    "status": "passed",
+    "wheel_files": 157,
+    "sdist_files": 341
+  }
+}
