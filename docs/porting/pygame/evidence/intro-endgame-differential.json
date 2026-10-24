@@ -1,0 +1,183 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 10975,
+  "painted_frames": 10420,
+  "scope": "direct original IntroPlayer and EndgameScreen, external real movies/art/font, complete private state/decoded CRC32 and full RGB555 canvas/sounds/actions; no World/GameSession mutated or supplied; not actual Application integration/desktop",
+  "movies_preflight": {
+    "j:46": [
+      15,
+      71,
+      220,
+      240
+    ],
+    "j:47": [
+      40,
+      28,
+      640,
+      480
+    ],
+    "j:48": [
+      48,
+      28,
+      640,
+      480
+    ],
+    "j:49": [
+      43,
+      28,
+      640,
+      480
+    ],
+    "j:50": [
+      48,
+      28,
+      640,
+      480
+    ],
+    "j:51": [
+      48,
+      28,
+      640,
+      480
+    ],
+    "j:52": [
+      48,
+      28,
+      640,
+      480
+    ],
+    "j:53": [
+      49,
+      28,
+      640,
+      480
+    ],
+    "j:54": [
+      45,
+      28,
+      640,
+      480
+    ],
+    "j:55": [
+      48,
+      28,
+      640,
+      480
+    ],
+    "j:56": [
+      44,
+      28,
+      640,
+      480
+    ],
+    "j:57": [
+      42,
+      28,
+      640,
+      480
+    ],
+    "j:58": [
+      48,
+      28,
+      640,
+      480
+    ],
+    "j:59": [
+      37,
+      42,
+      640,
+      480
+    ],
+    "j:60": [
+      42,
+      42,
+      640,
+      480
+    ],
+    "j:61": [
+      36,
+      42,
+      640,
+      480
+    ],
+    "j:62": [
+      42,
+      42,
+      640,
+      480
+    ],
+    "j:63": [
+      45,
+      42,
+      640,
+      480
+    ],
+    "j:64": [
+      43,
+      42,
+      640,
+      480
+    ],
+    "j:65": [
+      40,
+      42,
+      640,
+      480
+    ],
+    "j:66": [
+      41,
+      42,
+      640,
+      480
+    ],
+    "j:67": [
+      36,
+      42,
+      640,
+      480
+    ],
+    "j:68": [
+      43,
+      71,
+      640,
+      480
+    ],
+    "j:69": [
+      42,
+      42,
+      640,
+      480
+    ],
+    "j:70": [
+      43,
+      42,
+      640,
+      480
+    ],
+    "d:556": [
+      14,
+      71,
+      440,
+      440
+    ]
+  },
+  "font_sha256": "4b450afb2c61d7529fe05647316e9fc3137ea703a664bded5bca895a5c30748c",
+  "mode": "base",
+  "runtime_sha256": {
+    "intro_player.py": "9ea18f510d30fce1b9b06d5c958be28e116d4a5c17826b949f8f99bb534a32cd",
+    "endgame_types.py": "55c431eb888d65fa4e105448654dc7af05d1da529cb2802af2c11ac8fd552fcd",
+    "endgame_replay.py": "14bcfb029e2ff8461d33e82584e875699a96f8e90f6ff6c0760e61e0ee534718",
+    "endgame_stage.py": "d8e632dd3015ba26f75a431c065cd7bfc6bd888de1f7b367cfc1d2b74b480f10",
+    "endgame_screen.py": "f99c2ad7cde65e75ac1dc8ee34044735d005987077084f0b46f32e4b09bcac76",
+    "screen_draw.py": "082a3b0d67c61a0ad903adf4dae70847b4b67f3fedaa2f7ad83049942cbd0d28",
+    "flc.py": "5a4b88199f49e46ef6268453594d8fd49764a498af2b974f5798a083741a1d65",
+    "native_frame.py": "1ddef472fc701130a3d25246ebbbc5b266dfe8b383b7d20252b6b81b9a87fafa"
+  },
+  "python_sha256": "9ea18f510d30fce1b9b06d5c958be28e116d4a5c17826b949f8f99bb534a32cd",
+  "last_command": "D 10001 -1 -1 0 0 0",
+  "last_index": 10974,
+  "state_sha256": "2ad21c2e79e68b19e5cfb52c0bfeafaed29d9e70ef9b24ea1f0a7453945092f9",
+  "input_sha256": "8f4e3a2db725fffb53dfbe06b4495a9686f67d421d40df6b6a646f9da91bf590",
+  "compared_pixels": 3201024000
+}
