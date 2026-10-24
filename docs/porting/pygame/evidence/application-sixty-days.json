@@ -1,0 +1,88 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "scope": "original Application private drawing and button actions + mirrored original post-input orchestration; Python uses Pygame event batches. All logical canvas bytes/world DAT/state; audio disabled, not original OS event loop/desktop/listening proof",
+  "cases": [
+    {
+      "map": 0,
+      "commands": 3291,
+      "state_sha256": "e72f6c054f3ef2d8ef305e3abe5de8c1d7ecb58873fbc4e139904dbac8c5b416",
+      "input_sha256": "93a30378837d75378c126408b9e38cd1175e63e631c2d12c893ad93fc60e8295",
+      "reference_stderr": [
+        "fluidsynth: error: Not a SoundFont file"
+      ]
+    }
+  ],
+  "commands": 3291,
+  "canvases": 1599,
+  "pixels": 491212800,
+  "runtime_sha256": {
+    "application.py": "485fe05072f02b823f7c805c075218a0fccf55ffd53547ba5280d2d6138d4a24",
+    "application_actions.py": "b2d1d0b9acbc8a14358d4fd74f67a240d2b091154fef3f50313c85f1ecfe02df",
+    "application_draw.py": "68429b4a44f4be91b84dc7eedb776cee80c8e5ee11aee0b3a18b59318eb277a0",
+    "application_input.py": "0de5e1bba0656d6aae93a63691b7d52aa733762c06213eea09019ede8014f40a",
+    "application_types.py": "a49a0c7c245fe263227c499d73f1639ee180dacbdd392fbedd4cb3f60196598f",
+    "application_window.py": "bd8b389bf67f265d0a2f586c25f93712ae5eb7fd40554cadbaaa46652fe9019d"
+  },
+  "last_map": 0,
+  "last_command": "D 799000",
+  "last_index": 3290,
+  "replay_summary": {
+    "status": "passed",
+    "scope": "actual application software drawing and Pygame event batches in reference fast replay mode; no OS desktop or listening proof",
+    "map": 0,
+    "seed": 123,
+    "requested_days": 60,
+    "frames": 1598,
+    "screens": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "decisions": [
+      0,
+      1,
+      2,
+      9,
+      15
+    ],
+    "completed_days": 60,
+    "finished": false,
+    "random_state": 1221865091,
+    "world_sha256": "d992d4a2aca7d83c635d0463faea34525904e4350b7eeb9c292014646aad7183",
+    "events": {
+      "0": 241,
+      "1": 187,
+      "2": 662,
+      "3": 46,
+      "4": 13,
+      "5": 41,
+      "6": 5,
+      "7": 60,
+      "12": 562
+    },
+    "state_sha256": "1662ce973058eb83d5afa63a5458e42b1e9ef27a87c5bf0612d42295bc3c215a",
+    "visited_toolbar": [
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      71,
+      72,
+      81,
+      82
+    ]
+  },
+  "requested_days": 60
+}

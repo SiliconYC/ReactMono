@@ -1,6 +1,6 @@
 # Pygame《大富翁4》移植子项目
 
-状态：**移植进行中，尚不是完整可玩游戏**。现有资源/棋盘验收入口和可独立操作的三个原小游戏；当前进度与缺口见 [移植台账](../docs/porting/pygame/README.md)。原 React 游戏保持独立。
+状态：**真实主游戏已接通，完整移植验收未完成**。默认入口包含原菜单、新局、八地图、独立规则、专属界面、保存槽、托管和音频；当前进度与缺口见 [移植台账](../docs/porting/pygame/README.md)。原 React 游戏保持独立。
 
 ## 环境与运行
 
@@ -8,11 +8,21 @@
 
 ```sh
 uv sync --project pygame --python 3.12
-uv run --project pygame rich4-pygame --assets /path/to/Rich4 --archive Data.mkf --entry 601
-uv run --project pygame rich4-pygame --assets /path/to/Rich4 --archive Data.mkf --entry 128
+uv run --project pygame rich4-pygame --assets /path/to/Rich4 --font /path/to/chinese-font.ttc
 ```
 
-窗口保持 640×480 逻辑画布，缩放时等比留黑边；左右键切换资源内精灵帧，`Esc` 退出。`--frame` 指定初始帧；`--screenshot` 只写本地忽略目录，`--frames` 用于有限帧窗口冒烟运行。不接收或假装执行任何尚未实现的游戏指令。
+默认真实规则与时钟，960×720窗口显示原640×480画布，等比最近邻缩放与黑边。原菜单选择人物/地图后进入对局，鼠标操作原控件，`Esc`按原路径返回。`--save-dir`指定外部存档目录；`--load`读取原DAT及RNG旁车；`--silent`关闭音频。完整长期图形对局、桌面人工试玩、运行检查点与听感尚未通过，见 [主应用记录](../docs/porting/pygame/APPLICATION.md)。
+
+`--headless --frames 2`只用于有限帧冒烟运行，不能当作游戏验收。`--screenshot`只写本地忽略目录。音频需要标准SDL3/FluidSynth运行库及外部GM音库，配置见下文音频记录；缺少依赖应显式处理，不以静音假装成功。
+
+原资源预览入口保留为独立命令：
+
+```sh
+uv run --project pygame rich4-preview --assets /path/to/Rich4 --archive Data.mkf --entry 601
+uv run --project pygame rich4-preview --assets /path/to/Rich4 --archive Data.mkf --entry 128
+```
+
+左右键切换资源内精灵帧，`Esc`退出；`--frame`指定初始帧。
 
 地图合成工具可读取全部八图：
 
@@ -20,7 +30,7 @@ uv run --project pygame rich4-pygame --assets /path/to/Rich4 --archive Data.mkf 
 uv run --project pygame python pygame/tools/preview_board.py --assets /path/to/Rich4
 ```
 
-方向键平移，`Q/E`旋转，`F`换人物帧，`Tab`换图，`Home`归位，`Esc`退出。`Space`是精灵帧采样，不是正式动画时序。黑色应用栏/侧栏尚无游戏UI，也没有可玩的回合；性能与真实桌面操作范围见 [棋盘说明](../docs/porting/pygame/BOARD.md)。
+方向键平移，`Q/E`旋转，`F`换人物帧，`Tab`换图，`Home`归位，`Esc`退出。`Space`是精灵帧采样，不是正式动画时序。此独立棋盘工具的黑色栏没有主游戏UI或回合；性能与真实桌面操作范围见 [棋盘说明](../docs/porting/pygame/BOARD.md)。
 
 三个原小游戏可独立操作：
 
@@ -50,7 +60,7 @@ uv run --project pygame python pygame/tools/differential_assets.py \
 
 ## 主游戏音频依赖（移植中）
 
-原WAV的SDL3整条转换已逐采样对照；完整混音、语音队列、MIDI与主应用接线继续实施。开发依赖可在独立Worktree的忽略缓存构建，不安装系统包：
+原WAV转换、完整混音、语音队列与MIDI已逐采样对照，主应用已接线；设备压力与听感验收继续实施。开发依赖可在独立Worktree的忽略缓存构建，不安装系统包：
 
 ```sh
 uv run --project pygame python pygame/tools/build_audio_dependencies.py --workspace . --jobs 4

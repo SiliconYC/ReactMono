@@ -1,0 +1,41 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "failed",
+  "scope": "original Application private drawing and button actions + mirrored original post-input orchestration; Python uses Pygame event batches. All logical canvas bytes/world DAT/state; audio disabled, not original OS event loop/desktop/listening proof",
+  "cases": [
+    {
+      "map": 0,
+      "commands": 172,
+      "state_sha256": "0e6b6307c7c8949abf2a79174881bb302196ede80bbad09c21eb08cace740a97",
+      "input_sha256": "4479e26ba23d599f6c6356866df42c439c63777ede5a3608a6cb5b1981048c44",
+      "reference_stderr": [
+        "fluidsynth: error: Not a SoundFont file"
+      ]
+    },
+    {
+      "map": 1,
+      "commands": 176,
+      "state_sha256": "85b589bdea7286172e69a46ae9f0d4bfa0389ce69c8d7456b72a6198b7868601",
+      "input_sha256": "170a257aa4bc73e4edb2072f9fa7e5856918a3c6e84d2e4b7989268c35c0572a",
+      "reference_stderr": [
+        "fluidsynth: error: Not a SoundFont file"
+      ]
+    }
+  ],
+  "commands": 829,
+  "canvases": 348,
+  "pixels": 106905600,
+  "runtime_sha256": {
+    "application.py": "485fe05072f02b823f7c805c075218a0fccf55ffd53547ba5280d2d6138d4a24",
+    "application_actions.py": "b2d1d0b9acbc8a14358d4fd74f67a240d2b091154fef3f50313c85f1ecfe02df",
+    "application_draw.py": "68429b4a44f4be91b84dc7eedb776cee80c8e5ee11aee0b3a18b59318eb277a0",
+    "application_input.py": "0de5e1bba0656d6aae93a63691b7d52aa733762c06213eea09019ede8014f40a",
+    "application_types.py": "a49a0c7c245fe263227c499d73f1639ee180dacbdd392fbedd4cb3f60196598f",
+    "application_window.py": "bd8b389bf67f265d0a2f586c25f93712ae5eb7fd40554cadbaaa46652fe9019d"
+  },
+  "last_map": 2,
+  "last_command": "U 500",
+  "last_index": 480,
+  "failure": "实际应用重放停滞：(2, 0, 3, 640250903, <应用页面_类.游戏: 2>, (210, 211, 212, 213, 214, 215, 216, 217, 218, 233, 280, 281))",
+  "failure_scope": "test driver repeatedly clicked first shop item without affordability/confirmation/exit policy; original and Python states/canvases agreed until driver stalled; runtime rules not changed"
+}
