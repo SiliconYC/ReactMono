@@ -11,7 +11,9 @@ uv sync --project pygame --python 3.12
 uv run --project pygame rich4-pygame --assets /path/to/Rich4 --font /path/to/chinese-font.ttc
 ```
 
-默认真实规则与时钟，960×720窗口显示原640×480画布，等比最近邻缩放与黑边。原菜单选择人物/地图后进入对局，鼠标操作原控件，`Esc`按原路径返回。`--save-dir`指定外部存档目录；`--load`读取原DAT及RNG旁车；`--silent`关闭音频。完整长期图形对局、桌面人工试玩、运行检查点与听感尚未通过，见 [主应用记录](../docs/porting/pygame/APPLICATION.md)。
+默认真实规则与时钟，960×720窗口显示原640×480画布，等比最近邻缩放与黑边。原菜单选择人物/地图后进入对局，鼠标操作原控件，`Esc`按原路径返回。`--save-dir`指定外部存档目录；`--load`读取原DAT及RNG旁车；`--silent`关闭音频。声音缺省跟随系统默认输出及其切换；需要固定设备时使用`--audio-device '设备名称'`或`RICH4_AUDIO_DEVICE`，无效名称明确报错。
+
+当前用户已实际试玩并确认操作/画面、BGM/点击音效/角色语音及运行中耳机拔插正常；这是有限流程的人工反馈。完整长局已有加速自动差分，任意中途检查点、写入中断恢复与所有地图/功能人工验收仍未完成，见 [主应用记录](../docs/porting/pygame/APPLICATION.md)。
 
 `--headless --frames 2`只用于有限帧冒烟运行，不能当作游戏验收。`--screenshot`只写本地忽略目录。音频需要标准SDL3/FluidSynth运行库及外部GM音库，配置见下文音频记录；缺少依赖应显式处理，不以静音假装成功。
 

@@ -124,3 +124,17 @@ uv run --project pygame python pygame/tools/probe_game_audio.py \
 ```
 
 上例CoreAudio仅macOS，`--driver dummy`为静音设备流程；另以`benchmark_audio.py --assets ... --report ...`复现FMA性能，`differential_capture.py`沿用WAV的源码/构建/SDK参数。正式主程序/小游戏接线、移动生命周期、长期图形对局、人工听感仍待验，不把本节短设备流程当最终完整音频验收。
+
+## 正式游戏人工听感与默认输出修复（2026-10-24）
+
+首次用户在真实桌面试玩两三分钟：操作与画面正常，但完全静音；耳机在启动后插入，浏览器音频正常。应用日志同时有17720320渲染帧/33845264非零采样，故不能继续把混音计数冒充可听。启动时旧绑定的实际设备名未记录，不能声称已从日志直接证明旧路由。
+
+源码核查发现Python固定打开枚举首项，参考`native_audio.cpp:235`打开默认播放设备。Pygame2.6.1 [绑定源码](https://raw.githubusercontent.com/pygame/pygame/2.6.1/src_c/cython/pygame/_sdl2/audio.pyx)虽在文档允许`None`，实际强制字符串。SDL2 [固定CoreAudio源码](https://raw.githubusercontent.com/libsdl-org/SDL/release-2.28.4/src/audio/coreaudio/SDL_coreaudio.m)仅为默认句柄注册默认输出变化监听；将当前默认名查询后再次按名称打开，也不能保留热插拔跟随语义。
+
+`audio_device.py/audio_sdl.py`直接调用Pygame同一SDL2的公开`SDL_OpenAudioDevice(NULL)`，保持F32/48000Hz/双声道/512帧及原供料器；Python回调引用保留至暂停/关闭完成，`CDLL`暂停与关闭释放GIL。没有调用C++参考引擎，没有改混音、MIDI或规则。`--audio-device`/`RICH4_AUDIO_DEVICE`仅在明确要求固定输出时传名称；无效设备报错，不静默换到其它输出。
+
+默认/明确名称/无效设备三项真实SDL子进程测试先RED再GREEN；另验真实回调错误仍经主线程抛出并可关闭。用户先听到实际CoreAudio探针的原BGM/语音；随后完整游戏加载上一轮自然AUTO，用户明确确认“**三类声音正常，拔插后也正常**”。三类是BGM、点击音效、角色语音。观测器只记录原生输入，不投递事件。证据及运行文件哈希见 [人工反馈](evidence/application-human-audio.json)。
+
+这是有限桌面流程/热插拔的人类听感通过；不等于全部曲目/角色/小游戏/长局都逐一人工听验。压力回调仍有超预算，旧阶段统计继续保留，不能由听到声音推导零欠载。macOS已验，其它平台的同库符号与设备行为仍未验。商业声音、捕获、应用包及字体全部未上传。
+
+本次默认输出阶段完整600项Python测试通过，无跳过；Ruff、152文件wheel及源包商业素材/二进制隔离检查通过。作者自审，未派发其它Agent。

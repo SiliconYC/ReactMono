@@ -1,68 +1,104 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-# 标准Pygame SDL2 AudioDevice；原SDL3设备供料语义见audio_feed.py。
+# Pygame同一SDL2库的公开音频接口；原SDL3设备供料语义见audio_feed.py。
 # ◑ 导入
 import ctypes as c
 
+import pygame
 from pygame._sdl2 import audio, sdl2
 
 from rich4.audio_feed import 设备供料_类
+from rich4.audio_sdl import SDL音频规格_类, 音频回调_型
 
 
 # ◕ 功能
 class 音频设备_类:
     """
-    Pygame原生48000Hz立体声F32输出，显式关闭回调后才销毁宿主。
+    系统默认或明确指定的Pygame SDL2输出，保持48000Hz立体声F32。
 
     更新日志：
-    2026.10.24 - SDL总生命周期归应用pygame.quit；这里只关闭自己打开的设备。
+    2026.10.24 - 默认以NULL打开，不能把枚举首项冒充系统默认；CDLL暂停/关闭释放GIL。
     """
 
-    def __init__(self, arg_供料: 设备供料_类) -> None:
+    def __init__(
+        self,
+        arg_供料: 设备供料_类,
+        arg_设备名称: str | None = None,
+    ) -> None:
         self._供料, self._错误 = arg_供料, None
         self._关闭 = False
-        # 2.6.1的pause/close持有GIL并等待回调，回调又要GIL；通过同一SDL2公开
-        # pause接口释放GIL，确认设备暂停后才让Pygame.close清理自己的deviceid。
+        # 2.6.1 AudioDevice的文档允许None，实际Cython却要求str；直接使用同一
+        # SDL2公开接口才能传NULL。不能另开一个枚举首项而忽略宿主默认输出。
         self._SDL = c.CDLL(audio.__file__)
+        self._SDL.SDL_OpenAudioDevice.argtypes = [
+            c.c_char_p,
+            c.c_int,
+            c.POINTER(SDL音频规格_类),
+            c.POINTER(SDL音频规格_类),
+            c.c_int,
+        ]
+        self._SDL.SDL_OpenAudioDevice.restype = c.c_uint32
         self._SDL.SDL_PauseAudioDevice.argtypes = [c.c_uint32, c.c_int]
         self._SDL.SDL_PauseAudioDevice.restype = None
+        self._SDL.SDL_CloseAudioDevice.argtypes = [c.c_uint32]
+        self._SDL.SDL_CloseAudioDevice.restype = None
+        self._SDL.SDL_GetError.argtypes = []
+        self._SDL.SDL_GetError.restype = c.c_char_p
         sdl2.init_subsystem(sdl2.INIT_AUDIO)
-        names = audio.get_audio_device_names(False)
-        if not names:
-            raise RuntimeError("没有Pygame音频输出设备")
-        self._设备 = audio.AudioDevice(
-            devicename=names[0],
-            iscapture=False,
+        self._回调引用 = 音频回调_型(self._回调)
+        desired = SDL音频规格_类(
             frequency=48000,
             audioformat=audio.AUDIO_F32,
             numchannels=2,
             chunksize=512,
-            allowed_changes=0,
-            callback=self._回调,
+            callback=self._回调引用,
         )
+        self._格式 = SDL音频规格_类()
+        self.设备名称 = arg_设备名称
+        self._编号 = self._SDL.SDL_OpenAudioDevice(
+            arg_设备名称.encode("utf-8") if arg_设备名称 is not None else None,
+            0,
+            c.byref(desired),
+            c.byref(self._格式),
+            0,
+        )
+        if not self._编号:
+            self._关闭 = True
+            raise pygame.error(self._SDL.SDL_GetError().decode("utf-8", errors="replace"))
         self.api_暂停(False)
 
-    def _回调(self, arg_设备: audio.AudioDevice, arg_缓冲: memoryview) -> None:
+    def api_格式(self) -> tuple[int, int, int, int]:
+        spec = self._格式
+        return spec.frequency, spec.audioformat, spec.numchannels, spec.chunksize
+
+    def _回调(
+        self,
+        arg_宿主: c.c_void_p,
+        arg_指针: c.POINTER(c.c_uint8),
+        arg_大小: int,
+    ) -> None:
+        buffer = memoryview(
+            (c.c_uint8 * arg_大小).from_address(c.addressof(arg_指针.contents))
+        ).cast("B")
         if self._错误 is not None:
-            arg_缓冲[:] = bytes(len(arg_缓冲))
+            buffer[:] = bytes(arg_大小)
             return
         try:
-            # Pygame传入Cython _memoryviewslice，先取标准buffer视图再cast。
-            self._供料.api_填充(memoryview(arg_缓冲))
+            self._供料.api_填充(buffer)
         except Exception as error:
             # 外部C回调不能上抛；清掉未填缓冲，主线程检查必须重新抛出并进入恢复。
-            # 这是失败边界，不将后续静音计为成功播放，也不吞掉程序错误。
             self._错误 = error
-            arg_缓冲[:] = bytes(len(arg_缓冲))
+            buffer[:] = bytes(arg_大小)
 
     def api_检查(self) -> None:
         if self._错误 is not None:
             raise RuntimeError("Pygame音频设备回调失败") from self._错误
 
     def api_暂停(self, arg_暂停: bool) -> None:
-        self._SDL.SDL_PauseAudioDevice(self._设备.deviceid, int(arg_暂停))
+        if not self._关闭:
+            self._SDL.SDL_PauseAudioDevice(self._编号, int(arg_暂停))
 
     def api_关闭(self) -> None:
         if not self._关闭:
             self.api_暂停(True)
-            self._设备.close()
+            self._SDL.SDL_CloseAudioDevice(self._编号)
             self._关闭 = True

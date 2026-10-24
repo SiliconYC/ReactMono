@@ -3,6 +3,7 @@
 # ◑ 导入
 import argparse
 import json
+import os
 import time
 from dataclasses import asdict
 from pathlib import Path
@@ -40,6 +41,7 @@ class 桌面验收_类(游戏应用_类):
                     "seed": arg_设置.种子,
                     "music_available": self.音频.api_音乐可用(),
                     "audio_enabled": self.声效,
+                    "audio_device": self.音频._设备.设备名称 if self.音频._设备 else None,
                     "time_ns": time.time_ns(),
                 }
             )
@@ -133,7 +135,10 @@ def 主程序() -> None:
     参数.add_argument("--seed", type=int, default=int(time.time()) & 0xFFFFFFFF)
     参数.add_argument("--frames", type=int, default=0)
     参数.add_argument("--silent", action="store_true")
+    参数.add_argument("--audio-device")
     选项 = 参数.parse_args()
+    if 选项.audio_device is not None:
+        os.environ["RICH4_AUDIO_DEVICE"] = 选项.audio_device
     应用 = 桌面验收_类(
         应用设置_类(选项.assets, 选项.font, 选项.save_dir, 种子=选项.seed, 静音=选项.silent),
         选项.log,
