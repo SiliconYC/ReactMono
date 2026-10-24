@@ -17,6 +17,7 @@
 | 移动主场景 | `main_scene.py` | 已实现，完整场景值自动差分 | 原前端板面构造切片3456基础及13824交叉场景/相机一致，见 [说明](MAIN_SCENE.md) | 正式决策/队列/渲染叠加与窗口验收 |
 | 原顺序表现分发 | `presentation_queue.py` | 控制队列已实现，源码切片差分 | 528时间线/14784命令完整路由/时序值一致，见 [说明](PRESENTATION_QUEUE.md) | 真实专属屏幕、完整present/observe宿主与主循环/窗口 |
 | 原金额机/轮盘屏幕 | `spinner_screen.py` | 已实现，逐帧画布与私有状态自动差分 | 4011命令/1900实际画布、583680000像素及按钮/声音请求一致，见 [说明](SPINNERS.md) | 自然落点/真实主循环STOP、实际音频与窗口验收 |
+| 原物品库存/卡图 | `item_screens.py/item_paint.py/item_screen_types.py` | 库存/卡图已实现，Screens其余部分在实施 | 1458命令/633画布/194457600像素及实际会话阶段/RNG/决策/完整DAT一致，见 [说明](ITEM_SCREENS.md) | 目标/服务/完整重置、正式主应用/自然流程/窗口/实际音频 |
 | 原玩家交易公告栏 | `trading_board_screen.py/trading_screen_*.py` | 已实现，直接原组件/真实规则回调自动差分 | 4735命令/1758画布/540057600像素及每步完整DAT一致，见 [说明](TRADING_UI.md) | 正式Application/GameSession接线、自然交易、窗口与实际音频 |
 | 原拍卖室/彩票柜台 | `auction_room_*.py/lottery_bar_screen.py` | 已实现，直接原组件自动差分 | 2416命令/1738画布/533913600像素及完整状态/回调一致，见 [说明](AUCTION_LOTTERY_UI.md) | 完整主应用/真实核心接线、自然触发、窗口与实际音频 |
 | 原股利/开奖/月报 | `monthly_*.py` | 已实现，完整画布/私有状态自动差分 | 19流程/8845命令、8681画布/2666803200像素及26关联FLC校核，见 [说明](MONTHLY.md) | 自然触发/正式主循环、实际音频与窗口验收 |

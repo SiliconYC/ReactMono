@@ -18471,113 +18471,193 @@
       "id": "tools/screens/items.cpp:34",
       "declarator": "opaque(Frame &frame, const graphics::Image &image, int x, int y)",
       "end_line": 36,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_paint.py::物品绘图_类.api_图"
+      ],
+      "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_screens.py",
+        "evidence/item-inventory-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:37",
       "declarator": "keyed(Frame &frame, const graphics::Image &image, int x, int y)",
       "end_line": 39,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_paint.py::物品绘图_类.api_图"
+      ],
+      "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_screens.py",
+        "evidence/item-inventory-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:40",
       "declarator": "&art(Frame &frame, char archive, std::size_t entry, std::size_t index)",
       "end_line": 42,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_paint.py::物品绘图_类.api_图"
+      ],
+      "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_screens.py",
+        "evidence/item-inventory-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:45",
       "declarator": "styled(Frame &frame, std::string_view text, int x, int y, int size, std::uint16_t fg, bool shadow,\n            std::uint16_t second, bool bold)",
       "end_line": 55,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_paint.py::物品绘图_类.api_字形"
+      ],
+      "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_screens.py",
+        "evidence/item-inventory-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:56",
       "declarator": "top_for_centre(int centre_y, int size)",
       "end_line": 58,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_paint.py::物品绘图_类.api_中（内联）"
+      ],
+      "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_screens.py",
+        "evidence/item-inventory-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:59",
       "declarator": "lines(std::string_view text)",
       "end_line": 68,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_paint.py::物品绘图_类.api_中（split内联）"
+      ],
+      "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_screens.py",
+        "evidence/item-inventory-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:70",
       "declarator": "centred(Frame &frame, std::string_view text, int cx, int cy, int size, std::uint16_t fg, bool shadow = true,\n             std::uint16_t second = dark, bool bold = true)",
       "end_line": 80,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_paint.py::物品绘图_类.api_中"
+      ],
+      "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_screens.py",
+        "evidence/item-inventory-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:82",
       "declarator": "top_right(Frame &frame, std::string_view text, int right, int top, int size, std::uint16_t fg)",
       "end_line": 84,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_paint.py::物品绘图_类.api_右上"
+      ],
+      "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_screens.py",
+        "evidence/item-inventory-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:86",
       "declarator": "right_middle(Frame &frame, std::string_view text, int right, int cy, int size, std::uint16_t fg)",
       "end_line": 89,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_paint.py::物品绘图_类.api_右中"
+      ],
+      "status": "部分完成，库存所需转写；服务/电影/相应场景差分尚未完成",
+      "evidence": [
+        "ITEM_SCREENS.md"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:92",
       "declarator": "sink(graphics::Image &canvas, Rect rect)",
       "end_line": 113,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_paint.py::物品绘图_类.api_下沉"
+      ],
+      "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_screens.py",
+        "evidence/item-inventory-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:116",
       "declarator": "tint(graphics::Image &canvas, Rect rect)",
       "end_line": 132,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_paint.py::物品绘图_类.api_选色"
+      ],
+      "status": "部分完成，库存所需转写；服务/电影/相应场景差分尚未完成",
+      "evidence": [
+        "ITEM_SCREENS.md"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:134",
       "declarator": "grid_tile(int origin_x, int origin_y, int tile)",
       "end_line": 137,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_paint.py::物品绘图_类.api_格"
+      ],
+      "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_screens.py",
+        "evidence/item-inventory-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:139",
       "declarator": "card_names_on_grid(Frame &frame, const CardSlots &cards, int x, int y, std::vector<std::uint8_t> *order = nullptr)",
       "end_line": 149,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_paint.py::物品绘图_类.api_卡网格"
+      ],
+      "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_screens.py",
+        "evidence/item-inventory-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:151",
       "declarator": "tools_on_grid(Frame &frame, const PlayerState &player, int x, int y)",
       "end_line": 164,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_paint.py::物品绘图_类.api_道具网格"
+      ],
+      "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_screens.py",
+        "evidence/item-inventory-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:165",
@@ -18599,33 +18679,53 @@
       "id": "tools/screens/items.cpp:184",
       "declarator": "Screens::now(const Frame &frame) const",
       "end_line": 186,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_screens.py::物品屏幕_类._现在"
+      ],
+      "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_screens.py",
+        "evidence/item-inventory-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:188",
       "declarator": "Screens::run_deferred()",
       "end_line": 193,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_screens.py::物品屏幕_类.api_运行延迟"
+      ],
+      "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_screens.py",
+        "evidence/item-inventory-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:195",
       "declarator": "Screens::reset()",
       "end_line": 203,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_screens.py::物品屏幕_类.api_重置"
+      ],
+      "status": "部分完成，库存所需转写；服务/电影/相应场景差分尚未完成",
+      "evidence": [
+        "ITEM_SCREENS.md"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:205",
       "declarator": "Screens::voice_once(const std::string &key, std::initializer_list<std::size_t> clips)",
       "end_line": 216,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_screens.py::物品屏幕_类._只说一次"
+      ],
+      "status": "部分完成，库存所需转写；服务/电影/相应场景差分尚未完成",
+      "evidence": [
+        "ITEM_SCREENS.md"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:220",
@@ -18647,57 +18747,99 @@
       "id": "tools/screens/items.cpp:241",
       "declarator": "Screens::press(Frame &frame, std::string owner, Rect rect, std::function<void()> action, int item)",
       "end_line": 246,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_screens.py::物品屏幕_类._按住开始"
+      ],
+      "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_screens.py",
+        "evidence/item-inventory-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:249",
       "declarator": "Screens::resolve_press(Frame &frame, std::string_view owner)",
       "end_line": 263,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_screens.py::物品屏幕_类._释放按住"
+      ],
+      "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_screens.py",
+        "evidence/item-inventory-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:265",
       "declarator": "&Screens::description(Artwork &artwork, bool card, unsigned id)",
       "end_line": 293,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_screens.py::物品屏幕_类._说明"
+      ],
+      "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_screens.py",
+        "evidence/item-inventory-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:295",
       "declarator": "&Screens::card_art(Artwork &artwork, std::uint8_t card)",
       "end_line": 306,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_screens.py::物品屏幕_类._卡图图像"
+      ],
+      "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_screens.py",
+        "evidence/item-inventory-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:310",
       "declarator": "Screens::draw_inventory(Frame &frame, GameSession &session, bool cards, const Host &host)",
       "end_line": 403,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_screens.py::物品屏幕_类.api_画库存"
+      ],
+      "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_screens.py",
+        "evidence/item-inventory-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:406",
       "declarator": "Screens::observe(const GameEvent &event, const World &world)",
       "end_line": 413,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_screens.py::物品屏幕_类.api_观察"
+      ],
+      "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_screens.py",
+        "evidence/item-inventory-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:415",
       "declarator": "Screens::draw_popup(Frame &frame)",
       "end_line": 457,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_screens.py::物品屏幕_类.api_画卡图"
+      ],
+      "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_screens.py",
+        "evidence/item-inventory-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:461",
@@ -18815,17 +18957,29 @@
       "id": "tools/screens/items.hpp:52",
       "declarator": "popup_active() const noexcept",
       "end_line": 52,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_screens.py::物品屏幕_类.api_卡图中"
+      ],
+      "status": "已实现，队列/私有状态差分",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_screens.py",
+        "evidence/item-inventory-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.hpp:55",
       "declarator": "has_deferred() const noexcept",
       "end_line": 55,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_screens.py::物品屏幕_类.api_有延迟"
+      ],
+      "status": "已实现，队列/私有状态差分",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_screens.py",
+        "evidence/item-inventory-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.hpp:61",
