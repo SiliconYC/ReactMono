@@ -27,6 +27,31 @@ uv run --project pygame python pygame/tools/probe_audio_device.py \
 
 原PCM为48000Hz立体声F32、每块512帧，语音单独中断/排队、最多16同时效果、效果/语音增益0.6，正常MIDI歌单`rich08/16–22.mid`及18上下文表按源保留。MIDI软件合成增益0.28、关闭混响/合唱、按采样推进，压栈需保留播放tick而非重头开始；静音时推迟重建，恢复后续播。三个循环槽独立，不能被转盘停止一起切断。
 
-正式Python混音器、原WAV解码/重采样、语音队列、MIDI播放/恢复、后台设备供料与应用接线仍未实现。参考使用SDL3重采样，Pygame绑定SDL2；后续必须实际比较波形并记录差别，不能因同为SDL就宣称相同。CoreAudio系统`gs_instruments.dls`在本机存在，FluidSynth/SDL3开发库当前未安装；尚未构成完整MIDI播放链。外部音库、WAV、MIDI与捕获始终不入Git。
+首批记录时完整混音/WAV/语音队列/MIDI/后台供料未实现；下面增量补齐WAV层。真实混音、语音队列、MIDI播放/恢复、后台供料和应用接线继续实施。外部音库、WAV、MIDI与捕获始终不入Git。
 
 最终还需真实效果/语音重叠、循环/上下文切换、小游戏交接、长局时音频持续性、波形/时钟、听感和正式窗口验收。当前设备零样本、策略记录、数值限幅均不满足这些交付条件。
+
+## 原WAV解码与重采样（2026-10-24，#156）
+
+`wave_decoder.py`101行，保持原`decode_wave`的整条WAV载入、48000Hz立体声F32转换、正且8字节整除的输出长度和内存释放。通过标准SDL3公开C接口完成解码/重采样，Pygame负责后续窗口与设备；没有调用C++参考项目的任何运行逻辑。这样保留原重采样器，而不是假定Pygame SDL2转换与SDL3相同。原MKF仍由独立Python读取。
+
+[完整转换对照](evidence/wave-differential.json)直接编译固定`native_audio.cpp::decode_wave`，1613输入/237033784个F32采样逐位一致。真实Effect115条中99个WAV、Speaking1374个WAV均明确要求非空原WAV成功转换，共1473条全部通过；16个空条目按原拒绝。另含80条截断、40组单双声道/8–32位PCM/8000–48000Hz合成格式和四个坏输入，合计1529次成功/84次拒绝。两端共同拒绝有效RIFF将立即失败，不能靠共同跳过报成功。空/坏输入只核对成功/失败分类，不声称错误文本完全相同。
+
+两项真实SDK测试验证单声道16位转F32左右复制与坏WAV错误；设置`RICH4_SDL3_LIBRARY`后的阶段518项通过，无依赖时这两项明确跳过，不计通过。首次C++测试工具缺少`iostream`而编译失败，补齐测试端include后重跑；游戏运行代码未为此改动。完整对照后增加有效WAV门控/输出截断检查再跑，输入与全部状态/采样摘要仍相同。
+
+### 固定依赖与复现
+
+本机macOS14的Homebrew无预编译包并准备升级多项全局依赖，已停止该次安装，未安装其列出的SDK。现有CMake/GLib足够在忽略缓存构建：SDL3 3.4.18固定`829a65d769d935c4852f8159e964312c0957260a`，FluidSynth2.6.1固定`71e85b2ca6bf48641ba7e2261d8f2640ae473773`，双精度DSP、原生DLS开启，关闭不使用的FluidSynth设备后端/网络/SF3/混响扩展构建。安装位置、参数和公开来源见 [构建记录](evidence/audio-dependencies.json)，原库源码保持干净。它们是通用SDK，不含Rich4参考引擎；后续MIDI将用公开FluidSynth合成接口。
+
+```sh
+uv run --project pygame python pygame/tools/build_audio_dependencies.py --workspace . --jobs 4
+PKG_CONFIG_PATH="$PWD/.research-cache/audio-runtime/lib/pkgconfig" \
+uv run --project pygame python pygame/tools/differential_wave.py \
+  --source .research-upstreams/richman4-remastered --build .research-cache/cpp-core \
+  --assets /path/to/Rich4 --library .research-cache/audio-runtime/lib/libSDL3.dylib \
+  --report .research-cache/wave.json
+RICH4_SDL3_LIBRARY="$PWD/.research-cache/audio-runtime/lib/libSDL3.dylib" \
+uv run --project pygame python -m pytest pygame/tests -q
+```
+
+以上命令在独立开发Worktree执行；Linux共享库后缀为`.so`，其余平台需复跑。构建工具只使用已有CMake/GLib，不自动安装系统包；GCEM等传递源码由FluidSynth原构建系统放缓存。原ABI与整条转换限制见 [SDL3接口](https://wiki.libsdl.org/SDL3/SDL_ConvertAudioSamples)，采样时钟设置见 [FluidSynth官方说明](https://www.fluidsynth.org/api/settings_player.html)。本批只验证解码与重采样；尚无真实混音/语音队列/MIDI或完整主应用听感通过结论。

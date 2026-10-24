@@ -47,3 +47,14 @@ uv run --project pygame python pygame/tools/differential_assets.py \
 差分工具会核对参考提交、构建固定 C++ 核心，在临时目录比较全部解码字节及首尾图像/动画帧，退出后移除商业解码文件；报告只含元数据和哈希。C++ 不参与正常 Pygame 运行。合成样本为格式边界测试，不作为真实游戏事件或规则替代。
 
 源码及素材权利边界见 [NOTICE.md](NOTICE.md)。
+
+## 主游戏音频依赖（移植中）
+
+原WAV的SDL3整条转换已逐采样对照；完整混音、语音队列、MIDI与主应用接线继续实施。开发依赖可在独立Worktree的忽略缓存构建，不安装系统包：
+
+```sh
+uv run --project pygame python pygame/tools/build_audio_dependencies.py --workspace . --jobs 4
+RICH4_SDL3_LIBRARY=/path/to/libSDL3.dylib uv run --project pygame python -m pytest pygame/tests -q
+```
+
+工具需要已有CMake/GLib；Linux共享库通常为`libSDL3.so`。音库从用户外部路径读取，当前没有把设备探针或声音请求当作完整音频验收，细节与可复现命令见 [音频记录](../docs/porting/pygame/AUDIO.md)。

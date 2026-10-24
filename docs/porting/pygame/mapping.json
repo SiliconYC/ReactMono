@@ -12832,5 +12832,17 @@
       "tests/test_audio_limiter.py",
       "evidence/audio-limiter-differential.json"
     ]
+  },
+  "tools/native_audio.cpp:107": {
+    "python": [
+      "pygame/src/rich4/wave_decoder.py::原波形_类.api_解码"
+    ],
+    "status": "已实现，复用标准SDL3公开WAV/整条重采样API；原组件237033784个F32采样逐位一致，实际混音/播放未验",
+    "evidence": [
+      "AUDIO.md",
+      "tests/test_wave_decoder.py",
+      "evidence/wave-differential.json",
+      "evidence/audio-dependencies.json"
+    ]
   }
 }
