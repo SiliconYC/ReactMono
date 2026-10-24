@@ -1,0 +1,22 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 8627,
+  "painted_frames": 4872,
+  "scope": "direct original facility Picker and AiSettingsScreen, real GameSession settings source, real sprites, internal state and callbacks; not actual window/financial rule integration",
+  "font_sha256": "4b450afb2c61d7529fe05647316e9fc3137ea703a664bded5bca895a5c30748c",
+  "mode": "base",
+  "runtime_sha256": {
+    "facility_picker.py": "1bbe8c3ce14b448d8fe8f62b6905f09feb30205f9591bff6258e6f3929871caf",
+    "ai_settings_screen.py": "9711fc8ac0966b5aa19815bdabba1e52e9d1d2094c10177bc61cceda13432616",
+    "message_overlay.py": "60ec398e580f54b43b6740ed127333ca5f6545bb8a1297bed28663ac8482c314",
+    "native_frame.py": "1ddef472fc701130a3d25246ebbbc5b266dfe8b383b7d20252b6b81b9a87fafa",
+    "screen_draw.py": "082a3b0d67c61a0ad903adf4dae70847b4b67f3fedaa2f7ad83049942cbd0d28"
+  },
+  "python_sha256": "1bbe8c3ce14b448d8fe8f62b6905f09feb30205f9591bff6258e6f3929871caf",
+  "last_command": "X 1630",
+  "last_index": 8626,
+  "state_sha256": "e2499564e551db30b9815ae82c47f4b9703fc9f0a39c23611808221fdc80366d",
+  "input_sha256": "cfa2d3ff944e8eec11c3d5f05baaf67603b7ccbe53264d4c42a8000dc6666300",
+  "compared_pixels": 1496678400
+}

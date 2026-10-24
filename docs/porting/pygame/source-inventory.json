@@ -16691,57 +16691,106 @@
       "id": "tools/screens/ai_settings.cpp:22",
       "declarator": "tab_rect(std::size_t slot)",
       "end_line": 24,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/ai_settings_screen.py::api_绘制"
+      ],
+      "status": "已实现，组件定向测试/真实画布与状态差分；完整主程序未验",
+      "evidence": [
+        "FACILITY_AI_UI.md",
+        "tests/test_facility_picker.py",
+        "tests/test_ai_settings_screen.py",
+        "evidence/facility-ai-differential.json"
+      ]
     },
     {
       "id": "tools/screens/ai_settings.cpp:25",
       "declarator": "option_rect(int centre_y)",
       "end_line": 27,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/ai_settings_screen.py::api_绘制"
+      ],
+      "status": "已实现，组件定向测试/真实画布与状态差分；完整主程序未验",
+      "evidence": [
+        "FACILITY_AI_UI.md",
+        "tests/test_facility_picker.py",
+        "tests/test_ai_settings_screen.py",
+        "evidence/facility-ai-differential.json"
+      ]
     },
     {
       "id": "tools/screens/ai_settings.cpp:34",
       "declarator": "&ratio(AiSettings &settings, int row)",
       "end_line": 36,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/ai_settings_screen.py::api_绘制"
+      ],
+      "status": "已实现，组件定向测试/真实画布与状态差分；完整主程序未验",
+      "evidence": [
+        "FACILITY_AI_UI.md",
+        "tests/test_facility_picker.py",
+        "tests/test_ai_settings_screen.py",
+        "evidence/facility-ai-differential.json"
+      ]
     },
     {
       "id": "tools/screens/ai_settings.cpp:39",
       "declarator": "AiSettingsScreen::open(const GameSession &session, std::size_t current)",
       "end_line": 50,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/ai_settings_screen.py::api_打开"
+      ],
+      "status": "已实现，组件定向测试/真实画布与状态差分；完整主程序未验",
+      "evidence": [
+        "FACILITY_AI_UI.md",
+        "tests/test_facility_picker.py",
+        "tests/test_ai_settings_screen.py",
+        "evidence/facility-ai-differential.json"
+      ]
     },
     {
       "id": "tools/screens/ai_settings.cpp:52",
       "declarator": "AiSettingsScreen::cancel(Host &host, const AiSettingsActions &actions)",
       "end_line": 55,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/ai_settings_screen.py::api_取消"
+      ],
+      "status": "已实现，组件定向测试/真实画布与状态差分；完整主程序未验",
+      "evidence": [
+        "FACILITY_AI_UI.md",
+        "tests/test_facility_picker.py",
+        "tests/test_ai_settings_screen.py",
+        "evidence/facility-ai-differential.json"
+      ]
     },
     {
       "id": "tools/screens/ai_settings.cpp:57",
       "declarator": "AiSettingsScreen::draw(Host &host, const World &world, const AiSettingsActions &actions)",
       "end_line": 136,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/ai_settings_screen.py::api_绘制"
+      ],
+      "status": "已实现，组件定向测试/真实画布与状态差分；完整主程序未验",
+      "evidence": [
+        "FACILITY_AI_UI.md",
+        "tests/test_facility_picker.py",
+        "tests/test_ai_settings_screen.py",
+        "evidence/facility-ai-differential.json"
+      ]
     },
     {
       "id": "tools/screens/ai_settings.hpp:42",
       "declarator": "edited(std::size_t slot) const",
       "end_line": 44,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/ai_settings_screen.py::api_编辑"
+      ],
+      "status": "已实现，组件定向测试/真实画布与状态差分；完整主程序未验",
+      "evidence": [
+        "FACILITY_AI_UI.md",
+        "tests/test_facility_picker.py",
+        "tests/test_ai_settings_screen.py",
+        "evidence/facility-ai-differential.json"
+      ]
     },
     {
       "id": "tools/screens/draw.cpp:15",
@@ -17434,49 +17483,91 @@
       "id": "tools/screens/facility.cpp:23",
       "declarator": "option_with_value(const GameDecision &decision, std::int32_t value)",
       "end_line": 28,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/facility_picker.py::_选项"
+      ],
+      "status": "已实现，组件定向测试/真实画布与状态差分；完整主程序未验",
+      "evidence": [
+        "FACILITY_AI_UI.md",
+        "tests/test_facility_picker.py",
+        "tests/test_ai_settings_screen.py",
+        "evidence/facility-ai-differential.json"
+      ]
     },
     {
       "id": "tools/screens/facility.cpp:30",
       "declarator": "cancel_option(const GameDecision &decision)",
       "end_line": 32,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/facility_picker.py::_取消项"
+      ],
+      "status": "已实现，组件定向测试/真实画布与状态差分；完整主程序未验",
+      "evidence": [
+        "FACILITY_AI_UI.md",
+        "tests/test_facility_picker.py",
+        "tests/test_ai_settings_screen.py",
+        "evidence/facility-ai-differential.json"
+      ]
     },
     {
       "id": "tools/screens/facility.cpp:36",
       "declarator": "handles(const GameDecision &decision)",
       "end_line": 42,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/facility_picker.py::api_接管"
+      ],
+      "status": "已实现，组件定向测试/真实画布与状态差分；完整主程序未验",
+      "evidence": [
+        "FACILITY_AI_UI.md",
+        "tests/test_facility_picker.py",
+        "tests/test_ai_settings_screen.py",
+        "evidence/facility-ai-differential.json"
+      ]
     },
     {
       "id": "tools/screens/facility.cpp:44",
       "declarator": "Picker::cancellable(const GameDecision &decision)",
       "end_line": 46,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/facility_picker.py::api_可取消"
+      ],
+      "status": "已实现，组件定向测试/真实画布与状态差分；完整主程序未验",
+      "evidence": [
+        "FACILITY_AI_UI.md",
+        "tests/test_facility_picker.py",
+        "tests/test_ai_settings_screen.py",
+        "evidence/facility-ai-differential.json"
+      ]
     },
     {
       "id": "tools/screens/facility.cpp:48",
       "declarator": "Picker::cancel(screens::Host &host, const GameDecision &decision,\n                    const std::function<void(std::size_t)> &respond)",
       "end_line": 54,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/facility_picker.py::api_取消"
+      ],
+      "status": "已实现，组件定向测试/真实画布与状态差分；完整主程序未验",
+      "evidence": [
+        "FACILITY_AI_UI.md",
+        "tests/test_facility_picker.py",
+        "tests/test_ai_settings_screen.py",
+        "evidence/facility-ai-differential.json"
+      ]
     },
     {
       "id": "tools/screens/facility.cpp:56",
       "declarator": "Picker::draw(screens::Host &host, const GameDecision &decision, const std::string &key,\n                  const std::function<void(std::size_t)> &respond)",
       "end_line": 115,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/facility_picker.py::api_绘制"
+      ],
+      "status": "已实现，组件定向测试/真实画布与状态差分；完整主程序未验",
+      "evidence": [
+        "FACILITY_AI_UI.md",
+        "tests/test_facility_picker.py",
+        "tests/test_ai_settings_screen.py",
+        "evidence/facility-ai-differential.json"
+      ]
     },
     {
       "id": "tools/screens/facility.hpp:37",
