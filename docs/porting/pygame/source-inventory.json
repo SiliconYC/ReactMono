@@ -15305,9 +15305,17 @@
       "id": "tools/native_game.cpp:1456",
       "declarator": "draw_board()",
       "end_line": 1652,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/main_scene.py::主板场景_类.api_构建",
+        "pygame/src/rich4/main_scene.py::表现步_类"
+      ],
+      "status": "部分实现：仅1456–1599板面构造/相机完整值自动差分；后续应用动作/叠加绘制与完整宿主待接线",
+      "evidence": [
+        "MAIN_SCENE.md",
+        "tests/test_main_scene.py",
+        "evidence/main-scene-differential.json",
+        "evidence/main-scene-movement-grid.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1655",
