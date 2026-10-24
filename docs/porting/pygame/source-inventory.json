@@ -20378,174 +20378,310 @@
       "id": "tools/screens/spinners.cpp:47",
       "declarator": "god_name(unsigned kind)",
       "end_line": 51,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/spinner_screen.py::转盘屏幕_类._神名"
+      ],
+      "status": "已实现，真实资源完整画布/私有时序/随机/按钮/声音请求差分；主应用待接线",
+      "evidence": [
+        "SPINNERS.md",
+        "tests/test_spinner_screen.py",
+        "evidence/spinner-screen-differential.json",
+        "evidence/spinner-screen-lifecycle.json"
+      ]
     },
     {
       "id": "tools/screens/spinners.cpp:52",
       "declarator": "machine_prompt(unsigned kind)",
       "end_line": 63,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/spinner_screen.py::转盘屏幕_类.提示地址/_画机器"
+      ],
+      "status": "已实现，真实资源完整画布/私有时序/随机/按钮/声音请求差分；主应用待接线",
+      "evidence": [
+        "SPINNERS.md",
+        "tests/test_spinner_screen.py",
+        "evidence/spinner-screen-differential.json",
+        "evidence/spinner-screen-lifecycle.json"
+      ]
     },
     {
       "id": "tools/screens/spinners.cpp:64",
       "declarator": "strip_spaces(std::string_view text)",
       "end_line": 70,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/spinner_screen.py::转盘屏幕_类._轮文/消息规则_类._公司"
+      ],
+      "status": "已实现，真实资源完整画布/私有时序/随机/按钮/声音请求差分；主应用待接线",
+      "evidence": [
+        "SPINNERS.md",
+        "tests/test_spinner_screen.py",
+        "evidence/spinner-screen-differential.json",
+        "evidence/spinner-screen-lifecycle.json"
+      ]
     },
     {
       "id": "tools/screens/spinners.cpp:72",
       "declarator": "company_name(const World &world, std::int32_t company)",
       "end_line": 80,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/spinner_screen.py::转盘屏幕_类._轮文/消息规则_类._公司"
+      ],
+      "status": "已实现，真实资源完整画布/私有时序/随机/按钮/声音请求差分；主应用待接线",
+      "evidence": [
+        "SPINNERS.md",
+        "tests/test_spinner_screen.py",
+        "evidence/spinner-screen-differential.json",
+        "evidence/spinner-screen-lifecycle.json"
+      ]
     },
     {
       "id": "tools/screens/spinners.cpp:82",
       "declarator": "wheel_text(const World &world, const SpinnerState &state)",
       "end_line": 99,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/spinner_screen.py::转盘屏幕_类._轮文"
+      ],
+      "status": "已实现，真实资源完整画布/私有时序/随机/按钮/声音请求差分；主应用待接线",
+      "evidence": [
+        "SPINNERS.md",
+        "tests/test_spinner_screen.py",
+        "evidence/spinner-screen-differential.json",
+        "evidence/spinner-screen-lifecycle.json"
+      ]
     },
     {
       "id": "tools/screens/spinners.cpp:101",
       "declarator": "variant(const SpinnerState &state)",
       "end_line": 103,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/spinner_screen.py::转盘屏幕_类._版本"
+      ],
+      "status": "已实现，真实资源完整画布/私有时序/随机/按钮/声音请求差分；主应用待接线",
+      "evidence": [
+        "SPINNERS.md",
+        "tests/test_spinner_screen.py",
+        "evidence/spinner-screen-differential.json",
+        "evidence/spinner-screen-lifecycle.json"
+      ]
     },
     {
       "id": "tools/screens/spinners.cpp:104",
       "declarator": "machine_amount(const SpinnerState &state)",
       "end_line": 110,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/spinner_screen.py::转盘屏幕_类.api_金额"
+      ],
+      "status": "已实现，真实资源完整画布/私有时序/随机/按钮/声音请求差分；主应用待接线",
+      "evidence": [
+        "SPINNERS.md",
+        "tests/test_spinner_screen.py",
+        "evidence/spinner-screen-differential.json",
+        "evidence/spinner-screen-lifecycle.json"
+      ]
     },
     {
       "id": "tools/screens/spinners.cpp:112",
       "declarator": "draw_box(Frame &frame, std::string_view text)",
       "end_line": 115,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/spinner_screen.py::转盘屏幕_类._框"
+      ],
+      "status": "已实现，真实资源完整画布/私有时序/随机/按钮/声音请求差分；主应用待接线",
+      "evidence": [
+        "SPINNERS.md",
+        "tests/test_spinner_screen.py",
+        "evidence/spinner-screen-differential.json",
+        "evidence/spinner-screen-lifecycle.json"
+      ]
     },
     {
       "id": "tools/screens/spinners.cpp:117",
       "declarator": "draw_machine(Frame &frame, const SpinnerState &state)",
       "end_line": 129,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/spinner_screen.py::转盘屏幕_类._画机器"
+      ],
+      "status": "已实现，真实资源完整画布/私有时序/随机/按钮/声音请求差分；主应用待接线",
+      "evidence": [
+        "SPINNERS.md",
+        "tests/test_spinner_screen.py",
+        "evidence/spinner-screen-differential.json",
+        "evidence/spinner-screen-lifecycle.json"
+      ]
     },
     {
       "id": "tools/screens/spinners.cpp:131",
       "declarator": "draw_wheel(Frame &frame, const World &world, const SpinnerState &state, bool shot)",
       "end_line": 142,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/spinner_screen.py::转盘屏幕_类._画轮"
+      ],
+      "status": "已实现，真实资源完整画布/私有时序/随机/按钮/声音请求差分；主应用待接线",
+      "evidence": [
+        "SPINNERS.md",
+        "tests/test_spinner_screen.py",
+        "evidence/spinner-screen-differential.json",
+        "evidence/spinner-screen-lifecycle.json"
+      ]
     },
     {
       "id": "tools/screens/spinners.cpp:146",
       "declarator": "handles(const GameDecision &decision)",
       "end_line": 149,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/spinner_screen.py::转盘屏幕_类.api_处理决策"
+      ],
+      "status": "已实现，真实资源完整画布/私有时序/随机/按钮/声音请求差分；主应用待接线",
+      "evidence": [
+        "SPINNERS.md",
+        "tests/test_spinner_screen.py",
+        "evidence/spinner-screen-differential.json",
+        "evidence/spinner-screen-lifecycle.json"
+      ]
     },
     {
       "id": "tools/screens/spinners.cpp:150",
       "declarator": "handles(const EffectEvent &effect)",
       "end_line": 152,
       "python": [
-        "pygame/src/rich4/presentation_queue.py::呈现队列_类.api_泵"
+        "pygame/src/rich4/spinner_screen.py::转盘屏幕_类.api_处理效果"
       ],
-      "status": "仅本handles效果判定已转写并与原函数对照；完整专属屏幕仍未移植",
+      "status": "已实现，真实资源完整画布/私有时序/随机/按钮/声音请求差分；主应用待接线",
       "evidence": [
-        "PRESENTATION_QUEUE.md",
-        "evidence/presentation-queue-differential.json"
+        "SPINNERS.md",
+        "tests/test_spinner_screen.py",
+        "evidence/spinner-screen-differential.json",
+        "evidence/spinner-screen-lifecycle.json"
       ]
     },
     {
       "id": "tools/screens/spinners.cpp:154",
       "declarator": "Spinners::draw_decision(Frame &frame, const World &world, const GameDecision &decision, int stop_id,\n                             const std::function<void()> &stop)",
       "end_line": 171,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/spinner_screen.py::转盘屏幕_类.api_绘决策"
+      ],
+      "status": "已实现，真实资源完整画布/私有时序/随机/按钮/声音请求差分；主应用待接线",
+      "evidence": [
+        "SPINNERS.md",
+        "tests/test_spinner_screen.py",
+        "evidence/spinner-screen-differential.json",
+        "evidence/spinner-screen-lifecycle.json"
+      ]
     },
     {
       "id": "tools/screens/spinners.cpp:173",
       "declarator": "Spinners::enqueue(EffectEvent effect)",
       "end_line": 177,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/spinner_screen.py::转盘屏幕_类.api_入队"
+      ],
+      "status": "已实现，真实资源完整画布/私有时序/随机/按钮/声音请求差分；主应用待接线",
+      "evidence": [
+        "SPINNERS.md",
+        "tests/test_spinner_screen.py",
+        "evidence/spinner-screen-differential.json",
+        "evidence/spinner-screen-lifecycle.json"
+      ]
     },
     {
       "id": "tools/screens/spinners.cpp:179",
       "declarator": "Spinners::clear()",
       "end_line": 182,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/spinner_screen.py::转盘屏幕_类.api_清空"
+      ],
+      "status": "已实现，真实资源完整画布/私有时序/随机/按钮/声音请求差分；主应用待接线",
+      "evidence": [
+        "SPINNERS.md",
+        "tests/test_spinner_screen.py",
+        "evidence/spinner-screen-differential.json",
+        "evidence/spinner-screen-lifecycle.json"
+      ]
     },
     {
       "id": "tools/screens/spinners.cpp:185",
       "declarator": "Spinners::step_wheel(Playing &p)",
       "end_line": 223,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/spinner_screen.py::转盘屏幕_类._步轮"
+      ],
+      "status": "已实现，真实资源完整画布/私有时序/随机/按钮/声音请求差分；主应用待接线",
+      "evidence": [
+        "SPINNERS.md",
+        "tests/test_spinner_screen.py",
+        "evidence/spinner-screen-differential.json",
+        "evidence/spinner-screen-lifecycle.json"
+      ]
     },
     {
       "id": "tools/screens/spinners.cpp:225",
       "declarator": "Spinners::draw_effect(Frame &frame, const World &world, unsigned elapsed_ms, int skip_id)",
       "end_line": 282,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/spinner_screen.py::转盘屏幕_类.api_绘效果"
+      ],
+      "status": "已实现，真实资源完整画布/私有时序/随机/按钮/声音请求差分；主应用待接线",
+      "evidence": [
+        "SPINNERS.md",
+        "tests/test_spinner_screen.py",
+        "evidence/spinner-screen-differential.json",
+        "evidence/spinner-screen-lifecycle.json"
+      ]
     },
     {
       "id": "tools/screens/spinners.cpp:284",
       "declarator": "Spinners::finish_frame()",
       "end_line": 293,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/spinner_screen.py::转盘屏幕_类.api_收帧"
+      ],
+      "status": "已实现，真实资源完整画布/私有时序/随机/按钮/声音请求差分；主应用待接线",
+      "evidence": [
+        "SPINNERS.md",
+        "tests/test_spinner_screen.py",
+        "evidence/spinner-screen-differential.json",
+        "evidence/spinner-screen-lifecycle.json"
+      ]
     },
     {
       "id": "tools/screens/spinners.hpp:40",
       "declarator": "Spinners(Sound sound)",
       "end_line": 40,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/spinner_screen.py::转盘屏幕_类.__init__"
+      ],
+      "status": "已实现，完整转盘及生命周期差分",
+      "evidence": [
+        "SPINNERS.md",
+        "evidence/spinner-screen-lifecycle.json"
+      ]
     },
     {
       "id": "tools/screens/spinners.hpp:43",
       "declarator": "set_skip(bool skip) noexcept",
       "end_line": 45,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/spinner_screen.py::转盘屏幕_类.api_跳过"
+      ],
+      "status": "已实现，完整转盘及生命周期差分",
+      "evidence": [
+        "SPINNERS.md",
+        "evidence/spinner-screen-lifecycle.json"
+      ]
     },
     {
       "id": "tools/screens/spinners.hpp:53",
       "declarator": "active() const noexcept",
       "end_line": 55,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/spinner_screen.py::转盘屏幕_类.api_活跃"
+      ],
+      "status": "已实现，完整转盘及生命周期差分",
+      "evidence": [
+        "SPINNERS.md",
+        "evidence/spinner-screen-lifecycle.json"
+      ]
     },
     {
       "id": "tools/screens/stocks.cpp:20",
