@@ -1,0 +1,24 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 36211,
+  "painted_frames": 8847,
+  "scope": "direct original HelpScreen and tile_popup, external real maps/art/font, complete text/pages/buttons/sounds and World DAT read-only, source bounding-box picking approximation; not full Application or desktop",
+  "font_sha256": "4b450afb2c61d7529fe05647316e9fc3137ea703a664bded5bca895a5c30748c",
+  "mode": "base",
+  "runtime_sha256": {
+    "tile_pick.py": "56834b2f73997f65bff955fc74ba48a0b43b3556cd67896bceed905913d3cb13",
+    "tile_popup.py": "79f9e8b03662a023e642a209594e65074eafbeac2cb7f8ba6ec051191ccbd656",
+    "help_screen.py": "4236731afe93a5449d79ef15b633f52def7f2f78ec0bfe49d0b96982721e4bc3",
+    "help_topics.py": "8c922feebe705bac1fda1243f5a28539319cb6ec4ce5acb1f21b626d9889f878",
+    "screen_draw.py": "082a3b0d67c61a0ad903adf4dae70847b4b67f3fedaa2f7ad83049942cbd0d28",
+    "message_overlay.py": "60ec398e580f54b43b6740ed127333ca5f6545bb8a1297bed28663ac8482c314",
+    "native_frame.py": "1ddef472fc701130a3d25246ebbbc5b266dfe8b383b7d20252b6b81b9a87fafa"
+  },
+  "python_sha256": "4236731afe93a5449d79ef15b633f52def7f2f78ec0bfe49d0b96982721e4bc3",
+  "last_command": "C",
+  "last_index": 36210,
+  "state_sha256": "b799a92fa1d12fc5000c9369d65ce8b3adf410d3ec866c3990bd2c804e9b0436",
+  "input_sha256": "5e65ea3389cc72b9da40e5683beae48fb0d2329620b7aa25ed1d9072cb054f20",
+  "compared_pixels": 2717798400
+}

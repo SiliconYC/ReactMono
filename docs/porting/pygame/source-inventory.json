@@ -18327,97 +18327,193 @@
       "id": "tools/screens/help.cpp:19",
       "declarator": "&categories()",
       "end_line": 46,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/help_topics.py::帮助目录_类.分类"
+      ],
+      "status": "已实现，直接原组件文字/画布/私有状态/声音/拾取/世界只读差分；正式应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_tile_popup.py",
+        "tests/test_help_screen.py",
+        "evidence/auxiliary-ui-differential.json",
+        "evidence/auxiliary-ui-resources.json"
+      ]
     },
     {
       "id": "tools/screens/help.cpp:58",
       "declarator": "HelpScreen::open(int x, int y)",
       "end_line": 65,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/help_screen.py::帮助屏幕_类.api_打开"
+      ],
+      "status": "已实现，直接原组件文字/画布/私有状态/声音/拾取/世界只读差分；正式应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_tile_popup.py",
+        "tests/test_help_screen.py",
+        "evidence/auxiliary-ui-differential.json",
+        "evidence/auxiliary-ui-resources.json"
+      ]
     },
     {
       "id": "tools/screens/help.cpp:67",
       "declarator": "HelpScreen::cancel(Host &host)",
       "end_line": 70,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/help_screen.py::帮助屏幕_类.api_取消"
+      ],
+      "status": "已实现，直接原组件文字/画布/私有状态/声音/拾取/世界只读差分；正式应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_tile_popup.py",
+        "tests/test_help_screen.py",
+        "evidence/auxiliary-ui-differential.json",
+        "evidence/auxiliary-ui-resources.json"
+      ]
     },
     {
       "id": "tools/screens/help.cpp:72",
       "declarator": "HelpScreen::select(Artwork &artwork, unsigned category, unsigned topic)",
       "end_line": 113,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/help_screen.py::帮助屏幕_类._选择"
+      ],
+      "status": "已实现，直接原组件文字/画布/私有状态/声音/拾取/世界只读差分；正式应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_tile_popup.py",
+        "tests/test_help_screen.py",
+        "evidence/auxiliary-ui-differential.json",
+        "evidence/auxiliary-ui-resources.json"
+      ]
     },
     {
       "id": "tools/screens/help.cpp:115",
       "declarator": "HelpScreen::scroll(int direction)",
       "end_line": 125,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/help_screen.py::帮助屏幕_类._滚动"
+      ],
+      "status": "已实现，直接原组件文字/画布/私有状态/声音/拾取/世界只读差分；正式应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_tile_popup.py",
+        "tests/test_help_screen.py",
+        "evidence/auxiliary-ui-differential.json",
+        "evidence/auxiliary-ui-resources.json"
+      ]
     },
     {
       "id": "tools/screens/help.cpp:127",
       "declarator": "HelpScreen::draw(Host &host)",
       "end_line": 195,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/help_screen.py::帮助屏幕_类.api_绘制"
+      ],
+      "status": "已实现，直接原组件文字/画布/私有状态/声音/拾取/世界只读差分；正式应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_tile_popup.py",
+        "tests/test_help_screen.py",
+        "evidence/auxiliary-ui-differential.json",
+        "evidence/auxiliary-ui-resources.json"
+      ]
     },
     {
       "id": "tools/screens/help.hpp:29",
       "declarator": "close() noexcept",
       "end_line": 29,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/help_screen.py::帮助屏幕_类.api_关闭"
+      ],
+      "status": "已实现，直接原组件文字/画布/私有状态/声音/拾取/世界只读差分；正式应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_tile_popup.py",
+        "tests/test_help_screen.py",
+        "evidence/auxiliary-ui-differential.json",
+        "evidence/auxiliary-ui-resources.json"
+      ]
     },
     {
       "id": "tools/screens/help.hpp:30",
       "declarator": "active() const noexcept",
       "end_line": 30,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/help_screen.py::帮助屏幕_类.api_活跃"
+      ],
+      "status": "已实现，直接原组件文字/画布/私有状态/声音/拾取/世界只读差分；正式应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_tile_popup.py",
+        "tests/test_help_screen.py",
+        "evidence/auxiliary-ui-differential.json",
+        "evidence/auxiliary-ui-resources.json"
+      ]
     },
     {
       "id": "tools/screens/help.hpp:34",
       "declarator": "category() const noexcept",
       "end_line": 34,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/help_screen.py::帮助屏幕_类._类别"
+      ],
+      "status": "已实现，直接原组件文字/画布/私有状态/声音/拾取/世界只读差分；正式应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_tile_popup.py",
+        "tests/test_help_screen.py",
+        "evidence/auxiliary-ui-differential.json",
+        "evidence/auxiliary-ui-resources.json"
+      ]
     },
     {
       "id": "tools/screens/help.hpp:35",
       "declarator": "topic() const noexcept",
       "end_line": 35,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/help_screen.py::帮助屏幕_类._话题"
+      ],
+      "status": "已实现，直接原组件文字/画布/私有状态/声音/拾取/世界只读差分；正式应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_tile_popup.py",
+        "tests/test_help_screen.py",
+        "evidence/auxiliary-ui-differential.json",
+        "evidence/auxiliary-ui-resources.json"
+      ]
     },
     {
       "id": "tools/screens/help.hpp:36",
       "declarator": "page() const noexcept",
       "end_line": 36,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/help_screen.py::帮助屏幕_类._页"
+      ],
+      "status": "已实现，直接原组件文字/画布/私有状态/声音/拾取/世界只读差分；正式应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_tile_popup.py",
+        "tests/test_help_screen.py",
+        "evidence/auxiliary-ui-differential.json",
+        "evidence/auxiliary-ui-resources.json"
+      ]
     },
     {
       "id": "tools/screens/help.hpp:37",
       "declarator": "page_count() const noexcept",
       "end_line": 37,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/help_screen.py::帮助屏幕_类._页表/len"
+      ],
+      "status": "已实现，直接原组件文字/画布/私有状态/声音/拾取/世界只读差分；正式应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_tile_popup.py",
+        "tests/test_help_screen.py",
+        "evidence/auxiliary-ui-differential.json",
+        "evidence/auxiliary-ui-resources.json"
+      ]
     },
     {
       "id": "tools/screens/intro.cpp:27",
@@ -22099,57 +22195,113 @@
       "id": "tools/screens/tile_popup.cpp:30",
       "declarator": "text(std::string_view big5_bytes)",
       "end_line": 32,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/native_ui.py::原生界面_类.api_繁中"
+      ],
+      "status": "已实现，直接原组件文字/画布/私有状态/声音/拾取/世界只读差分；正式应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_tile_popup.py",
+        "tests/test_help_screen.py",
+        "evidence/auxiliary-ui-differential.json",
+        "evidence/auxiliary-ui-resources.json"
+      ]
     },
     {
       "id": "tools/screens/tile_popup.cpp:33",
       "declarator": "player_name(const World &world, unsigned owner_code)",
       "end_line": 37,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tile_popup.py::地图提示_类._人名"
+      ],
+      "status": "已实现，直接原组件文字/画布/私有状态/声音/拾取/世界只读差分；正式应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_tile_popup.py",
+        "tests/test_help_screen.py",
+        "evidence/auxiliary-ui-differential.json",
+        "evidence/auxiliary-ui-resources.json"
+      ]
     },
     {
       "id": "tools/screens/tile_popup.cpp:38",
       "declarator": "times(std::int64_t value)",
       "end_line": 40,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tile_popup.py::地图提示_类.api_文字/f-string"
+      ],
+      "status": "已实现，直接原组件文字/画布/私有状态/声音/拾取/世界只读差分；正式应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_tile_popup.py",
+        "tests/test_help_screen.py",
+        "evidence/auxiliary-ui-differential.json",
+        "evidence/auxiliary-ui-resources.json"
+      ]
     },
     {
       "id": "tools/screens/tile_popup.cpp:45",
       "declarator": "inside(const board::Point &anchor, const Box &box, int x, int y)",
       "end_line": 48,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tile_pick.py::地图拾取_类.api_拾取/纳入"
+      ],
+      "status": "已实现，直接原组件文字/画布/私有状态/声音/拾取/世界只读差分；正式应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_tile_popup.py",
+        "tests/test_help_screen.py",
+        "evidence/auxiliary-ui-differential.json",
+        "evidence/auxiliary-ui-resources.json"
+      ]
     },
     {
       "id": "tools/screens/tile_popup.cpp:52",
       "declarator": "instance_at(const World &world, const board::Camera &camera, int x, int y)",
       "end_line": 119,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tile_pick.py::地图拾取_类.api_拾取"
+      ],
+      "status": "已实现，直接原组件文字/画布/私有状态/声音/拾取/世界只读差分；正式应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_tile_popup.py",
+        "tests/test_help_screen.py",
+        "evidence/auxiliary-ui-differential.json",
+        "evidence/auxiliary-ui-resources.json"
+      ]
     },
     {
       "id": "tools/screens/tile_popup.cpp:121",
       "declarator": "lines(const World &world, std::uint16_t code)",
       "end_line": 205,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tile_popup.py::地图提示_类.api_文字"
+      ],
+      "status": "已实现，直接原组件文字/画布/私有状态/声音/拾取/世界只读差分；正式应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_tile_popup.py",
+        "tests/test_help_screen.py",
+        "evidence/auxiliary-ui-differential.json",
+        "evidence/auxiliary-ui-resources.json"
+      ]
     },
     {
       "id": "tools/screens/tile_popup.cpp:207",
       "declarator": "draw(Frame &frame, const World &world, const Popup &popup)",
       "end_line": 224,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/tile_popup.py::地图提示_类.api_绘制"
+      ],
+      "status": "已实现，直接原组件文字/画布/私有状态/声音/拾取/世界只读差分；正式应用未验",
+      "evidence": [
+        "AUXILIARY_UI.md",
+        "tests/test_tile_popup.py",
+        "tests/test_help_screen.py",
+        "evidence/auxiliary-ui-differential.json",
+        "evidence/auxiliary-ui-resources.json"
+      ]
     },
     {
       "id": "tools/screens/voices.hpp:60",

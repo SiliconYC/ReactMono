@@ -1,0 +1,23 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "failed",
+  "commands": 2,
+  "painted_frames": 0,
+  "scope": "direct original HelpScreen and tile_popup, external real maps/art/font, complete text/pages/buttons/sounds and World DAT read-only, source bounding-box picking approximation; not full Application or desktop",
+  "font_sha256": "4b450afb2c61d7529fe05647316e9fc3137ea703a664bded5bca895a5c30748c",
+  "mode": "smoke",
+  "runtime_sha256": {
+    "tile_pick.py": "56834b2f73997f65bff955fc74ba48a0b43b3556cd67896bceed905913d3cb13",
+    "tile_popup.py": "60436d9d5f45ee7396547324643314435a97542b20b96b6a6e0ca77c1d32505e",
+    "help_screen.py": "4236731afe93a5449d79ef15b633f52def7f2f78ec0bfe49d0b96982721e4bc3",
+    "help_topics.py": "8c922feebe705bac1fda1243f5a28539319cb6ec4ce5acb1f21b626d9889f878",
+    "screen_draw.py": "082a3b0d67c61a0ad903adf4dae70847b4b67f3fedaa2f7ad83049942cbd0d28",
+    "message_overlay.py": "60ec398e580f54b43b6740ed127333ca5f6545bb8a1297bed28663ac8482c314",
+    "native_frame.py": "1ddef472fc701130a3d25246ebbbc5b266dfe8b383b7d20252b6b81b9a87fafa"
+  },
+  "python_sha256": "4236731afe93a5449d79ef15b633f52def7f2f78ec0bfe49d0b96982721e4bc3",
+  "last_command": "T 2001 220 240",
+  "last_index": 2,
+  "failure_command": "T 2001 220 240",
+  "failure": "step=2 pixel=234,124"
+}
