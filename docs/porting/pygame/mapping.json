@@ -8092,5 +8092,170 @@
       "evidence/game-session-autopilot-differential.json",
       "evidence/game-session-human-differential.json"
     ]
+  },
+  "tools/native_ui.hpp:62": {
+    "python": [
+      "pygame/src/rich4/native_ui.py::原生界面_类.api_繁中"
+    ],
+    "status": "已实现，同字体/FreeType自动差分",
+    "evidence": [
+      "tests/test_native_ui.py",
+      "NATIVE_UI.md",
+      "evidence/native-ui-differential.json"
+    ]
+  },
+  "tools/native_ui.hpp:90": {
+    "python": [
+      "pygame/src/rich4/native_ui.py::原生界面_类.api_码点"
+    ],
+    "status": "已实现，同字体/FreeType自动差分",
+    "evidence": [
+      "tests/test_native_ui.py",
+      "NATIVE_UI.md",
+      "evidence/native-ui-differential.json"
+    ]
+  },
+  "tools/native_ui.hpp:122": {
+    "python": [
+      "pygame/src/rich4/native_ui.py::原生界面_类.api_颜色"
+    ],
+    "status": "已实现，同字体/FreeType自动差分",
+    "evidence": [
+      "tests/test_native_ui.py",
+      "NATIVE_UI.md",
+      "evidence/native-ui-differential.json"
+    ]
+  },
+  "tools/native_ui.hpp:129": {
+    "python": [
+      "pygame/src/rich4/native_ui.py::原生界面_类.api_玩家色"
+    ],
+    "status": "已实现，同字体/FreeType自动差分",
+    "evidence": [
+      "tests/test_native_ui.py",
+      "NATIVE_UI.md",
+      "evidence/native-ui-differential.json"
+    ]
+  },
+  "tools/native_ui.hpp:136": {
+    "python": [
+      "pygame/src/rich4/native_ui.py::原生界面_类.api_填充"
+    ],
+    "status": "已实现，同字体/FreeType自动差分",
+    "evidence": [
+      "tests/test_native_ui.py",
+      "NATIVE_UI.md",
+      "evidence/native-ui-differential.json"
+    ]
+  },
+  "tools/native_ui.hpp:148": {
+    "python": [
+      "pygame/src/rich4/native_ui.py::原生界面_类.api_边框"
+    ],
+    "status": "已实现，同字体/FreeType自动差分",
+    "evidence": [
+      "tests/test_native_ui.py",
+      "NATIVE_UI.md",
+      "evidence/native-ui-differential.json"
+    ]
+  },
+  "tools/native_ui.hpp:155": {
+    "python": [
+      "pygame/src/rich4/native_ui.py::原生界面_类.api_包含"
+    ],
+    "status": "已实现，同字体/FreeType自动差分",
+    "evidence": [
+      "tests/test_native_ui.py",
+      "NATIVE_UI.md",
+      "evidence/native-ui-differential.json"
+    ]
+  },
+  "tools/native_ui.hpp:173": {
+    "python": [
+      "pygame/src/rich4/native_ui.py::字体_类.__init__"
+    ],
+    "status": "已实现，同字体/FreeType自动差分",
+    "evidence": [
+      "tests/test_native_ui.py",
+      "NATIVE_UI.md",
+      "evidence/native-ui-differential.json"
+    ]
+  },
+  "tools/native_ui.hpp:181": {
+    "python": [
+      "pygame/src/rich4/native_ui.py::字体_类.api_关闭"
+    ],
+    "status": "已实现，同字体/FreeType自动差分",
+    "evidence": [
+      "tests/test_native_ui.py",
+      "NATIVE_UI.md",
+      "evidence/native-ui-differential.json"
+    ]
+  },
+  "tools/native_ui.hpp:188": {
+    "python": [
+      "pygame/src/rich4/native_ui.py::字体_类.api_测量"
+    ],
+    "status": "已实现，同字体/FreeType自动差分",
+    "evidence": [
+      "tests/test_native_ui.py",
+      "NATIVE_UI.md",
+      "evidence/native-ui-differential.json"
+    ]
+  },
+  "tools/native_ui.hpp:282": {
+    "python": [
+      "pygame/src/rich4/native_ui.py::字体_类.api_绘块"
+    ],
+    "status": "已实现，同字体/FreeType自动差分",
+    "evidence": [
+      "tests/test_native_ui.py",
+      "NATIVE_UI.md",
+      "evidence/native-ui-differential.json"
+    ]
+  },
+  "tools/native_ui.hpp:197": {
+    "python": [
+      "pygame/src/rich4/native_ui.py::字体_类.api_墨框"
+    ],
+    "status": "已实现，同字体/FreeType自动差分",
+    "evidence": [
+      "tests/test_native_ui.py",
+      "NATIVE_UI.md",
+      "evidence/native-ui-differential.json"
+    ]
+  },
+  "tools/native_ui.hpp:218": {
+    "python": [
+      "pygame/src/rich4/native_ui.py::字体_类.api_绘制"
+    ],
+    "status": "已实现，同字体/FreeType自动差分",
+    "evidence": [
+      "tests/test_native_ui.py",
+      "NATIVE_UI.md",
+      "evidence/native-ui-differential.json"
+    ]
+  },
+  "tools/native_ui.hpp:263": {
+    "python": [
+      "pygame/src/rich4/native_ui.py::字体_类.api_块范围"
+    ],
+    "status": "已实现，同字体/FreeType自动差分",
+    "evidence": [
+      "tests/test_native_ui.py",
+      "NATIVE_UI.md",
+      "evidence/native-ui-differential.json"
+    ]
+  },
+  "tools/native_ui.hpp:322": {
+    "python": [
+      "pygame/src/rich4/native_ui.py::字体_类._字形"
+    ],
+    "status": "已实现，同字体/FreeType自动差分",
+    "evidence": [
+      "tests/test_native_ui.py",
+      "NATIVE_UI.md",
+      "evidence/native-ui-differential.json"
+    ]
   }
 }

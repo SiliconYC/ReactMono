@@ -15539,73 +15539,127 @@
       "id": "tools/native_ui.hpp:62",
       "declarator": "big5(std::string_view input)",
       "end_line": 88,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/native_ui.py::原生界面_类.api_繁中"
+      ],
+      "status": "已实现，同字体/FreeType自动差分",
+      "evidence": [
+        "tests/test_native_ui.py",
+        "NATIVE_UI.md",
+        "evidence/native-ui-differential.json"
+      ]
     },
     {
       "id": "tools/native_ui.hpp:90",
       "declarator": "codepoints(std::string_view text)",
       "end_line": 120,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/native_ui.py::原生界面_类.api_码点"
+      ],
+      "status": "已实现，同字体/FreeType自动差分",
+      "evidence": [
+        "tests/test_native_ui.py",
+        "NATIVE_UI.md",
+        "evidence/native-ui-differential.json"
+      ]
     },
     {
       "id": "tools/native_ui.hpp:122",
       "declarator": "color(unsigned r, unsigned g, unsigned b)",
       "end_line": 124,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/native_ui.py::原生界面_类.api_颜色"
+      ],
+      "status": "已实现，同字体/FreeType自动差分",
+      "evidence": [
+        "tests/test_native_ui.py",
+        "NATIVE_UI.md",
+        "evidence/native-ui-differential.json"
+      ]
     },
     {
       "id": "tools/native_ui.hpp:129",
       "declarator": "player_color(std::uint32_t rgb)",
       "end_line": 131,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/native_ui.py::原生界面_类.api_玩家色"
+      ],
+      "status": "已实现，同字体/FreeType自动差分",
+      "evidence": [
+        "tests/test_native_ui.py",
+        "NATIVE_UI.md",
+        "evidence/native-ui-differential.json"
+      ]
     },
     {
       "id": "tools/native_ui.hpp:136",
       "declarator": "fill(graphics::Image &image, graphics::Rect rect, std::uint16_t value)",
       "end_line": 146,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/native_ui.py::原生界面_类.api_填充"
+      ],
+      "status": "已实现，同字体/FreeType自动差分",
+      "evidence": [
+        "tests/test_native_ui.py",
+        "NATIVE_UI.md",
+        "evidence/native-ui-differential.json"
+      ]
     },
     {
       "id": "tools/native_ui.hpp:148",
       "declarator": "border(graphics::Image &image, graphics::Rect rect, std::uint16_t value)",
       "end_line": 153,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/native_ui.py::原生界面_类.api_边框"
+      ],
+      "status": "已实现，同字体/FreeType自动差分",
+      "evidence": [
+        "tests/test_native_ui.py",
+        "NATIVE_UI.md",
+        "evidence/native-ui-differential.json"
+      ]
     },
     {
       "id": "tools/native_ui.hpp:155",
       "declarator": "contains(graphics::Rect rect, int x, int y)",
       "end_line": 157,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/native_ui.py::原生界面_类.api_包含"
+      ],
+      "status": "已实现，同字体/FreeType自动差分",
+      "evidence": [
+        "tests/test_native_ui.py",
+        "NATIVE_UI.md",
+        "evidence/native-ui-differential.json"
+      ]
     },
     {
       "id": "tools/native_ui.hpp:173",
       "declarator": "Font(const std::filesystem::path &path)",
       "end_line": 180,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/native_ui.py::字体_类.__init__"
+      ],
+      "status": "已实现，同字体/FreeType自动差分",
+      "evidence": [
+        "tests/test_native_ui.py",
+        "NATIVE_UI.md",
+        "evidence/native-ui-differential.json"
+      ]
     },
     {
       "id": "tools/native_ui.hpp:181",
       "declarator": "~Font()",
       "end_line": 184,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/native_ui.py::字体_类.api_关闭"
+      ],
+      "status": "已实现，同字体/FreeType自动差分",
+      "evidence": [
+        "tests/test_native_ui.py",
+        "NATIVE_UI.md",
+        "evidence/native-ui-differential.json"
+      ]
     },
     {
       "id": "tools/native_ui.hpp:185",
@@ -15627,49 +15681,85 @@
       "id": "tools/native_ui.hpp:188",
       "declarator": "measure(std::string_view text, int size = 16, bool monochrome = false)",
       "end_line": 193,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/native_ui.py::字体_类.api_测量"
+      ],
+      "status": "已实现，同字体/FreeType自动差分",
+      "evidence": [
+        "tests/test_native_ui.py",
+        "NATIVE_UI.md",
+        "evidence/native-ui-differential.json"
+      ]
     },
     {
       "id": "tools/native_ui.hpp:197",
       "declarator": "ink_bounds(std::string_view text, int size = 16, int spacing = 0, bool monochrome = false)",
       "end_line": 216,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/native_ui.py::字体_类.api_墨框"
+      ],
+      "status": "已实现，同字体/FreeType自动差分",
+      "evidence": [
+        "tests/test_native_ui.py",
+        "NATIVE_UI.md",
+        "evidence/native-ui-differential.json"
+      ]
     },
     {
       "id": "tools/native_ui.hpp:218",
       "declarator": "draw(graphics::Image &image, std::string_view text, int x, int y, int size = 16,\n              std::uint16_t value = ink, int wrap_width = 0, bool monochrome = false)",
       "end_line": 256,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/native_ui.py::字体_类.api_绘制"
+      ],
+      "status": "已实现，同字体/FreeType自动差分",
+      "evidence": [
+        "tests/test_native_ui.py",
+        "NATIVE_UI.md",
+        "evidence/native-ui-differential.json"
+      ]
     },
     {
       "id": "tools/native_ui.hpp:263",
       "declarator": "measure_block(std::string_view text, const TextStyle &style)",
       "end_line": 279,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/native_ui.py::字体_类.api_块范围"
+      ],
+      "status": "已实现，同字体/FreeType自动差分",
+      "evidence": [
+        "tests/test_native_ui.py",
+        "NATIVE_UI.md",
+        "evidence/native-ui-differential.json"
+      ]
     },
     {
       "id": "tools/native_ui.hpp:282",
       "declarator": "draw_block(graphics::Image &image, std::string_view text, int x, int y, const TextStyle &style,\n                    bool centred = false)",
       "end_line": 313,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/native_ui.py::字体_类.api_绘块"
+      ],
+      "status": "已实现，同字体/FreeType自动差分",
+      "evidence": [
+        "tests/test_native_ui.py",
+        "NATIVE_UI.md",
+        "evidence/native-ui-differential.json"
+      ]
     },
     {
       "id": "tools/native_ui.hpp:322",
       "declarator": "&glyph(char32_t character, int size, bool monochrome = false)",
       "end_line": 348,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/native_ui.py::字体_类._字形"
+      ],
+      "status": "已实现，同字体/FreeType自动差分",
+      "evidence": [
+        "tests/test_native_ui.py",
+        "NATIVE_UI.md",
+        "evidence/native-ui-differential.json"
+      ]
     },
     {
       "id": "tools/native_ui.hpp:354",
