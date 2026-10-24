@@ -10223,5 +10223,218 @@
       "tests/test_monthly_screen.py",
       "evidence/monthly-screen-differential.json"
     ]
+  },
+  "tools/screens/finance.cpp:41": {
+    "python": [
+      "pygame/src/rich4/number_pad.py::数字板_类._按键"
+    ],
+    "status": "已实现，原数字板组件自动差分；完整金融接线未验",
+    "evidence": [
+      "NUMBER_PAD.md",
+      "tests/test_number_pad.py",
+      "evidence/number-pad-differential.json"
+    ]
+  },
+  "tools/screens/finance.cpp:46": {
+    "python": [
+      "pygame/src/rich4/number_pad.py::数字板_类.api_绘制"
+    ],
+    "status": "已实现，原数字板组件自动差分；完整金融接线未验",
+    "evidence": [
+      "NUMBER_PAD.md",
+      "tests/test_number_pad.py",
+      "evidence/number-pad-differential.json"
+    ]
+  },
+  "tools/screens/finance.cpp:54": {
+    "python": [
+      "pygame/src/rich4/number_pad.py::数字板_类._解析"
+    ],
+    "status": "已实现，原数字板组件自动差分；完整金融接线未验",
+    "evidence": [
+      "NUMBER_PAD.md",
+      "tests/test_number_pad.py",
+      "evidence/number-pad-differential.json"
+    ]
+  },
+  "tools/screens/finance.cpp:64": {
+    "python": [
+      "pygame/src/rich4/number_pad.py::数字板_类._按键"
+    ],
+    "status": "已实现，原数字板组件自动差分；完整金融接线未验",
+    "evidence": [
+      "NUMBER_PAD.md",
+      "tests/test_number_pad.py",
+      "evidence/number-pad-differential.json"
+    ]
+  },
+  "tools/screens/finance.cpp:93": {
+    "python": [
+      "pygame/src/rich4/number_pad.py::数字板_类.api_数字号"
+    ],
+    "status": "已实现，原数字板组件自动差分；完整金融接线未验",
+    "evidence": [
+      "NUMBER_PAD.md",
+      "tests/test_number_pad.py",
+      "evidence/number-pad-differential.json"
+    ]
+  },
+  "tools/screens/finance.cpp:104": {
+    "python": [
+      "pygame/src/rich4/number_pad.py::数字板_类.api_打开"
+    ],
+    "status": "已实现，原数字板组件自动差分；完整金融接线未验",
+    "evidence": [
+      "NUMBER_PAD.md",
+      "tests/test_number_pad.py",
+      "evidence/number-pad-differential.json"
+    ]
+  },
+  "tools/screens/finance.cpp:115": {
+    "python": [
+      "pygame/src/rich4/number_pad.py::数字板_类.api_值"
+    ],
+    "status": "已实现，原数字板组件自动差分；完整金融接线未验",
+    "evidence": [
+      "NUMBER_PAD.md",
+      "tests/test_number_pad.py",
+      "evidence/number-pad-differential.json"
+    ]
+  },
+  "tools/screens/finance.cpp:119": {
+    "python": [
+      "pygame/src/rich4/number_pad.py::数字板_类._按键"
+    ],
+    "status": "已实现，原数字板组件自动差分；完整金融接线未验",
+    "evidence": [
+      "NUMBER_PAD.md",
+      "tests/test_number_pad.py",
+      "evidence/number-pad-differential.json"
+    ]
+  },
+  "tools/screens/finance.cpp:141": {
+    "python": [
+      "pygame/src/rich4/number_pad.py::数字板_类._量尺"
+    ],
+    "status": "已实现，原数字板组件自动差分；完整金融接线未验",
+    "evidence": [
+      "NUMBER_PAD.md",
+      "tests/test_number_pad.py",
+      "evidence/number-pad-differential.json"
+    ]
+  },
+  "tools/screens/finance.cpp:147": {
+    "python": [
+      "pygame/src/rich4/number_pad.py::数字板_类.api_取消"
+    ],
+    "status": "已实现，原数字板组件自动差分；完整金融接线未验",
+    "evidence": [
+      "NUMBER_PAD.md",
+      "tests/test_number_pad.py",
+      "evidence/number-pad-differential.json"
+    ]
+  },
+  "tools/screens/finance.cpp:159": {
+    "python": [
+      "pygame/src/rich4/number_pad.py::数字板_类.api_键"
+    ],
+    "status": "已实现，原数字板组件自动差分；完整金融接线未验",
+    "evidence": [
+      "NUMBER_PAD.md",
+      "tests/test_number_pad.py",
+      "evidence/number-pad-differential.json"
+    ]
+  },
+  "tools/screens/finance.cpp:186": {
+    "python": [
+      "pygame/src/rich4/number_pad.py::数字板_类.api_下一键"
+    ],
+    "status": "已实现，原数字板组件自动差分；完整金融接线未验",
+    "evidence": [
+      "NUMBER_PAD.md",
+      "tests/test_number_pad.py",
+      "evidence/number-pad-differential.json"
+    ]
+  },
+  "tools/screens/finance.cpp:197": {
+    "python": [
+      "pygame/src/rich4/number_pad.py::数字板_类.api_绘制"
+    ],
+    "status": "已实现，原数字板组件自动差分；完整金融接线未验",
+    "evidence": [
+      "NUMBER_PAD.md",
+      "tests/test_number_pad.py",
+      "evidence/number-pad-differential.json"
+    ]
+  },
+  "tools/screens/finance.hpp:52": {
+    "python": [
+      "pygame/src/rich4/number_pad.py::数字板_类.api_缩放"
+    ],
+    "status": "已实现，组件自动差分",
+    "evidence": [
+      "NUMBER_PAD.md",
+      "evidence/number-pad-differential.json"
+    ]
+  },
+  "tools/screens/finance.hpp:55": {
+    "python": [
+      "pygame/src/rich4/number_pad.py::数字板_类.api_比例"
+    ],
+    "status": "已实现，组件自动差分",
+    "evidence": [
+      "NUMBER_PAD.md",
+      "evidence/number-pad-differential.json"
+    ]
+  },
+  "tools/screens/finance.hpp:59": {
+    "python": [
+      "pygame/src/rich4/number_pad.py::数字板_类.api_提示顶"
+    ],
+    "status": "已实现，组件自动差分",
+    "evidence": [
+      "NUMBER_PAD.md",
+      "evidence/number-pad-differential.json"
+    ]
+  },
+  "tools/screens/finance.hpp:62": {
+    "python": [
+      "pygame/src/rich4/number_pad.py::数字板_类.api_关闭"
+    ],
+    "status": "已实现，组件自动差分",
+    "evidence": [
+      "NUMBER_PAD.md",
+      "evidence/number-pad-differential.json"
+    ]
+  },
+  "tools/screens/finance.hpp:65": {
+    "python": [
+      "pygame/src/rich4/number_pad.py::数字板_类.api_活跃"
+    ],
+    "status": "已实现，组件自动差分",
+    "evidence": [
+      "NUMBER_PAD.md",
+      "evidence/number-pad-differential.json"
+    ]
+  },
+  "tools/screens/finance.hpp:69": {
+    "python": [
+      "pygame/src/rich4/number_pad.py::数字板_类.api_上限"
+    ],
+    "status": "已实现，组件自动差分",
+    "evidence": [
+      "NUMBER_PAD.md",
+      "evidence/number-pad-differential.json"
+    ]
+  },
+  "tools/screens/finance.hpp:72": {
+    "python": [
+      "pygame/src/rich4/number_pad.py::数字板_类.api_数字"
+    ],
+    "status": "已实现，组件自动差分",
+    "evidence": [
+      "NUMBER_PAD.md",
+      "evidence/number-pad-differential.json"
+    ]
   }
 }
