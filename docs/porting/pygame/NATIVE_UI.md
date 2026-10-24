@@ -118,3 +118,7 @@ uv run --project pygame python pygame/tools/benchmark_main_screen.py \
 ## 股票组件增量（2026-10-24）
 
 原Panel75的完整报价/持仓/资讯图表和红黑卡目标已对照911实际画布；binary32边界、当前玩家持股和失败修复见 [股票屏幕](STOCK_SCREENS.md)。正式交易与完整窗口接线仍待验。
+
+## 设施与托管组件增量（2026-10-24）
+
+原五设施条、改建取消与四人托管编辑已逐画布/状态/声音请求验证4872次；副本、门控和异常边界见 [设施与托管](FACILITY_AI_UI.md)。
