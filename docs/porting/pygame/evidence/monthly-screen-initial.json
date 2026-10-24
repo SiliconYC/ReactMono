@@ -1,0 +1,215 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 1463,
+  "painted_frames": 1388,
+  "episodes": [
+    {
+      "map": 0,
+      "kind": 14,
+      "character_base": 0,
+      "active": 15,
+      "variant": 0,
+      "tap": false,
+      "painted_frames": 4
+    },
+    {
+      "map": 1,
+      "kind": 15,
+      "character_base": 0,
+      "active": 15,
+      "variant": 0,
+      "tap": false,
+      "painted_frames": 489
+    },
+    {
+      "map": 7,
+      "kind": 15,
+      "character_base": 0,
+      "active": 10,
+      "variant": 1,
+      "tap": false,
+      "painted_frames": 443
+    },
+    {
+      "map": 0,
+      "kind": 16,
+      "character_base": 0,
+      "active": 15,
+      "variant": 0,
+      "tap": false,
+      "painted_frames": 452
+    }
+  ],
+  "scope": "direct original MonthlyScreens, explicit figures; real assets/fonts/PE, full private state and movie buffer fingerprints; not natural events, audible playback or full app",
+  "font_sha256": "4b450afb2c61d7529fe05647316e9fc3137ea703a664bded5bca895a5c30748c",
+  "movies_preflight": [
+    {
+      "archive": "p",
+      "entry": 16,
+      "frames": 42,
+      "decoded_sha256": "5176fe48b63556c379d78448ff788b46c41907a792deb2eb0f6414aa0f6d30a9"
+    },
+    {
+      "archive": "p",
+      "entry": 17,
+      "frames": 37,
+      "decoded_sha256": "ee4cec7405a3cd170ddabe9149321b666c26c9322569d847e1c8f5a6b4948887"
+    },
+    {
+      "archive": "d",
+      "entry": 416,
+      "frames": 10,
+      "decoded_sha256": "409fd6aab626676e175321a0faab8e1f024a4af5751d19c825b6597f13ec5b71"
+    },
+    {
+      "archive": "d",
+      "entry": 417,
+      "frames": 23,
+      "decoded_sha256": "a15794a1bdbb1a29f2e4a188b1ff74b8877674d9b84737bada793a028de87382"
+    },
+    {
+      "archive": "d",
+      "entry": 418,
+      "frames": 10,
+      "decoded_sha256": "799c320120236b893ac95dcf5b5b458f4e5c7e0067b838558b14c55ecbf93d96"
+    },
+    {
+      "archive": "d",
+      "entry": 419,
+      "frames": 8,
+      "decoded_sha256": "df3ccc735ed327fd5bc7276f011999e245f5ded65c0bc4cf2aad4f15cd0ba72a"
+    },
+    {
+      "archive": "d",
+      "entry": 420,
+      "frames": 6,
+      "decoded_sha256": "bbaa5e1e7416a1f01a2d663abbc2a2efa3d729f4f4f07b3bb93ef27a0900ee01"
+    },
+    {
+      "archive": "d",
+      "entry": 421,
+      "frames": 10,
+      "decoded_sha256": "b3b5ab0c028a747e4d2e0f5977a369c4f9b1fb91593fda8ed5737e485d7356a6"
+    },
+    {
+      "archive": "d",
+      "entry": 422,
+      "frames": 6,
+      "decoded_sha256": "b97e982c38801f958f7f40d9aa2986f42c4fcaa362bd8dccc2d4f346be5f4da8"
+    },
+    {
+      "archive": "d",
+      "entry": 423,
+      "frames": 6,
+      "decoded_sha256": "ba9d38b4c8361482aaa58892ed3920a1744861fafb05ff568763a8c9e91432de"
+    },
+    {
+      "archive": "d",
+      "entry": 424,
+      "frames": 10,
+      "decoded_sha256": "0bf325396ee34d5940a3534546f685dcacb44f6fe26a24d91f9a86699b586ac2"
+    },
+    {
+      "archive": "d",
+      "entry": 425,
+      "frames": 8,
+      "decoded_sha256": "38702f6b3260646eca1b7d4a455fa2d93063ff3c1c2fe295c6ffa396efd65df4"
+    },
+    {
+      "archive": "d",
+      "entry": 426,
+      "frames": 16,
+      "decoded_sha256": "def619a65558f1a9559790d84261249e7bab4a331289bc171864e0a42917197e"
+    },
+    {
+      "archive": "d",
+      "entry": 427,
+      "frames": 21,
+      "decoded_sha256": "81871b18f4345f3fc6fabd0ea8c92646ce2c47f8cba3f78a0f23ba8b9d915bcd"
+    },
+    {
+      "archive": "d",
+      "entry": 428,
+      "frames": 5,
+      "decoded_sha256": "0ef3dcfb6c151765e9dfc46a73332ed112f017fc96f2e80f6c679dbe1b0024d7"
+    },
+    {
+      "archive": "d",
+      "entry": 429,
+      "frames": 8,
+      "decoded_sha256": "e28ba7ef2c20a0ce17d5a579cd02b597ad7e9b454d999d8389126e163035ef04"
+    },
+    {
+      "archive": "d",
+      "entry": 430,
+      "frames": 21,
+      "decoded_sha256": "e7b834135e4a6b0976b729b6b91757c7f502b55285e34414d7c72a15dbe5ea8b"
+    },
+    {
+      "archive": "d",
+      "entry": 431,
+      "frames": 32,
+      "decoded_sha256": "b4c4d3145aff1515ffe16bb033e41cfeb98fd50b769ceacd5632131c76afde1a"
+    },
+    {
+      "archive": "d",
+      "entry": 432,
+      "frames": 11,
+      "decoded_sha256": "291dc8481a7ff98eecd790d09acb198cf8da840d9d7f8f65e667b2771c2d74e7"
+    },
+    {
+      "archive": "d",
+      "entry": 433,
+      "frames": 20,
+      "decoded_sha256": "01b31653e1df9fa6cb6513fc76bcca3b873b76a59e19ddbd7051aa651a4378fc"
+    },
+    {
+      "archive": "d",
+      "entry": 434,
+      "frames": 8,
+      "decoded_sha256": "88e1f65152e2487341794fa2df20562d64b0183fd86230df1fb20e41d17dea1d"
+    },
+    {
+      "archive": "d",
+      "entry": 435,
+      "frames": 12,
+      "decoded_sha256": "3c14b80cde6ca8a8e0ee466baa6dff13c3bc57495e737caf21d03d5793267d4b"
+    },
+    {
+      "archive": "d",
+      "entry": 436,
+      "frames": 15,
+      "decoded_sha256": "a3dd83b32d4611dc12d462e59c418901f33169d3f731a033d67fbe0d19bdd8c6"
+    },
+    {
+      "archive": "d",
+      "entry": 437,
+      "frames": 8,
+      "decoded_sha256": "799f52062f6cd6a03a6bb474d5ca296f206391b8fb5a4d837b4e69e9403621c6"
+    },
+    {
+      "archive": "d",
+      "entry": 438,
+      "frames": 16,
+      "decoded_sha256": "2f696982c8f02e4de897ff66eacc0bd35f9b90dca20f4d83d8871f59824a9b73"
+    },
+    {
+      "archive": "d",
+      "entry": 439,
+      "frames": 21,
+      "decoded_sha256": "2b1d804d5fd6261d33f3a852bb6c2125bc89df96ede4ddf1e3f59a21ed5c1f6c"
+    }
+  ],
+  "python_sha256": {
+    "monthly_tables.py": "809c96667bbc0c11b5f9307313cc08a2160b8f927b08ddd3b4eb4af7021485d9",
+    "monthly_lottery.py": "1900dfafbdd797c3e62e71aadaefe1352e909bf5f479e6990652e207a61f0d1f",
+    "monthly_common.py": "a03f6c2c187626e04085b0f207695994448fd67bb8cee6ac2df1f0179b045c35",
+    "monthly_report.py": "e8ae2a834f69ee5c324f2f5e55cec7c41833b18a3b6cd96d8d4786e8f19b4e49",
+    "monthly_types.py": "a57d1b1baf5fb46e965a576c8f3b7445571f5be1f2432ab5a6b312a5f9496769",
+    "monthly_screen.py": "77ee3ba7d2d22fe357ff780b175754e48f1a58c1e7f40c0a796c8ccdfdce73b3"
+  },
+  "state_sha256": "a53840071a1cf20bfa0e413f90debfedf480fe0fba316fb061e74cd6aa1f5395",
+  "input_sha256": "322c7d9319594a89168e146e3c1c77ef1a792d920fade7a052912ea89785544b",
+  "compared_pixels": 426393600
+}

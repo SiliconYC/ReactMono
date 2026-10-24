@@ -1,0 +1,11 @@
+{
+  "samples": 10,
+  "warmup": 5,
+  "median_ms": 2.694083,
+  "p95_ms": 3.157833,
+  "platform": "macOS-14.5-arm64-arm-64bit",
+  "python": "3.12.13",
+  "scope": "four real lottery ticket rectangles, kernel CPU only, patterned RGB555 input reset each frame; not full game FPS",
+  "source_sha256": "082a3b0d67c61a0ad903adf4dae70847b4b67f3fedaa2f7ad83049942cbd0d28",
+  "state_sha256": "5f46f22193af191eba6b2f1a8af64d5a34ae40fd9030f89b2212cf5ef10cebb6"
+}

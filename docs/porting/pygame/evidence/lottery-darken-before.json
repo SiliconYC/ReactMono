@@ -1,0 +1,8 @@
+{
+  "samples": 10,
+  "median_ms": 34.354395499999995,
+  "p95_ms": 35.467666,
+  "scope": "four real lottery ticket rectangles, kernel CPU only, patterned RGB555 input reset each frame; not full game FPS",
+  "source_sha256": "8455f3dd3aefde1b65e2e2c8ca1bad851814a128904d18fe3170be67e3d1ef62",
+  "state_sha256": "5f46f22193af191eba6b2f1a8af64d5a34ae40fd9030f89b2212cf5ef10cebb6"
+}
