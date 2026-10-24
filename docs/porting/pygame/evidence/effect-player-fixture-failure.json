@@ -1,0 +1,638 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "failed",
+  "scope": "direct fixed EffectPlayer with real sprites/FLC/board, explicit fixtures; no natural or desktop acceptance",
+  "episodes": [
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 0,
+      "object": 0,
+      "commands": 4
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 1,
+      "object": 0,
+      "commands": 70
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 2,
+      "object": 0,
+      "commands": 72
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 3,
+      "object": 16,
+      "commands": 20
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 4,
+      "object": 0,
+      "commands": 26
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 5,
+      "object": 0,
+      "commands": 34
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 6,
+      "object": 0,
+      "commands": 14
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 7,
+      "object": 0,
+      "commands": 80
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 8,
+      "object": 0,
+      "commands": 34
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 9,
+      "object": 1,
+      "commands": 27
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 10,
+      "object": 0,
+      "commands": 14
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 11,
+      "object": 0,
+      "commands": 14
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 12,
+      "object": 0,
+      "commands": 4
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 13,
+      "object": 0,
+      "commands": 4
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 14,
+      "object": 0,
+      "commands": 4
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 15,
+      "object": 0,
+      "commands": 4
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 16,
+      "object": 0,
+      "commands": 4
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 17,
+      "object": 0,
+      "commands": 66
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 18,
+      "object": 0,
+      "commands": 39
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 19,
+      "object": 0,
+      "commands": 22
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 20,
+      "object": 0,
+      "commands": 48
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 21,
+      "object": 0,
+      "commands": 50
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 22,
+      "object": 0,
+      "commands": 44
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 23,
+      "object": 0,
+      "commands": 38
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 24,
+      "object": 4,
+      "commands": 46
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 25,
+      "object": 0,
+      "commands": 20
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 26,
+      "object": 0,
+      "commands": 18
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 27,
+      "object": 0,
+      "commands": 18
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 28,
+      "object": 3,
+      "commands": 20
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 29,
+      "object": 0,
+      "commands": 70
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 30,
+      "object": 0,
+      "commands": 94
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 31,
+      "object": 0,
+      "commands": 4
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 32,
+      "object": 1,
+      "commands": 64
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 9,
+      "object": 2,
+      "commands": 27
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 9,
+      "object": 3,
+      "commands": 33
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 9,
+      "object": 4,
+      "commands": 41
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 9,
+      "object": 5,
+      "commands": 34
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 9,
+      "object": 6,
+      "commands": 36
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 9,
+      "object": 7,
+      "commands": 20
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 9,
+      "object": 8,
+      "commands": 25
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 9,
+      "object": 9,
+      "commands": 22
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 9,
+      "object": 10,
+      "commands": 18
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 9,
+      "object": 12,
+      "commands": 29
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 9,
+      "object": 15,
+      "commands": 21
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 24,
+      "object": 5,
+      "commands": 50
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 24,
+      "object": 15,
+      "commands": 45
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 24,
+      "object": 20,
+      "commands": 19
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 24,
+      "object": 21,
+      "commands": 19
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 23,
+      "object": 1,
+      "commands": 39
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 23,
+      "object": 2,
+      "commands": 38
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 23,
+      "object": 3,
+      "commands": 43
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 23,
+      "object": 4,
+      "commands": 34
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 23,
+      "object": 5,
+      "commands": 44
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 23,
+      "object": 6,
+      "commands": 37
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 23,
+      "object": 7,
+      "commands": 43
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 23,
+      "object": 8,
+      "commands": 34
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 23,
+      "object": 9,
+      "commands": 43
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 23,
+      "object": 10,
+      "commands": 37
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 23,
+      "object": 11,
+      "commands": 39
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 21,
+      "object": 1,
+      "commands": 50
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 22,
+      "object": 1,
+      "commands": 44
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 3,
+      "object": 17,
+      "commands": 20
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 3,
+      "object": 18,
+      "commands": 20
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 32,
+      "object": 3,
+      "commands": 63
+    },
+    {
+      "map": 0,
+      "rotation": 0,
+      "kind": 32,
+      "object": 15,
+      "commands": 64
+    },
+    {
+      "map": 1,
+      "rotation": 1,
+      "kind": 3,
+      "object": 16,
+      "commands": 18
+    },
+    {
+      "map": 1,
+      "rotation": 1,
+      "kind": 4,
+      "object": 0,
+      "commands": 26
+    },
+    {
+      "map": 1,
+      "rotation": 1,
+      "kind": 28,
+      "object": 7,
+      "commands": 20
+    },
+    {
+      "map": 1,
+      "rotation": 1,
+      "kind": 32,
+      "object": 5,
+      "commands": 58
+    },
+    {
+      "map": 2,
+      "rotation": 2,
+      "kind": 3,
+      "object": 16,
+      "commands": 17
+    },
+    {
+      "map": 2,
+      "rotation": 2,
+      "kind": 4,
+      "object": 0,
+      "commands": 26
+    },
+    {
+      "map": 2,
+      "rotation": 2,
+      "kind": 28,
+      "object": 7,
+      "commands": 20
+    },
+    {
+      "map": 2,
+      "rotation": 2,
+      "kind": 32,
+      "object": 5,
+      "commands": 58
+    },
+    {
+      "map": 3,
+      "rotation": 3,
+      "kind": 3,
+      "object": 16,
+      "commands": 19
+    },
+    {
+      "map": 3,
+      "rotation": 3,
+      "kind": 4,
+      "object": 0,
+      "commands": 26
+    },
+    {
+      "map": 3,
+      "rotation": 3,
+      "kind": 28,
+      "object": 7,
+      "commands": 20
+    },
+    {
+      "map": 3,
+      "rotation": 3,
+      "kind": 32,
+      "object": 5,
+      "commands": 64
+    },
+    {
+      "map": 4,
+      "rotation": 4,
+      "kind": 3,
+      "object": 16,
+      "commands": 21
+    },
+    {
+      "map": 4,
+      "rotation": 4,
+      "kind": 4,
+      "object": 0,
+      "commands": 26
+    },
+    {
+      "map": 4,
+      "rotation": 4,
+      "kind": 28,
+      "object": 7,
+      "commands": 20
+    },
+    {
+      "map": 4,
+      "rotation": 4,
+      "kind": 32,
+      "object": 5,
+      "commands": 55
+    },
+    {
+      "map": 5,
+      "rotation": 5,
+      "kind": 3,
+      "object": 16,
+      "commands": 19
+    },
+    {
+      "map": 5,
+      "rotation": 5,
+      "kind": 4,
+      "object": 0,
+      "commands": 26
+    },
+    {
+      "map": 5,
+      "rotation": 5,
+      "kind": 28,
+      "object": 7,
+      "commands": 20
+    },
+    {
+      "map": 5,
+      "rotation": 5,
+      "kind": 32,
+      "object": 5,
+      "commands": 63
+    },
+    {
+      "map": 6,
+      "rotation": 6,
+      "kind": 3,
+      "object": 16,
+      "commands": 17
+    },
+    {
+      "map": 6,
+      "rotation": 6,
+      "kind": 4,
+      "object": 0,
+      "commands": 26
+    },
+    {
+      "map": 6,
+      "rotation": 6,
+      "kind": 28,
+      "object": 7,
+      "commands": 20
+    },
+    {
+      "map": 6,
+      "rotation": 6,
+      "kind": 32,
+      "object": 5,
+      "commands": 63
+    }
+  ],
+  "compared_commands": 2969,
+  "python_source_sha256": {
+    "effect_player.py": "a8b5b208972a9c4c06e8b205efbf870cd2c32cf86232cbe12e4e079f29bec87d",
+    "effect_scene.py": "9c443341aa24854eeb8092ddabcd1cfb48999350a3524b77e6022dc4adbf7dfc",
+    "effect_spec.py": "44da7e55233f4dd26fde3718aa16bbc5f86a878c77c074f3797682b67a1eabb0",
+    "board_renderer.py": "821992df5a58b69539865886fbb47db1f28ca707dd7161634ede6d5fe53a2e96"
+  },
+  "failure": "fixture IndexError at episode89 map7: lands contains sentinel only; C++ unchecked index invalid. No runtime-player failure inferred."
+}

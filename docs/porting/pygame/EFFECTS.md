@@ -4,7 +4,7 @@
 
 `effect_scene.py`和`effect_spec.py`共312物理行，对应固定`tools/screens/effects.cpp`前九个场景/电影规格函数。`board_models.py::场景_类`直接拥有精灵列表，承担原`SceneData`及其`view()`；没有引入C++运行后端。
 
-这一步只完成静止快照、人物/物件显示判定、电影规格和待播演员覆盖。`EffectPlayer`逐帧播放器、正式应用表现队列及移动中的主板面构造仍待实现；不能将规格一致当作电影像素一致。
+这一步只完成静止快照、人物/物件显示判定、电影规格和待播演员覆盖。本节记录当时的基础阶段；逐帧播放器的后续实现及像素证据见下文。正式应用表现队列及移动中的主板面构造仍待实现。
 
 ## 规则已结算，画面尚未提交
 
@@ -33,6 +33,28 @@ uv run --project pygame python pygame/tools/differential_effect_scene.py \
 
 ## 尚欠与参考自身边界
 
-下一步按原`EffectPlayer::remember/enqueue/start/draw/draw_linger`实现空闲快照、提交帧切换、FLC/抛物/神明上升、声音触发、停留及末帧保留，再验证实际画布/时钟并接入应用`after_events`队列。不得通过提前提交新世界、略过运输人物或忽略动画来收口。
+播放器已按下文实现并自动对照；下一步接入应用`after_events`队列和移动场景。不得通过提前提交新世界、略过运输人物或忽略动画来收口。
 
 原C++核弹条目明确注明未再现1998原程序的`whiten`模式。与固定参考一致不能抹掉这一上游视觉差异；当前也没有证明所有原电影与官方1998版完全一致。
+
+## EffectPlayer转写与真实画面对照（2026-10-24）
+
+`effect_player.py`372行已转写原播放器：空闲/会话所有者快照、按值队列、逐帧FLC、提交前后板面、工程车80毫秒动作、24毫秒抛物步长、神明60毫秒上升、单次声音、停留和末帧保留。`clear()`依源只清队列/当前/留帧/快照，不擅自重置服装、素材缓存、所有者或调用方待播人物。
+
+六项定向单测从缺模块失败推进到通过；集成时漏传工程车姿态值的调用错误由测试发现并补回，测试中冻结目标点改为整体替换。完整Python402/402、Ruff通过。合成五帧FLC和仅观察场景的测试替身只用于单元时钟/状态断言，不进入正式美术路径，也不能代替像素验收。
+
+直接编译原`EffectPlayer`和真实`board::Renderer`，最终[93条单效果时间线/3089命令](evidence/effect-player-differential.json)及[四条连续队列/713命令](evidence/effect-player-sequences-differential.json)通过，共3802完整画布/1167974400像素及队列、快照/当前/留帧、解帧数/路径、时钟和声音请求一致。覆盖原八图、全部33类含专属屏幕忽略项、12人物降落伞、12神明、新闻影片、三种抛物、双向运输及旋转；队列补测运输返回、待播人物、连续电影、跳过开关及会话所有者变更。测试使用显式表现输入和世界变化夹具，不冒充自然规则触发。参考播放器若记录任何损坏资源故障则对照失败，不允许两端都跳过画面而算作成功。
+
+```sh
+uv run --project pygame python pygame/tools/differential_effect_player.py \
+  --source .research-upstreams/richman4-remastered \
+  --build .research-cache/cpp-core \
+  --assets /Users/laocao/Downloads/Rich4 \
+  --report .research-cache/effect-player-full.json
+```
+
+原C++还将恶魔烟/工程车的建筑锚点标为近似、等待期间无烟标为尚未核实；本移植保留其实际实现并通过上述固定参考逐帧验证，不以源码注释推断替代官方游戏证据。正式表现队列/主场景/窗口接线仍未完成。
+
+首轮扩展在第89条后因第八图没有非哨兵地产而中断：[失败记录](evidence/effect-player-fixture-failure.json)。两端测试夹具固定访问`lands[1]`，Python明确越界，C++同样为无效索引；不能把该中断或之前的部分输出记作全组通过。核对八图规模后，两端统一选择实际存在的地产或特殊设施，完整93条重跑通过，正式播放器未因夹具改变规则。
+
+重放连续队列组时，在上述命令追加`--sequences`并使用单独报告路径。正式播放器仍不修改规则世界，各条时间线另外检查Python完整DAT不变；运行时无C++依赖。声音证据是请求编号/时点，尚非实际听感或波形验收。
