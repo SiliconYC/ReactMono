@@ -55,7 +55,7 @@
 | 三个小游戏规则 | `minigames.py` | 已实现，完整逐tick时间线差分 | 304条时间线/107300命令，原十二人物帧框，见 [说明](MINIGAMES.md) | 真实互动主游戏→小游戏→主随机流交接、完整图形入口触发 |
 | 小游戏画面/独立Pygame入口 | `artwork.py/minigame_presentation.py` | 已实现，选定画布完整像素差分 | 20时间线/1627画布，三个真实结算冒烟，见 [说明](MINIGAME_PRESENTATION.md) | 实际桌面输入、完整音频波形/听感及GameSession接入 |
 | 原WAV解码/整条重采样 | `wave_decoder.py` | 已实现，复用标准SDL3公开接口/原组件逐采样差分 | 1473原WAV全部成功、1613输入/237033784采样逐位一致，见 [说明](AUDIO.md) | 真实混音/播放/MIDI/主应用/听感；普通无SDL3环境两定向测试跳过 |
-| 主游戏音效、语音与BGM | `audio_player.py/audio_pcm*.py/board_audio.py/audio_limiter.py` | 原PCM/队列/循环/策略/限幅已实现，完整音频未接线 | 原公开PCM/离线混音3881命令/4400128采样及状态/trace一致，策略8769命令与限幅2359728采样一致，见 [说明](AUDIO.md) | MIDI/实际设备供料/异步加载/捕获/正式主应用/真实听感 |
+| 主游戏音效、语音与BGM | `audio.py/midi_player.py/fluid_synth.py/audio_player.py/audio_pcm*.py/board_audio.py/audio_limiter.py` | 原PCM/队列/循环/策略/限幅/MIDI已实现，实际设备待接 | 原PCM3881命令/4400128采样，MIDI1190命令/200695808采样和八曲/十七上下文自然循环一致，策略8769命令与限幅2359728采样一致，见 [说明](AUDIO.md) | 实际设备供料/异步加载/捕获/正式主应用/真实听感；原tick恢复缺陷已复现 |
 | DAT 无损编解码 | `save.py/save_records.py` | 已实现，真实 DAT 差分 | 两份原存档全部已解读字段/区域一致、无损输出与 80 个字段编辑输出一致；未知/尾字节保留 | 完整RNG/阶段/AI/队列/历史的跨进程运行恢复不在codec范围 |
 | 托管、自然长局 | `game.py/game_landing.py` | 已实现，独立会话自然差分 | 25条/368459公开命令/8081日完整状态一致，见 [主会话](GAMESESSION.md) | 全部人物设置/公开动作组合、更长的完整图形对局 |
 | 运行恢复 | `save.py/world.py`仅原DAT部分 | 原DAT恢复已有；运行检查点未实现 | 原DAT不等于会话RNG/阶段/AI/队列/四历史全部恢复 | 跨进程运行恢复、异常恢复和长局接续 |

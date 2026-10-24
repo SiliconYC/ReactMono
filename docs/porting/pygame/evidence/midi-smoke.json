@@ -1,0 +1,34 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 12,
+  "samples": 167936,
+  "rejected": 0,
+  "scope": "actual original MIDI/PCM offline; all F32 bits, stack, ticks, status, cache, stats, limiter and trace; no device or listening proof",
+  "mode": "smoke",
+  "architecture": "arm64",
+  "compiler": "Apple clang version 14.0.3 (clang-1403.0.22.14.1)",
+  "bank_sha256": "739d277474bddeb120372625b70c83c653faaee44de26c3191848cc6c64bfb74",
+  "runtime_sha256": {
+    "audio.py": "70d1232e9a7b95231bd60c961b5e8ac2bc8a257dfbd8a7d7f483241b430d6bc6",
+    "midi_player.py": "520422fe9be4785823c74bd8449a5d00240daaaf1ecde649c154afc256a14e9f",
+    "fluid_synth.py": "c27fab67df4e9f2830f93d927f471b8d22fc46e283c167ffcf5ede7b2d73a6ee",
+    "audio_player.py": "1f5c0d7543433feff6e0b301b83e9af8d594ef58f82a808f2c9a2d7d65a3728f",
+    "audio_pcm.py": "9b1a9f5f9aeb6bf3b35199937a3e0fe7a582c8c1485d32a4b36631865d164d91",
+    "audio_limiter.py": "03088adb1c99a4ab2869f207e055426214375f2d3de04462129363754fba57d4",
+    "wave_decoder.py": "ec447b94cdfc60fb850a95d06a7b72ad7f3d61e5b490836dca51cfec3a6bd85c"
+  },
+  "last_index": 11,
+  "last_command": "U 1000000000",
+  "natural_playlist": [],
+  "natural_contexts": [],
+  "state_sha256": "b187d016d2b44f90b347ba4ffcf0e46d44721bec9670b1c703877ee5c71766a9",
+  "input_sha256": "345f418f4ccecf6d0514cfe620b842c0eeffc565f4b756c61503321c9374c3d8",
+  "resume_reference_defect": {
+    "saved_tick": 442,
+    "after_resume_four_blocks": 13
+  },
+  "soundbank_probe_messages": [
+    "fluidsynth: error: Not a SoundFont file"
+  ]
+}

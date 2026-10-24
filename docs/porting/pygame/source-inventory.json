@@ -14285,17 +14285,29 @@
       "id": "tools/native_audio.cpp:57",
       "declarator": "asset_path(const std::filesystem::path &directory, std::string_view name)",
       "end_line": 67,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/midi_player.py::MIDI播放器_类.__init__"
+      ],
+      "status": "已实现，实际MIDI/PCM离线差分；设备/听感待验",
+      "evidence": [
+        "tests/test_midi_player.py",
+        "evidence/midi-differential.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:69",
       "declarator": "read_bytes(const std::filesystem::path &path)",
       "end_line": 84,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/midi_player.py::MIDI播放器_类._读取"
+      ],
+      "status": "已实现，实际MIDI/PCM离线差分；设备/听感待验",
+      "evidence": [
+        "tests/test_midi_player.py",
+        "evidence/midi-differential.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:86",
@@ -14348,9 +14360,15 @@
       "id": "tools/native_audio.cpp:139",
       "declarator": "music_file(Music music) noexcept",
       "end_line": 142,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/midi_player.py::MIDI播放器_类.上下文文件"
+      ],
+      "status": "已实现，实际MIDI/PCM离线差分；设备/听感待验",
+      "evidence": [
+        "tests/test_midi_player.py",
+        "evidence/midi-differential.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:216",
@@ -14386,9 +14404,15 @@
       "id": "tools/native_audio.cpp:274",
       "declarator": "initialize_music(std::filesystem::path bank)",
       "end_line": 324,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/midi_player.py::MIDI播放器_类.__init__/fluid_synth.py::Fluid合成_类"
+      ],
+      "status": "已实现，实际MIDI/PCM离线差分；设备/听感待验",
+      "evidence": [
+        "tests/test_midi_player.py",
+        "evidence/midi-differential.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:326",
@@ -14408,57 +14432,99 @@
       "id": "tools/native_audio.cpp:330",
       "declarator": "current_file_locked() const",
       "end_line": 332,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/midi_player.py::MIDI播放器_类.api_文件"
+      ],
+      "status": "已实现，实际MIDI/PCM离线差分；设备/听感待验",
+      "evidence": [
+        "tests/test_midi_player.py",
+        "evidence/midi-differential.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:333",
       "declarator": "current_file() const",
       "end_line": 336,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/audio.py::音频_类.api_音乐名称"
+      ],
+      "status": "已实现，实际MIDI/PCM离线差分；设备/听感待验",
+      "evidence": [
+        "tests/test_midi_player.py",
+        "evidence/midi-differential.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:341",
       "declarator": "start_track_locked(int tick = 0)",
       "end_line": 378,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/midi_player.py::MIDI播放器_类._起曲/fluid_synth.py::Fluid合成_类.api_起曲"
+      ],
+      "status": "已实现，实际MIDI/PCM离线差分；设备/听感待验",
+      "evidence": [
+        "tests/test_midi_player.py",
+        "evidence/midi-differential.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:379",
       "declarator": "start_track(int tick = 0)",
       "end_line": 387,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/midi_player.py::MIDI播放器_类._要求起曲"
+      ],
+      "status": "已实现，实际MIDI/PCM离线差分；设备/听感待验",
+      "evidence": [
+        "tests/test_midi_player.py",
+        "evidence/midi-differential.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:388",
       "declarator": "current_tick_locked()",
       "end_line": 392,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/midi_player.py::MIDI播放器_类.api_时刻"
+      ],
+      "status": "已实现，实际MIDI/PCM离线差分；设备/听感待验",
+      "evidence": [
+        "tests/test_midi_player.py",
+        "evidence/midi-differential.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:393",
       "declarator": "push(Music music, bool save)",
       "end_line": 405,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/midi_player.py::MIDI播放器_类._推"
+      ],
+      "status": "已实现，实际MIDI/PCM离线差分；设备/听感待验",
+      "evidence": [
+        "tests/test_midi_player.py",
+        "evidence/midi-differential.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:406",
       "declarator": "pop()",
       "end_line": 420,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/midi_player.py::MIDI播放器_类.api_弹音乐"
+      ],
+      "status": "已实现，实际MIDI/PCM离线差分；设备/听感待验",
+      "evidence": [
+        "tests/test_midi_player.py",
+        "evidence/midi-differential.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:423",
@@ -14523,13 +14589,16 @@
       "declarator": "render_block_locked(std::span<float> output) noexcept",
       "end_line": 563,
       "python": [
-        "pygame/src/rich4/audio_pcm.py::PCM混音_类.api_混合"
+        "pygame/src/rich4/audio.py::音频_类.api_渲染块",
+        "pygame/src/rich4/audio_pcm.py::PCM混音_类.api_混合",
+        "pygame/src/rich4/midi_player.py::MIDI播放器_类.api_渲染块"
       ],
-      "status": "部分完成，PCM混合/语音队列/统计/限幅逐位差分；MIDI分支与设备回调尚未接线",
+      "status": "已实现，真实PCM/MIDI离线逐位差分；设备回调待验",
       "evidence": [
-        "AUDIO.md",
-        "tests/test_audio_pcm.py",
-        "evidence/pcm-differential.json"
+        "evidence/pcm-differential.json",
+        "tests/test_midi_player.py",
+        "evidence/midi-differential.json",
+        "AUDIO.md"
       ]
     },
     {
@@ -14730,65 +14799,113 @@
       "id": "tools/native_audio.cpp:713",
       "declarator": "Audio::set_music(bool enabled)",
       "end_line": 726,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/audio.py::音频_类.api_音乐开关"
+      ],
+      "status": "已实现，实际MIDI/PCM离线差分；设备/听感待验",
+      "evidence": [
+        "tests/test_midi_player.py",
+        "evidence/midi-differential.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:728",
       "declarator": "Audio::select_music(unsigned track)",
       "end_line": 742,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/audio.py::音频_类.api_选音乐"
+      ],
+      "status": "已实现，实际MIDI/PCM离线差分；设备/听感待验",
+      "evidence": [
+        "tests/test_midi_player.py",
+        "evidence/midi-differential.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:744",
       "declarator": "Audio::push_music(Music music)",
       "end_line": 746,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/audio.py::音频_类.api_推音乐"
+      ],
+      "status": "已实现，实际MIDI/PCM离线差分；设备/听感待验",
+      "evidence": [
+        "tests/test_midi_player.py",
+        "evidence/midi-differential.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:747",
       "declarator": "Audio::pop_music()",
       "end_line": 749,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/audio.py::音频_类.api_弹音乐"
+      ],
+      "status": "已实现，实际MIDI/PCM离线差分；设备/听感待验",
+      "evidence": [
+        "tests/test_midi_player.py",
+        "evidence/midi-differential.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:750",
       "declarator": "Audio::replace_music(Music music)",
       "end_line": 752,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/audio.py::音频_类.api_换音乐"
+      ],
+      "status": "已实现，实际MIDI/PCM离线差分；设备/听感待验",
+      "evidence": [
+        "tests/test_midi_player.py",
+        "evidence/midi-differential.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:753",
       "declarator": "Audio::music_depth() const noexcept",
       "end_line": 755,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/audio.py::音频_类.api_音乐深度"
+      ],
+      "status": "已实现，实际MIDI/PCM离线差分；设备/听感待验",
+      "evidence": [
+        "tests/test_midi_player.py",
+        "evidence/midi-differential.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:756",
       "declarator": "Audio::music_context() const noexcept",
       "end_line": 758,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/audio.py::音频_类.api_音乐上下文"
+      ],
+      "status": "已实现，实际MIDI/PCM离线差分；设备/听感待验",
+      "evidence": [
+        "tests/test_midi_player.py",
+        "evidence/midi-differential.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:759",
       "declarator": "Audio::music_name() const",
       "end_line": 761,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/audio.py::音频_类.api_音乐名称"
+      ],
+      "status": "已实现，实际MIDI/PCM离线差分；设备/听感待验",
+      "evidence": [
+        "tests/test_midi_player.py",
+        "evidence/midi-differential.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:762",
@@ -14836,25 +14953,43 @@
       "id": "tools/native_audio.cpp:772",
       "declarator": "Audio::music_available() const noexcept",
       "end_line": 774,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/audio.py::音频_类.api_音乐可用"
+      ],
+      "status": "已实现，实际MIDI/PCM离线差分；设备/听感待验",
+      "evidence": [
+        "tests/test_midi_player.py",
+        "evidence/midi-differential.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:775",
       "declarator": "Audio::music_enabled() const noexcept",
       "end_line": 777,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/audio.py::音频_类.api_音乐启用"
+      ],
+      "status": "已实现，实际MIDI/PCM离线差分；设备/听感待验",
+      "evidence": [
+        "tests/test_midi_player.py",
+        "evidence/midi-differential.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:778",
       "declarator": "Audio::music_track() const noexcept",
       "end_line": 781,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/audio.py::音频_类.api_音乐曲目"
+      ],
+      "status": "已实现，实际MIDI/PCM离线差分；设备/听感待验",
+      "evidence": [
+        "tests/test_midi_player.py",
+        "evidence/midi-differential.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:782",
@@ -14882,9 +15017,15 @@
       "id": "tools/native_audio.cpp:789",
       "declarator": "&Audio::music_diagnostic() const noexcept",
       "end_line": 791,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/audio.py::音频_类.诊断"
+      ],
+      "status": "已实现，实际MIDI/PCM离线差分；设备/听感待验",
+      "evidence": [
+        "tests/test_midi_player.py",
+        "evidence/midi-differential.json",
+        "AUDIO.md"
+      ]
     },
     {
       "id": "tools/native_audio.hpp:83",
