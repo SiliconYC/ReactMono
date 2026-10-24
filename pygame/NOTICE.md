@@ -15,3 +15,5 @@
 ## 依赖
 
 Pygame 2.6.1 的许可为 LGPL，底层 SDL 及其他随包依赖以其发行许可证为准。字体渲染通过`ctypes`调用宿主或Pygame随附FreeType的公开C接口，FreeType适用其FTL/GPL许可；字体文件另受各自许可约束，须由用户外部提供。运行时不链接 C++ 参考引擎。pytest、Ruff、tree-sitter、CMake 和 C++ 编译器仅作开发与测试；具体锁定版本见 `pyproject.toml` 与 `uv.lock`。
+
+音频WAV转换通过`ctypes`使用标准SDL3公开C接口，SDL3适用 [Zlib许可证](https://github.com/libsdl-org/SDL/blob/829a65d769d935c4852f8159e964312c0957260a/LICENSE.txt)。后续软件MIDI依赖FluidSynth，其源码声明 [LGPL-2.1-or-later](https://github.com/FluidSynth/fluidsynth/blob/71e85b2ca6bf48641ba7e2261d8f2640ae473773/src/synth/fluid_synth.c)，许可全文见其 [LICENSE](https://github.com/FluidSynth/fluidsynth/blob/71e85b2ca6bf48641ba7e2261d8f2640ae473773/LICENSE)。构建工具将SDK及传递依赖放本机忽略缓存，不将其二进制、源码或音库装入Python发行包；各依赖保留其原许可，商业SF2/DLS/MIDI/WAV另受各自权利约束。

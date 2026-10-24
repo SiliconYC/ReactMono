@@ -1,0 +1,20 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 1613,
+  "samples": 237033784,
+  "accepted": 1529,
+  "rejected": 84,
+  "full_wave_accepted": 1473,
+  "libraries": [
+    "3.4.18",
+    "2.6.1"
+  ],
+  "python_sdl3_version": 3004018,
+  "scope": "actual original decode_wave vs independent Python SDL3 binding; real external WAV and synthetic PCM/truncation; exact F32 samples, not mixer/device/listening proof",
+  "runtime_sha256": "ec447b94cdfc60fb850a95d06a7b72ad7f3d61e5b490836dca51cfec3a6bd85c",
+  "last_index": 1612,
+  "last_command": "D 44",
+  "state_sha256": "71d75829f83d33adc698a85e33e36fe0b27a97d7632311e91b733b32a20f3d54",
+  "input_sha256": "7269cd5ad05d080847a358d6253140fceb96ee659b96886701dcfb944691a8ba"
+}

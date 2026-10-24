@@ -14333,9 +14333,16 @@
       "id": "tools/native_audio.cpp:107",
       "declarator": "decode_wave(std::span<const std::uint8_t> bytes)",
       "end_line": 135,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/wave_decoder.py::原波形_类.api_解码"
+      ],
+      "status": "已实现，复用标准SDL3公开WAV/整条重采样API；原组件237033784个F32采样逐位一致，实际混音/播放未验",
+      "evidence": [
+        "AUDIO.md",
+        "tests/test_wave_decoder.py",
+        "evidence/wave-differential.json",
+        "evidence/audio-dependencies.json"
+      ]
     },
     {
       "id": "tools/native_audio.cpp:139",

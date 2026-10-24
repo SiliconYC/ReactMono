@@ -1,0 +1,49 @@
+{
+  "status": "passed",
+  "scope": "standard SDKs only; no Rich4 engine or commercial bank",
+  "prefix": ".research-cache/audio-runtime",
+  "sources": [
+    {
+      "name": "SDL-3.4.18",
+      "url": "https://github.com/libsdl-org/SDL.git",
+      "tag": "release-3.4.18",
+      "commit": "829a65d769d935c4852f8159e964312c0957260a",
+      "options": [
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DCMAKE_INSTALL_PREFIX=.research-cache/audio-runtime",
+        "-DSDL_SHARED=ON",
+        "-DSDL_STATIC=OFF",
+        "-DSDL_TESTS=OFF",
+        "-DSDL_TEST_LIBRARY=OFF"
+      ]
+    },
+    {
+      "name": "fluidsynth-2.6.1",
+      "url": "https://github.com/FluidSynth/fluidsynth.git",
+      "tag": "v2.6.1",
+      "commit": "71e85b2ca6bf48641ba7e2261d8f2640ae473773",
+      "options": [
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DCMAKE_INSTALL_PREFIX=.research-cache/audio-runtime",
+        "-Denable-framework=OFF",
+        "-Denable-coreaudio=OFF",
+        "-Denable-coremidi=OFF",
+        "-Denable-portaudio=OFF",
+        "-Denable-libsndfile=OFF",
+        "-Denable-readline=OFF",
+        "-Denable-aufile=OFF",
+        "-Denable-network=OFF",
+        "-Denable-openmp=OFF",
+        "-Denable-sdl3=OFF",
+        "-Denable-signalsmith=OFF",
+        "-Denable-native-dls=ON",
+        "-DCMAKE_PREFIX_PATH=/opt/homebrew"
+      ]
+    }
+  ],
+  "versions": [
+    "3.4.18",
+    "2.6.1"
+  ],
+  "path_note": "installation prefix normalized to repository-relative cache for publication"
+}
