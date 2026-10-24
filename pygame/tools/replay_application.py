@@ -39,6 +39,8 @@ class 应用重放_类:
         arg_正常流程: bool = False,
         arg_存读: bool = False,
         arg_读档: Path | None = None,
+        arg_托管: bool = False,
+        arg_结局: bool = False,
     ) -> None:
         os.environ["SDL_VIDEODRIVER"] = "dummy"
         os.environ["SDL_AUDIODRIVER"] = "dummy"
@@ -72,6 +74,8 @@ class 应用重放_类:
             "inputs": [],
             "screens": [],
             "decisions": [],
+            "autopilot_requested": arg_托管,
+            "ending_requested": arg_结局,
         }
         capture_keys = set()
         trace = hashlib.sha256()
@@ -91,6 +95,7 @@ class 应用重放_类:
             shop_confirming = False
             toolbar = [75, 76, 77, 78, 79, 80, 71, 72, 81, 82] if arg_浏览页面 else []
             toolbar_index, closing = 0, False
+            autopilot_step, autopilot_applied, ending_seen = 0, False, False
             step_ms = 100 if arg_正常流程 else 500
             for frame in range(arg_帧上限):
                 image = app.api_绘制(frame * step_ms)
@@ -111,7 +116,38 @@ class 应用重放_类:
                         pygame.image.frombytes(image.api_RGBA(), (640, 480), "RGBA"),
                         arg_输出 / (key + ".png"),
                     )
-                if page == S.菜单 and app.会话 is None:
+                session = app.会话
+                finished = session is not None and session.阶段 == 游戏阶段_类.结束
+                ending_seen = ending_seen or finished
+                ending_done = ending_seen and not app.结局.api_活跃() and page != S.游戏
+                settled = session is not None and app.呈现.api_可推进()
+                if arg_结局 and settled and not finished and session.完成天数 >= arg_天数:
+                    raise ValueError("目标日数内尚未自然终局")
+                if session is not None and (
+                    arg_结局 and ending_done
+                    or not arg_结局 and settled and (finished or session.完成天数 >= arg_天数)
+                ):
+                    report.update(
+                        status="passed",
+                        completed_days=session.完成天数,
+                        finished=finished,
+                        winner=session.胜者,
+                        ending_complete=ending_done,
+                        ending_exit_page=int(page) if ending_done else None,
+                        random_state=session.随机.状态,
+                        world_sha256=hashlib.sha256(session.世界.api_导出()).hexdigest(),
+                        events={str(int(k)): v for k, v in sorted(app.事件计数.items())},
+                    )
+                    break
+                if arg_结局 and ending_seen:
+                    exit_id = app.结局.api_退出按钮()
+                    if exit_id in ids:
+                        chosen = exit_id
+                elif arg_托管 and page == S.托管 and not autopilot_applied:
+                    chosen = 1600 if autopilot_step < 2 else 1630
+                    autopilot_step = 2 if autopilot_step < 2 else 3
+                    closing = False
+                elif page == S.菜单 and app.会话 is None:
                     chosen = 4 if arg_地图 >= 4 else 1
                 elif page == S.新局:
                     if app.新局.api_地图() != arg_地图 % 4:
@@ -141,21 +177,13 @@ class 应用重放_类:
                     chosen = app.数字板.api_下一键(target)
                 elif app.会话 is not None and app.呈现.api_可推进():
                     session = app.会话
-                    if session.完成天数 >= arg_天数 or session.阶段 == 游戏阶段_类.结束:
-                        report.update(
-                            status="passed",
-                            completed_days=session.完成天数,
-                            finished=session.阶段 == 游戏阶段_类.结束,
-                            random_state=session.随机.状态,
-                            world_sha256=hashlib.sha256(session.世界.api_导出()).hexdigest(),
-                            events={str(int(k)): v for k, v in sorted(app.事件计数.items())},
-                        )
-                        break
                     if session.阶段 == 游戏阶段_类.人类待命:
                         if toolbar_index < len(toolbar):
                             chosen = toolbar[toolbar_index]
                             toolbar_index += 1
                             closing = True
+                        elif arg_托管 and not autopilot_applied:
+                            chosen, autopilot_step = 82, 1
                         else:
                             chosen = 100
                     elif session.待决策 is not None:
@@ -234,6 +262,13 @@ class 应用重放_类:
                     if arg_观察 is not None:
                         arg_观察(f"I {chosen}", app)
                     report["inputs"].append([frame, int(page), chosen])
+                    if chosen == 1630 and autopilot_step == 3:
+                        settings = app.会话.api_托管设置(0)
+                        if settings is None or not settings.自动:
+                            raise ValueError("真实托管控件未完成公开规则交接")
+                        autopilot_applied = True
+                        report["autopilot_applied"] = True
+                        report["autopilot_controller"] = app.会话.世界.玩家[0].记录.控制标志
                 app.api_推进(step_ms)
                 if arg_观察 is not None:
                     arg_观察(f"U {step_ms}", app)
@@ -300,6 +335,8 @@ if __name__ == "__main__":
     参数.add_argument("--normal-flow", action="store_true")
     参数.add_argument("--exercise-save", action="store_true")
     参数.add_argument("--load", type=Path)
+    参数.add_argument("--autopilot", action="store_true")
+    参数.add_argument("--finish-ending", action="store_true")
     选项 = 参数.parse_args()
     应用重放_类.api_执行(
         选项.assets,
@@ -313,4 +350,6 @@ if __name__ == "__main__":
         arg_正常流程=选项.normal_flow,
         arg_存读=选项.exercise_save,
         arg_读档=选项.load,
+        arg_托管=选项.autopilot,
+        arg_结局=选项.finish_ending,
     )
