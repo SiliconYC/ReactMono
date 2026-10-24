@@ -1,0 +1,105 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "scope": "direct fixed MainScreen canvas/state/input callbacks; not full app/menu/audio acceptance",
+  "status": "passed",
+  "planned_commands": 2408,
+  "compared_commands": 2408,
+  "font_sha256": "4b450afb2c61d7529fe05647316e9fc3137ea703a664bded5bca895a5c30748c",
+  "freetype_library": "/opt/homebrew/opt/freetype/lib/libfreetype.6.dylib",
+  "rotation_only": false,
+  "input_sha256": "bc24e9615270a71c2995da4759d811de8d926b11314495d64feb2a610eab6c11",
+  "python_source_sha256": {
+    "main_screen.py": "b5845aec7ea8b9e1fdfc431651141659893ed6d3190913417d75b826f5a6ddf1",
+    "main_panels.py": "8bd2018a8617fc5209fb295b7fffbad200c683f66d44ed5354ed694b0e7e80b4",
+    "main_text.py": "b76ebb9c15c0824de57f9f16027dc2891f0d7e81a421c3ad2b9e50e9c2635fcf",
+    "main_screen_types.py": "26b0e71a4874317517ec32c0c2e8bc133d4a497ca9533c6fb5ff10d440c80218"
+  },
+  "operations": {
+    "n": 288,
+    "a": 276,
+    "s": 120,
+    "p": 428,
+    "g": 144,
+    "m": 108,
+    "u": 108,
+    "v": 72,
+    "c": 432,
+    "d": 432
+  },
+  "complete_canvas_pixels": 739737600,
+  "state_sha256": "971735b1eaddadb34ef5b8144eac26fca943083b9608dbde204e213a9227361a",
+  "coverage": {
+    "maps": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "views": [
+      0,
+      1,
+      2
+    ],
+    "tabs": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "calendars": [
+      0,
+      1
+    ],
+    "characters": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "traffic": [
+      0,
+      1,
+      2
+    ],
+    "dice_counts": [
+      1,
+      2,
+      3
+    ],
+    "dice_rotations": [
+      0
+    ],
+    "dice_stages": [
+      "faces",
+      "flc",
+      "pose"
+    ],
+    "recorded_action_ids": [
+      73,
+      74,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      100,
+      101,
+      102
+    ]
+  }
+}

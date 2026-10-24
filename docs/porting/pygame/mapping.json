@@ -8533,5 +8533,437 @@
       "NATIVE_UI.md",
       "evidence/native-frame-differential.json"
     ]
+  },
+  "tools/screens/main_screen.cpp:25": {
+    "python": [
+      "pygame/src/rich4/main_text.py::主屏绘字_类.api_字列"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.cpp:48": {
+    "python": [
+      "pygame/src/rich4/main_text.py::主屏绘字_类._一行"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.cpp:59": {
+    "python": [
+      "pygame/src/rich4/main_text.py::主屏绘字_类._样式"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.cpp:69": {
+    "python": [
+      "pygame/src/rich4/main_text.py::主屏绘字_类.api_文字"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.cpp:90": {
+    "python": [
+      "pygame/src/rich4/main_text.py::主屏绘字_类.api_色章"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.cpp:104": {
+    "python": [
+      "pygame/src/rich4/main_text.py::主屏绘字_类.api_线框"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.cpp:119": {
+    "python": [
+      "pygame/src/rich4/main_panels.py::主屏布局_类._锚图"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.cpp:124": {
+    "python": [
+      "pygame/src/rich4/main_panels.py::主屏布局_类._地图标记/_地图人物/_绘小图"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.cpp:127": {
+    "python": [
+      "pygame/src/rich4/main_panels.py::主屏布局_类._地图标记/_地图人物"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.cpp:131": {
+    "python": [
+      "pygame/src/rich4/main_panels.py::主屏布局_类._绘小图/_绘全图"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.cpp:137": {
+    "python": [
+      "pygame/src/rich4/main_screen.py::主屏幕_类.__init__"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.cpp:168": {
+    "python": [
+      "pygame/src/rich4/main_screen.py::主屏幕_类.api_事件"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.cpp:221": {
+    "python": [
+      "pygame/src/rich4/main_screen.py::主屏幕_类.api_骰子忙"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.cpp:225": {
+    "python": [
+      "pygame/src/rich4/main_screen.py::主屏幕_类.api_投掷帧"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.cpp:233": {
+    "python": [
+      "pygame/src/rich4/main_screen.py::主屏幕_类.api_递进"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.cpp:238": {
+    "python": [
+      "pygame/src/rich4/main_screen.py::主屏幕_类.api_指针移动"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.cpp:257": {
+    "python": [
+      "pygame/src/rich4/main_screen.py::主屏幕_类.api_指针释放"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.cpp:266": {
+    "python": [
+      "pygame/src/rich4/main_screen.py::主屏幕_类._GO命中值"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.cpp:275": {
+    "python": [
+      "pygame/src/rich4/main_screen.py::主屏幕_类.api_绘制"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.cpp:302": {
+    "python": [
+      "pygame/src/rich4/main_panels.py::主屏布局_类._绘工具栏"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.cpp:338": {
+    "python": [
+      "pygame/src/rich4/main_panels.py::主屏布局_类._绘信息"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.cpp:418": {
+    "python": [
+      "pygame/src/rich4/main_panels.py::主屏布局_类._绘头部"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.cpp:435": {
+    "python": [
+      "pygame/src/rich4/main_panels.py::主屏布局_类._绘小图"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.cpp:495": {
+    "python": [
+      "pygame/src/rich4/main_panels.py::主屏布局_类._绘日历"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.cpp:551": {
+    "python": [
+      "pygame/src/rich4/main_screen.py::主屏幕_类._绘GO"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.cpp:592": {
+    "python": [
+      "pygame/src/rich4/main_screen.py::主屏幕_类._绘骰子"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.cpp:633": {
+    "python": [
+      "pygame/src/rich4/main_panels.py::主屏布局_类._绘全图"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.hpp:40": {
+    "python": [
+      "pygame/src/rich4/main_screen.py::主屏幕_类.__init__"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.hpp:44": {
+    "python": [
+      "pygame/src/rich4/main_screen.py::主屏幕_类.api_相机中心"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.hpp:47": {
+    "python": [
+      "pygame/src/rich4/main_screen.py::主屏幕_类.api_跟随"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.hpp:58": {
+    "python": [
+      "pygame/src/rich4/main_screen.py::主屏幕_类.api_显示玩家"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.hpp:64": {
+    "python": [
+      "pygame/src/rich4/main_screen.py::主屏幕_类.api_显示人类回合"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.hpp:67": {
+    "python": [
+      "pygame/src/rich4/main_screen.py::主屏幕_类.api_显示槽位"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.hpp:75": {
+    "python": [
+      "pygame/src/rich4/main_screen.py::主屏幕_类.api_跳过投掷"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.hpp:78": {
+    "python": [
+      "pygame/src/rich4/main_screen.py::主屏幕_类.api_切视图"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
+  },
+  "tools/screens/main_screen.hpp:81": {
+    "python": [
+      "pygame/src/rich4/main_screen.py::主屏幕_类.视图"
+    ],
+    "status": "已实现，原画布/输入/时钟自动差分",
+    "evidence": [
+      "tests/test_main_screen.py",
+      "MAIN_SCREEN.md",
+      "evidence/main-screen-differential.json",
+      "evidence/main-screen-rotations-differential.json"
+    ]
   }
 }

@@ -1,0 +1,90 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "scope": "direct fixed MainScreen canvas/state/input callbacks; not full app/menu/audio acceptance",
+  "status": "passed",
+  "planned_commands": 1212,
+  "compared_commands": 1212,
+  "font_sha256": "4b450afb2c61d7529fe05647316e9fc3137ea703a664bded5bca895a5c30748c",
+  "freetype_library": "/opt/homebrew/opt/freetype/lib/libfreetype.6.dylib",
+  "rotation_only": true,
+  "input_sha256": "faaf42c58e21776bf9260053eea62dfb8dedc2f8cc301a67e147f36c7f04ee7d",
+  "python_source_sha256": {
+    "main_screen.py": "b5845aec7ea8b9e1fdfc431651141659893ed6d3190913417d75b826f5a6ddf1",
+    "main_panels.py": "8bd2018a8617fc5209fb295b7fffbad200c683f66d44ed5354ed694b0e7e80b4",
+    "main_text.py": "b76ebb9c15c0824de57f9f16027dc2891f0d7e81a421c3ad2b9e50e9c2635fcf",
+    "main_screen_types.py": "26b0e71a4874317517ec32c0c2e8bc133d4a497ca9533c6fb5ff10d440c80218"
+  },
+  "operations": {
+    "n": 24,
+    "h": 24,
+    "p": 108,
+    "c": 72,
+    "d": 984
+  },
+  "complete_canvas_pixels": 372326400,
+  "state_sha256": "d901c3226286f5f4545b3ab745e32c4ddf0656d16662f057fdb2e63eceeb699f",
+  "coverage": {
+    "maps": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "views": [
+      1
+    ],
+    "tabs": [
+      0
+    ],
+    "calendars": [
+      0
+    ],
+    "characters": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "traffic": [
+      0,
+      1,
+      2
+    ],
+    "dice_counts": [
+      1,
+      2,
+      3
+    ],
+    "dice_rotations": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "dice_stages": [
+      "faces",
+      "flc",
+      "pose"
+    ],
+    "recorded_action_ids": [
+      73,
+      100
+    ]
+  }
+}
