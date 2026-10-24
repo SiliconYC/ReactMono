@@ -4,12 +4,17 @@
 
 ## 环境与运行
 
-使用 Python 3.12 与 Pygame 2.6.1。推荐独立 CPython，避免本机 Conda 的 `readline` 原生扩展冲突。以下命令在仓库根目录执行；`/path/to/Rich4` 必须是自己合法持有的外部原版素材目录。
+使用 Python 3.12 与 Pygame 2.6.1。推荐独立 CPython，避免本机 Conda 的 `readline` 原生扩展冲突。以下命令在仓库根目录执行。正版来源仅供一次性导入，正式游戏使用子项目自己的`pygame/assets/`，商业内容被Git忽略。
 
 ```sh
 uv sync --project pygame --python 3.12
-uv run --project pygame rich4-pygame --assets /path/to/Rich4 --font /path/to/chinese-font.ttc
+uv run --project pygame python pygame/tools/import_open_assets.py \
+  --source /path/to/licensed/Rich4 --font /path/to/authorized-font.ttc \
+  --soundbank /path/to/authorized-gm.dls
+uv run --project pygame rich4-pygame
 ```
+
+已完成导入时直接运行最后一行。所有图片、动画帧、音效/语音、音乐、字体、音库和原文字都位于游戏自己的资源目录；正式入口不再接受原MKF/EXE目录。源码差分/旧格式预览工具仍可只读正版来源用于研究，不能充当正式运行依赖。格式、审计、部署与旧副本清理记录见 [开放素材迁移](../docs/porting/pygame/OPEN_ASSETS.md)。
 
 默认真实规则与时钟，960×720窗口显示原640×480画布，等比最近邻缩放与黑边。原菜单选择人物/地图后进入对局，鼠标操作原控件，`Esc`按原路径返回。`--save-dir`指定外部存档目录；`--load`读取原DAT及RNG旁车；`--silent`关闭音频。声音缺省跟随系统默认输出及其切换；需要固定设备时使用`--audio-device '设备名称'`或`RICH4_AUDIO_DEVICE`，无效名称明确报错。
 

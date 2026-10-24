@@ -25,6 +25,7 @@ class 电影夹具_类(美术_类):
     """
 
     def __init__(self, arg_坏片: bool = False) -> None:
+        super().__init__(Path("unused-test-assets"))
         self.坏片 = arg_坏片
 
     def api_解码(self, arg_库: str, arg_条: int) -> bytes:

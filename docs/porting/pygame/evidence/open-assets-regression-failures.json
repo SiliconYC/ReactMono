@@ -1,0 +1,15 @@
+{
+  "status": "fixed-and-retested",
+  "initial_full_suite": "15 failed, 593 passed",
+  "causes": [
+    "Artwork helpers unconditionally opened an archive before consulting legacy decoded-data cache",
+    "Test-only Artwork subclasses skipped base initialization and a minigame fixture lacked the new animation method"
+  ],
+  "fixes": [
+    "Open-format branch is explicit; legacy decoded-data cache and raw-image semantics preserved",
+    "Two test-only subclasses initialize the real base; one fixture implements the same synthetic animation contract"
+  ],
+  "assertions_relaxed": false,
+  "game_rules_changed": false,
+  "verification": "609 passed with real source/open assets, font, SDL3, FluidSynth and soundbank configured; eight-map C++ application differential passed"
+}

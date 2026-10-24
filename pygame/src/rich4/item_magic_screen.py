@@ -3,7 +3,6 @@
 # ◑ 导入
 import logging
 
-from rich4.flc import 动画_类
 from rich4.game import 游戏会话_类
 from rich4.game_types import 决策_类, 决策种类_类
 from rich4.item_paint import 物品绘图_类
@@ -223,7 +222,7 @@ class 魔法屏幕_类:
     ) -> tuple[bool, 施法电影_类 | None]:
         try:
             if arg_态 is None:
-                arg_态 = 施法电影_类(动画_类(arg_框.美术.api_解码("p", 20)))
+                arg_态 = 施法电影_类(arg_框.美术.api_动画("p", 20))
             movie = arg_态.解码
             delay, count = max(movie.间隔毫秒, 1), max(movie.帧数, 1)
             index = min(arg_经过 // delay, count - 1)

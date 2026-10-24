@@ -6,6 +6,7 @@ from pathlib import Path
 
 from rich4.artwork import 美术_类
 from rich4.assets import 资源包_类
+from rich4.open_archive import 开放档案_类
 
 
 # ◕ 功能
@@ -20,15 +21,15 @@ class 音频档案_类:
     def __init__(self, arg_目录: Path) -> None:
         self._池 = ThreadPoolExecutor(max_workers=1, thread_name_prefix="rich4-audio-assets")
         self._任务 = self._池.submit(self._读取, arg_目录)
-        self._包: tuple[资源包_类, 资源包_类] | None = None
+        self._包: tuple[资源包_类 | 开放档案_类, 资源包_类 | 开放档案_类] | None = None
         self._错误 = ""
 
     @staticmethod
-    def _读取(arg_目录: Path) -> tuple[资源包_类, 资源包_类]:
+    def _读取(arg_目录: Path) -> tuple[资源包_类 | 开放档案_类, 资源包_类 | 开放档案_类]:
         artwork = 美术_类(arg_目录)
         return artwork.api_包("e"), artwork.api_包("s")
 
-    def api_包(self, arg_语音: bool) -> 资源包_类:
+    def api_包(self, arg_语音: bool) -> 资源包_类 | 开放档案_类:
         if self._错误:
             raise ValueError(self._错误)
         if self._包 is None:

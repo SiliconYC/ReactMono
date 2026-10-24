@@ -16,8 +16,8 @@ def 主程序() -> None:
     参数 = argparse.ArgumentParser(
         description="Pygame《大富翁4》：独立Python移植，完整体验仍在验收。"
     )
-    参数.add_argument("--assets", type=Path, required=True)
-    参数.add_argument("--font", type=Path, required=True)
+    参数.add_argument("--assets", type=Path, default=Path(__file__).resolve().parents[2] / "assets")
+    参数.add_argument("--font", type=Path)
     参数.add_argument(
         "--save-dir",
         type=Path,
@@ -32,6 +32,12 @@ def 主程序() -> None:
     参数.add_argument("--screenshot", type=Path)
     参数.add_argument("--output", type=Path)
     选项 = 参数.parse_args()
+    选项.assets = 选项.assets.resolve()
+    if not (选项.assets / "manifest.json").is_file():
+        参数.error("请先用import_open_assets.py将正版素材导入游戏自身的pygame/assets目录")
+    选项.font = (选项.font or 选项.assets / "fonts/ui.ttc").resolve()
+    if not 选项.font.is_relative_to(选项.assets):
+        参数.error("字体必须位于游戏自身的素材目录内")
     if 选项.audio_device is not None:
         os.environ["RICH4_AUDIO_DEVICE"] = 选项.audio_device
     if 选项.headless:

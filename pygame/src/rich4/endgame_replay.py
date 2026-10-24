@@ -2,7 +2,6 @@
 # 派生自固定tools/screens/endgame.cpp::draw_play_again。
 # ◑ 导入
 from rich4.endgame_types import 再玩步骤_类, 结局动作_类, 结局种类_类
-from rich4.flc import 动画_类
 from rich4.screen_draw import 屏幕宿主_类, 屏幕绘图_类
 
 
@@ -51,7 +50,7 @@ class 再玩屏幕_类:
             self._步骤, self._电影毫秒 = 再玩步骤_类.电影, 0
             if not arg_宿.即时:
                 try:
-                    self._电影 = 动画_类(f.美术.api_解码("d", 556))
+                    self._电影 = f.美术.api_动画("d", 556)
                     if self._电影.api_下一帧():
                         self._电影帧 = self._电影.api_图像()
                     else:

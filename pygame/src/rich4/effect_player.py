@@ -60,7 +60,6 @@ class 电影播放_类:
         self._留帧: _播放_类 | None = None
         self._快照: 场景_类 | None = None
         self._快照所有者: 游戏会话_类 | None = None
-        self._影片数据: dict[tuple[str, int], bytes] = {}
         self._服装 = (0, 0, 0, 0)
         self._待播人物: list[待播人物_类] = []
 
@@ -120,17 +119,14 @@ class 电影播放_类:
         self._当前 = self._留帧 = None
         self._快照 = None
 
-    def _读片(self, arg_库: str, arg_条: int) -> bytes:
-        键 = arg_库, arg_条
-        if not self._影片数据.get(键):
-            self._影片数据[键] = self.美术.api_解码(arg_库, arg_条)
-        return self._影片数据[键]
+    def _读片(self, arg_库: str, arg_条: int) -> 动画_类:
+        return self.美术.api_动画(arg_库, arg_条)
 
     def _开始(self, arg_效果: 效果_类) -> None:
         self._留帧 = None
         播 = _播放_类(arg_效果, 演出规格_类.api_查询(arg_效果))
         if 播.规格.资源 >= 0:
-            播.影片 = 动画_类(self._读片(播.规格.库, 播.规格.资源))
+            播.影片 = self._读片(播.规格.库, 播.规格.资源)
             播.间隔 = 播.影片.间隔毫秒 or 100
         self._当前 = 播
 

@@ -2,6 +2,7 @@
 # ◑ 导入
 from test_flc import 影片
 
+from rich4.flc import 动画_类
 from rich4.graphics import 图像_类
 from rich4.minigame_presentation import 小游戏演出_类
 from rich4.minigames import 小游戏种类_类, 小游戏阶段_类
@@ -26,6 +27,9 @@ class 测试美术_类:
 
     def api_解码(self, arg_库: str, arg_条: int) -> bytes:
         return bytes(640 * 480) if arg_条 == 81 else 影片()
+
+    def api_动画(self, arg_库: str, arg_条: int) -> 动画_类:
+        return 动画_类(self.api_解码(arg_库, arg_条))
 
     def api_原图(self, arg_库: str, arg_条: int, arg_宽: int, arg_高: int) -> 图像_类:
         return 图像_类(arg_宽, arg_高, [6] * (arg_宽 * arg_高))

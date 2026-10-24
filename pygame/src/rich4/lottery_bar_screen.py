@@ -6,7 +6,6 @@ from collections.abc import Callable
 from dataclasses import dataclass
 
 from rich4.artwork import 美术_类
-from rich4.flc import 动画_类
 from rich4.game_types import 决策_类
 from rich4.graphics import 图像_类
 from rich4.original_text import 原版文字_类
@@ -49,7 +48,7 @@ class 彩票柜台_类:
         if arg_美术 not in self._霓虹:
             frames = []
             try:
-                movie = 动画_类(arg_美术.api_解码("p", 14))
+                movie = arg_美术.api_动画("p", 14)
                 while len(frames) < movie.帧数 and movie.api_下一帧():
                     frames.append(movie.api_图像())
             except (ValueError, IndexError, OSError) as error:

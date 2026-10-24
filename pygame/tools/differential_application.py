@@ -218,6 +218,7 @@ class 应用差分_类:
         arg_读档: Path | None = None,
         arg_托管: bool = False,
         arg_结局: bool = False,
+        arg_开放素材: Path | None = None,
     ) -> None:
         ref = subprocess.check_output(
             ["git", "-C", str(arg_源码), "rev-parse", "HEAD"], text=True
@@ -236,6 +237,11 @@ class 应用差分_类:
             "status": "running",
             "normal_flow": arg_正常流程,
             "exercise_save": arg_存读,
+            "python_open_manifest_sha256": (
+                hashlib.sha256((arg_开放素材 / "manifest.json").read_bytes()).hexdigest()
+                if arg_开放素材 is not None
+                else None
+            ),
             "scope": "original Application private drawing "
             "and button actions + mirrored original post-input orchestration; Python uses "
             "Pygame event batches. All logical canvas bytes/world DAT/state; audio disabled, "
@@ -246,14 +252,7 @@ class 应用差分_类:
             "pixels": 0,
             "runtime_sha256": {
                 p.name: hashlib.sha256(p.read_bytes()).hexdigest()
-                for p in sorted(
-                    set(Path(__file__).parents[1].glob("src/rich4/application*.py"))
-                    | set(Path(__file__).parents[1].glob("src/rich4/minigame*.py"))
-                    | {
-                        Path(__file__).parents[1] / "src/rich4/board_renderer.py",
-                        Path(__file__).parents[1] / "src/rich4/ground_samples.py",
-                    }
-                )
+                for p in sorted(Path(__file__).parents[1].glob("src/rich4/*.py"))
             },
             "oracle_build": json.loads(exe.with_suffix(".build.json").read_text()),
             "driver_sha256": {
@@ -338,7 +337,7 @@ class 应用差分_类:
 
                         try:
                             应用重放_类.api_执行(
-                                arg_素材,
+                                arg_开放素材 or arg_素材,
                                 arg_字体,
                                 root / "py",
                                 map_id,
@@ -439,6 +438,7 @@ if __name__ == "__main__":
     参数.add_argument("--load", type=Path)
     参数.add_argument("--autopilot", action="store_true")
     参数.add_argument("--finish-ending", action="store_true")
+    参数.add_argument("--python-assets", type=Path)
     选项 = 参数.parse_args()
     应用差分_类.api_执行(
         选项.source,
@@ -457,4 +457,5 @@ if __name__ == "__main__":
         选项.load,
         选项.autopilot,
         选项.finish_ending,
+        选项.python_assets,
     )

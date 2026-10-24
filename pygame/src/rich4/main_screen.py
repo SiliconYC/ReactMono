@@ -7,7 +7,6 @@ from collections.abc import Callable
 from rich4.artwork import 美术_类
 from rich4.board_models import 玩家精灵_类
 from rich4.board_projection import 棋盘投影_类
-from rich4.flc import 动画_类
 from rich4.game import 游戏会话_类
 from rich4.game_types import 游戏事件_类, 游戏事件种类_类, 游戏阶段_类
 from rich4.graphics import 图像_类
@@ -102,7 +101,7 @@ class 主屏幕_类(主屏布局_类):
         if not self._骰动画.get(数):
             帧: list[图像_类] = []
             try:
-                片 = 动画_类(arg_美术.api_解码("p", 3 + 数))
+                片 = arg_美术.api_动画("p", 3 + 数)
                 while 片.api_下一帧():
                     帧.append(片.api_图像())
             except (ValueError, OSError, IndexError):

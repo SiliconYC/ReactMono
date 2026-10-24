@@ -5,7 +5,6 @@ from dataclasses import dataclass
 from typing import Callable
 
 from rich4.artwork import 美术_类
-from rich4.flc import 动画_类
 from rich4.graphics import 图像_类
 from rich4.minigames import (
     企鹅_类,
@@ -74,7 +73,7 @@ class 小游戏演出_类:
             for i in range(self.美术.api_帧数("p", 100 + self.角色)):
                 图 = self.美术.api_帧("p", 100 + self.角色, i)
                 框.append(图框_类(图.宽, 图.高, 图.原点x, 图.原点y))
-            self.爆片 = 动画_类(self.美术.api_解码("d", 526))
+            self.爆片 = self.美术.api_动画("d", 526)
             总 = self.爆片.帧数 * self.爆片.间隔毫秒
             self.逻辑 = 天降_类(arg_种子, self.角色, 框, (总 + 49) // 50)
             背 = self.美术.api_原图("p", 92, 640, 480)
@@ -181,7 +180,7 @@ class 小游戏演出_类:
             raise ValueError("小游戏显示时间不能倒退")
         if 戏.阶段 == 小游戏阶段_类.准备:
             if self.准备片 is None:
-                self.准备片 = 动画_类(self.美术.api_解码("p", 78))
+                self.准备片 = self.美术.api_动画("p", 78)
                 self.准备片.api_下一帧()
                 self.准备毫秒 = 0
             else:

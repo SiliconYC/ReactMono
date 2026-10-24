@@ -3372,14 +3372,17 @@
       "python": [
         "pygame/src/rich4/board_renderer.py::棋盘绘制_类._摆放/struct.unpack_from"
       ],
-      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_board_renderer.py",
         "evidence/board-baseline-differential.json",
         "BOARD.md",
         "evidence/board-differential.json",
         "evidence/board-performance.json",
-        "evidence/board-native-verification.json"
+        "evidence/board-native-verification.json",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
@@ -3389,14 +3392,17 @@
       "python": [
         "pygame/src/rich4/board_renderer.py::棋盘绘制_类._摆放/struct.unpack_from"
       ],
-      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_board_renderer.py",
         "evidence/board-baseline-differential.json",
         "BOARD.md",
         "evidence/board-differential.json",
         "evidence/board-performance.json",
-        "evidence/board-native-verification.json"
+        "evidence/board-native-verification.json",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
@@ -3406,14 +3412,17 @@
       "python": [
         "pygame/src/rich4/board_renderer.py::棋盘绘制_类._摆放/struct.unpack_from"
       ],
-      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_board_renderer.py",
         "evidence/board-baseline-differential.json",
         "BOARD.md",
         "evidence/board-differential.json",
         "evidence/board-performance.json",
-        "evidence/board-native-verification.json"
+        "evidence/board-native-verification.json",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
@@ -3423,14 +3432,17 @@
       "python": [
         "pygame/src/rich4/board_renderer.py::棋盘绘制_类._查包"
       ],
-      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_board_renderer.py",
         "evidence/board-baseline-differential.json",
         "BOARD.md",
         "evidence/board-differential.json",
         "evidence/board-performance.json",
-        "evidence/board-native-verification.json"
+        "evidence/board-native-verification.json",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
@@ -3440,14 +3452,17 @@
       "python": [
         "pygame/src/rich4/board_renderer.py::棋盘绘制_类._摆放"
       ],
-      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_board_renderer.py",
         "evidence/board-baseline-differential.json",
         "BOARD.md",
         "evidence/board-differential.json",
         "evidence/board-performance.json",
-        "evidence/board-native-verification.json"
+        "evidence/board-native-verification.json",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
@@ -3457,14 +3472,17 @@
       "python": [
         "pygame/src/rich4/board_renderer.py::棋盘绘制_类._取框"
       ],
-      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_board_renderer.py",
         "evidence/board-baseline-differential.json",
         "BOARD.md",
         "evidence/board-differential.json",
         "evidence/board-performance.json",
-        "evidence/board-native-verification.json"
+        "evidence/board-native-verification.json",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
@@ -3474,14 +3492,17 @@
       "python": [
         "pygame/src/rich4/board_renderer.py::棋盘绘制_类._业主色"
       ],
-      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_board_renderer.py",
         "evidence/board-baseline-differential.json",
         "BOARD.md",
         "evidence/board-differential.json",
         "evidence/board-performance.json",
-        "evidence/board-native-verification.json"
+        "evidence/board-native-verification.json",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
@@ -3491,14 +3512,17 @@
       "python": [
         "pygame/src/rich4/board_renderer.py::棋盘绘制_类._业主角色"
       ],
-      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_board_renderer.py",
         "evidence/board-baseline-differential.json",
         "BOARD.md",
         "evidence/board-differential.json",
         "evidence/board-performance.json",
-        "evidence/board-native-verification.json"
+        "evidence/board-native-verification.json",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
@@ -3508,14 +3532,17 @@
       "python": [
         "pygame/src/rich4/board_renderer.py::棋盘绘制_类._覆盖"
       ],
-      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_board_renderer.py",
         "evidence/board-baseline-differential.json",
         "BOARD.md",
         "evidence/board-differential.json",
         "evidence/board-performance.json",
-        "evidence/board-native-verification.json"
+        "evidence/board-native-verification.json",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
@@ -3576,14 +3603,17 @@
       "python": [
         "pygame/src/rich4/board_renderer.py::棋盘绘制_类.__init__"
       ],
-      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_board_renderer.py",
         "evidence/board-baseline-differential.json",
         "BOARD.md",
         "evidence/board-differential.json",
         "evidence/board-performance.json",
-        "evidence/board-native-verification.json"
+        "evidence/board-native-verification.json",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
@@ -3593,14 +3623,17 @@
       "python": [
         "pygame/src/rich4/board_renderer.py::棋盘绘制_类._资源"
       ],
-      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_board_renderer.py",
         "evidence/board-baseline-differential.json",
         "BOARD.md",
         "evidence/board-differential.json",
         "evidence/board-performance.json",
-        "evidence/board-native-verification.json"
+        "evidence/board-native-verification.json",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
@@ -3610,14 +3643,17 @@
       "python": [
         "pygame/src/rich4/board_renderer.py::棋盘绘制_类._帧"
       ],
-      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_board_renderer.py",
         "evidence/board-baseline-differential.json",
         "BOARD.md",
         "evidence/board-differential.json",
         "evidence/board-performance.json",
-        "evidence/board-native-verification.json"
+        "evidence/board-native-verification.json",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
@@ -3627,14 +3663,17 @@
       "python": [
         "pygame/src/rich4/board_renderer.py::棋盘绘制_类._设施基数"
       ],
-      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_board_renderer.py",
         "evidence/board-baseline-differential.json",
         "BOARD.md",
         "evidence/board-differential.json",
         "evidence/board-performance.json",
-        "evidence/board-native-verification.json"
+        "evidence/board-native-verification.json",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
@@ -3644,14 +3683,17 @@
       "python": [
         "pygame/src/rich4/board_renderer.py::棋盘绘制_类._景物资源"
       ],
-      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_board_renderer.py",
         "evidence/board-baseline-differential.json",
         "BOARD.md",
         "evidence/board-differential.json",
         "evidence/board-performance.json",
-        "evidence/board-native-verification.json"
+        "evidence/board-native-verification.json",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
@@ -3661,14 +3703,17 @@
       "python": [
         "pygame/src/rich4/board_renderer.py::棋盘绘制_类.__init__"
       ],
-      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_board_renderer.py",
         "evidence/board-baseline-differential.json",
         "BOARD.md",
         "evidence/board-differential.json",
         "evidence/board-performance.json",
-        "evidence/board-native-verification.json"
+        "evidence/board-native-verification.json",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
@@ -3678,14 +3723,17 @@
       "python": [
         "pygame/src/rich4/board_renderer.py::棋盘绘制_类.Python对象生命周期"
       ],
-      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_board_renderer.py",
         "evidence/board-baseline-differential.json",
         "BOARD.md",
         "evidence/board-differential.json",
         "evidence/board-performance.json",
-        "evidence/board-native-verification.json"
+        "evidence/board-native-verification.json",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
@@ -3695,14 +3743,17 @@
       "python": [
         "pygame/src/rich4/board_renderer.py::棋盘绘制_类.Python对象引用/所有权"
       ],
-      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_board_renderer.py",
         "evidence/board-baseline-differential.json",
         "BOARD.md",
         "evidence/board-differential.json",
         "evidence/board-performance.json",
-        "evidence/board-native-verification.json"
+        "evidence/board-native-verification.json",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
@@ -3712,14 +3763,17 @@
       "python": [
         "pygame/src/rich4/board_renderer.py::棋盘绘制_类.api_节点位置"
       ],
-      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_board_renderer.py",
         "evidence/board-baseline-differential.json",
         "BOARD.md",
         "evidence/board-differential.json",
         "evidence/board-performance.json",
-        "evidence/board-native-verification.json"
+        "evidence/board-native-verification.json",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
@@ -3729,14 +3783,17 @@
       "python": [
         "pygame/src/rich4/board_renderer.py::棋盘绘制_类.api_节点数"
       ],
-      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_board_renderer.py",
         "evidence/board-baseline-differential.json",
         "BOARD.md",
         "evidence/board-differential.json",
         "evidence/board-performance.json",
-        "evidence/board-native-verification.json"
+        "evidence/board-native-verification.json",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
@@ -3746,14 +3803,17 @@
       "python": [
         "pygame/src/rich4/board_renderer.py::棋盘绘制_类.api_地图编号"
       ],
-      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_board_renderer.py",
         "evidence/board-baseline-differential.json",
         "BOARD.md",
         "evidence/board-differential.json",
         "evidence/board-performance.json",
-        "evidence/board-native-verification.json"
+        "evidence/board-native-verification.json",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
@@ -3764,7 +3824,7 @@
         "pygame/src/rich4/board_renderer.py::棋盘绘制_类.api_绘地面",
         "pygame/src/rich4/ground_samples.py::地面取样_类.api_绘制"
       ],
-      "status": "已实现，精确取样缓存后八图全像素/掩码/计数及应用复验；冷中心p95降至34.109ms，完整实时FPS未验",
+      "status": "已实现，精确取样缓存后八图全像素/掩码/计数及应用复验；冷中心p95降至34.109ms，完整实时FPS未验；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_board_renderer.py",
         "evidence/board-baseline-differential.json",
@@ -3775,7 +3835,10 @@
         "tests/test_ground_samples.py",
         "evidence/board-samples-differential.json",
         "evidence/board-samples-performance.json",
-        "evidence/application-ground-samples.json"
+        "evidence/application-ground-samples.json",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
@@ -3785,14 +3848,17 @@
       "python": [
         "pygame/src/rich4/board_renderer.py::棋盘绘制_类.api_绘制"
       ],
-      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善",
+      "status": "已实现，扩展像素差分；原生键盘已验，冷中心性能待改善；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_board_renderer.py",
         "evidence/board-baseline-differential.json",
         "BOARD.md",
         "evidence/board-differential.json",
         "evidence/board-performance.json",
-        "evidence/board-native-verification.json"
+        "evidence/board-native-verification.json",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
@@ -15152,10 +15218,13 @@
       "python": [
         "pygame/src/rich4/artwork.py::美术_类.__init__"
       ],
-      "status": "已实现，原屏幕像素差分与边界单测",
+      "status": "已实现，原屏幕像素差分与边界单测；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_artwork.py",
-        "evidence/minigame-presentation-differential.json"
+        "evidence/minigame-presentation-differential.json",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
@@ -15165,10 +15234,13 @@
       "python": [
         "pygame/src/rich4/artwork.py::美术_类.api_包"
       ],
-      "status": "已实现，原屏幕像素差分与边界单测",
+      "status": "已实现，原屏幕像素差分与边界单测；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_artwork.py",
-        "evidence/minigame-presentation-differential.json"
+        "evidence/minigame-presentation-differential.json",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
@@ -15178,10 +15250,13 @@
       "python": [
         "pygame/src/rich4/artwork.py::美术_类.api_帧"
       ],
-      "status": "已实现，原屏幕像素差分与边界单测",
+      "status": "已实现，原屏幕像素差分与边界单测；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_artwork.py",
-        "evidence/minigame-presentation-differential.json"
+        "evidence/minigame-presentation-differential.json",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
@@ -15191,10 +15266,13 @@
       "python": [
         "pygame/src/rich4/artwork.py::美术_类.api_帧数"
       ],
-      "status": "已实现，原屏幕像素差分与边界单测",
+      "status": "已实现，原屏幕像素差分与边界单测；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_artwork.py",
-        "evidence/minigame-presentation-differential.json"
+        "evidence/minigame-presentation-differential.json",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
@@ -17750,11 +17828,14 @@
       "python": [
         "pygame/src/rich4/artwork.py::美术_类.api_原图"
       ],
-      "status": "已实现，节庆/小游戏真实画面自动差分",
+      "status": "已实现，节庆/小游戏真实画面自动差分；已增开放格式读取的全量转换/八图应用对照",
       "evidence": [
         "tests/test_artwork.py",
         "NATIVE_UI.md",
-        "MINIGAME_PRESENTATION.md"
+        "MINIGAME_PRESENTATION.md",
+        "OPEN_ASSETS.md",
+        "evidence/application-open-eight-maps.json",
+        "evidence/open-assets-audit.json"
       ]
     },
     {
