@@ -11544,5 +11544,185 @@
       "tests/test_lottery_bar_screen.py",
       "evidence/auction-lottery-differential.json"
     ]
+  },
+  "tools/screens/market.cpp:23": {
+    "python": [
+      "pygame/src/rich4/trading_screen_text.py::交易图文_类（格式调用内联）"
+    ],
+    "status": "已实现，直接原组件画布/状态/真实交易回调/完整DAT差分；正式主应用未验",
+    "evidence": [
+      "TRADING_UI.md",
+      "tests/test_trading_board_screen.py",
+      "evidence/trading-board-differential.json",
+      "evidence/trading-board-expanded.json"
+    ]
+  },
+  "tools/screens/market.cpp:35": {
+    "python": [
+      "pygame/src/rich4/trading_screen_text.py::交易图文_类._物名"
+    ],
+    "status": "已实现，直接原组件画布/状态/真实交易回调/完整DAT差分；正式主应用未验",
+    "evidence": [
+      "TRADING_UI.md",
+      "tests/test_trading_board_screen.py",
+      "evidence/trading-board-differential.json",
+      "evidence/trading-board-expanded.json"
+    ]
+  },
+  "tools/screens/market.cpp:56": {
+    "python": [
+      "pygame/src/rich4/trading_screen_text.py::交易图文_类._地产行"
+    ],
+    "status": "已实现，直接原组件画布/状态/真实交易回调/完整DAT差分；正式主应用未验",
+    "evidence": [
+      "TRADING_UI.md",
+      "tests/test_trading_board_screen.py",
+      "evidence/trading-board-differential.json",
+      "evidence/trading-board-expanded.json"
+    ]
+  },
+  "tools/screens/market.cpp:80": {
+    "python": [
+      "pygame/src/rich4/trading_screen_text.py::交易图文_类._租期"
+    ],
+    "status": "已实现，直接原组件画布/状态/真实交易回调/完整DAT差分；正式主应用未验",
+    "evidence": [
+      "TRADING_UI.md",
+      "tests/test_trading_board_screen.py",
+      "evidence/trading-board-differential.json",
+      "evidence/trading-board-expanded.json"
+    ]
+  },
+  "tools/screens/market.cpp:86": {
+    "python": [
+      "pygame/src/rich4/trading_screen_text.py::交易图文_类._分类内"
+    ],
+    "status": "已实现，直接原组件画布/状态/真实交易回调/完整DAT差分；正式主应用未验",
+    "evidence": [
+      "TRADING_UI.md",
+      "tests/test_trading_board_screen.py",
+      "evidence/trading-board-differential.json",
+      "evidence/trading-board-expanded.json"
+    ]
+  },
+  "tools/screens/market.cpp:106": {
+    "python": [
+      "pygame/src/rich4/trading_board_screen.py::交易公告栏_类._通知提示"
+    ],
+    "status": "已实现，直接原组件画布/状态/真实交易回调/完整DAT差分；正式主应用未验",
+    "evidence": [
+      "TRADING_UI.md",
+      "tests/test_trading_board_screen.py",
+      "evidence/trading-board-differential.json",
+      "evidence/trading-board-expanded.json"
+    ]
+  },
+  "tools/screens/market.cpp:111": {
+    "python": [
+      "pygame/src/rich4/trading_board_screen.py::交易公告栏_类.api_取消"
+    ],
+    "status": "已实现，直接原组件画布/状态/真实交易回调/完整DAT差分；正式主应用未验",
+    "evidence": [
+      "TRADING_UI.md",
+      "tests/test_trading_board_screen.py",
+      "evidence/trading-board-differential.json",
+      "evidence/trading-board-expanded.json"
+    ]
+  },
+  "tools/screens/market.cpp:120": {
+    "python": [
+      "pygame/src/rich4/trading_board_screen.py::交易公告栏_类.api_绘制"
+    ],
+    "status": "已实现，直接原组件画布/状态/真实交易回调/完整DAT差分；正式主应用未验",
+    "evidence": [
+      "TRADING_UI.md",
+      "tests/test_trading_board_screen.py",
+      "evidence/trading-board-differential.json",
+      "evidence/trading-board-expanded.json"
+    ]
+  },
+  "tools/screens/market.cpp:137": {
+    "python": [
+      "pygame/src/rich4/trading_board_screen.py::交易公告栏_类._画公告栏"
+    ],
+    "status": "已实现，直接原组件画布/状态/真实交易回调/完整DAT差分；正式主应用未验",
+    "evidence": [
+      "TRADING_UI.md",
+      "tests/test_trading_board_screen.py",
+      "evidence/trading-board-differential.json",
+      "evidence/trading-board-expanded.json"
+    ]
+  },
+  "tools/screens/market.cpp:183": {
+    "python": [
+      "pygame/src/rich4/trading_board_screen.py::交易公告栏_类._问价格"
+    ],
+    "status": "已实现，直接原组件画布/状态/真实交易回调/完整DAT差分；正式主应用未验",
+    "evidence": [
+      "TRADING_UI.md",
+      "tests/test_trading_board_screen.py",
+      "evidence/trading-board-differential.json",
+      "evidence/trading-board-expanded.json"
+    ]
+  },
+  "tools/screens/market.cpp:204": {
+    "python": [
+      "pygame/src/rich4/trading_board_screen.py::交易公告栏_类._画挑选/_选择物品"
+    ],
+    "status": "已实现，直接原组件画布/状态/真实交易回调/完整DAT差分；正式主应用未验",
+    "evidence": [
+      "TRADING_UI.md",
+      "tests/test_trading_board_screen.py",
+      "evidence/trading-board-differential.json",
+      "evidence/trading-board-expanded.json"
+    ]
+  },
+  "tools/screens/market.cpp:339": {
+    "python": [
+      "pygame/src/rich4/trading_board_screen.py::交易公告栏_类._画详情"
+    ],
+    "status": "已实现，直接原组件画布/状态/真实交易回调/完整DAT差分；正式主应用未验",
+    "evidence": [
+      "TRADING_UI.md",
+      "tests/test_trading_board_screen.py",
+      "evidence/trading-board-differential.json",
+      "evidence/trading-board-expanded.json"
+    ]
+  },
+  "tools/screens/finance.hpp:203": {
+    "python": [
+      "pygame/src/rich4/trading_board_screen.py::交易公告栏_类.api_重置"
+    ],
+    "status": "已实现，直接原组件画布/状态/真实交易回调/完整DAT差分；正式主应用未验",
+    "evidence": [
+      "TRADING_UI.md",
+      "tests/test_trading_board_screen.py",
+      "evidence/trading-board-differential.json",
+      "evidence/trading-board-expanded.json"
+    ]
+  },
+  "tools/screens/finance.hpp:208": {
+    "python": [
+      "pygame/src/rich4/trading_board_screen.py::交易公告栏_类.api_视图"
+    ],
+    "status": "已实现，直接原组件画布/状态/真实交易回调/完整DAT差分；正式主应用未验",
+    "evidence": [
+      "TRADING_UI.md",
+      "tests/test_trading_board_screen.py",
+      "evidence/trading-board-differential.json",
+      "evidence/trading-board-expanded.json"
+    ]
+  },
+  "tools/screens/finance.hpp:212": {
+    "python": [
+      "pygame/src/rich4/trading_board_screen.py::交易公告栏_类.api_建议"
+    ],
+    "status": "已实现，直接原组件画布/状态/真实交易回调/完整DAT差分；正式主应用未验",
+    "evidence": [
+      "TRADING_UI.md",
+      "tests/test_trading_board_screen.py",
+      "evidence/trading-board-differential.json",
+      "evidence/trading-board-expanded.json"
+    ]
   }
 }
