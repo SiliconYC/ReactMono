@@ -75,3 +75,9 @@ uv run --project pygame python pygame/tools/audit_distribution.py
 `/Users/laocao/Downloads/Rich4`清理前后64个文件、248491414字节及逐文件哈希完全一致，原目录完整保留。系统原始字体/GM音库、公共SDK研究构建、React资源和其它项目不删除。这里只处理确认由本任务创建的副本，没有宣称清扫未知来源的全磁盘文件。安装核验见 [部署报告](evidence/open-assets-installation.json)。
 
 后续测试的临时资源指定到自身目录，例如先建立`pygame/.local/tmp/`，设置`TMPDIR="$PWD/pygame/.local/tmp"`，pytest再使用`--basetemp pygame/.local/test-tmp`；差分研究仍可只读原正版来源。代码仓库和分发包不包含本地商业内容。
+
+## 存档恢复版的本地应用更新
+
+`dev@4a1f87ca2f6bdbdf056b46f559db5dceaeddc888`已重新构建同一路径的`.app`，直接进入正式`rich4.game_cli`，不再使用持续记录输入的验收包装。游戏根从应用位置相对推导，仍使用自身资源、标准库和存档，缺省清掉调试录音环境变量。构建后签名与内部链接核验通过，两帧headless/dummy启动正常。
+
+实际冻结程序与源码正式入口的菜单、合法自然存档载入后的640×480画布全部RGBA字节一致；载入/退出时的DAT/RNG也相同，使用独立临时槽位，没有覆盖用户试玩档。这是程序内画布及真实文件比较，不是OS截图或新的人工验收，见 [应用包装核验](evidence/save-recovery-bundle.json)。旧应用备份、重复收集目录和构建临时目录已移除；验收后没有保留运行中的窗口或桌面采集。

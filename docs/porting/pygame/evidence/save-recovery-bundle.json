@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "source_commit": "4a1f87ca2f6bdbdf056b46f559db5dceaeddc888",
+  "scope": "rebuilt local macOS app, formal CLI, relative resource root, real frozen process two-frame headless/dummy startup; not a new visible desktop or human review",
+  "bundle_path": "/Users/laocao/Documents/coding/ReactMono/pygame/.local/dist/Rich4OpenAssets.app",
+  "exe_sha256": "df2f022255ee8c325e1a7828f67812068151fef162269b925ad78b736a692376",
+  "bootstrap_sha256": "743149ff40d703c90044ca3e50746ab9dc502b40eabd3b8679c1ecac9cf2c1fd",
+  "smoke_exit": 0,
+  "staging_signature_verified": true,
+  "default_audio_capture_disabled": true,
+  "staging_and_previous_app_removed": true,
+  "graphical_window_left_running": false,
+  "source_bundle_canvas_equal": true,
+  "logical_canvas_dimensions": [
+    640,
+    480
+  ],
+  "canvas_rgba_sha256": "3f0e05565928331b1a833b098b6d25ffea07445397e727be87a9aada081770fd",
+  "loaded_natural_game_canvas_equal": true,
+  "loaded_game_rgba_sha256": "ec647aa2e8e0e9339d3733f7f319be0aca4a2926f1480a95a35406c61c5bdb0c",
+  "real_save_pair_equal": {
+    "Autosave.DAT": "45c54dfa25ae9b883962165fdab83fe8099a506904610c6b7d165193360d6ace",
+    "Autosave.DAT.rng": "5a85158f2b05bc0b0654a86f1de473dc8bee6f52ec75afda17d0d7ad832e1230"
+  }
+}
