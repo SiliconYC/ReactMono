@@ -17,6 +17,7 @@
 | 移动主场景 | `main_scene.py` | 已实现，完整场景值自动差分 | 原前端板面构造切片3456基础及13824交叉场景/相机一致，见 [说明](MAIN_SCENE.md) | 正式决策/队列/渲染叠加与窗口验收 |
 | 原顺序表现分发 | `presentation_queue.py` | 控制队列已实现，源码切片差分 | 528时间线/14784命令完整路由/时序值一致，见 [说明](PRESENTATION_QUEUE.md) | 真实专属屏幕、完整present/observe宿主与主循环/窗口 |
 | 原金额机/轮盘屏幕 | `spinner_screen.py` | 已实现，逐帧画布与私有状态自动差分 | 4011命令/1900实际画布、583680000像素及按钮/声音请求一致，见 [说明](SPINNERS.md) | 自然落点/真实主循环STOP、实际音频与窗口验收 |
+| 原点券商店 | `item_shop_screen.py/item_service_types.py` | 已实现，真实商店规则/画布自动差分 | 1983命令/946画布/290611200像素、完整核心货架/收入/赠品/决策/DAT一致，见 [说明](ITEM_SCREENS.md) | 共享服务分发、原出售报价/数量口径差异、正式主应用/自然流程/窗口/实际音频 |
 | 原地图目标/遥控骰/抢夺/嫁祸 | `item_targets.py/item_choice_screens.py` | 已实现，直接组件及部分真实选择差分 | 7229命令/2622画布/805478400像素、阶段/RNG/完整DAT一致，见 [说明](ITEM_SCREENS.md) | 服务分发、旧抢夺索引跨重置缺陷、正式主应用/窗口/实际音频 |
 | 原物品库存/卡图 | `item_screens.py/item_paint.py/item_screen_types.py` | 库存/卡图已实现，Screens其余部分在实施 | 1458命令/633画布/194457600像素及实际会话阶段/RNG/决策/完整DAT一致，见 [说明](ITEM_SCREENS.md) | 服务/完整重置、正式主应用/自然流程/窗口/实际音频 |
 | 原玩家交易公告栏 | `trading_board_screen.py/trading_screen_*.py` | 已实现，直接原组件/真实规则回调自动差分 | 4735命令/1758画布/540057600像素及每步完整DAT一致，见 [说明](TRADING_UI.md) | 正式Application/GameSession接线、自然交易、窗口与实际音频 |

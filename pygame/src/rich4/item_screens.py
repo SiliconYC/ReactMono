@@ -12,14 +12,17 @@ from rich4.graphics import 图像_类
 from rich4.item_choice_screens import 物品选择绘制_类
 from rich4.item_paint import 物品绘图_类
 from rich4.item_screen_types import 卡图等待_类, 物品宿主_类, 物品按住_类
+from rich4.item_service_types import 商店屏幕状态_类, 救援屏幕状态_类, 电脑施法_类, 魔法屏幕状态_类
+from rich4.item_shop_screen import 商店屏幕_类
 from rich4.native_frame import 画框_类
 from rich4.native_ui import 原生界面_类
+from rich4.original_text import 原版文字_类
 from rich4.services import 服务_类
 from rich4.world import 世界_类
 
 
 # ◕ 功能
-class 物品屏幕_类(物品选择绘制_类):
+class 物品屏幕_类(物品选择绘制_类, 商店屏幕_类):
     """
     原物品屏幕共享状态、按住放开、下一帧动作与卡图先于使用。
 
@@ -61,7 +64,7 @@ class 物品屏幕_类(物品选择绘制_类):
     )
     道具帮助 = (99, 95, 88, 90, 97, 89, 91, 96, 98, 92, 94, 87, 93)
 
-    def __init__(self) -> None:
+    def __init__(self, arg_原文: 原版文字_类 | None = None) -> None:
         self.声音: Callable[[int], None] | None = None
         self.语音: Callable[[int, bool], None] | None = None
         self.时钟: int | None = None
@@ -74,6 +77,10 @@ class 物品屏幕_类(物品选择绘制_类):
         self._卡图表: dict[int, 图像_类] = {}
         self._已说 = ""
         self._抢夺选择: int | None = None
+        self._原文 = arg_原文
+        self._店, self._魔法, self._救援 = 商店屏幕状态_类(), 魔法屏幕状态_类(), 救援屏幕状态_类()
+        self._施法: 电脑施法_类 | None = None
+        self._魔法罩 = b""
 
     def _现在(self, arg_框: 画框_类) -> int:
         return self.时钟 if self.时钟 is not None else arg_框.时钟
@@ -90,10 +97,15 @@ class 物品屏幕_类(物品选择绘制_类):
             action()
 
     def api_重置(self) -> None:
+        self._施法 = None
         self._弹图.clear()
         self._延迟.clear()
         self._按住 = None
         self._上卡 = self._上道具 = 0
+        self.api_结束访问()
+
+    def api_结束访问(self) -> None:
+        self._店, self._魔法, self._救援 = 商店屏幕状态_类(), 魔法屏幕状态_类(), 救援屏幕状态_类()
         self._已说 = ""
 
     def _只说一次(self, arg_键: str, arg_片: tuple[int, ...]) -> None:
