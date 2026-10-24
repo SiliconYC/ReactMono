@@ -1,0 +1,13 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 3853,
+  "painted_frames": 1830,
+  "static_only": false,
+  "scope": "direct original Spinners, external assets/font/text, explicit decisions and effect DTOs, full private replay state; not natural triggers, main-game handoff or audible playback",
+  "font_sha256": "4b450afb2c61d7529fe05647316e9fc3137ea703a664bded5bca895a5c30748c",
+  "python_sha256": "3fe75e43f69bed824c77f4a4be1f13cc0ea4585b232161728cfd20ef102aa101",
+  "state_sha256": "2a0599a79ba4ef4d3d53715cf02490791993529932bff29a3852405005ec58cc",
+  "input_sha256": "ff7766ea3db7853a5c434d7ffd3ef7a02da31a07849c2f44c413969b9ee2bb76",
+  "compared_pixels": 562176000
+}
