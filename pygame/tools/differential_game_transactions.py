@@ -169,8 +169,10 @@ class 会话事务探针_类(会话表现_类, 会话事务_类):
             数 += [int(d.种类), d.玩家, d.地产, d.金额, self._串(d.提示), len(d.选项)]
             for o in d.选项:
                 数 += [self._串(o.标签), o.值, int(o.位置 is not None), int(o.对象 is not None)]
-                if o.位置 is not None or o.对象 is not None:
-                    raise ValueError("本探针范围不含地图选择对象")
+                if o.位置 is not None:
+                    数 += [o.位置.x, o.位置.y]
+                if o.对象 is not None:
+                    数 += [int(o.对象.种类), o.对象.数值]
             数 += [
                 d.金额上限,
                 int(d.转盘 is not None),

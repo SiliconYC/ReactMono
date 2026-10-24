@@ -7,12 +7,15 @@
 #include <iostream>
 #include <iterator>
 #include <sstream>
+#include "game_actor_probes.hpp"
 
 int main(int argc,char **argv) {
     if(argc!=4&&argc!=5)return 2;
     try {
         using namespace rich4;
         const bool finance=argc==5;
+        const bool actors=finance&&std::string(argv[4])=="actors";
+        std::vector<long long> actor_values;
         std::ifstream input(argv[1],std::ios::binary);
         std::vector<std::uint8_t> bytes{std::istreambuf_iterator<char>(input),{}};
         const auto base=World::from_save(SaveFile::decode(bytes));
@@ -25,7 +28,7 @@ int main(int argc,char **argv) {
             g.card_ai_memory={5,6,7};g.pending_continuation={};g.pending_choice_key=0;g.decision.reset();
             g.choice_sequence=99;g.property_pending=g.purchased_property=g.property_landing=false;
             g.costumes={};g.costume_keys={};g.chosen_card_target.reset();g.card_in_use.reset();
-            g.card_picture_shown=false;g.animation.reset();
+            g.card_picture_shown=false;g.animation.reset();actor_values.clear();
             if(finance){g.winner.reset();g.resume_movement=g.bank_resume_encounter=false;g.remaining=0;}
         };
         reset();std::filesystem::create_directories(argv[2]);
@@ -126,6 +129,9 @@ int main(int argc,char **argv) {
                     default:return 3;
                     }
                 }
+                else if(actors&&op=='B'){
+                    actor_values.clear();g.run_rule([&g,n,&actor_values]{actor_probe(g,n,actor_values);},true,false);
+                }else if(actors&&actor_prepare(g,op,n)){}
                 else return 3;
             }catch(const std::out_of_range &){status=2;}
             catch(const std::invalid_argument &){status=1;}
@@ -139,9 +145,10 @@ int main(int argc,char **argv) {
             std::cout<<' '<<g.effects.size();for(auto &e:g.effects){std::cout<<' '<<int(e.kind)<<' '<<e.player<<' '<<e.node<<' '<<e.target.x<<' '<<e.target.y<<' '<<bool(e.from);if(e.from)std::cout<<' '<<e.from->x<<' '<<e.from->y;std::cout<<' '<<unsigned(e.object_kind)<<' '<<e.dice.size();for(auto v:e.dice)std::cout<<' '<<unsigned(v);std::cout<<' '<<e.property<<' '<<e.after_events<<' '<<bool(e.spinner)<<' '<<bool(e.monthly)<<' '<<unsigned(e.previous_level)<<' '<<unsigned(e.previous_type)<<' '<<unsigned(e.direction);if(e.spinner)return 4;
                 if(e.monthly){auto &m=*e.monthly;std::cout<<' '<<unsigned(m.active);for(auto v:m.characters)std::cout<<' '<<unsigned(v);std::cout<<' '<<m.dividends.size();for(auto &row:m.dividends){std::cout<<' '<<unsigned(row.stock)<<' '<<row.earnings;for(auto v:row.payout)std::cout<<' '<<v;}for(auto v:m.tickets)std::cout<<' '<<unsigned(v);std::cout<<' '<<m.pool<<' '<<unsigned(m.number)<<' '<<m.winner;for(auto array:{m.cash,m.deposit,m.interest,m.balance,m.total})for(auto v:array)std::cout<<' '<<v;std::cout<<' '<<unsigned(m.loans);for(auto v:m.unlucky_days)std::cout<<' '<<unsigned(v);for(auto array:{m.income,m.spending})for(auto v:array)std::cout<<' '<<v;std::cout<<' '<<m.champion<<' '<<m.unlucky;}
             }
-            std::cout<<' '<<bool(g.decision);if(g.decision){auto &d=*g.decision;std::cout<<' '<<int(d.kind)<<' '<<d.player<<' '<<d.land_id<<' '<<d.amount<<' '<<std::quoted(d.prompt)<<' '<<d.options.size();for(auto &o:d.options){std::cout<<' '<<std::quoted(o.label)<<' '<<o.value<<' '<<bool(o.location)<<' '<<bool(o.subject);if(o.location||o.subject)return 4;}std::cout<<' '<<d.max_amount<<' '<<bool(d.spinner)<<' '<<bool(d.mini_game)<<' '<<unsigned(d.inactive_players)<<' '<<bool(d.victim);if(d.spinner||d.mini_game||d.victim)return 4;}
+            std::cout<<' '<<bool(g.decision);if(g.decision){auto &d=*g.decision;std::cout<<' '<<int(d.kind)<<' '<<d.player<<' '<<d.land_id<<' '<<d.amount<<' '<<std::quoted(d.prompt)<<' '<<d.options.size();for(auto &o:d.options){std::cout<<' '<<std::quoted(o.label)<<' '<<o.value<<' '<<bool(o.location)<<' '<<bool(o.subject);if(o.location)std::cout<<' '<<o.location->x<<' '<<o.location->y;if(o.subject)std::cout<<' '<<int(o.subject->kind)<<' '<<o.subject->value;}std::cout<<' '<<d.max_amount<<' '<<bool(d.spinner)<<' '<<bool(d.mini_game)<<' '<<unsigned(d.inactive_players)<<' '<<bool(d.victim);if(d.spinner||d.mini_game||d.victim)return 4;}
             std::cout<<' '<<values.size();for(auto v:values)std::cout<<' '<<v;
             if(finance)std::cout<<' '<<(g.winner?int(*g.winner):-1)<<' '<<g.resume_movement<<' '<<g.bank_resume_encounter;
+            if(actors){std::cout<<' '<<actor_values.size();for(auto v:actor_values)std::cout<<' '<<v;}
             std::cout<<'\n';
             auto data=g.world.export_save();std::ofstream out(std::filesystem::path(argv[2])/(std::to_string(step++)+".dat"),std::ios::binary);out.write(reinterpret_cast<const char*>(data.data()),data.size());if(!out)return 5;
         }
