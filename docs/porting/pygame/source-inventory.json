@@ -18612,9 +18612,12 @@
       "python": [
         "pygame/src/rich4/item_paint.py::物品绘图_类.api_选色"
       ],
-      "status": "部分完成，库存所需转写；服务/电影/相应场景差分尚未完成",
+      "status": "已实现，直接原商店/真实会话回应、画布及完整DAT差分；正式应用未验",
       "evidence": [
-        "ITEM_SCREENS.md"
+        "ITEM_SCREENS.md",
+        "tests/test_item_shop.py",
+        "evidence/item-shop-differential.json",
+        "evidence/item-shop-branches.json"
       ]
     },
     {
@@ -18678,9 +18681,16 @@
       "id": "tools/screens/items.cpp:171",
       "declarator": "slide(std::uint64_t elapsed, int &list_x, int &grid_x)",
       "end_line": 181,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_shop_screen.py::商店屏幕_类._滑入"
+      ],
+      "status": "已实现，直接原商店/真实会话回应、画布及完整DAT差分；正式应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_shop.py",
+        "evidence/item-shop-differential.json",
+        "evidence/item-shop-branches.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:184",
@@ -18717,9 +18727,11 @@
       "python": [
         "pygame/src/rich4/item_screens.py::物品屏幕_类.api_重置"
       ],
-      "status": "部分完成，库存所需转写；服务/电影/相应场景差分尚未完成",
+      "status": "部分完成，库存/目标/商店访问重置和单条语音已验；魔法/救援访问中与多段语音尚未验",
       "evidence": [
-        "ITEM_SCREENS.md"
+        "ITEM_SCREENS.md",
+        "evidence/item-shop-differential.json",
+        "evidence/item-shop-branches.json"
       ]
     },
     {
@@ -18729,9 +18741,11 @@
       "python": [
         "pygame/src/rich4/item_screens.py::物品屏幕_类._只说一次"
       ],
-      "status": "部分完成，库存所需转写；服务/电影/相应场景差分尚未完成",
+      "status": "部分完成，库存/目标/商店访问重置和单条语音已验；魔法/救援访问中与多段语音尚未验",
       "evidence": [
-        "ITEM_SCREENS.md"
+        "ITEM_SCREENS.md",
+        "evidence/item-shop-differential.json",
+        "evidence/item-shop-branches.json"
       ]
     },
     {
@@ -18746,9 +18760,15 @@
       "id": "tools/screens/items.cpp:234",
       "declarator": "Screens::end_visits()",
       "end_line": 239,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_screens.py::物品屏幕_类.api_结束访问"
+      ],
+      "status": "部分完成，库存/目标/商店访问重置和单条语音已验；魔法/救援访问中与多段语音尚未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "evidence/item-shop-differential.json",
+        "evidence/item-shop-branches.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:241",
@@ -18853,7 +18873,8 @@
       "declarator": "Screens::draw_targets(Frame &frame, const GameDecision &decision, const board::Camera &camera,\n                           std::optional<std::size_t> selected, const std::function<void(std::size_t)> &tap)",
       "end_line": 541,
       "python": [
-        "pygame/src/rich4/item_targets.py::地图目标绘制_类.api_绘制 + 物品选择绘制_类.api_画地图目标"
+        "pygame/src/rich4/item_targets.py::地图目标绘制_类.api_绘制",
+        "pygame/src/rich4/item_choice_screens.py::物品选择绘制_类.api_画地图目标"
       ],
       "status": "已实现，直接原组件画布/状态/完整DAT及实际骰子/抢夺选择差分；重置旧选择缺陷另记，正式应用未验",
       "evidence": [
@@ -18920,25 +18941,46 @@
       "id": "tools/screens/items.cpp:736",
       "declarator": "Screens::shop_pending_value() const",
       "end_line": 740,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_shop_screen.py::商店屏幕_类.api_商店待选"
+      ],
+      "status": "已实现，直接原商店/真实会话回应、画布及完整DAT差分；正式应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_shop.py",
+        "evidence/item-shop-differential.json",
+        "evidence/item-shop-branches.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:742",
       "declarator": "Screens::shop_show_option(std::int32_t value)",
       "end_line": 749,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_shop_screen.py::商店屏幕_类.api_商店显示选项"
+      ],
+      "status": "已实现，直接原商店/真实会话回应、画布及完整DAT差分；正式应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_shop.py",
+        "evidence/item-shop-differential.json",
+        "evidence/item-shop-branches.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:751",
       "declarator": "Screens::draw_shop(Frame &frame, GameSession &session, const GameDecision &decision, const Host &host)",
       "end_line": 995,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_shop_screen.py::商店屏幕_类.api_画商店"
+      ],
+      "status": "已实现，直接原商店/真实会话回应、画布及完整DAT差分；正式应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_shop.py",
+        "evidence/item-shop-differential.json",
+        "evidence/item-shop-branches.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:1021",

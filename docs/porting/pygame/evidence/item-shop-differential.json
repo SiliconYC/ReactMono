@@ -1,0 +1,26 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 1289,
+  "painted_frames": 619,
+  "scope": "direct original point shop, real map shop entry and assets, actual GameSession shop entry/respond, full shop state and phase/RNG/decision and complete World DAT, real sprites, internal state and callbacks; not actual window or full Application integration",
+  "font_sha256": "4b450afb2c61d7529fe05647316e9fc3137ea703a664bded5bca895a5c30748c",
+  "mode": "base",
+  "runtime_sha256": {
+    "item_screens.py": "5ee203cd9138480c8c5dda1a2eedea509451f7ac04b65109cc28e42951ed1a00",
+    "item_shop_screen.py": "9efa09a3401939e31b89a37e697cb972432e51c889b7b74ce3a5ed1381a1e3c2",
+    "item_service_types.py": "65c8528e1a049ba5432967a67f6f27a654d0e79abcca943e6c90e7221b5d7490",
+    "item_choice_screens.py": "8131fa9d5e4da941825f6c836a30d76529982f56852962a7bd539b33f219cf0b",
+    "item_targets.py": "3fb12fe60d67cfb87e0ef1a4e3a29d8770e98b7976615a1806731b041a5cec70",
+    "item_paint.py": "2a2890b4dd25fb60e302e2e9fa779a8e1ad70f88107605674391e7bee7bb6c99",
+    "item_screen_types.py": "ae1cc8cbad6e504c1172b60711ce3a07162783229faab091e1309228c423bb80",
+    "original_text.py": "a06361cb889309fb58b45a554f47c46f7e988b1c9524df1980a3f93af46d3ffd",
+    "native_frame.py": "1ddef472fc701130a3d25246ebbbc5b266dfe8b383b7d20252b6b81b9a87fafa"
+  },
+  "python_sha256": "5ee203cd9138480c8c5dda1a2eedea509451f7ac04b65109cc28e42951ed1a00",
+  "last_command": "R",
+  "last_index": 1288,
+  "state_sha256": "ba83ddceaa93aaf0464ca309e99e2b24e85c28d145f0a777e6b69c3719f26a5d",
+  "input_sha256": "503f54a422e775017067305a1557cf4dc49d29d2cbb0d37e98d48cfa683ac9c4",
+  "compared_pixels": 190156800
+}
