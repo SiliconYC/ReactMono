@@ -1,0 +1,27 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "exe_filename": "rich4.exe",
+  "exe_sha256": "5a90aee28ee5f7a5c3ba5cb935c9e55751a529c25fcd91208748a66293569550",
+  "exe_size": 602112,
+  "python_source_sha256": "f43268df256afa72091a2ae493f73b248951c0e7e5265bf127d15ad6ff6ce011",
+  "status": "passed",
+  "scope": "external read-only PE strings versus fixed C++ literals; no text or asset data published",
+  "entries": 1878,
+  "tables": {
+    "E": 324,
+    "T": 312,
+    "C": 1080,
+    "N": 36,
+    "F": 49,
+    "G": 12,
+    "V": 65
+  },
+  "empty_slots": {
+    "E": 0,
+    "T": 120,
+    "C": 456
+  },
+  "indexed_voice_ids": 1354,
+  "state_sha256": "bd6fc0b667afa6df414085824beda944f46cd0d370b6ac5efc45bac1ed76145d",
+  "native_bank_89_variants": 2
+}
