@@ -18727,11 +18727,11 @@
       "python": [
         "pygame/src/rich4/item_screens.py::物品屏幕_类.api_重置"
       ],
-      "status": "部分完成，库存/目标/商店访问重置和单条语音已验；魔法/救援访问中与多段语音尚未验",
+      "status": "部分完成，库存/目标/商店/魔法重置和语音队列已验；救援访问中与完整分发尚未验",
       "evidence": [
         "ITEM_SCREENS.md",
         "evidence/item-shop-differential.json",
-        "evidence/item-shop-branches.json"
+        "evidence/item-magic-differential.json"
       ]
     },
     {
@@ -18741,11 +18741,11 @@
       "python": [
         "pygame/src/rich4/item_screens.py::物品屏幕_类._只说一次"
       ],
-      "status": "部分完成，库存/目标/商店访问重置和单条语音已验；魔法/救援访问中与多段语音尚未验",
+      "status": "部分完成，库存/目标/商店/魔法重置和语音队列已验；救援访问中与完整分发尚未验",
       "evidence": [
         "ITEM_SCREENS.md",
         "evidence/item-shop-differential.json",
-        "evidence/item-shop-branches.json"
+        "evidence/item-magic-differential.json"
       ]
     },
     {
@@ -18763,11 +18763,11 @@
       "python": [
         "pygame/src/rich4/item_screens.py::物品屏幕_类.api_结束访问"
       ],
-      "status": "部分完成，库存/目标/商店访问重置和单条语音已验；魔法/救援访问中与多段语音尚未验",
+      "status": "部分完成，库存/目标/商店/魔法重置和语音队列已验；救援访问中与完整分发尚未验",
       "evidence": [
         "ITEM_SCREENS.md",
         "evidence/item-shop-differential.json",
-        "evidence/item-shop-branches.json"
+        "evidence/item-magic-differential.json"
       ]
     },
     {
@@ -18986,33 +18986,57 @@
       "id": "tools/screens/items.cpp:1021",
       "declarator": "Screens::draw_magic(Frame &frame, GameSession &session, const GameDecision &decision, const Host &host)",
       "end_line": 1172,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_magic_screen.py::魔法屏幕_类.api_画魔法"
+      ],
+      "status": "已实现，原组件画布/逐帧FLC/实际回应/DAT差分；人类casting=1缺陷按参考保留，正式应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_magic.py",
+        "evidence/item-magic-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:1176",
       "declarator": "Screens::draw_cast_movie(Frame &frame, std::shared_ptr<detail::CastMovie> &state, std::uint64_t elapsed)",
       "end_line": 1199,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_magic_screen.py::魔法屏幕_类._画施法电影"
+      ],
+      "status": "已实现，原组件画布/逐帧FLC/实际回应/DAT差分；人类casting=1缺陷按参考保留，正式应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_magic.py",
+        "evidence/item-magic-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:1201",
       "declarator": "Screens::start_magic_cast(int group, int effect)",
       "end_line": 1204,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_magic_screen.py::魔法屏幕_类.api_开始电脑施法"
+      ],
+      "status": "已实现，原组件画布/逐帧FLC/实际回应/DAT差分；人类casting=1缺陷按参考保留，正式应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_magic.py",
+        "evidence/item-magic-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:1206",
       "declarator": "Screens::draw_magic_cast(Frame &frame)",
       "end_line": 1231,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_magic_screen.py::魔法屏幕_类.api_画电脑施法"
+      ],
+      "status": "已实现，原组件画布/逐帧FLC/实际回应/DAT差分；人类casting=1缺陷按参考保留，正式应用未验",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_magic.py",
+        "evidence/item-magic-differential.json"
+      ]
     },
     {
       "id": "tools/screens/items.cpp:1241",
@@ -19062,9 +19086,15 @@
       "id": "tools/screens/items.hpp:61",
       "declarator": "magic_cast_active() const noexcept",
       "end_line": 61,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/item_magic_screen.py::魔法屏幕_类.api_电脑施法中"
+      ],
+      "status": "已实现，原电脑演出私有状态/重置差分",
+      "evidence": [
+        "ITEM_SCREENS.md",
+        "tests/test_item_magic.py",
+        "evidence/item-magic-differential.json"
+      ]
     },
     {
       "id": "tools/screens/main_screen.cpp:25",

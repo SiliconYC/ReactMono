@@ -10,6 +10,7 @@ from rich4.game import 游戏会话_类
 from rich4.game_types import 游戏事件_类
 from rich4.graphics import 图像_类
 from rich4.item_choice_screens import 物品选择绘制_类
+from rich4.item_magic_screen import 魔法屏幕_类
 from rich4.item_paint import 物品绘图_类
 from rich4.item_screen_types import 卡图等待_类, 物品宿主_类, 物品按住_类
 from rich4.item_service_types import 商店屏幕状态_类, 救援屏幕状态_类, 电脑施法_类, 魔法屏幕状态_类
@@ -22,7 +23,7 @@ from rich4.world import 世界_类
 
 
 # ◕ 功能
-class 物品屏幕_类(物品选择绘制_类, 商店屏幕_类):
+class 物品屏幕_类(物品选择绘制_类, 商店屏幕_类, 魔法屏幕_类):
     """
     原物品屏幕共享状态、按住放开、下一帧动作与卡图先于使用。
 

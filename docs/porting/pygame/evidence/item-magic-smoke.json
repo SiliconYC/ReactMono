@@ -1,0 +1,27 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 11,
+  "painted_frames": 4,
+  "scope": "direct original magic house and Panel20 FLC/mask, real assets, actual GameSession category/effect responses and explicit gallery movie states, phase/RNG/decision and complete World DAT, real sprites, internal state and callbacks; not actual window or full Application integration",
+  "font_sha256": "4b450afb2c61d7529fe05647316e9fc3137ea703a664bded5bca895a5c30748c",
+  "mode": "smoke",
+  "runtime_sha256": {
+    "item_screens.py": "351dcd907e53801091c2d91c669cfecd0454fa38d122d8bb4379f36cc4003262",
+    "item_magic_screen.py": "2c573167963b5fda0d873d594e9f4c19c1abe56c5508c76d45e10050beaf277e",
+    "item_service_types.py": "65c8528e1a049ba5432967a67f6f27a654d0e79abcca943e6c90e7221b5d7490",
+    "item_choice_screens.py": "8131fa9d5e4da941825f6c836a30d76529982f56852962a7bd539b33f219cf0b",
+    "item_shop_screen.py": "9efa09a3401939e31b89a37e697cb972432e51c889b7b74ce3a5ed1381a1e3c2",
+    "item_targets.py": "3fb12fe60d67cfb87e0ef1a4e3a29d8770e98b7976615a1806731b041a5cec70",
+    "item_paint.py": "2a2890b4dd25fb60e302e2e9fa779a8e1ad70f88107605674391e7bee7bb6c99",
+    "item_screen_types.py": "ae1cc8cbad6e504c1172b60711ce3a07162783229faab091e1309228c423bb80",
+    "original_text.py": "a06361cb889309fb58b45a554f47c46f7e988b1c9524df1980a3f93af46d3ffd",
+    "native_frame.py": "1ddef472fc701130a3d25246ebbbc5b266dfe8b383b7d20252b6b81b9a87fafa"
+  },
+  "python_sha256": "351dcd907e53801091c2d91c669cfecd0454fa38d122d8bb4379f36cc4003262",
+  "last_command": "V 7",
+  "last_index": 10,
+  "state_sha256": "956d6ffc5361fffacca1910933d45fefcbed9e7b20152123746ecb7ae67f1a3c",
+  "input_sha256": "97d274a0114bd0ed0e1c37253b5a9d1f58a9e01bd86613fe57c8c766f2a7c187",
+  "compared_pixels": 1228800
+}
