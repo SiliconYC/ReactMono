@@ -1,0 +1,22 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 4088,
+  "painted_frames": 2133,
+  "scope": "direct original OptionsScreen and SaveLoadScreen, private state and captured settings/slot callbacks, real sprites, internal state and callbacks; not actual window/financial rule integration",
+  "font_sha256": "4b450afb2c61d7529fe05647316e9fc3137ea703a664bded5bca895a5c30748c",
+  "mode": "base",
+  "runtime_sha256": {
+    "options_screen.py": "04df57def97fe926d2521ca4bfbdfe5babcf0027817378f6152d1cb6671c0d5b",
+    "options_types.py": "6550e8a93102519f2d2da50ce92547f34e4dc6e7edaba27655b8f3aec1fc389c",
+    "save_slot_screen.py": "73ff5a665385ee047e548c8c1869e0895f8527c5b40ba82aae38d347849a143e",
+    "original_text.py": "a06361cb889309fb58b45a554f47c46f7e988b1c9524df1980a3f93af46d3ffd",
+    "screen_draw.py": "082a3b0d67c61a0ad903adf4dae70847b4b67f3fedaa2f7ad83049942cbd0d28"
+  },
+  "python_sha256": "04df57def97fe926d2521ca4bfbdfe5babcf0027817378f6152d1cb6671c0d5b",
+  "last_command": "F 0 -1 -1 0",
+  "last_index": 4087,
+  "state_sha256": "067559441e487e156491342bb6262e7c80adf261a19c46c1971e423166b39b1f",
+  "input_sha256": "8cbc628e5e59be57d5ae435642e98721d0dce4899de6c2bde262449455699958",
+  "compared_pixels": 655257600
+}

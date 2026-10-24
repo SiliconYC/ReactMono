@@ -11287,5 +11287,77 @@
       "MAIN_MENU_SETUP.md",
       "evidence/main-setup-differential.json"
     ]
+  },
+  "tools/screens/menus.cpp:318": {
+    "python": [
+      "pygame/src/rich4/save_slot_screen.py::api_绘制"
+    ],
+    "status": "已实现，选项/存档槽组件画布及状态差分；真实配置/存档管理未接线",
+    "evidence": [
+      "OPTIONS_SAVE_SLOTS.md",
+      "tests/test_options_screen.py",
+      "tests/test_save_slot_screen.py",
+      "evidence/options-slots-differential.json"
+    ]
+  },
+  "tools/screens/menus.hpp:100": {
+    "python": [
+      "pygame/src/rich4/save_slot_screen.py::api_打开"
+    ],
+    "status": "已实现，选项/存档槽组件画布及状态差分；真实配置/存档管理未接线",
+    "evidence": [
+      "OPTIONS_SAVE_SLOTS.md",
+      "tests/test_options_screen.py",
+      "tests/test_save_slot_screen.py",
+      "evidence/options-slots-differential.json"
+    ]
+  },
+  "tools/screens/menus.hpp:106": {
+    "python": [
+      "pygame/src/rich4/save_slot_screen.py::api_保存中"
+    ],
+    "status": "已实现，选项/存档槽组件画布及状态差分；真实配置/存档管理未接线",
+    "evidence": [
+      "OPTIONS_SAVE_SLOTS.md",
+      "tests/test_options_screen.py",
+      "tests/test_save_slot_screen.py",
+      "evidence/options-slots-differential.json"
+    ]
+  },
+  "tools/screens/menus.hpp:109": {
+    "python": [
+      "pygame/src/rich4/save_slot_screen.py::api_槽"
+    ],
+    "status": "已实现，选项/存档槽组件画布及状态差分；真实配置/存档管理未接线",
+    "evidence": [
+      "OPTIONS_SAVE_SLOTS.md",
+      "tests/test_options_screen.py",
+      "tests/test_save_slot_screen.py",
+      "evidence/options-slots-differential.json"
+    ]
+  },
+  "tools/screens/menus.hpp:135": {
+    "python": [
+      "pygame/src/rich4/options_screen.py::api_打开"
+    ],
+    "status": "已实现，选项/存档槽组件画布及状态差分；真实配置/存档管理未接线",
+    "evidence": [
+      "OPTIONS_SAVE_SLOTS.md",
+      "tests/test_options_screen.py",
+      "tests/test_save_slot_screen.py",
+      "evidence/options-slots-differential.json"
+    ]
+  },
+  "tools/screens/menus.cpp:372": {
+    "python": [
+      "pygame/src/rich4/options_screen.py::api_绘制"
+    ],
+    "status": "已实现，选项/存档槽组件画布及状态差分；真实配置/存档管理未接线",
+    "evidence": [
+      "OPTIONS_SAVE_SLOTS.md",
+      "tests/test_options_screen.py",
+      "tests/test_save_slot_screen.py",
+      "evidence/options-slots-differential.json"
+    ]
   }
 }

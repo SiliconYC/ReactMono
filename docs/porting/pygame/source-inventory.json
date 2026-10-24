@@ -19704,17 +19704,31 @@
       "id": "tools/screens/menus.cpp:318",
       "declarator": "SaveLoadScreen::draw(Host &host, const std::function<void(int)> &choose, const std::function<void()> &cancel)",
       "end_line": 366,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/save_slot_screen.py::api_绘制"
+      ],
+      "status": "已实现，选项/存档槽组件画布及状态差分；真实配置/存档管理未接线",
+      "evidence": [
+        "OPTIONS_SAVE_SLOTS.md",
+        "tests/test_options_screen.py",
+        "tests/test_save_slot_screen.py",
+        "evidence/options-slots-differential.json"
+      ]
     },
     {
       "id": "tools/screens/menus.cpp:372",
       "declarator": "OptionsScreen::draw(Host &host, const OptionsActions &actions)",
       "end_line": 482,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/options_screen.py::api_绘制"
+      ],
+      "status": "已实现，选项/存档槽组件画布及状态差分；真实配置/存档管理未接线",
+      "evidence": [
+        "OPTIONS_SAVE_SLOTS.md",
+        "tests/test_options_screen.py",
+        "tests/test_save_slot_screen.py",
+        "evidence/options-slots-differential.json"
+      ]
     },
     {
       "id": "tools/screens/menus.cpp:487",
@@ -19817,33 +19831,61 @@
       "id": "tools/screens/menus.hpp:100",
       "declarator": "open(bool saving, std::array<SaveSlot, 6> slots)",
       "end_line": 104,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/save_slot_screen.py::api_打开"
+      ],
+      "status": "已实现，选项/存档槽组件画布及状态差分；真实配置/存档管理未接线",
+      "evidence": [
+        "OPTIONS_SAVE_SLOTS.md",
+        "tests/test_options_screen.py",
+        "tests/test_save_slot_screen.py",
+        "evidence/options-slots-differential.json"
+      ]
     },
     {
       "id": "tools/screens/menus.hpp:106",
       "declarator": "saving() const noexcept",
       "end_line": 108,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/save_slot_screen.py::api_保存中"
+      ],
+      "status": "已实现，选项/存档槽组件画布及状态差分；真实配置/存档管理未接线",
+      "evidence": [
+        "OPTIONS_SAVE_SLOTS.md",
+        "tests/test_options_screen.py",
+        "tests/test_save_slot_screen.py",
+        "evidence/options-slots-differential.json"
+      ]
     },
     {
       "id": "tools/screens/menus.hpp:109",
       "declarator": "&slots() const noexcept",
       "end_line": 111,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/save_slot_screen.py::api_槽"
+      ],
+      "status": "已实现，选项/存档槽组件画布及状态差分；真实配置/存档管理未接线",
+      "evidence": [
+        "OPTIONS_SAVE_SLOTS.md",
+        "tests/test_options_screen.py",
+        "tests/test_save_slot_screen.py",
+        "evidence/options-slots-differential.json"
+      ]
     },
     {
       "id": "tools/screens/menus.hpp:135",
       "declarator": "open(OptionsState state, bool in_game)",
       "end_line": 139,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/options_screen.py::api_打开"
+      ],
+      "status": "已实现，选项/存档槽组件画布及状态差分；真实配置/存档管理未接线",
+      "evidence": [
+        "OPTIONS_SAVE_SLOTS.md",
+        "tests/test_options_screen.py",
+        "tests/test_save_slot_screen.py",
+        "evidence/options-slots-differential.json"
+      ]
     },
     {
       "id": "tools/screens/menus.hpp:151",

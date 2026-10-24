@@ -284,3 +284,8 @@ class 原版文字_类:
 
     def api_新闻标题(self, arg_索引: int) -> str:
         return self._表原文(0x475ED8, 6, arg_索引)
+
+    def api_歌曲(self, arg_索引: int) -> str:
+        if not 0 <= arg_索引 < 8:
+            raise IndexError("乐曲原文索引越界")
+        return self.api_原文(0x4635C6 + 13 * arg_索引)
