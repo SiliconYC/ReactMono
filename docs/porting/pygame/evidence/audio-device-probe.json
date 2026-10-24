@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "scope": "zero PCM device-contract probe; no game audio/waveform/listening proof",
+  "driver": "dummy",
+  "callback_blocks": 24,
+  "bytes_per_block": [
+    4096
+  ],
+  "frequency": 48000,
+  "format": 33056,
+  "channels": 2
+}
