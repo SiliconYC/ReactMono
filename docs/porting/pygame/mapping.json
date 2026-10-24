@@ -11724,5 +11724,294 @@
       "evidence/trading-board-differential.json",
       "evidence/trading-board-expanded.json"
     ]
+  },
+  "tools/screens/items.cpp:34": {
+    "python": [
+      "pygame/src/rich4/item_paint.py::物品绘图_类.api_图"
+    ],
+    "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_screens.py",
+      "evidence/item-inventory-differential.json"
+    ]
+  },
+  "tools/screens/items.cpp:37": {
+    "python": [
+      "pygame/src/rich4/item_paint.py::物品绘图_类.api_图"
+    ],
+    "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_screens.py",
+      "evidence/item-inventory-differential.json"
+    ]
+  },
+  "tools/screens/items.cpp:40": {
+    "python": [
+      "pygame/src/rich4/item_paint.py::物品绘图_类.api_图"
+    ],
+    "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_screens.py",
+      "evidence/item-inventory-differential.json"
+    ]
+  },
+  "tools/screens/items.cpp:45": {
+    "python": [
+      "pygame/src/rich4/item_paint.py::物品绘图_类.api_字形"
+    ],
+    "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_screens.py",
+      "evidence/item-inventory-differential.json"
+    ]
+  },
+  "tools/screens/items.cpp:56": {
+    "python": [
+      "pygame/src/rich4/item_paint.py::物品绘图_类.api_中（内联）"
+    ],
+    "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_screens.py",
+      "evidence/item-inventory-differential.json"
+    ]
+  },
+  "tools/screens/items.cpp:59": {
+    "python": [
+      "pygame/src/rich4/item_paint.py::物品绘图_类.api_中（split内联）"
+    ],
+    "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_screens.py",
+      "evidence/item-inventory-differential.json"
+    ]
+  },
+  "tools/screens/items.cpp:70": {
+    "python": [
+      "pygame/src/rich4/item_paint.py::物品绘图_类.api_中"
+    ],
+    "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_screens.py",
+      "evidence/item-inventory-differential.json"
+    ]
+  },
+  "tools/screens/items.cpp:82": {
+    "python": [
+      "pygame/src/rich4/item_paint.py::物品绘图_类.api_右上"
+    ],
+    "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_screens.py",
+      "evidence/item-inventory-differential.json"
+    ]
+  },
+  "tools/screens/items.cpp:92": {
+    "python": [
+      "pygame/src/rich4/item_paint.py::物品绘图_类.api_下沉"
+    ],
+    "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_screens.py",
+      "evidence/item-inventory-differential.json"
+    ]
+  },
+  "tools/screens/items.cpp:134": {
+    "python": [
+      "pygame/src/rich4/item_paint.py::物品绘图_类.api_格"
+    ],
+    "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_screens.py",
+      "evidence/item-inventory-differential.json"
+    ]
+  },
+  "tools/screens/items.cpp:139": {
+    "python": [
+      "pygame/src/rich4/item_paint.py::物品绘图_类.api_卡网格"
+    ],
+    "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_screens.py",
+      "evidence/item-inventory-differential.json"
+    ]
+  },
+  "tools/screens/items.cpp:151": {
+    "python": [
+      "pygame/src/rich4/item_paint.py::物品绘图_类.api_道具网格"
+    ],
+    "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_screens.py",
+      "evidence/item-inventory-differential.json"
+    ]
+  },
+  "tools/screens/items.cpp:184": {
+    "python": [
+      "pygame/src/rich4/item_screens.py::物品屏幕_类._现在"
+    ],
+    "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_screens.py",
+      "evidence/item-inventory-differential.json"
+    ]
+  },
+  "tools/screens/items.cpp:188": {
+    "python": [
+      "pygame/src/rich4/item_screens.py::物品屏幕_类.api_运行延迟"
+    ],
+    "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_screens.py",
+      "evidence/item-inventory-differential.json"
+    ]
+  },
+  "tools/screens/items.cpp:241": {
+    "python": [
+      "pygame/src/rich4/item_screens.py::物品屏幕_类._按住开始"
+    ],
+    "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_screens.py",
+      "evidence/item-inventory-differential.json"
+    ]
+  },
+  "tools/screens/items.cpp:249": {
+    "python": [
+      "pygame/src/rich4/item_screens.py::物品屏幕_类._释放按住"
+    ],
+    "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_screens.py",
+      "evidence/item-inventory-differential.json"
+    ]
+  },
+  "tools/screens/items.cpp:265": {
+    "python": [
+      "pygame/src/rich4/item_screens.py::物品屏幕_类._说明"
+    ],
+    "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_screens.py",
+      "evidence/item-inventory-differential.json"
+    ]
+  },
+  "tools/screens/items.cpp:295": {
+    "python": [
+      "pygame/src/rich4/item_screens.py::物品屏幕_类._卡图图像"
+    ],
+    "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_screens.py",
+      "evidence/item-inventory-differential.json"
+    ]
+  },
+  "tools/screens/items.cpp:310": {
+    "python": [
+      "pygame/src/rich4/item_screens.py::物品屏幕_类.api_画库存"
+    ],
+    "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_screens.py",
+      "evidence/item-inventory-differential.json"
+    ]
+  },
+  "tools/screens/items.cpp:406": {
+    "python": [
+      "pygame/src/rich4/item_screens.py::物品屏幕_类.api_观察"
+    ],
+    "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_screens.py",
+      "evidence/item-inventory-differential.json"
+    ]
+  },
+  "tools/screens/items.cpp:415": {
+    "python": [
+      "pygame/src/rich4/item_screens.py::物品屏幕_类.api_画卡图"
+    ],
+    "status": "已实现，原库存/卡图画布与真实会话动作差分；正式主应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_screens.py",
+      "evidence/item-inventory-differential.json"
+    ]
+  },
+  "tools/screens/items.hpp:52": {
+    "python": [
+      "pygame/src/rich4/item_screens.py::物品屏幕_类.api_卡图中"
+    ],
+    "status": "已实现，队列/私有状态差分",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_screens.py",
+      "evidence/item-inventory-differential.json"
+    ]
+  },
+  "tools/screens/items.hpp:55": {
+    "python": [
+      "pygame/src/rich4/item_screens.py::物品屏幕_类.api_有延迟"
+    ],
+    "status": "已实现，队列/私有状态差分",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_screens.py",
+      "evidence/item-inventory-differential.json"
+    ]
+  },
+  "tools/screens/items.cpp:86": {
+    "python": [
+      "pygame/src/rich4/item_paint.py::物品绘图_类.api_右中"
+    ],
+    "status": "部分完成，库存所需转写；服务/电影/相应场景差分尚未完成",
+    "evidence": [
+      "ITEM_SCREENS.md"
+    ]
+  },
+  "tools/screens/items.cpp:116": {
+    "python": [
+      "pygame/src/rich4/item_paint.py::物品绘图_类.api_选色"
+    ],
+    "status": "部分完成，库存所需转写；服务/电影/相应场景差分尚未完成",
+    "evidence": [
+      "ITEM_SCREENS.md"
+    ]
+  },
+  "tools/screens/items.cpp:205": {
+    "python": [
+      "pygame/src/rich4/item_screens.py::物品屏幕_类._只说一次"
+    ],
+    "status": "部分完成，库存所需转写；服务/电影/相应场景差分尚未完成",
+    "evidence": [
+      "ITEM_SCREENS.md"
+    ]
+  },
+  "tools/screens/items.cpp:195": {
+    "python": [
+      "pygame/src/rich4/item_screens.py::物品屏幕_类.api_重置"
+    ],
+    "status": "部分完成，库存所需转写；服务/电影/相应场景差分尚未完成",
+    "evidence": [
+      "ITEM_SCREENS.md"
+    ]
   }
 }
