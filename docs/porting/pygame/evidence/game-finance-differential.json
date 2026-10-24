@@ -1,0 +1,587 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "generator_seed": 2026102401,
+  "scope": "original payment/bank/loan/financing/dividend/month-end/lease private entries; explicit field/reset probes, not natural game; no active gods/special actors or >3-property auctions",
+  "status": "passed",
+  "episodes": [
+    {
+      "map": 0,
+      "seed": 0,
+      "commands": 3234,
+      "operations": {
+        "r": 363,
+        "F": 440,
+        "P": 1032,
+        "T": 282,
+        "H": 286,
+        "C": 255,
+        "J": 16,
+        "K": 32,
+        "N": 250,
+        "d": 250,
+        "L": 28
+      },
+      "statuses": {
+        "0": 3234
+      },
+      "state_sha256": "30e8d8585a41710daf2f2e813fd36336747681e6f801f445e3de0243bda582e2",
+      "input_sha256": "9b87d20361d89bb6c161a9cdc02062dc9a9eeb20a74af9bd2974220aa98a1bba"
+    },
+    {
+      "map": 0,
+      "seed": 1,
+      "commands": 3235,
+      "operations": {
+        "r": 363,
+        "F": 440,
+        "P": 1032,
+        "T": 282,
+        "H": 286,
+        "C": 255,
+        "J": 17,
+        "K": 34,
+        "N": 250,
+        "d": 250,
+        "L": 26
+      },
+      "statuses": {
+        "0": 3235
+      },
+      "state_sha256": "b197d9817e4fe8c16b4e40a2cfeb1bb9df0393f98a4ad55ab72f58b1e1bf23d9",
+      "input_sha256": "01a5e7b1de022b81c388f0f4fbcf044e30da0f9ccc143c817f0bf8afad320a6f"
+    },
+    {
+      "map": 0,
+      "seed": 4294967295,
+      "commands": 3221,
+      "operations": {
+        "r": 363,
+        "F": 440,
+        "P": 1032,
+        "T": 282,
+        "H": 286,
+        "C": 255,
+        "J": 9,
+        "K": 18,
+        "N": 250,
+        "d": 250,
+        "L": 36
+      },
+      "statuses": {
+        "0": 3221
+      },
+      "state_sha256": "5c96df9a9fc86cee233630a412e4ba1cc55c85687e2de58776ee4005187d94d5",
+      "input_sha256": "f4e7725e7466767d34572cfcc7bf65e5d3a4655eecf19ad97d2ade670bb4d4b3"
+    },
+    {
+      "map": 1,
+      "seed": 0,
+      "commands": 3224,
+      "operations": {
+        "r": 363,
+        "F": 440,
+        "P": 1032,
+        "T": 282,
+        "H": 286,
+        "C": 255,
+        "J": 14,
+        "K": 28,
+        "N": 250,
+        "d": 250,
+        "L": 24
+      },
+      "statuses": {
+        "0": 3224
+      },
+      "state_sha256": "5bdb6a0eddddab9b507261424037a472625c62aa240a28a7b0a0444ddd334316",
+      "input_sha256": "48aa0996d94f253bfa463d3f538f73e751c82a8f274d48882ea27e6989f69396"
+    },
+    {
+      "map": 1,
+      "seed": 1,
+      "commands": 3222,
+      "operations": {
+        "r": 363,
+        "F": 440,
+        "P": 1032,
+        "T": 282,
+        "H": 286,
+        "C": 255,
+        "J": 14,
+        "K": 28,
+        "N": 250,
+        "d": 250,
+        "L": 22
+      },
+      "statuses": {
+        "0": 3222
+      },
+      "state_sha256": "f2872b38e0e1ba31cadfff91e03847d12bfd2d252c149e0408beb3d433633d4e",
+      "input_sha256": "d27d882b1f1065215c6f57dca911e2985d75743589d9282014d10e2b08ee6bc1"
+    },
+    {
+      "map": 1,
+      "seed": 4294967295,
+      "commands": 3238,
+      "operations": {
+        "r": 363,
+        "F": 440,
+        "P": 1032,
+        "T": 282,
+        "H": 286,
+        "C": 255,
+        "J": 20,
+        "K": 40,
+        "N": 250,
+        "d": 250,
+        "L": 20
+      },
+      "statuses": {
+        "0": 3238
+      },
+      "state_sha256": "0a35b1726cd90a2f21fc1ad2d60d2de68f61e9de2bea7336714145546f320df3",
+      "input_sha256": "6930f521c550eb4a5f864f0cb4f6ee525add1494bd68afc088a92a2d611f4308"
+    },
+    {
+      "map": 2,
+      "seed": 0,
+      "commands": 3234,
+      "operations": {
+        "r": 363,
+        "F": 440,
+        "P": 1032,
+        "T": 282,
+        "H": 286,
+        "C": 255,
+        "J": 18,
+        "K": 36,
+        "N": 250,
+        "d": 250,
+        "L": 22
+      },
+      "statuses": {
+        "0": 3234
+      },
+      "state_sha256": "2b274c72091f1a488cd4dde43b02656604a5e41438ff6c349841cf549e4185e1",
+      "input_sha256": "c07c6bf23add6a9c979c88a84ce9ecd2e5e9788caf5ce1d2055f3f86730e6e6c"
+    },
+    {
+      "map": 2,
+      "seed": 1,
+      "commands": 3213,
+      "operations": {
+        "r": 363,
+        "F": 440,
+        "P": 1032,
+        "T": 282,
+        "H": 286,
+        "C": 255,
+        "J": 13,
+        "K": 26,
+        "N": 250,
+        "d": 250,
+        "L": 16
+      },
+      "statuses": {
+        "0": 3213
+      },
+      "state_sha256": "5e23430375488415f939ca1b04898e6656d663a06d01ae474947c205c575d5ef",
+      "input_sha256": "9b520acf31e4f2cf5abf20b2921cc45150052a85dac1f5a47541c86fda1fbd1c"
+    },
+    {
+      "map": 2,
+      "seed": 4294967295,
+      "commands": 3233,
+      "operations": {
+        "r": 363,
+        "F": 440,
+        "P": 1032,
+        "T": 282,
+        "H": 286,
+        "C": 255,
+        "J": 17,
+        "K": 34,
+        "N": 250,
+        "d": 250,
+        "L": 24
+      },
+      "statuses": {
+        "0": 3233
+      },
+      "state_sha256": "71be88a2e09ef3817980f9ddd0c7309684a773dff36932d8e58a228de64fe542",
+      "input_sha256": "5cf3bf0f29e96c7f9e3d86495dd931e08dca2371fc04fb755b9efce3b5a838c3"
+    },
+    {
+      "map": 3,
+      "seed": 0,
+      "commands": 3224,
+      "operations": {
+        "r": 363,
+        "F": 440,
+        "P": 1032,
+        "T": 282,
+        "H": 286,
+        "C": 255,
+        "J": 14,
+        "K": 28,
+        "N": 250,
+        "d": 250,
+        "L": 24
+      },
+      "statuses": {
+        "0": 3224
+      },
+      "state_sha256": "88a52ec81ec350869687425c3e4dadeb8d29ceeedea505ce375e02269662054d",
+      "input_sha256": "1c7d3b2d7c7da9b6bfdd4e85d46668d2881a4460db28923b5b3a09b5e282630b"
+    },
+    {
+      "map": 3,
+      "seed": 1,
+      "commands": 3231,
+      "operations": {
+        "r": 363,
+        "F": 440,
+        "P": 1032,
+        "T": 282,
+        "H": 286,
+        "C": 255,
+        "J": 15,
+        "K": 30,
+        "N": 250,
+        "d": 250,
+        "L": 28
+      },
+      "statuses": {
+        "0": 3231
+      },
+      "state_sha256": "63837c6d8f314204d00939ecbe7e1b62d8f1d4b3ed9cb8af7c45efee758d4654",
+      "input_sha256": "9b635739fcadf18c000bcd127c418ba371e1f7f03a9f0ee3399742fdb7ae56a9"
+    },
+    {
+      "map": 3,
+      "seed": 4294967295,
+      "commands": 3223,
+      "operations": {
+        "r": 363,
+        "F": 440,
+        "P": 1032,
+        "T": 282,
+        "H": 286,
+        "C": 255,
+        "J": 17,
+        "K": 34,
+        "N": 250,
+        "d": 250,
+        "L": 14
+      },
+      "statuses": {
+        "0": 3223
+      },
+      "state_sha256": "fa64fa1cf5c45d4ccee01d08529962a87840fee4b09eecc4fed05e0202c6af48",
+      "input_sha256": "f92c9ec6ee4dcd9d156184617c3cac24b0cc28d334ad935d539612509272db0c"
+    },
+    {
+      "map": 4,
+      "seed": 0,
+      "commands": 3235,
+      "operations": {
+        "r": 363,
+        "F": 440,
+        "P": 1032,
+        "T": 282,
+        "H": 286,
+        "C": 255,
+        "J": 19,
+        "K": 38,
+        "N": 250,
+        "d": 250,
+        "L": 20
+      },
+      "statuses": {
+        "0": 3235
+      },
+      "state_sha256": "f52cea49bc8c77f83215be247aae080e7841195c4add05ee7826ba6cd637b5c1",
+      "input_sha256": "4fa7927e540eb3db6ac53ebdc8cf3aa71c24d8b4c011d17a828d3dcfe52c7f73"
+    },
+    {
+      "map": 4,
+      "seed": 1,
+      "commands": 3221,
+      "operations": {
+        "r": 363,
+        "F": 440,
+        "P": 1032,
+        "T": 282,
+        "H": 286,
+        "C": 255,
+        "J": 15,
+        "K": 30,
+        "N": 250,
+        "d": 250,
+        "L": 18
+      },
+      "statuses": {
+        "0": 3221
+      },
+      "state_sha256": "bd086f701b9c7b714a7ac60807662cef138687dd267f7be32422015cfb11bcbf",
+      "input_sha256": "a5c483064136ecf5eb747e7db35c981ebdd586bd6165502c83ced7278a4f178e"
+    },
+    {
+      "map": 4,
+      "seed": 4294967295,
+      "commands": 3231,
+      "operations": {
+        "r": 363,
+        "F": 440,
+        "P": 1032,
+        "T": 282,
+        "H": 286,
+        "C": 255,
+        "J": 17,
+        "K": 34,
+        "N": 250,
+        "d": 250,
+        "L": 22
+      },
+      "statuses": {
+        "0": 3231
+      },
+      "state_sha256": "59caaceba917785f65f7afe94493a13209744a195a34f0da625fe343ac4a5a62",
+      "input_sha256": "6dc0de7131b43227ccdac0bf432e38fe9de61cd28914d25f92d9231a1576fb73"
+    },
+    {
+      "map": 5,
+      "seed": 0,
+      "commands": 3223,
+      "operations": {
+        "r": 363,
+        "F": 440,
+        "P": 1032,
+        "T": 282,
+        "H": 286,
+        "C": 255,
+        "J": 15,
+        "K": 30,
+        "N": 250,
+        "d": 250,
+        "L": 20
+      },
+      "statuses": {
+        "0": 3223
+      },
+      "state_sha256": "9037c5bde553b450959eac8d60fe779597cf2fb6f33cb8a410cf0e193acd8e13",
+      "input_sha256": "07336a4e50947d851708f42b7fd058216b24680c9adc93f78330725c52a138c9"
+    },
+    {
+      "map": 5,
+      "seed": 1,
+      "commands": 3231,
+      "operations": {
+        "r": 363,
+        "F": 440,
+        "P": 1032,
+        "T": 282,
+        "H": 286,
+        "C": 255,
+        "J": 19,
+        "K": 38,
+        "N": 250,
+        "d": 250,
+        "L": 16
+      },
+      "statuses": {
+        "0": 3231
+      },
+      "state_sha256": "edad82a66aa6c78ff81aa58c9faad915db22e8bcae8f95308d464e85ebbd0b9f",
+      "input_sha256": "b9509ef19cde160f6ca482ee7ebc7f3b5272e502ba19f4331a1ff3681c4ddf49"
+    },
+    {
+      "map": 5,
+      "seed": 4294967295,
+      "commands": 3223,
+      "operations": {
+        "r": 363,
+        "F": 440,
+        "P": 1032,
+        "T": 282,
+        "H": 286,
+        "C": 255,
+        "J": 15,
+        "K": 30,
+        "N": 250,
+        "d": 250,
+        "L": 20
+      },
+      "statuses": {
+        "0": 3223
+      },
+      "state_sha256": "330e4a6eada17c6583bf02aae90ad0f12f398adeed49675ddfc33fa7838a4acb",
+      "input_sha256": "32c40e57737b0278f417b957f754b94031858bec62f7d5abd7e6eaeb46b38e97"
+    },
+    {
+      "map": 6,
+      "seed": 0,
+      "commands": 3223,
+      "operations": {
+        "r": 363,
+        "F": 440,
+        "P": 1032,
+        "T": 282,
+        "H": 286,
+        "C": 255,
+        "J": 13,
+        "K": 26,
+        "N": 250,
+        "d": 250,
+        "L": 26
+      },
+      "statuses": {
+        "0": 3223
+      },
+      "state_sha256": "f65e31a97a4da160179c1a7fd6185584ee109d5e580cecb6b524b8dc22da745b",
+      "input_sha256": "08fd75b3df814776b0545f2ae6b924f5c01d7c27ac24e4f4ab80e467e6560ebc"
+    },
+    {
+      "map": 6,
+      "seed": 1,
+      "commands": 3238,
+      "operations": {
+        "r": 363,
+        "F": 440,
+        "P": 1032,
+        "T": 282,
+        "H": 286,
+        "C": 255,
+        "J": 18,
+        "K": 36,
+        "N": 250,
+        "d": 250,
+        "L": 26
+      },
+      "statuses": {
+        "0": 3238
+      },
+      "state_sha256": "377a1f81d911b2aaebc979a264e306b83ed9d309ffcab0dd7a5856aa95ba7546",
+      "input_sha256": "bb4fa66d51cfc761d12192140a8093c501e8ea5423a5f5e68c54e8c87e0ac9ab"
+    },
+    {
+      "map": 6,
+      "seed": 4294967295,
+      "commands": 3207,
+      "operations": {
+        "r": 363,
+        "F": 440,
+        "P": 1032,
+        "T": 282,
+        "H": 286,
+        "C": 255,
+        "J": 15,
+        "K": 30,
+        "N": 250,
+        "d": 250,
+        "L": 4
+      },
+      "statuses": {
+        "0": 3207
+      },
+      "state_sha256": "a4d81492faa1b1a3e3745dd6024bdd71cfbe57d44499b3f88eec0bed2cf7bb0f",
+      "input_sha256": "fa687bf014823c903401183f1d183b1b6da45daa24059f173e08c9dbd6432c03"
+    },
+    {
+      "map": 7,
+      "seed": 0,
+      "commands": 3224,
+      "operations": {
+        "r": 363,
+        "F": 440,
+        "P": 1032,
+        "T": 282,
+        "H": 286,
+        "C": 255,
+        "J": 18,
+        "K": 36,
+        "N": 250,
+        "d": 250,
+        "L": 12
+      },
+      "statuses": {
+        "0": 3224
+      },
+      "state_sha256": "412bb8e69a1305d7b0036aa640052fac7e2673dadebafa77370c621c7db7bab5",
+      "input_sha256": "be3d059c3fc82674bc7f2f62a2118a66e90d4fcd7ae8260ab25db188331b57e3"
+    },
+    {
+      "map": 7,
+      "seed": 1,
+      "commands": 3235,
+      "operations": {
+        "r": 363,
+        "F": 440,
+        "P": 1032,
+        "T": 282,
+        "H": 286,
+        "C": 255,
+        "J": 19,
+        "K": 38,
+        "N": 250,
+        "d": 250,
+        "L": 20
+      },
+      "statuses": {
+        "0": 3235
+      },
+      "state_sha256": "7ba4bcfc57baa2d1bc9fa7b9684eb05ec2a152e8c93df0a004dcd19b445b89b9",
+      "input_sha256": "ce749adbfbc7386f57e469dc1b6f27f7b012362622cb62152b20cfd6e200ccbf"
+    },
+    {
+      "map": 7,
+      "seed": 4294967295,
+      "commands": 3232,
+      "operations": {
+        "r": 363,
+        "F": 440,
+        "P": 1032,
+        "T": 282,
+        "H": 286,
+        "C": 255,
+        "J": 18,
+        "K": 36,
+        "N": 250,
+        "d": 250,
+        "L": 20
+      },
+      "statuses": {
+        "0": 3232
+      },
+      "state_sha256": "5f6985394d0833c5598cd0b0651c143e930c89cbf417e9ee17ba085cb5819f0a",
+      "input_sha256": "05ec65ae3efe9d4c6e6f04a3e1d6d6ad7502193350036dae0dd87e1b1eeea36a"
+    }
+  ],
+  "identity_only": false,
+  "entry_counts": {
+    "0": 1235,
+    "1": 269,
+    "2": 256,
+    "3": 284,
+    "4": 270,
+    "5": 250,
+    "6": 268,
+    "7": 1105,
+    "8": 230,
+    "9": 1130,
+    "10": 263,
+    "11": 286,
+    "12": 248,
+    "13": 235,
+    "14": 238,
+    "15": 1026,
+    "16": 278,
+    "17": 261,
+    "18": 385,
+    "19": 391,
+    "20": 1129,
+    "21": 254,
+    "22": 269
+  },
+  "observations": "all complete DAT/RNG/phase/clock/choice memory/events/effects/decisions; nonempty monthly all fields plus winner/bank-resume flags"
+}

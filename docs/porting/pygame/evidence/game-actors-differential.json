@@ -1,0 +1,538 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "generator_seed": 2026102401,
+  "scope": "original actor/confinement/passive-card/building/auction/object private entries inside original run_rule; explicit field preparation and answers, not natural turns",
+  "status": "passed",
+  "episodes": [
+    {
+      "map": 0,
+      "seed": 0,
+      "commands": 3393,
+      "operations": {
+        "r": 351,
+        "U": 360,
+        "V": 522,
+        "E": 188,
+        "B": 351,
+        "a": 1224,
+        "d": 351,
+        "N": 9,
+        "O": 37
+      },
+      "statuses": {
+        "0": 3393
+      },
+      "state_sha256": "5a2d53d119c3352167026aa7a4dde51eb4cdaa752dd6abd7e41262bee08e7b2b",
+      "input_sha256": "db0bf5cec107b1d85d2c20523a4e83e210b7fded9130bc7465a0def6b66cc390"
+    },
+    {
+      "map": 0,
+      "seed": 1,
+      "commands": 3389,
+      "operations": {
+        "r": 351,
+        "U": 360,
+        "V": 522,
+        "E": 190,
+        "B": 351,
+        "a": 1224,
+        "d": 351,
+        "N": 9,
+        "O": 31
+      },
+      "statuses": {
+        "0": 3389
+      },
+      "state_sha256": "77fb71226993d318d6be09214571c995cbd37d48bf255dff22df8138a43dc4c1",
+      "input_sha256": "54ae468696a1fc8126a0283e3ba83935c981019f569c86d28c917e778e967c8e"
+    },
+    {
+      "map": 0,
+      "seed": 4294967295,
+      "commands": 3398,
+      "operations": {
+        "r": 351,
+        "U": 360,
+        "V": 522,
+        "E": 193,
+        "B": 351,
+        "a": 1224,
+        "d": 351,
+        "N": 9,
+        "O": 37
+      },
+      "statuses": {
+        "0": 3398
+      },
+      "state_sha256": "93cea70af0b8cb5375760faf0c8940a1dc6bdad43cecfa3cb4b5170c01df2144",
+      "input_sha256": "62a03a7a12f8729671b7bdc829e472510997daff8d3757b842311eaa16a9fcd4"
+    },
+    {
+      "map": 1,
+      "seed": 0,
+      "commands": 3394,
+      "operations": {
+        "r": 351,
+        "U": 360,
+        "V": 522,
+        "E": 191,
+        "B": 351,
+        "a": 1224,
+        "d": 351,
+        "N": 9,
+        "O": 35
+      },
+      "statuses": {
+        "0": 3394
+      },
+      "state_sha256": "3d87a760272cb216dbd0f04c3e786740ede1ed784429a92bc71c693e75583a10",
+      "input_sha256": "a78635a1f2ddfe4355937b0e46122fef5401e93fc49e961d7f76c7f82747efd9"
+    },
+    {
+      "map": 1,
+      "seed": 1,
+      "commands": 3402,
+      "operations": {
+        "r": 351,
+        "U": 360,
+        "V": 522,
+        "E": 191,
+        "B": 351,
+        "a": 1224,
+        "d": 351,
+        "N": 9,
+        "O": 43
+      },
+      "statuses": {
+        "0": 3402
+      },
+      "state_sha256": "860cdb10d39df61ba8f390cf421a973150574d996565fef3102d8a9ab62f92f3",
+      "input_sha256": "d3ee3be2e5d19e02ed5c508778355f28a401fc9792a9cc671cbd42df45310312"
+    },
+    {
+      "map": 1,
+      "seed": 4294967295,
+      "commands": 3386,
+      "operations": {
+        "r": 351,
+        "U": 360,
+        "V": 522,
+        "E": 188,
+        "B": 351,
+        "a": 1224,
+        "d": 351,
+        "N": 9,
+        "O": 30
+      },
+      "statuses": {
+        "0": 3386
+      },
+      "state_sha256": "98cbd87d6415be5066deef06c23fe4219583d5210457bb9e07da99431d9cb0be",
+      "input_sha256": "e924e273aba07a7044727a89f733eb6b83efa70235d90925e7c86b70820a944a"
+    },
+    {
+      "map": 2,
+      "seed": 0,
+      "commands": 3392,
+      "operations": {
+        "r": 351,
+        "U": 360,
+        "V": 522,
+        "E": 187,
+        "B": 351,
+        "a": 1224,
+        "d": 351,
+        "N": 9,
+        "O": 37
+      },
+      "statuses": {
+        "0": 3392
+      },
+      "state_sha256": "eb759510b1cbd66b37f0e50f82f40b51f8405422d221ef708e005244d7255bd2",
+      "input_sha256": "8410c122eac8e788380ff5bdfa8f6aca34bc79287068fde8db9f75fc89e32c9e"
+    },
+    {
+      "map": 2,
+      "seed": 1,
+      "commands": 3396,
+      "operations": {
+        "r": 351,
+        "U": 360,
+        "V": 522,
+        "E": 193,
+        "B": 351,
+        "a": 1224,
+        "d": 351,
+        "N": 9,
+        "O": 35
+      },
+      "statuses": {
+        "0": 3396
+      },
+      "state_sha256": "488a5be5e38430d7feb79a2551cb15e211a43a5c33686ee5b48f35825842c08b",
+      "input_sha256": "f65dfc7ad31837a9bed9b90046dfd7a6a47baadeb03bc225d9c0edf857ffdd43"
+    },
+    {
+      "map": 2,
+      "seed": 4294967295,
+      "commands": 3391,
+      "operations": {
+        "r": 351,
+        "U": 360,
+        "V": 522,
+        "E": 188,
+        "B": 351,
+        "a": 1224,
+        "d": 351,
+        "N": 9,
+        "O": 35
+      },
+      "statuses": {
+        "0": 3391
+      },
+      "state_sha256": "f6af80914093c77714d8aeac8ef0e525af3feee2efd9196d6bf6d38429049468",
+      "input_sha256": "c6b31d72f5808404e13d90fa94e0e3225a199987fff87166b26ce3a867760b59"
+    },
+    {
+      "map": 3,
+      "seed": 0,
+      "commands": 3395,
+      "operations": {
+        "r": 351,
+        "U": 360,
+        "V": 522,
+        "E": 190,
+        "B": 351,
+        "a": 1224,
+        "d": 351,
+        "N": 9,
+        "O": 37
+      },
+      "statuses": {
+        "0": 3395
+      },
+      "state_sha256": "da192e431f76c852bdb25b2c1df6a2bc909e1edda8f2bbe70847cbb8035b3ec8",
+      "input_sha256": "f99718323c16cca1cf7c8a1f5e03015c053927b4e9933d3a7b8beb3fdeb9972c"
+    },
+    {
+      "map": 3,
+      "seed": 1,
+      "commands": 3395,
+      "operations": {
+        "r": 351,
+        "U": 360,
+        "V": 522,
+        "E": 185,
+        "B": 351,
+        "a": 1224,
+        "d": 351,
+        "N": 9,
+        "O": 42
+      },
+      "statuses": {
+        "0": 3395
+      },
+      "state_sha256": "9cf42ccf9f60c892659bff3f839896053fe381eb0dd5240d2a8729e99abfadfc",
+      "input_sha256": "f260434b015beae911d68acb3406490123f3382709ad45b714b2687f950452a8"
+    },
+    {
+      "map": 3,
+      "seed": 4294967295,
+      "commands": 3393,
+      "operations": {
+        "r": 351,
+        "U": 360,
+        "V": 522,
+        "E": 189,
+        "B": 351,
+        "a": 1224,
+        "d": 351,
+        "N": 9,
+        "O": 36
+      },
+      "statuses": {
+        "0": 3393
+      },
+      "state_sha256": "a517be3428c889372377457a18875c5b4ffe8c656e3f94b4c476e137d34db85a",
+      "input_sha256": "9d96644e329f80e005b6782992d36a4f4aad076d0aa0ef1b538ae7e5427bfb15"
+    },
+    {
+      "map": 4,
+      "seed": 0,
+      "commands": 3389,
+      "operations": {
+        "r": 351,
+        "U": 360,
+        "V": 522,
+        "E": 186,
+        "B": 351,
+        "a": 1224,
+        "d": 351,
+        "N": 9,
+        "O": 35
+      },
+      "statuses": {
+        "0": 3389
+      },
+      "state_sha256": "5d6f5b3465c9ab7e1bcf5de413e60bd72e74d9d4e116abbc50623522527f9c3c",
+      "input_sha256": "c5589aa90488ebfe4b92621fedad8ed35a9eb90695d13cbb558935ca785ca4f8"
+    },
+    {
+      "map": 4,
+      "seed": 1,
+      "commands": 3388,
+      "operations": {
+        "r": 351,
+        "U": 360,
+        "V": 522,
+        "E": 189,
+        "B": 351,
+        "a": 1224,
+        "d": 351,
+        "N": 9,
+        "O": 31
+      },
+      "statuses": {
+        "0": 3388
+      },
+      "state_sha256": "7bca55789a3f6b37b85f6bf9fe56fe50f968f15a4406d5d4e3b7d1bcd2ac7b32",
+      "input_sha256": "51d72b770acc5ffb3943ebc963a0c922d2ed6cc76327dc765a0620198e94f26e"
+    },
+    {
+      "map": 4,
+      "seed": 4294967295,
+      "commands": 3390,
+      "operations": {
+        "r": 351,
+        "U": 360,
+        "V": 522,
+        "E": 190,
+        "B": 351,
+        "a": 1224,
+        "d": 351,
+        "N": 9,
+        "O": 32
+      },
+      "statuses": {
+        "0": 3390
+      },
+      "state_sha256": "f42107f9e319300e0786b7d6745fa06cc4713f57f81a2be26cf1a71aa9daff2f",
+      "input_sha256": "aab1a1e80ef5ba459fa04c457e8baf2bc435950eae9be56cacf426bfb8067b73"
+    },
+    {
+      "map": 5,
+      "seed": 0,
+      "commands": 3390,
+      "operations": {
+        "r": 351,
+        "U": 360,
+        "V": 522,
+        "E": 188,
+        "B": 351,
+        "a": 1224,
+        "d": 351,
+        "N": 9,
+        "O": 34
+      },
+      "statuses": {
+        "0": 3390
+      },
+      "state_sha256": "033f6e314b4b55599b638d755c5d639ae6a1f26fd5f4885e6be6ed550095203f",
+      "input_sha256": "437142b6afcf4c7e8cd4676325eb0564d7719b00db95d8be7eb966ce1abdc8af"
+    },
+    {
+      "map": 5,
+      "seed": 1,
+      "commands": 3392,
+      "operations": {
+        "r": 351,
+        "U": 360,
+        "V": 522,
+        "E": 186,
+        "B": 351,
+        "a": 1224,
+        "d": 351,
+        "N": 9,
+        "O": 38
+      },
+      "statuses": {
+        "0": 3392
+      },
+      "state_sha256": "f2310c6b24e66e478bc4dbf0774c33574e496952279d1c08fdc51ceb6a91eb59",
+      "input_sha256": "ebdb4e22d555f230ebebab13d99f9b5c2c4238488f5fb9c1039394384cc7104f"
+    },
+    {
+      "map": 5,
+      "seed": 4294967295,
+      "commands": 3393,
+      "operations": {
+        "r": 351,
+        "U": 360,
+        "V": 522,
+        "E": 190,
+        "B": 351,
+        "a": 1224,
+        "d": 351,
+        "N": 9,
+        "O": 35
+      },
+      "statuses": {
+        "0": 3393
+      },
+      "state_sha256": "fd21cf175206ae22189122ff36e675b1fe51f251166a72f2629da2aabb441eb3",
+      "input_sha256": "e2a0bfebe895b0a8664cc915a9d7cda44527556762d843b523ca9bb2afbdf28a"
+    },
+    {
+      "map": 6,
+      "seed": 0,
+      "commands": 3390,
+      "operations": {
+        "r": 351,
+        "U": 360,
+        "V": 522,
+        "E": 190,
+        "B": 351,
+        "a": 1224,
+        "d": 351,
+        "N": 9,
+        "O": 32
+      },
+      "statuses": {
+        "0": 3390
+      },
+      "state_sha256": "e9bf9361848a92638f34db47789358fc54a57c5ec22b50b2be6fd27ca9747fbd",
+      "input_sha256": "816ad1ac6064e6cb9544714feb51888442ad9dd06862188ee90fa3a26e5b83a7"
+    },
+    {
+      "map": 6,
+      "seed": 1,
+      "commands": 3399,
+      "operations": {
+        "r": 351,
+        "U": 360,
+        "V": 522,
+        "E": 190,
+        "B": 351,
+        "a": 1224,
+        "d": 351,
+        "N": 9,
+        "O": 41
+      },
+      "statuses": {
+        "0": 3399
+      },
+      "state_sha256": "402803ef49d42a9d81a2c4de0a241c90c23fe11b065fbe824cbc905545121025",
+      "input_sha256": "3156dde0296c54f53529aa4b084520066f116ca1bf210a4fbe7cd254def98526"
+    },
+    {
+      "map": 6,
+      "seed": 4294967295,
+      "commands": 3385,
+      "operations": {
+        "r": 351,
+        "U": 360,
+        "V": 522,
+        "E": 182,
+        "B": 351,
+        "a": 1224,
+        "d": 351,
+        "N": 9,
+        "O": 35
+      },
+      "statuses": {
+        "0": 3385
+      },
+      "state_sha256": "aac2ecbb0ad29d073a0f5916c1a1a700e7d43774ae8198c993aa149bba9654cb",
+      "input_sha256": "b4f9bfc45e630f5d541f0909243e3bcecfcf8b6fb19622a1526b02bde8650156"
+    },
+    {
+      "map": 7,
+      "seed": 0,
+      "commands": 3386,
+      "operations": {
+        "r": 351,
+        "U": 360,
+        "V": 522,
+        "E": 184,
+        "B": 351,
+        "a": 1224,
+        "d": 351,
+        "N": 9,
+        "O": 34
+      },
+      "statuses": {
+        "0": 3191,
+        "2": 195
+      },
+      "state_sha256": "9b5e3f8ff013528a702160a968f66cdef21f2ff527a961dd3984f0766864dd3e",
+      "input_sha256": "2f25c55098541fc6c335fb2de54fb97f34f0c79be044d9edf3cf53367d3aa6b4"
+    },
+    {
+      "map": 7,
+      "seed": 1,
+      "commands": 3385,
+      "operations": {
+        "r": 351,
+        "U": 360,
+        "V": 522,
+        "E": 184,
+        "B": 351,
+        "a": 1224,
+        "d": 351,
+        "N": 9,
+        "O": 33
+      },
+      "statuses": {
+        "0": 3190,
+        "2": 195
+      },
+      "state_sha256": "8a4d8065c38ebf0e6a9f8157fd73a5d2ed7c2e225b780b9b67bc335543cb289b",
+      "input_sha256": "b9d4c9b04dc93483c67dc9b690d65e023cbae39a999eeb99774773bdf1ea059f"
+    },
+    {
+      "map": 7,
+      "seed": 4294967295,
+      "commands": 3392,
+      "operations": {
+        "r": 351,
+        "U": 360,
+        "V": 522,
+        "E": 188,
+        "B": 351,
+        "a": 1224,
+        "d": 351,
+        "N": 9,
+        "O": 36
+      },
+      "statuses": {
+        "0": 3198,
+        "2": 194
+      },
+      "state_sha256": "faa071d493c8131833826e7ef6908d3d4a178c7ecfa58de4b7e0c4814763e693",
+      "input_sha256": "7c99c001781772eb91ba556d6fd30e2a8e38059905464f86e83168db2c020c9f"
+    }
+  ],
+  "identity_only": false,
+  "entry_counts": {
+    "0": 216,
+    "1": 671,
+    "2": 216,
+    "3": 621,
+    "4": 644,
+    "5": 661,
+    "6": 670,
+    "7": 639,
+    "8": 216,
+    "9": 216,
+    "10": 216,
+    "11": 632,
+    "12": 216,
+    "13": 668,
+    "14": 216,
+    "15": 216,
+    "16": 216,
+    "17": 635,
+    "18": 639
+  },
+  "observations": "complete DAT/RNG/phase/clock/choice memory/events/effects/decisions including option subjects/locations, winner/bank flags and actual action results"
+}

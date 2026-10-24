@@ -139,16 +139,40 @@ class 会话事务探针_类(会话表现_类, 会话事务_类):
                 e.原类型,
                 e.方向,
             ]
-            if e.转盘 is not None or e.月报 is not None:
-                raise ValueError("本探针范围不含月结/转盘")
+            if e.转盘 is not None:
+                raise ValueError("本探针范围不含转盘")
+            if e.月报 is not None:
+                m = e.月报
+                数 += [m.活跃, *m.人物, len(m.股利)]
+                for 行 in m.股利:
+                    数 += [行.股票, 行.盈余, *行.派发]
+                数 += [
+                    *m.票,
+                    m.奖池,
+                    m.号码,
+                    m.赢家,
+                    *m.现金,
+                    *m.存款,
+                    *m.利息,
+                    *m.余额,
+                    *m.总资产,
+                    m.贷款,
+                    *m.倒霉天,
+                    *m.收入,
+                    *m.支出,
+                    m.冠军,
+                    m.悲情,
+                ]
         d = self.待决策
         数.append(int(d is not None))
         if d:
             数 += [int(d.种类), d.玩家, d.地产, d.金额, self._串(d.提示), len(d.选项)]
             for o in d.选项:
                 数 += [self._串(o.标签), o.值, int(o.位置 is not None), int(o.对象 is not None)]
-                if o.位置 is not None or o.对象 is not None:
-                    raise ValueError("本探针范围不含地图选择对象")
+                if o.位置 is not None:
+                    数 += [o.位置.x, o.位置.y]
+                if o.对象 is not None:
+                    数 += [int(o.对象.种类), o.对象.数值]
             数 += [
                 d.金额上限,
                 int(d.转盘 is not None),
@@ -170,10 +194,11 @@ class 会话事务探针_类(会话表现_类, 会话事务_类):
                 self.随机.状态 = n[0]
             elif op == "q":
                 价, 深, 型, 结束, 首次 = n
+                引用 = self.世界
 
                 def 动作() -> None:
                     for i in range(1, 深 + 1):
-                        p = self._玩家()
+                        p = 引用.玩家[self._当前()].记录 if 型 == 5 else self._玩家()
                         p.现金 = 股市_类._回绕(p.现金 - 股市_类._回绕(价 + i))
                         self.随机.api_下一个()
                         self.卡片电脑记忆.参数0 = (self.卡片电脑记忆.参数0 + 1) & 0xFFFFFFFF
@@ -254,6 +279,19 @@ class 会话事务探针_类(会话表现_类, 会话事务_类):
                 值 = [int(self._在场(n[0])), self._服装键(n[0])]
             elif op == "w":
                 self._刷新服装()
+            elif op == "S":
+                p = 事件_类._取(self.世界.玩家, n[0])
+                旧 = p.状态
+                旧.累计支出, 旧.敌意[:], 旧.初始现金比例 = 123, [1, 2, 3, 4], 73
+                数组 = 旧.敌意
+                self.世界.api_清破产字段(n[0])
+                值 = [
+                    int(旧 is p.状态),
+                    int(数组 is p.状态.敌意),
+                    旧.累计支出,
+                    旧.初始现金比例,
+                    *数组,
+                ]
             elif op == "d":
                 self.事件队列.clear()
                 self.效果队列.clear()
@@ -273,6 +311,11 @@ class 会话事务差分_类:
     更新日志：
     2026.10.24 - 测试适配器不进入正式Python运行依赖。
     """
+
+    探针 = 会话事务探针_类
+    工具名 = "game-transactions-oracle"
+    原生参数: tuple[str, ...] = ()
+    增量范围: str | None = None
 
     @staticmethod
     def _设置(arg_世: 世界_类) -> None:
@@ -378,7 +421,14 @@ class 会话事务差分_类:
         return 组
 
     @classmethod
-    def api_执行(cls, arg_源码: Path, arg_构建: Path, arg_素材: Path, arg_报告: Path) -> None:
+    def api_执行(
+        cls,
+        arg_源码: Path,
+        arg_构建: Path,
+        arg_素材: Path,
+        arg_报告: Path,
+        arg_仅引用: bool = False,
+    ) -> None:
         版本 = subprocess.check_output(
             ["git", "-C", str(arg_源码), "rev-parse", "HEAD"], text=True
         ).strip()
@@ -408,7 +458,7 @@ class 会话事务差分_类:
             check=True,
             capture_output=True,
         )
-        工具 = arg_构建.resolve() / "game-transactions-oracle"
+        工具 = arg_构建.resolve() / cls.工具名
         编 = subprocess.run(
             [
                 "c++",
@@ -439,6 +489,14 @@ class 会话事务差分_类:
             "status": "running",
             "episodes": [],
         }
+        报告["identity_only"] = arg_仅引用
+        if cls.增量范围:
+            报告["scope"] = cls.增量范围
+        if arg_仅引用:
+            报告["scope"] = (
+                "escaped World/PlayerStatus/embedded-array references through original assignment; "
+                "explicit private probes, not game turns"
+            )
         生 = random.Random(报告["generator_seed"])
         try:
             包 = 资源包_类(arg_素材 / "map.mkf")
@@ -449,8 +507,13 @@ class 会话事务差分_类:
                     )
                     cls._设置(世)
                     原 = 世.api_导出()
-                    会 = 会话事务探针_类(原, 种)
-                    命令, 预期, 字节 = cls._命令(生), [], []
+                    会 = cls.探针(原, 种)
+                    命令 = (
+                        ["r", "q 100 1 5 0 1", "a 25", "r", "S 0", "S 1"]
+                        if arg_仅引用
+                        else cls._命令(生)
+                    )
+                    预期, 字节 = [], []
                     for 行 in 命令:
                         返回 = 会.api_动作(行)
                         预期.append(返回)
@@ -459,7 +522,13 @@ class 会话事务差分_类:
                         路 = Path(临)
                         (路 / "input.dat").write_bytes(原)
                         cp = subprocess.run(
-                            [str(工具), str(路 / "input.dat"), str(路 / "out"), str(种)],
+                            [
+                                str(工具),
+                                str(路 / "input.dat"),
+                                str(路 / "out"),
+                                str(种),
+                                *cls.原生参数,
+                            ],
                             input="\n".join(命令) + "\n",
                             text=True,
                             capture_output=True,
@@ -514,5 +583,6 @@ if __name__ == "__main__":
     参数.add_argument("--build", type=Path, required=True)
     参数.add_argument("--assets", type=Path, required=True)
     参数.add_argument("--report", type=Path, required=True)
+    参数.add_argument("--identity-only", action="store_true")
     选项 = 参数.parse_args()
-    会话事务差分_类.api_执行(选项.source, 选项.build, 选项.assets, 选项.report)
+    会话事务差分_类.api_执行(选项.source, 选项.build, 选项.assets, 选项.report, 选项.identity_only)

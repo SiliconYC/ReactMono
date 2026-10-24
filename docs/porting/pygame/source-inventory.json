@@ -5798,9 +5798,14 @@
       "id": "src/game.cpp:373",
       "declarator": "spawn_if_needed()",
       "end_line": 406,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_motion.py::会话移动_类._按需出场"
+      ],
+      "status": "转写及定向测试通过；真实会话回调和完整差分待接通",
+      "evidence": [
+        "tests/test_game_motion.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:407",
@@ -5814,73 +5819,118 @@
       "id": "src/game.cpp:412",
       "declarator": "update_status()",
       "end_line": 512,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_motion.py::会话移动_类._更新状态"
+      ],
+      "status": "转写及定向测试通过；真实会话回调和完整差分待接通",
+      "evidence": [
+        "tests/test_game_motion.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:513",
       "declarator": "start_turn(bool update = true)",
       "end_line": 530,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_motion.py::会话移动_类._开始回合"
+      ],
+      "status": "转写及定向测试通过；真实会话回调和完整差分待接通",
+      "evidence": [
+        "tests/test_game_motion.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:531",
       "declarator": "enter_turn()",
       "end_line": 565,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_motion.py::会话移动_类._进入回合"
+      ],
+      "status": "转写及定向测试通过；真实会话回调和完整差分待接通",
+      "evidence": [
+        "tests/test_game_motion.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:566",
       "declarator": "ai_dice_count()",
       "end_line": 600,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_motion.py::会话移动_类._电脑骰数"
+      ],
+      "status": "转写及定向测试通过；真实会话回调和完整差分待接通",
+      "evidence": [
+        "tests/test_game_motion.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:601",
       "declarator": "begin_ai_turn()",
       "end_line": 687,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_motion.py::会话移动_类._开始电脑回合"
+      ],
+      "status": "转写及定向测试通过；真实会话回调和完整差分待接通",
+      "evidence": [
+        "tests/test_game_motion.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:688",
       "declarator": "begin_roll()",
       "end_line": 720,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_motion.py::会话移动_类._开始掷骰"
+      ],
+      "status": "转写及定向测试通过；真实会话回调和完整差分待接通",
+      "evidence": [
+        "tests/test_game_motion.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:721",
       "declarator": "start_step()",
       "end_line": 740,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_motion.py::会话移动_类._开始一步"
+      ],
+      "status": "转写及定向测试通过；真实会话回调和完整差分待接通",
+      "evidence": [
+        "tests/test_game_motion.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:741",
       "declarator": "complete_step()",
       "end_line": 765,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_motion.py::会话移动_类._完成一步"
+      ],
+      "status": "转写及定向测试通过；真实会话回调和完整差分待接通",
+      "evidence": [
+        "tests/test_game_motion.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:766",
       "declarator": "step_encounter()",
       "end_line": 842,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_motion.py::会话移动_类._逐步遭遇"
+      ],
+      "status": "转写及定向测试通过；真实会话回调和完整差分待接通",
+      "evidence": [
+        "tests/test_game_motion.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:811",
@@ -5894,57 +5944,92 @@
       "id": "src/game.cpp:843",
       "declarator": "purchase_price(std::size_t land_id) const",
       "end_line": 849,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_property.py::会话地产_类._购地价"
+      ],
+      "status": "转写及定向测试通过；完整会话差分待接通",
+      "evidence": [
+        "tests/test_game_property.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:850",
       "declarator": "upgrade_price(std::size_t land_id) const",
       "end_line": 852,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_property.py::会话地产_类._升级价"
+      ],
+      "status": "转写及定向测试通过；完整会话差分待接通",
+      "evidence": [
+        "tests/test_game_property.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:853",
       "declarator": "buy(std::size_t land_id, bool upgrade)",
       "end_line": 884,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_property.py::会话地产_类._购买地产"
+      ],
+      "status": "转写及定向测试通过；完整会话差分待接通",
+      "evidence": [
+        "tests/test_game_property.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:885",
       "declarator": "property(std::size_t land_id)",
       "end_line": 995,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_property.py::会话地产_类._普通地产"
+      ],
+      "status": "转写及定向测试通过；完整会话差分待接通",
+      "evidence": [
+        "tests/test_game_property.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:997",
       "declarator": "transaction_blocked() const",
       "end_line": 999,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_property.py::会话地产_类._交易受阻"
+      ],
+      "status": "转写及定向测试通过；完整会话差分待接通",
+      "evidence": [
+        "tests/test_game_property.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:1000",
       "declarator": "ai_can_purchase(std::int32_t cost) const",
       "end_line": 1005,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_property.py::会话地产_类._电脑可购买"
+      ],
+      "status": "转写及定向测试通过；完整会话差分待接通",
+      "evidence": [
+        "tests/test_game_property.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:1006",
       "declarator": "buy_facility(std::size_t id, int operation, unsigned type = 0)",
       "end_line": 1035,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_property.py::会话地产_类._购买设施"
+      ],
+      "status": "转写及定向测试通过；完整会话差分待接通",
+      "evidence": [
+        "tests/test_game_property.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:1036",
@@ -5958,305 +6043,544 @@
       "id": "src/game.cpp:1045",
       "declarator": "charge_facility(std::size_t id, int multiplier)",
       "end_line": 1047,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_property.py::会话地产_类._设施收费"
+      ],
+      "status": "转写及定向测试通过；完整会话差分待接通",
+      "evidence": [
+        "tests/test_game_property.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:1048",
       "declarator": "charge_facility_action(std::size_t id, int multiplier)",
       "end_line": 1108,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_property.py::会话地产_类._设施收费动作"
+      ],
+      "status": "转写及定向测试通过；完整会话差分待接通",
+      "evidence": [
+        "tests/test_game_property.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:1109",
       "declarator": "facility(std::size_t id)",
       "end_line": 1199,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_property.py::会话地产_类._特殊设施"
+      ],
+      "status": "转写及定向测试通过；完整会话差分待接通",
+      "evidence": [
+        "tests/test_game_property.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:1200",
       "declarator": "rescue(std::size_t target, bool hospital, bool by_human)",
       "end_line": 1237,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_property.py::会话地产_类._救援"
+      ],
+      "status": "转写及定向测试通过；完整会话差分待接通",
+      "evidence": [
+        "tests/test_game_property.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:1238",
       "declarator": "visit_confinement(bool hospital)",
       "end_line": 1276,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_property.py::会话地产_类._探望收容"
+      ],
+      "status": "转写及定向测试通过；完整会话差分待接通",
+      "evidence": [
+        "tests/test_game_property.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:1279",
       "declarator": "roulette_effect(SpinnerState wheel, int value)",
       "end_line": 1283,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_property.py::会话地产_类._轮盘效果"
+      ],
+      "status": "转写及定向测试通过；完整会话差分待接通",
+      "evidence": [
+        "tests/test_game_property.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:1284",
       "declarator": "stopped_roulette_effect(const GameDecision &stopped, int value)",
       "end_line": 1291,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_property.py::会话地产_类._停止轮盘效果"
+      ],
+      "status": "转写及定向测试通过；完整会话差分待接通",
+      "evidence": [
+        "tests/test_game_property.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:1292",
       "declarator": "choose_roulette(unsigned kind, std::size_t company)",
       "end_line": 1311,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_property.py::会话地产_类._选择轮盘"
+      ],
+      "status": "转写及定向测试通过；完整会话差分待接通",
+      "evidence": [
+        "tests/test_game_property.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:1312",
       "declarator": "company_construction_target()",
       "end_line": 1353,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_property.py::会话地产_类._公司建设目标"
+      ],
+      "status": "转写及定向测试通过；完整会话差分待接通",
+      "evidence": [
+        "tests/test_game_property.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:1354",
       "declarator": "offer_primary_stock(std::size_t id)",
       "end_line": 1390,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_property.py::会话地产_类._原始股"
+      ],
+      "status": "转写及定向测试通过；完整会话差分待接通",
+      "evidence": [
+        "tests/test_game_property.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:1391",
       "declarator": "commercial(std::size_t id)",
       "end_line": 1465,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_property.py::会话地产_类._商业公司"
+      ],
+      "status": "转写及定向测试通过；完整会话差分待接通",
+      "evidence": [
+        "tests/test_game_property.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:1466",
       "declarator": "open_lottery()",
       "end_line": 1481,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_property.py::会话地产_类._开彩票"
+      ],
+      "status": "转写及定向测试通过；完整会话差分待接通",
+      "evidence": [
+        "tests/test_game_property.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:1482",
       "declarator": "receive_random_card()",
       "end_line": 1503,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_property.py::会话地产_类._收随机卡"
+      ],
+      "status": "转写及定向测试通过；完整会话差分待接通",
+      "evidence": [
+        "tests/test_game_property.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:1504",
       "declarator": "pay(int payer_code, int recipient_code, std::int32_t requested, unsigned flags)",
       "end_line": 1540,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._付款"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:1541",
       "declarator": "update_hostility(std::size_t from, std::size_t target, std::int32_t delta)",
       "end_line": 1553,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._更新敌意"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:1554",
       "declarator": "select_toll_payer(std::int32_t &requested, int owner, bool compulsory_absence = false,\n                                  bool free_allowed = true)",
       "end_line": 1576,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._选择付租者"
+      ],
+      "status": "内部组件已移植，真实被动卡/重放差分；完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-actors-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:1577",
       "declarator": "pay_toll(std::size_t owner, std::int32_t requested, std::size_t payer,\n                  std::optional<std::size_t> ally = std::nullopt, std::int32_t ally_amount = 0,\n                  std::uint16_t property = 0, std::uint8_t facility_type = 0, int multiplier = 0)",
       "end_line": 1615,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._付租"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:1616",
       "declarator": "check_game_end()",
       "end_line": 1634,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._检查终局"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:1635",
       "declarator": "bankrupt(std::size_t slot)",
       "end_line": 1701,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._破产"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:1702",
       "declarator": "insure(std::size_t slot, std::int32_t amount)",
       "end_line": 1710,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._保险赔偿"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:1711",
       "declarator": "sync_attached_objects(std::size_t slot)",
       "end_line": 1716,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actors.py::会话角色_类._同步附身"
+      ],
+      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "evidence": [
+        "tests/test_game_actors.py",
+        "GAMESESSION.md",
+        "evidence/game-actors-differential.json",
+        "GAMESESSION_ACTORS.md"
+      ]
     },
     {
       "id": "src/game.cpp:1717",
       "declarator": "clear_absences(std::size_t slot)",
       "end_line": 1730,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actors.py::会话角色_类._清缺席"
+      ],
+      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "evidence": [
+        "tests/test_game_actors.py",
+        "GAMESESSION.md",
+        "evidence/game-actors-differential.json",
+        "GAMESESSION_ACTORS.md"
+      ]
     },
     {
       "id": "src/game.cpp:1731",
       "declarator": "relocate_bankrupt(std::size_t slot)",
       "end_line": 1746,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actors.py::会话角色_类._搬走破产者"
+      ],
+      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "evidence": [
+        "tests/test_game_actors.py",
+        "GAMESESSION.md",
+        "evidence/game-actors-differential.json",
+        "GAMESESSION_ACTORS.md"
+      ]
     },
     {
       "id": "src/game.cpp:1747",
       "declarator": "injure(std::size_t slot)",
       "end_line": 1768,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actors.py::会话角色_类._受伤"
+      ],
+      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "evidence": [
+        "tests/test_game_actors.py",
+        "GAMESESSION.md",
+        "evidence/game-actors-differential.json",
+        "GAMESESSION_ACTORS.md"
+      ]
     },
     {
       "id": "src/game.cpp:1769",
       "declarator": "add_confinement(std::size_t slot, int days_left, bool hospital)",
       "end_line": 1819,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actors.py::会话角色_类._收容"
+      ],
+      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "evidence": [
+        "tests/test_game_actors.py",
+        "GAMESESSION.md",
+        "evidence/game-actors-differential.json",
+        "GAMESESSION_ACTORS.md"
+      ]
     },
     {
       "id": "src/game.cpp:1820",
       "declarator": "disappear(std::size_t slot, int days_left, int mode)",
       "end_line": 1843,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actors.py::会话角色_类._消失"
+      ],
+      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "evidence": [
+        "tests/test_game_actors.py",
+        "GAMESESSION.md",
+        "evidence/game-actors-differential.json",
+        "GAMESESSION_ACTORS.md"
+      ]
     },
     {
       "id": "src/game.cpp:1844",
       "declarator": "try_free_card(std::size_t slot, std::size_t recipient, std::int32_t amount)",
       "end_line": 1876,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actors.py::会话角色_类._尝试免付卡"
+      ],
+      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "evidence": [
+        "tests/test_game_actors.py",
+        "GAMESESSION.md",
+        "evidence/game-actors-differential.json",
+        "GAMESESSION_ACTORS.md"
+      ]
     },
     {
       "id": "src/game.cpp:1877",
       "declarator": "try_frame_card(std::size_t slot, unsigned mode, std::int32_t amount = 0)",
       "end_line": 1941,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actors.py::会话角色_类._尝试嫁祸卡"
+      ],
+      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "evidence": [
+        "tests/test_game_actors.py",
+        "GAMESESSION.md",
+        "evidence/game-actors-differential.json",
+        "GAMESESSION_ACTORS.md"
+      ]
     },
     {
       "id": "src/game.cpp:1942",
       "declarator": "try_defense_card(std::size_t slot)",
       "end_line": 1954,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actors.py::会话角色_类._尝试防御卡"
+      ],
+      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "evidence": [
+        "tests/test_game_actors.py",
+        "GAMESESSION.md",
+        "evidence/game-actors-differential.json",
+        "GAMESESSION_ACTORS.md"
+      ]
     },
     {
       "id": "src/game.cpp:1955",
       "declarator": "choose_victim_card(std::size_t slot, std::size_t victim)",
       "end_line": 1970,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actors.py::会话角色_类._选择受害卡"
+      ],
+      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "evidence": [
+        "tests/test_game_actors.py",
+        "GAMESESSION.md",
+        "evidence/game-actors-differential.json",
+        "GAMESESSION_ACTORS.md"
+      ]
     },
     {
       "id": "src/game.cpp:1971",
       "declarator": "release_hotel_guests()",
       "end_line": 1976,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actors.py::会话角色_类._释放旅馆住客"
+      ],
+      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "evidence": [
+        "tests/test_game_actors.py",
+        "GAMESESSION.md",
+        "evidence/game-actors-differential.json",
+        "GAMESESSION_ACTORS.md"
+      ]
     },
     {
       "id": "src/game.cpp:1977",
       "declarator": "change_building(std::uint16_t code, bool upgrade)",
       "end_line": 2026,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actors.py::会话角色_类._改建筑"
+      ],
+      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "evidence": [
+        "tests/test_game_actors.py",
+        "GAMESESSION.md",
+        "evidence/game-actors-differential.json",
+        "GAMESESSION_ACTORS.md"
+      ]
     },
     {
       "id": "src/game.cpp:2027",
       "declarator": "construction_vehicle_demolish()",
       "end_line": 2066,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actors.py::会话角色_类._工程车拆屋"
+      ],
+      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "evidence": [
+        "tests/test_game_actors.py",
+        "GAMESESSION.md",
+        "evidence/game-actors-differential.json",
+        "GAMESESSION_ACTORS.md"
+      ]
     },
     {
       "id": "src/game.cpp:2067",
       "declarator": "turn_around(std::size_t slot)",
       "end_line": 2083,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actors.py::会话角色_类._掉头"
+      ],
+      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "evidence": [
+        "tests/test_game_actors.py",
+        "GAMESESSION.md",
+        "evidence/game-actors-differential.json",
+        "GAMESESSION_ACTORS.md"
+      ]
     },
     {
       "id": "src/game.cpp:2084",
       "declarator": "auction(std::uint16_t property_code, int seller = -1)",
       "end_line": 2120,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actors.py::会话角色_类._拍卖"
+      ],
+      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "evidence": [
+        "tests/test_game_actors.py",
+        "GAMESESSION.md",
+        "evidence/game-actors-differential.json",
+        "GAMESESSION_ACTORS.md"
+      ]
     },
     {
       "id": "src/game.cpp:2121",
       "declarator": "random_free_node(std::uint16_t reference = 0)",
       "end_line": 2141,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actors.py::会话角色_类._随机空节点"
+      ],
+      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "evidence": [
+        "tests/test_game_actors.py",
+        "GAMESESSION.md",
+        "evidence/game-actors-differential.json",
+        "GAMESESSION_ACTORS.md"
+      ]
     },
     {
       "id": "src/game.cpp:2142",
       "declarator": "place_existing_object(std::size_t index, std::uint16_t node_id)",
       "end_line": 2156,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actors.py::会话角色_类._放现有物件"
+      ],
+      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "evidence": [
+        "tests/test_game_actors.py",
+        "GAMESESSION.md",
+        "evidence/game-actors-differential.json",
+        "GAMESESSION_ACTORS.md"
+      ]
     },
     {
       "id": "src/game.cpp:2157",
       "declarator": "remove_object(std::uint16_t id)",
       "end_line": 2197,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actors.py::会话角色_类._移除物件"
+      ],
+      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "evidence": [
+        "tests/test_game_actors.py",
+        "GAMESESSION.md",
+        "evidence/game-actors-differential.json",
+        "GAMESESSION_ACTORS.md"
+      ]
     },
     {
       "id": "src/game.cpp:2198",
@@ -6342,9 +6666,14 @@
       "id": "src/game.cpp:2504",
       "declarator": "lookahead(std::size_t slot, std::size_t count)",
       "end_line": 2529,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_motion.py::会话移动_类._前瞻"
+      ],
+      "status": "转写及定向测试通过；真实会话回调和完整差分待接通",
+      "evidence": [
+        "tests/test_game_motion.py",
+        "GAMESESSION.md"
+      ]
     },
     {
       "id": "src/game.cpp:2530",
@@ -6516,97 +6845,181 @@
       "id": "src/game.cpp:3085",
       "declarator": "collect_bank_debt(std::size_t slot, std::int32_t amount)",
       "end_line": 3096,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._收银债"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:3097",
       "declarator": "collect_due_loan()",
       "end_line": 3111,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._收到期贷款"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:3112",
       "declarator": "reconcile_financing(bool after_withdrawal)",
       "end_line": 3140,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._对账融资"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:3141",
       "declarator": "set_loan_due_date(std::size_t slot)",
       "end_line": 3147,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._设置贷款日"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:3148",
       "declarator": "borrow(std::int32_t amount)",
       "end_line": 3156,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._借款"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:3157",
       "declarator": "repay(std::int32_t amount, bool clear_due_date)",
       "end_line": 3169,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._还款"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:3170",
       "declarator": "ai_bank_loan()",
       "end_line": 3195,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._电脑银行贷款"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:3196",
       "declarator": "owns_current_bank() const",
       "end_line": 3201,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._拥有当前银行"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:3202",
       "declarator": "financing_limit() const",
       "end_line": 3208,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._融资上限"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:3209",
       "declarator": "change_financing(std::int32_t amount, bool borrowing)",
       "end_line": 3225,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._变更融资"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:3226",
       "declarator": "open_bank(bool passing)",
       "end_line": 3285,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._开银行"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:3286",
       "declarator": "leave_bank()",
       "end_line": 3299,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._离银行"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:3300",
@@ -6620,73 +7033,136 @@
       "id": "src/game.cpp:3379",
       "declarator": "wealth(std::size_t slot) const",
       "end_line": 3381,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._财富"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:3382",
       "declarator": "update_price_index()",
       "end_line": 3392,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._更新物价"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:3394",
       "declarator": "monthly_figures() const",
       "end_line": 3403,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._月报快照"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:3404",
       "declarator": "monthly_effect(EffectKind kind, MonthlyFigures figures)",
       "end_line": 3409,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._月报效果"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:3414",
       "declarator": "pay_dividends()",
       "end_line": 3458,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._派发股利"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:3459",
       "declarator": "close_month()",
       "end_line": 3490,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._结月"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:3495",
       "declarator": "month_awards(MonthlyFigures &report) const",
       "end_line": 3529,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._月奖项"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:3530",
       "declarator": "lease_expiry() const",
       "end_line": 3540,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._租约到期"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:3541",
       "declarator": "expire_properties()",
       "end_line": 3565,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._地产到期"
+      ],
+      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "evidence": [
+        "tests/test_game_finance.py",
+        "GAMESESSION.md",
+        "evidence/game-finance-differential.json",
+        "GAMESESSION_FINANCE.md"
+      ]
     },
     {
       "id": "src/game.cpp:3566",
