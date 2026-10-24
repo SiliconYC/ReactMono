@@ -1,0 +1,19 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 3493,
+  "painted_frames": 1118,
+  "scope": "direct original BankScreen and primary-stock, explicit callback inputs, real sprites, internal state and callbacks; not actual window/financial rule integration",
+  "font_sha256": "4b450afb2c61d7529fe05647316e9fc3137ea703a664bded5bca895a5c30748c",
+  "mode": "branches",
+  "runtime_sha256": {
+    "bank_screen.py": "3207fcfd1d5fe410db51558abf953266ba1ab0029af5489de49923a08cdccef2",
+    "primary_stock_screen.py": "f3c44dfce9dfa3127c766ac9f951baf162eafa3f57d1f357743f2f9df0ba4653",
+    "number_pad.py": "dff01c649ca1ba9f9d7f8dd211d8a71ba5e51682573b218ed87d27ff69bda179",
+    "screen_draw.py": "082a3b0d67c61a0ad903adf4dae70847b4b67f3fedaa2f7ad83049942cbd0d28"
+  },
+  "python_sha256": "3207fcfd1d5fe410db51558abf953266ba1ab0029af5489de49923a08cdccef2",
+  "state_sha256": "0d4ad5df362dfa498abf74f59e10d86dc04a4b2b66fc550f64036de8fd19b9ab",
+  "input_sha256": "9940402ba4f2ceba5f483eff4fa39389b7adca96ee32e24d80fe725fe253b468",
+  "compared_pixels": 343449600
+}

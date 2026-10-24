@@ -10436,5 +10436,304 @@
       "NUMBER_PAD.md",
       "evidence/number-pad-differential.json"
     ]
+  },
+  "tools/screens/finance.cpp:75": {
+    "python": [
+      "pygame/src/rich4/bank_screen.py::银行屏幕_类._有"
+    ],
+    "status": "已实现，实际调用内联/银行组件自动差分；完整主程序接线未验",
+    "evidence": [
+      "BANK_SCREENS.md",
+      "tests/test_bank_screen.py",
+      "evidence/bank-screen-initial.json",
+      "evidence/bank-screen-branches.json"
+    ]
+  },
+  "tools/screens/finance.cpp:81": {
+    "python": [
+      "pygame/src/rich4/bank_screen.py::银行屏幕_类._有"
+    ],
+    "status": "已实现，实际调用内联/银行组件自动差分；完整主程序接线未验",
+    "evidence": [
+      "BANK_SCREENS.md",
+      "tests/test_bank_screen.py",
+      "evidence/bank-screen-initial.json",
+      "evidence/bank-screen-branches.json"
+    ]
+  },
+  "tools/screens/finance.cpp:85": {
+    "python": [
+      "pygame/src/rich4/bank_screen.py::银行屏幕_类.api_绘制/_侧板"
+    ],
+    "status": "已实现，实际调用内联/银行组件自动差分；完整主程序接线未验",
+    "evidence": [
+      "BANK_SCREENS.md",
+      "tests/test_bank_screen.py",
+      "evidence/bank-screen-initial.json",
+      "evidence/bank-screen-branches.json"
+    ]
+  },
+  "tools/screens/finance.cpp:96": {
+    "python": [
+      "pygame/src/rich4/bank_screen.py::银行屏幕_类.api_ATM数字号"
+    ],
+    "status": "已实现，实际调用内联/银行组件自动差分；完整主程序接线未验",
+    "evidence": [
+      "BANK_SCREENS.md",
+      "tests/test_bank_screen.py",
+      "evidence/bank-screen-initial.json",
+      "evidence/bank-screen-branches.json"
+    ]
+  },
+  "tools/screens/finance.cpp:271": {
+    "python": [
+      "pygame/src/rich4/bank_screen.py::银行屏幕_类._画ATM"
+    ],
+    "status": "已实现，实际调用内联/银行组件自动差分；完整主程序接线未验",
+    "evidence": [
+      "BANK_SCREENS.md",
+      "tests/test_bank_screen.py",
+      "evidence/bank-screen-initial.json",
+      "evidence/bank-screen-branches.json"
+    ]
+  },
+  "tools/screens/finance.cpp:279": {
+    "python": [
+      "pygame/src/rich4/bank_screen.py::银行屏幕_类._ATM键"
+    ],
+    "status": "已实现，实际调用内联/银行组件自动差分；完整主程序接线未验",
+    "evidence": [
+      "BANK_SCREENS.md",
+      "tests/test_bank_screen.py",
+      "evidence/bank-screen-initial.json",
+      "evidence/bank-screen-branches.json"
+    ]
+  },
+  "tools/screens/finance.cpp:284": {
+    "python": [
+      "pygame/src/rich4/bank_screen.py::银行屏幕_类._拥有"
+    ],
+    "status": "已实现，实际调用内联/银行组件自动差分；完整主程序接线未验",
+    "evidence": [
+      "BANK_SCREENS.md",
+      "tests/test_bank_screen.py",
+      "evidence/bank-screen-initial.json",
+      "evidence/bank-screen-branches.json"
+    ]
+  },
+  "tools/screens/finance.cpp:292": {
+    "python": [
+      "pygame/src/rich4/bank_screen.py::银行屏幕_类._别人存款"
+    ],
+    "status": "已实现，实际调用内联/银行组件自动差分；完整主程序接线未验",
+    "evidence": [
+      "BANK_SCREENS.md",
+      "tests/test_bank_screen.py",
+      "evidence/bank-screen-initial.json",
+      "evidence/bank-screen-branches.json"
+    ]
+  },
+  "tools/screens/finance.cpp:299": {
+    "python": [
+      "pygame/src/rich4/bank_screen.py::银行屏幕_类._离ATM"
+    ],
+    "status": "已实现，实际调用内联/银行组件自动差分；完整主程序接线未验",
+    "evidence": [
+      "BANK_SCREENS.md",
+      "tests/test_bank_screen.py",
+      "evidence/bank-screen-initial.json",
+      "evidence/bank-screen-branches.json"
+    ]
+  },
+  "tools/screens/finance.cpp:304": {
+    "python": [
+      "pygame/src/rich4/bank_screen.py::银行屏幕_类._说"
+    ],
+    "status": "已实现，实际调用内联/银行组件自动差分；完整主程序接线未验",
+    "evidence": [
+      "BANK_SCREENS.md",
+      "tests/test_bank_screen.py",
+      "evidence/bank-screen-initial.json",
+      "evidence/bank-screen-branches.json"
+    ]
+  },
+  "tools/screens/finance.cpp:310": {
+    "python": [
+      "pygame/src/rich4/bank_screen.py::银行屏幕_类._上限"
+    ],
+    "status": "已实现，实际调用内联/银行组件自动差分；完整主程序接线未验",
+    "evidence": [
+      "BANK_SCREENS.md",
+      "tests/test_bank_screen.py",
+      "evidence/bank-screen-initial.json",
+      "evidence/bank-screen-branches.json"
+    ]
+  },
+  "tools/screens/finance.cpp:315": {
+    "python": [
+      "pygame/src/rich4/bank_screen.py::银行屏幕_类.api_绘制"
+    ],
+    "status": "已实现，实际调用内联/银行组件自动差分；完整主程序接线未验",
+    "evidence": [
+      "BANK_SCREENS.md",
+      "tests/test_bank_screen.py",
+      "evidence/bank-screen-initial.json",
+      "evidence/bank-screen-branches.json"
+    ]
+  },
+  "tools/screens/finance.cpp:354": {
+    "python": [
+      "pygame/src/rich4/bank_screen.py::银行屏幕_类._离ATM"
+    ],
+    "status": "已实现，实际调用内联/银行组件自动差分；完整主程序接线未验",
+    "evidence": [
+      "BANK_SCREENS.md",
+      "tests/test_bank_screen.py",
+      "evidence/bank-screen-initial.json",
+      "evidence/bank-screen-branches.json"
+    ]
+  },
+  "tools/screens/finance.cpp:362": {
+    "python": [
+      "pygame/src/rich4/bank_screen.py::银行屏幕_类.api_取消"
+    ],
+    "status": "已实现，实际调用内联/银行组件自动差分；完整主程序接线未验",
+    "evidence": [
+      "BANK_SCREENS.md",
+      "tests/test_bank_screen.py",
+      "evidence/bank-screen-initial.json",
+      "evidence/bank-screen-branches.json"
+    ]
+  },
+  "tools/screens/finance.cpp:374": {
+    "python": [
+      "pygame/src/rich4/bank_screen.py::银行屏幕_类._ATM键"
+    ],
+    "status": "已实现，实际调用内联/银行组件自动差分；完整主程序接线未验",
+    "evidence": [
+      "BANK_SCREENS.md",
+      "tests/test_bank_screen.py",
+      "evidence/bank-screen-initial.json",
+      "evidence/bank-screen-branches.json"
+    ]
+  },
+  "tools/screens/finance.cpp:407": {
+    "python": [
+      "pygame/src/rich4/bank_screen.py::银行屏幕_类._画ATM"
+    ],
+    "status": "已实现，实际调用内联/银行组件自动差分；完整主程序接线未验",
+    "evidence": [
+      "BANK_SCREENS.md",
+      "tests/test_bank_screen.py",
+      "evidence/bank-screen-initial.json",
+      "evidence/bank-screen-branches.json"
+    ]
+  },
+  "tools/screens/finance.cpp:472": {
+    "python": [
+      "pygame/src/rich4/bank_screen.py::银行屏幕_类._侧板"
+    ],
+    "status": "已实现，实际调用内联/银行组件自动差分；完整主程序接线未验",
+    "evidence": [
+      "BANK_SCREENS.md",
+      "tests/test_bank_screen.py",
+      "evidence/bank-screen-initial.json",
+      "evidence/bank-screen-branches.json"
+    ]
+  },
+  "tools/screens/finance.cpp:514": {
+    "python": [
+      "pygame/src/rich4/bank_screen.py::银行屏幕_类._画柜台/_借贷/_还贷"
+    ],
+    "status": "已实现，实际调用内联/银行组件自动差分；完整主程序接线未验",
+    "evidence": [
+      "BANK_SCREENS.md",
+      "tests/test_bank_screen.py",
+      "evidence/bank-screen-initial.json",
+      "evidence/bank-screen-branches.json"
+    ]
+  },
+  "tools/screens/finance.cpp:632": {
+    "python": [
+      "pygame/src/rich4/bank_screen.py::银行屏幕_类._画董事室/_融资/_还融资"
+    ],
+    "status": "已实现，实际调用内联/银行组件自动差分；完整主程序接线未验",
+    "evidence": [
+      "BANK_SCREENS.md",
+      "tests/test_bank_screen.py",
+      "evidence/bank-screen-initial.json",
+      "evidence/bank-screen-branches.json"
+    ]
+  },
+  "tools/screens/finance.cpp:721": {
+    "python": [
+      "pygame/src/rich4/primary_stock_screen.py::一级股票屏幕_类.api_绘制"
+    ],
+    "status": "已实现，原一级股提示/数额回调组件差分；真实主程序接线未验",
+    "evidence": [
+      "BANK_SCREENS.md",
+      "evidence/bank-screen-initial.json",
+      "evidence/bank-screen-branches.json"
+    ]
+  },
+  "tools/screens/finance.hpp:103": {
+    "python": [
+      "pygame/src/rich4/bank_screen.py::银行屏幕_类.api_重置"
+    ],
+    "status": "已实现，组件状态差分",
+    "evidence": [
+      "BANK_SCREENS.md",
+      "evidence/bank-screen-initial.json"
+    ]
+  },
+  "tools/screens/finance.hpp:108": {
+    "python": [
+      "pygame/src/rich4/bank_screen.py::银行屏幕_类.api_ATM"
+    ],
+    "status": "已实现，组件状态差分",
+    "evidence": [
+      "BANK_SCREENS.md",
+      "evidence/bank-screen-initial.json"
+    ]
+  },
+  "tools/screens/finance.hpp:111": {
+    "python": [
+      "pygame/src/rich4/bank_screen.py::银行屏幕_类.api_柜台"
+    ],
+    "status": "已实现，组件状态差分",
+    "evidence": [
+      "BANK_SCREENS.md",
+      "evidence/bank-screen-initial.json"
+    ]
+  },
+  "tools/screens/finance.hpp:114": {
+    "python": [
+      "pygame/src/rich4/bank_screen.py::银行屏幕_类.api_董事室"
+    ],
+    "status": "已实现，组件状态差分",
+    "evidence": [
+      "BANK_SCREENS.md",
+      "evidence/bank-screen-initial.json"
+    ]
+  },
+  "tools/screens/finance.hpp:117": {
+    "python": [
+      "pygame/src/rich4/bank_screen.py::银行屏幕_类.api_ATM模式"
+    ],
+    "status": "已实现，组件状态差分",
+    "evidence": [
+      "BANK_SCREENS.md",
+      "evidence/bank-screen-initial.json"
+    ]
+  },
+  "tools/screens/finance.hpp:120": {
+    "python": [
+      "pygame/src/rich4/bank_screen.py::银行屏幕_类.api_ATM数字"
+    ],
+    "status": "已实现，组件状态差分",
+    "evidence": [
+      "BANK_SCREENS.md",
+      "evidence/bank-screen-initial.json"
+    ]
   }
 }
