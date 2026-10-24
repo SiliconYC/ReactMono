@@ -45,7 +45,7 @@ class 棋盘性能_类:
             "map": arg_地图,
             "source_sha256": {
                 名: hashlib.sha256((源目录 / 名).read_bytes()).hexdigest()
-                for 名 in ["board_renderer.py", "terrain.py", "graphics.py"]
+                for 名 in ["board_renderer.py", "ground_samples.py", "terrain.py", "graphics.py"]
             },
             "samples": arg_样本,
             "modes": {},

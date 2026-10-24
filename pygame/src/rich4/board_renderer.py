@@ -10,6 +10,7 @@ from rich4.assets import 资源包_类
 from rich4.board_models import 地产外观_类, 场景_类, 相机_类, 绘制统计_类
 from rich4.board_projection import 棋盘投影_类
 from rich4.graphics import 图像_类
+from rich4.ground_samples import 地面取样_类
 from rich4.projection_tables import 投影表_类
 from rich4.terrain import 地形_类, 地面_类
 
@@ -52,6 +53,7 @@ class 棋盘绘制_类:
 
     更新日志：
     2026.10.23 - 对应Renderer/Impl；瓦片中心缓存保留分数平移和覆盖掩码，不调用C++。
+    2026.10.24 - 冷中心重用精确取样地址；保留原扫描回退与道路绘制顺序。
     """
 
     @staticmethod
@@ -93,6 +95,7 @@ class 棋盘绘制_类:
         self.地图包 = 资源包_类(self._查包(arg_目录, "map.mkf"))
         self.数据包 = 资源包_类(self._查包(arg_目录, "data.mkf"))
         self.地面 = 地面_类.api_解码(self.地图包.api_解码(arg_地图 * 2))
+        self.地面取样 = 地面取样_类(self.地面)
         元数据 = self.地图包.api_解码(arg_地图 * 2 + 1)
         self.摆放 = [self._摆放(元数据, 表) for 表 in range(5)]
         self.资源缓存: dict[tuple[bool, int], 精灵资源_类] = {}
@@ -229,14 +232,24 @@ class 棋盘绘制_类:
                 纹理 = 地.api_瓦片(地.索引[(瓦y + y) * 地.宽瓦片 + 瓦x + x])
             地形_类.api_绘瓦片(arg_目标, 纹理, 地.调色板, 角, 框)
             统计.地面 += 1
+        统计.道路 = self._绘道路(arg_目标, arg_相机)
+        return 统计
+
+    def _绘道路(self, arg_目标: 图像_类, arg_相机: 相机_类) -> int:
+        框 = self._取框(arg_目标, arg_相机)
+        数 = 0
         for 项 in self.摆放[0][1:]:
             if 项.精灵 == 0:
                 continue
             位置 = 棋盘投影_类.api_投影(项.位置, arg_相机)
             if 位置 is not None:
                 arg_目标.api_绘制(self._帧(False, 0x18, 项.精灵 - 1), *位置, 框)
-                统计.道路 += 1
-        return 统计
+                数 += 1
+        return 数
+
+    def _绘地面取样(self, arg_目标: 图像_类, arg_相机: 相机_类) -> 绘制统计_类:
+        数 = self.地面取样.api_绘制(arg_目标, arg_相机)
+        return 绘制统计_类(地面=数, 道路=self._绘道路(arg_目标, arg_相机))
 
     def api_绘地面(self, arg_目标: 图像_类, arg_相机: 相机_类) -> 绘制统计_类:
         左, 顶, 右, 底 = self._取框(arg_目标, arg_相机)
@@ -260,7 +273,7 @@ class 棋盘绘制_类:
             数 = (宽 + 128) * (高 + 128)
             基图 = 图像_类(宽 + 128, 高 + 128, [0] * 数, 不透明=bytes(数))
             try:
-                统计 = self._绘地面原始(基图, 相机)
+                统计 = self._绘地面取样(基图, 相机)
             except (ValueError, IndexError):
                 # 损坏资源仍在真实目标上执行原路径，保留拒绝前的部分画布变更。
                 return self._绘地面原始(arg_目标, arg_相机)

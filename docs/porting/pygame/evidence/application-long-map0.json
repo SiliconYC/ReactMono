@@ -1,0 +1,89 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "normal_flow": false,
+  "exercise_save": false,
+  "scope": "original Application private drawing and button actions + mirrored original post-input orchestration; Python uses Pygame event batches. All logical canvas bytes/world DAT/state; audio disabled, not original OS event loop/desktop/listening proof",
+  "cases": [
+    {
+      "map": 0,
+      "commands": 16042,
+      "state_sha256": "0f009e7684c22ae28c63d422bf7729eeba7ff7eb699d1bbfd1e57e1e0848d319",
+      "input_sha256": "6b44b633e4503e69de7876bd42f59b71b3392d30b6707a6e697e5a59966a83f6",
+      "reference_stderr": [
+        "fluidsynth: error: Not a SoundFont file"
+      ],
+      "save_files": {
+        "Autosave.DAT": {
+          "bytes": 89871,
+          "sha256": "cef3f02caf70f657d9a11bcbe0e2da37391b80a8c8da8292f154b6f791ed1f0c"
+        },
+        "Autosave.DAT.rng": {
+          "bytes": 23,
+          "sha256": "abfb345731b88b2805947ff4bc2cdf491cec350385738cddffcb696b84e11925"
+        }
+      },
+      "replay": {
+        "status": "passed",
+        "scope": "actual application software drawing and Pygame event batches; reference fast replay mode; no OS desktop or listening proof",
+        "map": 0,
+        "seed": 123,
+        "requested_days": 1000,
+        "frames": 7852,
+        "screens": [
+          0,
+          1,
+          2
+        ],
+        "decisions": [
+          0,
+          1,
+          2,
+          5,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "completed_days": 268,
+        "finished": true,
+        "random_state": 3585566507,
+        "world_sha256": "f28db3678a6aa6c2c7fb154989988ccbbed82b1d6cdf1fcc35980055c8591b82",
+        "events": {
+          "0": 1073,
+          "1": 936,
+          "2": 4203,
+          "3": 57,
+          "4": 117,
+          "5": 360,
+          "6": 43,
+          "7": 268,
+          "9": 1,
+          "10": 1,
+          "12": 2322
+        },
+        "state_sha256": "15dc4cdd8fa08f92304260a77b78a1ce817e77c1cd349fc88e424c12f5c9d2f6",
+        "visited_toolbar": []
+      }
+    }
+  ],
+  "commands": 16042,
+  "canvases": 7853,
+  "pixels": 2412441600,
+  "runtime_sha256": {
+    "application.py": "485fe05072f02b823f7c805c075218a0fccf55ffd53547ba5280d2d6138d4a24",
+    "application_actions.py": "b2d1d0b9acbc8a14358d4fd74f67a240d2b091154fef3f50313c85f1ecfe02df",
+    "application_draw.py": "68429b4a44f4be91b84dc7eedb776cee80c8e5ee11aee0b3a18b59318eb277a0",
+    "application_input.py": "0de5e1bba0656d6aae93a63691b7d52aa733762c06213eea09019ede8014f40a",
+    "application_types.py": "a49a0c7c245fe263227c499d73f1639ee180dacbdd392fbedd4cb3f60196598f",
+    "application_window.py": "bd8b389bf67f265d0a2f586c25f93712ae5eb7fd40554cadbaaa46652fe9019d"
+  },
+  "last_map": 0,
+  "last_command": "D 3926000",
+  "last_index": 16041,
+  "runtime_commit": "d53fd39247421497950f1227da995d7444184c01",
+  "timing": "reference fast replay mode; sound disabled; original board renderer before ground sampling optimization"
+}
