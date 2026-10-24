@@ -11982,9 +11982,12 @@
     "python": [
       "pygame/src/rich4/item_paint.py::物品绘图_类.api_右中"
     ],
-    "status": "部分完成，库存所需转写；服务/电影/相应场景差分尚未完成",
+    "status": "已实现，库存/目标/商店/魔法/救援/完整分发差分；旧抢夺重置缺陷保留另记，正式应用未验",
     "evidence": [
-      "ITEM_SCREENS.md"
+      "ITEM_SCREENS.md",
+      "tests/test_item_rescue.py",
+      "tests/test_item_dispatch.py",
+      "evidence/item-rescue-differential.json"
     ]
   },
   "tools/screens/items.cpp:116": {
@@ -12003,22 +12006,28 @@
     "python": [
       "pygame/src/rich4/item_screens.py::物品屏幕_类._只说一次"
     ],
-    "status": "部分完成，库存/目标/商店/魔法重置和语音队列已验；救援访问中与完整分发尚未验",
+    "status": "已实现，库存/目标/商店/魔法/救援/完整分发差分；旧抢夺重置缺陷保留另记，正式应用未验",
     "evidence": [
       "ITEM_SCREENS.md",
       "evidence/item-shop-differential.json",
-      "evidence/item-magic-differential.json"
+      "evidence/item-magic-differential.json",
+      "tests/test_item_rescue.py",
+      "tests/test_item_dispatch.py",
+      "evidence/item-rescue-differential.json"
     ]
   },
   "tools/screens/items.cpp:195": {
     "python": [
       "pygame/src/rich4/item_screens.py::物品屏幕_类.api_重置"
     ],
-    "status": "部分完成，库存/目标/商店/魔法重置和语音队列已验；救援访问中与完整分发尚未验",
+    "status": "已实现，库存/目标/商店/魔法/救援/完整分发差分；旧抢夺重置缺陷保留另记，正式应用未验",
     "evidence": [
       "ITEM_SCREENS.md",
       "evidence/item-shop-differential.json",
-      "evidence/item-magic-differential.json"
+      "evidence/item-magic-differential.json",
+      "tests/test_item_rescue.py",
+      "tests/test_item_dispatch.py",
+      "evidence/item-rescue-differential.json"
     ]
   },
   "tools/screens/items.cpp:165": {
@@ -12134,11 +12143,14 @@
     "python": [
       "pygame/src/rich4/item_screens.py::物品屏幕_类.api_结束访问"
     ],
-    "status": "部分完成，库存/目标/商店/魔法重置和语音队列已验；救援访问中与完整分发尚未验",
+    "status": "已实现，库存/目标/商店/魔法/救援/完整分发差分；旧抢夺重置缺陷保留另记，正式应用未验",
     "evidence": [
       "ITEM_SCREENS.md",
       "evidence/item-shop-differential.json",
-      "evidence/item-magic-differential.json"
+      "evidence/item-magic-differential.json",
+      "tests/test_item_rescue.py",
+      "tests/test_item_dispatch.py",
+      "evidence/item-rescue-differential.json"
     ]
   },
   "tools/screens/items.cpp:1021": {
@@ -12194,6 +12206,49 @@
       "ITEM_SCREENS.md",
       "tests/test_item_magic.py",
       "evidence/item-magic-differential.json"
+    ]
+  },
+  "tools/screens/items.cpp:220": {
+    "python": [
+      "pygame/src/rich4/item_rescue_screen.py::救援屏幕_类._救援语音"
+    ],
+    "status": "已实现，原救援/完整分发画布与真实收容探望回应/完整DAT差分；正式主应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_rescue.py",
+      "tests/test_item_dispatch.py",
+      "evidence/item-rescue-differential.json"
+    ]
+  },
+  "tools/screens/items.cpp:544": {
+    "python": [
+      "pygame/src/rich4/item_dispatch.py::物品决策分发_类.api_画决策"
+    ],
+    "status": "已实现，原救援/完整分发画布与真实收容探望回应/完整DAT差分；正式主应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_rescue.py",
+      "tests/test_item_dispatch.py",
+      "evidence/item-rescue-differential.json"
+    ]
+  },
+  "tools/screens/items.cpp:1241": {
+    "python": [
+      "pygame/src/rich4/item_rescue_screen.py::救援屏幕_类.api_画救援"
+    ],
+    "status": "已实现，原救援/完整分发画布与真实收容探望回应/完整DAT差分；正式主应用未验",
+    "evidence": [
+      "ITEM_SCREENS.md",
+      "tests/test_item_rescue.py",
+      "tests/test_item_dispatch.py",
+      "evidence/item-rescue-differential.json"
+    ]
+  },
+  "tools/screens/items.cpp:1380": {
+    "python": [],
+    "status": "不移植：开发者合成状态画廊，非正式游戏路径；以专属差分工具代替审查入口",
+    "evidence": [
+      "ITEM_SCREENS.md"
     ]
   }
 }

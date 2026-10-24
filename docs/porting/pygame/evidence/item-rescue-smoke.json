@@ -1,0 +1,30 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 12,
+  "painted_frames": 6,
+  "scope": "direct original hospital/prison rescue and full items dispatcher, real assets, actual confinement/visit/respond paths and explicit dispatcher display fixtures, phase/RNG/decision and complete World DAT, real sprites, internal state and callbacks; not actual window or full Application integration",
+  "font_sha256": "4b450afb2c61d7529fe05647316e9fc3137ea703a664bded5bca895a5c30748c",
+  "mode": "smoke",
+  "runtime_sha256": {
+    "item_screens.py": "22d59679b1f525d004355f1b91495d2a19d181da18fa46e27c0db6c2f5dcd21c",
+    "item_rescue_screen.py": "5eb72595153759b89ff5e69095cc435fb03bd183ba5080775d33e5252f18bc3c",
+    "item_dispatch.py": "473ac075d15e941aa7965673081e6d6cdf1f378f64c643ca0b5e524045398fe2",
+    "item_magic_screen.py": "2c573167963b5fda0d873d594e9f4c19c1abe56c5508c76d45e10050beaf277e",
+    "item_service_types.py": "65c8528e1a049ba5432967a67f6f27a654d0e79abcca943e6c90e7221b5d7490",
+    "item_choice_screens.py": "8131fa9d5e4da941825f6c836a30d76529982f56852962a7bd539b33f219cf0b",
+    "item_shop_screen.py": "9efa09a3401939e31b89a37e697cb972432e51c889b7b74ce3a5ed1381a1e3c2",
+    "item_targets.py": "3fb12fe60d67cfb87e0ef1a4e3a29d8770e98b7976615a1806731b041a5cec70",
+    "item_paint.py": "2a2890b4dd25fb60e302e2e9fa779a8e1ad70f88107605674391e7bee7bb6c99",
+    "item_screen_types.py": "ae1cc8cbad6e504c1172b60711ce3a07162783229faab091e1309228c423bb80",
+    "message_overlay.py": "60ec398e580f54b43b6740ed127333ca5f6545bb8a1297bed28663ac8482c314",
+    "original_text.py": "a06361cb889309fb58b45a554f47c46f7e988b1c9524df1980a3f93af46d3ffd",
+    "native_frame.py": "1ddef472fc701130a3d25246ebbbc5b266dfe8b383b7d20252b6b81b9a87fafa"
+  },
+  "python_sha256": "22d59679b1f525d004355f1b91495d2a19d181da18fa46e27c0db6c2f5dcd21c",
+  "last_command": "U",
+  "last_index": 11,
+  "state_sha256": "58eced699c24fdb3fb9f7b7c57f75693a59b6b2e83915aa157868b32e6d1a8a0",
+  "input_sha256": "26e1217e3f60995beb1946dea521ee3cf72b3c527bbecc1090066dcee88c711b",
+  "compared_pixels": 1843200
+}
