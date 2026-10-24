@@ -1,0 +1,24 @@
+{
+  "status": "failed_then_fixed",
+  "scope": "macOS14.5 arm64, CPython3.12.13, pygame2.6.1 SDL2.28.4",
+  "callback_buffer_failure": "pygame Cython _memoryviewslice has no cast; fixed with memoryview(buffer)",
+  "deadlock": {
+    "main": [
+      "AudioDevice.pause",
+      "SDL_PauseAudioDevice_REAL",
+      "SDL_LockMutex_REAL",
+      "__psynch_mutexwait"
+    ],
+    "audio": [
+      "recording_cb",
+      "PyGILState_Ensure",
+      "take_gil",
+      "__psynch_cvwait"
+    ],
+    "evidence": "owned native sample(1 second) of hung real CoreAudio probe; raw local sample.txt ignored",
+    "resolution": "same SDL2 public SDL_PauseAudioDevice via ctypes.CDLL releases GIL, then Pygame.close clears owned deviceid; no reference engine"
+  },
+  "cleanup": "TERM could not unwind blocked interpreter; KILL only owned probe after preserving native stack; normal fixed probe closes explicitly",
+  "remaining": "one short callback deadline miss in later 16-overlap stress; no zero-underrun or human listening claim",
+  "source": "https://raw.githubusercontent.com/pygame/pygame/2.6.1/src_c/cython/pygame/_sdl2/audio.pyx"
+}
