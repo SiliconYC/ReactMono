@@ -1,0 +1,25 @@
+{
+  "scope": "same-machine seven-repetition component median; not window FPS or frame pacing proof",
+  "before": {
+    "png": {
+      "median_ms": 33.44475,
+      "sha256": "41f706ac06e6219a16b61ea02b165c991df30282d16c16f42b76903f356990df"
+    },
+    "frame_copy": {
+      "median_ms": 46.555875,
+      "sha256": "0b150fd32588b1daca5569992ebe559c0102c837306b1af4c44d35128ec58366"
+    }
+  },
+  "after": {
+    "png": {
+      "median_ms": 14.527208,
+      "sha256": "41f706ac06e6219a16b61ea02b165c991df30282d16c16f42b76903f356990df"
+    },
+    "frame_copy": {
+      "median_ms": 0.490083,
+      "sha256": "0b150fd32588b1daca5569992ebe559c0102c837306b1af4c44d35128ec58366"
+    }
+  },
+  "baseline_runtime_commit": "9f986e4",
+  "status": "passed"
+}

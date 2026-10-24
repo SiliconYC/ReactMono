@@ -2,10 +2,11 @@
 # 标准FluidSynth公开C接口；设置来自固定native_audio.cpp，不链接参考引擎。
 # ◑ 导入
 import ctypes as c
-import ctypes.util
 import os
 from array import array
 from pathlib import Path
+
+from rich4.runtime_library import 本地运行库_类
 
 
 # ◕ 功能
@@ -18,9 +19,7 @@ class Fluid合成_类:
     """
 
     def __init__(self, arg_音库: Path, arg_库: Path | None = None) -> None:
-        path = str(arg_库) if arg_库 is not None else os.environ.get("RICH4_FLUIDSYNTH_LIBRARY")
-        if path is None:
-            path = ctypes.util.find_library("fluidsynth")
+        path = 本地运行库_类.api_选择("fluidsynth", "RICH4_FLUIDSYNTH_LIBRARY", arg_库)
         if path is None:
             raise RuntimeError("缺少标准FluidSynth库；请设置RICH4_FLUIDSYNTH_LIBRARY")
         self._库 = c.CDLL(path)

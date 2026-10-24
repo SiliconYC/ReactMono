@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-# 正式游戏入口；独立Python规则与原画布，资源始终来自用户外部目录。
+# 正式游戏入口；独立Python规则与原画布，缺省读取游戏自身的开放素材目录。
 # ◑ 导入
 import argparse
 import os
@@ -21,7 +21,7 @@ def 主程序() -> None:
     参数.add_argument(
         "--save-dir",
         type=Path,
-        default=Path.home() / "Library/Application Support/Rich4Pygame/saves",
+        default=Path(__file__).resolve().parents[2] / "userdata/saves",
     )
     参数.add_argument("--load", type=Path)
     参数.add_argument("--seed", type=int, default=int(time.time()) & 0xFFFFFFFF)

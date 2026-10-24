@@ -32,6 +32,12 @@
 
 完整609项测试在显式原素材/开放素材/本地字体/SDL3/FluidSynth/GM环境通过；Ruff、156文件wheel与源包商业素材隔离通过。首轮15个失败来自旧缓存读取被提前打开包打断，以及测试夹具未满足扩展后的美术契约；已保留原断言修复，未放宽规则，见 [失败记录](evidence/open-assets-regression-failures.json)。作者自审，未派发其它Agent。
 
+第二批验证完整610项通过（37.98秒）。新增真实子进程冒烟会移除外部SDL3、FluidSynth和GM环境变量，验证游戏自身的标准运行库、字体及音库可以启用音乐；它使用SDL dummy设备，不能当作真实听感。默认存档改为`pygame/userdata/saves/`，标准库部署到`pygame/.local/lib/`；商业内容与原生二进制均被Git忽略。
+
+开放素材的正常呈现流程另做6551命令、2917完整画布比较，全部状态/像素一致：[三天正常流程](evidence/application-open-normal.json)、自然遇到的[气球](evidence/application-open-balloon.json)、[天降](evidence/application-open-catcher.json)、[企鹅](evidence/application-open-penguin.json)。这四份报告记录当时的完整运行时代码哈希；后续`game_cli.py`只有过时注释修正，游戏规则和呈现代码未变化。
+
+PNG反向读取和动画帧独立副本去掉了不必要的大量Python循环/深拷贝；完整65536颜色与掩码往返、独立帧修改用例仍通过。相同机器七次组件中位数：640×480 PNG读取33.445→14.527毫秒，动画帧复制46.556→0.490毫秒，输出哈希相同，见 [测量](evidence/open-image-performance.json)。这是组件测量，不是游戏窗口帧率或音频零丢帧证明。
+
 ## 开放文件约定
 
 `manifest.json`版本1列出档案逻辑编号、条目JSON与每个文件的长度/SHA256。条目保留原编号便于对照源码；图片、帧序列、WAV、地形、命中掩码均直接读取普通媒体，运行时不会拼装旧私有包。

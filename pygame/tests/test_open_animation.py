@@ -44,6 +44,9 @@ def test_PNG帧序列保留间隔全部帧透明与倒带(tmp_path: Path) -> Non
         for index, image in enumerate(images):
             assert movie.api_下一帧()
             assert movie.已解帧 == index + 1 and movie.api_图像() == image
+            returned = movie.api_图像()
+            returned.像素[0] = 0
+            assert movie.api_图像() == image
         assert not movie.api_下一帧()
         movie.api_倒带()
         assert movie.已解帧 == 0

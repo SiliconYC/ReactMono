@@ -2,11 +2,11 @@
 # 派生自固定native_audio.cpp::decode_wave的接口与校验；标准SDL3只负责WAV与重采样。
 # ◑ 导入
 import ctypes as c
-import ctypes.util
-import os
 import sys
 from array import array
 from pathlib import Path
+
+from rich4.runtime_library import 本地运行库_类
 
 
 # ◕ 功能
@@ -30,9 +30,7 @@ class 原波形_类:
     """
 
     def __init__(self, arg_库: Path | None = None) -> None:
-        路 = str(arg_库) if arg_库 is not None else os.environ.get("RICH4_SDL3_LIBRARY")
-        if 路 is None:
-            路 = ctypes.util.find_library("SDL3")
+        路 = 本地运行库_类.api_选择("SDL3", "RICH4_SDL3_LIBRARY", arg_库)
         if 路 is None:
             raise RuntimeError("缺少标准SDL3库；请安装SDL3或设置RICH4_SDL3_LIBRARY")
         self._库 = c.CDLL(路)

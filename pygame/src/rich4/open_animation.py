@@ -1,7 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # 普通PNG帧序列实现既有动画契约；不解码或合成原FLC数据。
 # ◑ 导入
-from copy import deepcopy
 
 from rich4.flc import 动画_类
 from rich4.graphics import 图像_类
@@ -45,4 +44,7 @@ class PNG动画_类(动画_类):
         return True
 
     def api_图像(self) -> 图像_类:
-        return deepcopy(self._当前)
+        image = self._当前
+        return 图像_类(
+            image.宽, image.高, image.像素.copy(), image.原点x, image.原点y, image.不透明
+        )

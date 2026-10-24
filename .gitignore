@@ -14,3 +14,5 @@ docs/research/.scratch/
 
 # 本地正版素材转换产物，禁止进入源码包或GitHub。
 /pygame/assets/
+/pygame/.local/
+/pygame/userdata/

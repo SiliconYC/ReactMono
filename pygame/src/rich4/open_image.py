@@ -2,8 +2,10 @@
 # PNG保存可见颜色；JSON另记RGB555高位、原点和掩码存在性，避免丢失原绘制语义。
 # ◑ 导入
 import json
+from array import array
 from dataclasses import dataclass
 from pathlib import Path
+from sys import byteorder
 
 import pygame
 
@@ -50,6 +52,9 @@ class 开放图像_类:
 
     _红蓝 = bytes(min(range(32), key=lambda n: abs(n * 255 // 31 - v)) for v in range(256))
     _绿 = bytes(min(range(32), key=lambda n: abs(n * 510 // 63 - v)) for v in range(256))
+    _红高 = bytes((v & 31) << 2 for v in range(256))
+    _绿低 = bytes((v & 7) << 5 for v in range(256))
+    _绿高 = bytes((v & 31) >> 3 for v in range(256))
 
     @staticmethod
     def api_区间(arg_位置: list[int]) -> tuple[tuple[int, int], ...]:
@@ -91,9 +96,19 @@ class 开放图像_类:
             rgba[1::4].translate(cls._绿),
             rgba[2::4].translate(cls._红蓝),
         )
-        pixels = [
-            (red << 10) | (green << 5) | blue for red, green, blue in zip(r, g, b, strict=True)
-        ]
+        # 每字节内位域互不相交，批量OR不会跨像素进位；保持原RGB555整数。
+        count = m.width * m.height
+        low = int.from_bytes(b, "little") | int.from_bytes(g.translate(cls._绿低), "little")
+        high = int.from_bytes(r.translate(cls._红高), "little") | int.from_bytes(
+            g.translate(cls._绿高), "little"
+        )
+        raw = bytearray(count * 2)
+        raw[0::2], raw[1::2] = low.to_bytes(count, "little"), high.to_bytes(count, "little")
+        words = array("H")
+        words.frombytes(raw)
+        if byteorder != "little":
+            words.byteswap()
+        pixels = list(words)
         last = 0
         for start, end in m.high_bit_ranges:
             if not last <= start < end <= len(pixels):

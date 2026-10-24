@@ -67,3 +67,36 @@ def test_正式入口由开放目录自动选用项目内字体(tmp_path: Path) 
         timeout=30,
     )
     assert result.returncode == 0, result.stdout + result.stderr
+
+
+@pytest.mark.assets
+def test_项目内运行库与音库无需外部环境变量即可发声启动(tmp_path: Path) -> None:
+    import subprocess
+    import sys
+
+    if not os.environ.get("RICH4_TEST_OPEN_ASSETS"):
+        pytest.skip("需显式开放素材目录和本地运行库")
+    root = Path(os.environ["RICH4_TEST_OPEN_ASSETS"])
+    env = dict(os.environ)
+    for name in ("RICH4_SDL3_LIBRARY", "RICH4_FLUIDSYNTH_LIBRARY", "RICH4_SOUNDFONT"):
+        env.pop(name, None)
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "rich4.game_cli",
+            "--assets",
+            str(root),
+            "--save-dir",
+            str(tmp_path),
+            "--headless",
+            "--frames",
+            "2",
+        ],
+        capture_output=True,
+        text=True,
+        timeout=30,
+        env=env,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "[警告] 背景音乐不可用" not in result.stdout
