@@ -8,6 +8,7 @@
 - [逐阶段实施计划](PLAN.md) 与 [持续执行台账](PROGRESS.md)。
 - [源码规模与依赖说明](SOURCE_SCALE.md)；[完整语法清单与逐函数矩阵](source-inventory.json)。
 - [功能覆盖与规则依据](COVERAGE.md)。
+- [原存档、随机旁车与异常恢复边界](RECOVERY.md)。
 - [资源和动画接口](RESOURCES.md)、[世界/存档接口](WORLD.md) 与 [数值/股市契约](NUMERIC.md)。
 - [原股票电脑评分、排序与贷款门控](STOCKS_AI.md)。
 - [原道具电脑策略、投影选择缓冲与EDX边界](TOOLS_AI.md)。

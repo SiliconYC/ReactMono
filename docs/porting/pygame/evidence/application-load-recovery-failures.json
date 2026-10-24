@@ -1,0 +1,49 @@
+{
+  "status": "failed-before-fix",
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "scope": "actual external-asset pytest regressions; lifecycle failures deliberately injected at IO/display boundary, no game outcomes injected",
+  "failures": [
+    {
+      "case": "RICH4-RNG-1 12 FF byte",
+      "expected": "valid DAT loads with seed12",
+      "actual": "UTF-8 decoding rejected whole load"
+    },
+    {
+      "case": "RICH4-RNG-1 -1",
+      "expected_random_state": 4294967295,
+      "actual_random_state": 123
+    },
+    {
+      "case": "FF byte only",
+      "expected": "valid DAT loads using default seed123",
+      "actual": "UTF-8 decoding rejected whole load"
+    },
+    {
+      "case": "pygame window creation raises pygame.error",
+      "expected": "application audio/font closed",
+      "actual": "application remained unclosed"
+    },
+    {
+      "case": "audio close raises after actually closing audio",
+      "expected": "font and SDL display released; error propagates",
+      "actual": "font/display cleanup skipped"
+    },
+    {
+      "case": "Options seed -1 or4294967297",
+      "expected": [
+        4294967295,
+        1
+      ],
+      "actual": [
+        -1,
+        4294967297
+      ]
+    }
+  ],
+  "red_evidence": [
+    "test_application.py: 4 failed,4 passed before parser/window-init fix",
+    "application_types + close-error tests: 3 failed,1 passed before cleanup/seed fix"
+  ],
+  "fix": "byte-oriented uint32 prefix extraction; initialization and teardown in try/finally; normalize configuration seed to uint32",
+  "green": "37 targeted passed; 596 full tests passed with explicit external dependencies; direct original load/draw boundary oracle passed"
+}

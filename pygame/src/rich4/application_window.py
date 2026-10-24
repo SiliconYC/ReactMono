@@ -17,6 +17,7 @@ class 游戏窗口_类:
 
     更新日志：
     2026.10.24 - 固定步长和帧上限仅为开发验收；正常流程始终真实时钟。
+    2026.10.24 - 创建窗口失败或音频退出报错时仍关闭应用、字体和显示设备。
     """
 
     def __init__(self, arg_应用: 游戏应用_类) -> None:
@@ -50,13 +51,13 @@ class 游戏窗口_类:
         arg_截图: Path | None = None,
         arg_固定毫秒: int = 0,
     ) -> None:
-        pygame.display.init()
-        pygame.display.set_caption("大富翁 4")
-        window = pygame.display.set_mode((960, 720), pygame.RESIZABLE)
         app = self.应用
-        last = pygame.time.get_ticks()
-        frames = 0
         try:
+            pygame.display.init()
+            pygame.display.set_caption("大富翁 4")
+            window = pygame.display.set_mode((960, 720), pygame.RESIZABLE)
+            last = pygame.time.get_ticks()
+            frames = 0
             while app.运行:
                 now = pygame.time.get_ticks()
                 image = app.api_绘制(now)
@@ -101,5 +102,7 @@ class 游戏窗口_类:
             self.api_诊断(str(error))
             raise
         finally:
-            app.api_关闭()
-            pygame.quit()
+            try:
+                app.api_关闭()
+            finally:
+                pygame.quit()

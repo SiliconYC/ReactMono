@@ -1,0 +1,128 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "normal_flow": false,
+  "exercise_save": true,
+  "scope": "original Application private drawing and button actions + mirrored original post-input orchestration; Python uses Pygame event batches. All logical canvas bytes/world DAT/state; audio disabled, not original OS event loop/desktop/listening proof",
+  "cases": [
+    {
+      "map": 0,
+      "commands": 227,
+      "state_sha256": "e3a4ae7018c675f3a5de9738ece962916ba71b431184a207e575da36dc105a72",
+      "input_sha256": "9f5e0ba4e8332022500543dc8f7b93aa9a020b32e8eb3c371a017dc721018db1",
+      "reference_stderr": [
+        "fluidsynth: error: Not a SoundFont file"
+      ],
+      "save_files": {
+        "Autosave.DAT": {
+          "bytes": 89871,
+          "sha256": "8bf3e71218dd391e6088da4ed2a614b7e1f47102842a5ac8d55eaa04a88b9db0"
+        },
+        "Autosave.DAT.rng": {
+          "bytes": 22,
+          "sha256": "ba2c13b1a4065f90b1de1f8bde47d93ddab191601cd0a8848e23f4ed600c81cf"
+        },
+        "Save1.DAT": {
+          "bytes": 89871,
+          "sha256": "e476d1078aa2b9a9b0ad498b88a0aae3dd2f5965ba5e5e30a5a073149ec4b83b"
+        },
+        "Save1.DAT.rng": {
+          "bytes": 23,
+          "sha256": "2267e532de4dc31978626bc44eac3251d1a68b36bb8980fe58770a87473c2e9c"
+        }
+      },
+      "replay": {
+        "status": "passed",
+        "scope": "actual application software drawing and Pygame event batches; reference fast replay mode; no OS desktop or listening proof",
+        "map": 0,
+        "seed": -1,
+        "requested_days": 3,
+        "frames": 99,
+        "screens": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "decisions": [
+          0,
+          6
+        ],
+        "completed_days": 3,
+        "finished": false,
+        "random_state": 588736590,
+        "world_sha256": "8bf3e71218dd391e6088da4ed2a614b7e1f47102842a5ac8d55eaa04a88b9db0",
+        "events": {
+          "0": 14,
+          "1": 11,
+          "2": 34,
+          "3": 8,
+          "7": 3,
+          "12": 24
+        },
+        "state_sha256": "c57790f0814a853ae570f346ae3002dfaa8076fb27b80bc3c6bcab8740b7f155",
+        "visited_toolbar": [
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          71,
+          72,
+          81,
+          82
+        ]
+      }
+    }
+  ],
+  "commands": 227,
+  "canvases": 100,
+  "pixels": 30720000,
+  "runtime_sha256": {
+    "application.py": "38c58a62fb0889800d4ac270faa93d918187d9b88e2398292e69c85a640a0392",
+    "application_actions.py": "b2d1d0b9acbc8a14358d4fd74f67a240d2b091154fef3f50313c85f1ecfe02df",
+    "application_draw.py": "68429b4a44f4be91b84dc7eedb776cee80c8e5ee11aee0b3a18b59318eb277a0",
+    "application_input.py": "0de5e1bba0656d6aae93a63691b7d52aa733762c06213eea09019ede8014f40a",
+    "application_types.py": "dfe47d812399c406a6901f9f6eb601dbf67e0bfec9ead62a57c4d87d7a403bd7",
+    "application_window.py": "f3ed5d3fb8ecb6ea16f832bc7b18aa31bc04dc4acbb49c8c91db49273fc02c28",
+    "board_renderer.py": "888180dd4648e712fac4598cdbf838ec7a0d7f77eb272bab5682503531897359",
+    "ground_samples.py": "71c9b3662947dee6119825e0b08e1bbd6aab1d7bd966d255135a7aca4f5cec25",
+    "minigame_presentation.py": "fb12c247d1187cbd8b9ab479c3411b895cb1031eb1322b6266393975d3737c26",
+    "minigame_screen.py": "775f88f080e5dc12f72dd709f21e117f0b2f1a12f10ae3e090b3b980dd15e97f",
+    "minigames.py": "87c0aecbc718b0fa97daf553f9d303c64fe3396b599b79ead7db8555d4eeb28b"
+  },
+  "oracle_build": {
+    "clock_override": "SDL_GetTicks=rich4_application_clock (all translation units)",
+    "oracle": "37f2c546c465529c8b3e3381a4e354d35ecd5f7eae35e88ccd6b39bf77a56275",
+    "core": "415e3c843cf9a6f501cebe5fd01acb5036ff137d733ec1e64e9311616f787dea",
+    "library": "28ee91b522a7c870fa792fb8eaf6f1a5e9645703a071a1b98a5fea146f12203d",
+    "flags": [
+      "-I/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/audio-runtime/include",
+      "-I/opt/homebrew/opt/freetype/include/freetype2",
+      "-I/opt/homebrew/opt/libpng/include/libpng16",
+      "-L/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/audio-runtime/lib",
+      "-L/opt/homebrew/opt/freetype/lib",
+      "-Wl,-rpath,/Users/laocao/Documents/coding/ReactMono-pygame-port/.research-cache/audio-runtime/lib",
+      "-lSDL3",
+      "-lfluidsynth",
+      "-lfreetype"
+    ],
+    "compiler": "Apple clang version 14.0.3 (clang-1403.0.22.14.1)\nTarget: arm64-apple-darwin23.5.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n"
+  },
+  "driver_sha256": {
+    "differential_application.py": "d2937289642e2e4d45617ff6d5ad47f7eaf967b698894df8685ab34d754393dd",
+    "replay_application.py": "cfd9be51833f487086bbbfbc0954cd400c243ad89ef0f4a384d51e48253f4b5e"
+  },
+  "last_map": 0,
+  "last_command": "D 49500",
+  "last_index": 226
+}

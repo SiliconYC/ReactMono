@@ -15331,9 +15331,16 @@
       "id": "tools/native_game.cpp:116",
       "declarator": "arguments(int argc, char **argv)",
       "end_line": 227,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_cli.py::主程序",
+        "pygame/src/rich4/application_types.py::应用设置_类.__post_init__"
+      ],
+      "status": "部分：正式常用CLI与原uint32种子字段；开发画廊/重放等参考CLI不计正式游戏功能覆盖",
+      "evidence": [
+        "RECOVERY.md",
+        "tests/test_application_types.py",
+        "evidence/application-negative-seed.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:247",
@@ -15822,15 +15829,21 @@
       "declarator": "load(const fs::path &path)",
       "end_line": 1039,
       "python": [
-        "pygame/src/rich4/application.py::api_读取"
+        "pygame/src/rich4/application.py::api_读取",
+        "pygame/src/rich4/save_random.py::随机旁车_类.api_读取/api_解码"
       ],
-      "status": "正式Python应用已接线；八图真实槽位/DAT与RNG字节及跨进程继续自动差分；任意中途完整检查点未实现",
+      "status": "正式原DAT+RNG新会话恢复、可选旁车uint32提取/错误边界直接差分；非任意阶段完整检查点",
       "evidence": [
         "APPLICATION.md",
         "tests/test_application.py",
         "evidence/application-eight-maps.json",
         "evidence/application-save-slots.json",
-        "evidence/application-cross-process.json"
+        "evidence/application-cross-process.json",
+        "RECOVERY.md",
+        "tests/test_save_random.py",
+        "evidence/application-load-boundaries.json",
+        "evidence/application-load-official-save1.json",
+        "evidence/application-load-official-save0.json"
       ]
     },
     {
