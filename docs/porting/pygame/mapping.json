@@ -11424,5 +11424,125 @@
       "PLAYER_INFO.md",
       "evidence/player-info-differential.json"
     ]
+  },
+  "tools/screens/market.cpp:406": {
+    "python": [
+      "pygame/src/rich4/lottery_bar_screen.py::彩票柜台_类._霓虹帧"
+    ],
+    "status": "已实现，直接原组件画布/私有状态差分；完整主应用未验",
+    "evidence": [
+      "AUCTION_LOTTERY_UI.md",
+      "tests/test_auction_room_screen.py",
+      "tests/test_lottery_bar_screen.py",
+      "evidence/auction-lottery-differential.json"
+    ]
+  },
+  "tools/screens/market.cpp:424": {
+    "python": [
+      "pygame/src/rich4/lottery_bar_screen.py::彩票柜台_类.api_绘制"
+    ],
+    "status": "已实现，直接原组件画布/私有状态差分；完整主应用未验",
+    "evidence": [
+      "AUCTION_LOTTERY_UI.md",
+      "tests/test_auction_room_screen.py",
+      "tests/test_lottery_bar_screen.py",
+      "evidence/auction-lottery-differential.json"
+    ]
+  },
+  "tools/screens/market.cpp:528": {
+    "python": [
+      "pygame/src/rich4/auction_room_draw.py::拍卖绘制_类._画房"
+    ],
+    "status": "已实现，直接原组件画布/私有状态差分；完整主应用未验",
+    "evidence": [
+      "AUCTION_LOTTERY_UI.md",
+      "tests/test_auction_room_screen.py",
+      "tests/test_lottery_bar_screen.py",
+      "evidence/auction-lottery-differential.json"
+    ]
+  },
+  "tools/screens/market.cpp:556": {
+    "python": [
+      "pygame/src/rich4/auction_room_draw.py::拍卖绘制_类._公告"
+    ],
+    "status": "已实现，直接原组件画布/私有状态差分；完整主应用未验",
+    "evidence": [
+      "AUCTION_LOTTERY_UI.md",
+      "tests/test_auction_room_screen.py",
+      "tests/test_lottery_bar_screen.py",
+      "evidence/auction-lottery-differential.json"
+    ]
+  },
+  "tools/screens/market.cpp:564": {
+    "python": [
+      "pygame/src/rich4/auction_room_draw.py::拍卖绘制_类._竞买人"
+    ],
+    "status": "已实现，直接原组件画布/私有状态差分；完整主应用未验",
+    "evidence": [
+      "AUCTION_LOTTERY_UI.md",
+      "tests/test_auction_room_screen.py",
+      "tests/test_lottery_bar_screen.py",
+      "evidence/auction-lottery-differential.json"
+    ]
+  },
+  "tools/screens/market.cpp:585": {
+    "python": [
+      "pygame/src/rich4/auction_room_screen.py::拍卖室_类.api_绘制"
+    ],
+    "status": "已实现，直接原组件画布/私有状态差分；完整主应用未验",
+    "evidence": [
+      "AUCTION_LOTTERY_UI.md",
+      "tests/test_auction_room_screen.py",
+      "tests/test_lottery_bar_screen.py",
+      "evidence/auction-lottery-differential.json"
+    ]
+  },
+  "tools/screens/market.cpp:648": {
+    "python": [
+      "pygame/src/rich4/auction_room_screen.py::拍卖室_类.api_成交"
+    ],
+    "status": "已实现，直接原组件画布/私有状态差分；完整主应用未验",
+    "evidence": [
+      "AUCTION_LOTTERY_UI.md",
+      "tests/test_auction_room_screen.py",
+      "tests/test_lottery_bar_screen.py",
+      "evidence/auction-lottery-differential.json"
+    ]
+  },
+  "tools/screens/market.cpp:652": {
+    "python": [
+      "pygame/src/rich4/auction_room_screen.py::拍卖室_类.api_画成交"
+    ],
+    "status": "已实现，直接原组件画布/私有状态差分；完整主应用未验",
+    "evidence": [
+      "AUCTION_LOTTERY_UI.md",
+      "tests/test_auction_room_screen.py",
+      "tests/test_lottery_bar_screen.py",
+      "evidence/auction-lottery-differential.json"
+    ]
+  },
+  "tools/screens/finance.hpp:260": {
+    "python": [
+      "pygame/src/rich4/auction_room_screen.py::拍卖室_类.api_成交中"
+    ],
+    "status": "已实现，直接原组件画布/私有状态差分；完整主应用未验",
+    "evidence": [
+      "AUCTION_LOTTERY_UI.md",
+      "tests/test_auction_room_screen.py",
+      "tests/test_lottery_bar_screen.py",
+      "evidence/auction-lottery-differential.json"
+    ]
+  },
+  "tools/screens/finance.hpp:269": {
+    "python": [
+      "pygame/src/rich4/auction_room_screen.py::拍卖室_类.api_重置"
+    ],
+    "status": "已实现，直接原组件画布/私有状态差分；完整主应用未验",
+    "evidence": [
+      "AUCTION_LOTTERY_UI.md",
+      "tests/test_auction_room_screen.py",
+      "tests/test_lottery_bar_screen.py",
+      "evidence/auction-lottery-differential.json"
+    ]
   }
 }
