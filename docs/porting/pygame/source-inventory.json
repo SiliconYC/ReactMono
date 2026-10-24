@@ -5290,89 +5290,156 @@
       "id": "src/game.cpp:35",
       "declarator": "add32(std::int32_t a, std::int32_t b) noexcept",
       "end_line": 37,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks.py::股市_类._回绕"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:38",
       "declarator": "subtract32(std::int32_t a, std::int32_t b) noexcept",
       "end_line": 40,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks.py::股市_类._回绕"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:41",
       "declarator": "multiply32(std::int32_t a, std::int32_t b) noexcept",
       "end_line": 43,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/stocks.py::股市_类._回绕"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:44",
       "declarator": "player_name(std::size_t slot)",
       "end_line": 46,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_finance.py::会话金融_类._付租/_破产（编号标签内联）",
+        "pygame/src/rich4/game_actions.py::会话动作_类._目标名"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:108",
       "declarator": "Impl(World value, std::uint32_t seed)",
       "end_line": 127,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.__init__"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:129",
       "declarator": "actor() const",
       "end_line": 131,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类._当前"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:132",
       "declarator": "&player()",
       "end_line": 134,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类._玩家"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:135",
       "declarator": "&player() const",
       "end_line": 137,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类._玩家"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:138",
       "declarator": "human() const",
       "end_line": 140,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类._人类"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:141",
       "declarator": "&status()",
       "end_line": 143,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类._状态"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:144",
       "declarator": "&status() const",
       "end_line": 146,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类._状态"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:147",
@@ -5381,12 +5448,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._发事件"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5396,12 +5465,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._效果"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5411,12 +5482,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._地图影片"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5426,12 +5499,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._在场"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5441,12 +5516,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._服装键"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5456,12 +5533,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._结束服装"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5471,12 +5550,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._刷新服装"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5486,12 +5567,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._角色点"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5501,12 +5584,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._地产点"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5516,12 +5601,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._地产层"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5531,12 +5618,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._顶楼闪光"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5546,12 +5635,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._道具效果"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5561,12 +5652,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._卡片效果"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5576,12 +5669,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._抛卡"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5591,12 +5686,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._公告"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5606,12 +5703,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._语句"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5621,12 +5720,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._卡片语句"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5636,12 +5737,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._开始卡片"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5651,12 +5754,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._卡图"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5666,12 +5771,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._语音"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5681,12 +5788,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._音效"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5696,12 +5805,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._公告免租"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5711,12 +5822,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._金额语音"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5726,12 +5839,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._缺席语音"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5741,12 +5856,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._置阶段"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5756,12 +5873,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._结束回合"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5771,12 +5890,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._暂停"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5786,12 +5907,14 @@
       "python": [
         "pygame/src/rich4/game_presentation.py::会话表现_类._不支持"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5801,19 +5924,27 @@
       "python": [
         "pygame/src/rich4/game_motion.py::会话移动_类._按需出场"
       ],
-      "status": "转写及定向测试通过；真实会话回调和完整差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_motion.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
       "id": "src/game.cpp:407",
       "declarator": "age_status(std::uint8_t &value)",
       "end_line": 411,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_motion.py::会话移动_类._老化天数"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:412",
@@ -5822,10 +5953,12 @@
       "python": [
         "pygame/src/rich4/game_motion.py::会话移动_类._更新状态"
       ],
-      "status": "转写及定向测试通过；真实会话回调和完整差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_motion.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5835,10 +5968,12 @@
       "python": [
         "pygame/src/rich4/game_motion.py::会话移动_类._开始回合"
       ],
-      "status": "转写及定向测试通过；真实会话回调和完整差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_motion.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5848,10 +5983,12 @@
       "python": [
         "pygame/src/rich4/game_motion.py::会话移动_类._进入回合"
       ],
-      "status": "转写及定向测试通过；真实会话回调和完整差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_motion.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5861,10 +5998,12 @@
       "python": [
         "pygame/src/rich4/game_motion.py::会话移动_类._电脑骰数"
       ],
-      "status": "转写及定向测试通过；真实会话回调和完整差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_motion.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5874,10 +6013,12 @@
       "python": [
         "pygame/src/rich4/game_motion.py::会话移动_类._开始电脑回合"
       ],
-      "status": "转写及定向测试通过；真实会话回调和完整差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_motion.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5887,10 +6028,12 @@
       "python": [
         "pygame/src/rich4/game_motion.py::会话移动_类._开始掷骰"
       ],
-      "status": "转写及定向测试通过；真实会话回调和完整差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_motion.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5900,10 +6043,12 @@
       "python": [
         "pygame/src/rich4/game_motion.py::会话移动_类._开始一步"
       ],
-      "status": "转写及定向测试通过；真实会话回调和完整差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_motion.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5913,10 +6058,12 @@
       "python": [
         "pygame/src/rich4/game_motion.py::会话移动_类._完成一步"
       ],
-      "status": "转写及定向测试通过；真实会话回调和完整差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_motion.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5926,19 +6073,27 @@
       "python": [
         "pygame/src/rich4/game_motion.py::会话移动_类._逐步遭遇"
       ],
-      "status": "转写及定向测试通过；真实会话回调和完整差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_motion.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
       "id": "src/game.cpp:811",
       "declarator": "~ClearMine()",
       "end_line": 811,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_motion.py::会话移动_类._逐步遭遇（try/finally）"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:843",
@@ -5947,10 +6102,12 @@
       "python": [
         "pygame/src/rich4/game_property.py::会话地产_类._购地价"
       ],
-      "status": "转写及定向测试通过；完整会话差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_property.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5960,10 +6117,12 @@
       "python": [
         "pygame/src/rich4/game_property.py::会话地产_类._升级价"
       ],
-      "status": "转写及定向测试通过；完整会话差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_property.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5973,10 +6132,12 @@
       "python": [
         "pygame/src/rich4/game_property.py::会话地产_类._购买地产"
       ],
-      "status": "转写及定向测试通过；完整会话差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_property.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5986,10 +6147,12 @@
       "python": [
         "pygame/src/rich4/game_property.py::会话地产_类._普通地产"
       ],
-      "status": "转写及定向测试通过；完整会话差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_property.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -5999,10 +6162,12 @@
       "python": [
         "pygame/src/rich4/game_property.py::会话地产_类._交易受阻"
       ],
-      "status": "转写及定向测试通过；完整会话差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_property.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6012,10 +6177,12 @@
       "python": [
         "pygame/src/rich4/game_property.py::会话地产_类._电脑可购买"
       ],
-      "status": "转写及定向测试通过；完整会话差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_property.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6025,19 +6192,27 @@
       "python": [
         "pygame/src/rich4/game_property.py::会话地产_类._购买设施"
       ],
-      "status": "转写及定向测试通过；完整会话差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_property.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
       "id": "src/game.cpp:1036",
       "declarator": "roulette_value(unsigned kind, unsigned cursor)",
       "end_line": 1044,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_property.py::会话地产_类._轮盘值"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:1045",
@@ -6046,10 +6221,12 @@
       "python": [
         "pygame/src/rich4/game_property.py::会话地产_类._设施收费"
       ],
-      "status": "转写及定向测试通过；完整会话差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_property.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6059,10 +6236,12 @@
       "python": [
         "pygame/src/rich4/game_property.py::会话地产_类._设施收费动作"
       ],
-      "status": "转写及定向测试通过；完整会话差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_property.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6072,10 +6251,12 @@
       "python": [
         "pygame/src/rich4/game_property.py::会话地产_类._特殊设施"
       ],
-      "status": "转写及定向测试通过；完整会话差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_property.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6085,10 +6266,12 @@
       "python": [
         "pygame/src/rich4/game_property.py::会话地产_类._救援"
       ],
-      "status": "转写及定向测试通过；完整会话差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_property.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6098,10 +6281,12 @@
       "python": [
         "pygame/src/rich4/game_property.py::会话地产_类._探望收容"
       ],
-      "status": "转写及定向测试通过；完整会话差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_property.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6111,10 +6296,12 @@
       "python": [
         "pygame/src/rich4/game_property.py::会话地产_类._轮盘效果"
       ],
-      "status": "转写及定向测试通过；完整会话差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_property.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6124,10 +6311,12 @@
       "python": [
         "pygame/src/rich4/game_property.py::会话地产_类._停止轮盘效果"
       ],
-      "status": "转写及定向测试通过；完整会话差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_property.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6137,10 +6326,12 @@
       "python": [
         "pygame/src/rich4/game_property.py::会话地产_类._选择轮盘"
       ],
-      "status": "转写及定向测试通过；完整会话差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_property.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6150,10 +6341,12 @@
       "python": [
         "pygame/src/rich4/game_property.py::会话地产_类._公司建设目标"
       ],
-      "status": "转写及定向测试通过；完整会话差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_property.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6163,10 +6356,12 @@
       "python": [
         "pygame/src/rich4/game_property.py::会话地产_类._原始股"
       ],
-      "status": "转写及定向测试通过；完整会话差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_property.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6176,10 +6371,12 @@
       "python": [
         "pygame/src/rich4/game_property.py::会话地产_类._商业公司"
       ],
-      "status": "转写及定向测试通过；完整会话差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_property.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6189,10 +6386,12 @@
       "python": [
         "pygame/src/rich4/game_property.py::会话地产_类._开彩票"
       ],
-      "status": "转写及定向测试通过；完整会话差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_property.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6202,10 +6401,12 @@
       "python": [
         "pygame/src/rich4/game_property.py::会话地产_类._收随机卡"
       ],
-      "status": "转写及定向测试通过；完整会话差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_property.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6215,12 +6416,14 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._付款"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6230,12 +6433,14 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._更新敌意"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6245,11 +6450,13 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._选择付租者"
       ],
-      "status": "内部组件已移植，真实被动卡/重放差分；完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
-        "evidence/game-actors-differential.json"
+        "evidence/game-actors-differential.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6259,12 +6466,14 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._付租"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6274,12 +6483,14 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._检查终局"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6289,12 +6500,14 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._破产"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6304,12 +6517,14 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._保险赔偿"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6319,12 +6534,14 @@
       "python": [
         "pygame/src/rich4/game_actors.py::会话角色_类._同步附身"
       ],
-      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_actors.py",
         "GAMESESSION.md",
         "evidence/game-actors-differential.json",
-        "GAMESESSION_ACTORS.md"
+        "GAMESESSION_ACTORS.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6334,12 +6551,14 @@
       "python": [
         "pygame/src/rich4/game_actors.py::会话角色_类._清缺席"
       ],
-      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_actors.py",
         "GAMESESSION.md",
         "evidence/game-actors-differential.json",
-        "GAMESESSION_ACTORS.md"
+        "GAMESESSION_ACTORS.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6349,12 +6568,14 @@
       "python": [
         "pygame/src/rich4/game_actors.py::会话角色_类._搬走破产者"
       ],
-      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_actors.py",
         "GAMESESSION.md",
         "evidence/game-actors-differential.json",
-        "GAMESESSION_ACTORS.md"
+        "GAMESESSION_ACTORS.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6364,12 +6585,14 @@
       "python": [
         "pygame/src/rich4/game_actors.py::会话角色_类._受伤"
       ],
-      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_actors.py",
         "GAMESESSION.md",
         "evidence/game-actors-differential.json",
-        "GAMESESSION_ACTORS.md"
+        "GAMESESSION_ACTORS.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6379,12 +6602,14 @@
       "python": [
         "pygame/src/rich4/game_actors.py::会话角色_类._收容"
       ],
-      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_actors.py",
         "GAMESESSION.md",
         "evidence/game-actors-differential.json",
-        "GAMESESSION_ACTORS.md"
+        "GAMESESSION_ACTORS.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6394,12 +6619,14 @@
       "python": [
         "pygame/src/rich4/game_actors.py::会话角色_类._消失"
       ],
-      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_actors.py",
         "GAMESESSION.md",
         "evidence/game-actors-differential.json",
-        "GAMESESSION_ACTORS.md"
+        "GAMESESSION_ACTORS.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6409,12 +6636,14 @@
       "python": [
         "pygame/src/rich4/game_actors.py::会话角色_类._尝试免付卡"
       ],
-      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_actors.py",
         "GAMESESSION.md",
         "evidence/game-actors-differential.json",
-        "GAMESESSION_ACTORS.md"
+        "GAMESESSION_ACTORS.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6424,12 +6653,14 @@
       "python": [
         "pygame/src/rich4/game_actors.py::会话角色_类._尝试嫁祸卡"
       ],
-      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_actors.py",
         "GAMESESSION.md",
         "evidence/game-actors-differential.json",
-        "GAMESESSION_ACTORS.md"
+        "GAMESESSION_ACTORS.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6439,12 +6670,14 @@
       "python": [
         "pygame/src/rich4/game_actors.py::会话角色_类._尝试防御卡"
       ],
-      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_actors.py",
         "GAMESESSION.md",
         "evidence/game-actors-differential.json",
-        "GAMESESSION_ACTORS.md"
+        "GAMESESSION_ACTORS.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6454,12 +6687,14 @@
       "python": [
         "pygame/src/rich4/game_actors.py::会话角色_类._选择受害卡"
       ],
-      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_actors.py",
         "GAMESESSION.md",
         "evidence/game-actors-differential.json",
-        "GAMESESSION_ACTORS.md"
+        "GAMESESSION_ACTORS.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6469,12 +6704,14 @@
       "python": [
         "pygame/src/rich4/game_actors.py::会话角色_类._释放旅馆住客"
       ],
-      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_actors.py",
         "GAMESESSION.md",
         "evidence/game-actors-differential.json",
-        "GAMESESSION_ACTORS.md"
+        "GAMESESSION_ACTORS.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6484,12 +6721,14 @@
       "python": [
         "pygame/src/rich4/game_actors.py::会话角色_类._改建筑"
       ],
-      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_actors.py",
         "GAMESESSION.md",
         "evidence/game-actors-differential.json",
-        "GAMESESSION_ACTORS.md"
+        "GAMESESSION_ACTORS.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6499,12 +6738,14 @@
       "python": [
         "pygame/src/rich4/game_actors.py::会话角色_类._工程车拆屋"
       ],
-      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_actors.py",
         "GAMESESSION.md",
         "evidence/game-actors-differential.json",
-        "GAMESESSION_ACTORS.md"
+        "GAMESESSION_ACTORS.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6514,12 +6755,14 @@
       "python": [
         "pygame/src/rich4/game_actors.py::会话角色_类._掉头"
       ],
-      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_actors.py",
         "GAMESESSION.md",
         "evidence/game-actors-differential.json",
-        "GAMESESSION_ACTORS.md"
+        "GAMESESSION_ACTORS.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6529,12 +6772,14 @@
       "python": [
         "pygame/src/rich4/game_actors.py::会话角色_类._拍卖"
       ],
-      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_actors.py",
         "GAMESESSION.md",
         "evidence/game-actors-differential.json",
-        "GAMESESSION_ACTORS.md"
+        "GAMESESSION_ACTORS.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6544,12 +6789,14 @@
       "python": [
         "pygame/src/rich4/game_actors.py::会话角色_类._随机空节点"
       ],
-      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_actors.py",
         "GAMESESSION.md",
         "evidence/game-actors-differential.json",
-        "GAMESESSION_ACTORS.md"
+        "GAMESESSION_ACTORS.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6559,12 +6806,14 @@
       "python": [
         "pygame/src/rich4/game_actors.py::会话角色_类._放现有物件"
       ],
-      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_actors.py",
         "GAMESESSION.md",
         "evidence/game-actors-differential.json",
-        "GAMESESSION_ACTORS.md"
+        "GAMESESSION_ACTORS.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6574,93 +6823,175 @@
       "python": [
         "pygame/src/rich4/game_actors.py::会话角色_类._移除物件"
       ],
-      "status": "内部组件已移植，真实角色/防御/建筑/物件/拍卖事务差分；完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_actors.py",
         "GAMESESSION.md",
         "evidence/game-actors-differential.json",
-        "GAMESESSION_ACTORS.md"
+        "GAMESESSION_ACTORS.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
       "id": "src/game.cpp:2198",
       "declarator": "instance_codes(std::uint16_t center_x, std::uint16_t center_y,\n                                              int radius) const",
       "end_line": 2254,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actions.py::会话动作_类._实例编码"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_actions.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:2255",
       "declarator": "area_damage(std::uint16_t x, std::uint16_t y, std::uint8_t mode, bool hit_actors, int source = -1,\n                     int radius = 100)",
       "end_line": 2307,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actions.py::会话动作_类._范围损坏"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_actions.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:2308",
       "declarator": "check_god(const gods::Result &result)",
       "end_line": 2313,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actions.py::会话动作_类._检查神明"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_actions.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:2314",
       "declarator": "choose_god_money(std::uint8_t kind)",
       "end_line": 2337,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actions.py::会话动作_类._选择神明金额"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_actions.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:2338",
       "declarator": "upgrade_for_god(std::uint16_t code)",
       "end_line": 2361,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actions.py::会话动作_类._神明升级"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_actions.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:2362",
       "declarator": "god_callbacks()",
       "end_line": 2401,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actions.py::会话动作_类._神明回调"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_actions.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:2402",
       "declarator": "event_callbacks()",
       "end_line": 2432,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actions.py::会话动作_类._事件回调"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_actions.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:2433",
       "declarator": "target_label(CardTarget target) const",
       "end_line": 2452,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actions.py::会话动作_类._目标名"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_actions.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:2453",
       "declarator": "choose_target(std::span<const CardTarget> options, const std::string &title,\n                                            std::optional<std::size_t> victim = std::nullopt)",
       "end_line": 2486,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actions.py::会话动作_类._选择目标"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_actions.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:2487",
       "declarator": "choose_facility_type(std::size_t slot)",
       "end_line": 2503,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actions.py::会话动作_类._选择设施"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_actions.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:2504",
@@ -6669,67 +7000,123 @@
       "python": [
         "pygame/src/rich4/game_motion.py::会话移动_类._前瞻"
       ],
-      "status": "转写及定向测试通过；真实会话回调和完整差分待接通",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_motion.py",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
       "id": "src/game.cpp:2530",
       "declarator": "card_callbacks()",
       "end_line": 2598,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actions.py::会话动作_类._卡片回调"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_actions.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:2599",
       "declarator": "tool_targets(unsigned tool, std::uint16_t source = 0) const",
       "end_line": 2658,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actions.py::会话动作_类._道具目标"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_actions.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:2659",
       "declarator": "choose_tool_target(unsigned tool, std::uint16_t source)",
       "end_line": 2690,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actions.py::会话动作_类._选择道具目标"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_actions.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:2691",
       "declarator": "instance_position(std::uint16_t code) const",
       "end_line": 2715,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actors.py::会话角色_类._实例位置"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:2716",
       "declarator": "robot(std::size_t slot)",
       "end_line": 2747,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actions.py::会话动作_类._机器人"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_actions.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:2748",
       "declarator": "restore_last_state()",
       "end_line": 2768,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actions.py::会话动作_类._恢复上次"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_actions.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:2769",
       "declarator": "tool_callbacks()",
       "end_line": 2797,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_actions.py::会话动作_类._道具回调"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_actions.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:2810",
@@ -6738,12 +7125,14 @@
       "python": [
         "pygame/src/rich4/game_transactions.py::会话事务_类._去重表现"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6753,93 +7142,175 @@
       "python": [
         "pygame/src/rich4/game_transactions.py::会话事务_类._执行规则"
       ],
-      "status": "内部组件已移植，定向单测和部分私有探针差分；完整会话未接入",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_transactions.py",
         "tests/test_game_presentation.py",
         "evidence/game-transactions-differential.json",
-        "GAMESESSION.md"
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
       "id": "src/game.cpp:2908",
       "declarator": "announce_event(bool news, std::size_t slot, const EventResult &result, std::size_t position)",
       "end_line": 2920,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_landing.py::会话落点_类._公告事件"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_landing.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:2924",
       "declarator": "screen_first(Handler handler)",
       "end_line": 2934,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_landing.py::会话落点_类._先屏幕"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_landing.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:2935",
       "declarator": "resolve_event(bool news)",
       "end_line": 2951,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_landing.py::会话落点_类._处理事件"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_landing.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:2952",
       "declarator": "shop_prompt()",
       "end_line": 2974,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_landing.py::会话落点_类._商店提示"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_landing.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:2975",
       "declarator": "open_shop(std::uint16_t property_code)",
       "end_line": 2985,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_landing.py::会话落点_类._开商店"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_landing.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:2986",
       "declarator": "shop_action(int action, unsigned quantity)",
       "end_line": 3010,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_landing.py::会话落点_类._商店行动"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_landing.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3011",
       "declarator": "magic_callbacks()",
       "end_line": 3038,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_landing.py::会话落点_类._魔法回调"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_landing.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3039",
       "declarator": "magic_effect(unsigned effect)",
       "end_line": 3052,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_landing.py::会话落点_类._施魔法"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_landing.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3053",
       "declarator": "magic_effect_prompt(unsigned category)",
       "end_line": 3061,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_landing.py::会话落点_类._魔法效果提示"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_landing.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3062",
       "declarator": "open_magic()",
       "end_line": 3084,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_landing.py::会话落点_类._开魔法"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_landing.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3085",
@@ -6848,12 +7319,14 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._收银债"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6863,12 +7336,14 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._收到期贷款"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6878,12 +7353,14 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._对账融资"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6893,12 +7370,14 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._设置贷款日"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6908,12 +7387,14 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._借款"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6923,12 +7404,14 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._还款"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6938,12 +7421,14 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._电脑银行贷款"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6953,12 +7438,14 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._拥有当前银行"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6968,12 +7455,14 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._融资上限"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6983,12 +7472,14 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._变更融资"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -6998,12 +7489,14 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._开银行"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -7013,21 +7506,31 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._离银行"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
       "id": "src/game.cpp:3300",
       "declarator": "land()",
       "end_line": 3378,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_landing.py::会话落点_类._落点"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_landing.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3379",
@@ -7036,12 +7539,14 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._财富"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -7051,12 +7556,14 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._更新物价"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -7066,12 +7573,14 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._月报快照"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -7081,12 +7590,14 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._月报效果"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -7096,12 +7607,14 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._派发股利"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -7111,12 +7624,14 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._结月"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -7126,12 +7641,14 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._月奖项"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -7141,12 +7658,14 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._租约到期"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
@@ -7156,349 +7675,671 @@
       "python": [
         "pygame/src/rich4/game_finance.py::会话金融_类._地产到期"
       ],
-      "status": "内部组件已实现，私有入口完整状态差分；回调完整会话待集成",
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
       "evidence": [
         "tests/test_game_finance.py",
         "GAMESESSION.md",
         "evidence/game-finance-differential.json",
-        "GAMESESSION_FINANCE.md"
+        "GAMESESSION_FINANCE.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
       ]
     },
     {
       "id": "src/game.cpp:3566",
       "declarator": "apply_ai_settings(std::size_t slot, const AiSettings &settings)",
       "end_line": 3576,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_landing.py::会话落点_类._应用托管"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_landing.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3577",
       "declarator": "next_turn()",
       "end_line": 3637,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_landing.py::会话落点_类._下一回合"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_landing.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3638",
       "declarator": "advance_day()",
       "end_line": 3692,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game_landing.py::会话落点_类._推进日期"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game_landing.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3695",
       "declarator": "GameSession::GameSession(World world, std::uint32_t seed)",
       "end_line": 3696,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.__init__"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3697",
       "declarator": "GameSession::~GameSession()",
       "end_line": 3697,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类（Python对象生命周期）"
+      ],
+      "status": "语言机制对应，无独立C++移动/析构规则",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3698",
       "declarator": "GameSession::GameSession(GameSession &&) noexcept",
       "end_line": 3698,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类（Python引用无需C++移动构造）"
+      ],
+      "status": "语言机制对应，无独立C++移动/析构规则",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3700",
       "declarator": "&GameSession::world() const noexcept",
       "end_line": 3702,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.世界"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3703",
       "declarator": "GameSession::phase() const noexcept",
       "end_line": 3705,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.阶段"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3706",
       "declarator": "&GameSession::pending_decision() const noexcept",
       "end_line": 3708,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.待决策"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3709",
       "declarator": "&GameSession::animation() const noexcept",
       "end_line": 3711,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.动画"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3712",
       "declarator": "&GameSession::dice() const noexcept",
       "end_line": 3714,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.骰面"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3715",
       "declarator": "GameSession::random_state() const noexcept",
       "end_line": 3717,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.随机.状态"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3718",
       "declarator": "GameSession::steps_remaining() const noexcept",
       "end_line": 3720,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.剩余步"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3721",
       "declarator": "GameSession::completed_days() const noexcept",
       "end_line": 3723,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.完成天数"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3725",
       "declarator": "GameSession::set_camera_rotation(std::uint8_t rotation)",
       "end_line": 3729,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.api_设相机"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3730",
       "declarator": "GameSession::winning_player() const noexcept",
       "end_line": 3732,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.胜者"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3733",
       "declarator": "GameSession::set_dice_count(unsigned count)",
       "end_line": 3742,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.api_设骰数"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3743",
       "declarator": "GameSession::roll_dice()",
       "end_line": 3748,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.api_掷骰"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3749",
       "declarator": "GameSession::card_targets(std::uint8_t card) const",
       "end_line": 3751,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.api_卡片目标"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3752",
       "declarator": "GameSession::use_card(const CardUse &request)",
       "end_line": 3773,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.api_用卡"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3774",
       "declarator": "GameSession::use_tool(unsigned id, std::uint16_t target, std::uint16_t destination)",
       "end_line": 3819,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.api_用道具"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3820",
       "declarator": "GameSession::dismount()",
       "end_line": 3824,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.api_下车"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3825",
       "declarator": "GameSession::buy_stock(std::size_t stock, std::int32_t quantity)",
       "end_line": 3842,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.api_买股票"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3843",
       "declarator": "GameSession::sell_stock(std::size_t stock, std::int32_t quantity)",
       "end_line": 3859,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.api_卖股票"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3860",
       "declarator": "GameSession::close_stock_market()",
       "end_line": 3865,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.api_关股市"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3866",
       "declarator": "GameSession::open_trading()",
       "end_line": 3871,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.api_开交易"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3872",
       "declarator": "GameSession::post_offer(const trading::Listing &offer)",
       "end_line": 3879,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.api_挂牌"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3880",
       "declarator": "GameSession::cancel_offer(std::size_t index)",
       "end_line": 3882,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.api_撤单"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3883",
       "declarator": "GameSession::buy_offer(std::size_t seller, std::size_t index)",
       "end_line": 3890,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.api_买报价"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3891",
       "declarator": "GameSession::close_trading()",
       "end_line": 3896,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.api_关交易"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:3897",
       "declarator": "GameSession::respond(std::size_t option, std::int32_t amount)",
       "end_line": 4031,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.api_回答"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:4032",
       "declarator": "GameSession::set_interactive_mini_games(bool enabled) noexcept",
       "end_line": 4034,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.api_互动小游戏"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:4035",
       "declarator": "GameSession::interactive_mini_games() const noexcept",
       "end_line": 4037,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.互动小游戏"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:4038",
       "declarator": "GameSession::submit_mini_game(std::int32_t score, std::uint32_t random_draws)",
       "end_line": 4051,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.api_提交小游戏"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:4052",
       "declarator": "GameSession::tick(unsigned elapsed_ms)",
       "end_line": 4118,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.api_步进"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:4119",
       "declarator": "GameSession::player_costume(std::size_t slot) const noexcept",
       "end_line": 4123,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.api_服装"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:4124",
       "declarator": "GameSession::drain_events()",
       "end_line": 4129,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.api_取事件"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:4130",
       "declarator": "GameSession::drain_effects()",
       "end_line": 4134,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.api_取效果"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:4135",
       "declarator": "GameSession::ai_settings(std::size_t slot) const",
       "end_line": 4144,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.api_托管设置"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:4145",
       "declarator": "GameSession::set_ai_settings(std::size_t slot, const AiSettings &settings)",
       "end_line": 4166,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.api_设置托管"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:4167",
       "declarator": "GameSession::can_save() const noexcept",
       "end_line": 4169,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.api_可保存"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/game.cpp:4170",
       "declarator": "GameSession::export_save() const",
       "end_line": 4174,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/game.py::游戏会话_类.api_导出存档"
+      ],
+      "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
+      "evidence": [
+        "tests/test_game.py",
+        "GAMESESSION.md",
+        "evidence/game-session-first-natural.json",
+        "evidence/game-session-autopilot-differential.json",
+        "evidence/game-session-human-differential.json"
+      ]
     },
     {
       "id": "src/gods.cpp:17",

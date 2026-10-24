@@ -1,6 +1,6 @@
 # 主会话角色与被动防御
 
-`game_actors.py`对应固定`game.cpp:1711..2197`和`instance_position:2690`；资金与回滚复用[金融](GAMESESSION_FINANCE.md)及[事务](GAMESESSION.md)。以下是组件接线结果，当前尚无公开主游戏入口。
+`game_actors.py`对应固定`game.cpp:1711..2197`和`instance_position:2691`；资金与回滚复用[金融](GAMESESSION_FINANCE.md)及[事务](GAMESESSION.md)。以下是该组件专项结果，后续公开独立会话自然对照见主会话记录；正式Pygame主UI仍未完成。
 
 ## 行为与源码边界
 

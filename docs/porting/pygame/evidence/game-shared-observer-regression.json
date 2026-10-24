@@ -1,0 +1,9 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "scope": "shared observation extraction and nested spinner/subject serialization; unchanged original explicit transaction probe inputs and states, not natural games",
+  "commands": 18648,
+  "episodes": 24,
+  "original_report_sha256": "6a9f649a427c24838cc67adec09e59cd51d6b2935854219934e854df5abfba3b",
+  "all_episode_input_state_hashes_and_counts_identical": true
+}
