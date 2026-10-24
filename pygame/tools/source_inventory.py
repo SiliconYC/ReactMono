@@ -17,6 +17,7 @@ class 源码清单_类:
 
     更新日志：
     2026.10.23 - 建立固定源码可重现清单。
+    2026.10.24 - 拒绝不存在的映射ID，避免行号错误被静默丢弃。
     """
 
     @staticmethod
@@ -81,6 +82,9 @@ class 源码清单_类:
                 )
         if arg_映射 is not None:
             映射 = json.loads(arg_映射.read_text())
+            未知 = sorted(set(映射) - {f["id"] for f in 函数表})
+            if 未知:
+                raise ValueError("映射引用不存在的语法定义：" + ", ".join(未知))
             for 函数 in 函数表:
                 if 函数["id"] in 映射:
                     函数.update(映射[函数["id"]])

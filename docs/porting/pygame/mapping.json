@@ -9668,5 +9668,69 @@
       "evidence/main-scene-differential.json",
       "evidence/main-scene-movement-grid.json"
     ]
+  },
+  "tools/native_game.cpp:1062": {
+    "python": [
+      "pygame/src/rich4/presentation_queue.py::呈现队列_类.api_忙碌/api_可推进"
+    ],
+    "status": "部分实现：等待与宿主忙碌契约；真实各屏组合待应用绑定",
+    "evidence": [
+      "PRESENTATION_QUEUE.md",
+      "tests/test_presentation_queue.py",
+      "evidence/presentation-queue-differential.json"
+    ]
+  },
+  "tools/native_game.cpp:1068": {
+    "python": [
+      "pygame/src/rich4/presentation_queue.py::呈现队列_类.api_泵"
+    ],
+    "status": "分发控制已实现，完整原泵源码差分；真实专属组件待接",
+    "evidence": [
+      "PRESENTATION_QUEUE.md",
+      "tests/test_presentation_queue.py",
+      "evidence/presentation-queue-differential.json"
+    ]
+  },
+  "tools/native_game.cpp:1132": {
+    "python": [
+      "pygame/src/rich4/presentation_queue.py::呈现队列_类.api_观察会话/api_入队"
+    ],
+    "status": "部分实现：提取/顺序入队/观察回调/末尾泵自动差分；其它原应用统计与状态待接",
+    "evidence": [
+      "PRESENTATION_QUEUE.md",
+      "tests/test_presentation_queue.py",
+      "evidence/presentation-queue-differential.json"
+    ]
+  },
+  "tools/screens/spinners.cpp:150": {
+    "python": [
+      "pygame/src/rich4/presentation_queue.py::呈现队列_类.api_泵"
+    ],
+    "status": "仅本handles效果判定已转写并与原函数对照；完整专属屏幕仍未移植",
+    "evidence": [
+      "PRESENTATION_QUEUE.md",
+      "evidence/presentation-queue-differential.json"
+    ]
+  },
+  "tools/screens/monthly.cpp:119": {
+    "python": [
+      "pygame/src/rich4/presentation_queue.py::呈现队列_类.api_泵"
+    ],
+    "status": "仅本handles效果判定已转写并与原函数对照；完整专属屏幕仍未移植",
+    "evidence": [
+      "PRESENTATION_QUEUE.md",
+      "evidence/presentation-queue-differential.json"
+    ]
+  },
+  "tools/native_game.cpp:1090": {
+    "python": [
+      "pygame/src/rich4/presentation_queue.py::呈现队列_类.api_泵/呈现宿主_类.呈现事件"
+    ],
+    "status": "部分实现：仅回合/破产标志及必需回调；消息/电影/音频/拍卖等由正式宿主补齐",
+    "evidence": [
+      "PRESENTATION_QUEUE.md",
+      "tests/test_presentation_queue.py",
+      "evidence/presentation-queue-differential.json"
+    ]
   }
 }

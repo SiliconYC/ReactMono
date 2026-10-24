@@ -1,0 +1,17 @@
+{
+  "reference": "3f4209a7dfb5b2f20799bf54e6c03c5faa11c557",
+  "status": "passed",
+  "commands": 14784,
+  "scope": "verbatim ordering/pump/flag/handles source seams; explicit emitted-output fixtures and capture-only route callbacks; not actual presentation components, natural game or GUI",
+  "source_slice_sha256": {
+    "pump": "c0c19b6add72d700359036e74e1ce1ae3bdf8162ce0ad894c48caa352c311be8",
+    "observe_ordering": "ff8fe233f129783359af7b785547680c133d7e1513a8600675df1b03742ae8df",
+    "present_flags": "056353ecbe88b8ab175890b6517898d7b48423626f94ff3b3717a4d7f8e88a8d",
+    "spinners_handles": "698c23001318e77b3e984ff61e60446c82dc0102a97337519dfaf513fef8ba49",
+    "monthly_handles": "b1c5b796fdcbcf32e5ed2408cf2e4d61a4f915916394156f58b5487c7776e27c"
+  },
+  "python_sha256": "664401b521feb0f7180d91d6e63fb5001865f55369c890db1b5c1fad7e078986",
+  "state_sha256": "8f103fe67f64ac6cb68ca8c0005f1fdd6a6a4583bb42ab3c11198f6689ddfda5",
+  "input_sha256": "63f42f828203d5f8a572df27deb5519dbeda4fcf59043abc327122c3dde79eaa",
+  "episodes": 528
+}

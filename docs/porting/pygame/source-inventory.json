@@ -15225,33 +15225,57 @@
       "id": "tools/native_game.cpp:1062",
       "declarator": "presenting() const",
       "end_line": 1067,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/presentation_queue.py::呈现队列_类.api_忙碌/api_可推进"
+      ],
+      "status": "部分实现：等待与宿主忙碌契约；真实各屏组合待应用绑定",
+      "evidence": [
+        "PRESENTATION_QUEUE.md",
+        "tests/test_presentation_queue.py",
+        "evidence/presentation-queue-differential.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1068",
       "declarator": "pump_presentation()",
       "end_line": 1089,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/presentation_queue.py::呈现队列_类.api_泵"
+      ],
+      "status": "分发控制已实现，完整原泵源码差分；真实专属组件待接",
+      "evidence": [
+        "PRESENTATION_QUEUE.md",
+        "tests/test_presentation_queue.py",
+        "evidence/presentation-queue-differential.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1090",
       "declarator": "present(const GameEvent &event)",
       "end_line": 1131,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/presentation_queue.py::呈现队列_类.api_泵/呈现宿主_类.呈现事件"
+      ],
+      "status": "部分实现：仅回合/破产标志及必需回调；消息/电影/音频/拍卖等由正式宿主补齐",
+      "evidence": [
+        "PRESENTATION_QUEUE.md",
+        "tests/test_presentation_queue.py",
+        "evidence/presentation-queue-differential.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1132",
       "declarator": "observe()",
       "end_line": 1181,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/presentation_queue.py::呈现队列_类.api_观察会话/api_入队"
+      ],
+      "status": "部分实现：提取/顺序入队/观察回调/末尾泵自动差分；其它原应用统计与状态待接",
+      "evidence": [
+        "PRESENTATION_QUEUE.md",
+        "tests/test_presentation_queue.py",
+        "evidence/presentation-queue-differential.json"
+      ]
     },
     {
       "id": "tools/native_game.cpp:1182",
@@ -20221,9 +20245,14 @@
       "id": "tools/screens/monthly.cpp:119",
       "declarator": "handles(const EffectEvent &effect)",
       "end_line": 123,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/presentation_queue.py::呈现队列_类.api_泵"
+      ],
+      "status": "仅本handles效果判定已转写并与原函数对照；完整专属屏幕仍未移植",
+      "evidence": [
+        "PRESENTATION_QUEUE.md",
+        "evidence/presentation-queue-differential.json"
+      ]
     },
     {
       "id": "tools/screens/monthly.cpp:125",
@@ -20437,9 +20466,14 @@
       "id": "tools/screens/spinners.cpp:150",
       "declarator": "handles(const EffectEvent &effect)",
       "end_line": 152,
-      "python": [],
-      "status": "未移植",
-      "evidence": []
+      "python": [
+        "pygame/src/rich4/presentation_queue.py::呈现队列_类.api_泵"
+      ],
+      "status": "仅本handles效果判定已转写并与原函数对照；完整专属屏幕仍未移植",
+      "evidence": [
+        "PRESENTATION_QUEUE.md",
+        "evidence/presentation-queue-differential.json"
+      ]
     },
     {
       "id": "tools/screens/spinners.cpp:154",
