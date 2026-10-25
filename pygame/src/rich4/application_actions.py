@@ -219,6 +219,30 @@ class 应用操作_类:
                 continue
         return slots
 
+    def api_读自动槽(self) -> list[存档槽_类]:
+        # 加载器仍按原生六槽画图；新页前三行只读：最新、上一、开局。
+        slots = [存档槽_类() for _ in range(6)]
+        for display, index in enumerate((0, 6, 7)):
+            try:
+                data, _ = 存档事务_类(self.api_槽路径(index)).api_读取(self.设置.种子)
+                save = 存档_类.api_解码(data)
+                header = save.api_头()
+                if header.签名 != 0x26:
+                    continue
+                slots[display] = 存档槽_类(
+                    True, header.日期, header.地图, header.阶段,
+                    [save.api_玩家(j).角色 for j in range(min(header.人数, 4))],
+                )
+            except (OSError, ValueError, RuntimeError):
+                continue
+        return slots
+
+    def api_切换自动槽(self) -> None:
+        if self.存档槽.api_自动中():
+            self.存档槽.api_打开(False, self.api_读槽())
+        else:
+            self.存档槽.api_打开自动(self.api_读自动槽())
+
     def api_载入路径(self) -> Path:
         if self.设置.载入 is not None:
             return self.设置.载入
@@ -239,9 +263,13 @@ class 应用操作_类:
             return
         slots = self.api_读槽()
         if not any(s.有效 for s in slots):
-            self.api_提示("沒有存檔")
-            return
-        self.存档槽.api_打开(False, slots)
+            recovered = self.api_读自动槽()
+            if not any(s.有效 for s in recovered):
+                self.api_提示("沒有存檔")
+                return
+            self.存档槽.api_打开自动(recovered)
+        else:
+            self.存档槽.api_打开(False, slots)
         self.页面 = 应用页面_类.读取
 
     def api_开保存(self) -> None:
@@ -258,7 +286,8 @@ class 应用操作_类:
             self.页面 = 应用页面_类.游戏
         else:
             previous = self.api_返回页面()
-            if not self.api_读取(self.api_槽路径(arg_槽)):
+            index = (0, 6, 7)[arg_槽] if self.存档槽.api_自动中() else arg_槽
+            if not self.api_读取(self.api_槽路径(index)):
                 self.页面 = previous
 
     def api_保存(self) -> None:
