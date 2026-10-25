@@ -10,6 +10,7 @@ from rich4.application import 游戏应用_类
 from rich4.application_actions import 应用操作_类
 from rich4.application_input import 应用输入_类
 from rich4.application_types import 应用页面_类
+from rich4.game_types import 游戏阶段_类
 from rich4.save_transaction import 存档事务_类
 
 
@@ -76,6 +77,7 @@ def 回合应用(tmp_path: Path) -> SimpleNamespace:
     world = SimpleNamespace(轮数=4, 头=SimpleNamespace(当前玩家=0))
     session = SimpleNamespace(
         世界=world,
+        阶段=游戏阶段_类.人类待命,
         随机=SimpleNamespace(状态=100),
         api_可保存=lambda: state["ready"],
         api_导出存档=lambda: SimpleNamespace(api_导出=lambda: state["payload"]),
@@ -216,3 +218,15 @@ def test_disabled_validation_mode_does_not_write(回合应用: SimpleNamespace) 
     app.设置.验证天数 = 10
     游戏应用_类.api_检查自动存档(app)
     assert not app.api_槽路径(0).exists()
+
+def test_game_over_or_intermediate_stage_never_overwrites_round_autosave(
+    回合应用: SimpleNamespace,
+) -> None:
+    app = 回合应用
+    游戏应用_类.api_检查自动存档(app)
+    app.会话.世界.轮数 = 5
+    app.state["payload"] = b"not-pre-roll"
+    for stage in (游戏阶段_类.结束, 游戏阶段_类.推进回合):
+        app.会话.阶段 = stage
+        游戏应用_类.api_检查自动存档(app)
+    assert 读取恢复点(app)[0] == b"round-4"
