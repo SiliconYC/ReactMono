@@ -13,6 +13,7 @@ from rich4.application_draw import 应用绘制_类
 from rich4.application_input import 应用输入_类
 from rich4.application_types import 应用设置_类, 应用页面_类
 from rich4.artwork import 美术_类
+from rich4.autosave import 回合自动存档_类
 from rich4.auction_room_screen import 拍卖室_类
 from rich4.audio_types import 音乐_类
 from rich4.bank_screen import 银行屏幕_类
@@ -49,7 +50,6 @@ from rich4.original_text import 原版文字_类, 原版程序_类
 from rich4.player_info_screen import 玩家查询_类
 from rich4.presentation_queue import 呈现宿主_类, 呈现队列_类
 from rich4.primary_stock_screen import 一级股票屏幕_类
-from rich4.autosave import 回合自动存档_类
 from rich4.save import 存档_类
 from rich4.save_slot_screen import 存档槽屏幕_类
 from rich4.save_transaction import 存档事务_类
