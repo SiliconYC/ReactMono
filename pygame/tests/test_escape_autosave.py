@@ -169,6 +169,7 @@ def test_failed_autosave_keeps_old_checkpoint_and_retries(
     app.会话.世界.轮数 = 5
     app.state["payload"] = b"new-round"
     original = 存档事务_类.api_写入
+
     def reject(self: 存档事务_类, data: bytes, seed: int) -> None:
         if data == b"new-round":
             raise OSError("injected save failure")
@@ -218,6 +219,7 @@ def test_disabled_validation_mode_does_not_write(回合应用: SimpleNamespace) 
     app.设置.验证天数 = 10
     游戏应用_类.api_检查自动存档(app)
     assert not app.api_槽路径(0).exists()
+
 
 def test_game_over_or_intermediate_stage_never_overwrites_round_autosave(
     回合应用: SimpleNamespace,
