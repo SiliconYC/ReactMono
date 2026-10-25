@@ -96,8 +96,6 @@ class 游戏窗口_类:
                     app.运行 = False
                 if not arg_固定毫秒:
                     pygame.time.wait(8)
-            if app.会话 is not None and app.会话.api_可保存() and not app.设置.验证天数:
-                app.api_写存档(app.api_槽路径(0))
         except Exception as error:
             # 对应原std::exception边界，只增加诊断后原样抛出，不跳过规则或假装恢复。
             self.api_诊断(str(error))
