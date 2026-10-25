@@ -10,6 +10,7 @@ from rich4.application import 游戏应用_类
 from rich4.application_actions import 应用操作_类
 from rich4.application_input import 应用输入_类
 from rich4.application_types import 应用页面_类
+from rich4.game_motion import 会话移动_类
 from rich4.game_types import 游戏阶段_类
 from rich4.save_transaction import 存档事务_类
 
@@ -78,6 +79,7 @@ def 回合应用(tmp_path: Path) -> SimpleNamespace:
     session = SimpleNamespace(
         世界=world,
         阶段=游戏阶段_类.人类待命,
+        轮次起点=(4, b"round-4", 100),
         随机=SimpleNamespace(状态=100),
         api_可保存=lambda: state["ready"],
         api_导出存档=lambda: SimpleNamespace(api_导出=lambda: state["payload"]),
@@ -104,10 +106,10 @@ def 读取恢复点(app: SimpleNamespace) -> tuple[bytes, int]:
 
 def test_single_autosave_on_first_stable_turn_before_dice(回合应用: SimpleNamespace) -> None:
     app = 回合应用
-    app.state["ready"] = False
+    app.会话.轮次起点 = None
     游戏应用_类.api_检查自动存档(app)
     assert not app.api_槽路径(0).exists()
-    app.state["ready"] = True
+    app.会话.轮次起点 = (4, b"round-4", 100)
     游戏应用_类.api_检查自动存档(app)
     assert 读取恢复点(app) == (b"round-4", 100)
     assert app.上保存轮 == 4 and not app._自动存档首存
@@ -130,13 +132,12 @@ def test_round_boundary_written_once_before_new_roll(回合应用: SimpleNamespa
     # 核心规则已完成全体玩家及跨轮日期结算，轮数真实递增。
     app.会话.世界.轮数 += 1
     app.会话.世界.头.当前玩家 = 0
-    app.state["ready"] = False
-    app.state["payload"] = b"unsettled"
+    app.会话.阶段 = 游戏阶段_类.掷骰
+    app.state["payload"] = b"already-rolling"
     游戏应用_类.api_检查自动存档(app)
     assert 读取恢复点(app) == (b"round-4", 100)
-    app.state["ready"] = True
-    app.state["payload"] = b"round-5-pre-dice"
-    app.会话.随机.状态 = 130
+    app.会话.轮次起点 = (5, b"round-5-pre-dice", 130)
+    app.会话.随机.状态 = 999
     游戏应用_类.api_检查自动存档(app)
     assert 读取恢复点(app) == (b"round-5-pre-dice", 130)
     app.state["payload"] = b"after-roll"
@@ -152,7 +153,8 @@ def test_eliminated_or_skipped_first_player_does_not_block_new_round(
     # 玩家 0 已淘汰/跳过；核心在玩家 2 开启新轮，不能要求当前玩家为零。
     app.会话.世界.轮数 = 5
     app.会话.世界.头.当前玩家 = 2
-    app.state["payload"] = b"round-5-first-active-player-2"
+    app.会话.阶段 = 游戏阶段_类.掷骰
+    app.会话.轮次起点 = (5, b"round-5-first-active-player-2", 131)
     游戏应用_类.api_检查自动存档(app)
     assert 读取恢复点(app)[0] == b"round-5-first-active-player-2"
     app.会话.世界.头.当前玩家 = 3
@@ -167,7 +169,7 @@ def test_failed_autosave_keeps_old_checkpoint_and_retries(
     app = 回合应用
     游戏应用_类.api_检查自动存档(app)
     app.会话.世界.轮数 = 5
-    app.state["payload"] = b"new-round"
+    app.会话.轮次起点 = (5, b"new-round", 100)
     original = 存档事务_类.api_写入
 
     def reject(self: 存档事务_类, data: bytes, seed: int) -> None:
@@ -196,6 +198,7 @@ def test_unconnected_old_three_generation_files_are_not_touched(
         path.write_bytes(b"user-existing-data")
     游戏应用_类.api_检查自动存档(app)
     app.会话.世界.轮数 += 1
+    app.会话.轮次起点 = (5, b"next", 101)
     游戏应用_类.api_检查自动存档(app)
     for name in ("Autosave.Start.DAT", "Autosave.Previous.DAT"):
         assert (app.设置.存档目录 / name).read_bytes() == b"user-existing-data"
@@ -221,7 +224,7 @@ def test_disabled_validation_mode_does_not_write(回合应用: SimpleNamespace) 
     assert not app.api_槽路径(0).exists()
 
 
-def test_game_over_or_intermediate_stage_never_overwrites_round_autosave(
+def test_no_new_round_snapshot_means_no_autosave_even_if_game_ended(
     回合应用: SimpleNamespace,
 ) -> None:
     app = 回合应用
@@ -232,3 +235,34 @@ def test_game_over_or_intermediate_stage_never_overwrites_round_autosave(
         app.会话.阶段 = stage
         游戏应用_类.api_检查自动存档(app)
     assert 读取恢复点(app)[0] == b"round-4"
+
+
+def test_engine_captures_real_turn_start_before_ai_decision() -> None:
+    # 直接运行规则引擎的进入回合边界；截停后续事件分派以观察快照时机。
+    payload = {"value": b"pre-dice-world"}
+    world = SimpleNamespace(轮数=6, api_导出=lambda: payload["value"])
+    fake = SimpleNamespace(
+        世界=world,
+        阶段=游戏阶段_类.推进回合,
+        捕获轮次起点=True,
+        轮次起点=None,
+        _轮次起点轮=5,
+        随机=SimpleNamespace(状态=37),
+        _玩家=lambda: SimpleNamespace(控制标志=2),
+        _当前=lambda: 1,
+        _发事件=lambda *args: (_ for _ in ()).throw(RuntimeError("reached turn event")),
+    )
+    with pytest.raises(RuntimeError, match="reached turn event"):
+        会话移动_类._进入回合(fake)
+    assert fake.轮次起点 == (6, b"pre-dice-world", 37)
+
+    # 同一轮玩家更替或已经掷骰后，不能覆盖该轮起点。
+    payload["value"] = b"after-roll"
+    fake.随机.状态 = 99
+    with pytest.raises(RuntimeError, match="reached turn event"):
+        会话移动_类._进入回合(fake)
+    assert fake.轮次起点 == (6, b"pre-dice-world", 37)
+    world.轮数 = 7
+    with pytest.raises(RuntimeError, match="reached turn event"):
+        会话移动_类._进入回合(fake)
+    assert fake.轮次起点 == (7, b"after-roll", 99)
