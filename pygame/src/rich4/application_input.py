@@ -102,22 +102,11 @@ class 应用输入_类:
                 if self.数字板.api_活跃():
                     self.api_数字键(event.key)
                     continue
-                if event.key == pygame.K_ESCAPE and self.api_可取消():
-                    self.api_取消()
-                    continue
                 if event.key == pygame.K_ESCAPE:
-                    if self.页面 == S.股票:
-                        self.api_关股票()
-                    elif self.页面 == S.交易:
-                        self.api_关交易()
-                    else:
-                        self.页面 = (
-                            S.菜单
-                            if self.页面 == S.游戏
-                            else S.游戏
-                            if self.会话 is not None
-                            else S.菜单
-                        )
+                    # ESC 只取消当前局部界面，绝不跳回标题或终止活动对局。
+                    if self.api_可取消():
+                        self.api_取消()
+                    continue
                 if (
                     event.key in (pygame.K_SPACE, pygame.K_RETURN)
                     and self.页面 == S.游戏
