@@ -31,6 +31,9 @@ class 假应用_类(应用输入_类, 应用操作_类):
     def api_宿主(self) -> None:
         return None
 
+    def api_页面(self, page: 应用页面_类) -> None:
+        self.页面 = page
+
     def api_可取消(self) -> bool:
         return self.页面 != 应用页面_类.游戏
 
@@ -58,7 +61,6 @@ def test_escape_cannot_abandon_active_session(page: 应用页面_类) -> None:
 def test_cancel_new_game_dialog_returns_to_existing_session() -> None:
     app = 假应用_类(应用页面_类.新局)
     # 这里真实调用取消分派（上一页面即使是菜单也必须返回活跃对局）。
-    del app.api_取消  # type: ignore[attr-defined]
     应用操作_类.api_取消(app)
     assert app.页面 == 应用页面_类.游戏
 
