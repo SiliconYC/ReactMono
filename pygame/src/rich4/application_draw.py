@@ -134,11 +134,7 @@ class 应用绘制_类:
             )
         elif self.页面 in (S.读取, S.保存):
             self.按钮.clear()
-            self.存档槽.api_绘制(
-                host, self.api_选槽,
-                lambda: self.api_页面(self.api_返回页面()),
-                self.api_切换自动槽 if self.页面 == S.读取 else None,
-            )
+            self.存档槽.api_绘制(host, self.api_选槽, lambda: self.api_页面(self.api_返回页面()))
         elif self.页面 == S.查询:
             self.按钮.clear()
             self.查询.api_绘制(host, self.会话.世界, lambda: self.api_页面(S.游戏))
