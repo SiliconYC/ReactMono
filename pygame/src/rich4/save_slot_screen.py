@@ -35,13 +35,22 @@ class 存档槽屏幕_类:
 
     def __init__(self) -> None:
         self._保存 = False
+        self._自动 = False
         self._档 = [存档槽_类() for _ in range(6)]
         self._悬选 = -1
 
     def api_打开(self, arg_保存: bool, arg_槽: list[存档槽_类]) -> None:
         if len(arg_槽) != 6:
             raise ValueError("原存档屏幕要求六个槽位")
-        self._保存, self._档, self._悬选 = arg_保存, deepcopy(arg_槽), -1
+        self._保存, self._自动, self._档, self._悬选 = arg_保存, False, deepcopy(arg_槽), -1
+
+    def api_打开自动(self, arg_槽: list[存档槽_类]) -> None:
+        if len(arg_槽) != 6:
+            raise ValueError("自动读取仍使用六槽画面")
+        self._保存, self._自动, self._档, self._悬选 = False, True, deepcopy(arg_槽), -1
+
+    def api_自动中(self) -> bool:
+        return self._自动
 
     def api_保存中(self) -> bool:
         return self._保存
@@ -57,17 +66,21 @@ class 存档槽屏幕_类:
         arg_宿: 屏幕宿主_类,
         arg_选: Callable[[int], None],
         arg_关: Callable[[], None],
+        arg_切换: Callable[[], None] | None = None,
     ) -> None:
         框, 绘 = arg_宿.框, 屏幕绘图_类
         window = (40, 48, 595, 429) if self._保存 else (40, 15, 595, 466)
         框.api_资源图("d", 520, 1 if self._保存 else 0, window[0], window[1])
         first = 1 if self._保存 else 0
-        for slot in range(first, 6):
+        last = 3 if self._自动 else 6
+        for slot in range(first, last):
             e, y = self._档[slot], self._行顶(slot)
             if not e.有效:
                 continue
             框.api_资源图("d", 520, 10, 129, y)
-            if slot == 0:
+            if self._自动:
+                绘.api_文字(框, ("NEW", "PREV", "START")[slot], 165, y + 15, 2, 绘.白字)
+            elif slot == 0:
                 绘.api_文字(框, "AUTO", 165, y + 15, 2, 绘.白字)
             日, 月, 年 = e.日期
             绘.api_文字(框, str(年), 165, y + 36, 2, 绘.白字)
@@ -84,7 +97,7 @@ class 存档槽屏幕_类:
                 if self._保存
                 else ((y - 24) // 72 if 25 <= y < 456 else -1)
             )
-            if first <= slot <= 5:
+            if first <= slot < last:
                 hovered = slot
         if hovered != self._悬选:
             if hovered >= 0 and arg_宿.声音:
@@ -94,7 +107,7 @@ class 存档槽屏幕_类:
             y = self._行顶(hovered)
             for r in ((127, y - 2, 579, y + 74), (128, y - 1, 578, y + 73)):
                 绘.api_边框(框.画布, r, 绘.api_RGB(0xFFFF00))
-        for slot in range(first, 6):
+        for slot in range(first, last):
             y = self._行顶(slot)
             绘.api_命中(
                 arg_宿,
@@ -104,5 +117,11 @@ class 存档槽屏幕_类:
                 lambda slot=slot: arg_选(slot),
                 self._保存 or self._档[slot].有效,
             )
+        if arg_切换 is not None and not self._保存:
+            # 六槽原版布局不变；左侧小按钮切换成三个只读自动恢复点。
+            toggle = (47, 20, 124, 63)
+            绘.api_边框(框.画布, toggle, 绘.api_RGB(0xFFFF00))
+            绘.api_文字(框, "MANUAL" if self._自动 else "AUTO 3", 52, 34, 2, 绘.白字)
+            绘.api_命中(arg_宿, 680, toggle, 3, arg_切换)
         绘.api_命中(arg_宿, 429, window, -1, lambda: None)
         绘.api_命中(arg_宿, 529, (0, 0, 640, 480), 4, arg_关)
