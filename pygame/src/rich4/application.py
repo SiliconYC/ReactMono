@@ -49,6 +49,7 @@ from rich4.original_text import 原版文字_类, 原版程序_类
 from rich4.player_info_screen import 玩家查询_类
 from rich4.presentation_queue import 呈现宿主_类, 呈现队列_类
 from rich4.primary_stock_screen import 一级股票屏幕_类
+from rich4.autosave import 回合自动存档_类
 from rich4.save import 存档_类
 from rich4.save_slot_screen import 存档槽屏幕_类
 from rich4.save_transaction import 存档事务_类
@@ -134,7 +135,10 @@ class 游戏应用_类(应用操作_类, 应用绘制_类, 应用输入_类):
             self.地图弹框: 地图弹框_类 | None = None
             self.决策键, self.配音决策键 = "", ""
             self.决策页, self.银行金额, self.选股票 = 0, 1000, 0
-            self.上保存日 = 0xFFFFFFFFFFFFFFFF
+            self.上保存日: tuple[int, int] | None = None
+            self.自动存档 = 回合自动存档_类(arg_设置.存档目录)
+            self._自动存档待初始化 = True
+            self._自动存档错误: tuple[int, int] | None = None
             self.提示, self.提示截止, self.帧数 = "", 0, 0
             self.事件计数, self.最近 = Counter(), []
             self.新局次数 = self.读取次数 = self.保存次数 = 0
@@ -257,9 +261,7 @@ class 游戏应用_类(应用操作_类, 应用绘制_类, 应用输入_类):
                 self.电影.api_记忆(self.会话.世界, self.会话, self.时钟)
                 self.会话.api_步进(arg_毫秒)
             self.api_观察()
-            if self.会话.api_可保存() and self.上保存日 != self.会话.完成天数:
-                self.api_写存档(self.api_槽路径(0))
-                self.上保存日 = self.会话.完成天数
+            self.api_检查自动存档()
         self.api_更新音频()
         self.音频.api_更新()
 
@@ -274,7 +276,9 @@ class 游戏应用_类(应用操作_类, 应用绘制_类, 应用输入_类):
         self.结局.api_关闭()
         self.结局会话 = None
         self.人类数 = sum(bool(p.记录.控制标志 & 1) for p in candidate.世界.玩家)
-        self.上保存日 = 0xFFFFFFFFFFFFFFFF
+        self.上保存日 = None
+        self._自动存档待初始化 = True
+        self._自动存档错误 = None
         self.数字板.api_关闭()
         self.消息.api_清空()
         self.转盘.api_清空()
@@ -321,11 +325,44 @@ class 游戏应用_类(应用操作_类, 应用绘制_类, 应用输入_类):
             self.api_提示("無法開始新遊戲", 3500)
             self.页面 = 应用页面_类.菜单
             return False
+        self.api_检查自动存档()
         self.新局次数 += 1
         return True
 
     def api_槽路径(self, arg_槽: int) -> Path:
-        return self.设置.存档目录 / ("Autosave.DAT" if arg_槽 == 0 else f"Save{arg_槽}.DAT")
+        if arg_槽 == 0:
+            return self.自动存档.当前
+        if arg_槽 == 6:
+            return self.自动存档.上一
+        if arg_槽 == 7:
+            return self.自动存档.开局
+        if 1 <= arg_槽 <= 5:
+            return self.设置.存档目录 / f"Save{arg_槽}.DAT"
+        raise ValueError("无效存档槽位")
+
+    def api_检查自动存档(self) -> None:
+        session = self.会话
+        if session is None or not session.api_可保存() or self.设置.验证天数:
+            return
+        key = (session.世界.轮数, session.世界.头.当前玩家)
+        if not self._自动存档待初始化 and self.上保存日 == key:
+            return
+        try:
+            data = session.api_导出存档().api_导出()
+            seed = session.随机.状态
+            if self._自动存档待初始化:
+                self.自动存档.api_初始化(data, seed)
+            else:
+                self.自动存档.api_轮转(data, seed, self.设置.种子)
+        except (OSError, ValueError, RuntimeError) as error:
+            if self._自动存档错误 != key:
+                print("[错误] 自动存档失败：" + str(error), file=sys.stderr)
+                self.api_提示("自動存檔失敗，請手動保存", 3500)
+                self._自动存档错误 = key
+            return
+        self._自动存档待初始化 = False
+        self._自动存档错误 = None
+        self.上保存日 = key
 
     def api_写存档(self, arg_路径: Path) -> None:
         if self.会话 is None:
@@ -336,6 +373,25 @@ class 游戏应用_类(应用操作_类, 应用绘制_类, 应用输入_类):
         try:
             data, seed = 存档事务_类(arg_路径).api_读取(self.设置.种子)
             self.api_安装会话(世界_类.api_从存档(存档_类.api_解码(data)), seed)
+            current, older, start = (p.absolute() for p in (
+                self.自动存档.当前, self.自动存档.上一, self.自动存档.开局
+            ))
+            source = arg_路径.absolute()
+            if source == current:
+                # 恢复最新代只读取；绝不因此覆盖前两代。
+                self._自动存档待初始化 = False
+                self.上保存日 = (self.会话.世界.轮数, self.会话.世界.头.当前玩家)
+            elif source in (older, start):
+                try:
+                    self.自动存档.api_回退(data, seed)
+                    self._自动存档待初始化 = False
+                    self.上保存日 = (self.会话.世界.轮数, self.会话.世界.头.当前玩家)
+                except (OSError, ValueError, RuntimeError) as error:
+                    print("[错误] 自动恢复点回退保存失败：" + str(error), file=sys.stderr)
+                    self.api_提示("自動存檔失敗，請手動保存", 3500)
+            else:
+                # 手动/外部存档视为重新开始的游戏，会立即建立三份恢复点。
+                self.api_检查自动存档()
             self.音频.api_选音乐(0)
             self.音乐导演.api_忘记()
             self.读取次数 += 1
