@@ -29,11 +29,7 @@ class 应用操作_类:
     """
 
     def api_返回页面(self) -> 应用页面_类:
-        return (
-            应用页面_类.游戏
-            if self.会话 is not None
-            else 应用页面_类.菜单
-        )
+        return 应用页面_类.游戏 if self.会话 is not None else 应用页面_类.菜单
 
     def api_银行待决(self) -> bool:
         return (
