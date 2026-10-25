@@ -177,8 +177,7 @@ class 应用操作_类:
         self.音乐导演.api_忘记()
 
     def api_回标题(self) -> None:
-        if self.会话 is not None and self.会话.api_可保存() and not self.设置.验证天数:
-            self.api_写存档(self.api_槽路径(0))
+        # 返回标题不属于轮次结算，禁止覆盖自动存档。
         self.消息.api_清空()
         self.转盘.api_清空()
         self.月报.api_清空()
@@ -215,30 +214,6 @@ class 应用操作_类:
                 continue
         return slots
 
-    def api_读自动槽(self) -> list[存档槽_类]:
-        # 加载器仍按原生六槽画图；新页前三行只读：最新、上一、开局。
-        slots = [存档槽_类() for _ in range(6)]
-        for display, index in enumerate((0, 6, 7)):
-            try:
-                data, _ = 存档事务_类(self.api_槽路径(index)).api_读取(self.设置.种子)
-                save = 存档_类.api_解码(data)
-                header = save.api_头()
-                if header.签名 != 0x26:
-                    continue
-                slots[display] = 存档槽_类(
-                    True, header.日期, header.地图, header.阶段,
-                    [save.api_玩家(j).角色 for j in range(min(header.人数, 4))],
-                )
-            except (OSError, ValueError, RuntimeError):
-                continue
-        return slots
-
-    def api_切换自动槽(self) -> None:
-        if self.存档槽.api_自动中():
-            self.存档槽.api_打开(False, self.api_读槽())
-        else:
-            self.存档槽.api_打开自动(self.api_读自动槽())
-
     def api_载入路径(self) -> Path:
         if self.设置.载入 is not None:
             return self.设置.载入
@@ -259,13 +234,9 @@ class 应用操作_类:
             return
         slots = self.api_读槽()
         if not any(s.有效 for s in slots):
-            recovered = self.api_读自动槽()
-            if not any(s.有效 for s in recovered):
-                self.api_提示("沒有存檔")
-                return
-            self.存档槽.api_打开自动(recovered)
-        else:
-            self.存档槽.api_打开(False, slots)
+            self.api_提示("沒有存檔")
+            return
+        self.存档槽.api_打开(False, slots)
         self.页面 = 应用页面_类.读取
 
     def api_开保存(self) -> None:
@@ -282,8 +253,7 @@ class 应用操作_类:
             self.页面 = 应用页面_类.游戏
         else:
             previous = self.api_返回页面()
-            index = (0, 6, 7)[arg_槽] if self.存档槽.api_自动中() else arg_槽
-            if not self.api_读取(self.api_槽路径(index)):
+            if not self.api_读取(self.api_槽路径(arg_槽)):
                 self.页面 = previous
 
     def api_保存(self) -> None:
@@ -360,8 +330,6 @@ class 应用操作_类:
 
     def api_托管应用(self, arg_槽: int, arg_设置: 托管设置_类) -> None:
         waits = self.会话.阶段 not in (游戏阶段_类.人类待命, 游戏阶段_类.结束)
-        if arg_设置.自动 and self.会话.api_可保存():
-            self.api_写存档(self.api_槽路径(0))
         if self.会话.api_设置托管(arg_槽, arg_设置) and waits:
             self.api_通知(False, "設定將於本回合結束後生效")
         self.api_观察()
