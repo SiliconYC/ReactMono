@@ -324,3 +324,16 @@ def test_单份自动档在开局稳定态创建且读档不立即覆盖(
         assert 应用.api_读取(path)
         应用.api_检查自动存档()
     assert 存档事务_类(path).api_读取(应用.设置.种子) == first
+
+
+@pytest.mark.assets
+def test_首位电脑玩家也自动保存真正掷骰前的快照(应用: 游戏应用_类) -> None:
+    from rich4.save_transaction import 存档事务_类
+
+    choice = 新局选择_类(玩家=[新玩家_类(10, 2), 新玩家_类(3, 1)])
+    assert 应用.api_新局(choice)
+    point = 应用.会话.轮次起点
+    assert point is not None
+    round_number, data, seed = point
+    assert round_number == 应用.会话.世界.轮数
+    assert 存档事务_类(应用.api_槽路径(0)).api_读取(应用.设置.种子) == (data, seed)

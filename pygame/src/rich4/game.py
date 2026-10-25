@@ -51,8 +51,14 @@ class 游戏会话_类(
     2026.10.24 - 独立Python主会话，原DAT保存不宣称含RNG或未完成决策。
     """
 
-    def __init__(self, arg_世界: 世界_类, arg_种子: int = 1) -> None:
+    def __init__(
+        self, arg_世界: 世界_类, arg_种子: int = 1, arg_捕获轮次起点: bool = False
+    ) -> None:
         self.世界 = deepcopy(arg_世界)
+        # 仅桌面自动存档需要；测试和无界面的核心会话不支付额外快照成本。
+        self.捕获轮次起点 = arg_捕获轮次起点
+        self.轮次起点: tuple[int, bytes, int] | None = None
+        self._轮次起点轮: int | None = None
         self.随机 = 随机数_类(self.世界.初始随机状态 if self.世界.有初始随机状态 else arg_种子)
         self.阶段, self.阶段毫秒 = 游戏阶段_类.人类待命, 0
         self.待决策 = self.动画 = self.选定卡目标 = self.使用中卡 = None
