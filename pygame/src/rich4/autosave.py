@@ -19,6 +19,11 @@ class 回合自动存档_类:
         for path in (self.开局, self.上一, self.当前):
             存档事务_类(path).api_写入(arg_数据, arg_随机)
 
+    def api_回退(self, arg_数据: bytes, arg_随机: int) -> None:
+        # 选择较老快照重新开始时，舍弃后续时间线，保留真正的开局快照。
+        for path in (self.上一, self.当前):
+            存档事务_类(path).api_写入(arg_数据, arg_随机)
+
     def api_轮转(self, arg_数据: bytes, arg_随机: int, arg_缺省种子: int) -> None:
         # 先保存旧的当前，随后才提交新的当前；任何一步失败可在下次轮询重试。
         # 当前损坏时禁止将坏内容覆盖仍完好的上一代。
