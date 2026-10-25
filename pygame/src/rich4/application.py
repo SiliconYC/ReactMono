@@ -265,7 +265,7 @@ class 游戏应用_类(应用操作_类, 应用绘制_类, 应用输入_类):
 
     def api_安装会话(self, arg_世界: 世界_类, arg_种子: int, arg_开场: bool = False) -> None:
         世界验证_类.api_验证(arg_世界)
-        candidate = 游戏会话_类(arg_世界, arg_种子)
+        candidate = 游戏会话_类(arg_世界, arg_种子, True)
         board = 棋盘绘制_类(self.设置.素材, arg_世界.头.阶段 * 4 + arg_世界.头.地图)
         self.会话, self.棋盘 = candidate, board
         if self.首随机 is None:
@@ -324,7 +324,7 @@ class 游戏应用_类(应用操作_类, 应用绘制_类, 应用输入_类):
             self.api_提示("無法開始新遊戲", 3500)
             self.页面 = 应用页面_类.菜单
             return False
-        # 新局建立首个自动恢复点；已进入首位玩家的可保存状态才会写入。
+        # 新局使用核心记录的首位有效玩家行动前快照，包括电脑玩家。
         self._自动存档首存 = True
         self.api_检查自动存档()
         self.新局次数 += 1
@@ -339,20 +339,15 @@ class 游戏应用_类(应用操作_类, 应用绘制_类, 应用输入_类):
 
     def api_检查自动存档(self) -> None:
         session = self.会话
-        if (
-            session is None
-            or self.设置.验证天数
-            or session.阶段 != 游戏阶段_类.人类待命
-            or not session.api_可保存()
-        ):
+        if session is None or self.设置.验证天数 or session.轮次起点 is None:
             return
-        # 世界轮数仅在全部有效玩家完成、跨轮日期结算后才递增。
-        # 不能以“换到下一名玩家”作为自动保存条件。
-        round_number = session.世界.轮数
+        # 由规则引擎在跨轮结算完成、首位有效玩家行动之前取样。
+        # 即便首位是电脑玩家、后续已经掷骰，仍写真正的轮次起点。
+        round_number, data, seed = session.轮次起点
         if not self._自动存档首存 and self.上保存轮 == round_number:
             return
         try:
-            self.api_写存档(self.api_槽路径(0))
+            存档事务_类(self.api_槽路径(0)).api_写入(data, seed)
         except (OSError, ValueError, RuntimeError) as error:
             if self._自动存档错误轮 != round_number:
                 print("[错误] 自动存档失败：" + str(error), file=sys.stderr)
