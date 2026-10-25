@@ -6,12 +6,14 @@ from types import SimpleNamespace
 import pygame
 import pytest
 
+from rich4.application import 游戏应用_类
 from rich4.application_actions import 应用操作_类
 from rich4.application_input import 应用输入_类
 from rich4.application_types import 应用页面_类
 from rich4.autosave import 回合自动存档_类
 from rich4.save import 存档_类
 from rich4.save_transaction import 存档事务_类
+from rich4.save_slot_screen import 存档槽_类, 存档槽屏幕_类
 
 
 class 假应用_类(应用输入_类, 应用操作_类):
@@ -146,3 +148,46 @@ def test_rewind_preserves_game_start(manager: 回合自动存档_类) -> None:
     assert snapshot(manager.开局) == (b"start", 11)
     assert snapshot(manager.上一) == (b"start", 11)
     assert snapshot(manager.当前) == (b"start", 11)
+
+
+def test_auto_slot_ui_keeps_manual_six_slots() -> None:
+    screen = 存档槽屏幕_类()
+    slots = [存档槽_类() for _ in range(6)]
+    screen.api_打开(False, slots)
+    assert not screen.api_自动中() and len(screen.api_槽()) == 6
+    screen.api_打开自动(slots)
+    assert screen.api_自动中() and len(screen.api_槽()) == 6
+    screen.api_打开(True, slots)
+    assert not screen.api_自动中() and screen.api_保存中()
+
+
+def test_application_turn_key_rotates_only_on_settled_player_change(
+    manager: 回合自动存档_类,
+) -> None:
+    world = SimpleNamespace(轮数=3, 头=SimpleNamespace(当前玩家=0))
+    session = SimpleNamespace(
+        世界=world,
+        随机=SimpleNamespace(状态=17),
+        api_可保存=lambda: True,
+        api_导出存档=lambda: SimpleNamespace(api_导出=lambda: b"first"),
+    )
+    app = SimpleNamespace(
+        会话=session,
+        设置=SimpleNamespace(种子=5, 验证天数=0),
+        自动存档=manager,
+        _自动存档待初始化=True,
+        _自动存档错误=None,
+        上保存日=None,
+        api_提示=lambda *_: None,
+    )
+    游戏应用_类.api_检查自动存档(app)
+    assert snapshot(manager.开局) == (b"first", 17)
+    assert snapshot(manager.当前) == (b"first", 17)
+    # 同一玩家待命时不重复覆盖存档。
+    session.api_导出存档 = lambda: SimpleNamespace(api_导出=lambda: b"changed")
+    游戏应用_类.api_检查自动存档(app)
+    assert snapshot(manager.当前) == (b"first", 17)
+    world.头.当前玩家 = 1
+    游戏应用_类.api_检查自动存档(app)
+    assert snapshot(manager.上一) == (b"first", 17)
+    assert snapshot(manager.当前) == (b"changed", 17)
