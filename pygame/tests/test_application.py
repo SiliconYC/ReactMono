@@ -290,3 +290,37 @@ def test_坏提交日志不会替换当前合法会话和棋盘(
     assert not 应用.api_读槽()[1].有效
     assert 应用.会话 is session and 应用.棋盘 is board
     assert 应用.会话.世界.api_导出() == old[0] and 应用.会话.随机.状态 == old[1]
+
+
+@pytest.mark.assets
+def test_单份自动档在开局稳定态创建且读档不立即覆盖(
+    应用: 游戏应用_类,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from rich4.save_transaction import 存档事务_类
+
+    assert 应用.api_新局(新局选择_类(玩家=[新玩家_类(10, 1), 新玩家_类(3, 2)]))
+    path = 应用.api_槽路径(0)
+    assert path.exists()
+    first = 存档事务_类(path).api_读取(应用.设置.种子)
+    assert first == (应用.会话.世界.api_导出(), 应用.会话.随机.状态)
+    assert not (tmp_path / "Autosave.Start.DAT").exists()
+    assert not (tmp_path / "Autosave.Previous.DAT").exists()
+    manual = 应用.api_槽路径(1)
+    应用.api_写存档(manual)
+
+    original = 存档事务_类.api_写入
+
+    def 禁止自动覆盖(self: 存档事务_类, data: bytes, seed: int) -> None:
+        if self._主文件 == path:
+            raise AssertionError("读档和同轮轮询不得写自动档")
+        original(self, data, seed)
+
+    with monkeypatch.context() as local:
+        local.setattr(存档事务_类, "api_写入", 禁止自动覆盖)
+        assert 应用.api_读取(manual)
+        应用.api_检查自动存档()
+        assert 应用.api_读取(path)
+        应用.api_检查自动存档()
+    assert 存档事务_类(path).api_读取(应用.设置.种子) == first
