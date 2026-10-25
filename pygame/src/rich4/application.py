@@ -339,7 +339,12 @@ class 游戏应用_类(应用操作_类, 应用绘制_类, 应用输入_类):
 
     def api_检查自动存档(self) -> None:
         session = self.会话
-        if session is None or self.设置.验证天数 or not session.api_可保存():
+        if (
+            session is None
+            or self.设置.验证天数
+            or session.阶段 != 游戏阶段_类.人类待命
+            or not session.api_可保存()
+        ):
             return
         # 世界轮数仅在全部有效玩家完成、跨轮日期结算后才递增。
         # 不能以“换到下一名玩家”作为自动保存条件。
