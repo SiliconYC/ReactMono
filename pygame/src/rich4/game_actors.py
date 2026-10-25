@@ -96,13 +96,18 @@ class 会话角色_类:
             self._缺席语音(arg_槽, arg_天)
             记.控制标志 &= 15
             事件_类._取(self.世界.节点, 记.节点).标志 &= ~(0x100 << arg_槽)
-            类 = 5 if arg_医院 else 4
+            # 原版按地图建筑码 8001/8002 定位收容节点，不按道路事件标志 5/4。
+            建筑码 = 8001 if arg_医院 else 8002
             去 = next(
-                (i for i in range(1, len(self.世界.节点)) if self.世界.节点[i].标志 & 255 == 类),
+                (
+                    i
+                    for i in range(len(self.世界.节点) - 1, 0, -1)
+                    if self.世界.节点[i].类型索引 == 建筑码
+                ),
                 None,
             )
             if 去 is None:
-                raise RuntimeError("map has no confinement exit node")
+                raise RuntimeError("map has no confinement building node")
             记.节点, 记.上次节点, 状.保存方向 = 去 & 65535, 0, 15
             楼 = 事件_类._取(self.世界.景物, 1 if arg_医院 else 2)
             记.x, 记.y = 楼.x & 65535, 楼.y & 65535
