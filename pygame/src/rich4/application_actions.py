@@ -32,8 +32,6 @@ class 应用操作_类:
         return (
             应用页面_类.游戏
             if self.会话 is not None
-            and self.会话.阶段 != 游戏阶段_类.结束
-            and self.前页面 != 应用页面_类.菜单
             else 应用页面_类.菜单
         )
 
@@ -75,7 +73,7 @@ class 应用操作_类:
         elif self.页面 == S.托管:
             self.托管.api_取消(host, self.api_托管动作())
         elif self.页面 == S.新局:
-            self.新局.api_取消(host, lambda: self.api_页面(S.菜单))
+            self.新局.api_取消(host, lambda: self.api_页面(self.api_返回页面()))
         elif self.页面 in (S.设置, S.读取, S.保存, S.查询):
             self.api_声音(4)
             self.页面 = self.api_返回页面()
