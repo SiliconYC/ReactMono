@@ -12,8 +12,8 @@ from rich4.application_input import 应用输入_类
 from rich4.application_types import 应用页面_类
 from rich4.autosave import 回合自动存档_类
 from rich4.save import 存档_类
-from rich4.save_transaction import 存档事务_类
 from rich4.save_slot_screen import 存档槽_类, 存档槽屏幕_类
+from rich4.save_transaction import 存档事务_类
 
 
 class 假应用_类(应用输入_类, 应用操作_类):
