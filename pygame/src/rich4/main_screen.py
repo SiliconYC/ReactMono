@@ -10,6 +10,7 @@ from rich4.board_projection import 棋盘投影_类
 from rich4.game import 游戏会话_类
 from rich4.game_types import 游戏事件_类, 游戏事件种类_类, 游戏阶段_类
 from rich4.graphics import 图像_类
+from rich4.loan_notice import 贷款提醒_类
 from rich4.main_panels import 主屏布局_类
 from rich4.main_screen_types import 主屏动作_类
 from rich4.native_frame import 画框_类
@@ -206,6 +207,7 @@ class 主屏幕_类(主屏布局_类):
             self.全图 = False
         if self.全图:
             self._绘全图(arg_框, 世)
+        贷款提醒_类.api_绘常驻(arg_框, 世)
 
     def _绘GO(self, arg_框: 画框_类, arg_会话: 游戏会话_类, arg_动作: 主屏动作_类) -> None:
         人, gx, gy = arg_会话.世界.api_活跃玩家(), self.GOx, self.GOy

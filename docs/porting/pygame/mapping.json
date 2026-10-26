@@ -7190,8 +7190,10 @@
   },
   "src/game.cpp:3097": {
     "python": [
-      "pygame/src/rich4/game_finance.py::会话金融_类._收到期贷款"
+      "pygame/src/rich4/game_finance.py::会话金融_类._收到期贷款",
+      "pygame/src/rich4/loan_notice.py::贷款提醒_类"
     ],
+    "presentation_extension": "2026-10-26：贷款结算和原事件不变；Python 界面新增第15/7天主动通知，补显第3～1天预警、收款反馈和常驻摘要，非C++画布一致性声明。见LOAN_REMINDERS.md。",
     "status": "已移植并接入真实会话；八图托管自然差分及单图人工控制玩家自动输入通过，全部API/UI覆盖仍待补",
     "evidence": [
       "tests/test_game_finance.py",
@@ -10362,8 +10364,10 @@
   },
   "tools/screens/messages.cpp:252": {
     "python": [
-      "pygame/src/rich4/message_rules.py::消息规则_类.api_从事件"
+      "pygame/src/rich4/message_rules.py::消息规则_类.api_从事件",
+      "pygame/src/rich4/loan_notice.py::贷款提醒_类.api_从事件"
     ],
+    "presentation_extension": "2026-10-26：修复贷款普通事件未转为可见消息的问题；贷款通知等待确认并按玩家/日期去重，读档重置。验收见LOAN_REMINDERS.md和tests/test_loan_reminders.py。",
     "status": "已实现，事件/决策/名称完整值及世界只读性自动差分；正式应用待接线",
     "evidence": [
       "MESSAGES.md",

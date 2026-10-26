@@ -6,6 +6,7 @@ from copy import deepcopy
 
 from rich4.cards import 卡片目标_类, 目标种类_类
 from rich4.game_types import 公告种类_类, 决策_类, 决策种类_类, 游戏事件_类, 语句表_类
+from rich4.loan_notice import 贷款提醒_类
 from rich4.message_overlay import 消息_类, 消息种类_类, 消息行_类
 from rich4.native_frame import 画框_类
 from rich4.native_ui import 原生界面_类
@@ -20,6 +21,7 @@ class 消息规则_类:
     原公告/台词/目标名及确认决策转换，只构造值，不结算或消费随机数。
 
     更新日志：
+    2026.10.26 - 贷款预警接入主动通知，读档重置按玩家/日期的呈现去重。
     2026.10.24 - 保存外部原文VA依据，保留空台词及消失人物的原门控。
     """
 
@@ -90,6 +92,17 @@ class 消息规则_类:
 
     def __init__(self, arg_原文: 原版文字_类) -> None:
         self.原文 = arg_原文
+        self._贷款已提醒: dict[int, tuple[tuple[int, int, int], int]] = {}
+        self._贷款人类: frozenset[int] = frozenset()
+
+    def api_重置贷款提醒(self, arg_世: 世界_类 | None = None) -> None:
+        self._贷款已提醒.clear()
+        # 到期收款可能将控制标志清零，必须在安装会话时记住人类归属。
+        self._贷款人类 = (
+            frozenset(i for i, 人 in enumerate(arg_世.玩家) if 人.记录.控制标志 & 1)
+            if arg_世 is not None
+            else frozenset()
+        )
 
     @staticmethod
     def api_格式(arg_文: str, arg_值: list[str | int]) -> str:
@@ -226,6 +239,15 @@ class 消息规则_类:
 
     def api_从事件(self, arg_e: 游戏事件_类, arg_世: 世界_类) -> 消息_类 | None:
         e, 世 = arg_e, arg_世
+        贷款 = 贷款提醒_类.api_从事件(e, 世, self._贷款人类)
+        if 贷款 is not None:
+            if 贷款.标题 == "贷款到期提醒":
+                # 原三天事件与回合开始都可触发；读档仅有后者，同一天只展示一次。
+                键 = 世.头.日期, 世.玩家[e.玩家].状态.贷款到期
+                if e.玩家 in self._贷款已提醒 and self._贷款已提醒[e.玩家] == 键:
+                    return None
+                self._贷款已提醒[e.玩家] = 键
+            return 贷款
         if e.语句表 != 语句表_类.事件 and e.玩家 < len(世.玩家):
             return self.api_物品气泡(世.玩家[e.玩家].记录.角色, e.语句表, e.语句槽, e.表情, e.玩家)
         if e.语音类别 is not None and e.玩家 < len(世.玩家) and e.语音类别 < 27:

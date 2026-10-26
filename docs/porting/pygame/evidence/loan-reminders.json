@@ -1,0 +1,162 @@
+{
+  "date": "2026-10-26",
+  "status": "passed",
+  "scope": "injected scenarios, actual game rules/rendering/Pygame input; not natural long play or OS desktop interaction",
+  "tests": {
+    "passed": 691,
+    "skipped": 10,
+    "loan_regressions": 44
+  },
+  "ruff": "passed",
+  "build": "passed",
+  "distribution_audit": "passed",
+  "rules_changed": false,
+  "save_schema_changed": false,
+  "review_fix": "Computer loan settlement never requires human confirmation; original human ownership survives bankruptcy.",
+  "scenarios": [
+    {
+      "scenario": "15-days-funded",
+      "days": 15,
+      "absence": "",
+      "message": "小丹尼，贷款剩余 15 天\n应还金额 $50,000\n到期日期 2026/10/16\n现金 $30,000 / 存款 $30,000\n可用资金 $60,000\n到期银行将先扣存款，再扣现金。",
+      "confirmation_blocks": true,
+      "world_sha256": "d2a922d65e10b457f163c7a4ed4473391b116b9d99bd3e6482dba6975814764a",
+      "random_state": 1300512462
+    },
+    {
+      "scenario": "7-days-shortfall",
+      "days": 7,
+      "absence": "",
+      "message": "小丹尼，贷款剩余 7 天\n应还金额 $50,000\n到期日期 2026/10/08\n现金 $1,000 / 存款 $2,000\n可用资金 $3,000\n资金缺口 $47,000\n破产风险：到期资金不足将破产。",
+      "confirmation_blocks": true,
+      "world_sha256": "e37e1dfec3b6b430388e7deea843ec881c404e576d7b70f7795eca606717d3b0",
+      "random_state": 1300512462
+    },
+    {
+      "scenario": "3-days-hospital",
+      "days": 3,
+      "absence": "医院天数",
+      "message": "小丹尼，贷款剩余 3 天\n当前住院中，仍会按期收款\n应还金额 $50,000\n到期日期 2026/10/04\n现金 $1,000 / 存款 $2,000\n可用资金 $3,000\n资金缺口 $47,000\n破产风险：到期资金不足将破产。",
+      "confirmation_blocks": true,
+      "world_sha256": "da66822de539fb2a06c82f967a12c9562f8a6e2cc95837ffe6b09716448f9333",
+      "random_state": 1300512462
+    },
+    {
+      "scenario": "1-day-prison",
+      "days": 1,
+      "absence": "监狱天数",
+      "message": "小丹尼，贷款剩余 1 天\n当前入狱中，仍会按期收款\n应还金额 $50,000\n到期日期 2026/10/02\n现金 $1,000 / 存款 $2,000\n可用资金 $3,000\n资金缺口 $47,000\n破产风险：到期资金不足将破产。",
+      "confirmation_blocks": true,
+      "world_sha256": "385a943ac56d2547ceba125b429b17573289c94ef04e4d1015abff1114001ea9",
+      "random_state": 1300512462
+    },
+    {
+      "scenario": "due-collected",
+      "days": 0,
+      "absence": "",
+      "message": "小丹尼，贷款今天到期\n银行已收回贷款 $50,000\n当前现金 $10,000\n当前存款 $0\n本笔贷款已结清。",
+      "confirmation_blocks": true,
+      "world_sha256": "d2a922d65e10b457f163c7a4ed4473391b116b9d99bd3e6482dba6975814764a",
+      "random_state": 1300512462
+    },
+    {
+      "scenario": "due-bankrupt",
+      "days": 0,
+      "absence": "",
+      "message": "小丹尼，贷款今天到期\n到期应还贷款 $50,000\n当前现金 $0\n当前存款 $0\n资金不足，已破产。",
+      "confirmation_blocks": true,
+      "world_sha256": "b296dfb724145629691783f11073c30f108225a816db5d54854781fb0965fe82",
+      "random_state": 1300512462
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "1-day-prison-loaded.png",
+      "sha256": "119baabeb210a67823eed5469e75780c901346b55dd9b12c06b5cb3d3e4b06ef"
+    },
+    {
+      "name": "1-day-prison-persistent-0.png",
+      "sha256": "3c8a3c8045aa53ad90ffd9545e3e9942d0955875a897d509e14b90af1bfaac9b"
+    },
+    {
+      "name": "1-day-prison-persistent-1.png",
+      "sha256": "a00f60db42229fa4012d7348f0fa8bab69a18d7468172c9afbe3005f13dde0fa"
+    },
+    {
+      "name": "1-day-prison-persistent-2.png",
+      "sha256": "75d44282a05feb912b4cf74afe668abb4d50403c331704d1b187452c504739a8"
+    },
+    {
+      "name": "1-day-prison.png",
+      "sha256": "d8e42ea6c2ebfd06e6597efa0d11460d9948d0681f333420c214e3006d4277ef"
+    },
+    {
+      "name": "15-days-funded-persistent-0.png",
+      "sha256": "60c385a86d721afbd4ec4f493fb33f053f74239db059d5b991881ab0d5262077"
+    },
+    {
+      "name": "15-days-funded-persistent-1.png",
+      "sha256": "9c9e29fa42a9815dbd6253155ba3177c4bf8da3f7cbaecabf36e60016cf7d97e"
+    },
+    {
+      "name": "15-days-funded-persistent-2.png",
+      "sha256": "a70ee0307215a0138c867cc1e708c4eea608d6de4a2bec5a07984dcff79d9597"
+    },
+    {
+      "name": "15-days-funded-repaid.png",
+      "sha256": "8a6d746a3b6d802b748e30650f593663cb626ea153a09c7108847fbf619281d4"
+    },
+    {
+      "name": "15-days-funded.png",
+      "sha256": "c4146a447862098909649f4eb7de6e8c17663d6a98d59b9eace8f36e9ee6a565"
+    },
+    {
+      "name": "3-days-hospital-loaded.png",
+      "sha256": "d53bdbf4893e041c49878748e079acdcc12de15e15becf1b3ef1ebaa2ae32738"
+    },
+    {
+      "name": "3-days-hospital-persistent-0.png",
+      "sha256": "c1fcb7118e2a00c45652b92f0c7998a3b13adf6407e4577eeaecc524992c4433"
+    },
+    {
+      "name": "3-days-hospital-persistent-1.png",
+      "sha256": "2ddf4407b72571d95d092d0a01e709a23f95ee217ea43a7ccb48b87f726963a3"
+    },
+    {
+      "name": "3-days-hospital-persistent-2.png",
+      "sha256": "5060ba93efdf797a6843bfdbd9c5e368ab99f5ddea155af45427330011bbeae0"
+    },
+    {
+      "name": "3-days-hospital.png",
+      "sha256": "78b1a9ae7998f646ef0d976591ec3a52bff8203fd08aaccfb32764b4d32ccbda"
+    },
+    {
+      "name": "7-days-shortfall-loaded.png",
+      "sha256": "058d94e285dd01a4481ac30979cc075cf086533a770480e9659f69f8b747e8d9"
+    },
+    {
+      "name": "7-days-shortfall-persistent-0.png",
+      "sha256": "435fa7098cb711b1a38cec6d3bf386359f9712293527ae9b6c316073157e9ea5"
+    },
+    {
+      "name": "7-days-shortfall-persistent-1.png",
+      "sha256": "d87a645f522fa8184e04aa00efad11dbe62947ab21ef792b7690037d3432e5df"
+    },
+    {
+      "name": "7-days-shortfall-persistent-2.png",
+      "sha256": "6d03bf17b27e952a1ffd62642704b0d8a6b70415f585b71fadf06fdc9922cc28"
+    },
+    {
+      "name": "7-days-shortfall.png",
+      "sha256": "39ccb0e156ddc255736d68b12261f03d7a216c5a27bbaae767a432ddef0b774f"
+    },
+    {
+      "name": "due-bankrupt.png",
+      "sha256": "15b114f9ec86aec9690d63d226e8857493ae9385ffc9a2db14a2c6555df637ae"
+    },
+    {
+      "name": "due-collected.png",
+      "sha256": "58565546cec39775e79b9fc7a90dc540f9bfe15d353fd866c0953af76f24b480"
+    }
+  ]
+}

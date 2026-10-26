@@ -280,6 +280,7 @@ class 游戏应用_类(应用操作_类, 应用绘制_类, 应用输入_类):
         self._自动存档错误轮 = None
         self.数字板.api_关闭()
         self.消息.api_清空()
+        self.消息规则.api_重置贷款提醒(candidate.世界)
         self.转盘.api_清空()
         self.月报.api_清空()
         self.小游戏.api_清空()

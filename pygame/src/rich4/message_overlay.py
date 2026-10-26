@@ -65,6 +65,7 @@ class 消息_类:
     照片: int = 0
     标题: str = ""
     行: list[消息行_类] = field(default_factory=list)
+    需确认: bool = False
 
 
 @dataclass
@@ -149,7 +150,11 @@ class 消息层_类:
         self._截止 = (arg_时 + max(项.最少毫秒, 声长 if 项.等待声音 else 0)) & 0xFFFFFFFFFFFFFFFF
 
     def api_退休(self) -> None:
-        if self._已开始 and self._队列 and (self._即时 or self.时钟() >= self._截止):
+        if (
+            self._已开始
+            and self._队列
+            and (self._即时 or (not self._队列[0].需确认 and self.时钟() >= self._截止))
+        ):
             self._队列.popleft()
             self._已开始 = False
 
@@ -233,8 +238,11 @@ class 消息层_类:
             else:
                 self.api_文字(arg_框, 项.文字, 200, 130, 5, self.气泡字)
         elif 项.种类 == 消息种类_类.对话框:
-            画.api_绘制(美.api_帧("d", 517, 5), 项.框x, 140)
-            self.api_文字(arg_框, 项.文字, 项.框x, 140, 4, self.框字)
+            if 项.需确认:
+                self._画确认通知(arg_框, 项)
+            else:
+                画.api_绘制(美.api_帧("d", 517, 5), 项.框x, 140)
+                self.api_文字(arg_框, 项.文字, 项.框x, 140, 4, self.框字)
         elif 项.种类 in (消息种类_类.新闻, 消息种类_类.命运):
             新闻 = 项.种类 == 消息种类_类.新闻
             图 = 美.api_帧("p", 66, 0 if 新闻 else 1)
@@ -255,3 +263,17 @@ class 消息层_类:
                 画.api_绘制(美.api_帧("m", 27 + 项.人物, 2), 390, 344)
         elif 项.种类 == 消息种类_类.神明字幕:
             self.api_文字(arg_框, 项.文字, 220, 460, 7, self.神明字)
+
+    def _画确认通知(self, arg_框: 画框_类, arg_项: 消息_类) -> None:
+        画 = arg_框.画布
+        边 = 原生界面_类.api_颜色(222, 185, 100)
+        原生界面_类.api_填充(画, (22, 104, 418, 378), 边)
+        原生界面_类.api_填充(画, (24, 106, 416, 376), 2114)
+        原生界面_类.api_填充(画, (24, 106, 416, 148), 原生界面_类.api_颜色(53, 65, 80))
+        arg_框.字体.api_绘块(画, arg_项.标题, 40, 117, 文字样式_类(20, 边, True))
+        for i, 行 in enumerate(arg_项.文字.split("\n")):
+            色 = 原生界面_类.api_颜色(255, 165, 140) if "破产" in 行 else self.近白
+            arg_框.字体.api_绘块(画, 行, 40, 162 + i * 23, 文字样式_类(16, 色))
+        arg_框.字体.api_绘块(
+            画, "点击或按任意键继续", 140, 348, 文字样式_类(16, 边)
+        )

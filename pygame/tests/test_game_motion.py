@@ -23,6 +23,7 @@ class 移动样本_类(会话移动_类, 表现样本_类):
 
     def __init__(self) -> None:
         表现样本_类.__init__(self)
+        self.捕获轮次起点 = False
         self.上一回合 = [None] * 4
         self.骰面, self.剩余步, self.强制骰, self.下节点 = [], 0, None, 0
         self.落点次数, self.遭遇次数, self.银行调用 = 0, 0, []
