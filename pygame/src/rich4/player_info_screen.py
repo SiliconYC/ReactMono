@@ -4,6 +4,7 @@
 from collections.abc import Callable
 
 from rich4.economy import 经济_类
+from rich4.native_frame import 画框_类
 from rich4.native_ui import 原生界面_类
 from rich4.original_text import 原版文字_类
 from rich4.player_info_types import 查询地产行_类
@@ -32,6 +33,19 @@ class 玩家查询_类:
     @staticmethod
     def _钱(arg_值: int) -> str:
         return "$" + 屏幕绘图_类.api_货币(arg_值)
+
+    @staticmethod
+    def _适配数字样式(
+        arg_框: 画框_类,
+        arg_文字: str,
+        arg_最大宽度: int,
+        arg_基础大小: int,
+    ) -> 屏幕字样_类:
+        for 大小 in range(arg_基础大小, 7, -1):
+            样式 = 屏幕字样_类(大小, 0x101010, 0, 2)
+            if 屏幕绘图_类.api_测量(arg_框, arg_文字, 样式) <= arg_最大宽度:
+                return 样式
+        return 屏幕字样_类(8, 0x101010, 0, 2)
 
     def _统计(self, arg_世: 世界_类) -> tuple[int, int, int, int, int]:
         owner = self._人 + 1
@@ -78,9 +92,11 @@ class 玩家查询_类:
         counts = lands, chains, houses, facilities
         for i in range(4):
             文(框, left[i], 142, rows[i], 2, label)
-            文(框, left_values[i], 330, rows[i], 6, value)
+            左值样式 = self._适配数字样式(框, left_values[i], 154, value.大小)
+            文(框, left_values[i], 330, rows[i], 6, 左值样式)
             文(框, right[i], 430, rows[i], 2, label)
-            文(框, right_values[i], 602, rows[i], 6, value)
+            右值样式 = self._适配数字样式(框, right_values[i], 132, value.大小)
+            文(框, right_values[i], 602, rows[i], 6, 右值样式)
             文(框, bottom[i], 142, lower[i], 2, label)
             文(框, f"×{counts[i]}", 250, lower[i], 6, count)
         cell = 0
@@ -89,14 +105,14 @@ class 玩家查询_类:
                 break
             if not p.记录.道具[tool]:
                 continue
-            cx, cy = 300 + 72 * (cell % 5), 298 + 32 * (cell // 5)
+            cx, cy = 300 + 72 * (cell % 5), 284 + 32 * (cell // 5)
             if tool < 13:
                 框.画布.api_绘制(框.美术.api_帧("p", 74, tool), cx - 16, cy)
             文(框, f"×{p.记录.道具[tool]}", cx + 30, cy, 6, 屏幕绘图_类.白字)
             cell += 1
         for cell, card in enumerate(p.记录.卡片):
             if 1 <= card <= len(服务_类.卡名):
-                cx, cy = 300 + 72 * (cell % 5), 402 + 32 * (cell // 5)
+                cx, cy = 300 + 72 * (cell % 5), 388 + 32 * (cell // 5)
                 文(框, 服务_类.卡名[card - 1], cx, cy, 2, 屏幕字样_类(14, 0xFFFFFF))
 
     def _地产行(self, arg_世: 世界_类) -> list[查询地产行_类]:
