@@ -20,9 +20,9 @@ uv run --project pygame rich4-pygame
 
 Windows 10/11 可在仓库根目录双击 `Play-Pygame.bat`，也可以进入 `pygame/` 双击 `start-game.bat`。两个入口运行的是同一套 Pygame 主游戏，不是 React 浏览器版。无需从 Anaconda Prompt 手动激活环境；启动器会优先寻找当前 Conda，再检查常见 Anaconda、Miniconda 安装目录，并且**只使用名为 `vt` 的环境**，不会退回 `base` 或其它 Python。
 
-- **一次性前提**：Windows 已安装 Conda，并且 `vt` 使用 Python 3.12。若尚无该环境，先运行 `conda create -n vt python=3.12`；若已存在但版本不符，启动器会停止并提示，不会改写已有环境。
+- **一次性前提**：Windows 已安装 Conda，并且现有 `vt` 环境使用 Python 3.11 或更新版本。启动器只使用 `vt`，不会退回 `base` 或其它 Python；若 `vt` 的版本过旧，会提示升级该环境。
 - **正版素材**：本机必须有 `pygame/assets/manifest.json` 及相应授权导入文件。此目录被 Git 忽略，克隆或拉取仓库不会获得这些文件；导入方式见上面的 `import_open_assets.py` 命令。
-- **首次依赖**：检测到 `vt` 缺少指定的 Pygame 2.6.1 时，启动器会在 `vt` 内执行 `pip install -e .`，从 `pygame/pyproject.toml` 安装依赖；后续通过当前源码目录直接启动。错误时控制台保留，便于查看原因。
+- **首次依赖**：检测到 `vt` 缺少指定的 Pygame 2.6.1 时，启动器会在 `vt` 内安装该版本；后续通过当前源码目录直接启动。游戏使用 `pythonw.exe` 运行，游戏窗口正常显示且不附带 Python 控制台；环境检查和首次安装失败仍会在启动器控制台提示。
 
 Windows 原生音频尚未通过实机验收。启动时将检查 SDL3、FluidSynth 及当前 Pygame 的 SDL2 接口；若不可用，会**明确提示并使用 `--silent` 启动真实游戏**，避免音频缺失直接阻止打开游戏。该模式没有音乐、音效与语音，但不改变游戏规则。提供兼容的本机原生库之后会再次尝试启用音频，不能将启动器静态检查当作 Windows 完整试玩通过。macOS 的 `start-game.command` 保持不变。
 

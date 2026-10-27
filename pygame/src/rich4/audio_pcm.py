@@ -23,7 +23,7 @@ class PCM混音_类:
     """
 
     # fmaf不调用Python；保留GIL避免每个采样跨线程让出导致回调超预算。
-    _数学 = c.PyDLL("msvcrt" if sys.platform == "win32" else ctypes.util.find_library("m"))
+    _数学 = c.PyDLL("ucrtbase" if sys.platform == "win32" else ctypes.util.find_library("m"))
     _融合 = _数学.fmaf
     _融合.argtypes, _融合.restype = [c.c_float, c.c_float, c.c_float], c.c_float
 

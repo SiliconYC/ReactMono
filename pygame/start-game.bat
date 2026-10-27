@@ -50,13 +50,13 @@ if not defined CONDA_CMD (
     goto :failed
 )
 
-rem The game requires Python 3.12. Never fall back to base/another environment.
-echo [CHECK] Checking Conda environment vt ^(Python 3.12^) ...
-call "%CONDA_CMD%" run -n vt --no-capture-output python -c "import sys; raise SystemExit(sys.version_info[:2] != (3, 12))" >nul 2>nul
+rem The Windows launcher supports Python 3.11+ in the existing vt environment.
+rem Never fall back to base/another environment.
+echo [CHECK] Checking Conda environment vt ^(Python 3.11 or newer^) ...
+call "%CONDA_CMD%" run -n vt --no-capture-output python -c "import sys; raise SystemExit(sys.version_info < (3, 11))" >nul 2>nul
 if errorlevel 1 (
-    echo [ERROR] Environment vt is missing, or its Python is not 3.12.
-    echo Create it with: conda create -n vt python=3.12
-    echo If vt already exists, check its Python version before changing it.
+    echo [ERROR] Environment vt is missing, or its Python is older than 3.11.
+    echo Install Python 3.11 or newer into the existing vt environment.
     goto :failed
 )
 
@@ -65,7 +65,7 @@ set "PYTHONPATH=%CD%\src"
 call "%CONDA_CMD%" run -n vt --no-capture-output python -c "import importlib.metadata as m; raise SystemExit(m.version('pygame') != '2.6.1')" >nul 2>nul
 if errorlevel 1 (
     echo [SETUP] Installing pinned Pygame dependencies into vt ...
-    call "%CONDA_CMD%" run -n vt --no-capture-output python -m pip install --disable-pip-version-check --no-input -e .
+    call "%CONDA_CMD%" run -n vt --no-capture-output python -m pip install --disable-pip-version-check --no-input pygame==2.6.1
     if errorlevel 1 goto :failed
 )
 
@@ -81,7 +81,7 @@ if errorlevel 1 (
 )
 
 echo [START] Running Richman 4 with Conda environment vt ...
-call "%CONDA_CMD%" run -n vt --no-capture-output python -m rich4.game_cli %AUDIO_MODE% %*
+call "%CONDA_CMD%" run -n vt --no-capture-output pythonw.exe -m rich4.game_cli %AUDIO_MODE% %*
 if errorlevel 1 goto :failed
 
 popd
